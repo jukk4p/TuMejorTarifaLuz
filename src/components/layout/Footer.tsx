@@ -35,7 +35,7 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/comparador"><span className="material-icons text-xs">chevron_right</span> Comparador</Link></li>
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/tarifas"><span className="material-icons text-xs">chevron_right</span> Tarifas</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="#blog"><span className="material-icons text-xs">chevron_right</span> Blog</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/blog"><span className="material-icons text-xs">chevron_right</span> Blog</Link></li>
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="#faq"><span className="material-icons text-xs">chevron_right</span> Preguntas Frecuentes</Link></li>
                         </ul>
                     </div>
