@@ -3,11 +3,12 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 const r2Client = new S3Client({
     region: "auto",
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    endpoint: process.env.R2_ENDPOINT || `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
     credentials: {
         accessKeyId: process.env.R2_ACCESS_KEY_ID || "",
         secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
     },
+    forcePathStyle: true, // Recomendado para compatibilidad con R2 en ciertos entornos
 });
 
 export async function POST(request: Request) {
