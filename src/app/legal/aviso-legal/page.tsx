@@ -32,8 +32,11 @@ export default function AvisoLegal() {
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">4. Exclusión de Garantías y Responsabilidad</h2>
-                            <p className="mb-8">
+                            <p className="mb-4">
                                 TuMejorTarifaLuz no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del portal o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo.
+                            </p>
+                            <p className="mb-8">
+                                Especialmente, el usuario reconoce que la extracción de datos mediante <strong>Inteligencia Artificial</strong> es un proceso automatizado que puede contener errores. Es responsabilidad del usuario validar los datos (potencias y consumos) antes de finalizar cualquier comparativa o contratación.
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">5. Propiedad Intelectual e Industrial</h2>

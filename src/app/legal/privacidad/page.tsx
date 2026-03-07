@@ -21,14 +21,20 @@ export default function Privacidad() {
                                 En TuMejorTarifaLuz nos tomamos muy en serio tu privacidad. Los datos recogidos a través de nuestro comparador (consumos, potencias y datos de factura) se utilizan exclusivamente para realizar el análisis comparativo solicitado y mostrarte las mejores opciones de ahorro.
                             </p>
 
-                            <h2 className="text-xl font-bold mb-4">2. Finalidad del Tratamiento</h2>
+                            <h2 className="text-xl font-bold mb-4">2. Finalidad del Tratamiento e Inteligencia Artificial</h2>
+                            <p className="mb-4">
+                                La finalidad principal es proporcionarte una comparativa precisa de tarifas eléctricas. Para ello, utilizamos tecnologías de <strong>Inteligencia Artificial (Google Gemini API)</strong> que analizan automáticamente tu factura para extraer consumos y potencias de forma eficiente.
+                            </p>
                             <p className="mb-8">
-                                La finalidad principal es proporcionarte una comparativa precisa de tarifas eléctricas. No vendemos tus datos a terceros ni los utilizamos para fines comerciales ajenos a nuestra plataforma sin tu consentimiento explícito.
+                                Al subir tu factura, consientes expresamente este procesamiento automatizado necesario para la prestación del servicio.
                             </p>
 
-                            <h2 className="text-xl font-bold mb-4">3. Conservación de Datos</h2>
+                            <h2 className="text-xl font-bold mb-4">3. Conservación y Almacenamiento</h2>
+                            <p className="mb-4">
+                                Las facturas subidas se almacenan de forma segura en los servidores de <strong>Cloudflare R2</strong>. Estos archivos se conservan mientras tu cuenta permanezca activa para permitirte consultar tu historial de ahorros.
+                            </p>
                             <p className="mb-8">
-                                Los datos de facturas analizadas se conservan de forma anonimizada para mejorar nuestros algoritmos de IA, a menos que el usuario solicite su eliminación completa.
+                                Los datos de facturas analizadas pueden conservarse de forma anonimizada para mejorar nuestros algoritmos de análisis, eliminando cualquier dato identificativo personal previo a dicho uso.
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">4. Derechos de los Usuarios</h2>
