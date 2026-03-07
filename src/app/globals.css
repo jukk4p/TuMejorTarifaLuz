@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/container-queries";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-primary: #137fec;
+  --color-primary-foreground: #ffffff;
+
+  --color-success: #10b981;
+
+  --color-background-light: #f6f7f8;
+  --color-background-dark: #101922;
+
+  --color-charcoal: #0B1219;
+
+  --color-node-bg: #1a2632;
+
+  /* Font Families */
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Custom Animations Assets */
+  --primary-rgb: 19, 127, 236;
+
+  @keyframes scan {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(220px); opacity: 0; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(19, 127, 236, 0.2); }
+    50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(19, 127, 236, 0.5); }
+  }
+}
+
+@layer components {
+  .premium-card {
+    background-color: white;
+    border-width: 1px;
+    border-color: var(--color-slate-200, #e2e8f0);
+    border-style: solid;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .dark .premium-card {
+    background-color: var(--color-slate-900, #0f172a);
+    border-color: var(--color-slate-800, #1e293b);
+    box-shadow: none;
+  }
+
+  .premium-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .premium-card:hover {
+    box-shadow: 0 0 40px var(--color-primary, #137fec);
+  }
+
+  /* 3D Premium Effects */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .premium-3d-card {
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .premium-3d-card:hover {
+    transform: translateY(-8px) rotateX(4deg) rotateY(-2deg);
+    box-shadow: -15px 25px 40px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  }
+
+  .dark .premium-3d-card:hover {
+    box-shadow: -15px 25px 50px -15px rgba(19, 127, 236, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+}
+
+/* Base styles for the theme */
+@layer base {
+  :root {
+    --background: var(--color-background-light);
+    --foreground: #0f172a;
+    /* slate-900 */
+  }
+
+  .dark {
+    --background: var(--color-background-dark);
+    --foreground: #f1f5f9;
+    /* slate-100 */
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased min-h-screen text-slate-800 dark:text-slate-100 font-display transition-colors duration-300;
+  }
+}
