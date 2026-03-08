@@ -2100,16 +2100,10 @@ export default function ComparadorPage() {
                                         </div>
                                         <p className="text-[11px] text-slate-500 leading-relaxed bg-white dark:bg-background-dark/50 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
                                             {selectedResult.tariff.name.includes("PVPC")
-                                                ? "Este contrato pertenece al Mercado Regulado, supervisado directamente por el Estado. Ãšnicamente aplicable en potencias inferiores a 10 kW."
+                                                ? "Este contrato pertenece al Mercado Regulado, supervisado directamente por el Estado. Únicamente aplicable en potencias inferiores a 10 kW."
                                                 : "Este contrato se encuentra en el mercado libre, lo que permite aprovechar promociones o estabilidad de precios, siempre rigiéndose bajo la normativa de la CNMC."}
                                         </p>
-                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex justify-between items-center cursor-pointer hover:border-primary transition-colors group">
-                                            <div className="flex items-center gap-3">
-                                                <span className="material-icons text-red-500 text-lg">picture_as_pdf</span>
-                                                <span className="text-xs font-bold">Contrato Oficial (PDF)</span>
-                                            </div>
-                                            <span className="material-icons text-slate-400 group-hover:text-primary transition-colors text-sm">open_in_new</span>
-                                        </div>
+
                                         <button
                                             onClick={() => window.open(selectedResult.tariff.url, '_blank')}
                                             className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group transition-all"
@@ -2118,10 +2112,23 @@ export default function ComparadorPage() {
                                             <span className="material-icons text-base group-hover:translate-x-2 transition-transform">arrow_forward</span>
                                         </button>
                                         <div className="pt-4 flex justify-around">
-                                            <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors">
+                                            <button
+                                                onClick={() => {
+                                                    const text = encodeURIComponent(`¡Mira esta tarifa de luz! ${selectedResult.tariff.company} - ${selectedResult.tariff.name} por solo €${selectedResult.total.toFixed(2)}/mes. Puedes verla aquí: ${window.location.href}`);
+                                                    window.open(`https://wa.me/?text=${text}`, '_blank');
+                                                }}
+                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
+                                            >
                                                 <span className="material-icons text-sm">share</span> WhatsApp
                                             </button>
-                                            <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors">
+                                            <button
+                                                onClick={() => {
+                                                    const subject = encodeURIComponent(`Tarifa recomendada: ${selectedResult.tariff.company} ${selectedResult.tariff.name}`);
+                                                    const body = encodeURIComponent(`Hola,\n\nHe encontrado esta tarifa de luz que podría interesarte:\n\nCompañía: ${selectedResult.tariff.company}\nTarifa: ${selectedResult.tariff.name}\nPrecio estimado: €${selectedResult.total.toFixed(2)}/mes\n\nPuedes ver más detalles aquí: ${window.location.href}`);
+                                                    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+                                                }}
+                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
+                                            >
                                                 <span className="material-icons text-sm">mail</span> Email
                                             </button>
                                         </div>
@@ -2129,7 +2136,7 @@ export default function ComparadorPage() {
 
                                     <div className="bg-gradient-to-br from-primary to-blue-700 p-10 rounded-3xl text-white shadow-2xl shadow-primary/30 relative overflow-hidden group border border-white/20 text-center md:text-left">
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                                        <h4 className="text-xl font-800 mb-2 relative z-10">Â¿Tienes dudas?</h4>
+                                        <h4 className="text-xl font-800 mb-2 relative z-10">¿Tienes dudas?</h4>
                                         <p className="text-xs text-white/80 leading-relaxed mb-10 relative z-10 px-4 md:px-0">Nuestros expertos te ayudan a elegir la mejor opción para tu hogar.</p>
                                         <a href="tel:900123456" className="relative z-10 w-full bg-white/20 backdrop-blur-md border border-white/30 text-white py-4 rounded-2xl flex items-center justify-center gap-4 hover:bg-white/30 transition-all font-800 tracking-wider">
                                             <span className="material-icons text-xl">phone_in_talk</span>
