@@ -81,14 +81,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-6">
                         <p className="text-sm font-bold text-slate-900 dark:text-white">¿Te ha resultado útil? Compártelo:</p>
                         <div className="flex items-center gap-3">
-                            {['facebook', 'twitter', 'linkedin'].map((social) => (
-                                <button
-                                    key={social}
-                                    className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-slate-500 dark:text-slate-300"
-                                >
-                                    <span className="material-symbols-outlined text-xl">share</span>
-                                </button>
-                            ))}
+                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en Facebook">
+                                <i className="fab fa-facebook-f"></i>
+                            </button>
+                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-black hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en X (Twitter)">
+                                <i className="fab fa-x-twitter"></i>
+                            </button>
+                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en LinkedIn">
+                                <i className="fab fa-linkedin-in"></i>
+                            </button>
                         </div>
                     </div>
 
