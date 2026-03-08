@@ -55,7 +55,7 @@ export default function Navbar() {
                         <div className="hidden lg:flex items-center space-x-8">
                             <Link href="/comparador" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Comparador</Link>
                             <Link href="/companias" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Compañías</Link>
-                            <Link href="/#guias" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Guias</Link>
+                            <Link href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Blog</Link>
 
                             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
 
@@ -159,7 +159,7 @@ export default function Navbar() {
                         <div className="px-4 py-8 space-y-6">
                             <Link href="/comparador" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Comparador Inteligente</Link>
                             <Link href="/companias" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Comercializadoras</Link>
-                            <Link href="/#guias" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Guias de Ahorro</Link>
+                            <Link href="/blog" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Blog y Consejos</Link>
                             <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
                                 {user ? (
                                     <button

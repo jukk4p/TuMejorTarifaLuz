@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: "https://tumejortarifaluz.es",
     siteName: "Tu Mejor Tarifa Luz",
-    title: "Tu Mejor Tarifa Luz | Ahorra en tu factura con IA",
+    title: "Tu Mejor Tarifa Luz | Ahorra en tu factura con Tecnología Avanzada",
     description: "Comparamos todas las tarifas del mercado analizando tu consumo real.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
     title: "Tu Mejor Tarifa Luz | Comparador Inteligente",
-    description: "Analizamos tu factura de luz en segundos con IA.",
+    description: "Analizamos tu factura de luz en segundos con nuestro motor de optimización.",
     images: ["/og-image.jpg"],
   }
 };

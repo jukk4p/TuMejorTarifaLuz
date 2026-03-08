@@ -564,7 +564,7 @@ export default function ComparadorPage() {
                                         />
                                         <span className="material-symbols-outlined text-4xl text-primary/60 group-hover:scale-110 transition-transform">description</span>
                                         <div className="text-center">
-                                            <p className="text-sm font-bold">Extracción por IA (OCR)</p>
+                                            <p className="text-sm font-bold">Análisis Técnico (OCR)</p>
                                             <p className="text-[11px] text-slate-400">Escanea tu factura PDF o Imagen</p>
                                         </div>
                                     </label>
@@ -608,7 +608,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex justify-between items-center px-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Punta (p1)</label>
-                                                    <span className="bg-ai-purple/10 text-ai-purple text-[8px] px-1.5 py-0.5 rounded font-bold border border-ai-purple/20">AI</span>
+                                                    <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                 </div>
                                                 <input
                                                     type="text"
@@ -623,7 +623,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex justify-between items-center px-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Valle (p2)</label>
-                                                    <span className="bg-ai-purple/10 text-ai-purple text-[8px] px-1.5 py-0.5 rounded font-bold border border-ai-purple/20">AI</span>
+                                                    <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                 </div>
                                                 <input
                                                     type="text"
@@ -647,7 +647,7 @@ export default function ComparadorPage() {
                                                 <div key={idx} className="space-y-1.5">
                                                     <div className="flex justify-between items-center px-1">
                                                         <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">{item.label}</label>
-                                                        <span className="bg-ai-purple/10 text-ai-purple text-[8px] px-1.5 py-0.5 rounded font-bold border border-ai-purple/20">AI</span>
+                                                        <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                     </div>
                                                     <input
                                                         type="text"
@@ -725,7 +725,7 @@ export default function ComparadorPage() {
                                                 <div className="w-24 h-24 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_0_80px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite] border border-white/20 relative overflow-hidden ring-4 ring-primary/10">
                                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-ai-purple/20"></div>
                                                     {isAiGenerated && step === "input" ? (
-                                                        <span className="material-symbols-outlined text-5xl text-primary animate-pulse scale-110">psychology</span>
+                                                        <span className="material-symbols-outlined text-5xl text-primary animate-pulse scale-110">analytics</span>
                                                     ) : (
                                                         <span className="material-symbols-outlined text-5xl text-primary animate-bounce">insights</span>
                                                     )}
@@ -739,7 +739,7 @@ export default function ComparadorPage() {
                                         </div>
 
                                         <h3 className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white transition-all">
-                                            {isAiGenerated && step === "input" ? "IA Analizando..." : "Optimizando..."}
+                                            {isAiGenerated && step === "input" ? "Procesando Análisis..." : "Optimizando..."}
                                         </h3>
                                         <div className="flex flex-col items-center gap-4 w-full">
                                             <div className="flex items-baseline gap-2">
@@ -880,7 +880,7 @@ export default function ComparadorPage() {
                                         <span className="material-icons text-sm font-bold">check_circle</span>
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">VALIDACIÓN DE DATOS IA</p>
+                                        <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">AUDITORÍA TÉCNICA DE DATOS</p>
                                         <p className="text-[11px] text-slate-500 leading-relaxed">Verifique los campos técnicos extraídos de la factura para garantizar un cálculo preciso.</p>
                                     </div>
                                 </div>
@@ -1146,7 +1146,7 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
                                     <div className="bg-slate-50 dark:bg-slate-800/50 rounded-[1.5rem] p-6 space-y-4 border border-slate-100 dark:border-slate-800">
-                                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center">Lógica de Impuestos</p>
+                                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center">Desglose Fiscal Optimizado</p>
                                         <div className="flex flex-col sm:flex-row gap-4">
                                             <div className="flex-1 bg-white dark:bg-slate-900 p-4 rounded-2xl text-center border border-slate-100 dark:border-slate-800 shadow-sm">
                                                 <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Imp. IEE</p>
@@ -1219,8 +1219,7 @@ export default function ComparadorPage() {
                             <div className="flex-1 space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
                                     <div
-                                        onClick={() => setStep("analysis")}
-                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
@@ -1241,8 +1240,7 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div
-                                        onClick={() => setStep("analysis")}
-                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
@@ -1258,7 +1256,10 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div
-                                        onClick={() => setStep("analysis")}
+                                        onClick={() => {
+                                            setSelectedTariffId(results[0].tariff.id!);
+                                            setStep("detail");
+                                        }}
                                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
@@ -1268,7 +1269,7 @@ export default function ComparadorPage() {
                                                 <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 mx-auto md:mx-0 group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">emoji_events</span>
                                                 </div>
-                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Análisis</span>
+                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
                                             <div>
                                                 <div className="flex items-baseline gap-1 mb-1 justify-center md:justify-start">
@@ -1284,13 +1285,16 @@ export default function ComparadorPage() {
 
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm">
                                     <div className="px-5 py-4 md:px-8 md:py-6 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-2">
+                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-3">
                                             Resultados de Comparativa
-                                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">
-                                                Mostrando {results.length} tarifas
-                                            </span>
+                                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700/50 shadow-sm animate-in fade-in zoom-in duration-500">
+                                                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                                <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                                                    Mostrando {results.length} tarifas encontradas
+                                                </span>
+                                            </div>
                                         </h3>
-                                        <div className="flex gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+                                        <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
                                             <button
                                                 onClick={saveBill}
                                                 disabled={isProcessing}

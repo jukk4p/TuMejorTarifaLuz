@@ -14,9 +14,9 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
     {
         id: "1",
-        slug: "entender-factura-luz-2026",
-        title: "Cómo entender tu factura de la luz en 2026: Guía completa",
-        excerpt: "Desglosamos todos los términos de tu recibo para que sepas exactamente qué estás pagando cada mes.",
+        slug: "guia-factura-luz-2026",
+        title: "Guía Definitiva 2026: Entiende cada concepto de tu factura de la luz",
+        excerpt: "Desglosamos término a término tu recibo: potencia contratada, energía consumida, peajes e impuestos para que dejes de pagar por lo que no entiendes.",
         content: `
       <h2>El laberinto de la factura eléctrica</h2>
       <p>Entender la factura de la luz se ha convertido en un reto para la mayoría de los consumidores en España. Con los cambios normativos de 2026, han aparecido nuevos conceptos que pueden confundirnos.</p>
@@ -30,16 +30,55 @@ export const blogPosts: BlogPost[] = [
       <h3>3. Impuestos y Peajes</h3>
       <p>No olvides el Impuesto Eléctrico y el IVA, que fluctúan según las decisiones gubernamentales para paliar la crisis energética.</p>
       
-      <p>Nuestro comparador inteligente analiza estos datos automáticamente subiendo tu PDF, ahorrándote el trabajo sucio.</p>
+      <p>Nuestro análisis algorítmico procesa estos datos automáticamente al subir tu factura, ahorrándote el trabajo técnico.</p>
     `,
         date: "2026-03-01",
         author: "Comité Experto",
-        category: "Ahorro",
+        category: "Educación",
         image: "/guides/bill_expert_analysis.png",
         readTime: "5 min"
     },
     {
         id: "2",
+        slug: "mercado-libre-vs-regulado",
+        title: "Mercado Libre vs Regulado (PVPC): ¿Cuál es más rentable tras la reforma?",
+        excerpt: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre. Datos reales para una elección inteligente.",
+        content: `
+      <h2>PVPC o Mercado Libre: El eterno dilema</h2>
+      <p>Con la reciente reforma del Precio Voluntario para el Pequeño Consumidor (PVPC), el precio ahora incluye una cesta de futuros que reduce la volatilidad. Sin embargo, muchas comercializadoras del mercado libre están lanzando ofertas agresivas que podrían ser más estables.</p>
+      
+      <h3>Mercado Regulado (PVPC)</h3>
+      <p>El precio cambia cada hora según el mercado mayorista. Es la única vía para acceder al Bono Social, pero te expone a las subidas puntuales del mercado.</p>
+      
+      <h3>Mercado Libre</h3>
+      <p>Pagas un precio fijo (o variable) acordado con tu compañía. Ofrece estabilidad a largo plazo y la posibilidad de contratar servicios adicionales o descuentos personalizados.</p>
+    `,
+        date: "2026-02-26",
+        author: "Departamento de Análisis",
+        category: "Comparativa",
+        image: "/guides/market_comparison.png",
+        readTime: "6 min"
+    },
+    {
+        id: "3",
+        slug: "optimizacion-potencia-ahorro",
+        title: "Optimización de Potencia: El ahorro directo que el 90% ignora",
+        excerpt: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año sin esfuerzo.",
+        content: `
+      <h2>Paga solo por lo que necesitas</h2>
+      <p>Muchas familias pagan una potencia 'por si acaso' que nunca llegan a utilizar por completo. Si nunca te han saltado los plomos al poner el horno y la lavadora a la vez, es probable que tengas margen para bajar tu potencia contratada.</p>
+      
+      <h3>¿Cuánto puedes ahorrar?</h3>
+      <p>Cada kW de potencia menos puede suponer un ahorro de unos 50€ al año. Explicamos cómo mirar tu 'pico de potencia máximo' en el área de cliente de tu distribuidora para tomar la decisión correcta.</p>
+    `,
+        date: "2026-02-20",
+        author: "Equipo Técnico",
+        category: "Ahorro",
+        image: "/guides/energy_efficiency.png",
+        readTime: "4 min"
+    },
+    {
+        id: "4",
         slug: "trucos-ahorrar-energia-verano",
         title: "5 Trucos infalibles para ahorrar energía este verano",
         excerpt: "No dejes que el aire acondicionado arruine tu economía. Aprende a mantener tu casa fresca de forma eficiente.",
@@ -52,18 +91,15 @@ export const blogPosts: BlogPost[] = [
       
       <h3>2. Aprovecha las corrientes naturales</h3>
       <p>Ventila solo en las horas más frescas (madrugada) y mantén las persianas bajadas durante el día en las zonas donde da el sol directamente.</p>
-      
-      <h3>3. Mantenimiento de filtros</h3>
-      <p>Un equipo con filtros sucios trabaja un 15% más para enfriar lo mismo. Límpialos antes de empezar la temporada.</p>
     `,
         date: "2026-02-15",
         author: "Equipo Técnico",
-        category: "Consejos",
-        image: "/guides/energy_efficiency.png",
+        category: "Eficiencia",
+        image: "/guides/electricity_clock.png",
         readTime: "4 min"
     },
     {
-        id: "3",
+        id: "5",
         slug: "ventajas-instalar-paneles-solares",
         title: "Ventajas de instalar paneles solares en tu comunidad",
         excerpt: "El autoconsumo compartido es la gran tendencia de 2026. Te contamos cuánto puedes ahorrar realmente.",
@@ -73,9 +109,6 @@ export const blogPosts: BlogPost[] = [
       
       <h3>¿Cómo funciona?</h3>
       <p>Se instalan paneles en el tejado común y la energía generada se reparte entre los vecinos según coeficientes acordados.</p>
-      
-      <h3>Beneficios económicos</h3>
-      <p>La amortización de estas instalaciones ha bajado a menos de 5 años gracias a las ayudas del Plan MOVES y las bonificaciones del IBI.</p>
     `,
         date: "2026-02-10",
         author: "Dpto. Renovables",

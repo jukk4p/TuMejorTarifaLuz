@@ -2,8 +2,20 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import Image from "next/image";
+import { getElectricityPrices } from "@/lib/electricity-prices";
 
-export default function Home() {
+export default async function Home() {
+  const pricesData = await getElectricityPrices();
+
+  const prices = pricesData || {
+    current: 0.1425,
+    average: 0.1125,
+    min: 0.0821,
+    minHour: "15:00 - 16:00",
+    max: 0.2140,
+    maxHour: "20:00 - 21:00",
+    time: "11:31"
+  };
   return (
     <>
       <Navbar />
@@ -98,36 +110,36 @@ export default function Home() {
                   <div className="flex items-center justify-center md:justify-start gap-3 text-primary">
                     <span className="material-icons">bolt</span>
                     <h3 className="text-lg font-bold tracking-tight">Precio de la Luz Hoy</h3>
-                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-mono font-bold text-slate-500">11:31</span>
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-mono font-bold text-slate-500">{prices.time}</span>
                   </div>
                   <div className="space-y-1">
                     <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">PRECIO MEDIO NACIONAL</p>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-6xl md:text-7xl font-800 text-slate-900 dark:text-white tracking-tight">0.1425</span>
+                      <span className="text-6xl md:text-7xl font-800 text-slate-900 dark:text-white tracking-tight">{prices.average.toFixed(4)}</span>
                       <span className="text-xl md:text-2xl font-bold text-slate-400">€/kWh</span>
                     </div>
                   </div>
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-success/10 text-success rounded-full text-sm font-bold">
                     <span className="material-icons text-lg">trending_down</span>
-                    Hoy es un buen día para consumir
+                    {prices.current < prices.average ? 'Precio actual por debajo de la media' : 'Precio estable en mercado'}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 w-full md:w-auto">
                   <div className="bg-slate-50/50 dark:bg-slate-800/20 p-6 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-3">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mínimo Hoy</p>
-                    <p className="text-2xl font-800 text-success">0.0821€</p>
+                    <p className="text-2xl font-800 text-success">{prices.min.toFixed(4)}€</p>
                     <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-slate-400">
                       <span className="material-icons text-sm">schedule</span>
-                      15:00 - 16:00
+                      {prices.minHour}
                     </div>
                   </div>
                   <div className="bg-slate-50/50 dark:bg-slate-800/20 p-6 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-3">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Máximo Hoy</p>
-                    <p className="text-2xl font-800 text-error">0.2140€</p>
+                    <p className="text-2xl font-800 text-error">{prices.max.toFixed(4)}€</p>
                     <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-slate-400">
                       <span className="material-icons text-sm">schedule</span>
-                      20:00 - 21:00
+                      {prices.maxHour}
                     </div>
                   </div>
                 </div>
@@ -171,8 +183,8 @@ export default function Home() {
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-md">2</div>
                 </div>
-                <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-3">La IA analiza los datos</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">Nuestro algoritmo cruza tu perfil de consumo real con el mercado actual en tiempo real.</p>
+                <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-3">Análisis Matemático</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm">Nuestro algoritmo avanzado cruza tu perfil de consumo real con el mercado actual en tiempo real.</p>
               </div>
 
               <div className="relative z-10 text-center group">
@@ -209,10 +221,10 @@ export default function Home() {
                     },
                     {
                       "@type": "Question",
-                      "name": "¿Cómo extrae la IA los datos?",
+                      "name": "¿Cómo se analizan los datos?",
                       "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "Nuestra tecnología de Procesamiento de Lenguaje Natural (NLP) y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
+                        "text": "Nuestra tecnología de Procesamiento de Datos y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
                       }
                     },
                     {
@@ -237,7 +249,7 @@ export default function Home() {
             />
             <div className="text-center mb-16">
               <h2 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Preguntas Frecuentes</h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400">Todo lo que necesitas saber sobre nuestro comparador inteligente.</p>
+              <p className="text-lg text-slate-600 dark:text-slate-400">Todo lo que necesitas saber sobre nuestro motor de comparación.</p>
             </div>
             <div className="space-y-4">
               {[
@@ -246,8 +258,8 @@ export default function Home() {
                   a: "Absolutamente. Utilizamos protocolos de cifrado de nivel bancario (SSL/TLS) para proteger tus archivos. Solo extraemos los datos necesarios para el análisis y no compartimos tu información personal con terceros sin tu consentimiento explícito. Tu privacidad es nuestra prioridad absoluta."
                 },
                 {
-                  q: "¿Cómo extrae la IA los datos?",
-                  a: "Nuestra tecnología de Procesamiento de Lenguaje Natural (NLP) y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
+                  q: "¿Cómo se analizan los datos?",
+                  a: "Nuestra tecnología de Procesamiento de Datos y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
                 },
                 {
                   q: "¿Tengo que pagar por usar el comparador?",
@@ -281,14 +293,14 @@ export default function Home() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
-                  <span className="material-icons text-sm">auto_stories</span>
-                  Centro de Conocimiento
+                  <span className="material-icons text-sm">newspaper</span>
+                  Blog & Noticias
                 </div>
-                <h2 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white tracking-tight">Guías para ahorrar en tu recibo</h2>
-                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">Aprende a navegar el complejo mercado eléctrico con nuestros artículos informativos.</p>
+                <h2 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white tracking-tight">Consejos para ahorrar en tu recibo</h2>
+                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">Aprende a navegar el mercado eléctrico con la información de nuestros expertos.</p>
               </div>
-              <Link href="/guias" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all">
-                Ver todas las guías
+              <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all">
+                Ver todo el blog
                 <span className="material-icons text-sm">arrow_forward</span>
               </Link>
             </div>
@@ -338,7 +350,7 @@ export default function Home() {
                   image: "/guides/ev_charging.png",
                 }
               ].map((article, i) => (
-                <Link key={i} href={`/guias/${article.id}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
+                <Link key={i} href={`/blog/${article.id}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{article.date}</p>
                   <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">{article.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -346,7 +358,7 @@ export default function Home() {
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{article.desc}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
-                    <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer guía completa</span>
+                    <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo</span>
                     <span className="material-icons text-primary group-hover:translate-x-2 transition-transform">east</span>
                   </div>
                 </Link>
@@ -413,7 +425,7 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
             <h2 className="text-3xl md:text-4xl font-800 mb-6 relative z-10">¿Listo para dejar de pagar de más?</h2>
             <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto relative z-10">
-              Solo necesitas 30 segundos para subir tu factura. Nuestra IA hará el resto del trabajo por ti.
+              Solo necesitas 30 segundos para subir tu factura. Nuestro motor de optimización hará el resto del trabajo por ti.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
               <Link href="/comparador?mode=upload" className="px-10 py-5 bg-white text-primary font-bold rounded-xl hover:bg-slate-50 transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200">
