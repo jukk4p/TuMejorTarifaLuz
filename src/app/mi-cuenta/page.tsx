@@ -32,6 +32,7 @@ interface SavedBill {
     energy_p3?: number;
     days?: number;
     invoiceFileUrl?: string;
+    invoiceFilePath?: string;
 }
 
 export default function ProfilePage() {
@@ -157,12 +158,29 @@ export default function ProfilePage() {
         }
     }, [user, authLoading, router]);
 
-    const deleteBill = async (billId: string) => {
+    const deleteBill = async (billId: string, filePath?: string) => {
         if (!user) return;
-        if (!confirm("¿Estás seguro de que quieres borrar este análisis?")) return;
+        if (!confirm("¿Estás seguro de que quieres borrar este análisis? También se eliminará la factura subida de tu cuenta.")) return;
 
         try {
+            // 1. Borrar de Firestore
             await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
+
+            // 2. Si hay un archivo en R2, intentar borrarlo (excepto si es Admin)
+            if (filePath && !filePath.startsWith("Facturas_Admin")) {
+                try {
+                    await fetch("/api/delete-file", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ path: filePath }),
+                    });
+                } catch (r2Err) {
+                    console.error("Error deleting file from R2:", r2Err);
+                }
+            }
+
+            if (isDetailsModalOpen) setIsDetailsModalOpen(false);
+            alert("Análisis eliminado correctamente.");
         } catch (error) {
             console.error("Error deleting bill:", error);
             alert("No se pudo borrar el análisis");
@@ -375,7 +393,7 @@ export default function ProfilePage() {
                                                 <button
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        deleteBill(bill.id);
+                                                        deleteBill(bill.id, bill.invoiceFilePath);
                                                     }}
                                                     className="w-11 h-11 bg-slate-50 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-colors"
                                                 >
@@ -795,6 +813,13 @@ export default function ProfilePage() {
                                         Ver Documento Original
                                     </a>
                                 )}
+                                <button
+                                    onClick={() => deleteBill(selectedBill.id, selectedBill.invoiceFilePath)}
+                                    className="w-14 h-14 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
+                                    title="Borrar Análisis"
+                                >
+                                    <span className="material-icons">delete_outline</span>
+                                </button>
                                 <button
                                     onClick={() => router.push(`/comparador?historyId=${selectedBill.id}`)}
                                     className="flex-1 h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"

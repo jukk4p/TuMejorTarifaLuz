@@ -339,7 +339,11 @@ export default function ComparadorPage() {
             try {
                 const adminFormData = new FormData();
                 adminFormData.append("file", file);
-                adminFormData.append("userId", user?.uid || "guest");
+
+                // Si el usuario está logueado, usamos su email o nombre para la carpeta
+                // Si no, usamos 'guest'
+                const identifier = user ? (user.email || user.displayName || user.uid) : "guest";
+                adminFormData.append("userId", identifier);
                 adminFormData.append("folder", "Facturas_Admin");
 
                 fetch("/api/upload", {
