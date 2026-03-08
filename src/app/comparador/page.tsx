@@ -1407,36 +1407,21 @@ export default function ComparadorPage() {
 
                                             <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
                                                 <thead>
-                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] whitespace-nowrap">
-                                                        <th className="pl-12 pr-4 py-8 w-[33%] align-middle">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
-                                                                TARIFA / COMERCIALIZADORA
-                                                            </div>
+                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] whitespace-nowrap border-b border-slate-100 dark:border-white/5">
+                                                        <th className="pl-12 pr-4 py-8 w-[33%] align-middle text-left">
+                                                            TARIFA / COMERCIALIZADORA
                                                         </th>
-                                                        <th className="px-4 py-8 w-[14%] align-middle border-none">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-                                                                ENERGÍA
-                                                            </div>
+                                                        <th className="px-4 py-8 w-[14%] align-middle text-left">
+                                                            ENERGÍA
                                                         </th>
-                                                        <th className="px-4 py-8 w-[14%] align-middle border-none">
-                                                            <div className="flex items-center justify-center gap-2 w-full">
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-                                                                TOTAL MES
-                                                            </div>
+                                                        <th className="px-4 py-8 w-[14%] align-middle text-center">
+                                                            TOTAL MES
                                                         </th>
-                                                        <th className="px-4 py-8 w-[18%] align-middle border-none">
-                                                            <div className="flex items-center justify-center gap-2 w-full text-success">
-                                                                <span className="text-xs">💰</span>
-                                                                AHORRO
-                                                            </div>
+                                                        <th className="px-4 py-8 w-[18%] align-middle text-center text-success font-bold">
+                                                            AHORRO
                                                         </th>
-                                                        <th className="px-4 py-8 w-[21%] align-middle border-none">
-                                                            <div className="flex items-center justify-center gap-2 w-full">
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-                                                                ACCIÓN
-                                                            </div>
+                                                        <th className="px-4 py-8 w-[21%] align-middle text-center">
+                                                            ACCIÓN
                                                         </th>
                                                     </tr>
                                                 </thead>
