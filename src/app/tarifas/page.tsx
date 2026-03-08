@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { getLogoPath } from "@/lib/tariffs";
@@ -99,9 +101,9 @@ export default function TarifasHub() {
                                     <div className="w-24 h-12 bg-slate-50 dark:bg-slate-800 rounded-xl p-2 flex items-center justify-center shadow-sm border border-slate-100 dark:border-slate-700/50">
                                         <div className="w-24 h-12 bg-white dark:bg-slate-800 rounded-xl p-2 flex items-center justify-center shadow-sm border border-slate-100 dark:border-slate-800 shrink-0">
                                             {tariff.logo_url ? (
-                                                <img src={tariff.logo_url} alt={tariff.company} className="max-h-full max-w-full object-contain" />
+                                                <Image src={tariff.logo_url} alt={tariff.company} width={96} height={48} className="max-h-full max-w-full object-contain" />
                                             ) : getLogoPath(tariff.company, mounted && resolvedTheme === 'dark') ? (
-                                                <img src={getLogoPath(tariff.company, mounted && resolvedTheme === 'dark')!} alt={tariff.company} className="max-h-full max-w-full object-contain transition-all" />
+                                                <Image src={getLogoPath(tariff.company, mounted && resolvedTheme === 'dark')!} alt={tariff.company} width={96} height={48} className="max-h-full max-w-full object-contain transition-all" />
                                             ) : (
                                                 <span className="text-xl font-900 text-slate-300">{(tariff.company || "?").charAt(0)}</span>
                                             )}

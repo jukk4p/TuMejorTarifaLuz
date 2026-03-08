@@ -1,3 +1,8 @@
+export interface ApiPriceData {
+    value: number;
+    datetime: string;
+}
+
 export interface ElectricityPriceData {
     current: number;
     average: number;
@@ -7,7 +12,7 @@ export interface ElectricityPriceData {
     maxHour: string;
     time: string;
     isLive: boolean;
-    allHours: any[];
+    allHours: ApiPriceData[];
 }
 
 export async function getElectricityPrices(): Promise<ElectricityPriceData | null> {
@@ -69,25 +74,25 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         }
 
         const now = new Date();
-        const prices = values.map((v: any) => ({
+        const prices = values.map((v: ApiPriceData) => ({
             value: v.value / 1000,
             hour: new Date(v.datetime).getHours(),
             datetime: v.datetime
         }));
 
-        const sum = prices.reduce((acc: number, p: any) => acc + p.value, 0);
+        const sum = prices.reduce((acc: number, p: ApiPriceData) => acc + p.value, 0);
         const average = sum / prices.length;
 
         let minItem = prices[0];
         let maxItem = prices[0];
 
-        prices.forEach((p: any) => {
+        prices.forEach((p: ApiPriceData) => {
             if (p.value < minItem.value) minItem = p;
             if (p.value > maxItem.value) maxItem = p;
         });
 
         const currentHour = now.getHours();
-        const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[prices.length - 1];
+        const currentPriceItem = prices.find((p: ApiPriceData & { hour?: number }) => p.hour === currentHour) || prices[prices.length - 1];
 
         console.log("DEBUG ESIOS: ¡CONECTADO! Datos recibidos correctamente.");
 

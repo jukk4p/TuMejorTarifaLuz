@@ -59,9 +59,8 @@ export default async function Home() {
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuCBli1BMN222idiRlnhliAhCGByaT_VOnwaUcrEhoCMrbY5F82v499DlVDa4FaeT50R3eCtd_oVQXiZeG8FwdFLh7HpnDE-UVH-NsPrjtrq7-O6z0d_IgqMeZtX9Y4kX53AIeE8w_KZuNM-FWQSgzKezNBK_umbtEPXzKgirmjs8OUm8MAP5tkjDO1dJHpMJTDGQY9Wh9NXrCrb_nPSBQr92BCs-UTajK5eVFeAsT-R1rjhyJKyWvudIfUsbnRrxbrm2qXMZ5ADpAM",
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuB84wJGq-7l9kzTmEL8gIZ5gA8DN4CkAQ8juywJhHG8EidRWw_dsheDrH-P1ZtG5YPaHx7KeIkDqH-lYSkDtoGJCWre0crF0bN32ihXd7eqiKgonkFEVCFxl79gzzzWAr9-RUS_TYVpE_bXRH272UKZyq4b0rfpqlGBQnauln_LpXxqvCzewwIq5snDHR7U-zS_ljytqxyzqEG4vB8T_RMM1HZUnfIhnmDzQnZP8kWY5bapSRP2j4OeAxkZ1zU_elmTslpxVBA3XCg"
                     ].map((src, i) => (
-                      <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img alt="Customer avatar" className="w-full h-full object-cover" src={src} />
+                      <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10 bg-slate-100 dark:bg-slate-800">
+                        <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={80} />
                       </div>
                     ))}
                   </div>
@@ -339,12 +338,12 @@ export default async function Home() {
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
-                    <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo</span>
-                    <span className="material-icons text-primary group-hover:translate-x-2 transition-transform">east</span>
+                    <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
+                    <span className="material-icons text-primary group-hover:translate-x-2 transition-transform" aria-hidden="true">east</span>
                   </div>
                 </Link>
               ))}
@@ -459,11 +458,11 @@ export default async function Home() {
                   <div className="w-full aspect-[16/9] bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group hover:!shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700/50">
                     {brand.darkLogo ? (
                       <>
-                        <img src={`/logos/${brand.logo}`} alt={brand.name} className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
-                        <img src={`/logos/${brand.darkLogo}`} alt={brand.name} className={`max-h-10 max-w-full object-contain transition-all duration-500 hidden dark:block ${(brand as any).darkScale || brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 hidden dark:block ${(brand as any).darkScale || brand.scale || ""}`} />
                       </>
                     ) : (
-                      <img src={`/logos/${brand.logo}`} alt={brand.name} className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="text-[10px] font-bold text-slate-300 dark:text-slate-600 tracking-widest uppercase">{brand.name}</span>

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useState } from "react";
 import { Tariff, getLogoPath } from "@/lib/tariffs";
 import { useTariffs } from "@/hooks/useTariffs";
@@ -173,9 +175,9 @@ export default function TarifasAdminPage() {
                                         <div className="flex items-center gap-3">
                                             <div className="w-[120px] h-[40px] flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-slate-100 dark:border-slate-700 overflow-hidden p-1 shadow-sm">
                                                 {tariff.logo_url ? (
-                                                    <img src={tariff.logo_url} alt={tariff.company} className="w-full h-full object-contain" />
+                                                    <Image src={tariff.logo_url} alt={tariff.company} width={120} height={40} className="w-full h-full object-contain" />
                                                 ) : getLogoPath(tariff.company) ? (
-                                                    <img src={getLogoPath(tariff.company)!} alt={tariff.company} className="w-full h-full object-contain" />
+                                                    <Image src={getLogoPath(tariff.company)!} alt={tariff.company} width={120} height={40} className="w-full h-full object-contain" />
                                                 ) : (
                                                     (tariff.company || "?").charAt(0)
                                                 )}
@@ -273,15 +275,19 @@ export default function TarifasAdminPage() {
                                             </div>
                                             <div className="w-20 h-14 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-center p-2 shadow-sm shrink-0">
                                                 {selectedTariff?.logo_url ? (
-                                                    <img
+                                                    <Image
                                                         src={selectedTariff.logo_url}
                                                         alt="Custom Preview"
+                                                        width={80}
+                                                        height={56}
                                                         className="max-h-full max-w-full object-contain transition-all"
                                                     />
                                                 ) : getLogoPath(selectedTariff?.company || "") ? (
-                                                    <img
+                                                    <Image
                                                         src={getLogoPath(selectedTariff?.company || "")!}
                                                         alt="System Preview"
+                                                        width={80}
+                                                        height={56}
                                                         className="max-h-full max-w-full object-contain transition-all"
                                                     />
                                                 ) : (

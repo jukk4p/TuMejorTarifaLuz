@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -8,8 +9,7 @@ export default function Footer() {
                     <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
                         <div className="flex items-center gap-2">
                             <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src="/Logo.png" alt="TuMejorTarifaLuz" className="h-full w-auto object-contain" />
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>

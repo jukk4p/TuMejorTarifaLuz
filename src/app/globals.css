@@ -27,15 +27,37 @@
   --primary-rgb: 19, 127, 236;
 
   @keyframes scan {
-    0% { transform: translateY(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(220px); opacity: 0; }
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(220px);
+      opacity: 0;
+    }
   }
 
   @keyframes pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(19, 127, 236, 0.2); }
-    50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(19, 127, 236, 0.5); }
+
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 20px rgba(19, 127, 236, 0.2);
+    }
+
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(19, 127, 236, 0.5);
+    }
   }
 }
 
@@ -83,6 +105,15 @@
 
   .dark .premium-3d-card:hover {
     box-shadow: -15px 25px 50px -15px rgba(19, 127, 236, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .premium-card,
+    .premium-3d-card {
+      transform: none !important;
+      transition: none !important;
+    }
   }
 }
 

@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import dynamic from 'next/dynamic';
+import Image from "next/image";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
 
@@ -26,7 +27,7 @@ export default function Navbar() {
                     <div className="flex justify-between items-center h-20">
                         <Link href="/" className="flex items-center gap-2 group">
                             <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                <img src="/Logo.png" alt="TuMejorTarifaLuz" className="h-full w-auto object-contain" />
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" priority />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>
@@ -45,7 +46,7 @@ export default function Navbar() {
                     <div className="flex justify-between items-center h-20">
                         <Link href="/" className="flex items-center gap-2 group">
                             <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                <img src="/Logo.png" alt="TuMejorTarifaLuz" className="h-full w-auto object-contain" />
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" priority />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>
@@ -64,6 +65,8 @@ export default function Navbar() {
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                                 className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all hover:border-primary/30 shadow-inner"
                                 aria-label="Toggle theme"
+                                role="switch"
+                                aria-checked={theme === 'dark'}
                             >
                                 <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow-lg transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`} />
                                 <span className={`material-icons text-[14px] z-10 w-7 transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>light_mode</span>
@@ -78,7 +81,7 @@ export default function Navbar() {
                                     >
                                         <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                             {user.photoURL ? (
-                                                <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                                <Image src={user.photoURL} alt={user.displayName || "User"} width={36} height={36} className="w-full h-full object-cover" />
                                             ) : (
                                                 <span className="material-icons text-primary text-sm">person</span>
                                             )}
@@ -127,7 +130,7 @@ export default function Navbar() {
                                 >
                                     <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                         {user.photoURL ? (
-                                            <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                            <Image src={user.photoURL} alt={user.displayName || "User"} width={32} height={32} className="w-full h-full object-cover" />
                                         ) : (
                                             <span className="material-icons text-primary text-xs">person</span>
                                         )}

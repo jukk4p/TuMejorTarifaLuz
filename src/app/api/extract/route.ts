@@ -80,13 +80,15 @@ export async function POST(request: Request) {
                 console.error("Error parseando la respuesta del LLM:", textResponse);
                 return NextResponse.json({ error: "Error de formato de IA" }, { status: 500 });
             }
-        } catch (apiError: any) {
+        } catch (apiError: unknown) {
             console.error("Gemini API Error:", apiError);
-            return NextResponse.json({ error: "API Gemini falló: " + apiError.message }, { status: 500 });
+            const message = apiError instanceof Error ? apiError.message : String(apiError);
+            return NextResponse.json({ error: "API Gemini falló: " + message }, { status: 500 });
         }
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error en extracción:", error);
-        return NextResponse.json({ error: error.message || "Error al procesar" }, { status: 500 });
+        const message = error instanceof Error ? error.message : "Error al procesar";
+        return NextResponse.json({ error: message }, { status: 500 });
     }
 }
