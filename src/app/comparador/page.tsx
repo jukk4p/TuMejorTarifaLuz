@@ -1364,21 +1364,9 @@ export default function ComparadorPage() {
                                                 <div className="p-5 space-y-4">
                                                     {/* Header: Company + Ahorro */}
                                                     <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center p-1 font-black text-[10px] text-slate-400 uppercase tracking-tighter overflow-hidden">
-                                                                {(() => {
-                                                                    const name = res.tariff.company.trim();
-                                                                    const words = name.split(/\s+/);
-                                                                    if (words.length > 1) {
-                                                                        return words.map(w => w[0]).join('').substring(0, 3);
-                                                                    }
-                                                                    return name.length >= 3 ? (name[0] + name[2]) : name.substring(0, 2);
-                                                                })()}
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{res.tariff.company}</p>
-                                                                <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
-                                                            </div>
+                                                        <div className="flex flex-col">
+                                                            <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{res.tariff.company}</p>
+                                                            <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
                                                         </div>
 
                                                         {((input.current_bill_total || 0) - res.total) > 0 && (
