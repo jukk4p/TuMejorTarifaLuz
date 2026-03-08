@@ -15,7 +15,7 @@ import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-type Step = "input" | "validation" | "results" | "detail";
+type Step = "input" | "validation" | "results" | "detail" | "analysis";
 
 export default function ComparadorPage() {
     const { resolvedTheme } = useTheme();
@@ -1219,7 +1219,7 @@ export default function ComparadorPage() {
                             <div className="flex-1 space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
                                     <div
-                                        onClick={() => viewDetail(results[0].tariff.id!)}
+                                        onClick={() => setStep("analysis")}
                                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
@@ -1241,7 +1241,7 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div
-                                        onClick={() => viewDetail(results[0].tariff.id!)}
+                                        onClick={() => setStep("analysis")}
                                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
@@ -1258,8 +1258,8 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div
-                                        onClick={() => viewDetail(results[0].tariff.id!)}
-                                        className="bg-gradient-to-br from-primary/5 via-white dark:via-slate-900 to-transparent border border-primary/20 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                        onClick={() => setStep("analysis")}
+                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
                                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
@@ -1268,7 +1268,7 @@ export default function ComparadorPage() {
                                                 <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 mx-auto md:mx-0 group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">emoji_events</span>
                                                 </div>
-                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
+                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Análisis</span>
                                             </div>
                                             <div>
                                                 <div className="flex items-baseline gap-1 mb-1 justify-center md:justify-start">
@@ -1284,7 +1284,12 @@ export default function ComparadorPage() {
 
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm">
                                     <div className="px-5 py-4 md:px-8 md:py-6 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center">Resultados de Comparativa</h3>
+                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-2">
+                                            Resultados de Comparativa
+                                            <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">
+                                                Mostrando {results.length} tarifas
+                                            </span>
+                                        </h3>
                                         <div className="flex gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
                                             <button
                                                 onClick={saveBill}
@@ -1612,10 +1617,6 @@ export default function ComparadorPage() {
                                                     <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">Tarifa Ganadora: {results[0].tariff.company} {results[0].tariff.name}</p>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-2 px-4 py-2 bg-success/10 border border-success/20 rounded-xl">
-                                                <span className="w-2 h-2 rounded-full bg-success animate-pulse"></span>
-                                                <span className="text-[10px] font-bold text-success uppercase tracking-widest">Cálculo Verificado IA</span>
-                                            </div>
                                         </div>
 
                                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
@@ -1716,6 +1717,164 @@ export default function ComparadorPage() {
                     </div>
                 )
                 }
+
+                {/* STEP 3.5: GRAPHIC ANALYSIS VIEW */}
+                {step === "analysis" && results.length > 0 && (
+                    <div className="max-w-4xl mx-auto space-y-8 animate-in slide-in-from-bottom-5 duration-700 ease-out">
+                        <div className="flex flex-col md:flex-row justify-between items-center bg-white/40 dark:bg-slate-950/20 backdrop-blur-xl p-8 rounded-[2.5rem] border border-slate-200/50 dark:border-white/5 shadow-xl">
+                            <div className="text-center md:text-left mb-4 md:mb-0">
+                                <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                    <h3 className="text-2xl font-900 tracking-tight text-slate-800 dark:text-white">Análisis Comparativo Gráfico</h3>
+                                </div>
+                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] ml-3">Comparativa de Mercado en Tiempo Real</p>
+                            </div>
+                            <button
+                                onClick={() => setStep("results")}
+                                className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 transition-all active:scale-95 flex items-center gap-2 group"
+                            >
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Cerrar</span>
+                                <span className="material-icons text-slate-400">close</span>
+                            </button>
+                        </div>
+
+                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+
+                            <div className="relative z-10 space-y-16">
+                                {/* CHART CONTAINER */}
+                                <div className="space-y-12">
+                                    {/* CURRENT BILL (REFERENCE) */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-end px-2">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                                                    <span className="material-icons text-slate-400 text-lg">history</span>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Tu Situación Actual</p>
+                                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-tighter">Referencia de Mercado</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-3xl font-900 text-slate-400 line-through opacity-50">€{(input.current_bill_total || 0).toFixed(2)}</p>
+                                                <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Gasto Base</p>
+                                            </div>
+                                        </div>
+                                        <div className="h-4 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-700/50 relative">
+                                            <div
+                                                className="h-full bg-slate-400/20 rounded-full transition-all duration-1000 ease-out"
+                                                style={{ width: '100%' }}
+                                            ></div>
+                                        </div>
+                                    </div>
+
+                                    {/* RECOMMENDED TARIFFS BARS */}
+                                    <div className="space-y-10">
+                                        {results.slice(0, 4).map((res, idx) => {
+                                            const refValue = Math.max(input.current_bill_total || 0, results[0].total * 1.2);
+                                            const percent = (res.total / refValue) * 100;
+                                            const finalPercent = percent > 100 ? 100 : percent;
+                                            const saving = (input.current_bill_total || 0) - res.total;
+
+                                            return (
+                                                <div key={idx} className="space-y-4 group cursor-pointer" onClick={() => {
+                                                    setSelectedTariffId(res.tariff.id!);
+                                                    setStep("detail");
+                                                }}>
+                                                    <div className="flex justify-between items-end px-2">
+                                                        <div className="flex items-center gap-4">
+                                                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all ${idx === 0
+                                                                ? "bg-primary/10 border-primary/20 text-primary shadow-lg shadow-primary/10 scale-110"
+                                                                : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400"
+                                                                }`}>
+                                                                {idx === 0 ? (
+                                                                    <span className="material-icons text-xl">emoji_events</span>
+                                                                ) : (
+                                                                    <span className="text-xs font-black">#{idx + 1}</span>
+                                                                )}
+                                                            </div>
+                                                            <div className="flex flex-col">
+                                                                <p className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1 ${idx === 0 ? "text-primary" : "text-slate-400"}`}>{res.tariff.company}</p>
+                                                                <p className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className={`text-3xl font-900 ${idx === 0 ? "text-primary" : "text-slate-700 dark:text-slate-300"}`}>€{res.total.toFixed(2)}</p>
+                                                            <p className={`text-[10px] font-bold uppercase tracking-widest ${saving > 0 ? "text-success" : "text-slate-400"}`}>
+                                                                {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)}% ahorro` : `€${res.total.toFixed(2)}/mes`}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="h-8 bg-slate-50/50 dark:bg-slate-950/20 rounded-[1rem] overflow-hidden border border-slate-100 dark:border-white/5 relative group-hover:border-primary/20 transition-all shadow-inner">
+                                                        <div
+                                                            className={`h-full ${idx === 0
+                                                                ? 'bg-gradient-to-r from-primary via-primary/80 to-primary/60'
+                                                                : 'bg-slate-200 dark:bg-slate-700'
+                                                                } rounded-r-xl transition-all duration-[1200ms] delay-${idx * 150} ease-out relative shadow-lg`}
+                                                            style={{ width: `${finalPercent}%` }}
+                                                        >
+                                                            {idx === 0 && (
+                                                                <div className="absolute inset-0 bg-white/20 animate-pulse opacity-50"></div>
+                                                            )}
+                                                            <div className="absolute right-3 inset-y-0 flex items-center">
+                                                                <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
+                                                                    {finalPercent.toFixed(0)}%
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* KEY INSIGHTS & ACTIONS */}
+                                <div className="pt-12 border-t border-slate-100 dark:border-slate-800 grid md:grid-cols-2 gap-8">
+                                    <div className="p-8 bg-success/[0.03] border border-success/10 rounded-[2.5rem] flex flex-col justify-center relative overflow-hidden group">
+                                        <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-success/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                                        <div className="flex items-center gap-5 relative z-10">
+                                            <div className="w-16 h-16 rounded-[1.25rem] bg-success/10 flex items-center justify-center text-success shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
+                                                <span className="material-icons text-4xl">savings</span>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-success/60 leading-none mb-2">Ahorro Máximo Proyectado</p>
+                                                <p className="text-4xl font-900 text-success tracking-tighter">€{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ año</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col justify-center gap-4">
+                                        <button
+                                            onClick={() => {
+                                                setSelectedTariffId(results[0].tariff.id!);
+                                                setStep("detail");
+                                            }}
+                                            className="w-full bg-primary text-white font-black py-6 rounded-[1.5rem] text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
+                                        >
+                                            Ver Completo {results[0].tariff.company}
+                                            <span className="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                        </button>
+                                        <button
+                                            onClick={() => setStep("results")}
+                                            className="w-full bg-white dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white font-bold py-4 rounded-[1.5rem] text-[10px] uppercase tracking-widest border border-slate-100 dark:border-slate-700 transition-all"
+                                        >
+                                            Volver al Listado
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-center gap-4 text-slate-400">
+                            <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                            <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del Análisis Gráfico</p>
+                            <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                        </div>
+                    </div>
+                )}
 
                 {/* STEP 4: TARIFF DETAIL VIEW */}
                 {
