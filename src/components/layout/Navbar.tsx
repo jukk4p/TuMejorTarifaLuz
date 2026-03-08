@@ -112,21 +112,21 @@ export default function Navbar() {
                         </div>
 
                         {/* Mobile controls */}
-                        <div className="lg:hidden flex items-center gap-3">
+                        <div className="lg:hidden flex items-center gap-2">
                             <button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="relative h-8 w-14 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all shadow-inner"
+                                className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all shadow-inner shrink-0"
                                 aria-label="Toggle theme"
                             >
-                                <div className={`absolute h-6 w-6 rounded-full bg-white dark:bg-primary shadow transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0'}`} />
-                                <span className={`material-icons text-[12px] z-10 w-6 transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>light_mode</span>
-                                <span className={`material-icons text-[12px] z-10 w-6 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>dark_mode</span>
+                                <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-[28px]' : 'translate-x-0'}`} />
+                                <span className={`material-icons text-[14px] z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>light_mode</span>
+                                <span className={`material-icons text-[14px] z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>dark_mode</span>
                             </button>
 
                             {user ? (
                                 <Link
                                     href="/mi-cuenta"
-                                    className="flex items-center gap-2"
+                                    className="w-9 h-9 flex items-center justify-center shrink-0"
                                 >
                                     <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                         {user.photoURL ? (
@@ -139,7 +139,7 @@ export default function Navbar() {
                             ) : (
                                 <button
                                     onClick={() => setIsAuthModalOpen(true)}
-                                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                                    className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
                                 >
                                     <span className="material-icons text-xl">login</span>
                                 </button>
@@ -147,7 +147,7 @@ export default function Navbar() {
 
                             <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="p-2 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+                                className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
                                 aria-label={isMenuOpen ? "Cerrar menú principal" : "Abrir menú principal"}
                             >
                                 <span className="material-icons text-xl">{isMenuOpen ? 'close' : 'menu'}</span>
