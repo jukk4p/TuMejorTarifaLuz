@@ -2031,7 +2031,6 @@ export default function ComparadorPage() {
                                             {[
                                                 { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1 : input.power_p1 + "/" + input.power_p2) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
                                                 { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3) + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
-                                                ...(selectedResult.fee > 0 ? [{ l: "Cuota Gestión Mensual", v: selectedResult.fee.toFixed(2) + " €" }] : []),
                                             ].map((l, i) => (
                                                 <div key={i} className="flex justify-between text-sm py-1 border-b border-slate-50 dark:border-slate-800/50 pb-3">
                                                     <span className="font-medium text-slate-500">{l.l}</span>
@@ -2138,15 +2137,6 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-gradient-to-br from-primary to-blue-700 p-10 rounded-3xl text-white shadow-2xl shadow-primary/30 relative overflow-hidden group border border-white/20 text-center md:text-left">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                                        <h4 className="text-xl font-800 mb-2 relative z-10">¿Tienes dudas?</h4>
-                                        <p className="text-xs text-white/80 leading-relaxed mb-10 relative z-10 px-4 md:px-0">Nuestros expertos te ayudan a elegir la mejor opción para tu hogar.</p>
-                                        <a href="tel:900123456" className="relative z-10 w-full bg-white/20 backdrop-blur-md border border-white/30 text-white py-4 rounded-2xl flex items-center justify-center gap-4 hover:bg-white/30 transition-all font-800 tracking-wider">
-                                            <span className="material-icons text-xl">phone_in_talk</span>
-                                            900 123 456
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
 

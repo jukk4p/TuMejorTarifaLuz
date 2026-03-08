@@ -10,7 +10,6 @@ export interface Tariff {
     permanence: boolean;
     url: string;
     logo_url?: string;
-    fee_monthly?: number;
     id?: string;
 }
 export const getLogoPath = (companyName: string, isDark: boolean = false) => {
@@ -72,7 +71,6 @@ export interface CalculationResult {
     taxIee: number;
     costBonoSocial: number;
     costMeter: number;
-    fee: number;
     taxableBase: number;
     taxIva: number;
     total: number;
@@ -107,16 +105,13 @@ export function calculateTariffCost(tariff: Tariff, input: CalculationInput): Ca
     const costBonoSocial = CONSTANTS.BONO_SOCIAL_PER_DAY * input.days;
     const costMeter = (CONSTANTS.METER_RENT_PER_MONTH / 30) * input.days; // proportional per day
 
-    // 5. Cuota de la Compañía (Fee)
-    const fee = tariff.fee_monthly || 0;
+    // 5. Base Imponible
+    const taxableBase = subtotal + taxIee + costBonoSocial + costMeter;
 
-    // 6. Base Imponible
-    const taxableBase = subtotal + taxIee + costBonoSocial + costMeter + fee;
-
-    // 7. IVA
+    // 6. IVA
     const taxIva = taxableBase * CONSTANTS.IVA;
 
-    // 8. Total Factura
+    // 7. Total Factura
     const total = taxableBase + taxIva;
 
     return {
@@ -127,7 +122,6 @@ export function calculateTariffCost(tariff: Tariff, input: CalculationInput): Ca
         taxIee,
         costBonoSocial,
         costMeter,
-        fee,
         taxableBase,
         taxIva,
         total: Math.round(total * 100) / 100

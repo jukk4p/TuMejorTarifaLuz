@@ -9,8 +9,7 @@
     "e2_kwh": 0.118,
     "e3_kwh": 0.118,
     "permanence": false,
-    "url": "https://niba.es/luz-y-gas",
-    "fee_monthly": 0
+    "url": "https://niba.es/luz-y-gas"
   },
   {
     "company": "Niba",
@@ -22,8 +21,7 @@
     "e2_kwh": 0.116,
     "e3_kwh": 0.079,
     "permanence": false,
-    "url": "https://niba.es/luz-y-gas",
-    "fee_monthly": 0
+    "url": "https://niba.es/luz-y-gas"
   },
   {
     "company": "Octopus",
@@ -35,8 +33,7 @@
     "e2_kwh": 0.142,
     "e3_kwh": 0.142,
     "permanence": false,
-    "url": "https://octopusenergy.es/precios",
-    "fee_monthly": 0
+    "url": "https://octopusenergy.es/precios"
   },
   {
     "company": "Imagina",
@@ -48,8 +45,7 @@
     "e2_kwh": 0.105,
     "e3_kwh": 0.105,
     "permanence": false,
-    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/",
-    "fee_monthly": 0
+    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/"
   },
   {
     "company": "Imagina",
@@ -61,8 +57,7 @@
     "e2_kwh": 0.103,
     "e3_kwh": 0.069,
     "permanence": false,
-    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/",
-    "fee_monthly": 0
+    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/"
   },
   {
     "company": "Doméstica - Visalia",
@@ -74,8 +69,7 @@
     "e2_kwh": 0.101995,
     "e3_kwh": 0.101995,
     "permanence": false,
-    "url": "https://visalia.es/luz/fijo24horas/",
-    "fee_monthly": 0
+    "url": "https://visalia.es/luz/fijo24horas/"
   },
   {
     "company": "Repsol",
@@ -87,8 +81,7 @@
     "e2_kwh": 0.1199,
     "e3_kwh": 0.1199,
     "permanence": true,
-    "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/",
-    "fee_monthly": 0
+    "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/"
   },
   {
     "company": "Repsol",
@@ -100,8 +93,7 @@
     "e2_kwh": 0.1299,
     "e3_kwh": 0.1299,
     "permanence": true,
-    "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas-luz/",
-    "fee_monthly": 0
+    "url": "https://www.repsol.es/particulares/hogar/energia-solar/tarifas/tarifa-solar-bateria-virtual/"
   },
   {
     "company": "Energía Nufri",
@@ -113,8 +105,7 @@
     "e2_kwh": 0.119194,
     "e3_kwh": 0.08666,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
-    "fee_monthly": 0
+    "url": "https://www.energianufri.com/es/tarifas-luz"
   },
   {
     "company": "Energía Nufri",
@@ -126,8 +117,7 @@
     "e2_kwh": 0.129492,
     "e3_kwh": 0.129492,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
-    "fee_monthly": 0
+    "url": "https://www.energianufri.com/es/tarifas-luz"
   },
   {
     "company": "Energía Nufri",
@@ -139,8 +129,7 @@
     "e2_kwh": 0.090774,
     "e3_kwh": 0.058239,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
-    "fee_monthly": 0
+    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas"
   },
   {
     "company": "Energía Nufri",
@@ -152,8 +141,7 @@
     "e2_kwh": 0.101072,
     "e3_kwh": 0.101072,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
-    "fee_monthly": 0
+    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas"
   },
   {
     "company": "Iberdrola",
@@ -165,8 +153,7 @@
     "e2_kwh": 0.136,
     "e3_kwh": 0.09999,
     "permanence": false,
-    "url": "https://www.iberdrola.es/luz/plan-online-tres-periodos",
-    "fee_monthly": 0
+    "url": "https://www.iberdrola.es/luz/plan-online-tres-periodos"
   },
   {
     "company": "Iberdrola",
@@ -178,12 +165,11 @@
     "e2_kwh": 0.1099,
     "e3_kwh": 0.1099,
     "permanence": false,
-    "url": "https://www.iberdrola.es/luz/plan-online",
-    "fee_monthly": 0
+    "url": "https://www.iberdrola.es/luz/plan-online"
   },
   {
     "company": "Endesa",
-    "name": "Conecta Endesa",
+    "name": "Conecta Luz",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.094966,
     "p2_kw_day": 0.094966,
@@ -191,12 +177,11 @@
     "e2_kwh": 0.119999,
     "e3_kwh": 0.119999,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/conecta-de-endesa",
-    "fee_monthly": 0
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/conecta-de-endesa"
   },
   {
     "company": "Endesa",
-    "name": "One Luz Promo",
+    "name": "Fija 24h Online",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.094966,
     "p2_kw_day": 0.094966,
@@ -204,12 +189,11 @@
     "e2_kwh": 0.099999,
     "e3_kwh": 0.099999,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz",
-    "fee_monthly": 0
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz"
   },
   {
     "company": "Endesa",
-    "name": "One Tres Periodos",
+    "name": "Conecta 3 Periodos",
     "type": "3 Periodos",
     "p1_kw_day": 0.090214,
     "p2_kw_day": 0.090214,
@@ -217,8 +201,7 @@
     "e2_kwh": 0.0972,
     "e3_kwh": 0.0738,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz-3periodos",
-    "fee_monthly": 0
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz-3periodos"
   },
   {
     "company": "Naturgy",
@@ -230,8 +213,7 @@
     "e2_kwh": 0.1072,
     "e3_kwh": 0.0718,
     "permanence": false,
-    "url": "https://www.naturgy.es/hogar/luz/tarifa_noche",
-    "fee_monthly": 0
+    "url": "https://www.naturgy.es/hogar/luz/tarifa_noche"
   },
   {
     "company": "Energya VM",
@@ -243,8 +225,7 @@
     "e2_kwh": 0.13005,
     "e3_kwh": 0.10305,
     "permanence": false,
-    "url": "https://www.energyavm.es/luz/formula-fija-3-periodos-luz/",
-    "fee_monthly": 0
+    "url": "https://www.energyavm.es/luz/formula-fija-3-periodos-luz/"
   },
   {
     "company": "Energya VM",
@@ -256,21 +237,19 @@
     "e2_kwh": 0.105705,
     "e3_kwh": 0.105705,
     "permanence": false,
-    "url": "https://www.energyavm.es/",
-    "fee_monthly": 0
+    "url": "https://www.energyavm.es/luz/formula-fija-24-horas-luz/"
   },
   {
     "company": "Total Energies",
     "name": "A tu Aire Luz Ahorro",
     "type": "3 Periodos",
-    "p1_kw_day": 0.72575,
-    "p2_kw_day": 0.72575,
+    "p1_kw_day": 0.072575,
+    "p2_kw_day": 0.072575,
     "e1_kwh": 0.163572,
     "e2_kwh": 0.09393,
     "e3_kwh": 0.066176,
     "permanence": false,
-    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-ahorro",
-    "fee_monthly": 0
+    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-programa-tu-ahorro"
   },
   {
     "company": "Total Energies",
@@ -282,8 +261,7 @@
     "e2_kwh": 0.0999,
     "e3_kwh": 0.0999,
     "permanence": false,
-    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-siempre",
-    "fee_monthly": 0
+    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-siempre"
   },
   {
     "company": "CHC Energía",
@@ -295,8 +273,7 @@
     "e2_kwh": 0.220099,
     "e3_kwh": 0.059339,
     "permanence": false,
-    "url": "https://www.chcenergia.es/",
-    "fee_monthly": 0
+    "url": "https://chcenergia.es/tarifa-luz/vehiculo-electrico/"
   },
   {
     "company": "Esluz",
@@ -308,8 +285,7 @@
     "e2_kwh": 0.135066,
     "e3_kwh": 0.085298,
     "permanence": false,
-    "url": "https://esluz.es/tarifa-solar-2-0/",
-    "fee_monthly": 0
+    "url": "https://esluz.es/tarifa-solar-2-0/"
   },
   {
     "company": "Comercializadoras de Referencia",
