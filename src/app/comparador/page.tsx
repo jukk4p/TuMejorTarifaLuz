@@ -1326,14 +1326,8 @@ export default function ComparadorPage() {
 
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm">
                                     <div className="px-5 py-4 md:px-8 md:py-6 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-3">
+                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-3 text-slate-800 dark:text-white">
                                             Resultados de Comparativa
-                                            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700/50 shadow-sm animate-in fade-in zoom-in duration-500">
-                                                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                                <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-                                                    Mostrando {results.length} tarifas encontradas
-                                                </span>
-                                            </div>
                                         </h3>
                                         <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
                                             <button
@@ -1643,15 +1637,25 @@ export default function ComparadorPage() {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* RESULTS COUNT MINI-BADGE (Moved to bottom of card) */}
+                                    <div className="p-8 flex justify-center border-t border-slate-100 dark:border-slate-800/50">
+                                        <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/30 px-4 py-2 rounded-full border border-slate-100 dark:border-slate-800 shadow-sm">
+                                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                            <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.1em]">
+                                                {results.length} resultados encontrados
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* BOTTOM BREAKDOWN BOX */}
-                                {/* BOTTOM BREAKDOWN BOX */}
-                                <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl">
+                                {/* BOTTOM BREAKDOWN BOX (THE BLACK BOX) */}
+                                <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-8">
                                     <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
                                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
 
                                     <div className="relative z-10 space-y-12">
+                                        {/* HEADER INSIDE BLACK BOX */}
                                         <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6 border-b border-white/5 pb-8">
                                             <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
                                                 <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -1663,96 +1667,97 @@ export default function ComparadorPage() {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
-                                            {/* ENERGIA */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">bolt</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Energía</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-primary/30 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight">€{results[0].costEnergy.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Mercado {results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'}</p>
-                                                </div>
+                                    </div>
+                                    {/* GRID INSIDE BLACK BOX */}
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
+                                        {/* ENERGIA */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">bolt</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Energía</p>
                                             </div>
-
-                                            {/* POTENCIA */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">offline_bolt</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Potencia</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight text-slate-200">€{results[0].costPower.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Capacidad Contratada</p>
-                                                </div>
-                                            </div>
-
-                                            {/* BONO SOCIAL */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">volunteer_activism</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Bono Social</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].costBonoSocial.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Financiación Obligatoria</p>
-                                                </div>
-                                            </div>
-
-                                            {/* CONTADOR */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">speed</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Contador</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].costMeter.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Alquiler de Equipo</p>
-                                                </div>
-                                            </div>
-
-                                            {/* IEE */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">account_balance</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Impuesto IEE</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].taxIee.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Imp. Eléctrico (5.11%)</p>
-                                                </div>
-                                            </div>
-
-                                            {/* IVA */}
-                                            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                                <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                    <span className="material-icons text-sm">receipt_long</span>
-                                                    <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">IVA Aplicado</p>
-                                                </div>
-                                                <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                    <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].taxIva.toFixed(2)}</p>
-                                                    <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">IVA General (21%)</p>
-                                                </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-primary/30 h-full">
+                                                <p className="text-2xl font-900 tracking-tight">€{results[0].costEnergy.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Mercado {results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'}</p>
                                             </div>
                                         </div>
 
-                                        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-                                            <div className="flex flex-col md:flex-row items-center gap-3 text-center md:text-left">
-                                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 mx-auto md:mx-0">
-                                                    <span className="material-icons text-slate-400 text-lg">info</span>
-                                                </div>
-                                                <p className="text-[10px] text-slate-500 font-medium italic max-w-[280px] leading-relaxed">
-                                                    Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
-                                                </p>
+                                        {/* POTENCIA */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">offline_bolt</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Potencia</p>
                                             </div>
-                                            <div className="text-center md:text-right">
-                                                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">Total Estimado Mensual</p>
-                                                <div className="flex items-baseline justify-center md:justify-end gap-2">
-                                                    <span className="text-sm font-bold text-success/60">€</span>
-                                                    <p className="text-6xl font-900 text-success drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]">{results[0].total.toFixed(2)}</p>
-                                                </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
+                                                <p className="text-2xl font-900 tracking-tight text-slate-200">€{results[0].costPower.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Capacidad Contratada</p>
+                                            </div>
+                                        </div>
+
+                                        {/* BONO SOCIAL */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">volunteer_activism</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Bono Social</p>
+                                            </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].costBonoSocial.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Financiación Obligatoria</p>
+                                            </div>
+                                        </div>
+
+                                        {/* CONTADOR */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">speed</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Contador</p>
+                                            </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].costMeter.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Alquiler de Equipo</p>
+                                            </div>
+                                        </div>
+
+                                        {/* IEE */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">account_balance</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Impuesto IEE</p>
+                                            </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].taxIee.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Imp. Eléctrico (5.11%)</p>
+                                            </div>
+                                        </div>
+
+                                        {/* IVA */}
+                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
+                                                <span className="material-icons text-sm">receipt_long</span>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">IVA Aplicado</p>
+                                            </div>
+                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">€{results[0].taxIva.toFixed(2)}</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">IVA General (21%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* TOTAL ESTIMATED DASHBOARD INSIDE BLACK BOX */}
+                                    <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                                        <div className="flex flex-col md:flex-row items-center gap-3 text-center md:text-left">
+                                            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 mx-auto md:mx-0">
+                                                <span className="material-icons text-slate-400 text-lg">info</span>
+                                            </div>
+                                            <p className="text-[10px] text-slate-500 font-medium italic max-w-[280px] leading-relaxed">
+                                                Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
+                                            </p>
+                                        </div>
+                                        <div className="text-center md:text-right">
+                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">Total Estimado Mensual</p>
+                                            <div className="flex items-baseline justify-center md:justify-end gap-2">
+                                                <span className="text-sm font-bold text-success/60">€</span>
+                                                <p className="text-6xl font-900 text-success drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]">{results[0].total.toFixed(2)}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1760,8 +1765,7 @@ export default function ComparadorPage() {
                             </div>
                         </div>
                     </div>
-                )
-                }
+                )}
 
                 {/* STEP 3.5: GRAPHIC ANALYSIS VIEW */}
                 {step === "analysis" && results.length > 0 && (
@@ -1781,7 +1785,7 @@ export default function ComparadorPage() {
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Cerrar</span>
                                 <span className="material-icons text-slate-400">close</span>
                             </button>
-                        </div>
+                        </div >
 
                         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64"></div>
@@ -1918,7 +1922,7 @@ export default function ComparadorPage() {
                             <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del Análisis Gráfico</p>
                             <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
                         </div>
-                    </div>
+                    </div >
                 )}
 
                 {/* STEP 4: TARIFF DETAIL VIEW */}
@@ -2207,13 +2211,12 @@ export default function ComparadorPage() {
                                 </Link>
                             </div>
                         </div>
-                    )
-                }
-            </main >
+                    )}
+            </main>
 
             <Footer />
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-        </div >
+        </div>
     );
 }
 
