@@ -12,33 +12,32 @@ export interface ElectricityPriceData {
 
 export async function getElectricityPrices(): Promise<ElectricityPriceData | null> {
     const TOKEN = process.env.ESIOS_TOKEN;
+
     if (!TOKEN) {
-        console.error("Missing ESIOS_TOKEN env variable");
+        console.error("DEBUG ESIOS: No se encontró ESIOS_TOKEN en las variables de entorno.");
         return null;
     }
 
     const INDICATOR = "1001"; // PVPC
     const PeninsulaGeoId = 8741;
 
-    const now = new Date();
-    // Fetch for today in Spain (approximate with local time)
-    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).toISOString();
-    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).toISOString();
-
-    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?start_date=${start}&end_date=${end}&geo_ids[]=${PeninsulaGeoId}`;
+    // Simplificamos la URL: ESIOS devuelve los últimos 24 valores por defecto
+    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids[]=${PeninsulaGeoId}`;
 
     try {
+        console.log("DEBUG ESIOS: Iniciando petición a", url);
         const response = await fetch(url, {
             headers: {
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
                 "Content-Type": "application/json",
                 "x-api-key": TOKEN
             },
-            next: { revalidate: 3600 } // Cache for 1 hour
+            cache: 'no-store' // Deshabilitamos caché temporalmente para depurar
         });
 
         if (!response.ok) {
-            console.error(`ESIOS error: ${response.status}`);
+            const errorText = await response.text();
+            console.error(`DEBUG ESIOS: Error ${response.status} de la API:`, errorText);
             return null;
         }
 
@@ -46,9 +45,11 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         const values = data.indicator?.values;
 
         if (!values || values.length === 0) {
+            console.error("DEBUG ESIOS: La API respondió correctamente pero sin valores.");
             return null;
         }
 
+        const now = new Date();
         const prices = values.map((v: any) => ({
             value: v.value / 1000,
             hour: new Date(v.datetime).getHours(),
@@ -67,8 +68,9 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         });
 
         const currentHour = now.getHours();
-        const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[0];
+        const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[prices.length - 1];
 
+        console.log("DEBUG ESIOS: Datos procesados correctamente.");
         return {
             current: currentPriceItem.value,
             average: average,
@@ -82,7 +84,7 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         };
 
     } catch (error) {
-        console.error("Error fetching electricity prices:", error);
+        console.error("DEBUG ESIOS: Error de red o ejecución:", error);
         return null;
     }
 }
