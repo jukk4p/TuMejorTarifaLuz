@@ -18,32 +18,37 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         return null;
     }
 
-    // Limpieza profunda de comillas, espacios y caracteres invisibles
     TOKEN = TOKEN.trim().replace(/^["']|["']$/g, '').trim();
 
     const INDICATOR = "1001"; // PVPC
     const PeninsulaGeoId = 8741;
-    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids[]=${PeninsulaGeoId}`;
+
+    // Probamos con formato de parámetro simple sin corchetes que a veces es más compatible
+    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids=${PeninsulaGeoId}`;
 
     try {
-        console.log("DEBUG ESIOS: Intentando petición con x-api-key (Token length:", TOKEN.length, ")");
+        console.log(`DEBUG ESIOS: Intentando con User-Agent real y Token (${TOKEN.substring(0, 5)}...)`);
 
         let response = await fetch(url, {
             headers: {
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
                 "Content-Type": "application/json",
-                "x-api-key": TOKEN
+                "x-api-key": TOKEN,
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             },
             cache: 'no-store'
         });
 
-        // Si falla con x-api-key, reintentamos con Authorization: Token token=
         if (!response.ok) {
-            console.warn(`DEBUG ESIOS: Falló x-api-key (${response.status}). Reintentando con Authorization...`);
-            response = await fetch(url, {
+            console.error(`DEBUG ESIOS: Error ${response.status} (x-api-key). Probando geo_ids[]...`);
+
+            // Intento 2: Con corchetes geo_ids[]
+            const altUrl = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids[]=${PeninsulaGeoId}`;
+            response = await fetch(altUrl, {
                 headers: {
                     "Accept": "application/json; application/vnd.esios-api-v2+json",
-                    "Authorization": `Token token=${TOKEN}`
+                    "x-api-key": TOKEN,
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
                 },
                 cache: 'no-store'
             });
@@ -59,7 +64,7 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         const values = data.indicator?.values;
 
         if (!values || values.length === 0) {
-            console.error("DEBUG ESIOS: La API respondió correctamente pero sin valores.");
+            console.error("DEBUG ESIOS: Petición OK pero valores vacíos.");
             return null;
         }
 
@@ -84,7 +89,7 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         const currentHour = now.getHours();
         const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[prices.length - 1];
 
-        console.log("DEBUG ESIOS: ¡ÉXITO! Datos de precios recuperados y procesados.");
+        console.log("DEBUG ESIOS: ¡CONECTADO! Datos recibidos correctamente.");
 
         return {
             current: currentPriceItem.value,
@@ -99,7 +104,7 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
         };
 
     } catch (error) {
-        console.error("DEBUG ESIOS: Error de red o ejecución fatal:", error);
+        console.error("DEBUG ESIOS: Error catastrófico:", error);
         return null;
     }
 }

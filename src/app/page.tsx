@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { getElectricityPrices } from "@/lib/electricity-prices";
+import { blogPosts } from "@/lib/blogData";
 
 export const dynamic = 'force-dynamic';
 
@@ -322,63 +323,96 @@ export default async function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  id: "guia-factura-luz-2026",
-                  date: "01/03/2026",
-                  title: "Guía Definitiva 2026: Entiende cada concepto de tu factura de la luz",
-                  desc: "Desglosamos término a término tu recibo: potencia contratada, energía consumida, peajes e impuestos para que dejes de pagar por lo que no entiendes.",
-                  image: "/guides/bill_expert_analysis.png",
-                },
-                {
-                  id: "mercado-libre-vs-regulado",
-                  date: "26/02/2026",
-                  title: "Mercado Libre vs Regulado (PVPC): ¿Cuál es más rentable tras la reforma?",
-                  desc: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre. Datos reales para una elección inteligente.",
-                  image: "/guides/market_comparison.png",
-                },
-                {
-                  id: "optimizacion-potencia-ahorro",
-                  date: "20/02/2026",
-                  title: "Optimización de Potencia: El ahorro directo que el 90% de los hogares ignora",
-                  desc: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año sin esfuerzo.",
-                  image: "/guides/energy_efficiency.png",
-                },
-                {
-                  id: "discriminacion-horaria-estrategias",
-                  date: "15/02/2026",
-                  title: "Discriminación Horaria: Cómo reducir un 40% tu gasto sin cambiar de hábitos",
-                  desc: "Domina los tramos Punta, Llano y Valle. Estrategias prácticas para desplazar consumos críticos a las horas más económicas del día.",
-                  image: "/guides/electricity_clock.png",
-                },
-                {
-                  id: "autoconsumo-solar-pisos",
-                  date: "10/02/2026",
-                  title: "Autoconsumo Solar en Pisos: ¿Es posible y rentable instalar paneles en 2026?",
-                  desc: "Todo sobre el autoconsumo compartido, subvenciones vigentes y plazos de amortización para comunidades de vecinos y bloques de apartamentos.",
-                  image: "/guides/solar_panels.png",
-                },
-                {
-                  id: "guia-carga-coche-electrico",
-                  date: "05/03/2026",
-                  title: "Carga de Vehículo Eléctrico: Cómo configurar tu tarifa para no pagar de más",
-                  desc: "Analizamos las mejores tarifas para VE y cómo aprovechar la potencia en horas valle para cargar por menos de 2€.",
-                  image: "/guides/ev_charging.png",
-                }
-              ].map((article, i) => (
-                <Link key={i} href={`/blog/${article.id}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{article.date}</p>
-                  <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">{article.title}</h3>
+              {blogPosts.slice(0, 6).map((post, i) => (
+                <Link key={i} href={`/blog/${post.id}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{post.date}</p>
+                  <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{article.desc}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
                     <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo</span>
                     <span className="material-icons text-primary group-hover:translate-x-2 transition-transform">east</span>
                   </div>
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-24 bg-slate-900 dark:bg-black relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -mr-64 -mt-64 opacity-50"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mb-48 opacity-30"></div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-4xl md:text-5xl font-800 text-white tracking-tight leading-tight">
+                    Toma el control total de <br />
+                    <span className="text-primary italic">tu factura de luz</span>
+                  </h2>
+                  <p className="text-xl text-slate-400 leading-relaxed">
+                    Al registrarte en TuMejorTarifaLuz, accedes a herramientas avanzadas diseñadas para maximizar tu ahorro a largo plazo.
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {[
+                    { icon: "history", title: "Historial de Análisis", desc: "Guarda tus comparativas y observa cómo evoluciona tu ahorro año tras año." },
+                    { icon: "analytics", title: "Seguimiento Real", desc: "Monitoriza tus consumos y recibe alertas cuando aparezca una tarifa mejor." },
+                    { icon: "description", title: "Gestor de Facturas", desc: "Almacena tus facturas PDF de forma segura y organizada en un solo lugar." },
+                    { icon: "auto_graph", title: "Optimización Pro", desc: "Accede a predicciones basadas en el mercado mayorista personalizadas para ti." }
+                  ].map((benefit, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <span className="material-icons text-primary">{benefit.icon}</span>
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="font-bold text-white">{benefit.title}</h4>
+                        <p className="text-xs text-slate-500 leading-relaxed">{benefit.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4">
+                  <Link href="/auth" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    Crear mi cuenta gratuita
+                    <span className="material-icons ml-2">person_add</span>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="hidden lg:block relative">
+                <div className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-[3rem] border border-white/10 shadow-3xl">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between border-b border-white/5 pb-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-slate-700 rounded-full animate-pulse"></div>
+                        <div className="space-y-2">
+                          <div className="w-32 h-3 bg-slate-700 rounded animate-pulse"></div>
+                          <div className="w-24 h-2 bg-slate-800 rounded animate-pulse"></div>
+                        </div>
+                      </div>
+                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                        <span className="material-icons text-primary text-sm">notifications</span>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="h-40 bg-slate-800/50 rounded-2xl border border-white/5 flex items-center justify-center">
+                        <span className="material-icons text-6xl text-slate-700">insights</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="h-20 bg-slate-800/50 rounded-2xl border border-white/5"></div>
+                        <div className="h-20 bg-slate-800/50 rounded-2xl border border-white/5"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
