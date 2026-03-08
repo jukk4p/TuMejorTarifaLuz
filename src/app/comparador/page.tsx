@@ -537,20 +537,23 @@ export default function ComparadorPage() {
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
                 <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-4">
-                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-4 sm:gap-8 overflow-x-auto no-scrollbar">
-                        <div className={`flex items-center gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>1</span>
-                            <span className="text-xs font-bold uppercase tracking-wider whitespace-nowrap">Carga</span>
+                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-around sm:justify-center gap-1.5 sm:gap-8 overflow-x-auto no-scrollbar">
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-slate-400"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>1</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">Carga</span>
                         </div>
-                        <div className="w-4 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
-                        <div className={`flex items-center gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>2</span>
-                            <span className="text-xs font-bold uppercase tracking-wider whitespace-nowrap">Validación Factura</span>
+                        <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-slate-400"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>2</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">
+                                <span className="hidden sm:inline">Validación Factura</span>
+                                <span className="inline sm:hidden">Validación</span>
+                            </span>
                         </div>
-                        <div className="w-4 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
-                        <div className={`flex items-center gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>3</span>
-                            <span className="text-xs font-bold uppercase tracking-wider whitespace-nowrap">Comparación</span>
+                        <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-slate-400"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>3</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">Comparación</span>
                         </div>
                     </div>
                 </div>
