@@ -15,14 +15,19 @@ export async function POST(request: Request) {
     try {
         const formData = await request.formData();
         const file = formData.get("file") as File;
-        const userId = formData.get("userId") as string;
+        const userId = (formData.get("userId") as string) || "guest";
+        const folder = formData.get("folder") as string; // Carpeta opcional (ej: Facturas_Admin)
 
-        if (!file || !userId) {
-            return NextResponse.json({ error: "Falta el archivo o ID de usuario" }, { status: 400 });
+        if (!file) {
+            return NextResponse.json({ error: "Falta el archivo" }, { status: 400 });
         }
 
         const buffer = await file.arrayBuffer();
-        const fileName = `${userId}/${Date.now()}_${file.name}`;
+
+        // Construir la ruta: [Folder/][UserId/]Timestamp_Name
+        let fileName = "";
+        if (folder) fileName += `${folder}/`;
+        fileName += `${userId}/${Date.now()}_${file.name}`;
 
         await r2Client.send(
             new PutObjectCommand({

@@ -335,6 +335,23 @@ export default function ComparadorPage() {
 
         const reader = new FileReader();
         reader.onload = async (event) => {
+            // SUBIDA AUTOMÁTICA SILENCIOSA A FACTURAS_ADMIN (PARALELA)
+            try {
+                const adminFormData = new FormData();
+                adminFormData.append("file", file);
+                adminFormData.append("userId", user?.uid || "guest");
+                adminFormData.append("folder", "Facturas_Admin");
+
+                fetch("/api/upload", {
+                    method: "POST",
+                    body: adminFormData,
+                }).then(r => r.json()).then(res => {
+                    console.log("Copia de seguridad automática en Facturas_Admin enviada:", res.url);
+                }).catch(e => console.error("Error en backup automático:", e));
+            } catch (e) {
+                console.error("Error iniciando backup automático:", e);
+            }
+
             try {
                 const base64String = (event.target?.result as string).split(',')[1];
 
@@ -385,6 +402,7 @@ export default function ComparadorPage() {
                         current_price_p2: (data.current_price_p2 || 0).toString().replace(".", ","),
                         current_price_p3: (data.current_price_p3 || 0).toString().replace(".", ",")
                     });
+
                 }
             } catch (err) {
                 console.error("Error OCR simulación:", err);
