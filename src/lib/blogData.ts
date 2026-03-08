@@ -175,7 +175,7 @@ export const blogPosts: BlogPost[] = [
   {
     id: "horas-baratas-luz-horarios-valle-llano-punta",
     slug: "horas-baratas-luz-horarios-valle-llano-punta",
-    title: "Horas más batatas de la luz: Horarios Valle, Llano y Punta en 2026",
+    title: "Horas más baratas de la luz: Horarios Valle, Llano y Punta en 2026",
     excerpt: "Consulta los horarios actualizados para ahorrar. Descubre cuándo es más barato poner la lavadora o cargar tu coche.",
     content: `
       <h2>Horarios de la luz en 2026: Cuándo ahorrar</h2>
