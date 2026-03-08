@@ -1352,8 +1352,8 @@ export default function ComparadorPage() {
                                             <div
                                                 key={idx}
                                                 className={`relative overflow-hidden rounded-[2rem] border transition-all duration-500 ${idx === 0
-                                                        ? "bg-white dark:bg-slate-900 border-primary/30 shadow-2xl shadow-primary/10 ring-2 ring-primary/5"
-                                                        : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-md"
+                                                    ? "bg-white dark:bg-slate-900 border-primary/30 shadow-2xl shadow-primary/10 ring-2 ring-primary/5"
+                                                    : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-md"
                                                     }`}
                                             >
                                                 {/* Top Saving Badge for #1 */}
@@ -1366,7 +1366,14 @@ export default function ComparadorPage() {
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-3">
                                                             <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center p-1 font-black text-[10px] text-slate-400 uppercase tracking-tighter overflow-hidden">
-                                                                {res.tariff.company.substring(0, 3)}
+                                                                {(() => {
+                                                                    const name = res.tariff.company.trim();
+                                                                    const words = name.split(/\s+/);
+                                                                    if (words.length > 1) {
+                                                                        return words.map(w => w[0]).join('').substring(0, 3);
+                                                                    }
+                                                                    return name.length >= 3 ? (name[0] + name[2]) : name.substring(0, 2);
+                                                                })()}
                                                             </div>
                                                             <div>
                                                                 <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{res.tariff.company}</p>
@@ -1402,8 +1409,8 @@ export default function ComparadorPage() {
                                                         <button
                                                             onClick={() => viewDetail(res.tariff.id!)}
                                                             className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 ${idx === 0
-                                                                    ? "bg-primary text-white shadow-lg shadow-primary/20"
-                                                                    : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
+                                                                ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                                                : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
                                                                 }`}
                                                         >
                                                             <span className="material-icons text-sm">visibility</span>
@@ -1419,8 +1426,8 @@ export default function ComparadorPage() {
                                                                 if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                             }}
                                                             className={`w-12 h-12 flex items-center justify-center rounded-xl border transition-all active:scale-90 ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                    ? "bg-red-50 border-red-100 text-red-500"
-                                                                    : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500"
+                                                                ? "bg-red-50 border-red-100 text-red-500"
+                                                                : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500"
                                                                 }`}
                                                         >
                                                             <span className="material-icons">{res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}</span>
@@ -1924,23 +1931,6 @@ export default function ComparadorPage() {
                                     Volver a la Comparativa
                                 </button>
                                 <div className="flex items-center gap-4">
-                                    <button
-                                        onClick={() => {
-                                            if (!user) {
-                                                setIsAuthModalOpen(true);
-                                                return;
-                                            }
-                                            if (selectedResult.tariff.id) toggleFavorite(selectedResult.tariff.id);
-                                        }}
-                                        className={`h-12 w-12 rounded-xl flex items-center justify-center transition-all shadow-sm ${selectedResult.tariff.id && favorites.includes(selectedResult.tariff.id)
-                                            ? "bg-red-50 dark:bg-red-900/20 text-red-500 border border-red-100 dark:border-red-900/30 shadow-red-200/20"
-                                            : "bg-slate-50 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700 hover:text-red-500 hover:border-red-200"
-                                            }`}
-                                    >
-                                        <span className="material-icons text-xl">
-                                            {selectedResult.tariff.id && favorites.includes(selectedResult.tariff.id) ? "favorite" : "favorite_border"}
-                                        </span>
-                                    </button>
                                     <button
                                         onClick={() => window.open(selectedResult.tariff.url, '_blank')}
                                         className="bg-primary text-white font-bold py-3 px-10 rounded-xl text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
