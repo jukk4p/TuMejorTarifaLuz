@@ -8,13 +8,15 @@ export default async function Home() {
   const pricesData = await getElectricityPrices();
 
   const prices = pricesData || {
-    current: 0.1425,
-    average: 0.1125,
-    min: 0.0821,
-    minHour: "15:00 - 16:00",
-    max: 0.2140,
-    maxHour: "20:00 - 21:00",
-    time: "11:31"
+    current: 0.1250,
+    average: 0.1100,
+    min: 0.0800,
+    minHour: "--:--",
+    max: 0.2000,
+    maxHour: "--:--",
+    time: "--:--",
+    isLive: false,
+    allHours: []
   };
   return (
     <>
@@ -110,7 +112,19 @@ export default async function Home() {
                   <div className="flex items-center justify-center md:justify-start gap-3 text-primary">
                     <span className="material-icons">bolt</span>
                     <h3 className="text-lg font-bold tracking-tight">Precio de la Luz Hoy</h3>
-                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-mono font-bold text-slate-500">{prices.time}</span>
+                    <div className="flex items-center gap-2">
+                      {prices.isLive ? (
+                        <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[9px] font-bold uppercase tracking-wider animate-pulse">
+                          <span className="w-1.5 h-1.5 bg-success rounded-full"></span>
+                          Tiempo Real
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded text-[9px] font-bold uppercase tracking-wider">
+                          Modo Ejemplo (API Desconectada)
+                        </span>
+                      )}
+                      <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-mono font-bold text-slate-500">{prices.time}</span>
+                    </div>
                   </div>
                   <div className="space-y-1">
                     <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">PRECIO MEDIO NACIONAL</p>

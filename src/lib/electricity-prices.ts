@@ -6,6 +6,7 @@ export interface ElectricityPriceData {
     max: number;
     maxHour: string;
     time: string;
+    isLive: boolean;
     allHours: any[];
 }
 
@@ -76,6 +77,7 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
             max: maxItem.value,
             maxHour: `${maxItem.hour}:00 - ${maxItem.hour + 1}:00`,
             time: `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`,
+            isLive: true,
             allHours: prices
         };
 
