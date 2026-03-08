@@ -1346,96 +1346,85 @@ export default function ComparadorPage() {
                                     </div>
 
                                     {/* MOBILE VIEW: VERTICAL CARDS (lg:hidden block) */}
-                                    <div className="lg:hidden space-y-6">
-                                        {/* Reference Card - Mobile */}
-                                        <div className="bg-slate-50 dark:bg-slate-800/20 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl relative overflow-hidden group">
-                                            <div className="absolute top-0 right-0 p-4 opacity-10">
-                                                <span className="material-icons text-5xl text-slate-400">history</span>
-                                            </div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Tu tarifa actual</p>
-                                            <div className="flex justify-between items-end relative z-10">
-                                                <div>
-                                                    <p className="text-xl font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tighter">Situación Actual</p>
-                                                    <p className="text-sm text-slate-400">Referencia de mercado</p>
-                                                </div>
-                                                <div className="text-right">
-                                                    <p className="text-2xl font-black text-slate-400">€{(input.current_bill_total || 0).toFixed(2)}</p>
-                                                    <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest mt-1">Gasto base</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Comparison Results - Mobile Headline Focus */}
+                                    {/* Comparison Results - Mobile Premium Redesign */}
+                                    <div className="px-4 space-y-4 pb-8">
                                         {results.map((res, idx) => (
-                                            <div key={idx} className={`p-6 rounded-[2rem] border transition-all duration-300 ${idx === 0
-                                                ? "bg-primary/5 border-primary/20 shadow-xl shadow-primary/5 ring-1 ring-primary/10 scale-[1.02] my-8"
-                                                : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm"
-                                                }`}>
-                                                <div className="flex justify-between items-start mb-6">
-                                                    <div className={`flex items-center gap-1.5 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-red-500"}`}>
-                                                        <span className="material-icons text-lg font-black">
-                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? "trending_down" : "trending_up"}
-                                                        </span>
-                                                        <p className="text-4xl font-black tracking-tighter">€{((input.current_bill_total || 0) - res.total).toFixed(2)}</p>
-                                                    </div>
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            if (!user) {
-                                                                setIsAuthModalOpen(true);
-                                                                return;
-                                                            }
-                                                            if (res.tariff.id) toggleFavorite(res.tariff.id);
-                                                        }}
-                                                        className={`p-2 transition-all ${res.tariff.id && favorites.includes(res.tariff.id) ? "text-primary" : "text-slate-300"
-                                                            }`}
-                                                    >
-                                                        <span className="material-icons">{res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}</span>
-                                                    </button>
-                                                </div>
+                                            <div
+                                                key={idx}
+                                                className={`relative overflow-hidden rounded-[2rem] border transition-all duration-500 ${idx === 0
+                                                        ? "bg-white dark:bg-slate-900 border-primary/30 shadow-2xl shadow-primary/10 ring-2 ring-primary/5"
+                                                        : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-md"
+                                                    }`}
+                                            >
+                                                {/* Top Saving Badge for #1 */}
+                                                {idx === 0 && (
+                                                    <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+                                                )}
 
-                                                <div className="space-y-4 mb-8">
-                                                    <div className="flex items-center gap-3">
-                                                        <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${idx === 0 ? "text-success" : "text-primary"}`}>
-                                                            {res.tariff.company}
-                                                        </p>
-                                                        {/* Badge removido por petición del usuario */}
-                                                    </div>
-                                                    <p className="text-xl font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
-                                                </div>
-
-                                                <div className="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
-                                                    <div>
-                                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Mensual</p>
-                                                        <p className="text-2xl font-black text-slate-900 dark:text-white leading-none">€{res.total.toFixed(2)}</p>
-                                                    </div>
-                                                    <div className="flex gap-2">
-                                                        <div className="flex items-center gap-1 p-1.5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-white/5 shadow-sm">
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    if (!user) {
-                                                                        setIsAuthModalOpen(true);
-                                                                        return;
-                                                                    }
-                                                                    if (res.tariff.id) toggleFavorite(res.tariff.id);
-                                                                }}
-                                                                title={res.tariff.id && favorites.includes(res.tariff.id) ? "Quitar de favoritos" : "Añadir a favoritos"}
-                                                                className={`w-10 h-10 flex items-center justify-center transition-all bg-transparent ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                    ? "text-red-500"
-                                                                    : "text-slate-400"
-                                                                    }`}
-                                                            >
-                                                                <span className="material-icons">{res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}</span>
-                                                            </button>
-                                                            <div className="w-px h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
-                                                            <button
-                                                                onClick={() => viewDetail(res.tariff.id!)}
-                                                                className="w-10 h-10 flex items-center justify-center transition-all bg-transparent text-primary hover:scale-110"
-                                                            >
-                                                                <span className="material-icons text-xl">visibility</span>
-                                                            </button>
+                                                <div className="p-5 space-y-4">
+                                                    {/* Header: Company + Ahorro */}
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center p-1 font-black text-[10px] text-slate-400 uppercase tracking-tighter overflow-hidden">
+                                                                {res.tariff.company.substring(0, 3)}
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{res.tariff.company}</p>
+                                                                <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
+                                                            </div>
                                                         </div>
+
+                                                        {((input.current_bill_total || 0) - res.total) > 0 && (
+                                                            <div className="bg-success/10 text-success px-3 py-1.5 rounded-full flex items-center gap-1.5 animate-in zoom-in-50 duration-500">
+                                                                <span className="material-icons text-xs font-bold">trending_down</span>
+                                                                <span className="text-[10px] font-black tracking-tight">€{((input.current_bill_total || 0) - res.total).toFixed(2)}/mes</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    {/* Price Display */}
+                                                    <div className="flex items-end justify-between bg-slate-50/50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
+                                                        <div>
+                                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Tu cuota estimada</p>
+                                                            <div className="flex items-baseline gap-1">
+                                                                <span className="text-3xl font-900 text-slate-900 dark:text-white tracking-tighter">€{res.total.toFixed(2)}</span>
+                                                                <span className="text-[11px] font-bold text-slate-400">/mes</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="text-right">
+                                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Precio kWh</p>
+                                                            <p className="text-sm font-mono font-black text-primary">{res.tariff.e1_kwh.toFixed(4)}€</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Action Footer */}
+                                                    <div className="flex items-center gap-3">
+                                                        <button
+                                                            onClick={() => viewDetail(res.tariff.id!)}
+                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 ${idx === 0
+                                                                    ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                                                    : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
+                                                                }`}
+                                                        >
+                                                            <span className="material-icons text-sm">visibility</span>
+                                                            Ver Detalles
+                                                        </button>
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                if (!user) {
+                                                                    setIsAuthModalOpen(true);
+                                                                    return;
+                                                                }
+                                                                if (res.tariff.id) toggleFavorite(res.tariff.id);
+                                                            }}
+                                                            className={`w-12 h-12 flex items-center justify-center rounded-xl border transition-all active:scale-90 ${res.tariff.id && favorites.includes(res.tariff.id)
+                                                                    ? "bg-red-50 border-red-100 text-red-500"
+                                                                    : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500"
+                                                                }`}
+                                                        >
+                                                            <span className="material-icons">{res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}</span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

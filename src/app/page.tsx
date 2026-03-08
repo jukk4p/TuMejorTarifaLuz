@@ -44,27 +44,27 @@ export default async function Home() {
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado sin complicaciones ni llamadas.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/comparador?mode=upload" className="flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5">
-                    <span className="material-icons">cloud_upload</span>
+                  <Link href="/comparador?mode=upload" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5 text-sm md:text-base">
+                    <span className="material-icons text-xl">cloud_upload</span>
                     Subir mi factura
                   </Link>
-                  <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-8 py-4 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary/40 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-all">
+                  <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary/40 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-all text-sm md:text-base">
                     Introducir datos manualmente
                   </Link>
                 </div>
-                <div className="flex items-center gap-4 pt-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 pt-6 text-center sm:text-left">
                   <div className="flex -space-x-3">
                     {[
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuCgJZQLt6-Fyqf7_moqrzPYfb7hYORGQiwwLlbzBqJe1WMBjd-d993iGNPMVfgZ_BPSPmM15QjwwXJRgavLxf79XiNjkv0N-3F-9l2b2VOoiO5seRHx4F7P9XLYm6oR13ntO5S4FU9kVavHjge-6qa25Po0lpR5Wk6LzrW38qQT1hB7RPp4PWFYh-BIjdWAoxiqZKXKhxKbZ7rwVnmXN8Z9ULQzoI6W7bBRA94b9nxE7jWybm0oFuBTHomGLUOtnoAemEIZ9wf1gpw",
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuCBli1BMN222idiRlnhliAhCGByaT_VOnwaUcrEhoCMrbY5F82v499DlVDa4FaeT50R3eCtd_oVQXiZeG8FwdFLh7HpnDE-UVH-NsPrjtrq7-O6z0d_IgqMeZtX9Y4kX53AIeE8w_KZuNM-FWQSgzKezNBK_umbtEPXzKgirmjs8OUm8MAP5tkjDO1dJHpMJTDGQY9Wh9NXrCrb_nPSBQr92BCs-UTajK5eVFeAsT-R1rjhyJKyWvudIfUsbnRrxbrm2qXMZ5ADpAM",
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuB84wJGq-7l9kzTmEL8gIZ5gA8DN4CkAQ8juywJhHG8EidRWw_dsheDrH-P1ZtG5YPaHx7KeIkDqH-lYSkDtoGJCWre0crF0bN32ihXd7eqiKgonkFEVCFxl79gzzzWAr9-RUS_TYVpE_bXRH272UKZyq4b0rfpqlGBQnauln_LpXxqvCzewwIq5snDHR7U-zS_ljytqxyzqEG4vB8T_RMM1HZUnfIhnmDzQnZP8kWY5bapSRP2j4OeAxkZ1zU_elmTslpxVBA3XCg"
                     ].map((src, i) => (
-                      <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10 bg-slate-100 dark:bg-slate-800">
+                      <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10 bg-slate-100 dark:bg-slate-800">
                         <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={80} />
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                  <p className="text-[10px] md:text-sm text-slate-500 dark:text-slate-400 max-w-[200px] sm:max-w-none">
                     Únete a las <span className="font-bold text-slate-800 dark:text-slate-100 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4">primeras familias</span> que ya están optimizando su factura
                   </p>
                 </div>
@@ -102,64 +102,64 @@ export default async function Home() {
         </section>
 
         {/* Electricity Price Widget */}
-        <section className="py-12 bg-white dark:bg-background-dark overflow-hidden">
+        <section className="py-8 md:py-12 bg-white dark:bg-background-dark overflow-hidden">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative premium-card perspective-1000 p-8 md:p-10 overflow-hidden border border-slate-100 dark:border-slate-800">
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <span className="material-icons text-[160px]">bolt</span>
+            <div className="relative premium-card p-6 md:p-10 overflow-hidden border border-slate-100 dark:border-slate-800">
+              <div className="absolute top-0 right-0 p-4 md:p-8 opacity-5">
+                <span className="material-icons text-[120px] md:text-[160px]">bolt</span>
               </div>
 
-              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 relative z-10">
-                <div className="text-center md:text-left space-y-4 max-w-md">
-                  <div className="flex items-center justify-center md:justify-start gap-3 text-primary">
-                    <span className="material-icons">bolt_outline</span>
-                    <h3 className="text-base font-bold tracking-tight">Precio de la Luz Hoy</h3>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 relative z-10">
+                <div className="text-center md:text-left space-y-4 max-w-md w-full">
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 text-primary">
+                    <span className="material-icons text-xl md:text-2xl">bolt_outline</span>
+                    <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la Luz Hoy</h3>
                     <div className="flex items-center gap-2">
                       {prices.isLive ? (
-                        <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[8px] font-bold uppercase tracking-wider">
+                        <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[7px] md:text-[8px] font-bold uppercase tracking-wider">
                           <span className="w-1 h-1 bg-success rounded-full animate-pulse"></span>
                           En vivo
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded text-[8px] font-bold uppercase tracking-wider">
+                        <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded text-[7px] md:text-[8px] font-bold uppercase tracking-wider">
                           Muestra
                         </span>
                       )}
                     </div>
                   </div>
                   <div className="space-y-0">
-                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1">MEDIA NACIONAL POOL</p>
-                    <div className="flex items-baseline gap-2">
+                    <p className="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1">MEDIA NACIONAL POOL</p>
+                    <div className="flex items-baseline justify-center md:justify-start gap-2">
                       <span className="text-5xl md:text-6xl font-800 text-slate-900 dark:text-white tracking-tight leading-none">{prices.average.toFixed(4)}</span>
-                      <span className="text-lg font-bold text-slate-400">€/kWh</span>
+                      <span className="text-base md:text-lg font-bold text-slate-400">€/kWh</span>
                     </div>
                   </div>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-success/10 text-success rounded-full text-[11px] font-bold">
-                      <span className="material-icons text-sm">trending_down</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-success/10 text-success rounded-full text-[10px] md:text-[11px] font-bold">
+                      <span className="material-icons text-xs md:text-sm">trending_down</span>
                       {prices.current < prices.average ? 'Bajo media' : 'Estable'}
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-[11px] font-bold">
-                      <span className="material-icons text-sm">update</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-[10px] md:text-[11px] font-bold">
+                      <span className="material-icons text-xs md:text-sm">update</span>
                       {prices.time}
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
-                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[140px]">
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mínimo</p>
-                    <p className="text-xl font-800 text-success">{prices.min.toFixed(4)}€</p>
-                    <div className="flex items-center justify-center gap-1 text-[9px] font-bold text-slate-400/70">
-                      <span className="material-icons text-[14px]">schedule</span>
+                <div className="grid grid-cols-2 gap-3 md:gap-4 w-full md:w-auto">
+                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-3 md:p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[110px] md:min-w-[130px]">
+                    <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mínimo</p>
+                    <p className="text-base md:text-xl font-800 text-success">{prices.min.toFixed(4)}€</p>
+                    <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
+                      <span className="material-icons text-[12px] md:text-[14px]">schedule</span>
                       {prices.minHour}
                     </div>
                   </div>
-                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[140px]">
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Máximo</p>
-                    <p className="text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
-                    <div className="flex items-center justify-center gap-1 text-[9px] font-bold text-slate-400/70">
-                      <span className="material-icons text-[14px]">schedule</span>
+                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-3 md:p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[110px] md:min-w-[130px]">
+                    <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest">Máximo</p>
+                    <p className="text-base md:text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
+                    <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
+                      <span className="material-icons text-[12px] md:text-[14px]">schedule</span>
                       {prices.maxHour}
                     </div>
                   </div>
