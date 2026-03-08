@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getElectricityPrices } from "@/lib/electricity-prices";
 import { blogPosts } from "@/lib/blogData";
+import JsonLd, { webAppSchema } from "@/components/seo/JsonLd";
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +25,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
+      <JsonLd data={webAppSchema} />
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 bg-gradient-to-br from-primary/5 via-transparent to-transparent">
@@ -38,7 +40,7 @@ export default async function Home() {
                   Motor de comparación 2026 - Actualizado hoy
                 </div>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-900 text-slate-900 dark:text-white leading-[1.05] tracking-tight">
-                  Comparamos más de 20 tarifas para que ahorres con nuestro <span className="text-primary">comparador inteligente</span>
+                  Comparador de <span className="text-primary">tarifas de luz</span> gratis para ahorrar en tu factura
                 </h1>
                 <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed mt-4">
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado sin complicaciones ni llamadas.
@@ -338,7 +340,7 @@ export default async function Home() {
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
-                    <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={post.image} alt={post.imageAlt} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">

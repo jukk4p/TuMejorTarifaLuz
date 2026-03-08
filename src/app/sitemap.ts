@@ -1,38 +1,31 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { blogPosts } from '@/lib/blogData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://tumejortarifaluz.es'
+    const baseUrl = 'https://tumejortarifaluz.es';
 
-    return [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/comparador`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tarifas`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/companias`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/guias`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        },
-    ]
+    // Static routes
+    const staticRoutes = [
+        '',
+        '/comparador',
+        '/companias',
+        '/blog',
+        '/tarifas',
+        '/mi-cuenta',
+    ].map((route) => ({
+        url: `${baseUrl}${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: route === '' ? 1 : 0.8,
+    }));
+
+    // Dynamic blog routes
+    const blogRoutes = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date.split('/').reverse().join('-')), // Convert DD/MM/YYYY to YYYY-MM-DD
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+    }));
+
+    return [...staticRoutes, ...blogRoutes];
 }

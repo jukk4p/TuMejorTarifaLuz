@@ -30,7 +30,7 @@ export default function BlogPage() {
                                 <Link href={`/blog/${post.slug}`} className="relative block aspect-video overflow-hidden">
                                     <Image
                                         src={post.image}
-                                        alt={post.title}
+                                        alt={post.imageAlt}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     />

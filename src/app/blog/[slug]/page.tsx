@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <div className="relative aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl">
                         <Image
                             src={post.image}
-                            alt={post.title}
+                            alt={post.imageAlt}
                             fill
                             className="object-cover"
                             priority
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                     <div className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-4">
                                         <Image
                                             src={rPost.image}
-                                            alt={rPost.title}
+                                            alt={rPost.imageAlt}
                                             fill
                                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
