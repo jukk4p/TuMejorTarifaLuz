@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getElectricityPrices } from "@/lib/electricity-prices";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const pricesData = await getElectricityPrices();
 
