@@ -1467,36 +1467,24 @@ export default function ComparadorPage() {
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-8 align-middle border-y border-transparent">
+                                                        <td className="px-4 py-8 align-middle border-y border-transparent">
                                                             <div className="flex flex-col">
                                                                 <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="w-[3px] h-3 rounded-full bg-orange-500"></div>
-                                                                        <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span>
-                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)}</span>
-                                                                    </div>
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="w-[3px] h-3 rounded-full bg-blue-500"></div>
-                                                                        <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span>
-                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span>
-                                                                    </div>
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="w-[3px] h-3 rounded-full bg-success"></div>
-                                                                        <span className="font-bold text-success uppercase text-[9px]">P3:</span>
-                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span>
-                                                                    </div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)}</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-8 align-middle border-y border-transparent text-center">
+                                                        <td className="px-4 py-8 align-middle border-y border-transparent text-center">
                                                             <div className="flex flex-col">
                                                                 <span className="text-xl font-bold text-slate-500 dark:text-slate-400">€{(input.current_bill_total || 0).toFixed(2)}</span>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-8 align-middle border-y border-transparent text-center">
+                                                        <td className="px-4 py-8 align-middle border-y border-transparent text-center">
                                                             <span className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">— REFERENCIA —</span>
                                                         </td>
-                                                        <td className="pr-12 pl-6 py-8 border-y border-transparent rounded-r-[2.5rem] text-right align-middle">
+                                                        <td className="pr-8 pl-4 py-8 border-y border-transparent rounded-r-[2.5rem] text-right align-middle">
                                                             <div className="flex justify-end text-slate-200 dark:text-slate-800">
                                                                 <span className="material-icons text-xl">lock</span>
                                                             </div>
