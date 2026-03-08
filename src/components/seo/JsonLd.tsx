@@ -40,5 +40,12 @@ export const webAppSchema = {
         "price": "0",
         "priceCurrency": "EUR"
     },
-    "operatingSystem": "Web"
+    "operatingSystem": "Web",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+    }
 };

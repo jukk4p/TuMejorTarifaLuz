@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getElectricityPrices } from "@/lib/electricity-prices";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema } from "@/components/seo/JsonLd";
+import ClientParticles from "@/components/3d/ClientParticles";
 
 export const dynamic = 'force-dynamic';
 
@@ -28,8 +29,11 @@ export default async function Home() {
       <JsonLd data={webAppSchema} />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 bg-gradient-to-br from-primary/5 via-transparent to-transparent">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 bg-gradient-to-br from-primary/5 via-transparent to-transparent min-h-[70vh] flex items-center">
+          {/* 3D Background Effect */}
+          <ClientParticles />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest">
