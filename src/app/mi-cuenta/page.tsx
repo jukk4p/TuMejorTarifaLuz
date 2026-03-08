@@ -160,30 +160,38 @@ export default function ProfilePage() {
 
     const deleteBill = async (billId: string, filePath?: string) => {
         if (!user) return;
-        if (!confirm("¿Estás seguro de que quieres borrar este análisis? También se eliminará la factura subida de tu cuenta.")) return;
+        if (!confirm("⚠️ ¿Estás seguro? Se eliminará el estudio y su factura de tu cuenta. (Tú no podrás recuperarla, pero Administración guardará una copia de seguridad interna).")) return;
 
         try {
-            // 1. Borrar de Firestore
-            await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
-
-            // 2. Si hay un archivo en R2, intentar borrarlo (excepto si es Admin)
+            // 1. Borrar de Cloudflare R2 PRIMERO (si existe ruta)
             if (filePath && !filePath.startsWith("Facturas_Admin")) {
                 try {
-                    await fetch("/api/delete-file", {
+                    console.log("Iniciando borrado físico en R2:", filePath);
+                    const response = await fetch("/api/delete-file", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ path: filePath }),
                     });
-                } catch (r2Err) {
-                    console.error("Error deleting file from R2:", r2Err);
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.warn("R2 API respondió con error (posiblemente ya no existe):", errorData);
+                    } else {
+                        console.log("Archivo borrado de R2 correctamente");
+                    }
+                } catch (r2Err: any) {
+                    console.error("Error crítico conectando con R2 API:", r2Err);
                 }
             }
 
+            // 2. Borrar de Firestore DESPUÉS
+            await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
+
             if (isDetailsModalOpen) setIsDetailsModalOpen(false);
-            alert("Análisis eliminado correctamente.");
+            alert("✅ Borrado completado con éxito.");
         } catch (error) {
-            console.error("Error deleting bill:", error);
-            alert("No se pudo borrar el análisis");
+            console.error("Error general en el proceso de borrado:", error);
+            alert("❌ Hubo un fallo al eliminar el registro.");
         }
     };
 
