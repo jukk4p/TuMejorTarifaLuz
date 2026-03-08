@@ -258,6 +258,7 @@ export default function ComparadorPage() {
             console.log("Iniciando guardado de factura en Cloudflare R2...");
 
             let fileCloudUrl = null;
+            let uploadData = null;
             if (uploadedFileRaw) {
                 console.log("Subiendo archivo original a R2...", uploadedFileRaw.name);
 
@@ -275,7 +276,7 @@ export default function ComparadorPage() {
                     throw new Error(`Error en R2: ${errorDetails.error}${errorDetails.details ? ' - ' + errorDetails.details : ''}`);
                 }
 
-                const uploadData = await uploadResponse.json();
+                uploadData = await uploadResponse.json();
                 fileCloudUrl = uploadData.url;
                 console.log("Archivo subido con éxito a R2:", fileCloudUrl);
             }
@@ -289,6 +290,7 @@ export default function ComparadorPage() {
                 potentialSavings: (input.current_bill_total || 0) - (results[0]?.total || 0),
                 isAiGenerated: isAiGenerated,
                 invoiceFileUrl: fileCloudUrl,
+                invoiceFilePath: uploadData?.path || null,
                 invoiceFileType: uploadedFileType
             });
             console.log("Análisis guardado en Firestore correctamente");
