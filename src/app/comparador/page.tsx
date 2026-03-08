@@ -1261,15 +1261,15 @@ export default function ComparadorPage() {
                                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-start text-left">
-                                            <div className="flex justify-between items-start mb-4 w-full">
+                                        <div className="relative z-10 flex flex-col items-center text-center">
+                                            <div className="flex justify-between items-start mb-4 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">payments</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">€{results[0].total.toFixed(2)}</p>
-                                            <div className="flex items-center gap-1.5 text-success justify-start w-full">
+                                            <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <span className="material-icons text-[12px]">arrow_downward</span>
                                                 </div>
@@ -1282,15 +1282,15 @@ export default function ComparadorPage() {
                                         className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-start text-left">
-                                            <div className="flex justify-between items-start mb-4 w-full">
+                                        <div className="relative z-10 flex flex-col items-center text-center">
+                                            <div className="flex justify-between items-start mb-4 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">calendar_month</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">€{(results[0].total * 12).toFixed(2)}</p>
-                                            <div className="flex items-center gap-1.5 text-success justify-start w-full">
+                                            <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <span className="material-icons text-[12px]">arrow_downward</span>
                                                 </div>
@@ -1308,15 +1308,15 @@ export default function ComparadorPage() {
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
                                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 h-full w-full flex flex-col justify-between items-start text-left">
-                                            <div className="flex justify-between items-start mb-2 w-full">
+                                        <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center">
+                                            <div className="flex justify-between items-start mb-2 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">emoji_events</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
                                             <div>
-                                                <div className="flex items-baseline gap-1 mb-1 justify-start">
+                                                <div className="flex items-baseline gap-1 mb-1 justify-center">
                                                     <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
                                                     <span className="text-[10px] font-bold text-primary/60">€/kWh</span>
                                                 </div>
