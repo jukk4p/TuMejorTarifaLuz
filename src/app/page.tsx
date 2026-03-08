@@ -260,7 +260,7 @@ export default async function Home() {
                       "name": "¿Tengo que pagar por usar el comparador?",
                       "acceptedAnswer": {
                         "@type": "Answer",
-                        "text": "No, el uso de nuestra plataforma es 100% gratuito para los usuarios. Recibimos una pequeña comisión por parte de las comercializadoras cuando decides cambiarte a una tarifa mejor a través de nuestro enlace, lo que nos permite mantener nuestro servicio independiente y libre de costes para ti."
+                        "text": "No, el uso de nuestra plataforma es 100% gratuito. Este es un proyecto independiente que busca ayudar a los usuarios a ahorrar de forma altruista. Los enlaces que proporcionamos son los oficiales de cada comercializadora y no recibimos comisión alguna por las contrataciones."
                       }
                     },
                     {
@@ -291,7 +291,7 @@ export default async function Home() {
                 },
                 {
                   q: "¿Tengo que pagar por usar el comparador?",
-                  a: "No, el uso de nuestra plataforma es 100% gratuito para los usuarios. Recibimos una pequeña comisión por parte de las comercializadoras cuando decides cambiarte a una tarifa mejor a través de nuestro enlace, lo que nos permite mantener nuestro servicio independiente y libre de costes para ti.",
+                  a: "No, el uso de nuestra plataforma es 100% gratuito. Este es un proyecto independiente y altruista diseñado para ayudar a las familias a ahorrar en su factura de la luz. Proporcionamos enlaces oficiales directos a las comercializadoras y no percibimos ningún tipo de comisión por ello.",
                   success: true
                 },
                 {
