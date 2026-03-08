@@ -1308,15 +1308,15 @@ export default function ComparadorPage() {
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
                                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 h-full flex flex-col justify-between items-center md:items-start text-center md:text-left">
+                                        <div className="relative z-10 h-full flex flex-col justify-between items-start text-left">
                                             <div className="flex justify-between items-start mb-2 w-full">
-                                                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 mx-auto md:mx-0 group-hover:scale-110 transition-transform">
+                                                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">emoji_events</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
                                             <div>
-                                                <div className="flex items-baseline gap-1 mb-1 justify-center md:justify-start">
+                                                <div className="flex items-baseline gap-1 mb-1 justify-start">
                                                     <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
                                                     <span className="text-[10px] font-bold text-primary/60">€/kWh</span>
                                                 </div>
@@ -1348,9 +1348,8 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
 
-                                    {/* MOBILE VIEW: VERTICAL CARDS (lg:hidden block) */}
-                                    {/* Comparison Results - Mobile Premium Redesign */}
-                                    <div className="px-4 space-y-4 pb-8">
+                                    {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
+                                    <div className="md:hidden px-4 space-y-4 pb-8">
                                         {results.map((res, idx) => (
                                             <div
                                                 key={idx}
@@ -1429,8 +1428,8 @@ export default function ComparadorPage() {
                                         ))}
                                     </div>
 
-                                    {/* DESKTOP VIEW: TABLE (lg:block hidden) */}
-                                    <div className="hidden lg:block overflow-x-auto">
+                                    {/* DESKTOP VIEW: TABLE (hidden md:block) */}
+                                    <div className="hidden md:block overflow-x-auto overflow-y-hidden">
                                         <div className="relative overflow-hidden rounded-[3rem] bg-slate-50/40 dark:bg-slate-950/20 backdrop-blur-xl border border-slate-200/50 dark:border-white/5 p-3 shadow-2xl">
                                             {/* Decorative Grid Background */}
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none z-0"
@@ -1464,41 +1463,29 @@ export default function ComparadorPage() {
                                                             <div className="flex items-center gap-4">
                                                                 <div>
                                                                     <p className="text-[10px] font-bold text-slate-400 uppercase">SITUACIÓN BASE</p>
-                                                                    <p className="text-base font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Referencia Estándar</p>
+                                                                    <p className="text-base font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Referencia</p>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-8 align-middle border-y border-transparent">
                                                             <div className="flex flex-col">
-                                                                {((input.current_price_p2 || 0) > 0 || (input.current_price_p3 || 0) > 0) ? (
-                                                                    <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                        <div className="flex items-center gap-2">
-                                                                            <div className="w-[3px] h-3 rounded-full bg-orange-500"></div>
-                                                                            <span className="font-bold text-slate-400 uppercase text-[9px]">P1:</span>
-                                                                            <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)}</span>
-                                                                        </div>
-                                                                        <div className="flex items-center gap-2">
-                                                                            <div className="w-[3px] h-3 rounded-full bg-blue-500"></div>
-                                                                            <span className="font-bold text-slate-400 uppercase text-[9px]">P2:</span>
-                                                                            <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p2 || 0).toFixed(4)}</span>
-                                                                        </div>
-                                                                        <div className="flex items-center gap-2">
-                                                                            <div className="w-[3px] h-3 rounded-full bg-success"></div>
-                                                                            <span className="font-bold text-slate-400 uppercase text-[9px]">P3:</span>
-                                                                            <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p3 || 0).toFixed(4)}</span>
-                                                                        </div>
+                                                                <div className="flex flex-col gap-0.5 text-[11px]">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <div className="w-[3px] h-3 rounded-full bg-orange-500"></div>
+                                                                        <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span>
+                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)}</span>
                                                                     </div>
-                                                                ) : (
-                                                                    <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                        <div className="h-[16px]"></div>
-                                                                        <div className="flex items-center gap-2">
-                                                                            <div className="w-[3px] h-3 rounded-full bg-orange-500"></div>
-                                                                            <span className="font-bold text-slate-400 uppercase text-[9px]">P1:</span>
-                                                                            <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)}</span>
-                                                                        </div>
-                                                                        <div className="h-[16px]"></div>
+                                                                    <div className="flex items-center gap-2">
+                                                                        <div className="w-[3px] h-3 rounded-full bg-blue-500"></div>
+                                                                        <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span>
+                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span>
                                                                     </div>
-                                                                )}
+                                                                    <div className="flex items-center gap-2">
+                                                                        <div className="w-[3px] h-3 rounded-full bg-success"></div>
+                                                                        <span className="font-bold text-success uppercase text-[9px]">P3:</span>
+                                                                        <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-8 align-middle border-y border-transparent text-center">
@@ -1541,23 +1528,11 @@ export default function ComparadorPage() {
                                                             </td>
                                                             <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800">
                                                                 <div className="flex flex-col">
-                                                                    {res.tariff.type === '3 Periodos' ? (
-                                                                        <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                            <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-slate-400 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)}</span></div>
-                                                                            <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-slate-400 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e2_kwh.toFixed(4)}</span></div>
-                                                                            <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-slate-400 uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e3_kwh.toFixed(4)}</span></div>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                            <div className="h-[16px]"></div>
-                                                                            <div className="flex items-center gap-2">
-                                                                                <div className="w-[3px] h-3 rounded-full bg-orange-500"></div>
-                                                                                <span className="font-bold text-slate-400 uppercase text-[9px]">P1:</span>
-                                                                                <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)}</span>
-                                                                            </div>
-                                                                            <div className="h-[16px]"></div>
-                                                                        </div>
-                                                                    )}
+                                                                    <div className="flex flex-col gap-0.5 text-[11px]">
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)}</span></div>
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                             <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800 text-center">
