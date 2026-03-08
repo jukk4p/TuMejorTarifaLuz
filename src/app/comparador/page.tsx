@@ -812,61 +812,73 @@ export default function ComparadorPage() {
                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="flex flex-col lg:flex-row gap-8 min-h-[700px]">
                             {/* LEFT: INVOICE PREVIEW */}
-                            <div className="flex-1 premium-card overflow-hidden flex flex-col">
-                                <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/20">
-                                    <div className="flex items-center gap-2">
-                                        <span className="material-icons text-slate-400 text-lg">visibility</span>
-                                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Vista Previa de Factura</span>
+                            <div className="flex-1 premium-card overflow-hidden flex flex-col group/preview border-none shadow-2xl">
+                                <div className="px-8 py-5 border-b border-slate-100 dark:border-slate-800/50 flex justify-between items-center bg-white dark:bg-slate-900/50 transition-colors">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                                            <span className="material-icons text-primary text-base">visibility</span>
+                                        </div>
+                                        <span className="text-xs font-800 uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Vista Previa de Factura</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <button className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"><span className="material-icons text-sm">zoom_in</span></button>
-                                        <button className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"><span className="material-icons text-sm">zoom_out</span></button>
+                                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                                        <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
+                                            <span className="material-icons text-lg">zoom_in</span>
+                                        </button>
+                                        <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1"></div>
+                                        <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
+                                            <span className="material-icons text-lg">zoom_out</span>
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="flex-1 p-4 sm:p-8 overflow-y-auto bg-slate-200/50 dark:bg-background-dark/50 flex items-center justify-center">
+                                <div className="flex-1 p-6 sm:p-12 overflow-y-auto bg-slate-50 dark:bg-slate-950/40 flex items-center justify-center relative">
+                                    {/* Subtly animated background pattern */}
+                                    <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(#00c853_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
                                     {uploadedFileUrl ? (
-                                        <div className="w-full h-full max-w-4xl flex items-center justify-center animate-in zoom-in-95 duration-500">
+                                        <div className="w-full h-full max-w-4xl flex items-center justify-center animate-in zoom-in-95 fade-in duration-700">
                                             {uploadedFileType === 'application/pdf' ? (
-                                                <iframe
-                                                    src={`${uploadedFileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                                                    className="w-full h-full min-h-[600px] border-none rounded-xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] bg-white"
-                                                    title="Factura PDF"
-                                                />
+                                                <div className="relative w-full h-full min-h-[650px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden ring-1 ring-white/10">
+                                                    <iframe
+                                                        src={`${uploadedFileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                                                        className="w-full h-full absolute inset-0 border-none bg-white"
+                                                        title="Factura PDF"
+                                                    />
+                                                </div>
                                             ) : (
-                                                <div className="relative group">
-                                                    <div className="absolute -inset-4 bg-primary/20 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                                <div className="relative group/doc">
+                                                    {/* Glow effect */}
+                                                    <div className="absolute -inset-8 bg-gradient-to-br from-primary/30 to-blue-500/30 rounded-[3rem] blur-3xl opacity-0 group-hover/doc:opacity-100 transition-opacity duration-1000"></div>
+
                                                     <img
                                                         src={uploadedFileUrl}
                                                         alt="Vista previa de factura"
-                                                        className="relative max-w-full max-h-[700px] object-contain shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-lg"
+                                                        className="relative max-w-full max-h-[750px] object-contain shadow-[0_50px_120px_-30px_rgba(0,0,0,0.5)] dark:shadow-[0_50px_120px_-30px_rgba(0,0,0,0.8)] rounded-2xl ring-1 ring-white/20 transition-transform duration-500 group-hover/doc:scale-[1.01]"
                                                     />
+
+                                                    {/* Corner shine effect */}
+                                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/20 to-transparent pointer-events-none rounded-tr-2xl"></div>
                                                 </div>
                                             )}
                                         </div>
                                     ) : (
-                                        <div className="max-w-md mx-auto aspect-[1/1.414] bg-white shadow-2xl rounded p-12 border-t-8 border-primary relative">
-                                            <div className="w-full h-24 bg-slate-200 mb-8 rounded"></div>
+                                        <div className="max-w-md mx-auto aspect-[1/1.414] bg-white dark:bg-slate-900 shadow-2xl rounded-xl p-12 border-t-[10px] border-primary relative overflow-hidden">
+                                            <div className="w-full h-24 bg-slate-100 dark:bg-slate-800 mb-8 rounded-lg animate-pulse"></div>
                                             <div className="space-y-4">
-                                                <div className="w-3/4 h-3 bg-slate-100 rounded"></div>
-                                                <div className="w-1/2 h-3 bg-slate-100 rounded"></div>
+                                                <div className="w-3/4 h-3 bg-slate-50 dark:bg-slate-800 rounded-full"></div>
+                                                <div className="w-1/2 h-3 bg-slate-50 dark:bg-slate-800 rounded-full"></div>
                                             </div>
-                                            <div className="mt-12 space-y-6">
-                                                <div className="flex justify-between items-center border-b pb-2">
-                                                    <div className="w-24 h-4 bg-slate-200 rounded"></div>
-                                                    <div className="w-16 h-4 bg-primary/20 rounded"></div>
+                                            <div className="mt-16 space-y-8">
+                                                <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4">
+                                                    <div className="w-24 h-4 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+                                                    <div className="w-16 h-4 bg-primary/10 rounded-full"></div>
                                                 </div>
-                                                <div className="flex justify-between items-center border-b pb-2">
-                                                    <div className="w-32 h-4 bg-slate-200 rounded text-ai-purple"></div>
-                                                    <div className="w-12 h-4 bg-ai-purple/10 rounded"></div>
+                                                <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4">
+                                                    <div className="w-32 h-4 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+                                                    <div className="w-12 h-4 bg-blue-500/10 rounded-full"></div>
                                                 </div>
                                             </div>
-                                            {/* Highlight markers */}
-                                            <div className="absolute top-[20%] left-10 w-32 h-20 bg-primary/5 border border-primary/20 rounded"></div>
-                                            <div className="absolute top-[45%] left-10 w-24 h-12 bg-success/5 border border-success/20 rounded"></div>
-                                            <div className="absolute top-[60%] right-10 w-40 h-10 bg-ai-purple/5 border border-ai-purple/20 rounded"></div>
-                                            {/* Watermark icon */}
-                                            <div className="absolute bottom-12 right-12 opacity-10 rotate-12">
-                                                <span className="material-icons text-8xl">verified</span>
+                                            <div className="absolute bottom-12 right-12 opacity-5 rotate-12">
+                                                <span className="material-icons text-[120px] text-primary">analytics</span>
                                             </div>
                                         </div>
                                     )}
