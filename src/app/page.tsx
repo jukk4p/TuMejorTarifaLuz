@@ -104,69 +104,80 @@ export default async function Home() {
 
         {/* Electricity Price Widget */}
         <section className="py-12 bg-white dark:bg-background-dark overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative premium-card perspective-1000 p-8 md:p-12 overflow-hidden border border-slate-100 dark:border-slate-800">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative premium-card perspective-1000 p-8 md:p-10 overflow-hidden border border-slate-100 dark:border-slate-800">
               <div className="absolute top-0 right-0 p-8 opacity-5">
-                <span className="material-icons text-[200px]">bolt</span>
+                <span className="material-icons text-[160px]">bolt</span>
               </div>
 
-              <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
-                <div className="text-center md:text-left space-y-4">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 relative z-10">
+                <div className="text-center md:text-left space-y-4 max-w-md">
                   <div className="flex items-center justify-center md:justify-start gap-3 text-primary">
-                    <span className="material-icons">bolt</span>
-                    <h3 className="text-lg font-bold tracking-tight">Precio de la Luz Hoy</h3>
+                    <span className="material-icons">bolt_outline</span>
+                    <h3 className="text-base font-bold tracking-tight">Precio de la Luz Hoy</h3>
                     <div className="flex items-center gap-2">
                       {prices.isLive ? (
-                        <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[9px] font-bold uppercase tracking-wider animate-pulse">
-                          <span className="w-1.5 h-1.5 bg-success rounded-full"></span>
-                          Tiempo Real
+                        <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[8px] font-bold uppercase tracking-wider">
+                          <span className="w-1 h-1 bg-success rounded-full animate-pulse"></span>
+                          En vivo
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded text-[9px] font-bold uppercase tracking-wider">
-                          Modo Ejemplo (API Desconectada)
+                        <span className="px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded text-[8px] font-bold uppercase tracking-wider">
+                          Muestra
                         </span>
                       )}
-                      <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded text-[10px] font-mono font-bold text-slate-500">{prices.time}</span>
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">PRECIO MEDIO NACIONAL</p>
+                  <div className="space-y-0">
+                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-1">MEDIA NACIONAL POOL</p>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-6xl md:text-7xl font-800 text-slate-900 dark:text-white tracking-tight">{prices.average.toFixed(4)}</span>
-                      <span className="text-xl md:text-2xl font-bold text-slate-400">€/kWh</span>
+                      <span className="text-5xl md:text-6xl font-800 text-slate-900 dark:text-white tracking-tight leading-none">{prices.average.toFixed(4)}</span>
+                      <span className="text-lg font-bold text-slate-400">€/kWh</span>
                     </div>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-success/10 text-success rounded-full text-sm font-bold">
-                    <span className="material-icons text-lg">trending_down</span>
-                    {prices.current < prices.average ? 'Precio actual por debajo de la media' : 'Precio estable en mercado'}
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-success/10 text-success rounded-full text-[11px] font-bold">
+                      <span className="material-icons text-sm">trending_down</span>
+                      {prices.current < prices.average ? 'Bajo media' : 'Estable'}
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-[11px] font-bold">
+                      <span className="material-icons text-sm">update</span>
+                      {prices.time}
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6 w-full md:w-auto">
-                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-6 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-3">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mínimo Hoy</p>
-                    <p className="text-2xl font-800 text-success">{prices.min.toFixed(4)}€</p>
-                    <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-slate-400">
-                      <span className="material-icons text-sm">schedule</span>
+                <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
+                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[140px]">
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mínimo</p>
+                    <p className="text-xl font-800 text-success">{prices.min.toFixed(4)}€</p>
+                    <div className="flex items-center justify-center gap-1 text-[9px] font-bold text-slate-400/70">
+                      <span className="material-icons text-[14px]">schedule</span>
                       {prices.minHour}
                     </div>
                   </div>
-                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-6 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-3">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Máximo Hoy</p>
-                    <p className="text-2xl font-800 text-error">{prices.max.toFixed(4)}€</p>
-                    <div className="flex items-center justify-center gap-1 text-[10px] font-bold text-slate-400">
-                      <span className="material-icons text-sm">schedule</span>
+                  <div className="bg-slate-50/50 dark:bg-slate-800/20 p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[140px]">
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Máximo</p>
+                    <p className="text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
+                    <div className="flex items-center justify-center gap-1 text-[9px] font-bold text-slate-400/70">
+                      <span className="material-icons text-[14px]">schedule</span>
                       {prices.maxHour}
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-12 p-4 bg-primary/5 dark:bg-primary/10 rounded-2xl flex items-start gap-4 border border-primary/10 relative z-10">
-                <span className="material-icons text-primary mt-1">info</span>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Datos actualizados del mercado mayorista (POOL). Recuerda que si tienes una <span className="font-bold text-slate-900 dark:text-white">tarifa fija</span>, el precio que pagas es siempre el mismo independientemente de estos valores.
-                </p>
+              <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                  <span className="material-icons text-sm text-primary">info</span>
+                  <p className="text-[11px] leading-relaxed italic">
+                    POOL mayorista. Si tienes **tarifa fija**, tu precio no depende de estos valores.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary rounded-lg text-[10px] font-bold border border-primary/10 uppercase tracking-tight">
+                  <span className="material-icons text-xs">no_accounts</span>
+                  Comparator de uso libre sin registro
+                </div>
               </div>
             </div>
           </div>
@@ -378,11 +389,15 @@ export default async function Home() {
                   ))}
                 </div>
 
-                <div className="pt-4">
-                  <Link href="/auth" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                <div className="pt-4 flex flex-col sm:flex-row items-center gap-6">
+                  <Link href="/mi-cuenta" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
                     Crear mi cuenta gratuita
                     <span className="material-icons ml-2">person_add</span>
                   </Link>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest flex items-center gap-2">
+                    <span className="material-icons text-sm">check_circle</span>
+                    O usa el comparador sin registro
+                  </p>
                 </div>
               </div>
 
