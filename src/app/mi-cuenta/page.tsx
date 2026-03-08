@@ -24,6 +24,14 @@ interface SavedBill {
     bestCompany: string;
     current_bill_total: number;
     isAiGenerated?: boolean;
+    // Datos digitalizados
+    power_p1?: number;
+    power_p2?: number;
+    energy_p1?: number;
+    energy_p2?: number;
+    energy_p3?: number;
+    days?: number;
+    invoiceFileUrl?: string;
 }
 
 export default function ProfilePage() {
@@ -42,6 +50,8 @@ export default function ProfilePage() {
     const [editName, setEditName] = useState("");
     const [editPhoto, setEditPhoto] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
+    const [selectedBill, setSelectedBill] = useState<SavedBill | null>(null);
+    const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
 
     // Consumption state
     const [consumptionSettings, setConsumptionSettings] = useState({
@@ -257,7 +267,10 @@ export default function ProfilePage() {
                                     {savedBills.filter(b => b.isAiGenerated).map((bill) => (
                                         <div
                                             key={bill.id}
-                                            onClick={() => router.push(`/comparador?historyId=${bill.id}`)}
+                                            onClick={() => {
+                                                setSelectedBill(bill);
+                                                setIsDetailsModalOpen(true);
+                                            }}
                                             className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm hover:border-primary/30 transition-all group relative overflow-hidden cursor-pointer"
                                         >
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full"></div>
@@ -281,9 +294,9 @@ export default function ProfilePage() {
                                             </div>
 
                                             <button
-                                                className="w-full h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                                                className="w-full h-11 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl text-[10px] font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all border border-slate-200 dark:border-slate-700"
                                             >
-                                                Ver Análisis IA
+                                                Ver Datos Digitalizados
                                             </button>
                                         </div>
                                     ))}
@@ -675,6 +688,121 @@ export default function ProfilePage() {
                                     </button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal Detalles de Factura Digitalizada */}
+            {isDetailsModalOpen && selectedBill && (
+                <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                    <div
+                        className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-10 shadow-3xl border border-slate-100 dark:border-slate-800 relative overflow-hidden animate-in zoom-in-95 duration-300"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-24 -mt-24"></div>
+
+                        <div className="relative z-10">
+                            <div className="flex justify-between items-start mb-10">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                        <span className="material-icons text-3xl">fact_check</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-900 tracking-tight dark:text-white mb-1">Datos Extraídos por IA</h3>
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{selectedBill.name} • {selectedBill.createdAt?.toDate().toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setIsDetailsModalOpen(false)}
+                                    className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                                >
+                                    <span className="material-icons text-xl">close</span>
+                                </button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                                <div className="space-y-6">
+                                    <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                            <span className="w-1 h-1 bg-primary rounded-full"></span> Término de Potencia
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-500 mb-1">P1 (Punta)</p>
+                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.power_p1?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-500 mb-1">P2 (Valle)</p>
+                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.power_p2?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                            <span className="w-1 h-1 bg-primary rounded-full"></span> Información General
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-500 mb-1">Días de Factura</p>
+                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.days || "--"} <span className="text-[10px] text-slate-400">días</span></p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[9px] font-bold text-slate-500 mb-1">Total Factura</p>
+                                                <p className="text-lg font-mono font-bold text-primary">€{selectedBill.current_bill_total?.toFixed(2)}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 h-full">
+                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                        <span className="w-1 h-1 bg-primary rounded-full"></span> Energía Consumida (kWh)
+                                    </p>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                            <span className="text-xs font-bold text-orange-500">P1 (Punta)</span>
+                                            <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p1?.toFixed(1) || "0.0"} kWh</span>
+                                        </div>
+                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                            <span className="text-xs font-bold text-blue-500">P2 (Llano)</span>
+                                            <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p2?.toFixed(1) || "0.0"} kWh</span>
+                                        </div>
+                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                            <span className="text-xs font-bold text-green-500">P3 (Valle)</span>
+                                            <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p3?.toFixed(1) || "0.0"} kWh</span>
+                                        </div>
+                                        <div className="pt-2 flex justify-between items-center">
+                                            <span className="text-xs font-black uppercase text-slate-400">Total</span>
+                                            <span className="text-lg font-mono font-black text-slate-900 dark:text-white">
+                                                {((selectedBill.energy_p1 || 0) + (selectedBill.energy_p2 || 0) + (selectedBill.energy_p3 || 0)).toFixed(1)} kWh
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-100 dark:border-slate-800 mt-6">
+                                {selectedBill.invoiceFileUrl && (
+                                    <a
+                                        href={selectedBill.invoiceFileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 h-14 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-xs font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
+                                    >
+                                        <span className="material-icons text-sm">picture_as_pdf</span>
+                                        Ver Documento Original
+                                    </a>
+                                )}
+                                <button
+                                    onClick={() => router.push(`/comparador?historyId=${selectedBill.id}`)}
+                                    className="flex-1 h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                >
+                                    Ir a la Comparativa
+                                    <span className="material-icons text-sm">analytics</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
