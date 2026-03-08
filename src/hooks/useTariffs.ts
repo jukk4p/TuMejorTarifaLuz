@@ -1,42 +1,22 @@
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
 import { Tariff } from '@/lib/tariffs';
 import tariffsData from '@/lib/data.json';
-
-// We initially populate with data.json to avoid layout shift,
-// but then synchronize with Firebase for real-time updates.
 import { getTariffId } from '@/lib/tariffs';
 
-// We initially populate with data.json to avoid layout shift,
-// but then synchronize with Firebase for real-time updates.
 export function useTariffs() {
+    // Usamos exclusivamente los datos de data.json que el usuario actualiza manualmente
     const defaultTariffs = (tariffsData as Tariff[]).map(t => ({
         ...t,
         id: getTariffId(t)
     }));
-    const [tariffs, setTariffs] = useState<Tariff[]>(defaultTariffs);
-    const [loading, setLoading] = useState(true);
+
+    const [tariffs] = useState<Tariff[]>(defaultTariffs);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const q = query(collection(db, "tariffs"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const data = snapshot.docs.map(doc => {
-                return { ...doc.data(), id: doc.id } as Tariff;
-            });
-            if (data.length > 0) {
-                setTariffs(data);
-            }
-            setLoading(false);
-        }, (error) => {
-            // Silently fail for guests or handle permission errors gracefully
-            if (error.code !== "permission-denied") {
-                console.error("Firebase fetch error:", error);
-            }
-            setLoading(false);
-        });
-
-        return () => unsubscribe();
+        // Ya no necesitamos sincronizar con Firestore para los precios
+        // puesto que el usuario prefiere gestionarlos vía script manual + data.json
+        setLoading(false);
     }, []);
 
     return { tariffs, loading };
