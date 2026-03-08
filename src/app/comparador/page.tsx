@@ -1218,11 +1218,14 @@ export default function ComparadorPage() {
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
-                                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                                    <div
+                                        onClick={() => viewDetail(results[0].tariff.id!)}
+                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                    >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
                                             <div className="flex justify-between items-start mb-4 w-full">
-                                                <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                                <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">payments</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
@@ -1237,11 +1240,14 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                                    <div
+                                        onClick={() => viewDetail(results[0].tariff.id!)}
+                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                    >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
                                             <div className="flex justify-between items-start mb-4 w-full">
-                                                <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success">
+                                                <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">calendar_month</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
@@ -1251,14 +1257,18 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-gradient-to-br from-primary/5 via-white dark:via-slate-900 to-transparent border border-primary/20 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                                    <div
+                                        onClick={() => viewDetail(results[0].tariff.id!)}
+                                        className="bg-gradient-to-br from-primary/5 via-white dark:via-slate-900 to-transparent border border-primary/20 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                    >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
                                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 h-full flex flex-col justify-between items-center md:items-start text-center md:text-left">
                                             <div className="flex justify-between items-start mb-2 w-full">
-                                                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 mx-auto md:mx-0">
+                                                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 mx-auto md:mx-0 group-hover:scale-110 transition-transform">
                                                     <span className="material-icons text-xl">emoji_events</span>
                                                 </div>
+                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
                                             <div>
                                                 <div className="flex items-baseline gap-1 mb-1 justify-center md:justify-start">
