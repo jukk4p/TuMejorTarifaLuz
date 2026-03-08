@@ -16,186 +16,198 @@ export const blogPosts: BlogPost[] = [
   {
     id: "guia-factura-luz-2026",
     slug: "como-leer-entender-factura-luz-2026",
-    title: "Guía Definitiva 2026: Entiende cada concepto de tu factura de la luz",
+    title: "Guía Definitiva 2026: Cómo entender cada concepto de tu factura de la luz",
     excerpt: "Desglosamos término a término tu recibo: potencia contratada, energía consumida, peajes e impuestos para que dejes de pagar por lo que no entiendes.",
     content: `
-      <h2>El laberinto de la factura eléctrica</h2>
-      <p>Entender la factura de la luz se ha convertido en un reto para la mayoría de los consumidores en España. Con los cambios normativos de 2026, han aparecido nuevos conceptos que pueden confundirnos.</p>
+      <h2>El laberinto del recibo eléctrico en 2026</h2>
+      <p>Entender la factura de la luz se ha convertido en un reto de ingeniería para la mayoría de los consumidores en España. Con los cambios normativos aplicados este 2026, han aparecido conceptos técnicos que pueden disparar tu gasto si no los vigilas de cerca.</p>
       
-      <h3>1. Término de Potencia</h3>
-      <p>Es la parte fija de tu factura. Pagas por la capacidad de conectar varios aparatos a la vez. Actualmente, puedes tener dos potencias distintas: una para las horas punta y otra para las valle.</p>
+      <h3>1. Término de Potencia (Fijo)</h3>
+      <p>Es el precio que pagas por la capacidad de conectar aparatos simultáneamente. Se mide en **kW** y representa el coste fijo de tu recibo, consumas o no. En el sistema actual, puedes optimizar tu gasto contratando dos potencias distintas: una para las **horas punta** y otra para las **horas valle**, algo vital si tienes coche eléctrico.</p>
       
-      <h3>2. Término de Energía</h3>
-      <p>Este es el coste del consumo real. Se mide en kWh y suele estar dividido en tres tramos horarios: Punta, Llano y Valle.</p>
+      <h3>2. Término de Energía (Variable)</h3>
+      <p>Este es el coste del consumo real. Se mide en **kWh** y su precio fluctúa según el mercado mayorista o el acuerdo con tu comercializadora. La clave aquí es la **discriminación horaria**, dividida en tres tramos: Punta (caro), Llano (medio) y Valle (barato).</p>
       
-      <h3>3. Impuestos y Peajes</h3>
-      <p>No olvides el Impuesto Eléctrico y el IVA, que fluctúan según las decisiones gubernamentales para paliar la crisis energética.</p>
+      <h3>3. Peajes, Cargos e Impuestos</h3>
+      <p>Casi el 50% de tu factura son costes regulados. El **Impuesto Eléctrico** y el **IVA** son variables que el Gobierno ajusta para frenar la inflación energética. Conocer su impacto es fundamental para no llevarte sorpresas a final de mes.</p>
       
-      <p>Nuestro análisis algorítmico procesa estos datos automáticamente al subir tu factura, ahorrándote el trabajo técnico.</p>
+      <div className="bg-primary/5 p-6 rounded-2xl border border-primary/10 my-8">
+        <p className="font-bold text-primary mb-2">💡 Consejo de Experto:</p>
+        <p>No pierdas tiempo haciendo cálculos manuales. Nuestro **comparador inteligente** procesa estos datos automáticamente al subir tu PDF, analizando más de 50 tarifas en segundos.</p>
+      </div>
     `,
     date: "01/03/2026",
     author: "Comité Experto",
     category: "Educación",
     image: "/guides/bill_expert_analysis.png",
-    imageAlt: "Análisis experto de una factura de luz española con todos sus conceptos",
-    readTime: "5 min"
+    imageAlt: "Análisis experto de una factura de luz española con todos sus conceptos detallados",
+    readTime: "7 min"
   },
   {
     id: "mercado-libre-vs-regulado",
     slug: "mercado-libre-vs-pvpc-cual-es-mejor-para-ti",
-    title: "Mercado Libre vs Regulado (PVPC): ¿Cuál es más rentable tras la reforma?",
-    excerpt: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre. Datos reales para una elección inteligente.",
+    title: "Mercado Libre vs Regulado (PVPC): ¿Cuál es más rentable en 2026?",
+    excerpt: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre tras la reforma energética.",
     content: `
-      <h2>PVPC o Mercado Libre: El eterno dilema</h2>
-      <p>Con la reciente reforma del Precio Voluntario para el Pequeño Consumidor (PVPC), el precio ahora incluye una cesta de futuros que reduce la volatilidad. Sin embargo, muchas comercializadoras del mercado libre están lanzando ofertas agresivas que podrían ser más estables.</p>
+      <h2>PVPC o Mercado Libre: ¿Dónde está el ahorro real?</h2>
+      <p>Tras la reciente reforma del **Precio Voluntario para el Pequeño Consumidor (PVPC)**, el cálculo de la tarifa regulada ha cambiado para incluir una cesta de futuros, reduciendo la volatilidad extrema. Sin embargo, el mercado libre sigue compitiendo con **tarifas fijas 24h** que pueden ser la mejor opción para ciertos perfiles.</p>
       
-      <h3>Mercado Regulado (PVPC)</h3>
-      <p>El precio cambia cada hora según el mercado mayorista. Es la única vía para acceder al Bono Social, pero te expone a las subidas puntuales del mercado.</p>
+      <h3>El Nuevo Mercado Regulado (PVPC)</h3>
+      <p>El precio cambia cada hora según la oferta y demanda del mercado mayorista. Es la única vía para acceder al **Bono Social**, un descuento vital para consumidores vulnerables. Si puedes desplazar tu consumo a la madrugada y fines de semana, el PVPC suele ser muy competitivo.</p>
       
-      <h3>Mercado Libre</h3>
-      <p>Pagas un precio fijo (o variable) acordado con tu compañía. Ofrece estabilidad a largo plazo y la posibilidad de contratar servicios adicionales o descuentos personalizados.</p>
+      <h3>La Estabilidad del Mercado Libre</h3>
+      <p>Aquí acuerdas un precio con tu compañía. Las **tarifas planas** o de precio fijo te protegen de las subidas bruscas del mercado. En 2026, estamos viendo ofertas agresivas con descuentos en el término de potencia que pueden superar al regulado si tu consumo es lineal durante el día.</p>
+      
+      <h4>¿Cuál elegir?</h4>
+      <p>No hay una respuesta única. Si buscas **estabilidad y tranquilidad**, el mercado libre suele ganar. Si buscas el **precio más bajo a riesgo de volatilidad** o necesitas el Bono Social, el PVPC es tu destino.</p>
     `,
     date: "26/02/2026",
-    author: "Departamento de Análisis",
+    author: "Dpto. de Análisis",
     category: "Comparativa",
     image: "/guides/market_comparison.png",
-    imageAlt: "Comparativa mercado libre vs PVPC tarifa regulada electricidad España",
-    readTime: "6 min"
+    imageAlt: "Gráfico comparativo entre mercado libre y PVPC para el ahorro eléctrico",
+    readTime: "8 min"
   },
   {
     id: "optimizacion-potencia-ahorro",
     slug: "como-reducir-potencia-contratada-luz-ahorrar",
-    title: "Optimización de Potencia: El ahorro directo que el 90% ignora",
-    excerpt: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año sin esfuerzo.",
+    title: "Optimización de Potencia: El ahorro que el 90% de los usuarios ignora",
+    excerpt: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año.",
     content: `
-      <h2>Paga solo por lo que necesitas</h2>
-      <p>Muchas familias pagan una potencia 'por si acaso' que nunca llegan a utilizar por completo. Si nunca te han saltado los plomos al poner el horno y la lavadora a la vez, es probable que tengas margen para bajar tu potencia contratada.</p>
+      <h2>Paga solo por la potencia que realmente utilizas</h2>
+      <p>Casi el 70% de los hogares españoles tienen contratada una potencia superior a la que necesitan "por si acaso". Este miedo a que "salten los plomos" cuesta de media **50€ anuales por cada kW de exceso**. En TuMejorTarifaLuz consideramos que la potencia es el ahorro más directo y garantizado que existe.</p>
       
-      <h3>¿Cuánto puedes ahorrar?</h3>
-      <p>Cada kW de potencia menos puede suponer un ahorro de unos 50€ al año. Explicamos cómo mirar tu 'pico de potencia máximo' en el área de cliente de tu distribuidora para tomar la decisión correcta.</p>
+      <h3>¿Cómo saber si te sobra potencia?</h3>
+      <p>Si nunca han saltado las protecciones de tu cuadro eléctrico al encender simultáneamente el horno, la lavadora y el aire acondicionado, tienes margen de mejora. Gracias a los nuevos contadores inteligentes, puedes consultar tu **pico máximo de potencia** en el área de cliente de tu distribuidora.</p>
+      
+      <h3>Doble potencia: Una oportunidad de ahorro</h3>
+      <p>Recuerda que puedes contratar potencias distintas en los tramos **Punta y Valle**. Si cargas un coche eléctrico de noche, podrías subir la potencia en el tramo valle (más barato) y mantener una potencia mínima en el tramo punta para ahorrar en el término fijo.</p>
     `,
     date: "20/02/2026",
     author: "Equipo Técnico",
     category: "Ahorro",
     image: "/guides/energy_efficiency.png",
-    imageAlt: "Optimización de potencia eléctrica para ahorrar en el recibo de la luz",
-    readTime: "4 min"
+    imageAlt: "Esquema de optimización de potencia eléctrica para reducir gastos fijos",
+    readTime: "6 min"
   },
   {
     id: "discriminacion-horaria-estrategias",
     slug: "discriminacion-horaria-horas-valle-llano-punta-como-ahorrar",
-    title: "Discriminación Horaria: Cómo reducir un 40% tu gasto",
-    excerpt: "Domina los tramos Punta, Llano y Valle. Estrategias prácticas para desplazar consumos críticos a las horas más económicas.",
+    title: "Discriminación Horaria: Estrategias para reducir un 40% tu gasto",
+    excerpt: "Domina los tramos Punta, Llano y Valle. Estrategias prácticas para desplazar consumos críticos a las horas más económicas en 2026.",
     content: `
-      <h2>Ahorrar sin cambiar de vida</h2>
-      <p>La discriminación horaria no significa dejar de vivir, sino vivir con inteligencia financiera. Desplazar el uso de electrodomésticos de alto consumo a las horas valle puede reducir drásticamente tu factura.</p>
+      <h2>Domina el reloj para dominar tu factura</h2>
+      <p>La discriminación horaria no significa cambiar tu estilo de vida, sino aplicar **inteligencia energética**. Pequeños ajustes en el horario de tus electrodomésticos pueden suponer una diferencia abismal a final de año, especialmente en tarifas reguladas o variables.</p>
       
-      <h3>Tramos Horarios en 2026</h3>
-      <p>Es vital conocer los horarios exactos de tu tarifa. Por lo general, las horas de madrugada y fines de semana son las más económicas (Valle). Las horas centrales del día suelen ser Punta.</p>
+      <h3>Los tres tramos que debes conocer</h3>
+      <ul>
+        <li>**Hora Valle (00h-08h y fines de semana)**: La energía es más barata. Ideal para lavadoras, lavavajillas y termos eléctricos.</li>
+        <li>**Hora Llano (Tramos intermedios)**: Un precio equilibrado. Uso normal del hogar.</li>
+        <li>**Hora Punta (Mañanas y noches)**: El precio más alto. Evita el consumo intensivo en estas horas si quieres ahorrar de verdad.</li>
+      </ul>
+      
+      <p>Consulta nuestro gráfico de precios en tiempo real para planificar tu jornada y maximizar el ahorro diario.</p>
     `,
     date: "15/02/2026",
-    author: "Equipo Técnico",
+    author: "Estratega Energético",
     category: "Estrategia",
     image: "/guides/electricity_clock.png",
-    imageAlt: "Reloj con las horas baratas de la luz: valle llano y punta",
-    readTime: "4 min"
+    imageAlt: "Infografía de tramos horarios punta llano y valle para ahorro de luz",
+    readTime: "5 min"
   },
   {
     id: "autoconsumo-solar-pisos",
     slug: "autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad",
-    title: "Autoconsumo Solar en Pisos: ¿Es posible y rentable?",
-    excerpt: "Todo sobre el autoconsumo compartido, subvenciones y plazos de amortización para comunidades de vecinos en 2026.",
+    title: "Autoconsumo Solar en Pisos: ¿Es rentable en 2026?",
+    excerpt: "Todo sobre el autoconsumo compartido, subvenciones y plazos de amortización para comunidades de vecinos en España.",
     content: `
-      <h2>Energía del sol en la comunidad</h2>
-      <p>Ya no necesitas vivir en un chalet para disfrutar de la energía solar. El autoconsumo compartido permite a las comunidades de vecinos reducir su factura drásticamente.</p>
+      <h2>Energía limpia sin necesidad de tejado propio</h2>
+      <p>El **autoconsumo colectivo** ha revolucionado el panorama energético en España. Ya no necesitas un chalet para disfrutar de la energía solar; ahora puedes compartir una instalación en tu comunidad de vecinos y reducir tu dependencia de la red eléctrica.</p>
       
-      <h3>Legislación Actual</h3>
-      <p>Las leyes vigentes facilitan la instalación de paneles en tejados comunes. Solo necesitas el acuerdo de una mayoría simple de la comunidad para empezar a ahorrar.</p>
+      <h3>¿Cómo funciona el reparto de energía?</h3>
+      <p>La energía generada por las placas se reparte entre los vecinos según coeficientes acordados. Esto permite que incluso vecinos que no han invertido inicialmente puedan sumarse más tarde, democratizando el acceso a las renovables.</p>
+      
+      <h4>Rentabilidad y Subvenciones</h4>
+      <p>Con las ayudas de los fondos europeos y las deducciones en el IRPF, el plazo de amortización de estas instalaciones se ha reducido a los **4-6 años**. Teniendo en cuenta que los paneles duran más de 25 años, el beneficio a largo plazo es incuestionable.</p>
     `,
     date: "10/02/2026",
-    author: "Dpto. Renovables",
+    author: "Consultoría Solar",
     category: "Solar",
     image: "/guides/solar_panels.png",
-    imageAlt: "Instalación de paneles solares en una comunidad de vecinos para autoconsumo",
-    readTime: "6 min"
+    imageAlt: "Paneles solares instalados en edificio residencial para autoconsumo compartido",
+    readTime: "9 min"
   },
   {
     id: "guia-carga-coche-electrico",
     slug: "mejor-tarifa-luz-coche-electrico-recarga-nocturna",
-    title: "Carga de Vehículo Eléctrico: Ahorra en cada kilómetro",
+    title: "Cargar el Coche Eléctrico en Casa: Guía definitiva para ahorrar",
     excerpt: "Analizamos las mejores tarifas para VE y cómo aprovechar la potencia en horas valle para cargar por menos de 2€.",
     content: `
-      <h2>La batería de tu coche, tu mayor aliado</h2>
-      <p>Cargar un coche eléctrico puede ser extremadamente barato si sabes cuándo hacerlo. Muchas tarifas ofrecen precios ultra-reducidos de 1am a 7am.</p>
+      <h2>Convierte tu garaje en tu propia estación de servicio low-cost</h2>
+      <p>Tener un vehículo eléctrico solo es verdaderamente rentable si optimizas la carga en casa. Cargar la batería de tu coche durante las **horas valle (00:00 a 08:00)** puede costar hasta diez veces menos que hacerlo en un cargador público de vía rápida.</p>
       
-      <h3>Potencia vs Tiempo</h3>
-      <p>No siempre necesitas la máxima potencia de carga. Ajustar el cargador a una potencia menor compensa con la duración de la carga durante la noche, protegiendo tu instalación.</p>
+      <h3>La potencia necesaria: No te pases de frenada</h3>
+      <p>Muchos usuarios instalan cargadores de alta potencia (7.4kW) que obligan a subir mucho el término fijo de la factura. En la mayoría de casos, una carga lenta a **3.7kW** durante 8 horas es suficiente para cubrir los desplazamientos diarios, ahorrándote mucho dinero en potencia fija contratada.</p>
+      
+      <p>Utiliza nuestra herramienta para encontrar la **tarifa especial VE** que mejor se adapte a tus kilómetros anuales.</p>
     `,
     date: "05/03/2026",
     author: "Movilidad Sostenible",
     category: "Movilidad",
     image: "/guides/ev_charging.png",
-    imageAlt: "Carga nocturna de vehículo eléctrico en garaje con tarifa valle",
-    readTime: "5 min"
+    imageAlt: "Carga de vehículo eléctrico optimizada para tarifas valle nocturnas",
+    readTime: "7 min"
   },
   {
     id: "preguntas-frecuentes-tarifa-de-luz",
     slug: "preguntas-frecuentes-tarifa-de-luz",
-    title: "Preguntas Frecuentes sobre tu Tarifa de Luz: Guía Completa de Ahorro",
-    excerpt: "¿Tienes dudas sobre el PVPC, la discriminación horaria o el CUPS? Respondemos a todas las preguntas frecuentes para que entiendas tu recibo.",
+    title: "FAQs: Dudas resueltas sobre tu factura y ahorro de luz",
+    excerpt: "¿Tienes dudas sobre el PVPC o el CUPS? Respondemos a todas las preguntas frecuentes para que domines tu recibo en 2026.",
     content: `
-      <h2>Todo lo que necesitas saber sobre tu tarifa de luz</h2>
-      <p>Entender el mercado eléctrico español puede parecer una misión imposible. En esta guía, resolvemos las dudas más comunes de forma clara y directa.</p>
+      <h2>Resolvemos las dudas que tu compañía no te aclara</h2>
+      <p>El sector eléctrico utiliza un lenguaje deliberadamente opaco. En TuMejorTarifaLuz apostamos por la **transparencia radical**. Aquí tienes las respuestas a lo que siempre te has preguntado.</p>
       
-      <h3>¿Qué es el PVPC y cuándo me interesa?</h3>
-      <p>El PVPC es el Precio Voluntario para el Pequeño Consumidor. Es la tarifa regulada por el Gobierno. Interesa si consumes principalmente en horas valle o si tienes derecho al Bono Social.</p>
+      <h3>¿Qué es el PVPC y por qué es tan polémico?</h3>
+      <p>Es la tarifa regulada. Su precio cambia cada hora. Es transparente pero volátil. Solo con ella puedes pedir el **Bono Social**. Si no lo tienes, a veces el mercado libre es más barato.</p>
       
-      <h3>¿Qué es la discriminación horaria?</h3>
-      <p>Es un sistema donde el precio de la energía varía según la hora del día. Se divide en tres tramos: Punta (caro), Llano (medio) y Valle (barato).</p>
+      <h3>¿Puedo cambiar de compañía si tengo permanencia?</h3>
+      <p>La mayoría de tarifas domésticas no tienen permanencia. Si la tienes, la ley establece límites muy claros a la penalización. **Nunca dejes de ahorrar por miedo a una multa inexistente**.</p>
       
-      <h3>¿Qué son las horas valle, llano y punta?</h3>
-      <p>Valle: de 00:00 a 08:00 y todo el fin de semana. Llano: tramos intermedios mañana y tarde. Punta: horas de mayor demanda y precio más alto.</p>
+      <h3>¿Qué es el código CUPS?</h3>
+      <p>Es el identificador único de tu contador. Piensa en él como el "número de bastidor" de tu suministro. Lo necesitarás para cualquier cambio de tarifa o baja.</p>
       
-      <h3>¿Cuánto puedo ahorrar cambiando de tarifa?</h3>
-      <p>El ahorro medio de nuestros usuarios al optimizar su contrato es de 312€ al año. Algunos hogares han llegado a reducir su factura a la mitad.</p>
-      
-      <h3>¿Cómo se calcula la factura de la luz?</h3>
-      <p>Se compone del término de potencia (fijo), término de energía (variable), impuesto eléctrico, alquiler de contador e IVA.</p>
-      
-      <h3>¿Qué es el CUPS en la factura?</h3>
-      <p>Es el Código Universal de Punto de Suministro. Es como el DNI de tu instalación eléctrica. Lo necesitas para cualquier trámite o cambio de compañía.</p>
+      <p>¿No encuentras tu duda? Usa nuestro comparador y nuestro algoritmo analizará tu caso específico sin compromiso.</p>
     `,
     date: "08/03/2026",
     author: "TuMejorTarifaLuz Team",
     category: "Educación",
     image: "/guides/faq_energy.png",
-    imageAlt: "Persona analizando dudas sobre su contrato eléctrico en una tablet",
-    readTime: "12 min"
+    imageAlt: "Usuario resolviendo dudas técnicas sobre su contrato de luz",
+    readTime: "10 min"
   },
   {
     id: "horas-baratas-luz-horarios-valle-llano-punta",
     slug: "horas-baratas-luz-horarios-valle-llano-punta",
     title: "Horas más baratas de la luz: Horarios Valle, Llano y Punta en 2026",
-    excerpt: "Consulta los horarios actualizados para ahorrar. Descubre cuándo es más barato poner la lavadora o cargar tu coche.",
+    excerpt: "Consulta los horarios actualizados para ahorrar hoy mismo. Descubre cuándo es más barato usar tus electrodomésticos.",
     content: `
-      <h2>Horarios de la luz en 2026: Cuándo ahorrar</h2>
-      <p>Organizar tus tareas domésticas según los tramos horarios es la forma más rápida de bajar el importe de tu factura sin inversión alguna.</p>
+      <h2>Planifica tu jornada y ahorra sin esfuerzo</h2>
+      <p>Saber cuándo poner la lavadora ya no es una manía, es una estrategia financiera. En 2026, los tramos horarios siguen siendo la herramienta de ahorro más potente al alcance de cualquier hogar.</p>
       
-      <h3>Tabla de Horarios Valle, Llano y Punta</h3>
+      <h3>Tabla Maestra de Horarios</h3>
       <ul>
-        <li><strong>Hora Valle (Económica):</strong> Lunes a Viernes de 00:00 a 08:00. Fines de semana y festivos nacionales las 24 horas.</li>
-        <li><strong>Hora Llano (Precio Medio):</strong> Lunes a Viernes de 08:00 a 10:00, de 14:00 a 18:00 y de 22:00 a 00:00.</li>
-        <li><strong>Hora Punta (Cara):</strong> Lunes a Viernes de 10:00 a 14:00 y de 18:00 a 22:00.</li>
+        <li>**Valle (Súper barata)**: Lunes a viernes (00h a 08h) y las 24h de sábados, domingos y festivos.</li>
+        <li>**Llano (Barrera intermedia)**: Mañanas (08h-10h), tardes (14h-18h) y noches (22h-00h).</li>
+        <li>**Punta (Peligro, costo alto)**: Las franjas de máxima actividad (10h-14h y 18h-22h).</li>
       </ul>
       
-      <h3>Consejos para aprovechar las horas valle</h3>
-      <p>Programa tu lavadora y lavavajillas para que funcionen de madrugada o durante el fin de semana. Si tienes coche eléctrico, configúralo para que cargue solo a partir de las 00:00.</p>
+      <p>Recuerda que estas horas se aplican a nivel nacional. Si organizas tu consumo intensivo el fin de semana, notarás una bajada de hasta el **25% en tu factura mensual**.</p>
     `,
     date: "08/03/2026",
-    author: "Equipo Técnico",
+    author: "Análisis de Datos",
     category: "Ahorro",
     image: "/guides/electricity_clock.png",
-    imageAlt: "Infografía de horarios de luz valle llano y punta para 2026",
+    imageAlt: "Guía visual de las horas más baratas para el consumo eléctrico en 2026",
     readTime: "8 min"
   }
 ];
