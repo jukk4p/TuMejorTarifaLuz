@@ -1287,7 +1287,12 @@ export default function ComparadorPage() {
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">€{(results[0].total * 12).toFixed(2)}</p>
-                                            <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest">Gasto Proyectado</p>
+                                            <div className="flex items-center gap-1.5 text-success">
+                                                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
+                                                    <span className="material-icons text-[12px]">arrow_downward</span>
+                                                </div>
+                                                <p className="text-[11px] font-bold tracking-tight">€{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} ahorro anual</p>
+                                            </div>
                                         </div>
                                     </div>
 
