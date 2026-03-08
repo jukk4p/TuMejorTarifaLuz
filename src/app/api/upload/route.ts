@@ -23,11 +23,34 @@ export async function POST(request: Request) {
         }
 
         const buffer = await file.arrayBuffer();
+        const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
-        // Construir la ruta: [Folder/][UserId/]Timestamp_Name
+        // Construir la ruta determinista: [Folder/][UserId/]YYYY-MM-DD_Size_Name
+        // Usar el tamaño ayuda a diferenciar archivos con el mismo nombre pero distinto contenido
         let fileName = "";
         if (folder) fileName += `${folder}/`;
-        fileName += `${userId}/${Date.now()}_${file.name}`;
+        fileName += `${userId}/${dateStr}_${file.size}_${file.name}`;
+
+        // VERIFICACIÓN DE DUPLICADOS: Si ya existe en R2, no lo volvemos a subir
+        // Esto ahorra ancho de banda y evita archivos repetidos con el mismo nombre determinista
+        try {
+            const { HeadObjectCommand } = await import("@aws-sdk/client-s3");
+            await r2Client.send(new HeadObjectCommand({
+                Bucket: process.env.R2_BUCKET_NAME,
+                Key: fileName,
+            }));
+
+            // Si no da error, es que el archivo existe
+            console.log("El archivo ya existe en R2, saltando subida:", fileName);
+            const existingUrl = `${process.env.R2_PUBLIC_DOMAIN || `https://${process.env.R2_BUCKET_NAME}.${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`}/${fileName}`;
+            return NextResponse.json({ url: existingUrl, path: fileName, skipped: true });
+        } catch (e: any) {
+            // Si el error es 404 (NotFound), procedemos con la subida
+            if (e.name !== "NotFound") {
+                console.error("Error comprobando existencia en R2:", e);
+                // Si es un error raro de conexión, intentamos subir de todos modos
+            }
+        }
 
         await r2Client.send(
             new PutObjectCommand({
