@@ -60,47 +60,81 @@ export default function SobreNosotros() {
                         </div>
                     </div>
 
-                    {/* The Team / The Name */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-center py-16 px-8 bg-white dark:bg-slate-900/50 rounded-[3rem] border border-slate-100 dark:border-slate-800 mb-24 shadow-2xl shadow-slate-200/50 dark:shadow-none">
-                        <div className="space-y-8">
-                            <div className="space-y-4">
-                                <h2 className="text-3xl md:text-4xl font-800 text-slate-900 dark:text-white tracking-tight">
-                                    Independencia Real <br />
-                                    <span className="text-primary">Sin Comisiones</span>
-                                </h2>
-                                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Soy <strong>Iván González</strong>, la persona detrás de este proyecto. Mi objetivo con TuMejorTarifaLuz es ofrecer una alternativa libre a los comparadores tradicionales que suelen estar vinculados a acuerdos comerciales con grandes eléctricas.
-                                </p>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Aquí no hay llamadas comerciales, ni venta de datos. Solo código, algoritmos y el deseo de ayudar a otros a navegar por el complejo mercado mayorista de la luz.
-                                </p>
-                            </div>
+                    {/* The Story Section */}
+                    <div className="grid lg:grid-cols-12 gap-12 items-start py-20 px-8 md:px-12 bg-white dark:bg-slate-900/50 rounded-[3rem] border border-slate-100 dark:border-slate-800 mb-24 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden relative">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48"></div>
 
-                            <div className="flex flex-wrap gap-4">
-                                <div className="px-5 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center gap-3 border border-slate-200 dark:border-slate-700">
-                                    <span className="material-icons text-primary text-lg">shield_check</span>
-                                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">100% Privado</span>
+                        <div className="lg:col-span-7 space-y-8 relative z-10">
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <h2 className="text-primary font-bold uppercase tracking-[0.2em] text-xs">El Fundador</h2>
+                                    <p className="text-2xl md:text-3xl font-900 text-slate-900 dark:text-white tracking-tight">
+                                        Iván González — <span className="text-slate-400 font-700">Desarrollador y fundador de TuMejorTarifaLuz</span>
+                                    </p>
                                 </div>
-                                <div className="px-5 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center gap-3 border border-slate-200 dark:border-slate-700">
-                                    <span className="material-icons text-primary text-lg">verified</span>
-                                    <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Algoritmo Verificado</span>
+
+                                <div className="prose prose-lg prose-slate dark:prose-invert max-w-none space-y-6">
+                                    <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed italic border-l-4 border-primary/30 pl-6 py-2 bg-primary/5 rounded-r-xl">
+                                        "Durante más de dos años estuve analizando y optimizando las facturas de luz de mis familiares y amigos. Lo que empezó como un favor puntual se convirtió en una rutina: alguien me mandaba su factura, yo la cruzaba con el mercado, y casi siempre encontraba un ahorro significativo que nadie les había contado."
+                                    </p>
+
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Me di cuenta de que el problema no era la gente, era la <strong>opacidad del sistema</strong>. Los comparadores existentes o te pedían el teléfono para que te llamara un comercial, o solo mostraban las compañías con las que tenían acuerdo. Nadie te daba una respuesta limpia y sin intereses.
+                                    </p>
+
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                        Cuando me di de alta como <strong>autónomo en 2025</strong>, tenía claro lo que quería construir: el comparador que ya llevaba meses desarrollando de forma personal, pero ahora terminado y abierto a cualquiera.
+                                    </p>
+
+                                    <div className="grid sm:grid-cols-3 gap-4 pt-4">
+                                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                                            <span className="material-icons text-primary mb-2">call_off</span>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Llamadas</p>
+                                        </div>
+                                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                                            <span className="material-icons text-primary mb-2">payments</span>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Comisiones</p>
+                                        </div>
+                                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 text-center">
+                                            <span className="material-icons text-primary mb-2">lock</span>
+                                            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Privacidad Total</p>
+                                        </div>
+                                    </div>
+
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium text-lg pt-4">
+                                        Solo el análisis que siempre le había hecho a mis cercanos, ahora disponible para cualquier familia española.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="relative group">
-                            <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-[80px] group-hover:bg-primary/30 transition-all"></div>
-                            <div className="relative premium-card overflow-hidden bg-slate-900 aspect-square flex items-center justify-center p-12 border-8 border-white dark:border-slate-800 shadow-3xl">
-                                <div className="text-center space-y-6">
-                                    <div className="w-32 h-32 mx-auto bg-primary rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 relative">
-                                        <span className="material-icons text-white text-6xl">electric_bolt</span>
-                                        <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center border-4 border-primary">
-                                            <span className="material-icons text-primary text-xl">favorite</span>
+                        <div className="lg:col-span-5 relative group mt-8 lg:mt-0">
+                            <div className="absolute inset-0 bg-primary/20 rounded-[2.5rem] blur-[60px] group-hover:bg-primary/30 transition-all"></div>
+                            <div className="relative premium-card overflow-hidden bg-slate-950 aspect-[4/5] flex items-center justify-center p-8 md:p-12 border-4 border-white dark:border-slate-800 shadow-3xl rounded-[2.5rem]">
+                                <div className="text-center space-y-8 w-full">
+                                    <div className="w-24 h-24 mx-auto bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-primary/40 relative rotate-3 group-hover:rotate-6 transition-transform">
+                                        <span className="material-icons text-white text-4xl">electric_bolt</span>
+                                        <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center border-4 border-primary">
+                                            <span className="material-icons text-primary text-base">verified</span>
                                         </div>
                                     </div>
-                                    <div>
-                                        <h3 className="text-2xl font-900 text-white italic">Tu Mejor Tarifa Luz</h3>
-                                        <p className="text-primary font-bold uppercase tracking-widest text-xs mt-2">Tecnología con propósito</p>
+                                    <div className="space-y-4">
+                                        <h3 className="text-2xl font-900 text-white tracking-tight">Tu Mejor Tarifa Luz</h3>
+                                        <div className="h-1 w-12 bg-primary mx-auto rounded-full"></div>
+                                        <p className="text-slate-400 text-sm leading-relaxed px-4">
+                                            Un proyecto nacido de la honestidad y la necesidad de transparencia en el mercado eléctrico.
+                                        </p>
+                                    </div>
+                                    <div className="pt-6 border-t border-white/10 flex items-center justify-center gap-6">
+                                        <div className="text-center">
+                                            <p className="text-white font-900 text-xl">2025</p>
+                                            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Lanzamiento</p>
+                                        </div>
+                                        <div className="w-px h-8 bg-white/10"></div>
+                                        <div className="text-center">
+                                            <p className="text-primary font-900 text-xl">100%</p>
+                                            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Independiente</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
