@@ -151,8 +151,8 @@ export default function SobreNosotros() {
                     <div className="text-center space-y-10">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                             {[
-                                { number: "+20", label: "Compañías" },
-                                { number: "150+", label: "Tarifas Activas" },
+                                { number: "12+", label: "Compañías" },
+                                { number: "25+", label: "Tarifas Activas" },
                                 { number: "30sec", label: "Análisis Rápido" },
                                 { number: "0€", label: "Coste Usuario" }
                             ].map((stat, i) => (
