@@ -25,11 +25,14 @@ export async function POST(request: Request) {
         const buffer = await file.arrayBuffer();
         const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
-        // Construir la ruta determinista: [Folder/][UserId/]YYYY-MM-DD_Size_Name
-        // Usar el tamaño ayuda a diferenciar archivos con el mismo nombre pero distinto contenido
+        // Sanitización profunda de la ruta para asegurar que R2 interprete los slashes como carpetas
+        const cleanFolder = (folder || "").trim().replace(/^\/+|\/+$/g, "");
+        const cleanUserId = (userId || "guest").trim().replace(/^\/+|\/+$/g, "");
+        const cleanFileName = file.name.trim().replace(/\s+/g, "_");
+
         let fileName = "";
-        if (folder) fileName += `${folder}/`;
-        fileName += `${userId}/${dateStr}_${file.size}_${file.name}`;
+        if (cleanFolder) fileName += `${cleanFolder}/`;
+        fileName += `${cleanUserId}/${dateStr}_${file.size}_${cleanFileName}`;
 
         // VERIFICACIÓN DE DUPLICADOS: Si ya existe en R2, no lo volvemos a subir
         // Esto ahorra ancho de banda y evita archivos repetidos con el mismo nombre determinista
