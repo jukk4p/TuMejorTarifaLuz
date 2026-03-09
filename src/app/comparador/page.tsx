@@ -67,6 +67,14 @@ export default function ComparadorPage() {
     const [uploadedFileType, setUploadedFileType] = useState<string | null>(null);
     const [uploadedFileRaw, setUploadedFileRaw] = useState<File | null>(null);
 
+    const [showWithTaxes, setShowWithTaxes] = useState(false);
+
+    const applyTaxes = (price: number) => {
+        if (!showWithTaxes) return price;
+        // + 5.11% impuesto eléctrico, then + 21% IVA
+        return price * 1.0511 * 1.21;
+    };
+
     // Memoized results
     const baseResults = useMemo(() => compareAllTariffs(tariffs, input), [tariffs, input]);
 
@@ -1943,12 +1951,27 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/20">
+                                        <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50 dark:bg-slate-800/20">
                                             <div className="flex items-center gap-3">
                                                 <span className="material-icons text-primary text-xl">payments</span>
                                                 <h4 className="font-800">Detalle de Precios</h4>
                                             </div>
-                                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Actualizado hace 24h</p>
+                                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
+                                                <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl sm:rounded-full py-2 px-4 shadow-sm">
+                                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none" onClick={() => setShowWithTaxes(!showWithTaxes)}>
+                                                        Añadir Impuestos<br className="sm:hidden" /><span className="text-[8px] text-slate-400 normal-case block sm:inline sm:ml-1">(IVA + IE)</span>
+                                                    </span>
+                                                    <button
+                                                        role="switch"
+                                                        aria-checked={showWithTaxes}
+                                                        onClick={() => setShowWithTaxes(!showWithTaxes)}
+                                                        className={`${showWithTaxes ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none shrink-0`}
+                                                    >
+                                                        <span className={`${showWithTaxes ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform`} />
+                                                    </button>
+                                                </div>
+                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden sm:block">Actualizado hace 24h</p>
+                                            </div>
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                                             <div className="space-y-6">
@@ -1956,11 +1979,11 @@ export default function ComparadorPage() {
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
-                                                        <span className="font-mono text-xs font-bold">{(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} €/kW día</span>
                                                     </div>
                                                     <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                                         <span className="text-xs font-bold">Valle (P2)</span>
-                                                        <span className="font-mono text-xs font-bold">{(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} €/kW día</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1973,27 +1996,27 @@ export default function ComparadorPage() {
                                                                 <span className="w-2 h-2 rounded bg-orange-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Punta (P1)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-blue-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Llano (P2)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-green-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Valle (P3)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
                                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio Único (24h)</div>
-                                                        <p className="text-3xl font-800 text-primary">{(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} <span className="text-sm font-normal opacity-60">€/kWh</span></p>
+                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} <span className="text-sm font-normal opacity-60">€/kWh</span></p>
                                                         <p className="text-[10px] text-slate-500 italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
                                                     </div>
                                                 )}
