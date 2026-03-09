@@ -1401,6 +1401,8 @@ export default function ComparadorPage() {
                                                     : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-md"
                                                     }`}
                                             >
+                                                {/* Type Indicator Line Mobile - More subtle and pill-shaped */}
+                                                <div className={`absolute left-0 top-6 bottom-6 w-1 rounded-r-full z-10 ${res.tariff.type === '3 Periodos' ? 'bg-primary/60' : 'bg-amber-500/60'}`}></div>
                                                 {/* Top Saving Badge for #1 */}
                                                 {idx === 0 && (
                                                     <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
@@ -1410,7 +1412,9 @@ export default function ComparadorPage() {
                                                     {/* Header: Company + Ahorro */}
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex flex-col">
-                                                            <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none mb-1">{res.tariff.company}</p>
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none">{res.tariff.company}</p>
+                                                            </div>
                                                             <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
                                                         </div>
 
@@ -1540,8 +1544,10 @@ export default function ComparadorPage() {
                                                             ? "bg-white dark:bg-slate-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] ring-1 ring-primary/30"
                                                             : "bg-white/60 dark:bg-slate-900/60 shadow-sm border border-white/40 dark:border-white/5"
                                                             }`}>
-                                                            <td className={`pl-12 pr-4 py-10 transition-all duration-300 rounded-l-[2.5rem] group-hover:bg-primary/[0.03] ${idx === 0 ? "border-transparent" : "border-slate-100 dark:border-slate-800"
+                                                            <td className={`pl-12 pr-4 py-10 transition-all duration-300 rounded-l-[2.5rem] group-hover:bg-primary/[0.03] relative ${idx === 0 ? "border-transparent" : "border-slate-100 dark:border-slate-800"
                                                                 }`}>
+                                                                {/* Type Indicator Line */}
+                                                                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-12 w-0.5 rounded-full z-10 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'}`}></div>
                                                                 {idx === 0 && (
                                                                     <>
                                                                         <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 w-1.5 bg-gradient-to-b from-primary via-primary-light to-primary rounded-full z-30 shadow-[0_0_20px_rgba(var(--primary-rgb),0.5)]"></div>
@@ -1550,9 +1556,7 @@ export default function ComparadorPage() {
                                                                 )}
                                                                 <div className="flex flex-col gap-1">
                                                                     <div className="flex items-center gap-2">
-                                                                        <p className={`text-[9px] font-black uppercase tracking-widest ${idx === 0 ? "text-success" : "text-primary/70"
-                                                                            }`}>{res.tariff.company}</p>
-                                                                        {/* Badge removido por petición del usuario */}
+                                                                        <p className={`text-[9px] font-black uppercase tracking-widest ${idx === 0 ? "text-success" : "text-primary/70"}`}>{res.tariff.company}</p>
                                                                     </div>
                                                                     <p className="text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
                                                                 </div>
