@@ -8,8 +8,8 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
                         <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" />
+                            <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain" />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>

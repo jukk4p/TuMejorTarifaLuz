@@ -49,8 +49,8 @@ function NavbarContent() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" priority />
+                            <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain" priority />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>
@@ -68,8 +68,8 @@ function NavbarContent() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-10 h-10 active:scale-95 transition-transform flex items-center justify-center">
-                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" priority />
+                            <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
+                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain group-hover:scale-110 transition-transform duration-500" priority />
                             </div>
                             <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
                                 TuMejorTarifa<span className="text-primary">Luz</span>

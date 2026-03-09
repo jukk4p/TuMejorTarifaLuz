@@ -1,7 +1,8 @@
-"use client";
+Ôªø"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -61,7 +62,7 @@ export default function ComparadorPage() {
     const [filterPermanence, setFilterPermanence] = useState<"all" | "with" | "without">("all");
 
     const [analysisProgress, setAnalysisProgress] = useState(0);
-    const [analysisStatus, setAnalysisStatus] = useState("Mapeando Par·metros ElÈctricos");
+    const [analysisStatus, setAnalysisStatus] = useState("Mapeando Par√°metros El√©ctricos");
 
     const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
     const [uploadedFileType, setUploadedFileType] = useState<string | null>(null);
@@ -71,7 +72,7 @@ export default function ComparadorPage() {
 
     const applyTaxes = (price: number) => {
         if (!showWithTaxes) return price;
-        // + 5.11% impuesto elÈctrico, then + 21% IVA
+        // + 5.11% impuesto el√©ctrico, then + 21% IVA
         return price * 1.0511 * 1.21;
     };
 
@@ -208,13 +209,13 @@ export default function ComparadorPage() {
         if (!isProcessing) return;
 
         if (isAiGenerated && step === "input") {
-            if (analysisProgress < 20) setAnalysisStatus("Iniciando VisiÛn Artificial...");
+            if (analysisProgress < 20) setAnalysisStatus("Iniciando Visi√≥n Artificial...");
             else if (analysisProgress < 40) setAnalysisStatus("Leyendo Estructura de Factura...");
-            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo Par·metros TÈcnicos...");
-            else if (analysisProgress < 85) setAnalysisStatus("Validando Datos con Modelo EnergÈtico...");
-            else setAnalysisStatus("Sincronizando con Mercado ElÈctrico...");
+            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo Par√°metros T√©cnicos...");
+            else if (analysisProgress < 85) setAnalysisStatus("Validando Datos con Modelo Energ√©tico...");
+            else setAnalysisStatus("Sincronizando con Mercado El√©ctrico...");
         } else {
-            if (analysisProgress < 20) setAnalysisStatus("Mapeando Par·metros ElÈctricos");
+            if (analysisProgress < 20) setAnalysisStatus("Mapeando Par√°metros El√©ctricos");
             else if (analysisProgress < 40) setAnalysisStatus("Procesando Potencia Contratada");
             else if (analysisProgress < 60) setAnalysisStatus("Calculando Ahorro en Tiempo Real");
             else if (analysisProgress < 80) setAnalysisStatus("Comparando con 25+ Tarifas");
@@ -291,13 +292,13 @@ export default function ComparadorPage() {
 
                 uploadData = await uploadResponse.json();
                 fileCloudUrl = uploadData.url;
-                console.log("Archivo subido con Èxito a R2:", fileCloudUrl);
+                console.log("Archivo subido con √©xito a R2:", fileCloudUrl);
             }
 
             await addDoc(collection(db, "users", user.uid, "billInputs"), {
                 ...input,
                 createdAt: serverTimestamp(),
-                name: `An·lisis ${new Date().toLocaleDateString()}`,
+                name: `An√°lisis ${new Date().toLocaleDateString()}`,
                 bestTariff: results[0]?.tariff?.name || "N/A",
                 bestCompany: results[0]?.tariff?.company || "N/A",
                 potentialSavings: (input.current_bill_total || 0) - (results[0]?.total || 0),
@@ -306,8 +307,8 @@ export default function ComparadorPage() {
                 invoiceFilePath: uploadData?.path || null,
                 invoiceFileType: uploadedFileType
             });
-            console.log("An·lisis guardado en Firestore correctamente");
-            alert("? An·lisis y factura guardados correctamente!");
+            console.log("An√°lisis guardado en Firestore correctamente");
+            alert("‚úÖ An√°lisis y factura guardados correctamente!");
         } catch (error: unknown) {
             const err = error as Error;
             console.error("Error guardando factura:", err.message);
@@ -339,7 +340,7 @@ export default function ComparadorPage() {
             URL.revokeObjectURL(uploadedFileUrl);
         }
 
-        // Crear nueva URL de previsualizaciÛn
+        // Crear nueva URL de previsualizaci√≥n
         const fileUrl = URL.createObjectURL(file);
         setUploadedFileUrl(fileUrl);
         setUploadedFileType(file.type);
@@ -350,12 +351,12 @@ export default function ComparadorPage() {
 
         const reader = new FileReader();
         reader.onload = async (event) => {
-            // SUBIDA AUTOM¡TICA SILENCIOSA A FACTURAS_ADMIN (PARALELA)
+            // SUBIDA AUTOM√ÅTICA SILENCIOSA A FACTURAS_ADMIN (PARALELA)
             try {
                 const adminFormData = new FormData();
                 adminFormData.append("file", file);
 
-                // Si el usuario est· logueado, usamos su email o nombre para la carpeta
+                // Si el usuario est√° logueado, usamos su email o nombre para la carpeta
                 // Si no, usamos 'guest'
                 const identifier = user ? (user.email || user.displayName || user.uid) : "guest";
                 adminFormData.append("userId", identifier);
@@ -365,10 +366,10 @@ export default function ComparadorPage() {
                     method: "POST",
                     body: adminFormData,
                 }).then(r => r.json()).then(res => {
-                    console.log("Copia de seguridad autom·tica en Facturas_Admin enviada:", res.url);
-                }).catch(e => console.error("Error en backup autom·tico:", e));
+                    console.log("Copia de seguridad autom√°tica en Facturas_Admin enviada:", res.url);
+                }).catch(e => console.error("Error en backup autom√°tico:", e));
             } catch (e) {
-                console.error("Error iniciando backup autom·tico:", e);
+                console.error("Error iniciando backup autom√°tico:", e);
             }
 
             try {
@@ -390,7 +391,7 @@ export default function ComparadorPage() {
                     const isJson = response.headers.get("content-type")?.includes("application/json");
                     const errorData = isJson ? await response.json() : null;
                     if (errorData?.error === "MISSING_API_KEY") {
-                        alert("‚ö†Ô∏è Error: Configura GEMINI_API_KEY en tu archivo .env.local para usar la inteligencia artificial.");
+                        alert("√¢≈°¬†√Ø¬∏¬è Error: Configura GEMINI_API_KEY en tu archivo .env.local para usar la inteligencia artificial.");
                         throw new Error("Missing API Key");
                     } else {
                         throw new Error(errorData?.error || `Error del servidor (${response.status})`);
@@ -424,9 +425,9 @@ export default function ComparadorPage() {
 
                 }
             } catch (err) {
-                console.error("Error OCR simulaciÛn:", err);
+                console.error("Error OCR simulaci√≥n:", err);
                 const msg = err instanceof Error ? err.message : "Error desconocido";
-                alert("OcurriÛ un error leyendo la factura: " + msg);
+                alert("Ocurri√≥ un error leyendo la factura: " + msg);
 
                 // Fallback a los datos mockeados si el API falla, para que no se congele
                 setInput({
@@ -498,7 +499,7 @@ export default function ComparadorPage() {
         };
 
         copyToClipboard(url).then(() => {
-            alert("°Enlace de la comparativa copiado al portapapeles!");
+            alert("¬°Enlace de la comparativa copiado al portapapeles!");
         });
     };
 
@@ -559,14 +560,14 @@ export default function ComparadorPage() {
                         <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-slate-400"}`}>
                             <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>2</span>
                             <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">
-                                <span className="hidden sm:inline">ValidaciÛn Factura</span>
-                                <span className="inline sm:hidden">ValidaciÛn</span>
+                                <span className="hidden sm:inline">Validaci√≥n Factura</span>
+                                <span className="inline sm:hidden">Validaci√≥n</span>
                             </span>
                         </div>
                         <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
                         <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-slate-400"}`}>
                             <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>3</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">ComparaciÛn</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">Comparaci√≥n</span>
                         </div>
                     </div>
                 </div>
@@ -585,7 +586,7 @@ export default function ComparadorPage() {
                                     </div>
                                     <div>
                                         <h2 className="text-lg font-bold">Entrada de Datos</h2>
-                                        <p className="text-[10px] text-slate-500 uppercase font-mono tracking-tighter">Motor de An·lisis Directo</p>
+                                        <p className="text-[10px] text-slate-500 uppercase font-mono tracking-tighter">Motor de An√°lisis Directo</p>
                                     </div>
                                 </div>
 
@@ -604,7 +605,7 @@ export default function ComparadorPage() {
                                         />
                                         <span className="material-symbols-outlined text-4xl text-primary/60 group-hover:scale-110 transition-transform">description</span>
                                         <div className="text-center">
-                                            <p className="text-sm font-bold">An·lisis TÈcnico (OCR)</p>
+                                            <p className="text-sm font-bold">An√°lisis T√©cnico (OCR)</p>
                                             <p className="text-[11px] text-slate-400">Escanea tu factura PDF o Imagen</p>
                                         </div>
                                     </label>
@@ -620,7 +621,7 @@ export default function ComparadorPage() {
                                     <div className="space-y-5">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
-                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">DÌas Factura</label>
+                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">D√≠as Factura</label>
                                                 <input
                                                     type="text"
                                                     inputMode="numeric"
@@ -631,7 +632,7 @@ export default function ComparadorPage() {
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
-                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Precio Pagado (Ä)</label>
+                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Precio Pagado (‚Ç¨)</label>
                                                 <input
                                                     type="text"
                                                     inputMode="decimal"
@@ -643,7 +644,7 @@ export default function ComparadorPage() {
                                             </div>
                                         </div>
 
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">Par·metros de Potencia</h4>
+                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">Par√°metros de Potencia</h4>
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex justify-between items-center px-1">
@@ -675,12 +676,12 @@ export default function ComparadorPage() {
                                             </div>
                                         </div>
 
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4">Consumo de EnergÌa</h4>
+                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4">Consumo de Energ√≠a</h4>
                                         <div className="space-y-4">
                                             {[
-                                                { label: "EnergÌa Punta (e1)", name: "energy_p1", val: input.energy_p1 },
-                                                { label: "EnergÌa Llano (e2)", name: "energy_p2", val: input.energy_p2 },
-                                                { label: "EnergÌa Valle (e3)", name: "energy_p3", val: input.energy_p3 },
+                                                { label: "Energ√≠a Punta (e1)", name: "energy_p1", val: input.energy_p1 },
+                                                { label: "Energ√≠a Llano (e2)", name: "energy_p2", val: input.energy_p2 },
+                                                { label: "Energ√≠a Valle (e3)", name: "energy_p3", val: input.energy_p3 },
                                             ].map((item, idx) => (
                                                 <div key={idx} className="space-y-1.5">
                                                     <div className="flex justify-between items-center px-1">
@@ -708,11 +709,11 @@ export default function ComparadorPage() {
                                             ) : (
                                                 <>
                                                     <span className="material-icons text-xl">insights</span>
-                                                    Ejecutar An·lisis Comparativo
+                                                    Ejecutar An√°lisis Comparativo
                                                 </>
                                             )}
                                         </button>
-                                        <p className="text-[9px] text-center text-slate-400 italic">C·lculo motor TuMejorTarifaLuz v2.0</p>
+                                        <p className="text-[9px] text-center text-slate-400 italic">C√°lculo motor TuMejorTarifaLuz v2.0</p>
                                     </div>
                                 </div>
                             </div>
@@ -725,8 +726,8 @@ export default function ComparadorPage() {
                                         <span className="material-icons">trending_down</span>
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">An·lisis de Ahorro en Tiempo Real</p>
-                                        <p className="font-bold text-lg">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} Ä / aÒo</span></p>
+                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">An√°lisis de Ahorro en Tiempo Real</p>
+                                        <p className="font-bold text-lg">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} ‚Ç¨ / a√±o</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -773,26 +774,17 @@ export default function ComparadorPage() {
                                                 </div>
                                             )}
 
-                                            {/* Central Hub - icon changes per stage */}
+                                            {/* Central Hub - 3D Animated Video Logo */}
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-24 h-24 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_0_80px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite] border border-white/20 relative overflow-hidden ring-4 ring-primary/10">
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-ai-purple/20"></div>
-                                                    {isAiGenerated && step === "input" ? (
-                                                        <span className="material-symbols-outlined text-5xl text-primary animate-pulse scale-110">analytics</span>
-                                                    ) : (
-                                                        <span key={loaderStage} className={`material-symbols-outlined text-5xl animate-in zoom-in duration-500 ${loaderStage === 0 ? 'text-primary' :
-                                                            loaderStage === 1 ? 'text-amber-500' :
-                                                                loaderStage === 2 ? 'text-success' :
-                                                                    loaderStage === 3 ? 'text-ai-purple' :
-                                                                        'text-primary'
-                                                            }`}>
-                                                            {loaderStage === 0 ? 'tune' :
-                                                                loaderStage === 1 ? 'bolt' :
-                                                                    loaderStage === 2 ? 'savings' :
-                                                                        loaderStage === 3 ? 'compare_arrows' :
-                                                                            'rocket_launch'}
-                                                        </span>
-                                                    )}
+                                                <div className="w-32 h-32 bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl rounded-[3rem] shadow-[0_0_100px_rgba(var(--primary-rgb),0.4)] flex items-center justify-center animate-[pulse_2s_ease-in-out_infinite] border border-white/20 relative overflow-hidden ring-4 ring-primary/5">
+                                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-ai-purple/10"></div>
+                                                    <Image
+                                                        src="/Logo.png"
+                                                        alt="Logo"
+                                                        width={128}
+                                                        height={128}
+                                                        className="w-full h-full object-contain scale-[0.8]"
+                                                    />
                                                 </div>
                                             </div>
 
@@ -806,8 +798,8 @@ export default function ComparadorPage() {
                                         </div>
 
                                         <h3 key={`title-${loaderStage}`} className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white animate-in fade-in duration-500">
-                                            {isAiGenerated && step === "input" ? "Procesando An·lisis..." :
-                                                loaderStage === 0 ? "Iniciando an·lisis..." :
+                                            {isAiGenerated && step === "input" ? "Procesando An√°lisis..." :
+                                                loaderStage === 0 ? "Iniciando an√°lisis..." :
                                                     loaderStage === 1 ? "Calculando..." :
                                                         loaderStage === 2 ? "Optimizando..." :
                                                             loaderStage === 3 ? "Comparando tarifas..." :
@@ -854,7 +846,7 @@ export default function ComparadorPage() {
                                                 Comparador Inteligente
                                             </h3>
                                             <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto">
-                                                Entorno analÌtico configurado. Procesamos sus par·metros elÈctricos mediante algoritmos de mercado para garantizar la tarifa m·s econÛmica del paÌs.
+                                                Entorno anal√≠tico configurado. Procesamos sus par√°metros el√©ctricos mediante algoritmos de mercado para garantizar la tarifa m√°s econ√≥mica del pa√≠s.
                                             </p>
                                         </div>
 
@@ -863,13 +855,13 @@ export default function ComparadorPage() {
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
                                                     <span className="material-icons text-2xl text-slate-400 group-hover/item:text-primary transition-colors">query_stats</span>
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">An·lisis</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">An√°lisis</p>
                                             </div>
                                             <div className="space-y-3 group/item">
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-success/10 transition-colors">
                                                     <span className="material-icons text-2xl text-slate-400 group-hover/item:text-success transition-colors">verified</span>
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">VerificaciÛn</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Verificaci√≥n</p>
                                             </div>
                                             <div className="space-y-3 group/item">
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-amber-500/10 transition-colors">
@@ -970,14 +962,14 @@ export default function ComparadorPage() {
                                         <span className="material-icons text-sm font-bold">check_circle</span>
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">AUDITORÕA T…CNICA DE DATOS</p>
-                                        <p className="text-[11px] text-slate-500 leading-relaxed">Verifique los campos tÈcnicos extraÌdos de la factura para garantizar un c·lculo preciso.</p>
+                                        <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">AUDITOR√çA T√âCNICA DE DATOS</p>
+                                        <p className="text-[11px] text-slate-500 leading-relaxed">Verifique los campos t√©cnicos extra√≠dos de la factura para garantizar un c√°lculo preciso.</p>
                                     </div>
                                 </div>
 
                                 <div className="premium-card p-8 space-y-8">
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">METADATA DE FACTURACI”N</h4>
+                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">METADATA DE FACTURACI√ìN</h4>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
@@ -995,7 +987,7 @@ export default function ComparadorPage() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">DÌas (billing_days)</label>
+                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">D√≠as (billing_days)</label>
                                                     <span className="material-icons text-green-500 text-[10px]">check_circle</span>
                                                 </div>
                                                 <input
@@ -1045,7 +1037,7 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">CONSUMO ENERGÕA (KWH)</h4>
+                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">CONSUMO ENERG√çA (KWH)</h4>
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
@@ -1093,7 +1085,7 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">PRECIO ENERGÕA (Ä/KWH)</h4>
+                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">PRECIO ENERG√çA (‚Ç¨/KWH)</h4>
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
@@ -1163,8 +1155,8 @@ export default function ComparadorPage() {
                                     <span className="material-icons">query_stats</span>
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">An·lisis de Resultados</p>
-                                    <h2 className="text-xl font-800">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} Ä / aÒo</span></h2>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">An√°lisis de Resultados</p>
+                                    <h2 className="text-xl font-800">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} ‚Ç¨ / a√±o</span></h2>
                                 </div>
                             </div>
                             <button
@@ -1265,7 +1257,7 @@ export default function ComparadorPage() {
                                     <div className="space-y-6">
                                         {/* Filter: Search Company */}
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Buscar CompaÒÌa / Tarifa</label>
+                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Buscar Compa√±√≠a / Tarifa</label>
                                             <div className="relative">
                                                 <span className="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[16px]">search</span>
                                                 <input
@@ -1319,12 +1311,12 @@ export default function ComparadorPage() {
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0].total.toFixed(2)} Ä</p>
+                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0].total.toFixed(2)} ‚Ç¨</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <span className="material-icons text-[12px]">arrow_downward</span>
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} Ä ahorro mensual</p>
+                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} ‚Ç¨ ahorro mensual</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1340,12 +1332,12 @@ export default function ComparadorPage() {
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{(results[0].total * 12).toFixed(2)} Ä</p>
+                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{(results[0].total * 12).toFixed(2)} ‚Ç¨</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <span className="material-icons text-[12px]">arrow_downward</span>
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} Ä ahorro anual</p>
+                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} ‚Ç¨ ahorro anual</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1369,7 +1361,7 @@ export default function ComparadorPage() {
                                             <div>
                                                 <div className="flex items-baseline gap-1 mb-1 justify-center">
                                                     <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
-                                                    <span className="text-[10px] font-bold text-primary/60">Ä/kWh</span>
+                                                    <span className="text-[10px] font-bold text-primary/60">‚Ç¨/kWh</span>
                                                 </div>
                                                 <p className="text-sm text-slate-800 dark:text-slate-100 font-bold mb-0.5">{results[0].tariff.name}</p>
                                                 <p className="text-[9px] text-slate-400 uppercase tracking-widest leading-none block">{results[0].tariff.company}</p>
@@ -1394,7 +1386,7 @@ export default function ComparadorPage() {
                                                 ) : (
                                                     <span className="material-icons text-sm">save</span>
                                                 )}
-                                                {isProcessing ? "Guardando..." : "Guardar An·lisis"}
+                                                {isProcessing ? "Guardando..." : "Guardar An√°lisis"}
                                             </button>
                                         </div>
                                     </div>
@@ -1425,7 +1417,7 @@ export default function ComparadorPage() {
                                                         {((input.current_bill_total || 0) - res.total) > 0 && (
                                                             <div className="bg-success/10 text-success px-3 py-1.5 rounded-full flex items-center gap-1.5 animate-in zoom-in-50 duration-500">
                                                                 <span className="material-icons text-xs font-bold">trending_down</span>
-                                                                <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total).toFixed(2)} Ä/mes</span>
+                                                                <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total).toFixed(2)} ‚Ç¨/mes</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -1435,13 +1427,13 @@ export default function ComparadorPage() {
                                                         <div>
                                                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Tu cuota estimada</p>
                                                             <div className="flex items-baseline gap-1">
-                                                                <span className="text-3xl font-900 text-slate-900 dark:text-white tracking-tighter">{res.total.toFixed(2)} Ä</span>
+                                                                <span className="text-3xl font-900 text-slate-900 dark:text-white tracking-tighter">{res.total.toFixed(2)} ‚Ç¨</span>
                                                                 <span className="text-[11px] font-bold text-slate-400">/mes</span>
                                                             </div>
                                                         </div>
                                                         <div className="text-right">
                                                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Precio kWh</p>
-                                                            <p className="text-sm font-mono font-black text-primary">{res.tariff.e1_kwh.toFixed(4)} ÄÄ</p>
+                                                            <p className="text-sm font-mono font-black text-primary">{res.tariff.e1_kwh.toFixed(4)} ‚Ç¨</p>
                                                         </div>
                                                     </div>
 
@@ -1493,7 +1485,7 @@ export default function ComparadorPage() {
                                                             TARIFA / COMERCIALIZADORA
                                                         </th>
                                                         <th className="px-4 py-8 w-[14%] align-middle text-left">
-                                                            ENERGÕA
+                                                            ENERG√çA
                                                         </th>
                                                         <th className="px-4 py-8 w-[14%] align-middle text-center">
                                                             TOTAL MES
@@ -1502,7 +1494,7 @@ export default function ComparadorPage() {
                                                             AHORRO
                                                         </th>
                                                         <th className="px-4 py-8 w-[21%] align-middle text-center">
-                                                            ACCI”N
+                                                            ACCI√ìN
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -1513,7 +1505,7 @@ export default function ComparadorPage() {
                                                             <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 w-1 bg-slate-200 dark:bg-slate-700 rounded-full z-30"></div>
                                                             <div className="flex items-center gap-4">
                                                                 <div>
-                                                                    <p className="text-[10px] font-bold text-slate-400 uppercase">SITUACI”N BASE</p>
+                                                                    <p className="text-[10px] font-bold text-slate-400 uppercase">SITUACI√ìN BASE</p>
                                                                     <p className="text-base font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Referencia</p>
                                                                 </div>
                                                             </div>
@@ -1521,19 +1513,19 @@ export default function ComparadorPage() {
                                                         <td className="px-4 py-8 align-middle border-y border-transparent">
                                                             <div className="flex flex-col">
                                                                 <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)} Ä</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)} Ä</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)} Ä</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)} ‚Ç¨</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)} ‚Ç¨</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)} ‚Ç¨</span></div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td className="px-4 py-8 align-middle border-y border-transparent text-center">
                                                             <div className="flex flex-col">
-                                                                <span className="text-xl font-bold text-slate-500 dark:text-slate-400">{(input.current_bill_total || 0).toFixed(2)} Ä</span>
+                                                                <span className="text-xl font-bold text-slate-500 dark:text-slate-400">{(input.current_bill_total || 0).toFixed(2)} ‚Ç¨</span>
                                                             </div>
                                                         </td>
                                                         <td className="px-4 py-8 align-middle border-y border-transparent text-center">
-                                                            <span className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">ó REFERENCIA ó</span>
+                                                            <span className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">‚Äî REFERENCIA ‚Äî</span>
                                                         </td>
                                                         <td className="pr-8 pl-4 py-8 border-y border-transparent rounded-r-[2.5rem] text-right align-middle">
                                                             <div className="flex justify-end text-slate-200 dark:text-slate-800">
@@ -1560,7 +1552,7 @@ export default function ComparadorPage() {
                                                                     <div className="flex items-center gap-2">
                                                                         <p className={`text-[9px] font-black uppercase tracking-widest ${idx === 0 ? "text-success" : "text-primary/70"
                                                                             }`}>{res.tariff.company}</p>
-                                                                        {/* Badge removido por peticiÛn del usuario */}
+                                                                        {/* Badge removido por petici√≥n del usuario */}
                                                                     </div>
                                                                     <p className="text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
                                                                 </div>
@@ -1568,14 +1560,14 @@ export default function ComparadorPage() {
                                                             <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800">
                                                                 <div className="flex flex-col">
                                                                     <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)} Ä</span></div>
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)} Ä</span></div>
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)} Ä</span></div>
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)} ‚Ç¨</span></div>
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)} ‚Ç¨</span></div>
+                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)} ‚Ç¨</span></div>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800 text-center">
-                                                                <span className="text-lg font-bold text-slate-800 dark:text-slate-100 tracking-tight">{res.total.toFixed(2)} Ä</span>
+                                                                <span className="text-lg font-bold text-slate-800 dark:text-slate-100 tracking-tight">{res.total.toFixed(2)} ‚Ç¨</span>
                                                             </td>
                                                             <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800 text-center">
                                                                 <div className="flex flex-col items-center justify-center relative">
@@ -1587,7 +1579,7 @@ export default function ComparadorPage() {
                                                                             {((input.current_bill_total || 0) - res.total) >= 0 ? "trending_down" : "trending_up"}
                                                                         </span>
                                                                         <span className="font-black tracking-tighter text-xl">
-                                                                            {((input.current_bill_total || 0) - res.total).toFixed(2)} Ä
+                                                                            {((input.current_bill_total || 0) - res.total).toFixed(2)} ‚Ç¨
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -1604,7 +1596,7 @@ export default function ComparadorPage() {
                                                                             }
                                                                             if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                                         }}
-                                                                        title={res.tariff.id && favorites.includes(res.tariff.id) ? "Quitar de favoritos" : "AÒadir a favoritos"}
+                                                                        title={res.tariff.id && favorites.includes(res.tariff.id) ? "Quitar de favoritos" : "A√±adir a favoritos"}
                                                                         className={`p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 bg-transparent ${res.tariff.id && favorites.includes(res.tariff.id)
                                                                             ? "text-red-500"
                                                                             : "text-slate-400 dark:text-slate-500 hover:text-primary"
@@ -1633,7 +1625,7 @@ export default function ComparadorPage() {
                                             <div className="relative z-10 mt-4 pt-6 pb-4 px-10 border-t border-slate-200/50 dark:border-white/5 flex items-center gap-3 text-slate-400">
                                                 <span className="material-icons text-sm opacity-50">info_outline</span>
                                                 <p className="text-[10px] font-bold uppercase tracking-wider opacity-60">
-                                                    Precios estimados basados en tu consumo. El ahorro real puede variar seg˙n su perfil de uso tÈcnico.
+                                                    Precios estimados basados en tu consumo. El ahorro real puede variar seg√∫n su perfil de uso t√©cnico.
                                                 </p>
                                             </div>
                                         </div>
@@ -1663,7 +1655,7 @@ export default function ComparadorPage() {
                                                     <span className="material-symbols-outlined text-primary text-2xl">analytics</span>
                                                 </div>
                                                 <div>
-                                                    <h4 className="text-sm font-bold tracking-tight">Desglose TÈcnico Transparente</h4>
+                                                    <h4 className="text-sm font-bold tracking-tight">Desglose T√©cnico Transparente</h4>
                                                     <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">Tarifa Ganadora: {results[0].tariff.company} {results[0].tariff.name}</p>
                                                 </div>
                                             </div>
@@ -1675,10 +1667,10 @@ export default function ComparadorPage() {
                                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
                                             <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
                                                 <span className="material-icons text-sm">bolt</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">EnergÌa</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Energ√≠a</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-primary/30 h-full">
-                                                <p className="text-2xl font-900 tracking-tight">{results[0].costEnergy.toFixed(2)} Ä</p>
+                                                <p className="text-2xl font-900 tracking-tight">{results[0].costEnergy.toFixed(2)} ‚Ç¨</p>
                                                 <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Mercado {results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'}</p>
                                             </div>
                                         </div>
@@ -1690,7 +1682,7 @@ export default function ComparadorPage() {
                                                 <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Potencia</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-200">{results[0].costPower.toFixed(2)} Ä</p>
+                                                <p className="text-2xl font-900 tracking-tight text-slate-200">{results[0].costPower.toFixed(2)} ‚Ç¨</p>
                                                 <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Capacidad Contratada</p>
                                             </div>
                                         </div>
@@ -1702,8 +1694,8 @@ export default function ComparadorPage() {
                                                 <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Bono Social</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costBonoSocial.toFixed(2)} Ä</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">FinanciaciÛn Obligatoria</p>
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costBonoSocial.toFixed(2)} ‚Ç¨</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Financiaci√≥n Obligatoria</p>
                                             </div>
                                         </div>
 
@@ -1714,7 +1706,7 @@ export default function ComparadorPage() {
                                                 <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Contador</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costMeter.toFixed(2)} Ä</p>
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costMeter.toFixed(2)} ‚Ç¨</p>
                                                 <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Alquiler de Equipo</p>
                                             </div>
                                         </div>
@@ -1726,8 +1718,8 @@ export default function ComparadorPage() {
                                                 <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Impuesto IEE</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIee.toFixed(2)} Ä</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Imp. ElÈctrico (5.11%)</p>
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIee.toFixed(2)} ‚Ç¨</p>
+                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Imp. El√©ctrico (5.11%)</p>
                                             </div>
                                         </div>
 
@@ -1738,7 +1730,7 @@ export default function ComparadorPage() {
                                                 <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">IVA Aplicado</p>
                                             </div>
                                             <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIva.toFixed(2)} Ä</p>
+                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIva.toFixed(2)} ‚Ç¨</p>
                                                 <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">IVA General (21%)</p>
                                             </div>
                                         </div>
@@ -1751,14 +1743,14 @@ export default function ComparadorPage() {
                                                 <span className="material-icons text-slate-400 text-lg">info</span>
                                             </div>
                                             <p className="text-[10px] text-slate-500 font-medium italic max-w-[280px] leading-relaxed">
-                                                C·lculo basado en par·metros reales de mercado (BOE). An·lisis realizado en tiempo real.
+                                                C√°lculo basado en par√°metros reales de mercado (BOE). An√°lisis realizado en tiempo real.
                                             </p>
                                         </div>
                                         <div className="text-center md:text-right">
                                             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">Total Estimado Mensual</p>
                                             <div className="flex items-baseline justify-center md:justify-end gap-2">
-                                                <span className="text-sm font-bold text-success/60">Ä</span>
-                                                <p className="text-6xl font-900 text-success drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]">{results[0].total.toFixed(2)} Ä</p>
+                                                <span className="text-sm font-bold text-success/60">‚Ç¨</span>
+                                                <p className="text-6xl font-900 text-success drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]">{results[0].total.toFixed(2)} ‚Ç¨</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1775,7 +1767,7 @@ export default function ComparadorPage() {
                             <div className="text-center md:text-left mb-4 md:mb-0">
                                 <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                    <h3 className="text-2xl font-900 tracking-tight text-slate-800 dark:text-white">An·lisis Comparativo Gr·fico</h3>
+                                    <h3 className="text-2xl font-900 tracking-tight text-slate-800 dark:text-white">An√°lisis Comparativo Gr√°fico</h3>
                                 </div>
                                 <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] ml-3">Comparativa de Mercado en Tiempo Real</p>
                             </div>
@@ -1803,12 +1795,12 @@ export default function ComparadorPage() {
                                                     <span className="material-icons text-slate-400 text-lg">history</span>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Tu SituaciÛn Actual</p>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Tu Situaci√≥n Actual</p>
                                                     <p className="text-sm font-bold text-slate-500 uppercase tracking-tighter">Referencia de Mercado</p>
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-3xl font-900 text-slate-400 line-through opacity-50">{(input.current_bill_total || 0).toFixed(2)} Ä</p>
+                                                <p className="text-3xl font-900 text-slate-400 line-through opacity-50">{(input.current_bill_total || 0).toFixed(2)} ‚Ç¨</p>
                                                 <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Gasto Base</p>
                                             </div>
                                         </div>
@@ -1851,9 +1843,9 @@ export default function ComparadorPage() {
                                                             </div>
                                                         </div>
                                                         <div className="text-right">
-                                                            <p className={`text-3xl font-900 ${idx === 0 ? "text-primary" : "text-slate-700 dark:text-slate-300"}`}>{res.total.toFixed(2)} Ä</p>
+                                                            <p className={`text-3xl font-900 ${idx === 0 ? "text-primary" : "text-slate-700 dark:text-slate-300"}`}>{res.total.toFixed(2)} ‚Ç¨</p>
                                                             <p className={`text-[10px] font-bold uppercase tracking-widest ${saving > 0 ? "text-success" : "text-slate-400"}`}>
-                                                                {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)} Ä% ahorro` : `Ä${res.total.toFixed(2)} Ä/mes`}
+                                                                {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)} ‚Ç¨% ahorro` : `‚Ç¨${res.total.toFixed(2)} ‚Ç¨/mes`}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -1870,7 +1862,7 @@ export default function ComparadorPage() {
                                                             )}
                                                             <div className="absolute right-3 inset-y-0 flex items-center">
                                                                 <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
-                                                                    {finalPercent.toFixed(0)} Ä%
+                                                                    {finalPercent.toFixed(0)} ‚Ç¨%
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1890,8 +1882,8 @@ export default function ComparadorPage() {
                                                 <span className="material-icons text-4xl">savings</span>
                                             </div>
                                             <div>
-                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-success/60 leading-none mb-2">Ahorro M·ximo Proyectado</p>
-                                                <p className="text-4xl font-900 text-success tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} Ä <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ aÒo</span></p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-success/60 leading-none mb-2">Ahorro M√°ximo Proyectado</p>
+                                                <p className="text-4xl font-900 text-success tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} ‚Ç¨ <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ a√±o</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -1920,7 +1912,7 @@ export default function ComparadorPage() {
 
                         <div className="flex items-center justify-center gap-4 text-slate-400">
                             <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
-                            <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del An·lisis Gr·fico</p>
+                            <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del An√°lisis Gr√°fico</p>
                             <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
                         </div>
                     </div >
@@ -1975,19 +1967,19 @@ export default function ComparadorPage() {
                                                     <span className="bg-primary text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest leading-none flex items-center shadow-md shadow-primary/20">Top Recomendado</span>
                                                 )}
                                                 <span className={`text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest leading-none flex items-center ${selectedResult.tariff.name.includes("PVPC") ? "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400" : "bg-success text-white shadow-md shadow-success/20"}`}>
-                                                    {selectedResult.tariff.name.includes("PVPC") ? "Mercado Regulado" : "EnergÌa 100% Verde"}
+                                                    {selectedResult.tariff.name.includes("PVPC") ? "Mercado Regulado" : "Energ√≠a 100% Verde"}
                                                 </span>
                                             </div>
                                             <h1 className="text-3xl md:text-4xl font-800 tracking-tight">Tarifa {selectedResult.tariff.name}</h1>
                                             <p className="text-slate-500 leading-relaxed text-sm">
                                                 {selectedResult.tariff.name.includes("PVPC")
-                                                    ? "Tarifa del Mercado Regulado (Precio Voluntario para el PequeÒo Consumidor). El precio varÌa cada hora seg˙n la demanda; los precios mostrados son las medias recientes."
-                                                    : "OpciÛn competitiva en el mercado libre para consumidores domÈsticos que buscan estabilidad o buen precio sin penalizaciones abusivas."}
+                                                    ? "Tarifa del Mercado Regulado (Precio Voluntario para el Peque√±o Consumidor). El precio var√≠a cada hora seg√∫n la demanda; los precios mostrados son las medias recientes."
+                                                    : "Opci√≥n competitiva en el mercado libre para consumidores dom√©sticos que buscan estabilidad o buen precio sin penalizaciones abusivas."}
                                             </p>
                                         </div>
                                         <div className="w-full md:w-auto text-center md:text-right shrink-0 mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
                                             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Coste Mensual Estimado</p>
-                                            <p className="text-5xl md:text-6xl font-800 text-primary">{selectedResult.total.toFixed(2)} Ä</p>
+                                            <p className="text-5xl md:text-6xl font-800 text-primary">{selectedResult.total.toFixed(2)} ‚Ç¨</p>
                                             <p className="text-[10px] text-slate-400 font-medium italic mt-2">impuestos incluidos (IVA 21%)</p>
                                         </div>
                                     </div>
@@ -2014,20 +2006,20 @@ export default function ComparadorPage() {
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">TÈrmino de Potencia</h5>
+                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">T√©rmino de Potencia</h5>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} Ä Ä/kW dÌa</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} ‚Ç¨ ‚Ç¨/kW d√≠a</span>
                                                     </div>
                                                     <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                                                         <span className="text-xs font-bold">Valle (P2)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} Ä Ä/kW dÌa</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} ‚Ç¨ ‚Ç¨/kW d√≠a</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">TÈrmino de EnergÌa</h5>
+                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">T√©rmino de Energ√≠a</h5>
                                                 {(selectedResult.tariff?.type || "").includes('3 Periodos') ? (
                                                     <div className="space-y-3">
                                                         <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">
@@ -2035,27 +2027,27 @@ export default function ComparadorPage() {
                                                                 <span className="w-2 h-2 rounded bg-orange-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Punta (P1)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} Ä <span className="text-[10px] font-normal opacity-70 text-slate-500">Ä/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} ‚Ç¨ <span className="text-[10px] font-normal opacity-70 text-slate-500">‚Ç¨/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-blue-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Llano (P2)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} Ä <span className="text-[10px] font-normal opacity-70 text-slate-500">Ä/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} ‚Ç¨ <span className="text-[10px] font-normal opacity-70 text-slate-500">‚Ç¨/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-green-500"></span>
                                                                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Valle (P3)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} Ä <span className="text-[10px] font-normal opacity-70 text-slate-500">Ä/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} ‚Ç¨ <span className="text-[10px] font-normal opacity-70 text-slate-500">‚Ç¨/kWh</span></span>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
-                                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio ⁄nico (24h)</div>
-                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} Ä <span className="text-sm font-normal opacity-60">Ä/kWh</span></p>
+                                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio √önico (24h)</div>
+                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} ‚Ç¨ <span className="text-sm font-normal opacity-60">‚Ç¨/kWh</span></p>
                                                         <p className="text-[10px] text-slate-500 italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
                                                     </div>
                                                 )}
@@ -2070,8 +2062,8 @@ export default function ComparadorPage() {
                                         </div>
                                         <div className="p-10 space-y-5">
                                             {[
-                                                { l: "TÈrmino de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1 : input.power_p1 + "/" + input.power_p2) + " kW)", v: selectedResult.costPower.toFixed(2) + " Ä" },
-                                                { l: "TÈrmino de EnergÌa (" + (input.energy_p1 + input.energy_p2 + input.energy_p3) + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " Ä" },
+                                                { l: "T√©rmino de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1 : input.power_p1 + "/" + input.power_p2) + " kW)", v: selectedResult.costPower.toFixed(2) + " ‚Ç¨" },
+                                                { l: "T√©rmino de Energ√≠a (" + (input.energy_p1 + input.energy_p2 + input.energy_p3) + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " ‚Ç¨" },
                                             ].map((l, i) => (
                                                 <div key={i} className="flex justify-between text-sm py-1 border-b border-slate-50 dark:border-slate-800/50 pb-3">
                                                     <span className="font-medium text-slate-500">{l.l}</span>
@@ -2079,15 +2071,15 @@ export default function ComparadorPage() {
                                                 </div>
                                             ))}
                                             <div className="space-y-3 pt-4 text-xs">
-                                                <div className="flex justify-between text-slate-500"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} Ä</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} Ä</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} Ä</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} Ä</span></div>
+                                                <div className="flex justify-between text-slate-500"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} ‚Ç¨</span></div>
+                                                <div className="flex justify-between text-slate-500"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} ‚Ç¨</span></div>
+                                                <div className="flex justify-between text-slate-500"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} ‚Ç¨</span></div>
+                                                <div className="flex justify-between text-slate-500"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} ‚Ç¨</span></div>
                                             </div>
                                             <div className="pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                                 <span className="text-xl font-800">Total Factura</span>
                                                 <div className="text-right">
-                                                    <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} Ä</p>
+                                                    <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} ‚Ç¨</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -2105,7 +2097,7 @@ export default function ComparadorPage() {
                                                 <div className="p-2 bg-green-500/10 text-green-500 rounded-xl"><span className="material-icons text-sm">verified_user</span></div>
                                                 <div>
                                                     <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Sin Permanencia</p>
-                                                    <p className="text-xs text-slate-500 leading-relaxed">Puedes cambiar de tarifa o compaÒÌa en cualquier momento sin penalizaciÛn.</p>
+                                                    <p className="text-xs text-slate-500 leading-relaxed">Puedes cambiar de tarifa o compa√±√≠a en cualquier momento sin penalizaci√≥n.</p>
                                                 </div>
                                             </div>
                                             {selectedResult.tariff.name.includes("PVPC") ? (
@@ -2113,7 +2105,7 @@ export default function ComparadorPage() {
                                                     <div className="p-2 bg-blue-500/10 text-blue-500 rounded-xl"><span className="material-icons text-sm">auto_graph</span></div>
                                                     <div>
                                                         <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precio Semi-Indexado</p>
-                                                        <p className="text-xs text-slate-500 leading-relaxed">El precio real fluct˙a cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
+                                                        <p className="text-xs text-slate-500 leading-relaxed">El precio real fluct√∫a cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
                                                     </div>
                                                 </div>
                                             ) : (
@@ -2122,14 +2114,14 @@ export default function ComparadorPage() {
                                                         <div className="p-2 bg-primary/10 text-primary rounded-xl"><span className="material-icons text-sm">schedule</span></div>
                                                         <div>
                                                             <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precios Fijos 12 Meses</p>
-                                                            <p className="text-xs text-slate-500 leading-relaxed">El precio de la energÌa no sufrir· incrementos inesperados al menos durante el primer aÒo de contrato.</p>
+                                                            <p className="text-xs text-slate-500 leading-relaxed">El precio de la energ√≠a no sufrir√° incrementos inesperados al menos durante el primer a√±o de contrato.</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                                                         <div className="p-2 bg-amber-500/10 text-amber-500 rounded-xl"><span className="material-icons text-sm">military_tech</span></div>
                                                         <div>
-                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">AtenciÛn Continua</p>
-                                                            <p className="text-xs text-slate-500 leading-relaxed">Incluye opciones de gestiÛn r·pida y posible aplicaciÛn de descuentos temporales directos de la comercializadora.</p>
+                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Atenci√≥n Continua</p>
+                                                            <p className="text-xs text-slate-500 leading-relaxed">Incluye opciones de gesti√≥n r√°pida y posible aplicaci√≥n de descuentos temporales directos de la comercializadora.</p>
                                                         </div>
                                                     </div>
                                                 </>
@@ -2140,12 +2132,12 @@ export default function ComparadorPage() {
                                     <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-6">
                                         <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2">
                                             <span className="material-icons text-primary text-sm">info</span>
-                                            <h4 className="font-bold text-sm text-center md:text-left">InformaciÛn Oficial</h4>
+                                            <h4 className="font-bold text-sm text-center md:text-left">Informaci√≥n Oficial</h4>
                                         </div>
                                         <p className="text-[11px] text-slate-500 leading-relaxed bg-white dark:bg-background-dark/50 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
                                             {selectedResult.tariff.name.includes("PVPC")
-                                                ? "Este contrato pertenece al Mercado Regulado, supervisado directamente por el Estado. ⁄nicamente aplicable en potencias inferiores a 10 kW."
-                                                : "Este contrato se encuentra en el mercado libre, lo que permite aprovechar promociones o estabilidad de precios, siempre rigiÈndose bajo la normativa de la CNMC."}
+                                                ? "Este contrato pertenece al Mercado Regulado, supervisado directamente por el Estado. √önicamente aplicable en potencias inferiores a 10 kW."
+                                                : "Este contrato se encuentra en el mercado libre, lo que permite aprovechar promociones o estabilidad de precios, siempre rigi√©ndose bajo la normativa de la CNMC."}
                                         </p>
 
                                         <button
@@ -2158,7 +2150,7 @@ export default function ComparadorPage() {
                                         <div className="pt-4 flex justify-around">
                                             <button
                                                 onClick={() => {
-                                                    const text = encodeURIComponent(`°Mira esta tarifa de luz! ${selectedResult.tariff.company} - ${selectedResult.tariff.name} por solo Ä${selectedResult.total.toFixed(2)} Ä/mes. Puedes verla aquÌ: ${window.location.href}`);
+                                                    const text = encodeURIComponent(`¬°Mira esta tarifa de luz! ${selectedResult.tariff.company} - ${selectedResult.tariff.name} por solo ‚Ç¨${selectedResult.total.toFixed(2)} ‚Ç¨/mes. Puedes verla aqu√≠: ${window.location.href}`);
                                                     window.open(`https://wa.me/?text=${text}`, '_blank');
                                                 }}
                                                 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
@@ -2168,7 +2160,7 @@ export default function ComparadorPage() {
                                             <button
                                                 onClick={() => {
                                                     const subject = encodeURIComponent(`Tarifa recomendada: ${selectedResult.tariff.company} ${selectedResult.tariff.name}`);
-                                                    const body = encodeURIComponent(`Hola,\n\nHe encontrado esta tarifa de luz que podrÌa interesarte:\n\nCompaÒÌa: ${selectedResult.tariff.company}\nTarifa: ${selectedResult.tariff.name}\nPrecio estimado: Ä${selectedResult.total.toFixed(2)} Ä/mes\n\nPuedes ver m·s detalles aquÌ: ${window.location.href}`);
+                                                    const body = encodeURIComponent(`Hola,\n\nHe encontrado esta tarifa de luz que podr√≠a interesarte:\n\nCompa√±√≠a: ${selectedResult.tariff.company}\nTarifa: ${selectedResult.tariff.name}\nPrecio estimado: ‚Ç¨${selectedResult.total.toFixed(2)} ‚Ç¨/mes\n\nPuedes ver m√°s detalles aqu√≠: ${window.location.href}`);
                                                     window.location.href = `mailto:?subject=${subject}&body=${body}`;
                                                 }}
                                                 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
