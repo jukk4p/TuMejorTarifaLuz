@@ -1392,11 +1392,15 @@ export default function ComparadorPage() {
                                 </div>
 
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm">
-                                    <div className="px-5 py-4 md:px-8 md:py-6 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-                                        <h3 className="font-800 text-base md:text-lg tracking-tight text-center flex flex-col md:flex-row items-center gap-3 text-slate-800 dark:text-white">
+                                    <div className="px-5 py-6 md:px-8 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm relative overflow-hidden group/header">
+                                        {/* Advanced Glow Decorations Moved Here */}
+                                        <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover/header:bg-primary/20 transition-all duration-1000 pointer-events-none"></div>
+                                        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-success/5 rounded-full blur-[80px] group-hover/header:bg-success/10 transition-all duration-1000 pointer-events-none"></div>
+
+                                        <h3 className="font-900 text-lg md:text-xl tracking-tight text-center flex flex-col md:flex-row items-center gap-3 text-slate-900 dark:text-white relative z-10">
                                             Resultados de Comparativa
                                         </h3>
-                                        <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+                                        <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10">
                                             <button
                                                 onClick={saveBill}
                                                 disabled={isProcessing}
@@ -1498,118 +1502,117 @@ export default function ComparadorPage() {
 
                                     {/* DESKTOP VIEW: TABLE (hidden md:block) */}
                                     <div className="hidden md:block overflow-x-auto overflow-y-hidden">
-                                        <div className="relative overflow-hidden rounded-[3rem] bg-slate-50/40 dark:bg-slate-950/20 backdrop-blur-xl border border-slate-200/50 dark:border-white/5 p-3 shadow-2xl">
+                                        <div className="relative overflow-hidden rounded-b-[3.5rem] bg-white/40 dark:bg-slate-950/40 backdrop-blur-3xl border-x border-b border-slate-200/50 dark:border-white/10 p-4 shadow-[0_32px_120px_-15px_rgba(0,0,0,0.12)] dark:shadow-[0_32px_120px_-15px_rgba(0,0,0,0.5)] group/table">
+
+
                                             {/* Decorative Grid Background */}
-                                            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none z-0"
-                                                style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+                                            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none z-0"
+                                                style={{ backgroundImage: 'radial-gradient(circle, currentColor 1.2px, transparent 1.2px)', backgroundSize: '32px 32px' }}></div>
 
                                             <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
                                                 <thead>
-                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.25em] whitespace-nowrap border-b border-slate-100 dark:border-white/5">
-                                                        <th className="pl-12 pr-4 py-8 w-[33%] align-middle text-left">
+                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] whitespace-nowrap">
+                                                        <th className="pl-8 pr-4 py-10 w-[33%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 rounded-l-3xl border-y border-l border-slate-100 dark:border-white/5">
                                                             TARIFA / COMERCIALIZADORA
                                                         </th>
-                                                        <th className="px-4 py-8 w-[14%] align-middle text-left">
+                                                        <th className="px-4 py-10 w-[14%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             ENERGÍA
                                                         </th>
-                                                        <th className="px-4 py-8 w-[14%] align-middle text-center">
+                                                        <th className="px-4 py-10 w-[14%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             TOTAL MES
                                                         </th>
-                                                        <th className="px-4 py-8 w-[18%] align-middle text-center text-success font-bold">
+                                                        <th className="px-4 py-10 w-[18%] align-middle text-center text-success font-black bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             AHORRO
                                                         </th>
-                                                        <th className="px-4 py-8 w-[21%] align-middle text-center">
+                                                        <th className="px-4 py-10 w-[21%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 rounded-r-3xl border-y border-r border-slate-100 dark:border-white/5">
                                                             ACCIÓN
                                                         </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="perspective-2000">
                                                     {/* Baseline Reference - Premium & Standardized */}
-                                                    <tr className="bg-white dark:bg-slate-900 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] ring-1 ring-slate-200 dark:ring-slate-800 group relative z-10">
-                                                        <td className="pl-12 pr-4 py-10 rounded-l-[2.5rem] border-transparent relative">
-                                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 w-1 bg-slate-200 dark:bg-slate-700 rounded-full z-30"></div>
-                                                            <div className="flex items-center gap-4">
-                                                                <div>
-                                                                    <p className="text-[10px] font-bold text-slate-400 uppercase">SITUACIÓN BASE</p>
-                                                                    <p className="text-base font-bold text-slate-500 dark:text-slate-400 uppercase tracking-tight">Referencia</p>
+                                                    <tr className="bg-slate-100/30 dark:bg-slate-800/20 border border-slate-200/50 dark:border-white/5 backdrop-blur-sm group relative z-10">
+                                                        <td className="pl-8 pr-4 py-8 rounded-l-[1.5rem] relative">
+                                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-10 w-1 bg-slate-300 dark:bg-slate-600 rounded-full"></div>
+                                                            <div className="flex flex-col">
+                                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap mb-1">Tu Situación Actual</p>
+                                                                <p className="text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-tight">Referencia Base</p>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-4 py-8 align-middle">
+                                                            <div className="flex flex-col">
+                                                                <div className="flex flex-col gap-0.5 text-[10px]">
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500/50"></div> <span className="font-bold text-orange-500/70 uppercase text-[8px]">P1:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{(input.current_price_p1 || 0).toFixed(4)}</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500/50"></div> <span className="font-bold text-blue-500/70 uppercase text-[8px]">P2:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
+                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success/50"></div> <span className="font-bold text-success/70 uppercase text-[8px]">P3:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="px-4 py-8 align-middle border-y border-transparent">
-                                                            <div className="flex flex-col">
-                                                                <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(input.current_price_p1 || 0).toFixed(4)} €</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)} €</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)} €</span></div>
-                                                                </div>
+                                                        <td className="px-4 py-8 align-middle text-center">
+                                                            <span className="text-lg font-bold text-slate-400 dark:text-slate-500">{(input.current_bill_total || 0).toFixed(2)} €</span>
+                                                        </td>
+                                                        <td className="px-4 py-8 align-middle text-center text-slate-300 dark:text-slate-700 font-black">—</td>
+                                                        <td className="pr-6 pl-4 py-8 rounded-r-[1.5rem] align-middle text-right">
+                                                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                                                <span className="material-icons text-xs">lock</span>
+                                                                Punto de Comparación
                                                             </div>
-                                                        </td>
-                                                        <td className="px-4 py-8 align-middle border-y border-transparent text-center">
-                                                            <div className="flex flex-col">
-                                                                <span className="text-xl font-bold text-slate-500 dark:text-slate-400">{(input.current_bill_total || 0).toFixed(2)} €</span>
-                                                            </div>
-                                                        </td>
-                                                        <td className="px-4 py-8 align-middle border-y border-transparent text-center">
-
-                                                        </td>
-                                                        <td className="pr-8 pl-4 py-8 border-y border-transparent rounded-r-[2.5rem] text-right align-middle">
-
                                                         </td>
                                                     </tr>
 
                                                     {/* Comparison results - Hierarchical & High Performance */}
                                                     {results.map((res, idx) => (
-                                                        <tr key={idx} className={`group relative transition-all duration-700 hover:scale-[1.012] hover:-translate-y-2 hover:z-20 ${idx === 0
-                                                            ? "bg-white dark:bg-slate-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] ring-1 ring-primary/30"
-                                                            : "bg-white/60 dark:bg-slate-900/60 shadow-sm border border-white/40 dark:border-white/5"
+                                                        <tr key={idx} className={`group relative transition-all duration-500 hover:z-20 ${idx === 0
+                                                            ? "bg-white dark:bg-slate-900 shadow-[0_25px_80px_-15px_rgba(var(--primary-rgb),0.2)] dark:shadow-[0_25px_80px_-15px_rgba(0,0,0,0.6)] ring-2 ring-primary/20 scale-[1.02] -translate-y-1"
+                                                            : "bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 border border-white/40 dark:border-white/5 hover:shadow-xl hover:scale-[1.01] hover:-translate-y-1"
                                                             }`}>
-                                                            <td className={`pl-12 pr-4 py-10 transition-all duration-300 rounded-l-[2.5rem] group-hover:bg-primary/[0.03] relative ${idx === 0 ? "border-transparent" : "border-slate-100 dark:border-slate-800"
-                                                                }`}>
+                                                            <td className="pl-8 pr-4 py-8 transition-all duration-300 rounded-l-3xl relative">
                                                                 {/* Type Indicator Line */}
-                                                                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-12 w-0.5 rounded-full z-10 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'}`}></div>
+                                                                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-12 w-1 rounded-r-full z-10 transition-all duration-500 group-hover:h-16 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'}`}></div>
                                                                 {idx === 0 && (
                                                                     <>
-                                                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 w-1.5 bg-gradient-to-b from-primary via-primary-light to-primary rounded-full z-30 shadow-[0_0_20px_rgba(var(--primary-rgb),0.5)]"></div>
-                                                                        <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.04] to-transparent pointer-events-none rounded-l-[2.5rem]"></div>
+                                                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 h-20 w-1.5 bg-gradient-to-b from-primary via-primary-light to-primary rounded-full z-30 shadow-[0_0_25px_rgba(var(--primary-rgb),0.6)]"></div>
+                                                                        <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.06] to-transparent pointer-events-none rounded-l-3xl"></div>
                                                                     </>
                                                                 )}
-                                                                <div className="flex flex-col gap-1">
+                                                                <div className="flex flex-col gap-1.5">
                                                                     <div className="flex items-center gap-2">
-                                                                        <p className={`text-[9px] font-black uppercase tracking-widest ${idx === 0 ? "text-success" : "text-primary/70"}`}>{res.tariff.company}</p>
+                                                                        <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${idx === 0 ? "text-primary" : "text-slate-400 group-hover:text-primary/70"}`}>{res.tariff.company}</p>
                                                                     </div>
-                                                                    <p className="text-base font-bold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
+                                                                    <p className="text-base font-black text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
                                                                 </div>
                                                             </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800">
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5">
                                                                 <div className="flex flex-col">
-                                                                    <div className="flex flex-col gap-0.5 text-[11px]">
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[9px]">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{res.tariff.e1_kwh.toFixed(4)} €</span></div>
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[9px]">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)} €</span></div>
-                                                                        <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[9px]">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)} €</span></div>
+                                                                    <div className="flex flex-col gap-1 text-[10px]">
+                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[8px] w-4">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{res.tariff.e1_kwh.toFixed(4)}</span></div>
+                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[8px] w-4">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
+                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[8px] w-4">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800 text-center">
-                                                                <span className="text-lg font-bold text-slate-800 dark:text-slate-100 tracking-tight">{res.total.toFixed(2)} €</span>
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5 text-center">
+                                                                <div className="flex flex-col items-center">
+                                                                    <span className={`text-xl font-black tracking-tighter ${idx === 0 ? "text-primary scale-110" : "text-slate-900 dark:text-white"}`}>{res.total.toFixed(2)} €</span>
+                                                                </div>
                                                             </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-slate-800 text-center">
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5 text-center">
                                                                 <div className="flex flex-col items-center justify-center relative">
                                                                     {idx === 0 && (
-                                                                        <div className="absolute -inset-4 bg-success/5 blur-xl rounded-full animate-pulse z-0"></div>
+                                                                        <div className="absolute -inset-6 bg-success/10 blur-2xl rounded-full animate-pulse z-0"></div>
                                                                     )}
-                                                                    <div className={`flex items-center gap-1 relative z-10 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-red-500"}`}>
-                                                                        <span className="material-icons text-base font-bold">
-                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? "trending_down" : "trending_up"}
+                                                                    <div className={`flex items-center gap-1.5 relative z-10 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                                        <span className="material-icons opacity-70">
+                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? "keyboard_double_arrow_down" : "keyboard_double_arrow_up"}
                                                                         </span>
-                                                                        <span className="font-black tracking-tighter text-xl">
+                                                                        <span className="font-black tracking-tighter text-2xl">
                                                                             {((input.current_bill_total || 0) - res.total).toFixed(2)} €
                                                                         </span>
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td className={`pr-8 pl-4 py-8 border-y border-r transition-colors rounded-r-2xl text-right align-middle group-hover:bg-primary/[0.02] ${idx === 0 ? "border-transparent" : "border-slate-100 dark:border-slate-800"
-                                                                }`}>
-                                                                <div className="flex items-center justify-end gap-1 p-1.5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-white/5 shadow-sm inline-flex">
+                                                            <td className="pr-6 pl-4 py-8 border-y border-slate-100 dark:border-white/5 rounded-r-3xl text-right align-middle">
+                                                                <div className="inline-flex items-center gap-1 px-1.5 py-1.5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-white/5 shadow-sm">
                                                                     <button
                                                                         onClick={(e) => {
                                                                             e.stopPropagation();
@@ -1620,7 +1623,7 @@ export default function ComparadorPage() {
                                                                             if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                                         }}
                                                                         title={res.tariff.id && favorites.includes(res.tariff.id) ? "Quitar de favoritos" : "Añadir a favoritos"}
-                                                                        className={`p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 bg-transparent ${res.tariff.id && favorites.includes(res.tariff.id)
+                                                                        className={`p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent ${res.tariff.id && favorites.includes(res.tariff.id)
                                                                             ? "text-red-500"
                                                                             : "text-slate-400 dark:text-slate-500 hover:text-primary"
                                                                             }`}
@@ -1629,11 +1632,11 @@ export default function ComparadorPage() {
                                                                             {res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}
                                                                         </span>
                                                                     </button>
-                                                                    <div className="w-px h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
+                                                                    <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
                                                                     <button
                                                                         onClick={() => viewDetail(res.tariff.id!)}
                                                                         title="Ver detalles"
-                                                                        className="p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 bg-transparent text-primary hover:text-primary/70"
+                                                                        className="p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent text-primary hover:text-primary/70"
                                                                     >
                                                                         <span className="material-icons text-2xl">visibility</span>
                                                                     </button>
@@ -1654,15 +1657,7 @@ export default function ComparadorPage() {
                                         </div>
                                     </div>
 
-                                    {/* RESULTS COUNT MINI-BADGE (Moved to bottom of card) */}
-                                    <div className="p-8 flex justify-center border-t border-slate-100 dark:border-slate-800/50">
-                                        <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/30 px-4 py-2 rounded-full border border-slate-100 dark:border-slate-800 shadow-sm">
-                                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                            <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.1em]">
-                                                {results.length} resultados encontrados
-                                            </p>
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 {/* BOTTOM BREAKDOWN BOX (THE BLACK BOX) */}
@@ -1672,108 +1667,62 @@ export default function ComparadorPage() {
 
                                     <div className="relative z-10 space-y-12">
                                         {/* HEADER INSIDE BLACK BOX */}
-                                        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6 border-b border-white/5 pb-8">
-                                            <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                                                    <span className="material-symbols-outlined text-primary text-2xl">analytics</span>
+                                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/5 pb-10">
+                                            <div className="flex flex-col md:flex-row items-center gap-5 text-center md:text-left">
+                                                <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-lg shadow-primary/5">
+                                                    <span className="material-symbols-outlined text-primary text-3xl">analytics</span>
                                                 </div>
-                                                <div>
-                                                    <h4 className="text-sm font-bold tracking-tight">Desglose Técnico Transparente</h4>
-                                                    <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">Tarifa Ganadora: {results[0].tariff.company} {results[0].tariff.name}</p>
+                                                <div className="space-y-1">
+                                                    <h4 className="text-lg font-bold tracking-tight text-white/90">Desglose Técnico Transparente</h4>
+                                                    <p className="text-[10px] text-slate-500 uppercase tracking-[0.25em] font-black">
+                                                        Tarifa Ganadora: <span className="text-slate-400">{results[0].tariff.company} {results[0].tariff.name}</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {/* GRID INSIDE BLACK BOX */}
-                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
-                                        {/* ENERGIA */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">bolt</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Energía</p>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
+                                        {[
+                                            { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: "bolt", border: "border-primary/40" },
+                                            { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: "offline_bolt", border: "border-white/10" },
+                                            { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: "volunteer_activism", border: "border-white/10" },
+                                            { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: "speed", border: "border-white/10" },
+                                            { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: "account_balance", border: "border-white/10" },
+                                            { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: "receipt_long", border: "border-white/10" },
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="flex flex-col h-full">
+                                                <div className="flex items-center gap-2 text-slate-400 min-h-[40px] mb-4">
+                                                    <span className="material-icons text-base text-slate-500">{item.icon}</span>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
+                                                </div>
+                                                <div className={`pl-4 border-l-2 ${item.border} flex flex-col justify-center grow`}>
+                                                    <p className={`text-2xl font-900 tracking-tight ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{item.val.toFixed(2)} €</p>
+                                                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mt-1 opacity-70">{item.sub}</p>
+                                                </div>
                                             </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-primary/30 h-full">
-                                                <p className="text-2xl font-900 tracking-tight">{results[0].costEnergy.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Mercado {results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'}</p>
-                                            </div>
-                                        </div>
-
-                                        {/* POTENCIA */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">offline_bolt</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Potencia</p>
-                                            </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-200">{results[0].costPower.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Capacidad Contratada</p>
-                                            </div>
-                                        </div>
-
-                                        {/* BONO SOCIAL */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">volunteer_activism</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Bono Social</p>
-                                            </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costBonoSocial.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Financiación Obligatoria</p>
-                                            </div>
-                                        </div>
-
-                                        {/* CONTADOR */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">speed</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Contador</p>
-                                            </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].costMeter.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Alquiler de Equipo</p>
-                                            </div>
-                                        </div>
-
-                                        {/* IEE */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">account_balance</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">Impuesto IEE</p>
-                                            </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIee.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">Imp. Eléctrico (5.11%)</p>
-                                            </div>
-                                        </div>
-
-                                        {/* IVA */}
-                                        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                                            <div className="flex items-center gap-2 text-slate-400 h-10 mb-2">
-                                                <span className="material-icons text-sm">receipt_long</span>
-                                                <p className="text-[10px] font-bold uppercase tracking-widest leading-tight">IVA Aplicado</p>
-                                            </div>
-                                            <div className="pl-0 sm:pl-4 border-l-0 sm:border-l-2 border-slate-700 h-full">
-                                                <p className="text-2xl font-900 tracking-tight text-slate-300">{results[0].taxIva.toFixed(2)} €</p>
-                                                <p className="text-[9px] text-slate-500 font-mono mt-1 opacity-80">IVA General (21%)</p>
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
 
                                     {/* TOTAL ESTIMATED DASHBOARD INSIDE BLACK BOX */}
-                                    <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-                                        <div className="flex flex-col md:flex-row items-center gap-3 text-center md:text-left">
-                                            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 mx-auto md:mx-0">
-                                                <span className="material-icons text-slate-400 text-lg">info</span>
+                                    <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                                        <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                                            <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-white/5 shadow-inner">
+                                                <span className="material-icons text-slate-400 text-xl">info</span>
                                             </div>
-                                            <p className="text-[10px] text-slate-500 font-medium italic max-w-[280px] leading-relaxed">
-                                                Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
-                                            </p>
+                                            <div className="space-y-1">
+                                                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Metodología de Cálculo</p>
+                                                <p className="text-[11px] text-slate-400 font-medium italic max-w-[320px] leading-relaxed">
+                                                    Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
+                                                </p>
+                                            </div>
                                         </div>
                                         <div className="text-center md:text-right">
-                                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] mb-2">Total Estimado Mensual</p>
-                                            <div className="flex items-baseline justify-center md:justify-end gap-2">
-                                                <span className="text-sm font-bold text-success/60">€</span>
-                                                <p className="text-6xl font-900 text-success drop-shadow-[0_0_20px_rgba(34,197,94,0.3)]">{results[0].total.toFixed(2)} €</p>
+                                            <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
+                                            <div className="flex items-baseline justify-center md:justify-end gap-3">
+                                                <p className="text-7xl font-900 text-success drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
+                                                    {results[0].total.toFixed(2)}
+                                                    <span className="text-4xl ml-2 opacity-80">€</span>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

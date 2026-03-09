@@ -48,6 +48,15 @@ export default function Footer() {
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/aviso-legal"><span className="material-icons text-xs">chevron_right</span> Aviso Legal</Link></li>
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/privacidad"><span className="material-icons text-xs">chevron_right</span> Política de Privacidad</Link></li>
                             <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/cookies"><span className="material-icons text-xs">chevron_right</span> Política de Cookies</Link></li>
+                            <li>
+                                <button
+                                    onClick={() => (window as any).openCookieSettings()}
+                                    className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2 w-full md:w-auto"
+                                >
+                                    <span className="material-icons text-xs">settings</span>
+                                    Gestionar Cookies
+                                </button>
+                            </li>
                         </ul>
                     </div>
                     <div className="text-center md:text-left">
