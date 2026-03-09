@@ -351,27 +351,6 @@ export default function ComparadorPage() {
 
         const reader = new FileReader();
         reader.onload = async (event) => {
-            // SUBIDA AUTOMÁTICA SILENCIOSA A FACTURAS_ADMIN (PARALELA)
-            try {
-                const adminFormData = new FormData();
-                adminFormData.append("file", file);
-
-                // Si el usuario está logueado, usamos su email o nombre para la carpeta
-                // Si no, usamos 'guest'
-                const identifier = user ? (user.email || user.displayName || user.uid) : "guest";
-                adminFormData.append("userId", identifier);
-                adminFormData.append("folder", "Facturas_Admin");
-
-                fetch("/api/upload", {
-                    method: "POST",
-                    body: adminFormData,
-                }).then(r => r.json()).then(res => {
-                    console.log("Copia de seguridad automática en Facturas_Admin enviada:", res.url);
-                }).catch(e => console.error("Error en backup automático:", e));
-            } catch (e) {
-                console.error("Error iniciando backup automático:", e);
-            }
-
             try {
                 const base64String = (event.target?.result as string).split(',')[1];
 
