@@ -160,7 +160,7 @@ export default function ProfilePage() {
 
     const deleteBill = async (billId: string, filePath?: string) => {
         if (!user) return;
-        if (!confirm("⚠️ ¿Estás seguro? Se eliminará el estudio y su factura de tu cuenta. (Tú no podrás recuperarla, pero Administración guardará una copia de seguridad interna).")) return;
+        if (!confirm("⚠️ ¿Estás seguro? Se eliminará el estudio y su factura de tu cuenta de forma permanente. Esta acción no se puede deshacer.")) return;
 
         try {
             // 1. Borrar de Cloudflare R2 PRIMERO (si existe ruta)

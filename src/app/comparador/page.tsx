@@ -278,7 +278,11 @@ export default function ComparadorPage() {
 
                 const formData = new FormData();
                 formData.append("file", uploadedFileRaw);
-                formData.append("userId", user.uid);
+
+                // Usamos el email si existe como identificador de carpeta, si no el UID
+                const identifier = user.email || user.uid;
+                formData.append("userId", identifier);
+                formData.append("folder", "Facturas_Usuarios"); // Nueva carpeta base para usuarios registrados
 
                 const uploadResponse = await fetch("/api/upload", {
                     method: "POST",
