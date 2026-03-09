@@ -153,7 +153,7 @@ export default function SobreNosotros() {
                             {[
                                 { number: "12+", label: "Compañías" },
                                 { number: "25+", label: "Tarifas Activas" },
-                                { number: "30sec", label: "Análisis Rápido" },
+                                { number: "20sec", label: "Análisis Rápido" },
                                 { number: "0€", label: "Coste Usuario" }
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-1">
