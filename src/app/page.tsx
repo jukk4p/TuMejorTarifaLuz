@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getElectricityPrices } from "@/lib/electricity-prices";
 import { blogPosts } from "@/lib/blogData";
-import JsonLd, { webAppSchema } from "@/components/seo/JsonLd";
+import JsonLd, { webAppSchema, faqSchema } from "@/components/seo/JsonLd";
 import ClientParticles from "@/components/3d/ClientParticles";
 
 export const dynamic = 'force-dynamic';
@@ -237,49 +237,7 @@ export default async function Home() {
         {/* FAQ Section */}
         <section id="faq" className="pb-24 pt-12 bg-background-light dark:bg-slate-900/10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "FAQPage",
-                  "mainEntity": [
-                    {
-                      "@type": "Question",
-                      "name": "¿Es seguro subir mi factura?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Absolutamente. Utilizamos protocolos de cifrado de nivel bancario (SSL/TLS) para proteger tus archivos. Solo extraemos los datos necesarios para el análisis y no compartimos tu información personal con terceros sin tu consentimiento explícito. Tu privacidad es nuestra prioridad absoluta."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "¿Cómo se analizan los datos?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Nuestra tecnología de Procesamiento de Datos y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "¿Tengo que pagar por usar el comparador?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "No, el uso de nuestra plataforma es 100% gratuito. Este es un proyecto independiente que busca ayudar a los usuarios a ahorrar de forma altruista. Los enlaces que proporcionamos son los oficiales de cada comercializadora y no recibimos comisión alguna por las contrataciones."
-                      }
-                    },
-                    {
-                      "@type": "Question",
-                      "name": "¿Las tarifas están actualizadas?",
-                      "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": "Sí, nuestra base de datos se sincroniza en tiempo real con las ofertas publicadas por las comercializadoras y el mercado mayorista (OMIE). Revisamos y actualizamos más de 25 tarifas diariamente para asegurarnos de que siempre veas la opción más competitiva disponible en el mercado español."
-                      }
-                    }
-                  ]
-                })
-              }}
-            />
+            <JsonLd data={faqSchema} />
             <div className="text-center mb-16">
               <h2 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Preguntas Frecuentes</h2>
               <p className="text-lg text-slate-600 dark:text-slate-400">Todo lo que necesitas saber sobre nuestro motor de comparación.</p>

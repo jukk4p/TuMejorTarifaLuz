@@ -80,6 +80,7 @@ function NavbarContent() {
                             <Link href="/comparador" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Comparador</Link>
                             <Link href="/companias" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Compañías</Link>
                             <Link href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Blog</Link>
+                            <Link href="/sobre-nosotros" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Nosotros</Link>
 
                             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
 
