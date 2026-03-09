@@ -88,15 +88,21 @@ export default function SobreNosotros() {
 
                                     <div className="grid sm:grid-cols-3 gap-4 pt-4">
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
-                                            <span className="material-icons text-primary mb-2">call_off</span>
+                                            <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
+                                                <span className="material-icons text-primary text-2xl">phone_disabled</span>
+                                            </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Llamadas</p>
                                         </div>
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
-                                            <span className="material-icons text-primary mb-2">payments</span>
+                                            <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
+                                                <span className="material-icons text-primary text-2xl">payments</span>
+                                            </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Comisiones</p>
                                         </div>
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
-                                            <span className="material-icons text-primary mb-2">lock</span>
+                                            <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
+                                                <span className="material-icons text-primary text-2xl">lock</span>
+                                            </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Privacidad Total</p>
                                         </div>
                                     </div>
