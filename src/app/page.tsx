@@ -81,9 +81,9 @@ export default async function Home() {
                 <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-success/10 rounded-full blur-3xl"></div>
                 <div className="relative premium-card premium-3d-card overflow-hidden !border-8 !border-white dark:!border-slate-800 rounded-[2.5rem]">
                   <Image
-                    alt="Happy family in their modern energy efficient kitchen"
+                    alt="Familia real ahorrando en su moderna cocina con Tu Mejor Tarifa Luz"
                     className="w-full aspect-[4/3] object-cover scale-105"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuClS9NHFc7VEE6wgqxL4w3PtcYpeM-RMSaiMOc_W8EPB7RQ8Nx9PksvClT5BQDNrbs3uYNfA1rae4CFWMRvfKM3tUOIgzD8Aa3oU-T_VC3OdAm-LkqgHCPwXuVNxIJa3pD32GYQOy28Yr95R9yzKcTg8gUGHwhTZ7MAx2wTnDzYC8FbPzeMYvb67vRG9-gDR0JoNeJJ7r5aeC4jpkaqGuIrb9jbMeLriooSPlONL357HBqMjrwF03OaZgfaa3aF-E2FptDbq-OR3iQ"
+                    src="/family-kitchen.png"
                     width={800}
                     height={600}
                     priority
