@@ -1958,7 +1958,7 @@ export default function ComparadorPage() {
                                             </div>
                                             <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
                                                 <span className="text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none whitespace-nowrap transition-colors" onClick={() => setShowWithTaxes(!showWithTaxes)}>
-                                                    {showWithTaxes ? 'Ver precios sin impuestos' : 'Ver precios con impuestos'}
+                                                    {showWithTaxes ? 'Precios con impuestos' : 'Precios sin impuestos'}
                                                 </span>
                                                 <button
                                                     role="switch"
