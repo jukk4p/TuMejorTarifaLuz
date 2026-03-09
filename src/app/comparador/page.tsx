@@ -795,17 +795,18 @@ export default function ComparadorPage() {
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/5 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/10 transition-colors duration-700"></div>
 
                                     <div className="relative z-10 max-w-2xl w-full">
-                                        <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-primary/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-inner">
-                                            <span className="material-symbols-outlined text-5xl text-primary animate-pulse">bolt</span>
+                                        <div className="w-24 h-24 bg-primary/10 rounded-[2rem] flex items-center justify-center mb-10 mx-auto">
+                                            <span className="material-symbols-outlined text-5xl text-primary animate-pulse">analytics</span>
                                         </div>
 
-                                        <h3 className="text-4xl font-800 mb-6 tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
-                                            Comparador Inteligente
-                                        </h3>
-
-                                        <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto">
-                                            Entorno analítico configurado. Procesamos sus parámetros eléctricos mediante algoritmos de mercado para garantizar la tarifa más económica del país.
-                                        </p>
+                                        <div className="mt-8">
+                                            <h3 className="text-4xl font-800 mb-6 tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                                                Comparador Inteligente
+                                            </h3>
+                                            <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto">
+                                                Entorno analítico configurado. Procesamos sus parámetros eléctricos mediante algoritmos de mercado para garantizar la tarifa más económica del país.
+                                            </p>
+                                        </div>
 
                                         <div className="grid grid-cols-3 gap-12 max-w-md mx-auto">
                                             <div className="space-y-3 group/item">

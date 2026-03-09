@@ -14,10 +14,11 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 interface AuthModalProps {
     isOpen: boolean;
     onClose: () => void;
+    initialMode?: "login" | "register";
 }
 
-export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
-    const [isLogin, setIsLogin] = useState(true);
+export default function AuthModal({ isOpen, onClose, initialMode = "login" }: AuthModalProps) {
+    const [isLogin, setIsLogin] = useState(initialMode === "login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -28,8 +29,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (!isOpen) {
             setError("");
             setResetSent(false);
+        } else {
+            setIsLogin(initialMode === "login");
         }
-    }, [isOpen]);
+    }, [isOpen, initialMode]);
 
     if (!isOpen) return null;
 

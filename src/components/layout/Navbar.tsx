@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import dynamic from 'next/dynamic';
 import Image from "next/image";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
 
@@ -16,9 +17,30 @@ export default function Navbar() {
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    const authParam = searchParams.get('auth');
+
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (authParam === 'login' || authParam === 'register') {
+            setIsAuthModalOpen(true);
+        }
+    }, [authParam]);
+
+    const handleCloseAuthModal = () => {
+        setIsAuthModalOpen(false);
+        // Clear auth param from URL if it exists
+        if (authParam) {
+            const params = new URLSearchParams(searchParams.toString());
+            params.delete('auth');
+            router.replace(`${pathname}${params.toString() ? `?${params.toString()}` : ''}`, { scroll: false });
+        }
+    };
 
     if (!mounted) {
         return (
@@ -185,7 +207,11 @@ export default function Navbar() {
                 )}
             </nav>
 
-            <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+            <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={handleCloseAuthModal}
+                initialMode={authParam === 'register' ? 'register' : 'login'}
+            />
         </>
     );
 }

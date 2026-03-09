@@ -395,7 +395,7 @@ export default async function Home() {
                 </div>
 
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-6">
-                  <Link href="/mi-cuenta" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                  <Link href="/?auth=register" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
                     Crear mi cuenta gratuita
                     <span className="material-icons ml-2">person_add</span>
                   </Link>
