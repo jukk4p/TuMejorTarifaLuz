@@ -80,7 +80,7 @@
     "e1_kwh": 0.1199,
     "e2_kwh": 0.1199,
     "e3_kwh": 0.1199,
-    "permanence": true,
+    "permanence": false,
     "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/"
   },
   {
@@ -92,7 +92,7 @@
     "e1_kwh": 0.1299,
     "e2_kwh": 0.1299,
     "e3_kwh": 0.1299,
-    "permanence": true,
+    "permanence": false,
     "url": "https://www.repsol.es/particulares/hogar/energia-solar/tarifas/tarifa-solar-bateria-virtual/"
   },
   {

@@ -44,7 +44,7 @@ export const providers: Provider[] = [
         rating: 4.5,
         description: "Gigante multi-energía que ofrece ahorros integrados a través de Waylet. Ideal para quienes buscan unificar suministros de luz, gas y carburante.",
         pros: ["Descuentos en carburante (Waylet)", "Solidez y confianza de marca", "Amplia gama de servicios adicionales", "Fuerte apuesta por el autoconsumo"],
-        cons: ["Estructura de descuentos compleja", "Algunas tarifas requieren permanencia"],
+        cons: ["Estructura de descuentos compleja", "Precio base menos competitivo sin usar sus descuentos cruzados"],
         slug: "repsol",
         color: "#ff4d00"
     },

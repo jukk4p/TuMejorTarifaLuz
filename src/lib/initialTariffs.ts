@@ -82,7 +82,7 @@ export const INITIAL_TARIFFS: Tariff[] = [
         "e1_kwh": 0.1299,
         "e2_kwh": 0.1299,
         "e3_kwh": 0.1299,
-        "permanence": true,
+        "permanence": false,
         "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/"
     },
     {
@@ -94,7 +94,7 @@ export const INITIAL_TARIFFS: Tariff[] = [
         "e1_kwh": 0.1499,
         "e2_kwh": 0.1499,
         "e3_kwh": 0.1499,
-        "permanence": true,
+        "permanence": false,
         "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas-luz/"
     },
     {
