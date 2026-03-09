@@ -774,17 +774,39 @@ export default function ComparadorPage() {
                                                 </div>
                                             )}
 
-                                            {/* Central Hub - 3D Animated Video Logo */}
+                                            {/* Central Hub - Dynamic Icons per stage */}
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-32 h-32 bg-white/50 dark:bg-slate-900/50 backdrop-blur-2xl rounded-[3rem] shadow-[0_0_100px_rgba(var(--primary-rgb),0.4)] flex items-center justify-center animate-[pulse_2s_ease-in-out_infinite] border border-white/20 relative overflow-hidden ring-4 ring-primary/5">
-                                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-ai-purple/10"></div>
-                                                    <Image
-                                                        src="/Logo.png"
-                                                        alt="Logo"
-                                                        width={128}
-                                                        height={128}
-                                                        className="w-full h-full object-contain scale-[0.8]"
-                                                    />
+                                                <div className={`w-36 h-36 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-[3.5rem] shadow-[0_0_100px_rgba(var(--primary-rgb),0.3)] flex flex-col items-center justify-center transition-all duration-700 border-2 relative overflow-hidden group/hub ${loaderStage === 0 ? 'border-primary/30 shadow-primary/20' :
+                                                    loaderStage === 1 ? 'border-amber-400/30 shadow-amber-400/20' :
+                                                        loaderStage === 2 ? 'border-success/30 shadow-success/20' :
+                                                            loaderStage === 3 ? 'border-ai-purple/30 shadow-ai-purple/20' :
+                                                                'border-primary/30 shadow-primary/20'
+                                                    }`}>
+                                                    <div className={`absolute inset-0 opacity-10 bg-gradient-to-br transition-all duration-700 ${loaderStage === 0 ? 'from-primary to-ai-purple' :
+                                                        loaderStage === 1 ? 'from-amber-400 to-primary' :
+                                                            loaderStage === 2 ? 'from-success to-amber-400' :
+                                                                loaderStage === 3 ? 'from-ai-purple to-success' :
+                                                                    'from-primary to-ai-purple'
+                                                        }`}></div>
+
+                                                    <span key={`icon-${loaderStage}`} className={`material-icons text-6xl animate-in zoom-in-50 duration-700 transition-all ${loaderStage === 0 ? 'text-primary' :
+                                                        loaderStage === 1 ? 'text-amber-400' :
+                                                            loaderStage === 2 ? 'text-success' :
+                                                                loaderStage === 3 ? 'text-ai-purple' :
+                                                                    'text-primary'
+                                                        }`}>
+                                                        {isAiGenerated && step === "input" ? (
+                                                            loaderStage === 0 ? 'visibility' :
+                                                                loaderStage === 1 ? 'description' :
+                                                                    loaderStage === 2 ? 'psychology' :
+                                                                        loaderStage === 3 ? 'fact_check' : 'cloud_sync'
+                                                        ) : (
+                                                            loaderStage === 0 ? 'terminal' :
+                                                                loaderStage === 1 ? 'bolt' :
+                                                                    loaderStage === 2 ? 'insights' :
+                                                                        loaderStage === 3 ? 'compare_arrows' : 'cloud_sync'
+                                                        )}
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -1528,12 +1550,10 @@ export default function ComparadorPage() {
                                                             </div>
                                                         </td>
                                                         <td className="px-4 py-8 align-middle border-y border-transparent text-center">
-                                                            <span className="text-xs font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">— REFERENCIA —</span>
+
                                                         </td>
                                                         <td className="pr-8 pl-4 py-8 border-y border-transparent rounded-r-[2.5rem] text-right align-middle">
-                                                            <div className="flex justify-end text-slate-200 dark:text-slate-800">
-                                                                <span className="material-icons text-xl">lock</span>
-                                                            </div>
+
                                                         </td>
                                                     </tr>
 
@@ -1848,7 +1868,7 @@ export default function ComparadorPage() {
                                                         <div className="text-right">
                                                             <p className={`text-3xl font-900 ${idx === 0 ? "text-primary" : "text-slate-700 dark:text-slate-300"}`}>{res.total.toFixed(2)} €</p>
                                                             <p className={`text-[10px] font-bold uppercase tracking-widest ${saving > 0 ? "text-success" : "text-slate-400"}`}>
-                                                                {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)} €% ahorro` : `€${res.total.toFixed(2)} €/mes`}
+                                                                {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)}% ahorro` : `${res.total.toFixed(2)} €/mes`}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -1858,14 +1878,14 @@ export default function ComparadorPage() {
                                                                 ? 'bg-gradient-to-r from-primary via-primary/80 to-primary/60'
                                                                 : 'bg-slate-200 dark:bg-slate-700'
                                                                 } rounded-r-xl transition-all duration-[1200ms] delay-${idx * 150} ease-out relative shadow-lg`}
-                                                            style={{ width: `${finalPercent}%` }}
+                                                            style={{ width: `${percent > 100 ? 100 : percent}%` }}
                                                         >
                                                             {idx === 0 && (
                                                                 <div className="absolute inset-0 bg-white/20 animate-pulse opacity-50"></div>
                                                             )}
                                                             <div className="absolute right-3 inset-y-0 flex items-center">
                                                                 <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
-                                                                    {finalPercent.toFixed(0)} €%
+                                                                    {percent.toFixed(0)}%
                                                                 </span>
                                                             </div>
                                                         </div>
