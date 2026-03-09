@@ -741,28 +741,28 @@ export default function ComparadorPage() {
                                         <div className="relative w-56 h-56 mb-12 perspective-1000 group/loader">
                                             {/* Rings - colors change per stage */}
                                             <div className={`absolute inset-0 border-y-[6px] rounded-full animate-[spin_3s_linear_infinite] opacity-40 blur-[1px] transition-all duration-700 ${loaderStage === 0 ? 'border-primary' :
-                                                    loaderStage === 1 ? 'border-amber-400' :
-                                                        loaderStage === 2 ? 'border-success' :
-                                                            loaderStage === 3 ? 'border-ai-purple' :
-                                                                'border-primary'
+                                                loaderStage === 1 ? 'border-amber-400' :
+                                                    loaderStage === 2 ? 'border-success' :
+                                                        loaderStage === 3 ? 'border-ai-purple' :
+                                                            'border-primary'
                                                 }`}></div>
                                             <div className={`absolute inset-4 border-x-[5px] rounded-full animate-[spin_2.5s_linear_infinite_reverse] opacity-50 transition-all duration-700 ${loaderStage === 0 ? 'border-ai-purple' :
-                                                    loaderStage === 1 ? 'border-primary' :
-                                                        loaderStage === 2 ? 'border-amber-400' :
-                                                            loaderStage === 3 ? 'border-success' :
-                                                                'border-amber-400'
+                                                loaderStage === 1 ? 'border-primary' :
+                                                    loaderStage === 2 ? 'border-amber-400' :
+                                                        loaderStage === 3 ? 'border-success' :
+                                                            'border-amber-400'
                                                 }`}></div>
                                             <div className={`absolute inset-8 border-y-[4px] rounded-full animate-[spin_4s_linear_infinite] opacity-60 transition-all duration-700 ${loaderStage === 0 ? 'border-success' :
-                                                    loaderStage === 1 ? 'border-ai-purple' :
-                                                        loaderStage === 2 ? 'border-primary' :
-                                                            loaderStage === 3 ? 'border-amber-400' :
-                                                                'border-success'
+                                                loaderStage === 1 ? 'border-ai-purple' :
+                                                    loaderStage === 2 ? 'border-primary' :
+                                                        loaderStage === 3 ? 'border-amber-400' :
+                                                            'border-success'
                                                 }`}></div>
                                             <div className={`absolute inset-12 border-x-[3px] rounded-full animate-[spin_2s_linear_infinite_reverse] opacity-70 transition-all duration-700 ${loaderStage === 0 ? 'border-amber-400' :
-                                                    loaderStage === 1 ? 'border-success' :
-                                                        loaderStage === 2 ? 'border-ai-purple' :
-                                                            loaderStage === 3 ? 'border-primary' :
-                                                                'border-ai-purple'
+                                                loaderStage === 1 ? 'border-success' :
+                                                    loaderStage === 2 ? 'border-ai-purple' :
+                                                        loaderStage === 3 ? 'border-primary' :
+                                                            'border-ai-purple'
                                                 }`}></div>
 
                                             {/* AI Scanning Beam (only for OCR) */}
@@ -781,10 +781,10 @@ export default function ComparadorPage() {
                                                         <span className="material-symbols-outlined text-5xl text-primary animate-pulse scale-110">analytics</span>
                                                     ) : (
                                                         <span key={loaderStage} className={`material-symbols-outlined text-5xl animate-in zoom-in duration-500 ${loaderStage === 0 ? 'text-primary' :
-                                                                loaderStage === 1 ? 'text-amber-500' :
-                                                                    loaderStage === 2 ? 'text-success' :
-                                                                        loaderStage === 3 ? 'text-ai-purple' :
-                                                                            'text-primary'
+                                                            loaderStage === 1 ? 'text-amber-500' :
+                                                                loaderStage === 2 ? 'text-success' :
+                                                                    loaderStage === 3 ? 'text-ai-purple' :
+                                                                        'text-primary'
                                                             }`}>
                                                             {loaderStage === 0 ? 'tune' :
                                                                 loaderStage === 1 ? 'bolt' :
@@ -822,10 +822,10 @@ export default function ComparadorPage() {
                                             <div className="w-80 h-3 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-inner group-hover/loader:border-primary/30 transition-colors">
                                                 <div
                                                     className={`h-full transition-all duration-300 ease-out shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)] ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' :
-                                                            loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' :
-                                                                loaderStage === 2 ? 'bg-gradient-to-r from-primary via-success to-success/80' :
-                                                                    loaderStage === 3 ? 'bg-gradient-to-r from-primary via-ai-purple to-ai-purple/80' :
-                                                                        'bg-gradient-to-r from-primary via-ai-purple to-success'
+                                                        loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' :
+                                                            loaderStage === 2 ? 'bg-gradient-to-r from-primary via-success to-success/80' :
+                                                                loaderStage === 3 ? 'bg-gradient-to-r from-primary via-ai-purple to-ai-purple/80' :
+                                                                    'bg-gradient-to-r from-primary via-ai-purple to-success'
                                                         }`}
                                                     style={{ width: `${analysisProgress}%` }}
                                                 ></div>
@@ -2000,7 +2000,7 @@ export default function ComparadorPage() {
                                             </div>
                                             <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
                                                 <span className="text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none whitespace-nowrap transition-colors" onClick={() => setShowWithTaxes(!showWithTaxes)}>
-                                                    {showWithTaxes ? 'Precios con impuestos' : 'Precios sin impuestos'}
+                                                    {showWithTaxes ? 'Con impuestos' : 'Sin impuestos'}
                                                 </span>
                                                 <button
                                                     role="switch"
