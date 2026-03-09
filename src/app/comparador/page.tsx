@@ -1272,13 +1272,12 @@ export default function ComparadorPage() {
 
                                         <div className="w-full border-t border-slate-100 dark:border-slate-800/50"></div>
 
-                                        {/* Filter: Price Type */}
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tipo de Precio</label>
-                                            <div className="flex bg-slate-50 dark:bg-slate-800/50 rounded-lg p-1 border border-slate-200 dark:border-slate-700">
-                                                <button onClick={() => setFilterPriceType('all')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPriceType === 'all' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Todos</button>
-                                                <button onClick={() => setFilterPriceType('fixed')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPriceType === 'fixed' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Fijo</button>
-                                                <button onClick={() => setFilterPriceType('periods')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPriceType === 'periods' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Tramos</button>
+                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-xl p-1 border border-slate-200 dark:border-slate-800/50">
+                                                <button onClick={() => setFilterPriceType('all')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'all' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm ring-1 ring-slate-200 dark:ring-white/10' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}>Todos</button>
+                                                <button onClick={() => setFilterPriceType('fixed')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'text-slate-500 hover:text-amber-600'}`}>Fijo</button>
+                                                <button onClick={() => setFilterPriceType('periods')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:text-primary'}`}>Tramos</button>
                                             </div>
                                         </div>
 
