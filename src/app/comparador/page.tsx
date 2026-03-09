@@ -1970,7 +1970,6 @@ export default function ComparadorPage() {
                                                         <span className={`${showWithTaxes ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform`} />
                                                     </button>
                                                 </div>
-                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden sm:block">Actualizado hace 24h</p>
                                             </div>
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
