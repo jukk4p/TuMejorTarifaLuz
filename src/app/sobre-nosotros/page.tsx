@@ -69,7 +69,7 @@ export default function SobreNosotros() {
                                     <span className="text-primary">Sin Comisiones</span>
                                 </h2>
                                 <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                                    Soy <strong>JukkaP</strong>, el desarrollador detrás de este proyecto. Mi objetivo con TuMejorTarifaLuz es ofrecer una alternativa libre a los comparadores tradicionales que suelen estar vinculados a acuerdos comerciales con grandes eléctricas.
+                                    Soy <strong>Iván González</strong>, la persona detrás de este proyecto. Mi objetivo con TuMejorTarifaLuz es ofrecer una alternativa libre a los comparadores tradicionales que suelen estar vinculados a acuerdos comerciales con grandes eléctricas.
                                 </p>
                                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                                     Aquí no hay llamadas comerciales, ni venta de datos. Solo código, algoritmos y el deseo de ayudar a otros a navegar por el complejo mercado mayorista de la luz.
