@@ -18,7 +18,7 @@ export default function AvisoLegal() {
                         <div className="prose prose-slate dark:prose-invert max-w-none">
                             <h2 className="text-xl font-bold mb-4">1. Datos Identificativos</h2>
                             <p className="mb-8">
-                                En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: la empresa titular de dominio web es TuMejorTarifaLuz S.L. (en adelante TuMejorTarifaLuz), con domicilio a estos efectos en Madrid, España. Correo electrónico de contacto: hola@tumejortarifaluz.es.
+                                En cumplimiento con el deber de información recogido en artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico, a continuación se reflejan los siguientes datos: el titular de dominio web es <strong>Iván González</strong> (en adelante TuMejorTarifaLuz), profesional autónomo con domicilio a estos efectos en Madrid, España. Correo electrónico de contacto: hola@tumejortarifaluz.es.
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">2. Usuarios</h2>

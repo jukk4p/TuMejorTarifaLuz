@@ -90,7 +90,7 @@ export default function Footer() {
                         Impulsando un consumo más consciente y eficiente.
                     </p>
                     <div className="flex items-center gap-8 justify-center">
-                        <p className="text-xs font-semibold text-slate-500 tracking-wide">© {new Date().getFullYear()} TuMejorTarifaLuz S.L. Todos los derechos reservados.</p>
+                        <p className="text-xs font-semibold text-slate-500 tracking-wide">© {new Date().getFullYear()} TuMejorTarifaLuz. Todos los derechos reservados.</p>
                     </div>
                 </div>
             </div>
