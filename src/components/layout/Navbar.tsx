@@ -7,10 +7,11 @@ import { useAuth } from "@/hooks/useAuth";
 import dynamic from 'next/dynamic';
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import React, { Suspense } from "react";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
 
-export default function Navbar() {
+function NavbarContent() {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const { user, logout } = useAuth();
@@ -213,5 +214,13 @@ export default function Navbar() {
                 initialMode={authParam === 'register' ? 'register' : 'login'}
             />
         </>
+    );
+}
+
+export default function Navbar() {
+    return (
+        <Suspense fallback={<nav className="sticky top-0 z-50 h-20 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 transition-colors duration-300"></nav>}>
+            <NavbarContent />
+        </Suspense>
     );
 }
