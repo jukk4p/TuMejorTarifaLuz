@@ -727,7 +727,7 @@ export default function ComparadorPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Ahorro en Tiempo Real</p>
-                                        <p className="font-bold text-lg">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></p>
+                                        <p className="font-bold text-lg">Ahorro Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -1156,7 +1156,7 @@ export default function ComparadorPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
-                                    <h2 className="text-xl font-800">Ahorro Anual Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></h2>
+                                    <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></h2>
                                 </div>
                             </div>
                             <button
