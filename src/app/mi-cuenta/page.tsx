@@ -315,7 +315,7 @@ export default function ProfilePage() {
                                             <div className="space-y-4 mb-8">
                                                 <div className="flex justify-between items-center text-xs">
                                                     <span className="text-slate-500">Total Detectado:</span>
-                                                    <span className="font-mono font-bold">€{bill.current_bill_total?.toFixed(2)}</span>
+                                                    <span className="font-mono font-bold">{bill.current_bill_total?.toFixed(2)} €</span>
                                                 </div>
                                             </div>
 
@@ -377,11 +377,11 @@ export default function ProfilePage() {
                                             <div className="space-y-4 mb-8">
                                                 <div className="flex justify-between items-center text-xs">
                                                     <span className="text-slate-500">Gasto Original:</span>
-                                                    <span className="font-mono font-bold">€{bill.current_bill_total?.toFixed(2)}</span>
+                                                    <span className="font-mono font-bold">{bill.current_bill_total?.toFixed(2)} €</span>
                                                 </div>
                                                 <div className="flex justify-between items-center text-xs">
                                                     <span className="text-slate-500">Ahorro Mensual:</span>
-                                                    <span className="text-success font-bold">€{bill.potentialSavings?.toFixed(2)}</span>
+                                                    <span className="text-success font-bold">{bill.potentialSavings?.toFixed(2)} €</span>
                                                 </div>
                                             </div>
 
@@ -776,7 +776,7 @@ export default function ProfilePage() {
                                             </div>
                                             <div>
                                                 <p className="text-[9px] font-bold text-slate-500 mb-1">Total Factura</p>
-                                                <p className="text-lg font-mono font-bold text-primary">€{selectedBill.current_bill_total?.toFixed(2)}</p>
+                                                <p className="text-lg font-mono font-bold text-primary">{selectedBill.current_bill_total?.toFixed(2)} €</p>
                                             </div>
                                         </div>
                                     </div>

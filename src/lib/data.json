@@ -65,9 +65,9 @@
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.060274,
     "p2_kw_day": 0.060274,
-    "e1_kwh": 0.101995,
-    "e2_kwh": 0.101995,
-    "e3_kwh": 0.101995,
+    "e1_kwh": 0.097999,
+    "e2_kwh": 0.097999,
+    "e3_kwh": 0.097999,
     "permanence": false,
     "url": "https://visalia.es/luz/fijo24horas/"
   },

@@ -194,7 +194,7 @@ export default function TarifasAdminPage() {
                                         </span>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <span className="font-mono text-xs font-bold text-slate-600 dark:text-slate-300">€{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                        <span className="font-mono text-xs font-bold text-slate-600 dark:text-slate-300">{(tariff.e1_kwh ?? 0).toFixed(4)} €</span>
                                     </td>
                                     <td className="px-8 py-6">
                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 text-success text-[10px] font-bold uppercase tracking-tighter">
