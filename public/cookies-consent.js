@@ -87,7 +87,7 @@
                 border-radius: var(--cc-radius);
                 border: 1px solid var(--cc-border);
                 box-shadow: var(--cc-shadow);
-                z-index: 999999;
+                z-index: 2147483640;
                 font-family: var(--cc-font);
                 font-size: 0.9rem;
                 line-height: 1.5;
@@ -99,10 +99,10 @@
             }
 
             #cc-banner.show {
-                opacity: 1;
-                transform: translateY(0);
-                pointer-events: auto;
-                display: block;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                pointer-events: auto !important;
+                display: block !important;
             }
 
             #cc-banner h3 {
@@ -167,9 +167,9 @@
             #cc-modal-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0,0,0,0.5);
-                backdrop-filter: blur(4px);
-                z-index: 9999999;
+                background: rgba(0,0,0,0.7);
+                backdrop-filter: blur(8px);
+                z-index: 2147483645;
                 display: none;
                 opacity: 0;
                 transition: opacity 0.3s ease;
@@ -185,11 +185,13 @@
                 background: var(--cc-bg);
                 border-radius: var(--cc-radius);
                 padding: 2rem;
-                z-index: 10000000;
+                z-index: 2147483647;
                 font-family: var(--cc-font);
                 display: none;
                 opacity: 0;
                 transition: transform 0.4s ease, opacity 0.4s ease;
+                max-height: 90vh;
+                overflow-y: auto;
             }
 
             #cc-modal.show {
@@ -283,13 +285,18 @@
 
             @media (max-width: 480px) {
                 #cc-banner {
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    max-width: none;
-                    border-radius: 1.5rem 1.5rem 0 0;
+                    bottom: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    max-width: none !important;
+                    border-radius: 1.5rem 1.5rem 0 0 !important;
+                    padding-bottom: calc(1.75rem + env(safe-area-inset-bottom)) !important;
                 }
                 .cc-btn { flex: 1 1 100%; }
+                #cc-modal {
+                    padding: 1.5rem;
+                    width: calc(100% - 1rem);
+                }
             }
         `;
         document.head.appendChild(style);
