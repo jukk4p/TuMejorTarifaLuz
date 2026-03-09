@@ -39,25 +39,39 @@
                 --cc-bg: #ffffff;
                 --cc-text: #1e293b;
                 --cc-subtext: #64748b;
-                --cc-accent: #0f172a;
+                --cc-accent: #137fec;
                 --cc-accent-text: #ffffff;
                 --cc-border: #e2e8f0;
                 --cc-toggle-bg: #cbd5e1;
-                --cc-toggle-active: #22c55e;
+                --cc-toggle-active: #10b981;
                 --cc-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
                 --cc-radius: 1.25rem;
-                --cc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                --cc-font: var(--font-display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
             }
 
+            /* Handle dark mode via CSS class (Next-themes) */
+            html.dark :root,
+            .dark {
+                --cc-bg: #101922;
+                --cc-text: #f8fafc;
+                --cc-subtext: #94a3b8;
+                --cc-accent: #137fec;
+                --cc-accent-text: #ffffff;
+                --cc-border: #1e293b;
+                --cc-toggle-bg: #1a2632;
+                --cc-toggle-active: #10b981;
+            }
+
+            /* Fallback for system preference if no class is present */
             @media (prefers-color-scheme: dark) {
-                :root {
-                    --cc-bg: #0f172a;
+                :root:not(.light) {
+                    --cc-bg: #101922;
                     --cc-text: #f8fafc;
                     --cc-subtext: #94a3b8;
-                    --cc-accent: #38bdf8;
-                    --cc-accent-text: #0f172a;
+                    --cc-accent: #137fec;
+                    --cc-accent-text: #ffffff;
                     --cc-border: #1e293b;
-                    --cc-toggle-bg: #334155;
+                    --cc-toggle-bg: #1a2632;
                 }
             }
 
@@ -182,6 +196,11 @@
                 display: block;
                 opacity: 1;
                 transform: translate(-50%, -50%);
+            }
+
+            #cc-modal h3 {
+                color: var(--cc-text);
+                font-weight: 700;
             }
 
             .cc-setting-item {
