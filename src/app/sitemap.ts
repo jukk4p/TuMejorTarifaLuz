@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { blogPosts } from '@/lib/blogData';
+import { providers } from '@/app/companias/providersData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://tumejortarifaluz.es';
@@ -12,6 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/blog',
         '/tarifas',
         '/mi-cuenta',
+        '/contacto',
+        '/guias',
+        '/legal/aviso-legal',
+        '/legal/cookies',
+        '/legal/privacidad'
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -27,5 +33,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.6,
     }));
 
-    return [...staticRoutes, ...blogRoutes];
+    // Dynamic providers routes
+    const providerRoutes = providers.map((provider) => ({
+        url: `${baseUrl}/companias/${provider.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+    }));
+
+    return [...staticRoutes, ...blogRoutes, ...providerRoutes];
 }
