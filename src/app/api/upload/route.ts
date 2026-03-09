@@ -8,7 +8,6 @@ const r2Client = new S3Client({
         accessKeyId: process.env.R2_ACCESS_KEY_ID || "",
         secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
     },
-    forcePathStyle: true, // Recomendado para compatibilidad con R2 en ciertos entornos
 });
 
 export async function POST(request: Request) {
@@ -16,7 +15,7 @@ export async function POST(request: Request) {
         const formData = await request.formData();
         const file = formData.get("file") as File;
         const userId = (formData.get("userId") as string) || "guest";
-        const folder = formData.get("folder") as string; // Carpeta opcional (ej: Facturas_Admin)
+        const folder = (formData.get("folder") as string) || "";
 
         if (!file) {
             return NextResponse.json({ error: "Falta el archivo" }, { status: 400 });
@@ -26,8 +25,9 @@ export async function POST(request: Request) {
         const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
         // Sanitización profunda de la ruta para asegurar que R2 interprete los slashes como carpetas
-        const cleanFolder = (folder || "").trim().replace(/^\/+|\/+$/g, "");
-        const cleanUserId = (userId || "guest").trim().replace(/^\/+|\/+$/g, "");
+        const cleanFolder = folder.trim().replace(/^\/+|\/+$/g, "");
+        // Algunos dashboards de S3/R2 se llevan mejor con carpetas que no contienen caracteres especiales
+        const cleanUserId = userId.trim().replace(/[^\w\s-]/g, "_").replace(/^\/+|\/+$/g, "");
         const cleanFileName = file.name.trim().replace(/\s+/g, "_");
 
         let fileName = "";
@@ -35,7 +35,6 @@ export async function POST(request: Request) {
         fileName += `${cleanUserId}/${dateStr}_${file.size}_${cleanFileName}`;
 
         // VERIFICACIÓN DE DUPLICADOS: Si ya existe en R2, no lo volvemos a subir
-        // Esto ahorra ancho de banda y evita archivos repetidos con el mismo nombre determinista
         try {
             const { HeadObjectCommand } = await import("@aws-sdk/client-s3");
             await r2Client.send(new HeadObjectCommand({
@@ -48,10 +47,8 @@ export async function POST(request: Request) {
             const existingUrl = `${process.env.R2_PUBLIC_DOMAIN || `https://${process.env.R2_BUCKET_NAME}.${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`}/${fileName}`;
             return NextResponse.json({ url: existingUrl, path: fileName, skipped: true });
         } catch (e: any) {
-            // Si el error es 404 (NotFound), procedemos con la subida
             if (e.name !== "NotFound") {
                 console.error("Error comprobando existencia en R2:", e);
-                // Si es un error raro de conexión, intentamos subir de todos modos
             }
         }
 
@@ -64,9 +61,6 @@ export async function POST(request: Request) {
             })
         );
 
-        // URL del archivo en Cloudflare R2
-        // Nota: Para que esta URL sea accesible públicamente, debes configurar un Dominio Personal
-        // o usar la URL pública (.r2.dev) si el bucket no contiene datos extremadamente sensibles.
         const fileUrl = `${process.env.R2_PUBLIC_DOMAIN || `https://${process.env.R2_BUCKET_NAME}.${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`}/${fileName}`;
 
         return NextResponse.json({ url: fileUrl, path: fileName });
