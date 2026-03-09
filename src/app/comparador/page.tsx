@@ -27,26 +27,26 @@ export default function ComparadorPage() {
     const { tariffs } = useTariffs();
     const [step, setStep] = useState<Step>("input");
     const [input, setInput] = useState<CalculationInput>({
-        power_p1: 4.6,
-        power_p2: 4.6,
-        energy_p1: 120,
-        energy_p2: 85,
-        energy_p3: 150,
+        power_p1: 3.5,
+        power_p2: 3.5,
+        energy_p1: 50,
+        energy_p2: 50,
+        energy_p3: 100,
         days: 30,
-        current_bill_total: 142.50,
+        current_bill_total: 70,
         current_price_p1: 0,
         current_price_p2: 0,
         current_price_p3: 0
     });
 
     const [displayValues, setDisplayValues] = useState({
-        power_p1: "4,6",
-        power_p2: "4,6",
-        energy_p1: "120",
-        energy_p2: "85",
-        energy_p3: "150",
+        power_p1: "3,5",
+        power_p2: "3,5",
+        energy_p1: "50",
+        energy_p2: "50",
+        energy_p3: "100",
         days: "30",
-        current_bill_total: "142,50",
+        current_bill_total: "70",
         current_price_p1: "0",
         current_price_p2: "0",
         current_price_p3: "0"
@@ -214,11 +214,16 @@ export default function ComparadorPage() {
             else if (analysisProgress < 85) setAnalysisStatus("Validando Datos con Modelo Energético...");
             else setAnalysisStatus("Sincronizando con Mercado Eléctrico...");
         } else {
-            if (analysisProgress < 33) setAnalysisStatus("Mapeando Parámetros Eléctricos");
-            else if (analysisProgress < 66) setAnalysisStatus("Calculando Ahorro en Tiempo Real");
+            if (analysisProgress < 20) setAnalysisStatus("Mapeando Parámetros Eléctricos");
+            else if (analysisProgress < 40) setAnalysisStatus("Procesando Potencia Contratada");
+            else if (analysisProgress < 60) setAnalysisStatus("Calculando Ahorro en Tiempo Real");
+            else if (analysisProgress < 80) setAnalysisStatus("Comparando con 25+ Tarifas");
             else setAnalysisStatus("Sincronizando con Mercado Mayorista");
         }
     }, [analysisProgress, isProcessing, isAiGenerated, step]);
+
+    // Derived loader stage (0-4) from progress
+    const loaderStage = analysisProgress < 20 ? 0 : analysisProgress < 40 ? 1 : analysisProgress < 60 ? 2 : analysisProgress < 80 ? 3 : 4;
 
     // Apply filters to base results
     const results = useMemo(() => {
@@ -643,7 +648,6 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex justify-between items-center px-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Punta (p1)</label>
-                                                    <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                 </div>
                                                 <input
                                                     type="text"
@@ -658,7 +662,6 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex justify-between items-center px-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Valle (p2)</label>
-                                                    <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                 </div>
                                                 <input
                                                     type="text"
@@ -682,7 +685,6 @@ export default function ComparadorPage() {
                                                 <div key={idx} className="space-y-1.5">
                                                     <div className="flex justify-between items-center px-1">
                                                         <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">{item.label}</label>
-                                                        <span className="bg-primary/10 text-primary text-[8px] px-1.5 py-0.5 rounded font-bold border border-primary/20">DATO</span>
                                                     </div>
                                                     <input
                                                         type="text"
@@ -727,10 +729,6 @@ export default function ComparadorPage() {
                                         <p className="font-bold text-lg">Ahorro Anual Estimado: <span className="text-success">€{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} / año</span></p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700">
-                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                    <span className="text-[11px] font-bold">Datos sincronizados</span>
-                                </div>
                             </div>
 
                             {isProcessing ? (
@@ -741,11 +739,31 @@ export default function ComparadorPage() {
 
                                     <div className="relative z-10 max-w-2xl w-full flex flex-col items-center">
                                         <div className="relative w-56 h-56 mb-12 perspective-1000 group/loader">
-                                            {/* Advanced Multi-Ring System */}
-                                            <div className="absolute inset-0 border-y-[6px] border-primary rounded-full animate-[spin_3s_linear_infinite] opacity-40 blur-[1px]"></div>
-                                            <div className="absolute inset-4 border-x-[5px] border-ai-purple rounded-full animate-[spin_2.5s_linear_infinite_reverse] opacity-50"></div>
-                                            <div className="absolute inset-8 border-y-[4px] border-success rounded-full animate-[spin_4s_linear_infinite] opacity-60"></div>
-                                            <div className="absolute inset-12 border-x-[3px] border-amber-400 rounded-full animate-[spin_2s_linear_infinite_reverse] opacity-70"></div>
+                                            {/* Rings - colors change per stage */}
+                                            <div className={`absolute inset-0 border-y-[6px] rounded-full animate-[spin_3s_linear_infinite] opacity-40 blur-[1px] transition-all duration-700 ${loaderStage === 0 ? 'border-primary' :
+                                                    loaderStage === 1 ? 'border-amber-400' :
+                                                        loaderStage === 2 ? 'border-success' :
+                                                            loaderStage === 3 ? 'border-ai-purple' :
+                                                                'border-primary'
+                                                }`}></div>
+                                            <div className={`absolute inset-4 border-x-[5px] rounded-full animate-[spin_2.5s_linear_infinite_reverse] opacity-50 transition-all duration-700 ${loaderStage === 0 ? 'border-ai-purple' :
+                                                    loaderStage === 1 ? 'border-primary' :
+                                                        loaderStage === 2 ? 'border-amber-400' :
+                                                            loaderStage === 3 ? 'border-success' :
+                                                                'border-amber-400'
+                                                }`}></div>
+                                            <div className={`absolute inset-8 border-y-[4px] rounded-full animate-[spin_4s_linear_infinite] opacity-60 transition-all duration-700 ${loaderStage === 0 ? 'border-success' :
+                                                    loaderStage === 1 ? 'border-ai-purple' :
+                                                        loaderStage === 2 ? 'border-primary' :
+                                                            loaderStage === 3 ? 'border-amber-400' :
+                                                                'border-success'
+                                                }`}></div>
+                                            <div className={`absolute inset-12 border-x-[3px] rounded-full animate-[spin_2s_linear_infinite_reverse] opacity-70 transition-all duration-700 ${loaderStage === 0 ? 'border-amber-400' :
+                                                    loaderStage === 1 ? 'border-success' :
+                                                        loaderStage === 2 ? 'border-ai-purple' :
+                                                            loaderStage === 3 ? 'border-primary' :
+                                                                'border-ai-purple'
+                                                }`}></div>
 
                                             {/* AI Scanning Beam (only for OCR) */}
                                             {isAiGenerated && step === "input" && (
@@ -755,26 +773,45 @@ export default function ComparadorPage() {
                                                 </div>
                                             )}
 
-                                            {/* Central Hub */}
+                                            {/* Central Hub - icon changes per stage */}
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <div className="w-24 h-24 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_0_80px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite] border border-white/20 relative overflow-hidden ring-4 ring-primary/10">
                                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-ai-purple/20"></div>
                                                     {isAiGenerated && step === "input" ? (
                                                         <span className="material-symbols-outlined text-5xl text-primary animate-pulse scale-110">analytics</span>
                                                     ) : (
-                                                        <span className="material-symbols-outlined text-5xl text-primary animate-bounce">insights</span>
+                                                        <span key={loaderStage} className={`material-symbols-outlined text-5xl animate-in zoom-in duration-500 ${loaderStage === 0 ? 'text-primary' :
+                                                                loaderStage === 1 ? 'text-amber-500' :
+                                                                    loaderStage === 2 ? 'text-success' :
+                                                                        loaderStage === 3 ? 'text-ai-purple' :
+                                                                            'text-primary'
+                                                            }`}>
+                                                            {loaderStage === 0 ? 'tune' :
+                                                                loaderStage === 1 ? 'bolt' :
+                                                                    loaderStage === 2 ? 'savings' :
+                                                                        loaderStage === 3 ? 'compare_arrows' :
+                                                                            'rocket_launch'}
+                                                        </span>
                                                     )}
                                                 </div>
                                             </div>
 
-                                            {/* Orbital Particles */}
-                                            <div className="absolute top-0 left-1/2 w-4 h-4 bg-primary rounded-full blur-[1px] shadow-[0_0_10px_#137fec] animate-[ping_2s_linear_infinite]"></div>
-                                            <div className="absolute bottom-4 right-4 w-3 h-3 bg-ai-purple rounded-full blur-[1px] shadow-[0_0_8px_#8b5cf6] animate-[ping_1.5s_linear_infinite]" style={{ animationDelay: '0.4s' }}></div>
-                                            <div className="absolute top-1/4 -left-4 w-3.5 h-3.5 bg-success rounded-full blur-[1px] shadow-[0_0_8px_#10b981] animate-[ping_2.5s_linear_infinite]" style={{ animationDelay: '0.8s' }}></div>
+                                            {/* Orbital Particles - position shifts per stage */}
+                                            <div className={`absolute w-4 h-4 rounded-full blur-[1px] animate-[ping_2s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'top-0 left-1/2 bg-primary shadow-[0_0_10px_#137fec]' : 'top-1/4 right-0 bg-amber-400 shadow-[0_0_10px_#f59e0b]'
+                                                }`}></div>
+                                            <div className={`absolute w-3 h-3 rounded-full blur-[1px] animate-[ping_1.5s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'bottom-4 right-4 bg-ai-purple shadow-[0_0_8px_#8b5cf6]' : 'bottom-0 left-1/2 bg-success shadow-[0_0_8px_#10b981]'
+                                                }`} style={{ animationDelay: '0.4s' }}></div>
+                                            <div className={`absolute w-3.5 h-3.5 rounded-full blur-[1px] animate-[ping_2.5s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'top-1/4 -left-4 bg-success shadow-[0_0_8px_#10b981]' : 'top-0 right-1/4 bg-ai-purple shadow-[0_0_8px_#8b5cf6]'
+                                                }`} style={{ animationDelay: '0.8s' }}></div>
                                         </div>
 
-                                        <h3 className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white transition-all">
-                                            {isAiGenerated && step === "input" ? "Procesando Análisis..." : "Optimizando..."}
+                                        <h3 key={`title-${loaderStage}`} className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white animate-in fade-in duration-500">
+                                            {isAiGenerated && step === "input" ? "Procesando Análisis..." :
+                                                loaderStage === 0 ? "Iniciando análisis..." :
+                                                    loaderStage === 1 ? "Calculando..." :
+                                                        loaderStage === 2 ? "Optimizando..." :
+                                                            loaderStage === 3 ? "Comparando tarifas..." :
+                                                                "Finalizando..."}
                                         </h3>
                                         <div className="flex flex-col items-center gap-4 w-full">
                                             <div className="flex items-baseline gap-2">
@@ -784,13 +821,18 @@ export default function ComparadorPage() {
 
                                             <div className="w-80 h-3 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-inner group-hover/loader:border-primary/30 transition-colors">
                                                 <div
-                                                    className="h-full bg-gradient-to-r from-primary via-ai-purple to-success transition-all duration-300 ease-out shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)]"
+                                                    className={`h-full transition-all duration-300 ease-out shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)] ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' :
+                                                            loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' :
+                                                                loaderStage === 2 ? 'bg-gradient-to-r from-primary via-success to-success/80' :
+                                                                    loaderStage === 3 ? 'bg-gradient-to-r from-primary via-ai-purple to-ai-purple/80' :
+                                                                        'bg-gradient-to-r from-primary via-ai-purple to-success'
+                                                        }`}
                                                     style={{ width: `${analysisProgress}%` }}
                                                 ></div>
                                             </div>
 
                                             <div className="h-8 flex items-center">
-                                                <p className="text-[11px] font-bold text-ai-purple uppercase tracking-[0.4em] animate-in fade-in slide-in-from-bottom-2 duration-700">
+                                                <p key={analysisStatus} className="text-[11px] font-bold text-ai-purple uppercase tracking-[0.4em] animate-in fade-in slide-in-from-bottom-2 duration-700">
                                                     {analysisStatus}
                                                 </p>
                                             </div>
