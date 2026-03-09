@@ -1951,25 +1951,23 @@ export default function ComparadorPage() {
                                     </div>
 
                                     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50/50 dark:bg-slate-800/20">
-                                            <div className="flex items-center gap-3">
-                                                <span className="material-icons text-primary text-xl">payments</span>
-                                                <h4 className="font-800">Detalle de Precios</h4>
+                                        <div className="px-5 md:px-10 py-5 md:py-6 border-b border-slate-100 dark:border-slate-800 flex flex-row justify-between items-center bg-slate-50/50 dark:bg-slate-800/20 gap-2 overflow-hidden">
+                                            <div className="flex items-center gap-2 md:gap-3 shrink-1 min-w-0">
+                                                <span className="material-icons text-primary text-lg md:text-xl shrink-0">payments</span>
+                                                <h4 className="font-800 text-xs sm:text-base truncate">Detalle de Precios</h4>
                                             </div>
-                                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
-                                                <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl sm:rounded-full py-2 px-4 shadow-sm">
-                                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none" onClick={() => setShowWithTaxes(!showWithTaxes)}>
-                                                        Añadir Impuestos<br className="sm:hidden" /><span className="text-[8px] text-slate-400 normal-case block sm:inline sm:ml-1">(IVA + IE)</span>
-                                                    </span>
-                                                    <button
-                                                        role="switch"
-                                                        aria-checked={showWithTaxes}
-                                                        onClick={() => setShowWithTaxes(!showWithTaxes)}
-                                                        className={`${showWithTaxes ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'} relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none shrink-0`}
-                                                    >
-                                                        <span className={`${showWithTaxes ? 'translate-x-6' : 'translate-x-1'} inline-block h-4 w-4 transform rounded-full bg-white transition-transform`} />
-                                                    </button>
-                                                </div>
+                                            <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
+                                                <span className="text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none whitespace-nowrap transition-colors" onClick={() => setShowWithTaxes(!showWithTaxes)}>
+                                                    {showWithTaxes ? 'Ver precios sin impuestos' : 'Ver precios con impuestos'}
+                                                </span>
+                                                <button
+                                                    role="switch"
+                                                    aria-checked={showWithTaxes}
+                                                    onClick={() => setShowWithTaxes(!showWithTaxes)}
+                                                    className={`${showWithTaxes ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'} relative inline-flex h-4 w-8 items-center rounded-full transition-colors focus:outline-none shrink-0`}
+                                                >
+                                                    <span className={`${showWithTaxes ? 'translate-x-4' : 'translate-x-0.5'} inline-block h-3 w-3 transform rounded-full bg-white transition-transform`} />
+                                                </button>
                                             </div>
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
