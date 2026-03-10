@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import ClientParticles from "@/components/3d/ClientParticles";
-import ClientAurora from "@/components/animations/ClientAurora";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
 import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
 // import ClientIridescence from "@/components/animations/ClientIridescence";
@@ -26,9 +25,10 @@ export default async function Home() {
       ])} />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center">
-          {/* Animated Aurora Background */}
-          <ClientAurora />
+        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center bg-gradient-to-br from-white via-primary/5 to-white dark:from-background-dark dark:via-primary/5 dark:to-background-dark">
+          {/* Subtle Glow Layer (Static CSS) */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 opacity-60"></div>
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-success/5 rounded-full blur-[100px] translate-y-1/2 opacity-40"></div>
 
           {/* 3D Background Effect */}
           <ClientParticles />
