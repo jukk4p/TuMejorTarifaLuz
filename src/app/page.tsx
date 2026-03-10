@@ -6,7 +6,8 @@ import { getElectricityPrices } from "@/lib/electricity-prices";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema } from "@/components/seo/JsonLd";
 import ClientParticles from "@/components/3d/ClientParticles";
-import ClientAurora from "@/components/animations/ClientAurora";
+import ClientIridescence from "@/components/animations/ClientIridescence";
+// import ClientAurora from "@/components/animations/ClientAurora";
 
 export const dynamic = 'force-dynamic';
 
@@ -31,8 +32,8 @@ export default async function Home() {
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center">
-          {/* Animated Aurora Background */}
-          <ClientAurora />
+          {/* Animated Iridescence Background */}
+          <ClientIridescence />
 
           {/* 3D Background Effect */}
           <ClientParticles />
