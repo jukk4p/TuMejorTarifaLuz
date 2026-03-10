@@ -13,8 +13,6 @@
     "@aws-sdk/client-s3": "^3.1004.0",
     "@aws-sdk/s3-request-presigner": "^3.1004.0",
     "@google/generative-ai": "^0.24.1",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.11",
     "autoprefixer": "^10.4.27",
@@ -22,11 +20,7 @@
     "firebase": "^12.10.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
-    "ogl": "^1.0.11",
-    "postcss": "^8.5.8",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "three": "^0.183.2"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.1",
