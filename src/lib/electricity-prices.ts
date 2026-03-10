@@ -19,52 +19,36 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
     const rawToken = process.env.ESIOS_TOKEN;
 
     if (!rawToken) {
-        console.error("ESIOS_DEBUG: Error - ESIOS_TOKEN no está en process.env. Comprueba tu VPS.");
+        console.error("ESIOS_DEBUG: Error - ESIOS_TOKEN no está definido.");
         return null;
     }
 
     const TOKEN = rawToken.trim().replace(/^["']|["']$/g, '').trim();
-
-    // 1001: Precio de mercado (Pool), 1002: PVPC
     const INDICATOR = "1001";
     const PeninsulaGeoId = 8741;
 
-    const now = new Date();
-    // Forzamos fecha de hoy para la URL
-    const todayStr = now.toISOString().split('T')[0];
-
-    // Intento 1: Sin filtros de fecha (suele devolver hoy y parte de mañana si están disponibles)
-    // Es el método más fiable para evitar errores de zona horaria del servidor
-    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids=${PeninsulaGeoId}`;
+    // USAMOS geo_ids[] con corchetes (formato que funcionaba anteriormente en el VPS)
+    const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids[]=${PeninsulaGeoId}`;
 
     try {
-        console.log(`ESIOS_DEBUG: Pidiendo datos a REE... (Token len: ${TOKEN.length})`);
+        console.log(`ESIOS_DEBUG: Consultando con formato compatible VPS (geo_ids[])...`);
 
         const response = await fetch(url, {
             headers: {
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
-                "x-api-key": TOKEN
+                "x-api-key": TOKEN,
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             },
             cache: 'no-store'
         });
 
         if (!response.ok) {
-            const errorBody = await response.text();
-            console.error(`ESIOS_DEBUG: API respondió con error ${response.status}`);
-            console.error(`ESIOS_DEBUG: Cuerpo error: ${errorBody.substring(0, 100)}`);
+            console.error(`ESIOS_DEBUG: Error ${response.status} en la API.`);
             return null;
         }
 
         const data = await response.json();
-        const results = processEsiosData(data, now);
-
-        if (results) {
-            console.log(`ESIOS_DEBUG: Éxito total. Precio cargado: ${results.current}`);
-            return results;
-        } else {
-            console.warn("ESIOS_DEBUG: Procesamiento fallido (values vacío)");
-            return null;
-        }
+        return processEsiosData(data);
 
     } catch (error: any) {
         console.error("ESIOS_DEBUG: Error de red:", error.message);
@@ -72,28 +56,26 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
     }
 }
 
-function processEsiosData(data: any, now: Date): ElectricityPriceData | null {
+function processEsiosData(data: any): ElectricityPriceData | null {
     const rawValues = data.indicator?.values;
     if (!rawValues || rawValues.length === 0) return null;
 
-    // Convertir y Normalizar
+    const now = new Date();
     const prices = rawValues.map((v: any) => ({
-        value: v.value / 1000, // De MWh a kWh
+        value: v.value / 1000,
         hour: new Date(v.datetime).getHours(),
         datetime: v.datetime,
         dateOnly: v.datetime.split('T')[0]
     }));
 
-    // Intentamos filtrar por hoy, pero si no hay nada (raro), cogemos lo que haya
+    // Detectamos el día de hoy en formato local
     const todayStr = now.toISOString().split('T')[0];
     let filteredPrices = prices.filter((p: any) => p.dateOnly === todayStr);
 
+    // Si no hay de hoy (por cambio de hora a medianoche), usamos los últimos 24
     if (filteredPrices.length === 0) {
-        console.log("ESIOS_DEBUG: No hay datos para hoy específicamente, usando últimos datos disponibles.");
-        filteredPrices = prices.slice(-24); // Últimas 24 horas si no hay match de fecha
+        filteredPrices = prices.slice(-24);
     }
-
-    if (filteredPrices.length === 0) return null;
 
     filteredPrices.sort((a: any, b: any) => a.hour - b.hour);
 
@@ -108,7 +90,6 @@ function processEsiosData(data: any, now: Date): ElectricityPriceData | null {
         if (p.value > maxItem.value) maxItem = p;
     });
 
-    // Encontrar el precio de la hora actual
     const currentHour = now.getHours();
     const currentPriceItem = filteredPrices.find((p: any) => p.hour === currentHour) || filteredPrices[filteredPrices.length - 1];
 
