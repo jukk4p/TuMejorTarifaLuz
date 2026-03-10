@@ -1418,16 +1418,16 @@ export default function ComparadorPage() {
 
                                                 <div className="p-5 space-y-4">
                                                     {/* Header: Company + Ahorro */}
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex flex-col">
+                                                    <div className="flex items-center justify-between gap-3">
+                                                        <div className="flex flex-col min-w-0 flex-1">
                                                             <div className="flex items-center gap-2 mb-1">
-                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none">{res.tariff.company}</p>
+                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none truncate">{res.tariff.company}</p>
                                                             </div>
-                                                            <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none">{res.tariff.name}</p>
+                                                            <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none truncate">{res.tariff.name}</p>
                                                         </div>
 
                                                         {((input.current_bill_total || 0) - res.total) > 0 && (
-                                                            <div className="bg-success/10 text-success px-3 py-1.5 rounded-full flex items-center gap-1.5 animate-in zoom-in-50 duration-500">
+                                                            <div className="bg-success/10 text-success px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-in zoom-in-50 duration-500">
                                                                 <span className="material-icons text-xs font-bold">trending_down</span>
                                                                 <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total).toFixed(2)} €/mes</span>
                                                             </div>

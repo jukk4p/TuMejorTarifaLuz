@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface AuroraProps {
     colorStops?: string[];
@@ -16,14 +16,26 @@ const Aurora = dynamic<AuroraProps>(() => import('./Aurora'), {
 });
 
 export default function ClientAurora() {
+    const [shouldRender, setShouldRender] = useState(false);
+
+    useEffect(() => {
+        // Defer 3D rendering to prioritize LCP and main thread for initial paint
+        const timer = setTimeout(() => {
+            setShouldRender(true);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="absolute inset-0 -z-10 pointer-events-none opacity-50 dark:opacity-40 overflow-hidden">
-            <Aurora
-                colorStops={["#1a4731", "#b5c99a", "#FFBF00"]}
-                blend={0.5}
-                amplitude={1.0}
-                speed={0.5}
-            />
+            {shouldRender && (
+                <Aurora
+                    colorStops={["#1a4731", "#b5c99a", "#FFBF00"]}
+                    blend={0.5}
+                    amplitude={1.0}
+                    speed={0.5}
+                />
+            )}
             {/* Overlay to soften the effect */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/20 dark:via-slate-900/20 to-white dark:to-slate-900" />
         </div>
