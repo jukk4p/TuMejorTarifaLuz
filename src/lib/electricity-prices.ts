@@ -16,106 +16,116 @@ export interface ElectricityPriceData {
 }
 
 export async function getElectricityPrices(): Promise<ElectricityPriceData | null> {
-    let TOKEN = process.env.ESIOS_TOKEN;
+    const rawToken = process.env.ESIOS_TOKEN;
 
-    if (!TOKEN) {
-        console.error("DEBUG ESIOS: Token faltante en process.env.ESIOS_TOKEN");
+    if (!rawToken) {
+        console.error("ESIOS_DEBUG: Error - Variable ESIOS_TOKEN no está definida en el entorno.");
         return null;
     }
 
-    TOKEN = TOKEN.trim().replace(/^["']|["']$/g, '').trim();
+    // Limpieza profunda del token por si hay comillas o espacios ocultos (común en VPS)
+    const TOKEN = rawToken.trim().replace(/^["']|["']$/g, '').trim();
 
-    // 1001 (Market Price), 1739 (PVPC 2.0TD)
+    // Usar el indicador 1001 (Mercado) que es el estándar
     const INDICATOR = "1001";
     const PeninsulaGeoId = 8741;
 
-    // Filtro de fecha para hoy
+    // Obtener fecha actual en formato local España para evitar desajustes de UTC
     const now = new Date();
-    const todayStr = now.toISOString().split('T')[0];
+    // Determinamos el día actual en formato YYYY-MM-DD
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
 
-    // Intentamos con una URL que especifíca el día para ser más deterministas
+    // URL determinista para el día de hoy
     const url = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids=${PeninsulaGeoId}&start_date=${todayStr}T00:00&end_date=${todayStr}T23:59`;
 
     try {
-        console.log(`DEBUG ESIOS: Consultando ${url}`);
+        console.log(`ESIOS_DEBUG: Consultando API en ${url}`);
 
-        let response = await fetch(url, {
+        const response = await fetch(url, {
             headers: {
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
                 "x-api-key": TOKEN,
-                "User-Agent": "TuMejorTarifaLuz-Bot/1.0"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
             },
-            next: { revalidate: 3600 } // Cache por 1 hora a nivel Next.js
+            // IMPORTANTE: Forzamos no-store en esta fase para evitar que el VPS sirva un error cacheado
+            cache: 'no-store'
         });
 
         if (!response.ok) {
-            console.error(`DEBUG ESIOS: Error ${response.status} al consultar API.`);
-            // Intento 2: Sin rango de fechas (algunos indicadores prefieren esto)
-            const fallbackUrl = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids=${PeninsulaGeoId}`;
-            response = await fetch(fallbackUrl, {
+            const errorBody = await response.text();
+            console.error(`ESIOS_DEBUG: Error ${response.status} en la API ESIOS.`);
+            console.error(`ESIOS_DEBUG: Token usado (primeros 5): ${TOKEN.substring(0, 5)}...`);
+            console.error(`ESIOS_DEBUG: Respuesta técnica: ${errorBody.substring(0, 200)}`);
+
+            // Intento de rescate sin filtros de fecha
+            const rescueUrl = `https://api.esios.ree.es/indicators/${INDICATOR}?geo_ids=${PeninsulaGeoId}`;
+            const rescueResponse = await fetch(rescueUrl, {
                 headers: {
                     "Accept": "application/json; application/vnd.esios-api-v2+json",
                     "x-api-key": TOKEN
-                }
+                },
+                cache: 'no-store'
             });
-        }
 
-        if (!response.ok) return null;
+            if (!rescueResponse.ok) return null;
+            const rescueData = await rescueResponse.json();
+            return processEsiosData(rescueData, now);
+        }
 
         const data = await response.json();
-        const rawValues = data.indicator?.values;
+        return processEsiosData(data, now);
 
-        if (!rawValues || rawValues.length === 0) {
-            console.warn("DEBUG ESIOS: No hay valores para hoy.");
-            return null;
-        }
-
-        // Convertir y filtrar solo los de hoy (por si la API devuelve más)
-        const prices = rawValues
-            .filter((v: any) => v.datetime.startsWith(todayStr))
-            .map((v: any) => ({
-                value: v.value / 1000,
-                hour: new Date(v.datetime).getHours(),
-                datetime: v.datetime
-            }));
-
-        if (prices.length === 0) {
-            // Si no hay de hoy específicamente, usamos lo que haya (probablemente ayer o mañana)
-            prices.push(...rawValues.map((v: any) => ({
-                value: v.value / 1000,
-                hour: new Date(v.datetime).getHours(),
-                datetime: v.datetime
-            })));
-        }
-
-        const sum = prices.reduce((acc: number, p: any) => acc + p.value, 0);
-        const average = sum / prices.length;
-
-        let minItem = prices[0];
-        let maxItem = prices[0];
-
-        prices.forEach((p: any) => {
-            if (p.value < minItem.value) minItem = p;
-            if (p.value > maxItem.value) maxItem = p;
-        });
-
-        const currentHour = now.getHours();
-        const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[prices.length - 1];
-
-        return {
-            current: currentPriceItem.value,
-            average: average,
-            min: minItem.value,
-            minHour: `${minItem.hour}:00`,
-            max: maxItem.value,
-            maxHour: `${maxItem.hour}:00`,
-            time: `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`,
-            isLive: true,
-            allHours: prices
-        };
-
-    } catch (error) {
-        console.error("DEBUG ESIOS: Error en fetch:", error);
+    } catch (error: any) {
+        console.error("ESIOS_DEBUG: Error crítico de conexión/red:", error.message);
         return null;
     }
+}
+
+function processEsiosData(data: any, now: Date): ElectricityPriceData | null {
+    const rawValues = data.indicator?.values;
+    if (!rawValues || rawValues.length === 0) {
+        console.warn("ESIOS_DEBUG: No se recibieron valores de la API.");
+        return null;
+    }
+
+    const todayStr = now.toISOString().split('T')[0];
+    const prices = rawValues.map((v: any) => ({
+        value: v.value / 1000,
+        hour: new Date(v.datetime).getHours(),
+        datetime: v.datetime
+    }));
+
+    // Asegurar orden horario
+    prices.sort((a: any, b: any) => a.hour - b.hour);
+
+    const sum = prices.reduce((acc: number, p: any) => acc + p.value, 0);
+    const average = sum / prices.length;
+
+    let minItem = prices[0];
+    let maxItem = prices[0];
+
+    prices.forEach((p: any) => {
+        if (p.value < minItem.value) minItem = p;
+        if (p.value > maxItem.value) maxItem = p;
+    });
+
+    const currentHour = now.getHours();
+    const currentPriceItem = prices.find((p: any) => p.hour === currentHour) || prices[prices.length - 1];
+
+    console.log(`ESIOS_DEBUG: Datos procesados correctamente. Actual: ${currentPriceItem.value.toFixed(4)}`);
+
+    return {
+        current: currentPriceItem.value,
+        average: average,
+        min: minItem.value,
+        minHour: `${minItem.hour}:00`,
+        max: maxItem.value,
+        maxHour: `${maxItem.hour}:00`,
+        time: `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`,
+        isLive: true,
+        allHours: prices
+    };
 }
