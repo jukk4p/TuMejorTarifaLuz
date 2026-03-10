@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
-import JsonLd, { webAppSchema, faqSchema } from "@/components/seo/JsonLd";
+import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import ClientParticles from "@/components/3d/ClientParticles";
 import ClientAurora from "@/components/animations/ClientAurora";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
@@ -18,6 +18,10 @@ export default async function Home() {
     <>
       <Navbar />
       <JsonLd data={webAppSchema} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: "Inicio", item: "/" },
+        { name: "Comparador de Tarifas", item: "/comparador" }
+      ])} />
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center">
@@ -77,7 +81,7 @@ export default async function Home() {
                   <Image
                     alt="Familia real ahorrando en su moderna cocina con Tu Mejor Tarifa Luz"
                     className="w-full aspect-[4/3] object-cover scale-105"
-                    src="/family-kitchen.png"
+                    src="/family-kitchen.webp"
                     width={800}
                     height={600}
                     priority={true}

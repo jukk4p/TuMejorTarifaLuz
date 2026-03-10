@@ -11,6 +11,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/auth/AuthModal";
+import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
