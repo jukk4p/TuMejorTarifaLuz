@@ -13,6 +13,34 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .hero-glow-1 {
+          position: absolute;
+          top: 0;
+          left: 25%;
+          width: 500px;
+          height: 500px;
+          background: rgba(19, 127, 236, 0.1);
+          border-radius: 9999px;
+          filter: blur(120px);
+          transform: translateY(-50%);
+          opacity: 0.6;
+          z-index: 0;
+        }
+        .hero-glow-2 {
+          position: absolute;
+          bottom: 0;
+          right: 25%;
+          width: 384px;
+          height: 384px;
+          background: rgba(16, 185, 129, 0.05);
+          border-radius: 9999px;
+          filter: blur(100px);
+          transform: translateY(50%);
+          opacity: 0.3;
+          z-index: 0;
+        }
+      `}} />
       <Navbar />
       <JsonLd data={webSiteSchema} />
       <JsonLd data={organizationSchema} />
@@ -24,9 +52,9 @@ export default async function Home() {
       <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center bg-gradient-to-br from-white via-primary/5 to-white dark:from-background-dark dark:via-primary/5 dark:to-background-dark">
-          {/* Subtle Glow Layer (Static CSS) */}
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 opacity-60"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-success/5 rounded-full blur-[100px] translate-y-1/2 opacity-30"></div>
+          {/* Subtle Glow Layer (Static CSS - Inlined for Performance) */}
+          <div className="hero-glow-1"></div>
+          <div className="hero-glow-2"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
