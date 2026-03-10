@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blogData";
 import { notFound } from "next/navigation";
+import JsonLd, { getBreadcrumbSchema, getArticleSchema } from "@/components/seo/JsonLd";
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -19,6 +20,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     return (
         <>
             <Navbar />
+            <JsonLd data={getBreadcrumbSchema([
+                { name: "Inicio", item: "/" },
+                { name: "Blog", item: "/blog" },
+                { name: post.title, item: `/blog/${post.slug}` }
+            ])} />
+            <JsonLd data={getArticleSchema(post)} />
             <main className="min-h-screen bg-white dark:bg-background-dark pt-32 pb-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}

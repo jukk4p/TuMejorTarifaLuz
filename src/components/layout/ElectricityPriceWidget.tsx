@@ -87,7 +87,7 @@ export default async function ElectricityPriceWidget() {
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary rounded-lg text-[10px] font-bold border border-primary/10 uppercase tracking-tight">
                     <span className="material-icons text-xs">no_accounts</span>
-                    Comparator de uso libre sin registro
+                    Comparador de uso libre sin registro
                 </div>
             </div>
         </div>

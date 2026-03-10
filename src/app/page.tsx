@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
-import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import ClientParticles from "@/components/3d/ClientParticles";
 import ClientAurora from "@/components/animations/ClientAurora";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
@@ -17,6 +17,8 @@ export default async function Home() {
   return (
     <>
       <Navbar />
+      <JsonLd data={webSiteSchema} />
+      <JsonLd data={organizationSchema} />
       <JsonLd data={webAppSchema} />
       <JsonLd data={getBreadcrumbSchema([
         { name: "Inicio", item: "/" },
@@ -225,7 +227,7 @@ export default async function Home() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.slice(0, 6).map((post, i) => (
-                <Link key={i} href={`/blog/${post.id}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
+                <Link key={i} href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-slate-50 dark:border-slate-800/50">
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">

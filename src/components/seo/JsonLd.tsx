@@ -25,6 +25,25 @@ export const organizationSchema = {
         "@type": "ContactPoint",
         "contactType": "customer service",
         "availableLanguage": "Spanish"
+    },
+    "sameAs": [
+        "https://x.com/tumejortarifaluz",
+        "https://facebook.com/tumejortarifaluz"
+    ]
+};
+
+export const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "TuMejorTarifaLuz",
+    "url": "https://tumejortarifaluz.es",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://tumejortarifaluz.es/blog?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
     }
 };
 
@@ -97,4 +116,25 @@ export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => 
         "name": item.name,
         "item": `https://tumejortarifaluz.es${item.item}`
     }))
+});
+
+export const getArticleSchema = (post: any) => ({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "image": `https://tumejortarifaluz.es${post.image}`,
+    "author": {
+        "@type": "Person",
+        "name": post.author
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "TuMejorTarifaLuz",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://tumejortarifaluz.es/Logo.png"
+        }
+    },
+    "datePublished": post.date,
+    "description": post.excerpt
 });

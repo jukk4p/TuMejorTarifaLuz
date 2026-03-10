@@ -3,21 +3,63 @@ import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blogData";
+import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 export default function BlogPage() {
     return (
         <>
             <Navbar />
+            <JsonLd data={getBreadcrumbSchema([
+                { name: "Inicio", item: "/" },
+                { name: "Blog de Ahorro", item: "/blog" }
+            ])} />
             <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-32 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h1 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">
-                            Blog de <span className="text-primary">Ahorro Energético</span>
+                    <div className="text-center max-w-3xl mx-auto mb-16 px-4">
+                        <h1 className="text-4xl md:text-6xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
+                            Blog de <span className="text-primary italic">Ahorro Energético</span>
                         </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-400">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
                             Consejos, guías y noticias para que tomes el control de tu factura de luz y descubras cómo optimizar tu consumo.
                         </p>
+                    </div>
+
+                    {/* Search and Category Navigation */}
+                    <div className="max-w-4xl mx-auto mb-16 space-y-8">
+                        {/* Search Bar */}
+                        <div className="relative group">
+                            <span className="absolute left-6 top-1/2 -translate-y-1/2 material-icons text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                            <input
+                                type="text"
+                                placeholder="Busca guías de ahorro, tarifas, autoconsumo..."
+                                className="w-full bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-[2rem] py-5 pl-16 pr-8 outline-none focus:border-primary/50 focus:shadow-2xl focus:shadow-primary/5 transition-all text-sm font-medium dark:text-white"
+                            />
+                        </div>
+
+                        {/* Category Navigation */}
+                        <div className="flex flex-wrap items-center justify-center gap-3 overflow-x-auto pb-4 sm:pb-0 scrollbar-hide">
+                            {[
+                                { name: "Todos", active: true },
+                                { name: "Ahorro", icon: "savings" },
+                                { name: "Educación", icon: "school" },
+                                { name: "Comparativas", icon: "compare_arrows" },
+                                { name: "Solar", icon: "light_mode" },
+                                { name: "Estrategia", icon: "insights" }
+                            ].map((cat, i) => (
+                                <button
+                                    key={i}
+                                    className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 border shadow-sm shrink-0
+                                        ${cat.active
+                                            ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-xl shadow-slate-900/10"
+                                            : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-100 dark:border-slate-700 hover:border-primary hover:text-primary"
+                                        }`}
+                                >
+                                    {cat.icon && <span className="material-icons text-sm">{cat.icon}</span>}
+                                    {cat.name}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Blog Grid */}
