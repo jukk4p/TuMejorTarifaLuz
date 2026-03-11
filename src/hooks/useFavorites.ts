@@ -1,15 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { db } from "@/lib/firebase";
+import { getDb } from "@/lib/firebase";
 import {
     doc,
     onSnapshot,
-    updateDoc,
     setDoc,
     getDoc,
     arrayUnion,
-    arrayRemove
+    arrayRemove,
+    Firestore
 } from "firebase/firestore";
 import { useAuth } from "./useAuth";
 
@@ -25,52 +25,48 @@ export function useFavorites() {
             return;
         }
 
-        const userDocRef = doc(db, "users", user.uid);
+        let unsubscribe: (() => void) | undefined;
 
-        // First, check if the document exists to avoid unnecessary snapshot error loops if rules are very strict
-        const checkDoc = async () => {
+        const setupFavorites = async () => {
             try {
+                const db = await getDb();
+                const userDocRef = doc(db, "users", user.uid);
+
                 const docSnap = await getDoc(userDocRef);
                 if (!docSnap.exists()) {
-                    // Initialize if missing - this is safe here because it's triggered by the hook mounting
                     await setDoc(userDocRef, { favorites: [], email: user.email }, { merge: true });
                 }
 
-                // Once we're sure it exists (or we tried to create it), start the real-time listener
-                const unsubscribe = onSnapshot(userDocRef, (doc) => {
+                unsubscribe = onSnapshot(userDocRef, (doc) => {
                     if (doc.exists()) {
                         setFavorites(doc.data().favorites || []);
                     }
                     setLoading(false);
                 }, (error) => {
                     console.error("Firestore favorite listener error:", error);
-                    // Silently fail or use local state if permissions fail
                     setLoading(false);
                 });
-
-                return unsubscribe;
             } catch (error) {
-                console.error("Error ensuring user profile existence:", error);
+                console.error("Error setting up favorites:", error);
                 setLoading(false);
-                return () => { };
             }
         };
 
-        const setupPromise = checkDoc();
+        setupFavorites();
 
         return () => {
-            setupPromise.then(unsubscribe => unsubscribe());
+            if (unsubscribe) unsubscribe();
         };
     }, [user]);
 
     const toggleFavorite = async (tariffId: string) => {
         if (!user) return false;
 
-        const userDocRef = doc(db, "users", user.uid);
-        const isFavorite = favorites.includes(tariffId);
-
         try {
-            // Using setDoc with merge instead of updateDoc to create the profile if it doesn't exist
+            const db = await getDb();
+            const userDocRef = doc(db, "users", user.uid);
+            const isFavorite = favorites.includes(tariffId);
+
             await setDoc(userDocRef, {
                 favorites: isFavorite ? arrayRemove(tariffId) : arrayUnion(tariffId),
                 email: user.email,

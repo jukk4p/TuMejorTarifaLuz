@@ -9,9 +9,10 @@ import { getLogoPath } from "@/lib/tariffs";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "next-themes";
-import { db, auth } from "@/lib/firebase";
-import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { getDb, getAuthInstance } from "@/lib/firebase";
+import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus } from "lucide-react";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
 
@@ -69,10 +70,11 @@ export default function ProfilePage() {
         if (user) {
             setEditName(user.displayName || "");
             setEditPhoto(user.photoURL || "");
-
+    
             // Fetch consumption settings
             const fetchSettings = async () => {
                 try {
+                    const db = await getDb();
                     const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
                     const snap = await getDoc(settingsRef);
                     if (snap.exists()) {
@@ -134,6 +136,7 @@ export default function ProfilePage() {
             });
 
             // 2. Actualizar Consumos en Firestore
+            const db = await getDb();
             const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
             await setDoc(settingsRef, numericSettings, { merge: true });
 
@@ -185,6 +188,7 @@ export default function ProfilePage() {
             }
 
             // 2. Borrar de Firestore DESPUÉS
+            const db = await getDb();
             await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
 
             if (isDetailsModalOpen) setIsDetailsModalOpen(false);
@@ -198,20 +202,34 @@ export default function ProfilePage() {
     useEffect(() => {
         if (!user) return;
 
-        const q = query(
-            collection(db, "users", user.uid, "billInputs"),
-            orderBy("createdAt", "desc")
-        );
+        let unsubscribe: (() => void) | undefined;
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            setSavedBills(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SavedBill)));
-            setLoadingBills(false);
-        }, (error) => {
-            console.error("Error fetching bills:", error);
-            setLoadingBills(false);
-        });
+        const setupBillsSubscription = async () => {
+            try {
+                const db = await getDb();
+                const q = query(
+                    collection(db, "users", user.uid, "billInputs"),
+                    orderBy("createdAt", "desc")
+                );
 
-        return () => unsubscribe();
+                unsubscribe = onSnapshot(q, (snapshot) => {
+                    setSavedBills(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SavedBill)));
+                    setLoadingBills(false);
+                }, (error) => {
+                    console.error("Error fetching bills:", error);
+                    setLoadingBills(false);
+                });
+            } catch (error) {
+                console.error("Error setting up bills subscription:", error);
+                setLoadingBills(false);
+            }
+        };
+
+        setupBillsSubscription();
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
     }, [user]);
 
     const favoriteTariffs = tariffs.filter(t => t.id && favorites.includes(t.id));
@@ -239,7 +257,7 @@ export default function ProfilePage() {
                                 <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                                    <span className="material-icons text-primary text-4xl">person</span>
+                                    <User className="text-primary w-10 h-10" />
                                 </div>
                             )}
                         </div>
@@ -302,7 +320,7 @@ export default function ProfilePage() {
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full"></div>
                                             <div className="flex items-center gap-3 mb-6">
                                                 <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
-                                                    <span className="material-icons text-primary text-2xl">description</span>
+                                                    <FileText className="text-primary w-6 h-6" />
                                                 </div>
                                                 <div>
                                                     <h4 className="font-800 text-sm">{bill.name}</h4>
@@ -330,7 +348,7 @@ export default function ProfilePage() {
                             ) : (
                                 <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed">
                                     <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                        <span className="material-icons text-slate-300 text-3xl">auto_fix_high</span>
+                                        <Zap className="text-slate-300 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Sin facturas digitalizadas</h3>
                                     <p className="text-sm text-slate-500 max-w-sm mx-auto mb-8">
@@ -364,7 +382,7 @@ export default function ProfilePage() {
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-bl-full"></div>
                                             <div className="flex items-center gap-3 mb-6">
                                                 <div className="w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center">
-                                                    <span className="material-icons text-success text-2xl">insights</span>
+                                                    <Layout className="text-success w-6 h-6" />
                                                 </div>
                                                 <div>
                                                     <h4 className="font-800 text-sm">{bill.name}</h4>
@@ -401,12 +419,12 @@ export default function ProfilePage() {
                                                 <button
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        deleteBill(bill.id, bill.invoiceFilePath);
-                                                    }}
-                                                    className="w-11 h-11 bg-slate-50 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-colors"
-                                                >
-                                                    <span className="material-icons text-sm">delete_outline</span>
-                                                </button>
+                                                    deleteBill(bill.id, bill.invoiceFilePath);
+                                                }}
+                                                className="w-11 h-11 bg-slate-50 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-colors"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                             </div>
                                         </div>
                                     ))}
@@ -414,7 +432,7 @@ export default function ProfilePage() {
                             ) : (
                                 <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed">
                                     <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                        <span className="material-icons text-slate-300 text-3xl">compare_arrows</span>
+                                        <Layout className="text-slate-300 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">No tienes comparativas</h3>
                                     <p className="text-sm text-slate-500 max-w-sm mx-auto mb-8">
@@ -425,7 +443,7 @@ export default function ProfilePage() {
                                         className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-2xl text-xs font-900 uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
                                     >
                                         Nueva Comparativa
-                                        <span className="material-icons text-sm">add</span>
+                                        <Plus size={16} />
                                     </button>
                                 </div>
                             )}
@@ -441,12 +459,12 @@ export default function ProfilePage() {
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    if (tariff.id) toggleFavorite(tariff.id);
-                                                }}
-                                                className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shadow-sm hover:scale-110 active:scale-90 transition-all shrink-0"
-                                            >
-                                                <span className="material-icons text-xl">turned_in</span>
-                                            </button>
+                                                if (tariff.id) toggleFavorite(tariff.id);
+                                            }}
+                                            className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shadow-sm hover:scale-110 active:scale-90 transition-all shrink-0"
+                                        >
+                                            <Star className="w-5 h-5 fill-current" />
+                                        </button>
                                             <span className="text-[9px] font-bold px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 uppercase tracking-[0.15em] shrink-0">{tariff.type}</span>
                                         </div>
                                         <div className="mb-6">
@@ -507,7 +525,7 @@ export default function ProfilePage() {
                             ) : (
                                 <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed md:col-span-2 lg:col-span-3">
                                     <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                        <span className="material-icons text-primary/20 text-3xl">turned_in</span>
+                                        <Star className="text-primary/20 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Tu lista de guardados está vacía</h3>
                                     <p className="text-sm text-slate-500 max-w-sm mx-auto mb-8">
@@ -547,7 +565,7 @@ export default function ProfilePage() {
                                     onClick={() => setIsEditModalOpen(false)}
                                     className="w-10 h-10 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
                                 >
-                                    <span className="material-icons text-xl">close</span>
+                                    <X size={20} />
                                 </button>
                             </div>
 
@@ -556,14 +574,14 @@ export default function ProfilePage() {
                                     {/* COLUMNA 1: IDENTIDAD */}
                                     <div className="space-y-6">
                                         <h4 className="flex items-center gap-2 text-[11px] font-black text-primary uppercase tracking-[0.2em]">
-                                            <span className="material-icons text-sm">person_outline</span> Identidad Visual
+                                            <UserIcon size={14} /> Identidad Visual
                                         </h4>
                                         <div className="space-y-6">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">Nombre Público</label>
                                                 <div className="relative group">
                                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                        <span className="material-icons text-slate-300 group-focus-within:text-primary transition-colors text-lg">person</span>
+                                                        <UserIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4 h-4" />
                                                     </div>
                                                     <input
                                                         type="text"
@@ -578,7 +596,7 @@ export default function ProfilePage() {
                                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">URL Foto de Perfil</label>
                                                 <div className="relative group">
                                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                        <span className="material-icons text-slate-300 group-focus-within:text-primary transition-colors text-lg">link</span>
+                                                        <LinkIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4 h-4" />
                                                     </div>
                                                     <input
                                                         type="url"
@@ -596,7 +614,7 @@ export default function ProfilePage() {
                                     <div className="space-y-6">
                                         <div className="flex items-center justify-between mb-2">
                                             <h4 className="flex items-center gap-2 text-[11px] font-black text-emerald-500 dark:text-emerald-400 uppercase tracking-[0.2em]">
-                                                <span className="material-icons text-sm">electric_bolt</span> Plantilla de Consumo
+                                                <Zap size={14} /> Plantilla de Consumo
                                             </h4>
                                             <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase rounded-md border border-emerald-500/20">Auto-fill listo</span>
                                         </div>
@@ -732,7 +750,7 @@ export default function ProfilePage() {
                             <div className="flex justify-between items-start mb-10">
                                 <div className="flex items-center gap-4">
                                     <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
-                                        <span className="material-icons text-3xl">fact_check</span>
+                                        <FileText className="w-8 h-8" />
                                     </div>
                                     <div>
                                         <h3 className="text-2xl font-900 tracking-tight dark:text-white mb-1">Datos Extraídos por IA</h3>
@@ -743,7 +761,7 @@ export default function ProfilePage() {
                                     onClick={() => setIsDetailsModalOpen(false)}
                                     className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
                                 >
-                                    <span className="material-icons text-xl">close</span>
+                                    <X size={20} />
                                 </button>
                             </div>
 

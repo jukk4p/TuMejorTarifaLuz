@@ -5,6 +5,7 @@ import Image from "next/image";
 import { blogPosts } from "@/lib/blogData";
 import { notFound } from "next/navigation";
 import JsonLd, { getBreadcrumbSchema, getArticleSchema } from "@/components/seo/JsonLd";
+import { ChevronRight, Facebook, Twitter, Linkedin } from "lucide-react";
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -31,7 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     {/* Breadcrumbs */}
                     <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">
                         <Link href="/" className="hover:text-primary transition-colors">Inicio</Link>
-                        <span className="material-icons text-[10px]">chevron_right</span>
+                        <ChevronRight size={10} />
                         <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
                         <span className="material-icons text-[10px]">chevron_right</span>
                         <span className="text-slate-900 dark:text-white truncate max-w-[200px]">{post.title}</span>
@@ -89,13 +90,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <p className="text-sm font-bold text-slate-900 dark:text-white">¿Te ha resultado útil? Compártelo:</p>
                         <div className="flex items-center gap-3">
                             <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en Facebook">
-                                <i className="fab fa-facebook-f"></i>
+                                <Facebook size={18} />
                             </button>
                             <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-black hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en X (Twitter)">
-                                <i className="fab fa-x-twitter"></i>
+                                <Twitter size={18} />
                             </button>
                             <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en LinkedIn">
-                                <i className="fab fa-linkedin-in"></i>
+                                <Linkedin size={18} />
                             </button>
                         </div>
                     </div>

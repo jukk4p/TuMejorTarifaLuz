@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
@@ -12,10 +12,53 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/auth/AuthModal";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import { 
+    Terminal, 
+    Zap, 
+    FileText, 
+    TrendingDown, 
+    Search, 
+    Filter, 
+    Lock, 
+    Unlock, 
+    CheckCircle2, 
+    Brain, 
+    ArrowRight, 
+    History, 
+    Database, 
+    ArrowLeftRight,
+    Clock,
+    Plus,
+    X,
+    Printer,
+    Share2,
+    Check,
+    Calendar,
+    Trophy,
+    Save,
+    Eye,
+    BarChart3,
+    Heart,
+    Sliders,
+    CreditCard,
+    TrendingUp,
+    LayoutDashboard,
+    Info,
+    Gauge,
+    Building2,
+    PiggyBank,
+    ArrowLeft,
+    CheckSquare,
+    Scale,
+    ShieldCheck,
+    Award,
+    Mail,
+    HelpCircle,
+    ZapOff
+} from "lucide-react";
 
-import { db, storage } from "@/lib/firebase";
+import { getDb, getStorageInstance } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 type Step = "input" | "validation" | "results" | "detail" | "analysis";
 
@@ -89,6 +132,7 @@ export default function ComparadorPage() {
         if (historyId && user) {
             const fetchHistory = async () => {
                 try {
+                    const db = await getDb();
                     const docRef = doc(db, "users", user.uid, "billInputs", historyId);
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
@@ -130,6 +174,7 @@ export default function ComparadorPage() {
             // Load profile defaults if no history is requested
             const fetchProfileDefaults = async () => {
                 try {
+                    const db = await getDb();
                     const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
                     const snap = await getDoc(settingsRef);
                     if (snap.exists()) {
@@ -300,6 +345,7 @@ export default function ComparadorPage() {
                 console.log("Archivo subido con éxito a R2:", fileCloudUrl);
             }
 
+            const db = await getDb();
             await addDoc(collection(db, "users", user.uid, "billInputs"), {
                 ...input,
                 createdAt: serverTimestamp(),
@@ -566,7 +612,7 @@ export default function ComparadorPage() {
                             <div className="premium-card p-6">
                                 <div className="flex items-center gap-3 mb-8">
                                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                                        <span className="material-icons text-primary">terminal</span>
+                                        <Terminal className="text-primary w-5 h-5" />
                                     </div>
                                     <div>
                                         <h2 className="text-lg font-bold">Entrada de Datos</h2>
@@ -687,12 +733,12 @@ export default function ComparadorPage() {
                                         <button onClick={() => startAnalysis(true)} disabled={isProcessing} className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50">
                                             {isProcessing ? (
                                                 <>
-                                                    <span className="material-icons text-xl animate-spin">sync</span>
+                                                    <Clock className="w-5 h-5 animate-spin" />
                                                     Procesando...
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span className="material-icons text-xl">insights</span>
+                                                    <TrendingDown className="w-5 h-5" />
                                                     Ejecutar Análisis Comparativo
                                                 </>
                                             )}
@@ -707,7 +753,7 @@ export default function ComparadorPage() {
                             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 bg-green-500/10 text-green-500 rounded-xl">
-                                        <span className="material-icons">trending_down</span>
+                                        <TrendingDown size={24} />
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Ahorro en Tiempo Real</p>
@@ -773,24 +819,24 @@ export default function ComparadorPage() {
                                                                     'from-primary to-ai-purple'
                                                         }`}></div>
 
-                                                    <span key={`icon-${loaderStage}`} className={`material-icons text-6xl animate-in zoom-in-50 duration-700 transition-all ${loaderStage === 0 ? 'text-primary' :
+                                                    <div className={`animate-in zoom-in-50 duration-700 transition-all ${loaderStage === 0 ? 'text-primary' :
                                                         loaderStage === 1 ? 'text-amber-400' :
                                                             loaderStage === 2 ? 'text-success' :
                                                                 loaderStage === 3 ? 'text-ai-purple' :
                                                                     'text-primary'
                                                         }`}>
                                                         {isAiGenerated && step === "input" ? (
-                                                            loaderStage === 0 ? 'visibility' :
-                                                                loaderStage === 1 ? 'description' :
-                                                                    loaderStage === 2 ? 'psychology' :
-                                                                        loaderStage === 3 ? 'fact_check' : 'cloud_sync'
+                                                            loaderStage === 0 ? <Search className="w-16 h-16" /> :
+                                                            loaderStage === 1 ? <FileText className="w-16 h-16" /> :
+                                                            loaderStage === 2 ? <Brain className="w-16 h-16" /> :
+                                                            loaderStage === 3 ? <CheckCircle2 className="w-16 h-16" /> : <Clock className="w-16 h-16" />
                                                         ) : (
-                                                            loaderStage === 0 ? 'terminal' :
-                                                                loaderStage === 1 ? 'bolt' :
-                                                                    loaderStage === 2 ? 'insights' :
-                                                                        loaderStage === 3 ? 'compare_arrows' : 'cloud_sync'
+                                                            loaderStage === 0 ? <Terminal className="w-16 h-16" /> :
+                                                            loaderStage === 1 ? <Zap className="w-16 h-16" /> :
+                                                            loaderStage === 2 ? <TrendingDown className="w-16 h-16" /> :
+                                                            loaderStage === 3 ? <ArrowLeftRight className="w-16 h-16" /> : <Clock className="w-16 h-16" />
                                                         )}
-                                                    </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -1142,7 +1188,7 @@ export default function ComparadorPage() {
                                         <button onClick={() => setStep("input")} className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-4 font-bold rounded-2xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-colors">Editar Datos</button>
                                         <button onClick={confirmData} className="flex-[2] bg-success hover:bg-success/90 text-white py-4 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
                                             Confirmar y Comparar
-                                            <span className="material-icons text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
                                     </div>
                                 </div>
@@ -1158,7 +1204,7 @@ export default function ComparadorPage() {
                         <div className="premium-card p-6 flex flex-col sm:flex-row items-center justify-between !rounded-2xl gap-6 text-center sm:text-left">
                             <div className="flex flex-col sm:flex-row items-center gap-4">
                                 <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center shrink-0">
-                                    <span className="material-icons">query_stats</span>
+                                    <TrendingDown className="w-6 h-6" />
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
@@ -1169,7 +1215,7 @@ export default function ComparadorPage() {
                                 onClick={() => setStep("input")}
                                 className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-6 py-2.5 rounded-full cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
                             >
-                                <span className="material-icons text-[16px] text-slate-600 dark:text-slate-300">refresh</span>
+                                <History className="w-4 h-4 text-slate-600 dark:text-slate-300" />
                                 <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">Nueva Comparativa</span>
                             </button>
                         </div>
@@ -1180,7 +1226,7 @@ export default function ComparadorPage() {
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] relative overflow-hidden shadow-sm space-y-8 group hover:shadow-md transition-shadow">
                                     <div className="flex justify-between items-center flex-col sm:flex-row gap-3">
                                         <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center sm:text-left">Perfil Actual</h4>
-                                        <span className="material-icons text-lg text-success">verified</span>
+                                        <CheckCircle2 className="w-5 h-5 text-success" />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center sm:text-left">
                                         <div className="flex flex-col items-center sm:items-start">
@@ -1252,7 +1298,7 @@ export default function ComparadorPage() {
                                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 rounded-[2rem] shadow-sm group hover:shadow-md transition-shadow">
                                     <div className="flex justify-between items-center mb-6">
                                         <div className="flex items-center gap-2">
-                                            <span className="material-icons text-slate-400 text-lg group-hover:text-primary transition-colors">tune</span>
+                                            <Filter className="text-slate-400 w-4 h-4 group-hover:text-primary transition-colors" />
                                             <h4 className="text-[10px] font-bold text-slate-800 dark:text-slate-100 uppercase tracking-widest">Filtros</h4>
                                         </div>
                                         {results.length !== baseResults.length && (
@@ -1265,7 +1311,7 @@ export default function ComparadorPage() {
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Buscar Compañía / Tarifa</label>
                                             <div className="relative">
-                                                <span className="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[16px]">search</span>
+                                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                                                 <input
                                                     type="text"
                                                     value={filterSearch}
@@ -1312,14 +1358,14 @@ export default function ComparadorPage() {
                                         <div className="relative z-10 flex flex-col items-center text-center">
                                             <div className="flex justify-between items-start mb-4 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                                    <span className="material-icons text-xl">payments</span>
+                                                    <FileText className="w-5 h-5" />
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0].total.toFixed(2)} €</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
-                                                    <span className="material-icons text-[12px]">arrow_downward</span>
+                                                    <TrendingDown className="w-3 h-3" />
                                                 </div>
                                                 <p className="text-[11px] font-bold tracking-tight">{Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual</p>
                                             </div>
@@ -1333,14 +1379,14 @@ export default function ComparadorPage() {
                                         <div className="relative z-10 flex flex-col items-center text-center">
                                             <div className="flex justify-between items-start mb-4 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success group-hover:scale-110 transition-transform">
-                                                    <span className="material-icons text-xl">calendar_month</span>
+                                                    <Calendar className="w-5 h-5" />
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{(results[0].total * 12).toFixed(2)} €</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
-                                                    <span className="material-icons text-[12px]">arrow_downward</span>
+                                                    <TrendingDown className="w-3 h-3" />
                                                 </div>
                                                 <p className="text-[11px] font-bold tracking-tight">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual</p>
                                             </div>
@@ -1359,7 +1405,7 @@ export default function ComparadorPage() {
                                         <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center">
                                             <div className="flex justify-between items-start mb-2 w-full text-left">
                                                 <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
-                                                    <span className="material-icons text-xl">emoji_events</span>
+                                                    <Trophy className="w-5 h-5" />
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
@@ -1391,9 +1437,9 @@ export default function ComparadorPage() {
                                                 className="shrink-0 flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-primary/20 transition-all active:scale-95 disabled:opacity-50"
                                             >
                                                 {isProcessing ? (
-                                                    <span className="material-icons text-sm animate-spin">sync</span>
+                                                    <Clock className="w-4 h-4 animate-spin" />
                                                 ) : (
-                                                    <span className="material-icons text-sm">save</span>
+                                                    <Database className="w-4 h-4" />
                                                 )}
                                                 {isProcessing ? "Guardando..." : "Guardar Análisis"}
                                             </button>
@@ -1459,7 +1505,7 @@ export default function ComparadorPage() {
                                                                 : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
                                                                 }`}
                                                         >
-                                                            <span className="material-icons text-sm">visibility</span>
+                                                            <Eye className="w-4 h-4" />
                                                             Ver Detalles
                                                         </button>
                                                         <button
@@ -1476,7 +1522,11 @@ export default function ComparadorPage() {
                                                                 : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500"
                                                                 }`}
                                                         >
-                                                            <span className="material-icons">{res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}</span>
+                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? (
+                                                                <Heart className="w-5 h-5 fill-current" />
+                                                            ) : (
+                                                                <Heart className="w-5 h-5" />
+                                                            )}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1538,7 +1588,7 @@ export default function ComparadorPage() {
                                                         <td className="px-4 py-8 align-middle text-center text-slate-300 dark:text-slate-700 font-black">—</td>
                                                         <td className="pr-6 pl-4 py-8 rounded-r-[1.5rem] align-middle text-right">
                                                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                                                                <span className="material-icons text-xs">lock</span>
+                                                                <Lock className="w-3 h-3" />
                                                                 Punto de Comparación
                                                             </div>
                                                         </td>
@@ -1633,7 +1683,7 @@ export default function ComparadorPage() {
 
                                             {/* Technical Footer Area */}
                                             <div className="relative z-10 mt-4 pt-6 pb-4 px-10 border-t border-slate-200/50 dark:border-white/5 flex items-center gap-3 text-slate-400">
-                                                <span className="material-icons text-sm opacity-50">info_outline</span>
+                                                <Info className="w-4 h-4 opacity-50" />
                                                 <p className="text-[10px] font-bold uppercase tracking-wider opacity-60">
                                                     Precios estimados basados en tu consumo. El ahorro real puede variar según su perfil de uso técnico.
                                                 </p>
@@ -1654,7 +1704,7 @@ export default function ComparadorPage() {
                                         <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/5 pb-10">
                                             <div className="flex flex-col md:flex-row items-center gap-5 text-center md:text-left">
                                                 <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-lg shadow-primary/5">
-                                                    <span className="material-symbols-outlined text-primary text-3xl">analytics</span>
+                                                    <BarChart3 className="text-primary w-8 h-8" />
                                                 </div>
                                                 <div className="space-y-1">
                                                     <h4 className="text-lg font-bold tracking-tight text-white/90">Desglose Técnico Transparente</h4>
@@ -1667,16 +1717,16 @@ export default function ComparadorPage() {
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
                                         {[
-                                            { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: "bolt", border: "border-primary/40" },
-                                            { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: "offline_bolt", border: "border-white/10" },
-                                            { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: "volunteer_activism", border: "border-white/10" },
-                                            { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: "speed", border: "border-white/10" },
-                                            { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: "account_balance", border: "border-white/10" },
-                                            { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: "receipt_long", border: "border-white/10" },
+                                            { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4" />, border: "border-primary/40" },
+                                            { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Zap className="w-4 h-4" />, border: "border-white/10" },
+                                            { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4" />, border: "border-white/10" },
+                                            { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4" />, border: "border-white/10" },
+                                            { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4" />, border: "border-white/10" },
+                                            { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4" />, border: "border-white/10" },
                                         ].map((item, idx) => (
                                             <div key={idx} className="flex flex-col h-full">
                                                 <div className="flex items-center gap-2 text-slate-400 min-h-[40px] mb-4">
-                                                    <span className="material-icons text-base text-slate-500">{item.icon}</span>
+                                                    <div className="text-slate-500">{item.icon}</div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
                                                 </div>
                                                 <div className={`pl-4 border-l-2 ${item.border} flex flex-col justify-center grow`}>
@@ -1691,7 +1741,7 @@ export default function ComparadorPage() {
                                     <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
                                         <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
                                             <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-white/5 shadow-inner">
-                                                <span className="material-icons text-slate-400 text-xl">info</span>
+                                                <Info className="text-slate-400 w-6 h-6" />
                                             </div>
                                             <div className="space-y-1">
                                                 <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Metodología de Cálculo</p>
@@ -1748,7 +1798,7 @@ export default function ComparadorPage() {
                                         <div className="flex justify-between items-end px-2">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                                                    <span className="material-icons text-slate-400 text-lg">history</span>
+                                                    <History className="text-slate-400 w-5 h-5" />
                                                 </div>
                                                 <div>
                                                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Tu Situación Actual</p>
@@ -1788,7 +1838,7 @@ export default function ComparadorPage() {
                                                                 : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400"
                                                                 }`}>
                                                                 {idx === 0 ? (
-                                                                    <span className="material-icons text-xl">emoji_events</span>
+                                                                    <Trophy className="w-5 h-5" />
                                                                 ) : (
                                                                     <span className="text-xs font-black">#{idx + 1}</span>
                                                                 )}

@@ -7,6 +7,7 @@ import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
 import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
+import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -74,7 +75,7 @@ export default async function Home() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="/comparador?mode=upload" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5 text-sm md:text-base">
-                    <span className="material-icons text-xl">cloud_upload</span>
+                    <CloudUpload size={20} />
                     Subir mi factura
                   </Link>
                   <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary/40 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-all text-sm md:text-base">
@@ -89,7 +90,7 @@ export default async function Home() {
                       "https://lh3.googleusercontent.com/aida-public/AB6AXuB84wJGq-7l9kzTmEL8gIZ5gA8DN4CkAQ8juywJhHG8EidRWw_dsheDrH-P1ZtG5YPaHx7KeIkDqH-lYSkDtoGJCWre0crF0bN32ihXd7eqiKgonkFEVCFxl79gzzzWAr9-RUS_TYVpE_bXRH272UKZyq4b0rfpqlGBQnauln_LpXxqvCzewwIq5snDHR7U-zS_ljytqxyzqEG4vB8T_RMM1HZUnfIhnmDzQnZP8kWY5bapSRP2j4OeAxkZ1zU_elmTslpxVBA3XCg"
                     ].map((src, i) => (
                       <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10 bg-slate-100 dark:bg-slate-800">
-                        <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={80} />
+                        <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={60} />
                       </div>
                     ))}
                   </div>
@@ -115,7 +116,7 @@ export default async function Home() {
                   <div className="absolute bottom-6 left-6 right-6 p-5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-100/50 dark:border-slate-800/50">
                     <div className="flex items-center gap-4">
                       <div className="p-4 bg-success/20 rounded-2xl text-success flex items-center justify-center shrink-0">
-                        <span className="material-icons text-3xl font-bold">trending_down</span>
+                        <TrendingDown size={32} className="text-primary" />
                       </div>
                       <div className="space-y-1">
                         <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">Ahorro medio anual</p>
@@ -153,7 +154,7 @@ export default async function Home() {
               <div className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-full flex items-center justify-center mb-6 group-hover:border-primary group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-xl">upload_file</span>
+                    <FileText size={20} />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-md">1</div>
                 </div>
@@ -164,7 +165,7 @@ export default async function Home() {
               <div className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-full flex items-center justify-center mb-6 group-hover:border-primary group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-xl">psychology</span>
+                    <Brain size={20} />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold shadow-md">2</div>
                 </div>
@@ -175,7 +176,7 @@ export default async function Home() {
               <div className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-full flex items-center justify-center mb-6 group-hover:border-success group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center text-success group-hover:scale-110 transition-transform">
-                    <span className="material-icons text-xl">savings</span>
+                    <PiggyBank size={20} />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-success text-white rounded-full flex items-center justify-center font-bold shadow-md">3</div>
                 </div>
@@ -218,7 +219,7 @@ export default async function Home() {
                   <summary className="flex items-center justify-between p-6 cursor-pointer select-none list-none">
                     <span className="text-lg font-700 text-slate-900 dark:text-white">{faq.q}</span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-success/10 text-success" : "bg-primary/10 text-primary"}`}>
-                      <span className="material-icons">expand_more</span>
+                      <ChevronDown size={20} />
                     </div>
                   </summary>
                   <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
@@ -236,7 +237,7 @@ export default async function Home() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
-                  <span className="material-icons text-sm">newspaper</span>
+                  <Newspaper size={14} />
                   Blog & Noticias
                 </div>
                 <h2 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white tracking-tight">Consejos para ahorrar en tu recibo</h2>
@@ -244,7 +245,7 @@ export default async function Home() {
               </div>
               <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all">
                 Ver todo el blog
-                <span className="material-icons text-sm">arrow_forward</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
 
@@ -259,7 +260,7 @@ export default async function Home() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
                     <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
-                    <span className="material-icons text-primary group-hover:translate-x-2 transition-transform" aria-hidden="true">east</span>
+                    <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
                   </div>
                 </Link>
               ))}
@@ -294,7 +295,12 @@ export default async function Home() {
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4">
                       <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <span className="material-icons text-primary">{benefit.icon}</span>
+                        <div className="text-primary mb-4 p-2 bg-primary/5 rounded-xl">
+                          {benefit.icon === 'history' && <HistoryIcon size={24} />}
+                          {benefit.icon === 'analytics' && <BarChart3 size={24} />}
+                          {benefit.icon === 'description' && <FileText size={24} />}
+                          {benefit.icon === 'auto_graph' && <TrendingUp size={24} />}
+                        </div>
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-white">{benefit.title}</h4>
@@ -307,10 +313,10 @@ export default async function Home() {
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-6">
                   <Link href="/?auth=register" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-black rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
                     Crear mi cuenta gratuita
-                    <span className="material-icons ml-2">person_add</span>
+                    <UserPlus size={20} className="ml-2" />
                   </Link>
                   <p className="text-xs text-slate-500 font-bold uppercase tracking-widest flex items-center gap-2">
-                    <span className="material-icons text-sm">check_circle</span>
+                    <CheckCircle size={14} className="text-sm" />
                     O usa el comparador sin registro
                   </p>
                 </div>
@@ -328,12 +334,12 @@ export default async function Home() {
                         </div>
                       </div>
                       <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                        <span className="material-icons text-primary text-sm">notifications</span>
+                        <Bell size={14} className="text-primary" />
                       </div>
                     </div>
                     <div className="space-y-4">
                       <div className="h-40 bg-slate-800/50 rounded-2xl border border-white/5 flex items-center justify-center">
-                        <span className="material-icons text-6xl text-slate-700">insights</span>
+                        <BarChart3 size={60} className="text-slate-700" />
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="h-20 bg-slate-800/50 rounded-2xl border border-white/5"></div>
@@ -392,7 +398,7 @@ export default async function Home() {
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold hover:shadow-xl transition-all group"
               >
                 Ver análisis detallado y opiniones de comercializadoras
-                <span className="material-icons text-primary group-hover:translate-x-1 transition-transform">east</span>
+                <ArrowRight className="text-primary group-hover:translate-x-1 transition-transform" size={24} />
               </Link>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { getElectricityPrices } from "@/lib/electricity-prices";
+import { Bolt, TrendingDown, RefreshCcw, Clock, Info, UserX } from "lucide-react";
 
 export default async function ElectricityPriceWidget() {
     const pricesData = await getElectricityPrices();
@@ -18,13 +19,13 @@ export default async function ElectricityPriceWidget() {
     return (
         <div className="relative premium-card p-6 md:p-10 overflow-hidden border border-slate-100 dark:border-slate-800">
             <div className="absolute top-0 right-0 p-4 md:p-8 opacity-5">
-                <span className="material-icons text-[120px] md:text-[160px]">bolt</span>
+                <Bolt size={120} className="md:size-[160px]" />
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 relative z-10">
                 <div className="text-center md:text-left space-y-4 max-w-md w-full">
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 text-primary">
-                        <span className="material-icons text-xl md:text-2xl">bolt_outline</span>
+                        <Bolt size={24} className="md:size-[28px]" />
                         <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la Luz Hoy</h3>
                         <div className="flex items-center gap-2">
                             {prices.isLive ? (
@@ -48,11 +49,11 @@ export default async function ElectricityPriceWidget() {
                     </div>
                     <div className="flex flex-wrap justify-center md:justify-start gap-2">
                         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-success/10 text-success rounded-full text-[10px] md:text-[11px] font-bold">
-                            <span className="material-icons text-xs md:text-sm">trending_down</span>
+                            <TrendingDown size={14} className="md:size-[16px]" />
                             {prices.current < prices.average ? 'Bajo media' : 'Estable'}
                         </div>
                         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-[10px] md:text-[11px] font-bold">
-                            <span className="material-icons text-xs md:text-sm">update</span>
+                            <RefreshCcw size={14} className="md:size-[16px]" />
                             {prices.time}
                         </div>
                     </div>
@@ -63,7 +64,7 @@ export default async function ElectricityPriceWidget() {
                         <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mínimo</p>
                         <p className="text-base md:text-xl font-800 text-success">{prices.min.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
-                            <span className="material-icons text-[12px] md:text-[14px]">schedule</span>
+                            <Clock size={14} />
                             {prices.minHour}
                         </div>
                     </div>
@@ -71,7 +72,7 @@ export default async function ElectricityPriceWidget() {
                         <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest">Máximo</p>
                         <p className="text-base md:text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
-                            <span className="material-icons text-[12px] md:text-[14px]">schedule</span>
+                            <Clock size={14} />
                             {prices.maxHour}
                         </div>
                     </div>
@@ -80,13 +81,13 @@ export default async function ElectricityPriceWidget() {
 
             <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-                    <span className="material-icons text-sm text-primary">info</span>
+                    <Info size={14} className="text-primary" />
                     <p className="text-[11px] leading-relaxed italic">
                         POOL mayorista. Si tienes **tarifa fija**, tu precio no depende de estos valores.
                     </p>
                 </div>
                 <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary rounded-lg text-[10px] font-bold border border-primary/10 uppercase tracking-tight">
-                    <span className="material-icons text-xs">no_accounts</span>
+                    <UserX size={12} />
                     Comparador de uso libre sin registro
                 </div>
             </div>

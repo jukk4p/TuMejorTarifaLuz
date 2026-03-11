@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Share2, Users, ChevronRight, Settings, Mail, MessageSquare } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -22,10 +23,10 @@ export default function Footer() {
                         </p>
                         <div className="flex items-center gap-4 pt-2 justify-center md:justify-start">
                             <a aria-label="Social" className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-transparent flex items-center justify-center hover:bg-primary hover:text-white transition-all text-slate-500 dark:text-slate-300" href="#">
-                                <span className="material-symbols-outlined text-xl">share</span>
+                                <Share2 size={20} />
                             </a>
                             <a aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-transparent flex items-center justify-center hover:bg-primary hover:text-white transition-all text-slate-500 dark:text-slate-300" href="#">
-                                <span className="material-symbols-outlined text-xl">groups</span>
+                                <Users size={20} />
                             </a>
                         </div>
                     </div>
@@ -35,11 +36,11 @@ export default function Footer() {
                             <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-1/2 h-0.5 bg-primary"></span>
                         </h4>
                         <ul className="space-y-4">
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/comparador"><span className="material-icons text-xs">chevron_right</span> Comparador</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/tarifas"><span className="material-icons text-xs">chevron_right</span> Tarifas</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/blog"><span className="material-icons text-xs">chevron_right</span> Blog</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/sobre-nosotros"><span className="material-icons text-xs">chevron_right</span> Sobre nosotros</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="#faq"><span className="material-icons text-xs">chevron_right</span> Preguntas Frecuentes</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/comparador"><ChevronRight size={14} className="text-xs" /> Comparador</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/tarifas"><ChevronRight size={14} className="text-xs" /> Tarifas</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/blog"><ChevronRight size={14} className="text-xs" /> Blog</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/sobre-nosotros"><ChevronRight size={14} className="text-xs" /> Sobre nosotros</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="#faq"><ChevronRight size={14} className="text-xs" /> Preguntas Frecuentes</Link></li>
                         </ul>
                     </div>
                     <div className="text-center md:text-left">
@@ -48,15 +49,15 @@ export default function Footer() {
                             <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-1/2 h-0.5 bg-primary"></span>
                         </h4>
                         <ul className="space-y-4">
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/aviso-legal"><span className="material-icons text-xs">chevron_right</span> Aviso Legal</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/privacidad"><span className="material-icons text-xs">chevron_right</span> Política de Privacidad</Link></li>
-                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/cookies"><span className="material-icons text-xs">chevron_right</span> Política de Cookies</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/aviso-legal"><ChevronRight size={14} className="text-xs" /> Aviso Legal</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/privacidad"><ChevronRight size={14} className="text-xs" /> Política de Privacidad</Link></li>
+                            <li><Link className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2" href="/legal/cookies"><ChevronRight size={14} className="text-xs" /> Política de Cookies</Link></li>
                             <li>
                                 <button
                                     onClick={() => (window as any).openCookieSettings()}
                                     className="text-sm hover:text-primary transition-colors flex items-center justify-center md:justify-start gap-2 w-full md:w-auto"
                                 >
-                                    <span className="material-icons text-xs">settings</span>
+                                    <Settings size={12} />
                                     Gestionar Cookies
                                 </button>
                             </li>
@@ -69,14 +70,14 @@ export default function Footer() {
                         </h4>
                         <ul className="space-y-5">
                             <li className="flex flex-col md:flex-row items-center md:items-start gap-3">
-                                <span className="material-symbols-outlined text-primary">mail</span>
+                                <Mail className="text-primary" size={24} />
                                 <div>
                                     <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Email</p>
                                     <a className="text-sm hover:text-primary transition-colors" href="mailto:hola@tumejortarifaluz.es">hola@tumejortarifaluz.es</a>
                                 </div>
                             </li>
                             <li className="flex flex-col md:flex-row items-center md:items-start gap-3">
-                                <span className="material-symbols-outlined text-primary">chat</span>
+                                <MessageSquare className="text-primary" size={24} />
                                 <div>
                                     <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">WhatsApp</p>
                                     <a className="text-sm hover:text-primary transition-colors" href="#">Contactar por WhatsApp</a>

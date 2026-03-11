@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import React, { Suspense } from "react";
+import { Sun, Moon, User, LogOut, LogIn, Menu, X } from "lucide-react";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
 
@@ -93,8 +94,12 @@ function NavbarContent() {
                                 aria-checked={theme === 'dark'}
                             >
                                 <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow-lg transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`} />
-                                <span className={`material-icons text-[14px] z-10 w-7 transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>light_mode</span>
-                                <span className={`material-icons text-[14px] z-10 w-7 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>dark_mode</span>
+                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
+                                    <Sun size={14} />
+                                </span>
+                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
+                                    <Moon size={14} />
+                                </span>
                             </button>
 
                             {user ? (
@@ -107,7 +112,7 @@ function NavbarContent() {
                                             {user.photoURL ? (
                                                 <Image src={user.photoURL} alt={user.displayName || "User"} width={36} height={36} className="w-full h-full object-cover" />
                                             ) : (
-                                                <span className="material-icons text-primary text-sm">person</span>
+                                            <User size={16} className="text-primary" />
                                             )}
                                         </div>
                                         <div className="flex flex-col">
@@ -122,7 +127,7 @@ function NavbarContent() {
                                         className="p-2 text-slate-400 hover:text-red-500 transition-colors"
                                         title="Cerrar Sesión"
                                     >
-                                        <span className="material-icons text-lg">logout</span>
+                                        <LogOut size={18} />
                                     </button>
                                 </div>
                             ) : (
@@ -143,8 +148,12 @@ function NavbarContent() {
                                 aria-label="Toggle theme"
                             >
                                 <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-[28px]' : 'translate-x-0'}`} />
-                                <span className={`material-icons text-[14px] z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>light_mode</span>
-                                <span className={`material-icons text-[14px] z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>dark_mode</span>
+                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
+                                    <Sun size={14} />
+                                </span>
+                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
+                                    <Moon size={14} />
+                                </span>
                             </button>
 
                             {user ? (
@@ -156,7 +165,7 @@ function NavbarContent() {
                                         {user.photoURL ? (
                                             <Image src={user.photoURL} alt={user.displayName || "User"} width={32} height={32} className="w-full h-full object-cover" />
                                         ) : (
-                                            <span className="material-icons text-primary text-xs">person</span>
+                                            <User size={12} className="text-primary" />
                                         )}
                                     </div>
                                 </Link>
@@ -165,7 +174,7 @@ function NavbarContent() {
                                     onClick={() => setIsAuthModalOpen(true)}
                                     className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
                                 >
-                                    <span className="material-icons text-xl">login</span>
+                                    <LogIn size={20} />
                                 </button>
                             )}
 
@@ -174,7 +183,7 @@ function NavbarContent() {
                                 className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
                                 aria-label={isMenuOpen ? "Cerrar menú principal" : "Abrir menú principal"}
                             >
-                                <span className="material-icons text-xl">{isMenuOpen ? 'close' : 'menu'}</span>
+                                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
                             </button>
                         </div>
                     </div>

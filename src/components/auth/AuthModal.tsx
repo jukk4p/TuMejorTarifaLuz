@@ -8,8 +8,9 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail
 } from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { getAuthInstance, getDb } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { X } from "lucide-react";
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -38,6 +39,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
 
     const initializeUserProfile = async (user: any) => {
         try {
+            const db = await getDb();
             const userDocRef = doc(db, "users", user.uid);
             await setDoc(userDocRef, {
                 email: user.email,
@@ -54,6 +56,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         setLoading(true);
         setError("");
         try {
+            const auth = await getAuthInstance();
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             await initializeUserProfile(result.user);
@@ -71,6 +74,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         setLoading(true);
         setError("");
         try {
+            const auth = await getAuthInstance();
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, email, password);
             } else {
@@ -101,6 +105,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         }
         setLoading(true);
         try {
+            const auth = await getAuthInstance();
             await sendPasswordResetEmail(auth, email);
             setResetSent(true);
             setError("");
@@ -123,7 +128,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                     onClick={onClose}
                     className="absolute top-6 right-6 p-2 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
                 >
-                    <span className="material-icons text-lg">close</span>
+                    <X size={20} />
                 </button>
 
                 <div className="p-8 sm:p-10 space-y-8">

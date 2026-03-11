@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import { Search, PiggyBank, GraduationCap, ArrowLeftRight, Sun, BarChart3, ArrowRight } from "lucide-react";
 
 export default function BlogPage() {
     return (
@@ -29,7 +30,7 @@ export default function BlogPage() {
                     <div className="max-w-4xl mx-auto mb-16 space-y-8">
                         {/* Search Bar */}
                         <div className="relative group">
-                            <span className="absolute left-6 top-1/2 -translate-y-1/2 material-icons text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={20} />
                             <input
                                 type="text"
                                 placeholder="Busca guías de ahorro, tarifas, autoconsumo..."
@@ -41,11 +42,11 @@ export default function BlogPage() {
                         <div className="flex flex-wrap items-center justify-center gap-3 overflow-x-auto pb-4 sm:pb-0 scrollbar-hide">
                             {[
                                 { name: "Todos", active: true },
-                                { name: "Ahorro", icon: "savings" },
-                                { name: "Educación", icon: "school" },
-                                { name: "Comparativas", icon: "compare_arrows" },
-                                { name: "Solar", icon: "light_mode" },
-                                { name: "Estrategia", icon: "insights" }
+                                { name: "Ahorro", icon: PiggyBank },
+                                { name: "Educación", icon: GraduationCap },
+                                { name: "Comparativas", icon: ArrowLeftRight },
+                                { name: "Solar", icon: Sun },
+                                { name: "Estrategia", icon: BarChart3 }
                             ].map((cat, i) => (
                                 <button
                                     key={i}
@@ -55,7 +56,7 @@ export default function BlogPage() {
                                             : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-100 dark:border-slate-700 hover:border-primary hover:text-primary"
                                         }`}
                                 >
-                                    {cat.icon && <span className="material-icons text-sm">{cat.icon}</span>}
+                                    {cat.icon && <cat.icon size={16} />}
                                     {cat.name}
                                 </button>
                             ))}
@@ -103,7 +104,7 @@ export default function BlogPage() {
                                     <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
                                         <Link href={`/blog/${post.slug}`} className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group/btn">
                                             Leer más
-                                            <span className="material-icons text-sm group-hover/btn:translate-x-1 transition-transform">east</span>
+                                            <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
                                         </Link>
                                     </div>
                                 </div>

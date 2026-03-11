@@ -18,6 +18,11 @@ export default function ElectricityPriceSkeleton() {
                     <div className="h-24 bg-slate-100 dark:bg-slate-800 rounded-3xl w-28 md:w-32"></div>
                 </div>
             </div>
+
+            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded w-2/3"></div>
+                <div className="h-6 bg-slate-100 dark:bg-slate-800 rounded w-40"></div>
+            </div>
         </div>
     );
 }

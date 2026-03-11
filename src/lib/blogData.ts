@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
       
       <div class="bg-primary/5 p-6 rounded-3xl border border-primary/10 my-10">
         <h4 class="text-primary flex items-center gap-2 mb-3">
-          <span class="material-icons">insights</span>
+          📊
           Conceptos Clave para el Ahorro
         </h4>
         <ul class="space-y-4">
@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
 
       <div class="bg-amber-50 dark:bg-amber-900/10 p-6 rounded-2xl border border-amber-200 dark:border-amber-900/30 my-8">
         <p class="font-bold text-amber-800 dark:text-amber-400 mb-2 flex items-center gap-2">
-          <span class="material-icons">lightbulb</span>
+          💡
           Consejo de Experto
         </p>
         <p class="text-sm">No pierdas tiempo con cálculos manuales. Nuestro <strong>comparador inteligente</strong> procesa estos datos automáticamente al subir tu PDF, analizando más de 50 tarifas en segundos.</p>
@@ -144,12 +144,12 @@ export const blogPosts: BlogPost[] = [
           </p>
           <div class="grid sm:grid-cols-2 gap-4">
             <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-              <span class="material-icons text-primary mb-2">speed</span>
+              ⚡
               <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Paso 1</p>
               <p class="text-sm">Consulta tu <strong>pico máximo</strong> en la web de tu distribuidora.</p>
             </div>
             <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-              <span class="material-icons text-primary mb-2">edit_note</span>
+              📝
               <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Paso 2</p>
               <p class="text-sm">Ajusta tu potencia a ese máximo + un pequeño margen.</p>
             </div>
@@ -161,7 +161,7 @@ export const blogPosts: BlogPost[] = [
       <p>Recuerda que puedes contratar potencias distintas en los tramos <strong>Punta y Valle</strong>. Si cargas un coche eléctrico de noche, podrías subir la potencia en el tramo valle (más barato) y mantener una potencia mínima en el tramo punta.</p>
       
       <div class="flex items-start gap-4 p-6 bg-primary/5 rounded-2xl border border-primary/10 my-8">
-        <span class="material-icons text-primary leading-none">info</span>
+        ℹ️
         <div>
           <p class="text-sm">Tu comercializadora puede cobrarte un pequeño trámite por el cambio (aprox. 10€), pero lo amortizarás en apenas dos meses con el ahorro generado.</p>
         </div>
@@ -185,21 +185,21 @@ export const blogPosts: BlogPost[] = [
       
       <div class="grid gap-4 my-10">
         <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          <span class="material-icons text-emerald-500">check_circle</span>
+          ✅
           <div>
             <p class="font-bold">Ciclos de lavado programados</p>
             <p class="text-sm opacity-70">Usa el inicio diferido para que terminen a las 08:00 AM.</p>
           </div>
         </div>
         <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          <span class="material-icons text-emerald-500">check_circle</span>
+          ✅
           <div>
             <p class="font-bold">Termos eléctricos con temporizador</p>
             <p class="text-sm opacity-70">Calienta el agua solo durante el tramo Valle.</p>
           </div>
         </div>
         <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          <span class="material-icons text-emerald-500">check_circle</span>
+          ✅
           <div>
             <p class="font-bold">Cocina por lotes (Batch Cooking)</p>
             <p class="text-sm opacity-70">Usa el horno y la vitro en bloque durante el fin de semana.</p>
@@ -211,7 +211,7 @@ export const blogPosts: BlogPost[] = [
       <p>Consulta nuestro gráfico de precios en tiempo real para planificar tu jornada y maximizar el ahorro diario.</p>
 
       <div class="p-6 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-200 dark:border-amber-900/30 my-8 flex gap-4">
-        <span class="material-icons text-amber-600">warning</span>
+        ⚠️
         <p class="text-sm"><strong>Evita las horas Punta (10-14h y 18-22h)</strong> para actividades de alto consumo. Es cuando la red está más saturada y el precio se dispara.</p>
       </div>
     `,
@@ -268,7 +268,7 @@ export const blogPosts: BlogPost[] = [
       
       <div class="bg-primary p-8 rounded-[2rem] text-white my-10 shadow-lg shadow-primary/20 bg-gradient-to-br from-primary to-primary-dark">
         <h4 class="text-white font-bold mb-4 flex items-center gap-2">
-          <span class="material-icons">electric_car</span>
+          🚗🔋
           La Regla de Oro del VE
         </h4>
         <p class="text-sm opacity-90 leading-relaxed mb-6">
@@ -342,7 +342,7 @@ export const blogPosts: BlogPost[] = [
       <div class="grid gap-6 my-10">
         <div class="flex items-center gap-6 p-6 bg-emerald-50 dark:bg-emerald-900/10 rounded-3xl border border-emerald-100 dark:border-emerald-900/30">
           <div class="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center text-white shrink-0">
-            <span class="material-icons text-3xl">savings</span>
+            💰
           </div>
           <div>
             <h4 class="text-emerald-900 dark:text-emerald-400 font-bold mb-1">Tramo Valle (Económico)</h4>
@@ -352,7 +352,7 @@ export const blogPosts: BlogPost[] = [
         
         <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800">
           <div class="w-16 h-16 rounded-2xl bg-slate-400 flex items-center justify-center text-white shrink-0">
-            <span class="material-icons text-3xl">schedule</span>
+            🕒
           </div>
           <div>
             <h4 class="text-slate-900 dark:text-slate-200 font-bold mb-1">Tramo Llano (Precio Medio)</h4>
@@ -362,7 +362,7 @@ export const blogPosts: BlogPost[] = [
 
         <div class="flex items-center gap-6 p-6 bg-rose-50 dark:bg-rose-900/10 rounded-3xl border border-rose-100 dark:border-rose-900/30">
           <div class="w-16 h-16 rounded-2xl bg-rose-500 flex items-center justify-center text-white shrink-0">
-            <span class="material-icons text-3xl">warning</span>
+            ⚠️
           </div>
           <div>
             <h4 class="text-rose-900 dark:text-rose-400 font-bold mb-1">Tramo Punta (Caro)</h4>
