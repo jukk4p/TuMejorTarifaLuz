@@ -5,17 +5,35 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bolt, User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert, ArrowLeft } from "lucide-react";
 
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
+
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(true);
+    const [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    
     const router = useRouter();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate login
-        setTimeout(() => {
+        setError("");
+
+        try {
+            // Set persistence based on rememberMe
+            await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+            
+            await signInWithEmailAndPassword(auth, email, password);
             router.push("/admin/dashboard");
-        }, 1500);
+        } catch (err: any) {
+            console.error("Login error:", err);
+            setError("Error: Credenciales inválidas o falta de permisos.");
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -69,6 +87,8 @@ export default function AdminLogin() {
                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
                                     type="text"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="nombre@empresa.com"
                                     className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-2xl pl-12 pr-4 py-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all outline-none"
                                     required
@@ -81,22 +101,40 @@ export default function AdminLogin() {
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
                                     className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-2xl pl-12 pr-12 py-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all outline-none"
                                     required
                                 />
-                                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                                <button 
+                                    type="button" 
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                >
                                     <Eye className="w-5 h-5" />
                                 </button>
                             </div>
                         </div>
 
+                        {error && (
+                            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold rounded-2xl flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+                                <ShieldAlert className="w-4 h-4 shrink-0" />
+                                {error}
+                            </div>
+                        )}
+
                         <div className="flex items-center justify-between text-xs pt-2">
                             <label className="flex items-center gap-2 cursor-pointer group">
-                                <div className="w-5 h-5 rounded-md border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary transition-colors flex items-center justify-center">
-                                    <input type="checkbox" className="hidden" />
-                                    <Check className="w-3 h-3 text-primary hidden" />
+                                <div className={`w-5 h-5 rounded-md border-2 ${rememberMe ? 'bg-primary border-primary' : 'border-slate-200 dark:border-slate-700'} group-hover:border-primary transition-colors flex items-center justify-center`}>
+                                    <input 
+                                        type="checkbox" 
+                                        className="hidden" 
+                                        checked={rememberMe}
+                                        onChange={() => setRememberMe(!rememberMe)}
+                                    />
+                                    {rememberMe && <Check className="w-3 h-3 text-white" />}
                                 </div>
                                 <span className="font-bold text-slate-500 dark:text-slate-400">Recordarme</span>
                             </label>

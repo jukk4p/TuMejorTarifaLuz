@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
-import { Lock, AlertCircle } from "lucide-react";
+import { Lock, AlertCircle, Eye, Check } from "lucide-react";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
@@ -13,6 +13,8 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [rememberMe, setRememberMe] = useState(true);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -43,6 +45,8 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
         setLoading(true);
         setError("");
         try {
+            // Set persistence preference
+            await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
             await signInWithEmailAndPassword(auth, email, password);
         } catch (err: any) {
             setError("Error de autenticación: " + err.message);
@@ -84,14 +88,38 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                         </div>
                         <div className="space-y-2">
                             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Password</label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-900 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                                placeholder="••••••••"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full bg-slate-50 dark:bg-slate-900 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                    placeholder="••••••••"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors"
+                                >
+                                    <Eye className="w-5 h-5" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between text-xs pt-2">
+                            <label className="flex items-center gap-2 cursor-pointer group">
+                                <div className={`w-5 h-5 rounded-md border-2 ${rememberMe ? 'bg-primary border-primary' : 'border-slate-200 dark:border-slate-700'} group-hover:border-primary transition-colors flex items-center justify-center`}>
+                                    <input 
+                                        type="checkbox" 
+                                        className="hidden" 
+                                        checked={rememberMe}
+                                        onChange={() => setRememberMe(!rememberMe)}
+                                    />
+                                    {rememberMe && <Check className="w-3 h-3 text-white" />}
+                                </div>
+                                <span className="font-bold text-slate-500 dark:text-slate-400">Recordarme</span>
+                            </label>
                         </div>
 
                         {error && (
