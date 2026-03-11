@@ -72,7 +72,7 @@ import {
     ZapOff
 } from "lucide-react";
 
-import { getDb, getStorageInstance } from "@/lib/firebase";
+import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
 
 type Step = "input" | "validation" | "results" | "detail" | "analysis";
@@ -147,7 +147,6 @@ export default function ComparadorPage() {
         if (historyId && user) {
             const fetchHistory = async () => {
                 try {
-                    const db = await getDb();
                     const docRef = doc(db, "users", user.uid, "billInputs", historyId);
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
@@ -189,7 +188,6 @@ export default function ComparadorPage() {
             // Load profile defaults if no history is requested
             const fetchProfileDefaults = async () => {
                 try {
-                    const db = await getDb();
                     const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
                     const snap = await getDoc(settingsRef);
                     if (snap.exists()) {
@@ -360,7 +358,6 @@ export default function ComparadorPage() {
                 console.log("Archivo subido con éxito a R2:", fileCloudUrl);
             }
 
-            const db = await getDb();
             await addDoc(collection(db, "users", user.uid, "billInputs"), {
                 ...input,
                 createdAt: serverTimestamp(),

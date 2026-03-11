@@ -7,7 +7,7 @@ import {
     signOut as firebaseSignOut,
     Auth
 } from 'firebase/auth';
-import { getAuthInstance } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 
 interface AuthContextType {
     user: User | null;
@@ -26,31 +26,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        let unsubscribe: (() => void) | undefined;
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUser(user);
+            setLoading(false);
+        });
 
-        const setupAuth = async () => {
-            try {
-                const auth = await getAuthInstance();
-                unsubscribe = onAuthStateChanged(auth, (user) => {
-                    setUser(user);
-                    setLoading(false);
-                });
-            } catch (error) {
-                console.error("Failed to initialize auth:", error);
-                setLoading(false);
-            }
-        };
-
-        setupAuth();
-
-        return () => {
-            if (unsubscribe) unsubscribe();
-        };
+        return () => unsubscribe();
     }, []);
 
     const logout = async () => {
         try {
-            const auth = await getAuthInstance();
             await firebaseSignOut(auth);
         } catch (error) {
             console.error("Error signing out:", error);

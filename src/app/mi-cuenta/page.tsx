@@ -9,7 +9,7 @@ import { getLogoPath } from "@/lib/tariffs";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useTheme } from "next-themes";
-import { getDb, getAuthInstance } from "@/lib/firebase";
+import { db, auth } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock } from "lucide-react";
@@ -75,7 +75,6 @@ export default function ProfilePage() {
             // Fetch consumption settings
             const fetchSettings = async () => {
                 try {
-                    const db = await getDb();
                     const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
                     const snap = await getDoc(settingsRef);
                     if (snap.exists()) {
@@ -137,7 +136,6 @@ export default function ProfilePage() {
             });
 
             // 2. Actualizar Consumos en Firestore
-            const db = await getDb();
             const settingsRef = doc(db, "users", user.uid, "settings", "consumption");
             await setDoc(settingsRef, numericSettings, { merge: true });
 
@@ -189,7 +187,6 @@ export default function ProfilePage() {
             }
 
             // 2. Borrar de Firestore DESPUÉS
-            const db = await getDb();
             await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
 
             if (isDetailsModalOpen) setIsDetailsModalOpen(false);
@@ -207,7 +204,6 @@ export default function ProfilePage() {
 
         const setupBillsSubscription = async () => {
             try {
-                const db = await getDb();
                 const q = query(
                     collection(db, "users", user.uid, "billInputs"),
                     orderBy("createdAt", "desc")

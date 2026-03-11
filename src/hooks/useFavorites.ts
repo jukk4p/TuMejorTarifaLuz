@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getDb } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import {
     doc,
     onSnapshot,
@@ -25,45 +25,32 @@ export function useFavorites() {
             return;
         }
 
-        let unsubscribe: (() => void) | undefined;
-
-        const setupFavorites = async () => {
-            try {
-                const db = await getDb();
-                const userDocRef = doc(db, "users", user.uid);
-
-                const docSnap = await getDoc(userDocRef);
-                if (!docSnap.exists()) {
-                    await setDoc(userDocRef, { favorites: [], email: user.email }, { merge: true });
-                }
-
-                unsubscribe = onSnapshot(userDocRef, (doc) => {
-                    if (doc.exists()) {
-                        setFavorites(doc.data().favorites || []);
-                    }
-                    setLoading(false);
-                }, (error) => {
-                    console.error("Firestore favorite listener error:", error);
-                    setLoading(false);
-                });
-            } catch (error) {
-                console.error("Error setting up favorites:", error);
-                setLoading(false);
+        const userDocRef = doc(db, "users", user.uid);
+        
+        // Ensure user doc exists
+        getDoc(userDocRef).then(snap => {
+            if (!snap.exists()) {
+                setDoc(userDocRef, { favorites: [], email: user.email }, { merge: true });
             }
-        };
+        });
 
-        setupFavorites();
+        const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
+            if (docSnap.exists()) {
+                setFavorites(docSnap.data().favorites || []);
+            }
+            setLoading(false);
+        }, (error) => {
+            console.error("Firestore favorite listener error:", error);
+            setLoading(false);
+        });
 
-        return () => {
-            if (unsubscribe) unsubscribe();
-        };
+        return () => unsubscribe();
     }, [user]);
 
     const toggleFavorite = async (tariffId: string) => {
         if (!user) return false;
 
         try {
-            const db = await getDb();
             const userDocRef = doc(db, "users", user.uid);
             const isFavorite = favorites.includes(tariffId);
 

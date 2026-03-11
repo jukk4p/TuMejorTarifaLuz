@@ -8,7 +8,7 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail
 } from "firebase/auth";
-import { getAuthInstance, getDb } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { X } from "lucide-react";
 
@@ -39,7 +39,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
 
     const initializeUserProfile = async (user: any) => {
         try {
-            const db = await getDb();
             const userDocRef = doc(db, "users", user.uid);
             await setDoc(userDocRef, {
                 email: user.email,
@@ -56,7 +55,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         setLoading(true);
         setError("");
         try {
-            const auth = await getAuthInstance();
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             await initializeUserProfile(result.user);
@@ -74,7 +72,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         setLoading(true);
         setError("");
         try {
-            const auth = await getAuthInstance();
             if (isLogin) {
                 await signInWithEmailAndPassword(auth, email, password);
             } else {
@@ -105,7 +102,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
         }
         setLoading(true);
         try {
-            const auth = await getAuthInstance();
             await sendPasswordResetEmail(auth, email);
             setResetSent(true);
             setError("");
