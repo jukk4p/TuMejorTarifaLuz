@@ -30,8 +30,6 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
     }
 
     const TOKEN = rawToken.trim().replace(/^["']|["']$/g, '').trim();
-    // Log de seguridad para verificar el token en producción
-    console.log(`ESIOS: Token detectado: ${TOKEN.substring(0, 4)}...${TOKEN.substring(TOKEN.length - 4)} (Longitud: ${TOKEN.length})`);
 
     try {
         // Probamos una URL más sencilla y cabeceras minimalistas
@@ -63,13 +61,35 @@ function processEsiosData(data: any): ElectricityPriceData | null {
         const rawValues = data.indicator?.values;
         if (!rawValues || rawValues.length === 0) return null;
 
+        // Forzamos la hora de Madrid (España)
         const now = new Date();
-        const prices = rawValues.map((v: any) => ({
-            value: v.value / 1000,
-            hour: new Date(v.datetime).getHours(),
-            datetime: v.datetime,
-            dateOnly: v.datetime.split('T')[0]
-        }));
+        const madridTime = new Intl.DateTimeFormat('es-ES', {
+            timeZone: 'Europe/Madrid',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
+        }).formatToParts(now);
+        
+        const currentHour = parseInt(madridTime.find(p => p.type === 'hour')?.value || '0');
+        const currentMinute = madridTime.find(p => p.type === 'minute')?.value || '00';
+
+        const prices = rawValues.map((v: any) => {
+            const date = new Date(v.datetime);
+            // Obtener la hora en Madrid para cada punto de datos
+            const hourInMadrid = parseInt(new Intl.DateTimeFormat('es-ES', {
+                timeZone: 'Europe/Madrid',
+                hour: 'numeric',
+                hour12: false
+            }).format(date));
+
+            return {
+                value: v.value / 1000,
+                hour: hourInMadrid,
+                datetime: v.datetime,
+                dateOnly: v.datetime.split('T')[0]
+            };
+        });
 
         const todayStr = now.toISOString().split('T')[0];
         let filteredPrices = prices.filter((p: any) => p.dateOnly === todayStr);
@@ -93,7 +113,6 @@ function processEsiosData(data: any): ElectricityPriceData | null {
             if (p.value > maxItem.value) maxItem = p;
         });
 
-        const currentHour = now.getHours();
         const currentPriceItem = filteredPrices.find((p: any) => p.hour === currentHour) || filteredPrices[filteredPrices.length - 1];
 
         return {
@@ -103,7 +122,7 @@ function processEsiosData(data: any): ElectricityPriceData | null {
             minHour: `${minItem.hour}:00`,
             max: maxItem.value,
             maxHour: `${maxItem.hour}:00`,
-            time: `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`,
+            time: `${currentHour}:${currentMinute}`,
             isLive: true,
             allHours: filteredPrices
         };
