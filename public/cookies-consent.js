@@ -24,10 +24,8 @@
         'wait_for_update': 500
     };
 
-    // 2. Bot Detection
-    if (navigator.webdriver || /bot|crawler|spider|crawling/i.test(navigator.userAgent)) {
-        return;
-    }
+    // 2. Bot Detection - Only skip UI, but allow logic for diagnostic tools if needed
+    const isBot = navigator.webdriver || /bot|crawler|spider|crawling/i.test(navigator.userAgent);
 
     // 3. Styles (Injected into <head>)
     const injectStyles = () => {
@@ -460,7 +458,7 @@
             } catch (e) {
                 showBanner();
             }
-        } else {
+        } else if (!isBot) {
             showBanner();
         }
 
