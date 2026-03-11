@@ -30,6 +30,8 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
     }
 
     const TOKEN = rawToken.trim().replace(/^["']|["']$/g, '').trim();
+    // Log de seguridad para verificar el token en producción
+    console.log(`ESIOS: Token detectado: ${TOKEN.substring(0, 4)}...${TOKEN.substring(TOKEN.length - 4)} (Longitud: ${TOKEN.length})`);
 
     try {
         // Usamos solo la URL oficial que ESIOS recomienda
@@ -37,7 +39,8 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
             headers: {
                 "x-api-key": TOKEN,
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "User-Agent": "curl/7.81.0"
             },
             next: { revalidate: 3600 }
         });
