@@ -5,6 +5,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Archive, BadgeCheck, Building2, Clock, PlusCircle, FileUp, RefreshCcw } from "lucide-react";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -20,10 +21,10 @@ export default function DashboardPage() {
     const activeTariffs = totalTariffs; // For now all are active
 
     const stats = [
-        { label: "Total Tarifas", value: totalTariffs, color: "text-primary", bg: "bg-primary/10", icon: "inventory_2" },
-        { label: "Activas Ahora", value: activeTariffs, color: "text-success", bg: "bg-success/10", icon: "verified" },
-        { label: "Empresas", value: new Set(TARIFF_DATABASE.map(t => t.company)).size, color: "text-ai-purple", bg: "bg-ai-purple/10", icon: "business" },
-        { label: "Actualizaciones", value: "24h", color: "text-amber-500", bg: "bg-amber-500/10", icon: "update" },
+        { label: "Total Tarifas", value: totalTariffs, color: "text-primary", bg: "bg-primary/10", icon: Archive },
+        { label: "Activas Ahora", value: activeTariffs, color: "text-success", bg: "bg-success/10", icon: BadgeCheck },
+        { label: "Empresas", value: new Set(TARIFF_DATABASE.map(t => t.company)).size, color: "text-ai-purple", bg: "bg-ai-purple/10", icon: Building2 },
+        { label: "Actualizaciones", value: "24h", color: "text-amber-500", bg: "bg-amber-500/10", icon: Clock },
     ];
 
     return (
@@ -42,7 +43,7 @@ export default function DashboardPage() {
                             <p className={`text-4xl font-800 ${stat.color}`}>{stat.value}</p>
                         </div>
                         <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                            <span className="material-icons text-2xl">{stat.icon}</span>
+                            <stat.icon className="w-6 h-6" />
                         </div>
                         <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-slate-50 dark:bg-white/5 rounded-full blur-xl"></div>
                     </div>
@@ -118,7 +119,7 @@ export default function DashboardPage() {
                                 className="w-full flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl hover:bg-primary/10 hover:text-primary transition-all group"
                             >
                                 <div className="p-2 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors">
-                                    <span className="material-icons text-lg">add_circle</span>
+                                    <PlusCircle className="w-5 h-5" />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-widest">Nueva Tarifa</span>
                             </button>
@@ -127,7 +128,7 @@ export default function DashboardPage() {
                                 className="w-full flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl hover:bg-success/10 hover:text-success transition-all group"
                             >
                                 <div className="p-2 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-success group-hover:text-white transition-colors">
-                                    <span className="material-icons text-lg">upload_file</span>
+                                    <FileUp className="w-5 h-5" />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-widest">Importar CSV</span>
                             </button>
@@ -146,7 +147,7 @@ export default function DashboardPage() {
                                 className="w-full flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl hover:bg-ai-purple/10 hover:text-ai-purple transition-all group"
                             >
                                 <div className="p-2 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-ai-purple group-hover:text-white transition-colors">
-                                    <span className="material-icons text-lg">sync</span>
+                                    <RefreshCcw className="w-5 h-5" />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-widest">Sincronizar API</span>
                             </button>

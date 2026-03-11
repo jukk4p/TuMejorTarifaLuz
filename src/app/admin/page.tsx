@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Bolt, User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert } from "lucide-react";
 
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,7 @@ export default function AdminLogin() {
                 <div className="mb-10 text-center space-y-6">
                     <Link href="/" className="inline-flex flex-col items-center group">
                         <div className="w-16 h-16 bg-primary/10 rounded-[2rem] flex items-center justify-center border border-primary/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
-                            <span className="material-icons text-primary text-4xl">bolt</span>
+                            <Bolt className="text-primary w-8 h-8 fill-current" />
                         </div>
                         <div className="mt-6 space-y-2">
                             <h1 className="text-3xl font-900 tracking-tighter text-slate-900 dark:text-white uppercase">
@@ -56,7 +57,7 @@ export default function AdminLogin() {
                         <div className="space-y-2">
                             <label className="text-xs font-800 text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Usuario o Email</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 material-icons text-slate-400 text-lg">person</span>
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
                                     type="text"
                                     placeholder="nombre@empresa.com"
@@ -69,22 +70,24 @@ export default function AdminLogin() {
                         <div className="space-y-2">
                             <label className="text-xs font-800 text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Contraseña</label>
                             <div className="relative">
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 material-icons text-slate-400 text-lg">lock</span>
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
                                     type="password"
                                     placeholder="••••••••"
                                     className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-2xl pl-12 pr-12 py-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 focus:bg-white dark:focus:bg-slate-700 transition-all outline-none"
                                     required
                                 />
-                                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 material-icons text-slate-400 text-lg hover:text-primary transition-colors">visibility</button>
+                                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                                    <Eye className="w-5 h-5" />
+                                </button>
                             </div>
                         </div>
 
                         <div className="flex items-center justify-between text-xs pt-2">
                             <label className="flex items-center gap-2 cursor-pointer group">
-                                <div className="w-[120px] h-[40px] flex items-center justify-center 5 rounded-md border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary transition-colors flex items-center justify-center">
+                                <div className="w-5 h-5 rounded-md border-2 border-slate-200 dark:border-slate-700 group-hover:border-primary transition-colors flex items-center justify-center">
                                     <input type="checkbox" className="hidden" />
-                                    <span className="material-icons text-sm text-primary hidden">check</span>
+                                    <Check className="w-3 h-3 text-primary hidden" />
                                 </div>
                                 <span className="font-bold text-slate-500 dark:text-slate-400">Recordarme</span>
                             </label>
@@ -97,11 +100,11 @@ export default function AdminLogin() {
                             className="w-full bg-success hover:bg-success/90 dark:bg-success dark:hover:bg-success/90 text-white font-800 py-5 rounded-2xl shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-70"
                         >
                             {isLoading ? (
-                                <span className="material-icons animate-spin">sync</span>
+                                <Loader2 className="w-5 h-5 animate-spin" />
                             ) : (
                                 <>
                                     Iniciar Sesión
-                                    <span className="material-icons text-lg">arrow_forward</span>
+                                    <ArrowRight className="w-5 h-5" />
                                 </>
                             )}
                         </button>
@@ -111,7 +114,7 @@ export default function AdminLogin() {
                 {/* Footer Info */}
                 <div className="mt-12 text-center space-y-6">
                     <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-relaxed max-w-[300px] flex items-center gap-2 justify-center">
-                        <span className="material-icons text-sm">security</span>
+                        <ShieldAlert className="w-4 h-4" />
                         Uso exclusivo para administradores autorizados. El acceso no autorizado será monitoreado y reportado.
                     </p>
                     <div className="flex items-center justify-center gap-4 text-[10px] font-900 text-slate-400 dark:text-slate-500 uppercase tracking-widest">

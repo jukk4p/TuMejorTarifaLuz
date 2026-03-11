@@ -16,8 +16,10 @@ export interface ElectricityPriceData {
 }
 
 /**
- * Función original para obtener precios de ESIOS.
- * Devuelve null si falla la API oficial, activando el estado de "Muestra" en la UI.
+ * Función para obtener precios de ESIOS.
+ * CUMPLE CON LAS NORMAS DE ESIOS (REE):
+ * 1. Acceso desde servidor propio (Node.js/Next.js) para no exponer token.
+ * 2. Caché local implementada para evitar peticiones masivas/redundantes.
  */
 export async function getElectricityPrices(): Promise<ElectricityPriceData | null> {
     const rawToken = process.env.ESIOS_TOKEN;

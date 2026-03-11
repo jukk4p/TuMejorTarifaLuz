@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { ShieldCheck, Star, CheckCircle, ArrowRight, BadgeCheck, Radar, Shield } from "lucide-react";
 import { providers } from "./providersData";
 import { useEffect, useState } from "react";
 
@@ -23,7 +24,7 @@ export default function CompaniasHub() {
                     {/* Hero Section */}
                     <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                            <span className="material-icons text-sm">verified_user</span>
+                            <ShieldCheck className="w-4 h-4" />
                             Análisis Imparcial
                         </div>
                         <h1 className="text-4xl md:text-6xl font-800 text-slate-900 dark:text-white leading-tight">
@@ -52,7 +53,7 @@ export default function CompaniasHub() {
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <div className="flex items-center gap-1 text-amber-500 mb-1">
-                                            <span className="material-icons text-lg">star</span>
+                                            <Star className="w-5 h-5 fill-current" />
                                             <span className="font-bold text-lg">{provider.rating}</span>
                                         </div>
                                         <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Puntuación</span>
@@ -70,7 +71,7 @@ export default function CompaniasHub() {
                                 <div className="space-y-3 mb-8">
                                     {provider.pros.slice(0, 2).map((pro, i) => (
                                         <div key={i} className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
-                                            <span className="material-icons text-emerald-500 text-sm">check_circle</span>
+                                            <CheckCircle className="w-4 h-4 text-emerald-500" />
                                             {pro}
                                         </div>
                                     ))}
@@ -79,7 +80,7 @@ export default function CompaniasHub() {
                                 <div className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex items-center justify-between mt-auto">
                                     <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest group-hover:translate-x-1 transition-transform inline-flex items-center gap-2">
                                         Ver análisis completo
-                                        <span className="material-icons text-primary text-sm">east</span>
+                                        <ArrowRight className="w-4 h-4 text-primary" />
                                     </span>
                                 </div>
                             </Link>
@@ -102,7 +103,7 @@ export default function CompaniasHub() {
                                     ].map((item, i) => (
                                         <li key={i} className="flex gap-4">
                                             <div className="w-10 h-10 rounded-xl bg-primary/10 flex-shrink-0 flex items-center justify-center text-primary">
-                                                <span className="material-icons text-sm">verified</span>
+                                                <BadgeCheck className="w-5 h-5" />
                                             </div>
                                             <div>
                                                 <p className="font-bold text-slate-900 dark:text-white text-sm">{item.t}</p>
@@ -113,12 +114,12 @@ export default function CompaniasHub() {
                                 </ul>
                             </div>
                             <div className="relative aspect-square rounded-full bg-primary/5 flex items-center justify-center">
-                                <span className="material-icons text-[12rem] text-primary/10">radar</span>
+                                <Radar className="w-48 h-48 text-primary/10" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <div className="premium-card p-8 bg-white dark:bg-slate-800 shadow-2xl space-y-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
-                                                <span className="material-icons">security</span>
+                                                <Shield className="w-6 h-6" />
                                             </div>
                                             <div>
                                                 <p className="font-bold text-slate-900 dark:text-white">Garantía TuMejorTarifaLuz</p>

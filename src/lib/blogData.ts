@@ -68,7 +68,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-01",
     author: "Comité Experto",
     category: "Educación",
-    image: "/guides/bill_expert_analysis.png",
+    image: "/guides/bill_expert_analysis.webp",
     imageAlt: "Análisis experto de una factura de luz con desglose visual",
     readTime: "7 min"
   },
@@ -123,7 +123,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-02-26",
     author: "Dpto. de Análisis",
     category: "Comparativa",
-    image: "/guides/market_comparison.png",
+    image: "/guides/market_comparison.webp",
     imageAlt: "Tabla comparativa de mercados eléctricos para el ahorro",
     readTime: "8 min"
   },
@@ -170,7 +170,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-02-20",
     author: "Equipo Técnico",
     category: "Ahorro",
-    image: "/guides/energy_efficiency.png",
+    image: "/guides/energy_efficiency.webp",
     imageAlt: "Optimización de potencia eléctrica con guía de pasos",
     readTime: "6 min"
   },
@@ -218,7 +218,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-02-15",
     author: "Estratega Energético",
     category: "Estrategia",
-    image: "/guides/electricity_clock.png",
+    image: "/guides/electricity_clock.webp",
     imageAlt: "Infografía de tramos horarios punta llano y valle para ahorro de luz",
     readTime: "5 min"
   },
@@ -253,7 +253,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-02-10",
     author: "Consultoría Solar",
     category: "Solar",
-    image: "/guides/solar_panels.png",
+    image: "/guides/solar_panels.webp",
     imageAlt: "Paneles solares en edificio residencial con indicadores de ahorro",
     readTime: "9 min"
   },
@@ -287,7 +287,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-05",
     author: "Movilidad Sostenible",
     category: "Movilidad",
-    image: "/guides/ev_charging.png",
+    image: "/guides/ev_charging.webp",
     imageAlt: "Carga de vehículo eléctrico optimizada con gráfico de ahorro nocturno",
     readTime: "7 min"
   },
@@ -326,7 +326,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-08",
     author: "TuMejorTarifaLuz Team",
     category: "Educación",
-    image: "/guides/faq_energy.png",
+    image: "/guides/faq_energy.webp",
     imageAlt: "Usuario resolviendo dudas técnicas sobre su contrato de luz con soporte visual",
     readTime: "10 min"
   },
@@ -383,7 +383,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-08",
     author: "Análisis de Datos",
     category: "Ahorro",
-    image: "/guides/electricity_clock.png",
+    image: "/guides/electricity_clock.webp",
     imageAlt: "Guía visual de horarios valle llano y punta para 2026",
     readTime: "8 min"
   }

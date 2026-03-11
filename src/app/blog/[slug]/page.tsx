@@ -34,7 +34,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <Link href="/" className="hover:text-primary transition-colors">Inicio</Link>
                         <ChevronRight size={10} />
                         <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
-                        <span className="material-icons text-[10px]">chevron_right</span>
+                        <ChevronRight size={10} />
                         <span className="text-slate-900 dark:text-white truncate max-w-[200px]">{post.title}</span>
                     </nav>
 

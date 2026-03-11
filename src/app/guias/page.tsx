@@ -13,7 +13,7 @@ const guides = [
         summary: "Desglosamos término a término tu recibo: potencia contratada, energía consumida, peajes e impuestos para que dejes de pagar por lo que no entiendes.",
         content: "La factura de la luz no tiene por qué ser un jeroglífico. En esta guía exploramos la estructura de la nueva factura 2.0TD, explicando la diferencia entre el término de potencia (lo que pagas por 'poder' conectar aparatos) y el término de energía (lo que realmente consumes). Además, analizamos los peajes de transporte y distribución, y cómo los impuestos (IVA e Impuesto Eléctrico) afectan al total final...",
         category: "Educación Financiera",
-        image: "/guides/bill_expert_analysis.png"
+        image: "/guides/bill_expert_analysis.webp"
     },
     {
         slug: "mercado-libre-vs-regulado",
@@ -22,7 +22,7 @@ const guides = [
         summary: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre. Datos reales para una elección inteligente.",
         content: "El eterno dilema: ¿PVPC o mercado libre? Con la reciente reforma del Precio Voluntario para el Pequeño Consumidor (PVPC), el precio ahora incluye una cesta de futuros que reduce la volatilidad. Sin embargo, muchas comercializadoras del mercado libre están lanzando ofertas agresivas que podrían ser más estables para consumidores con perfiles de uso muy marcados. Analizamos pros y contras de cada modelo...",
         category: "Comparativa",
-        image: "/guides/market_comparison.png"
+        image: "/guides/market_comparison.webp"
     },
     {
         slug: "optimizacion-potencia-ahorro",
@@ -31,7 +31,7 @@ const guides = [
         summary: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año sin esfuerzo.",
         content: "Muchas familias pagan una potencia 'por si acaso' que nunca llegan a utilizar. Si nunca te han saltado los plomos al poner el horno y la lavadora a la vez, es probable que tengas margen para bajar tu potencia contratada. Cada kW de potencia menos puede suponer un ahorro de unos 50€ al año. Explicamos cómo mirar tu 'pico de potencia máximo' en el área de cliente de tu distribuidora...",
         category: "Ahorro Técnico",
-        image: "/guides/energy_efficiency.png"
+        image: "/guides/energy_efficiency.webp"
     },
     {
         slug: "discriminacion-horaria-estrategias",
@@ -40,7 +40,7 @@ const guides = [
         summary: "Domina los tramos Punta, Llano y Valle. Estrategias prácticas para desplazar consumos críticos a las horas más económicas del día.",
         content: "Organizar tu consumo no significa poner la lavadora a las 3 de la mañana. Significa entender que el periodo Valle (el más barato) también incluye los fines de semana completos y festivos nacionales. Conocer los horarios de los periodos Punta (caro), Llano (medio) y Valle te permite programar tus electrodomésticos más pesados de forma inteligente y ver una reducción real en tu próxima factura...",
         category: "Eficiencia",
-        image: "/guides/electricity_clock.png"
+        image: "/guides/electricity_clock.webp"
     },
     {
         slug: "autoconsumo-solar-pisos",
@@ -49,7 +49,7 @@ const guides = [
         summary: "Todo sobre el autoconsumo compartido, subvenciones vigentes y plazos de amortización para comunidades de vecinos y bloques de apartamentos.",
         content: "Vivir en un piso ya no es un impedimento para disfrutar de la energía solar. El autoconsumo compartido permite a los vecinos de una comunidad repartirse la energía generada por una instalación común en la azotea. Explicamos la normativa de los 2.000 metros de distancia, cómo se reparte el coeficiente de energía y cuáles son las deducciones de IRPF que puedes solicitar este año...",
         category: "Energías Renovables",
-        image: "/guides/solar_panels.png"
+        image: "/guides/solar_panels.webp"
     },
     {
         slug: "guia-carga-coche-electrico",
@@ -62,7 +62,7 @@ const guides = [
 
         Analizamos también los costes de instalación del punto de carga y las ayudas del Plan MOVES III que siguen vigentes este año para particulares y comunidades de vecinos.`,
         category: "Movilidad Sostenible",
-        image: "/guides/ev_charging.png"
+        image: "/guides/ev_charging.webp"
     }
 ];
 

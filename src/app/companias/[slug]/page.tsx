@@ -8,6 +8,7 @@ import { providers } from "../providersData";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { ArrowLeft, Star, ThumbsUp, Check, ThumbsDown, Minus, Info } from "lucide-react";
 
 export default function ProviderDetail() {
     const params = useParams();
@@ -38,7 +39,7 @@ export default function ProviderDetail() {
                     {/* Header with Back Button */}
                     <div className="mb-12">
                         <Link href="/companias" className="inline-flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-widest hover:gap-3 transition-all">
-                            <span className="material-icons text-sm">west</span>
+                            <ArrowLeft className="w-4 h-4" />
                             Volver al listado
                         </Link>
                     </div>
@@ -61,9 +62,10 @@ export default function ProviderDetail() {
                                 <div className="text-5xl font-900 text-primary mb-2">{provider.rating}</div>
                                 <div className="flex items-center gap-0.5 text-amber-500 mb-2">
                                     {[...Array(5)].map((_, i) => (
-                                        <span key={i} className="material-icons text-sm">
-                                            {i < Math.floor(provider.rating) ? 'star' : 'star_outline'}
-                                        </span>
+                                        <Star
+                                            key={i}
+                                            className={`w-4 h-4 ${i < Math.floor(provider.rating) ? 'fill-current' : ''}`}
+                                        />
                                     ))}
                                 </div>
                                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-[0.2em]">Ranking 2026</span>
@@ -77,14 +79,14 @@ export default function ProviderDetail() {
                         <div className="premium-card p-10 border-emerald-100 dark:border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-500/5">
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
-                                    <span className="material-icons">thumb_up</span>
+                                    <ThumbsUp className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-2xl font-800 text-slate-900 dark:text-white">Lo mejor</h3>
                             </div>
                             <ul className="space-y-4">
                                 {provider.pros.map((pro, i) => (
                                     <li key={i} className="flex items-start gap-4 group">
-                                        <span className="material-icons text-emerald-500 mt-1">check</span>
+                                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
                                         <span className="text-slate-700 dark:text-slate-300 font-medium">{pro}</span>
                                     </li>
                                 ))}
@@ -95,14 +97,14 @@ export default function ProviderDetail() {
                         <div className="premium-card p-10 border-rose-100 dark:border-rose-500/20 bg-rose-50/30 dark:bg-rose-500/5">
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-500/30">
-                                    <span className="material-icons">thumb_down</span>
+                                    <ThumbsDown className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-2xl font-800 text-slate-900 dark:text-white">A mejorar</h3>
                             </div>
                             <ul className="space-y-4">
                                 {provider.cons.map((con, i) => (
                                     <li key={i} className="flex items-start gap-4">
-                                        <span className="material-icons text-rose-500 mt-1">remove</span>
+                                        <Minus className="w-5 h-5 text-rose-500 mt-0.5 shrink-0" />
                                         <span className="text-slate-700 dark:text-slate-300 font-medium">{con}</span>
                                     </li>
                                 ))}
@@ -190,7 +192,7 @@ export default function ProviderDetail() {
                                 Calcular Ahorro Ahora
                             </Link>
                             <Link href="/guias" className="px-10 py-5 bg-black/20 backdrop-blur-md text-white rounded-[2rem] font-900 hover:bg-black/30 transition-all flex items-center justify-center gap-2">
-                                <span className="material-icons">info</span>
+                                <Info className="w-5 h-5" />
                                 Guía de conceptos
                             </Link>
                         </div>

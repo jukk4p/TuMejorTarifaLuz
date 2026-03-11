@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { ArrowLeft, User, Share2, Link as LinkIcon, Bookmark } from "lucide-react";
 
 const guides = [
     {
@@ -19,7 +20,7 @@ const guides = [
 
         Finalmente, no debemos olvidar los peajes de acceso, cargos e impuestos. El IVA, que ha sufrido variaciones recientes, se aplica sobre la suma de todos los conceptos anteriores, lo que eleva el total de la factura de forma proporcional.`,
         category: "Educación Financiera",
-        imageUrl: "/guides/bill_expert_analysis.png"
+        imageUrl: "/guides/bill_expert_analysis.webp"
     },
     {
         slug: "mercado-libre-vs-regulado",
@@ -32,7 +33,7 @@ const guides = [
 
         En el mercado libre, las comercializadoras ofrecen una variedad casi infinita de tarifas: fijas, planas, con horas gratuitas o indexadas. La clave está en analizar tu perfil de consumo real. Si concentras tu gasto en horas nocturnas o fines de semana, el PVPC suele seguir siendo muy competitivo. Si prefieres la tranquilidad de saber exactamente qué vas a pagar sin mirar el reloj, una tarifa fija del mercado libre es tu mejor opción.`,
         category: "Comparativa",
-        imageUrl: "/guides/market_comparison.png"
+        imageUrl: "/guides/market_comparison.webp"
     },
     {
         slug: "optimizacion-potencia-ahorro",
@@ -45,7 +46,7 @@ const guides = [
 
         Reducir la potencia es un trámite sencillo que cuesta unos 10€ aproximadamente por la gestión técnica de la distribuidora, pero que amortizas en apenas dos o tres meses con el ahorro generado.`,
         category: "Ahorro Técnico",
-        imageUrl: "/guides/energy_efficiency.png"
+        imageUrl: "/guides/energy_efficiency.webp"
     },
     {
         slug: "discriminacion-horaria-estrategias",
@@ -58,7 +59,7 @@ const guides = [
 
         No necesitas cambiar tu estilo de vida radicalmente; basta con usar la programación diferida de tus aparatos o simplemente concentrar las tareas de limpieza pesada en el fin de semana.`,
         category: "Eficiencia",
-        imageUrl: "/guides/electricity_clock.png"
+        imageUrl: "/guides/electricity_clock.webp"
     },
     {
         slug: "autoconsumo-solar-pisos",
@@ -71,7 +72,7 @@ const guides = [
 
         El sistema permite incluso compensar excedentes: si tu instalación produce más energía de la que consumes en un momento dado, esa energía se vierte a la red y se te compensa económicamente en tu factura mensual, reduciendo el término de energía a cero en muchos casos.`,
         category: "Energías Renovables",
-        imageUrl: "/guides/solar_panels.png"
+        imageUrl: "/guides/solar_panels.webp"
     },
     {
         slug: "guia-carga-coche-electrico",
@@ -84,7 +85,7 @@ const guides = [
 
         Analizamos también los costes de instalación del punto de carga y las ayudas del Plan MOVES III que siguen vigentes este año para particulares y comunidades de vecinos.`,
         category: "Movilidad Sostenible",
-        imageUrl: "/guides/ev_charging.png"
+        imageUrl: "/guides/ev_charging.webp"
     }
 ];
 
@@ -100,7 +101,7 @@ export default function GuiaDetalle() {
                     {/* Header */}
                     <div className="space-y-6 mb-12">
                         <Link href="/guias" className="inline-flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-widest hover:gap-3 transition-all">
-                            <span className="material-icons text-sm">west</span>
+                            <ArrowLeft className="w-4 h-4" />
                             Volver al centro de guías
                         </Link>
                         <div className="flex items-center gap-4 text-slate-400 text-sm">
@@ -137,7 +138,7 @@ export default function GuiaDetalle() {
                     <div className="mt-16 pt-16 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
-                                <span className="material-icons text-slate-400">person</span>
+                                <User className="text-slate-400 w-5 h-5" />
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-slate-900 dark:text-white">Equipo Editorial</p>
@@ -147,9 +148,9 @@ export default function GuiaDetalle() {
                         <div className="flex items-center gap-4">
                             <p className="text-sm font-bold text-slate-400 uppercase">Compartir:</p>
                             <div className="flex gap-2">
-                                {['share', 'link', 'bookmark'].map((icon, idx) => (
+                                {[{icon: Share2, label: 'share'}, {icon: LinkIcon, label: 'link'}, {icon: Bookmark, label: 'bookmark'}].map((btn, idx) => (
                                     <button key={idx} className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors">
-                                        <span className="material-icons text-sm">{icon}</span>
+                                        <btn.icon className="w-4 h-4" />
                                     </button>
                                 ))}
                             </div>

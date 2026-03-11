@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
+import { Lock, AlertCircle } from "lucide-react";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
@@ -63,7 +64,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                 <div className="premium-card max-w-md w-full p-8 bg-white dark:bg-slate-800 shadow-2xl space-y-8">
                     <div className="text-center space-y-2">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto text-primary mb-4">
-                            <span className="material-icons text-3xl font-bold">lock</span>
+                            <Lock className="w-8 h-8 font-bold" />
                         </div>
                         <h1 className="text-2xl font-800 dark:text-white uppercase transition-colors">Acceso Admin</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Introduce tus credenciales para gestionar el catálogo.</p>
@@ -95,7 +96,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
                         {error && (
                             <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold rounded-xl flex items-center gap-2">
-                                <span className="material-icons text-sm">error</span>
+                                <AlertCircle className="w-4 h-4" />
                                 {error}
                             </div>
                         )}

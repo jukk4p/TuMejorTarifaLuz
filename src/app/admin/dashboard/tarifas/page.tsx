@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, updateDoc, deleteDoc, doc, writeBatch } from "firebase/firestore";
 import { INITIAL_TARIFFS } from "@/lib/initialTariffs";
+import { Search, RotateCcw, Plus, Edit2, Trash2, SearchX, X, Tag, Zap, CreditCard, Info } from "lucide-react";
 
 export default function TarifasAdminPage() {
     const router = useRouter();
@@ -128,7 +129,7 @@ export default function TarifasAdminPage() {
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 material-icons text-slate-400 text-sm">search</span>
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                         <input
                             type="text"
                             placeholder="Buscar por compañía o nombre..."
@@ -142,14 +143,14 @@ export default function TarifasAdminPage() {
                         disabled={isSubmitting}
                         className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-amber-500/20 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
                     >
-                        <span className="material-icons text-sm">restart_alt</span>
+                        <RotateCcw className="w-4 h-4" />
                         Restaurar Base
                     </button>
                     <button
                         onClick={() => openEditor()}
                         className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
                     >
-                        <span className="material-icons text-sm">add</span>
+                        <Plus className="w-4 h-4" />
                         Añadir Tarifa
                     </button>
                 </div>
@@ -207,10 +208,10 @@ export default function TarifasAdminPage() {
                                             onClick={() => openEditor(tariff)}
                                             className="p-2 hover:bg-primary/10 hover:text-primary rounded-lg transition-all text-slate-400"
                                         >
-                                            <span className="material-icons text-xl">edit</span>
+                                            <Edit2 className="w-5 h-5" />
                                         </button>
                                         <button onClick={() => handleDelete(tariff.id)} className="p-2 hover:bg-red-500/10 hover:text-red-500 rounded-lg transition-all text-slate-400 ml-1">
-                                            <span className="material-icons text-xl">delete_outline</span>
+                                            <Trash2 className="w-5 h-5" />
                                         </button>
                                     </td>
                                 </tr>
@@ -220,8 +221,8 @@ export default function TarifasAdminPage() {
                 </div>
                 {filteredTariffs.length === 0 && (
                     <div className="p-20 text-center space-y-4 bg-white dark:bg-slate-900">
-                        <div className="w-[120px] h-[40px] flex items-center justify-center 20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto">
-                            <span className="material-icons text-4xl text-slate-200">search_off</span>
+                        <div className="w-16 h-16 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-full mx-auto">
+                            <SearchX className="w-10 h-10 text-slate-200" />
                         </div>
                         <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">No se encontraron resultados para "{searchTerm}"</p>
                     </div>
@@ -243,9 +244,9 @@ export default function TarifasAdminPage() {
                             </div>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="w-[120px] h-[40px] flex items-center justify-center 10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-colors"
+                                className="w-10 h-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-colors"
                             >
-                                <span className="material-icons text-slate-400">close</span>
+                                <X className="w-5 h-5 text-slate-400" />
                             </button>
                         </div>
 
@@ -254,7 +255,7 @@ export default function TarifasAdminPage() {
                             {/* Section: IDENTIFICATION LABELS */}
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
-                                    <span className="material-icons text-lg">label</span>
+                                    <Tag className="w-5 h-5" />
                                     <h4 className="text-[11px] font-900 uppercase tracking-widest">Etiquetas de Identificación</h4>
                                 </div>
                                 <div className="grid grid-cols-1 gap-6">
@@ -362,7 +363,7 @@ export default function TarifasAdminPage() {
                             {/* Section: POTENCIA */}
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
-                                    <span className="material-icons text-lg">bolt</span>
+                                    <Zap className="w-5 h-5 fill-current" />
                                     <h4 className="text-[11px] font-900 uppercase tracking-widest">Potencia / Power Capacity</h4>
                                 </div>
                                 <div className="grid grid-cols-2 gap-6">
@@ -404,7 +405,7 @@ export default function TarifasAdminPage() {
                             {/* Section: ENERGIA */}
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
-                                    <span className="material-icons text-lg">payments</span>
+                                    <CreditCard className="w-5 h-5" />
                                     <h4 className="text-[11px] font-900 uppercase tracking-widest">Energía / Consumption Rates</h4>
                                 </div>
                                 <div className="space-y-6">
@@ -464,7 +465,7 @@ export default function TarifasAdminPage() {
                             {/* Warning Box */}
                             <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 flex items-start gap-4">
                                 <div className="text-primary mt-1">
-                                    <span className="material-icons text-xl">info</span>
+                                    <Info className="w-5 h-5" />
                                 </div>
                                 <div className="space-y-1">
                                     <p className="text-xs font-bold text-slate-800 dark:text-white uppercase">Aviso de Sincronización</p>

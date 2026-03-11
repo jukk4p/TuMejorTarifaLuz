@@ -6,6 +6,7 @@ import { useState } from "react";
 import AdminGuard from "@/components/admin/AdminGuard";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+import { Zap, LayoutDashboard, Building2, Code, User, LogOut, Menu, Bell, ChevronDown } from "lucide-react";
 
 export default function DashboardLayout({
     children,
@@ -26,10 +27,10 @@ export default function DashboardLayout({
     };
 
     const menuItems = [
-        { name: "Dashboard", icon: "dashboard", href: "/admin/dashboard" },
-        { name: "Gestión Tarifas", icon: "bolt", href: "/admin/dashboard/tarifas" },
-        { name: "Proveedores", icon: "business", href: "/admin/dashboard/proveedores" },
-        { name: "Logs Sistema", icon: "code", href: "/admin/dashboard/logs" },
+        { name: "Dashboard", icon: LayoutDashboard, href: "/admin/dashboard" },
+        { name: "Gestión Tarifas", icon: Zap, href: "/admin/dashboard/tarifas" },
+        { name: "Proveedores", icon: Building2, href: "/admin/dashboard/proveedores" },
+        { name: "Logs Sistema", icon: Code, href: "/admin/dashboard/logs" },
     ];
 
     return (
@@ -39,7 +40,7 @@ export default function DashboardLayout({
                 <aside className={`bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
                     <div className="p-6 flex items-center gap-3">
                         <div className="min-w-[32px] h-8 bg-primary rounded-lg flex items-center justify-center">
-                            <span className="material-icons text-white text-lg font-bold">bolt</span>
+                            <Zap className="text-white w-4 h-4 fill-current" />
                         </div>
                         {!isCollapsed && (
                             <span className="text-lg font-800 tracking-tight dark:text-white truncate">
@@ -60,9 +61,7 @@ export default function DashboardLayout({
                                         : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
                                         }`}
                                 >
-                                    <span className={`material-icons text-[22px] ${isActive ? "text-primary" : "group-hover:text-primary transition-colors"}`}>
-                                        {item.icon}
-                                    </span>
+                                <item.icon className={`w-5 h-5 ${isActive ? "text-primary" : "group-hover:text-primary transition-colors"}`} />
                                     {!isCollapsed && <span className="text-sm font-bold">{item.name}</span>}
                                 </Link>
                             );
@@ -77,23 +76,21 @@ export default function DashboardLayout({
                                 className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl flex items-center gap-3 group cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden shrink-0">
-                                    <span className="material-icons text-slate-400">person</span>
+                                    <User className="text-slate-400 w-5 h-5" />
                                 </div>
                                 <div className="flex-1 overflow-hidden">
                                     <p className="text-xs font-800 truncate dark:text-white">Admin User</p>
                                     <p className="text-[10px] text-slate-400 font-bold truncate">admin@tarifa.es</p>
                                 </div>
-                                <span className="material-icons text-slate-300 text-sm group-hover:text-red-500 transition-colors">logout</span>
+                                <LogOut className="w-4 h-4 text-slate-300 group-hover:text-red-500 transition-colors" />
                             </div>
                         )}
                         {isCollapsed && (
                             <div className="flex justify-center py-2">
-                                <span
+                                <LogOut
                                     onClick={handleLogout}
-                                    className="material-icons text-slate-400 hover:text-red-500 cursor-pointer transition-colors"
-                                >
-                                    logout
-                                </span>
+                                    className="w-5 h-5 text-slate-400 hover:text-red-500 cursor-pointer transition-colors"
+                                />
                             </div>
                         )}
                     </div>
@@ -107,21 +104,21 @@ export default function DashboardLayout({
                                 onClick={() => setIsCollapsed(!isCollapsed)}
                                 className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-400"
                             >
-                                <span className="material-icons">{isCollapsed ? 'menu' : 'menu_open'}</span>
+                                <Menu className="w-5 h-5" />
                             </button>
                             <h2 className="text-sm font-800 text-slate-500 uppercase tracking-widest">
                                 {menuItems.find(i => pathname === i.href)?.name || "Gestión"}
                             </h2>
                         </div>
                         <div className="flex items-center gap-4">
-                            <button className="p-2 text-slate-400 hover:text-primary transition-colors relative">
-                                <span className="material-icons">notifications</span>
+                             <button className="p-2 text-slate-400 hover:text-primary transition-colors relative">
+                                <Bell className="w-5 h-5" />
                                 <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
                             </button>
                             <div className="w-[120px] h-[40px] flex items-center justify-center 6 bg-slate-200 dark:bg-slate-800"></div>
                             <div className="flex items-center gap-2">
                                 <div className="w-[120px] h-[40px] flex items-center justify-center 8 rounded-full bg-slate-200"></div>
-                                <span className="material-icons text-slate-400 text-sm">expand_more</span>
+                                <ChevronDown className="w-4 h-4 text-slate-400" />
                             </div>
                         </div>
                     </header>
