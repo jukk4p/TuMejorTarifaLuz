@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Bolt, User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert, ArrowLeft } from "lucide-react";
+import Image from "next/image";
+import { User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert, ArrowLeft } from "lucide-react";
 
 import { auth } from "@/lib/firebase";
 import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
@@ -57,8 +58,14 @@ export default function AdminLogin() {
                 {/* Logo Header */}
                 <div className="mb-10 text-center space-y-6">
                     <Link href="/" className="inline-flex flex-col items-center group">
-                        <div className="w-16 h-16 bg-primary/10 rounded-[2rem] flex items-center justify-center border border-primary/20 shadow-inner group-hover:scale-110 transition-transform duration-500">
-                            <Bolt className="text-primary w-8 h-8 fill-current" />
+                        <div className="w-16 h-16 bg-white dark:bg-slate-900 rounded-[2rem] flex items-center justify-center border border-slate-100 dark:border-slate-800 shadow-xl group-hover:scale-110 transition-transform duration-500 overflow-hidden p-3">
+                            <Image 
+                                src="/Logo.png" 
+                                alt="TuMejorTarifaLuz" 
+                                width={64} 
+                                height={64} 
+                                className="object-contain"
+                            />
                         </div>
                         <div className="mt-6 space-y-2">
                             <h1 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">

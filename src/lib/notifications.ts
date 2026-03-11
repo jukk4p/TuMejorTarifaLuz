@@ -9,7 +9,8 @@ import {
     getDocs,
     doc,
     updateDoc,
-    increment
+    increment,
+    deleteDoc
 } from "firebase/firestore";
 
 export type NotificationType = 'tariff_update' | 'system_update' | 'price_drop' | 'new_tariff';
@@ -65,4 +66,17 @@ export const notifySystemUpdate = async (title: string, message: string) => {
         type: 'system_update',
         isGlobal: true
     });
+};
+
+/**
+ * Elimina una notificación por su ID
+ */
+export const deleteNotification = async (notificationId: string) => {
+    try {
+        await deleteDoc(doc(db, "notifications", notificationId));
+        console.log("Notificación eliminada");
+    } catch (error) {
+        console.error("Error al eliminar notificación:", error);
+        throw error;
+    }
 };

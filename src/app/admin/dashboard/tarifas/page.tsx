@@ -7,9 +7,8 @@ import { Tariff, getLogoPath } from "@/lib/tariffs";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, updateDoc, deleteDoc, doc, writeBatch } from "firebase/firestore";
-import { INITIAL_TARIFFS } from "@/lib/initialTariffs";
-import { Search, RotateCcw, Plus, Edit2, Trash2, SearchX, X, Tag, Zap, CreditCard, Info, Megaphone } from "lucide-react";
+import { collection, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { Search, Plus, Edit2, Trash2, SearchX, X, Tag, Zap, CreditCard, Info, Megaphone } from "lucide-react";
 import { notifyTariffUpdate } from "@/lib/notifications";
 
 export default function TarifasAdminPage() {
@@ -111,27 +110,7 @@ export default function TarifasAdminPage() {
         }
     };
 
-    const handleRestore = async () => {
-        if (!confirm("Esta acción restaurará todas las tarifas iniciales desde el sistema. ¿Deseas continuar?")) return;
-        setIsSubmitting(true);
-        try {
-            const batch = writeBatch(db);
-            const tariffsCol = collection(db, "tariffs");
 
-            INITIAL_TARIFFS.forEach(tariff => {
-                const newDocRef = doc(tariffsCol);
-                batch.set(newDocRef, tariff);
-            });
-
-            await batch.commit();
-            alert("Base de datos restaurada con éxito!");
-        } catch (error) {
-            console.error("Error restoring database:", error);
-            alert("Error al restaurar: " + (error as any).message);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
@@ -151,14 +130,6 @@ export default function TarifasAdminPage() {
                             className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
                         />
                     </div>
-                    <button
-                        onClick={handleRestore}
-                        disabled={isSubmitting}
-                        className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-amber-500/20 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
-                    >
-                        <RotateCcw className="w-4 h-4" />
-                        Restaurar Base
-                    </button>
                     <button
                         onClick={() => openEditor()}
                         className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"

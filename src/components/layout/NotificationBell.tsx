@@ -123,7 +123,7 @@ export default function NotificationBell() {
                         className="fixed inset-0 z-[100]" 
                         onClick={() => setIsOpen(false)}
                     ></div>
-                    <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 hidden sm:block">
                         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-[#fcfdfe] dark:bg-slate-900/50">
                             <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
                                 Notificaciones
@@ -211,6 +211,59 @@ export default function NotificationBell() {
                                 </Link>
                             </div>
                         )}
+                    </div>
+
+                    {/* Versión Móvil: Centrada y con overlay diferente */}
+                    <div className="fixed inset-x-4 top-[72px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 sm:hidden flex flex-col max-h-[70vh]">
+                        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 dark:text-white"> Notificaciones </h3>
+                            <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+                                <X size={20} className="text-slate-400" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50">
+                            {notifications.length > 0 ? (
+                                notifications.map((n) => (
+                                    <div key={n.id} className={`p-5 flex gap-4 relative ${!n.readBy?.includes(user?.uid || '') ? 'bg-primary/[0.03]' : ''}`}>
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                            {getIcon(n.type)}
+                                        </div>
+                                        <div className="flex-1 min-w-0 space-y-1">
+                                            <div className="flex justify-between items-start gap-2">
+                                                <p className={`text-xs font-black truncate ${!n.readBy?.includes(user?.uid || '') ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>{n.title}</p>
+                                                <span className="shrink-0 text-[10px] font-bold text-slate-400">{n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}</span>
+                                            </div>
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 leading-tight">
+                                                {n.message}
+                                            </p>
+                                            <div className="flex items-center gap-4 pt-2">
+                                                {n.link && <Link href={n.link} onClick={() => {setIsOpen(false); markAsRead(n.id!)}} className="text-[10px] font-black text-primary uppercase">Ver detalles</Link>}
+                                                <button onClick={() => hideNotification(n.id!)} className="text-[10px] font-black text-red-500 uppercase">Eliminar</button>
+                                            </div>
+                                        </div>
+                                        {!n.readBy?.includes(user?.uid || '') && (
+                                            <button onClick={() => markAsRead(n.id!)} className="shrink-0 self-center w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                                <Check size={14} />
+                                            </button>
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="p-16 text-center space-y-4">
+                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto text-slate-200">
+                                        <Bell size={32} />
+                                    </div>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sin notificaciones</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+                            <Link href="/notificaciones" onClick={() => setIsOpen(false)} className="block w-full py-4 bg-primary text-white text-[10px] font-black text-center uppercase tracking-[0.2em] rounded-2xl shadow-lg shadow-primary/20">
+                                Ver todas las alertas
+                            </Link>
+                        </div>
                     </div>
                 </>
             )}

@@ -31,10 +31,13 @@ export default function Privacidad() {
 
                             <h2 className="text-xl font-bold mb-4">3. Conservación y Almacenamiento</h2>
                             <p className="mb-4">
-                                Las facturas subidas se almacenan de forma segura en los servidores de <strong>Cloudflare R2</strong>. Estos archivos se conservan mientras tu cuenta permanezca activa para permitirte consultar tu historial de ahorros.
+                                Las facturas subidas se procesan para permitirte consultar tu historial de ahorros. Estos archivos se almacenan de forma segura en servidores protegidos bajo estrictos protocolos de seguridad, pero el usuario mantiene el control total sobre ellos en todo momento.
+                            </p>
+                            <p className="mb-4 text-primary font-medium italic">
+                                Puedes eliminar tus facturas cuando desees desde tu <strong>Perfil &gt; Facturas</strong>. Al eliminarlas desde tu panel personal, el archivo se borra permanentemente tanto de tu cuenta como de nuestro almacenamiento en la nube.
                             </p>
                             <p className="mb-8">
-                                Los datos de facturas analizadas pueden conservarse de forma anonimizada para mejorar nuestros algoritmos de análisis, eliminando cualquier dato identificativo personal previo a dicho uso.
+                                Es importante destacar que TuMejorTarifaLuz no "colecciona" tus documentos; solo conservamos el análisis técnico (consumos y potencias) necesario para el funcionamiento del comparador mientras tú decidas mantener los datos en tu cuenta.
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">4. Derechos de los Usuarios</h2>

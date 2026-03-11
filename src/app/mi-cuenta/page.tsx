@@ -573,173 +573,223 @@ export default function ProfilePage() {
 
             {/* Modal Editar Perfil y Configuración */}
             {isEditModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500">
                     <div
-                        className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-[2.5rem] p-8 md:p-10 shadow-2xl border border-slate-100 dark:border-slate-800 relative overflow-hidden animate-in slide-in-from-bottom-8 duration-500 overflow-y-auto max-h-[90vh]"
+                        className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-[3rem] shadow-2xl border border-slate-200/50 dark:border-slate-800/50 relative overflow-hidden animate-in slide-in-from-bottom-12 zoom-in-95 duration-700 flex flex-col max-h-[90vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16"></div>
+                        {/* Decorative Background Elements */}
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-48 -mt-48 animate-pulse pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px] -ml-48 -mb-48 animate-pulse pointer-events-none"></div>
 
-                        <div className="relative z-10">
-                            <div className="flex justify-between items-start mb-8">
-                                <div>
-                                    <h3 className="text-2xl font-900 tracking-tight dark:text-white mb-1">Configuración de Usuario</h3>
-                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Personaliza tu perfil y datos de consumo base</p>
+                        {/* Modal Header */}
+                        <div className="relative z-10 p-8 md:p-10 pb-4 flex justify-between items-start border-b border-slate-100 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl">
+                            <div>
+                                <h3 className="text-3xl font-900 tracking-tight text-slate-900 dark:text-white mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
+                                    Configuración de Usuario
+                                </h3>
+                                <div className="flex items-center gap-3">
+                                    <div className="h-0.5 w-8 bg-primary rounded-full"></div>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Perfil & Plantilla de Consumo</p>
                                 </div>
-                                <button
-                                    onClick={() => setIsEditModalOpen(false)}
-                                    className="w-10 h-10 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
-                                >
-                                    <X size={20} />
-                                </button>
                             </div>
+                            <button
+                                onClick={() => setIsEditModalOpen(false)}
+                                className="w-12 h-12 rounded-2xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white dark:hover:bg-slate-800 hover:rotate-90 shadow-sm border border-slate-200/20 dark:border-slate-700/30 transition-all duration-300"
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
 
-                            <form onSubmit={handleUpdateProfile} className="space-y-10">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                                    {/* COLUMNA 1: IDENTIDAD */}
-                                    <div className="space-y-6">
-                                        <h4 className="flex items-center gap-2 text-[11px] font-black text-primary uppercase tracking-[0.2em]">
-                                            <UserIcon size={14} /> Identidad Visual
-                                        </h4>
-                                        <div className="space-y-6">
-                                            <div className="space-y-2">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">Nombre Público</label>
-                                                <div className="relative group">
+                        {/* Modal Body */}
+                        <div className="relative z-10 flex-1 overflow-y-auto p-8 md:p-10 pt-6 custom-scrollbar">
+                            <form onSubmit={handleUpdateProfile} className="space-y-12">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
+                                    {/* IDENTIDAD VISUAL */}
+                                    <div className="space-y-8 animate-in slide-in-from-left-4 duration-500 delay-100">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/10 shadow-inner">
+                                                <UserIcon size={18} />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-[0.25em]">Identidad Visual</h4>
+                                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1">¿Cómo te ven los demás?</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-6 bg-slate-50/50 dark:bg-slate-800/20 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/30">
+                                            <div className="space-y-2.5">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] ml-2 block">Nombre Público</label>
+                                                <div className="relative group transition-all duration-300">
                                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                        <UserIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4 h-4" />
+                                                        <UserIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4.5 h-4.5" />
                                                     </div>
                                                     <input
                                                         type="text"
                                                         value={editName}
                                                         onChange={(e) => setEditName(e.target.value)}
-                                                        className="w-full h-14 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-2xl pl-12 pr-4 text-sm font-bold focus:border-primary focus:ring-0 outline-none transition-all dark:text-white"
+                                                        className="w-full h-14 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 dark:text-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all shadow-sm"
                                                         placeholder="Tu nombre..."
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="space-y-2">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">URL Foto de Perfil</label>
-                                                <div className="relative group">
-                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                        <LinkIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4 h-4" />
-                                                    </div>
-                                                    <input
-                                                        type="url"
-                                                        value={editPhoto}
-                                                        onChange={(e) => setEditPhoto(e.target.value)}
-                                                        className="w-full h-14 bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-2xl pl-12 pr-4 text-sm font-bold focus:border-primary focus:ring-0 outline-none transition-all dark:text-white"
-                                                        placeholder="https://ejemplo.com/foto.jpg"
-                                                    />
+
+                                            <div className="space-y-4">
+                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] ml-2 block">Selecciona tu Avatar</label>
+                                                
+                                                {/* Selector de Avatares (DiceBear) */}
+                                                <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 max-h-[220px] overflow-y-auto p-2 rounded-2xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 custom-scrollbar">
+                                                    {[
+                                                        { style: 'adventurer', seeds: ['Jasper', 'Felix', 'Aneka', 'Cloe', 'Jack'] },
+                                                        { style: 'bottts', seeds: ['Buster', 'Coco', 'Dot', 'Gizmo', 'Leo'] },
+                                                        { style: 'lorelei', seeds: ['Luna', 'Misty', 'Shadow', 'Sasha', 'Bear'] },
+                                                        { style: 'notionists', seeds: ['Patches', 'Garfield', 'Boots', 'Oliver', 'Tigger'] }
+                                                    ].flatMap(group => 
+                                                        group.seeds.map(seed => ({
+                                                            url: `https://api.dicebear.com/9.x/${group.style}/svg?seed=${seed}`,
+                                                            id: `${group.style}-${seed}`
+                                                        }))
+                                                    ).map((avatar) => (
+                                                        <button
+                                                            key={avatar.id}
+                                                            type="button"
+                                                            onClick={() => setEditPhoto(avatar.url)}
+                                                            className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all p-1 hover:scale-105 active:scale-95 ${
+                                                                editPhoto === avatar.url 
+                                                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" 
+                                                                : "border-transparent bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600"
+                                                            }`}
+                                                        >
+                                                            <img src={avatar.url} alt="Avatar option" className="w-full h-full object-contain" />
+                                                            {editPhoto === avatar.url && (
+                                                                <div className="absolute top-1 right-1 w-3 h-3 bg-primary rounded-full flex items-center justify-center border border-white dark:border-slate-900">
+                                                                    <div className="w-1 h-1 bg-white rounded-full"></div>
+                                                                </div>
+                                                            )}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Preview miniatura y resumen */}
+                                            <div className="pt-2 flex items-center gap-4">
+                                                <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 border-2 border-primary shadow-xl overflow-hidden shrink-0 p-1">
+                                                    {editPhoto ? (
+                                                        <img 
+                                                            src={editPhoto} 
+                                                            alt="Preview" 
+                                                            className="w-full h-full object-contain"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center bg-slate-50 dark:bg-slate-800">
+                                                            <UserIcon className="text-slate-300 w-6 h-6" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <p className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest leading-none">Avatar Seleccionado</p>
+                                                    <p className="text-[9px] font-bold text-slate-400 leading-tight">Tu identidad visual se actualizará en todos tus estudios y comparativas.</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* COLUMNA 2: CONSUMOS */}
-                                    <div className="space-y-6">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <h4 className="flex items-center gap-2 text-[11px] font-black text-emerald-500 dark:text-emerald-400 uppercase tracking-[0.2em]">
-                                                <Zap size={14} /> Plantilla de Consumo
-                                            </h4>
-                                            <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase rounded-md border border-emerald-500/20">Auto-fill listo</span>
+                                    {/* CONSUMOS */}
+                                    <div className="space-y-8 animate-in slide-in-from-right-4 duration-500 delay-100">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-4">
+                                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/10 shadow-inner">
+                                                    <Zap size={18} />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-[0.25em]">Plantilla de Consumo</h4>
+                                                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1">Para comparativas instantáneas</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                                                <span className="text-[8px] font-black text-emerald-500 uppercase">Auto-fill listo</span>
+                                            </div>
                                         </div>
 
-                                        <div className="space-y-6 bg-slate-50/50 dark:bg-slate-800/40 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700/50">
+                                        <div className="bg-slate-900 dark:bg-slate-800/50 p-8 rounded-[3rem] shadow-2xl space-y-8 border border-slate-800 relative group overflow-hidden">
+                                            {/* Glow effect internally */}
+                                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                                            
                                             {/* Potencia */}
                                             <div className="space-y-4">
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                                    <span className="w-1 h-1 rounded-full bg-emerald-500"></span> Término de Potencia
-                                                </p>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Carga Contratada</span>
+                                                    <div className="h-px grow bg-white/5"></div>
+                                                </div>
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 ml-2">P1 (kW)</label>
+                                                    <div className="group/input relative">
+                                                        <span className="absolute -top-2 left-4 px-2 py-0.5 bg-slate-900 text-emerald-500 text-[8px] font-black rounded-full border border-emerald-500/30 z-10 transition-colors group-focus-within/input:bg-emerald-500 group-focus-within/input:text-white">P1 (kW)</span>
                                                         <input
                                                             type="text"
                                                             name="power_p1"
                                                             value={consumptionSettings.power_p1}
                                                             onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-4 text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
+                                                            className="w-full h-14 bg-transparent border-2 border-white/10 rounded-2xl px-6 text-sm font-mono font-bold text-white focus:border-emerald-500 outline-none transition-all placeholder:text-white/20"
                                                             placeholder="4,6"
                                                         />
                                                     </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 ml-2">P2 (kW)</label>
+                                                    <div className="group/input relative">
+                                                        <span className="absolute -top-2 left-4 px-2 py-0.5 bg-slate-900 text-emerald-500 text-[8px] font-black rounded-full border border-emerald-500/30 z-10 transition-colors group-focus-within/input:bg-emerald-500 group-focus-within/input:text-white">P2 (kW)</span>
                                                         <input
                                                             type="text"
                                                             name="power_p2"
                                                             value={consumptionSettings.power_p2}
                                                             onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-4 text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
+                                                            className="w-full h-14 bg-transparent border-2 border-white/10 rounded-2xl px-6 text-sm font-mono font-bold text-white focus:border-emerald-500 outline-none transition-all placeholder:text-white/20"
                                                             placeholder="4,6"
                                                         />
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* Energía por periodos */}
-                                            <div className="space-y-4 pt-2">
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                                                    <span className="w-1 h-1 rounded-full bg-emerald-500"></span> Energía Mensual
-                                                </p>
+                                            {/* Energía */}
+                                            <div className="space-y-4">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Energía Mensual</span>
+                                                    <div className="h-px grow bg-white/5"></div>
+                                                </div>
                                                 <div className="grid grid-cols-3 gap-3">
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 text-center block">kWh P1</label>
-                                                        <input
-                                                            type="text"
-                                                            name="energy_p1"
-                                                            value={consumptionSettings.energy_p1}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-2 text-center text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
-                                                            placeholder="120"
-                                                        />
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 text-center block">kWh P2</label>
-                                                        <input
-                                                            type="text"
-                                                            name="energy_p2"
-                                                            value={consumptionSettings.energy_p2}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-2 text-center text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
-                                                            placeholder="85"
-                                                        />
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 text-center block">kWh P3</label>
-                                                        <input
-                                                            type="text"
-                                                            name="energy_p3"
-                                                            value={consumptionSettings.energy_p3}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-2 text-center text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
-                                                            placeholder="150"
-                                                        />
-                                                    </div>
+                                                    {['P1', 'P2', 'P3'].map((p, idx) => (
+                                                        <div key={p} className="relative">
+                                                            <input
+                                                                type="text"
+                                                                name={`energy_p${idx + 1}`}
+                                                                value={consumptionSettings[`energy_p${idx + 1}` as keyof typeof consumptionSettings]}
+                                                                onChange={handleConsumptionChange}
+                                                                className="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-2 text-center text-sm font-mono font-bold text-white focus:bg-white/10 focus:border-emerald-500 outline-none transition-all"
+                                                            />
+                                                            <span className="absolute bottom-1 inset-x-0 text-center text-[8px] font-black text-white/30 uppercase tracking-widest">{p} (kWh)</span>
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
 
-                                            {/* Otros datos */}
-                                            <div className="grid grid-cols-2 gap-4 pt-2">
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 ml-2">Días Factura</label>
+                                            {/* Otros */}
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="p-4 bg-white/5 rounded-3xl border border-white/5 space-y-1">
+                                                    <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">Días Factura</p>
                                                     <input
                                                         type="text"
                                                         name="days"
                                                         value={consumptionSettings.days}
                                                         onChange={handleConsumptionChange}
-                                                        className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-4 text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
-                                                        placeholder="30"
+                                                        className="w-full bg-transparent text-lg font-mono font-black text-white outline-none focus:text-emerald-400 transition-colors"
                                                     />
                                                 </div>
-                                                <div className="space-y-2">
-                                                    <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 ml-2">Gasto Actual (€)</label>
+                                                <div className="p-4 bg-white/5 rounded-3xl border border-white/5 space-y-1">
+                                                    <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">Gasto (€)</p>
                                                     <input
                                                         type="text"
                                                         name="current_bill_total"
                                                         value={consumptionSettings.current_bill_total}
                                                         onChange={handleConsumptionChange}
-                                                        className="w-full h-12 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-xl px-4 text-xs font-mono font-bold focus:border-emerald-500 focus:ring-0 outline-none transition-all dark:text-white"
-                                                        placeholder="Ej: 85,50"
+                                                        className="w-full bg-transparent text-lg font-mono font-black text-emerald-500 outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -747,20 +797,35 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
 
-                                <div className="pt-4">
+                                <div className="pt-8 border-t border-slate-100 dark:border-slate-800/50">
                                     <button
                                         type="submit"
                                         disabled={isUpdating}
-                                        className="w-full h-16 bg-primary text-white rounded-[1.5rem] text-[11px] font-900 uppercase tracking-[0.25em] shadow-2xl shadow-primary/30 hover:scale-[1.01] active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
+                                        className="w-full group relative overflow-hidden"
                                     >
-                                        {isUpdating ? "Sincronizando con la nube..." : "Guardar Perfil de Usuario"}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-primary to-orange-500 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                                        <div className="relative w-full h-20 bg-slate-900 text-white rounded-[2rem] flex items-center justify-center gap-4 transition-colors duration-300 group-hover:bg-transparent">
+                                            {isUpdating ? (
+                                                <>
+                                                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                                                    <span className="text-xs font-900 uppercase tracking-[0.3em]">Sincronizando nube...</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span className="text-[11px] font-900 uppercase tracking-[0.3em]">Guardar Actualización de Perfil</span>
+                                                    <ChevronRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
+                                                </>
+                                            )}
+                                        </div>
                                     </button>
+                                    <p className="text-center mt-6 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">Tus datos están protegidos por encriptación AES-256</p>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             )}
+
 
             {/* Modal Detalles de Factura Digitalizada */}
             {isDetailsModalOpen && selectedBill && (

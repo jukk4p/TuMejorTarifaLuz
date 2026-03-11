@@ -73,7 +73,7 @@ function NavbarContent() {
                             <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
                                 <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain group-hover:scale-110 transition-transform duration-500" priority />
                             </div>
-                            <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
+                            <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline">
                                 TuMejorTarifa<span className="text-primary">Luz</span>
                             </span>
                         </Link>
@@ -113,7 +113,14 @@ function NavbarContent() {
                                     >
                                         <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                             {user.photoURL ? (
-                                                <Image src={user.photoURL} alt={user.displayName || "User"} width={36} height={36} className="w-full h-full object-cover" />
+                                                <Image 
+                                                    src={user.photoURL} 
+                                                    alt={user.displayName || "User"} 
+                                                    width={36} 
+                                                    height={36} 
+                                                    className="w-full h-full object-cover"
+                                                    unoptimized
+                                                />
                                             ) : (
                                             <User size={16} className="text-primary" />
                                             )}
@@ -144,7 +151,7 @@ function NavbarContent() {
                         </div>
 
                         {/* Mobile controls */}
-                        <div className="lg:hidden flex items-center gap-2">
+                        <div className="lg:hidden flex items-center gap-1 sm:gap-2">
                             <NotificationBell />
                             <button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -167,7 +174,14 @@ function NavbarContent() {
                                 >
                                     <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                         {user.photoURL ? (
-                                            <Image src={user.photoURL} alt={user.displayName || "User"} width={32} height={32} className="w-full h-full object-cover" />
+                                            <Image 
+                                                src={user.photoURL} 
+                                                alt={user.displayName || "User"} 
+                                                width={32} 
+                                                height={32} 
+                                                className="w-full h-full object-cover"
+                                                unoptimized
+                                            />
                                         ) : (
                                             <User size={12} className="text-primary" />
                                         )}
