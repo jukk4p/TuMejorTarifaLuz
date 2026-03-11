@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Send } from "lucide-react";
 
 export default function ContactoPage() {
     return (
@@ -72,7 +73,7 @@ export default function ContactoPage() {
                             type="submit"
                             className="w-full flex justify-center items-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-transform active:scale-95"
                         >
-                            <span className="material-icons text-lg">send</span>
+                            <Send className="w-5 h-5" />
                             Enviar Mensaje
                         </button>
                         <p className="text-center text-[10px] text-slate-500 max-w-md mx-auto">

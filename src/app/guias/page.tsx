@@ -3,6 +3,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
+import { BookOpen, ArrowRight } from "lucide-react";
 
 const guides = [
     {
@@ -74,7 +75,7 @@ export default function GuiasPage() {
                     {/* Header */}
                     <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                            <span className="material-icons text-sm">auto_stories</span>
+                            <BookOpen className="w-4 h-4" />
                             Centro de Aprendizaje
                         </div>
                         <h1 className="text-4xl md:text-6xl font-800 text-slate-900 dark:text-white leading-tight">
@@ -107,7 +108,7 @@ export default function GuiasPage() {
                                     <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{guides[0].summary}</p>
                                     <Link href={`/guias/${guides[0].slug}`} className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl w-fit hover:shadow-xl transition-all">
                                         Leer Guía Completa
-                                        <span className="material-icons">east</span>
+                                        <ArrowRight className="w-5 h-5" />
                                     </Link>
                                 </div>
                             </div>
@@ -141,7 +142,7 @@ export default function GuiasPage() {
                                     className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex items-center justify-between group-hover:bg-slate-50 dark:group-hover:bg-slate-800/20 -mx-8 px-8 transition-colors"
                                 >
                                     <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">Leer más</span>
-                                    <span className="material-icons text-primary group-hover:translate-x-2 transition-transform">east</span>
+                                    <ArrowRight className="text-primary w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                 </Link>
                             </div>
                         ))}

@@ -9,6 +9,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket } from "lucide-react";
 
 export default function TarifasHub() {
     const { resolvedTheme } = useTheme();
@@ -46,7 +47,7 @@ export default function TarifasHub() {
                     {/* Header Section */}
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
-                            <span className="material-icons text-sm">inventory_2</span>
+                            <Archive className="w-4 h-4" />
                             Catálogo Completo 2026
                         </div>
                         <h1 className="text-4xl md:text-6xl font-900 text-slate-900 dark:text-white leading-[1.1]">
@@ -60,7 +61,7 @@ export default function TarifasHub() {
                     {/* Filters & Search */}
                     <div className="premium-card p-6 md:p-8 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 mb-12 flex flex-col lg:flex-row gap-6 items-center">
                         <div className="relative flex-grow w-full lg:max-w-2xl">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 material-icons text-slate-400">search</span>
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                             <input
                                 type="text"
                                 placeholder="Buscar por compañía o nombre de tarifa..."
@@ -171,15 +172,15 @@ export default function TarifasHub() {
                                 <div className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
                                     {tariff.permanence ? (
                                         <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">
-                                            <span className="material-icons text-sm text-amber-500">lock</span> Permanencia
+                                            <Lock className="w-4 h-4 text-amber-500" /> Permanencia
                                         </span>
                                     ) : (
                                         <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-500 uppercase tracking-widest text-center">
-                                            <span className="material-icons text-sm">check_circle</span> Sin Permanencia
+                                            <CheckCircle2 className="w-4 h-4" /> Sin Permanencia
                                         </span>
                                     )}
                                     <Link href={tariff.url} target="_blank" className="bg-primary text-white p-4 md:p-2 w-full md:w-auto rounded-xl shadow-lg shadow-primary/20 hover:scale-105 md:hover:scale-110 active:scale-95 transition-all flex items-center justify-center">
-                                        <span className="material-icons text-lg">open_in_new</span>
+                                        <ExternalLink className="w-5 h-5" />
                                     </Link>
                                 </div>
                             </div>
@@ -192,7 +193,7 @@ export default function TarifasHub() {
                         <h2 className="text-3xl md:text-5xl font-900 text-white relative z-10 leading-tight">¿No sabes cuál elegir?<br /><span className="text-primary italic">Deja que nuestra IA decida.</span></h2>
                         <Link href="/comparador" className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-900 font-900 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl relative z-10">
                             EJECUTAR COMPARADOR INTELIGENTE
-                            <span className="material-icons">rocket_launch</span>
+                            <Rocket className="w-6 h-6" />
                         </Link>
                     </div>
                 </div>

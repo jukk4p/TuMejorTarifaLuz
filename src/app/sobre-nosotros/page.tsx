@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { Lightbulb, Rocket, Eye, PhoneOff, CreditCard, Lock, Zap, BadgeCheck, ArrowRight } from "lucide-react";
 
 export const metadata = {
     title: "Sobre Nosotros | Nuestra Misión para tu Ahorro Energético",
@@ -31,11 +32,11 @@ export default function SobreNosotros() {
                     <div className="grid md:grid-cols-2 gap-8 mb-24">
                         <div className="premium-card p-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-6 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform">
-                                <span className="material-icons text-8xl">lightbulb</span>
+                                <Lightbulb className="w-24 h-24 stroke-[1.5]" />
                             </div>
                             <h2 className="text-2xl font-800 text-slate-900 dark:text-white flex items-center gap-3">
                                 <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                                    <span className="material-icons text-primary text-sm">rocket_launch</span>
+                                    <Rocket className="w-4 h-4 text-primary" />
                                 </span>
                                 Nuestra Misión
                             </h2>
@@ -46,11 +47,11 @@ export default function SobreNosotros() {
 
                         <div className="premium-card p-10 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-6 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:rotate-12 transition-transform">
-                                <span className="material-icons text-8xl">visibility</span>
+                                <Eye className="w-24 h-24 stroke-[1.5]" />
                             </div>
                             <h2 className="text-2xl font-800 text-slate-900 dark:text-white flex items-center gap-3">
                                 <span className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
-                                    <span className="material-icons text-success text-sm">visibility</span>
+                                    <Eye className="w-4 h-4 text-success" />
                                 </span>
                                 Nuestra Visión
                             </h2>
@@ -89,19 +90,19 @@ export default function SobreNosotros() {
                                     <div className="grid sm:grid-cols-3 gap-4 pt-4">
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
                                             <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
-                                                <span className="material-icons text-primary text-2xl">phone_disabled</span>
+                                                <PhoneOff className="text-primary w-6 h-6" />
                                             </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Llamadas</p>
                                         </div>
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
                                             <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
-                                                <span className="material-icons text-primary text-2xl">payments</span>
+                                                <CreditCard className="text-primary w-6 h-6" />
                                             </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sin Comisiones</p>
                                         </div>
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700 flex flex-col items-center justify-center text-center">
                                             <div className="w-10 h-10 flex items-center justify-center mx-auto mb-2">
-                                                <span className="material-icons text-primary text-2xl">lock</span>
+                                                <Lock className="text-primary w-6 h-6" />
                                             </div>
                                             <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Privacidad Total</p>
                                         </div>
@@ -119,9 +120,9 @@ export default function SobreNosotros() {
                             <div className="relative premium-card overflow-hidden bg-slate-950 aspect-[4/5] flex items-center justify-center p-8 md:p-12 border-4 border-white dark:border-slate-800 shadow-3xl rounded-[2.5rem]">
                                 <div className="text-center space-y-8 w-full">
                                     <div className="w-24 h-24 mx-auto bg-primary rounded-3xl flex items-center justify-center shadow-2xl shadow-primary/40 relative rotate-3 group-hover:rotate-6 transition-transform">
-                                        <span className="material-icons text-white text-4xl">electric_bolt</span>
+                                        <Zap className="text-white w-10 h-10" />
                                         <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center border-4 border-primary">
-                                            <span className="material-icons text-primary text-base">verified</span>
+                                            <BadgeCheck className="text-primary w-5 h-5 fill-current" />
                                         </div>
                                     </div>
                                     <div className="space-y-4">
@@ -166,7 +167,7 @@ export default function SobreNosotros() {
                         <div className="pt-8">
                             <Link href="/comparador" className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white font-black rounded-2xl shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all text-lg">
                                 Prueba nuestra tecnología ahora
-                                <span className="material-icons ml-3">east</span>
+                                <ArrowRight className="ml-3 w-5 h-5" />
                             </Link>
                         </div>
                     </div>

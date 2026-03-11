@@ -13,6 +13,20 @@ import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/auth/AuthModal";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { 
+    Activity,
+    PiggyBank,
+    Gavel,
+    ShieldCheck as ShieldCheckIcon,
+    LineChart,
+    Clock as ClockIcon,
+    Medal,
+    Info as InfoIcon,
+    Share2 as Share2Icon,
+    Mail as MailIcon,
+    Printer as PrinterIcon,
+    HelpCircle as HelpCircleIcon,
+    ChevronRight,
+    ArrowLeft as ArrowLeftIcon,
     Terminal, 
     Zap, 
     FileText, 
@@ -37,6 +51,8 @@ import {
     Trophy,
     Save,
     Eye,
+    ZoomIn,
+    ZoomOut,
     BarChart3,
     Heart,
     Sliders,
@@ -46,7 +62,6 @@ import {
     Info,
     Gauge,
     Building2,
-    PiggyBank,
     ArrowLeft,
     CheckSquare,
     Scale,
@@ -633,7 +648,7 @@ export default function ComparadorPage() {
                                             onChange={handleFileUpload}
                                             disabled={isProcessing}
                                         />
-                                        <span className="material-symbols-outlined text-4xl text-primary/60 group-hover:scale-110 transition-transform">description</span>
+                                        <FileText className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
                                         <div className="text-center">
                                             <p className="text-sm font-bold">Análisis Técnico (OCR)</p>
                                             <p className="text-[11px] text-slate-400">Escanea tu factura PDF o Imagen</p>
@@ -890,7 +905,7 @@ export default function ComparadorPage() {
 
                                     <div className="relative z-10 max-w-2xl w-full">
                                         <div className="w-24 h-24 bg-primary/10 rounded-[2rem] flex items-center justify-center mb-10 mx-auto">
-                                            <span className="material-symbols-outlined text-5xl text-primary animate-pulse">analytics</span>
+                                            <BarChart3 className="w-12 h-12 text-primary animate-pulse" />
                                         </div>
 
                                         <div className="mt-8">
@@ -905,19 +920,19 @@ export default function ComparadorPage() {
                                         <div className="grid grid-cols-3 gap-12 max-w-md mx-auto">
                                             <div className="space-y-3 group/item">
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
-                                                    <span className="material-icons text-2xl text-slate-400 group-hover/item:text-primary transition-colors">query_stats</span>
+                                                    <Activity className="w-6 h-6 text-slate-400 group-hover/item:text-primary transition-colors" />
                                                 </div>
                                                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Análisis</p>
                                             </div>
                                             <div className="space-y-3 group/item">
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-success/10 transition-colors">
-                                                    <span className="material-icons text-2xl text-slate-400 group-hover/item:text-success transition-colors">verified</span>
+                                                    <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover/item:text-success transition-colors" />
                                                 </div>
                                                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Verificación</p>
                                             </div>
                                             <div className="space-y-3 group/item">
                                                 <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-amber-500/10 transition-colors">
-                                                    <span className="material-icons text-2xl text-slate-400 group-hover/item:text-amber-500 transition-colors">savings</span>
+                                                    <PiggyBank className="w-6 h-6 text-slate-400 group-hover/item:text-amber-500 transition-colors" />
                                                 </div>
                                                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Ahorro</p>
                                             </div>
@@ -938,17 +953,17 @@ export default function ComparadorPage() {
                                 <div className="px-8 py-5 border-b border-slate-100 dark:border-slate-800/50 flex justify-between items-center bg-white dark:bg-slate-900/50 transition-colors">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                                            <span className="material-icons text-primary text-base">visibility</span>
+                                            <Eye className="text-primary w-4 h-4" />
                                         </div>
                                         <span className="text-xs font-800 uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Vista Previa de Factura</span>
                                     </div>
                                     <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
                                         <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
-                                            <span className="material-icons text-lg">zoom_in</span>
+                                            <ZoomIn className="w-5 h-5" />
                                         </button>
                                         <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1"></div>
                                         <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
-                                            <span className="material-icons text-lg">zoom_out</span>
+                                            <ZoomOut className="w-5 h-5" />
                                         </button>
                                     </div>
                                 </div>
@@ -1000,7 +1015,7 @@ export default function ComparadorPage() {
                                                 </div>
                                             </div>
                                             <div className="absolute bottom-12 right-12 opacity-5 rotate-12">
-                                                <span className="material-icons text-[120px] text-primary">analytics</span>
+                                                <BarChart3 className="w-[120px] h-[120px] text-primary" />
                                             </div>
                                         </div>
                                     )}
@@ -1011,7 +1026,7 @@ export default function ComparadorPage() {
                             <div className="w-full lg:w-[450px] space-y-6">
                                 <div className="bg-green-500/5 border border-green-500/20 p-6 rounded-2xl flex items-start gap-4">
                                     <div className="bg-green-500 p-1.5 rounded-lg text-white">
-                                        <span className="material-icons text-sm font-bold">check_circle</span>
+                                        <CheckCircle2 className="w-4 h-4 font-bold" />
                                     </div>
                                     <div>
                                         <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">AUDITORÍA TÉCNICA DE DATOS</p>
@@ -1026,7 +1041,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Total (total_amount)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1040,7 +1055,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Días (billing_days)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1060,7 +1075,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Punta (p1)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1074,7 +1089,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Valle (p2)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1094,7 +1109,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Punta (e1)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1108,7 +1123,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Llano (e2)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1122,7 +1137,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Valle (e3)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1142,7 +1157,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Punta (p1)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1156,7 +1171,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Llano (p2)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1170,7 +1185,7 @@ export default function ComparadorPage() {
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
                                                     <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Valle (p3)</label>
-                                                    <span className="material-icons text-green-500 text-[10px]">check_circle</span>
+                                                    <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
                                                     type="text"
@@ -1475,7 +1490,7 @@ export default function ComparadorPage() {
 
                                                         {((input.current_bill_total || 0) - res.total) > 0 && (
                                                             <div className="bg-success/10 text-success px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-in zoom-in-50 duration-500">
-                                                                <span className="material-icons text-xs font-bold">trending_down</span>
+                                                                <TrendingDown className="w-3 h-3 font-bold" />
                                                                 <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total).toFixed(2)} €/mes</span>
                                                             </div>
                                                         )}
@@ -1636,9 +1651,9 @@ export default function ComparadorPage() {
                                                                         <div className="absolute -inset-6 bg-success/10 blur-2xl rounded-full animate-pulse z-0"></div>
                                                                     )}
                                                                     <div className={`flex items-center gap-1.5 relative z-10 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-rose-500"}`}>
-                                                                        <span className="material-icons opacity-70">
-                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? "keyboard_double_arrow_down" : "keyboard_double_arrow_up"}
-                                                                        </span>
+                                                                        <div className="opacity-70">
+                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-6 h-6" /> : <TrendingUp className="w-6 h-6" />}
+                                                                        </div>
                                                                         <span className="font-black tracking-tighter text-2xl">
                                                                             {((input.current_bill_total || 0) - res.total).toFixed(2)} €
                                                                         </span>
@@ -1662,9 +1677,9 @@ export default function ComparadorPage() {
                                                                             : "text-slate-400 dark:text-slate-500 hover:text-primary"
                                                                             }`}
                                                                     >
-                                                                        <span className="material-icons text-xl">
-                                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? "favorite" : "favorite_border"}
-                                                                        </span>
+                                                                        <div className="text-xl">
+                                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? <Heart className="w-5 h-5 fill-current" /> : <Heart className="w-5 h-5" />}
+                                                                        </div>
                                                                     </button>
                                                                     <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
                                                                     <button
@@ -1672,7 +1687,7 @@ export default function ComparadorPage() {
                                                                         title="Ver detalles"
                                                                         className="p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent text-primary hover:text-primary/70"
                                                                     >
-                                                                        <span className="material-icons text-2xl">visibility</span>
+                                                                        <Eye className="w-6 h-6" />
                                                                     </button>
                                                                 </div>
                                                             </td>
@@ -1782,7 +1797,7 @@ export default function ComparadorPage() {
                                 className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 transition-all active:scale-95 flex items-center gap-2 group"
                             >
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Cerrar</span>
-                                <span className="material-icons text-slate-400">close</span>
+                                <X className="w-6 h-6 text-slate-400" />
                             </button>
                         </div >
 
@@ -1885,7 +1900,7 @@ export default function ComparadorPage() {
                                         <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-success/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
                                         <div className="flex items-center gap-5 relative z-10">
                                             <div className="w-16 h-16 rounded-[1.25rem] bg-success/10 flex items-center justify-center text-success shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
-                                                <span className="material-icons text-4xl">savings</span>
+                                                <PiggyBank className="w-10 h-10" />
                                             </div>
                                             <div>
                                                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-success/60 leading-none mb-2">Ahorro Máximo Proyectado</p>
@@ -1903,7 +1918,7 @@ export default function ComparadorPage() {
                                             className="w-full bg-primary text-white font-black py-6 rounded-[1.5rem] text-[10px] uppercase tracking-[0.3em] shadow-2xl shadow-primary/20 hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
                                         >
                                             Ver Completo {results[0].tariff.company}
-                                            <span className="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
                                         <button
                                             onClick={() => setStep("results")}
@@ -1930,7 +1945,7 @@ export default function ComparadorPage() {
                         <div className="max-w-5xl mx-auto space-y-8 animate-in zoom-in-95 duration-500">
                             <div className="flex justify-between items-center mb-10">
                                 <button onClick={() => setStep("results")} className="text-xs font-bold text-primary flex items-center gap-2 hover:opacity-70 transition-opacity">
-                                    <span className="material-icons text-sm">arrow_back</span>
+                                    <ArrowLeftIcon className="w-4 h-4" />
                                     Volver a la Comparativa
                                 </button>
                                 <div className="flex items-center gap-4">
@@ -1963,7 +1978,7 @@ export default function ComparadorPage() {
                                             ) : (
                                                 <div className="relative flex items-center justify-center">
                                                     <div className="w-full aspect-square bg-slate-200 dark:bg-slate-700 rounded blur-sm"></div>
-                                                    <span className="absolute material-icons text-4xl text-slate-300">business</span>
+                                                    <Building2 className="absolute text-4xl text-slate-300 w-10 h-10" />
                                                 </div>
                                             )}
                                         </div>
@@ -1993,7 +2008,7 @@ export default function ComparadorPage() {
                                     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                                         <div className="px-5 md:px-10 py-5 md:py-6 border-b border-slate-100 dark:border-slate-800 flex flex-row justify-between items-center bg-slate-50/50 dark:bg-slate-800/20 gap-2 overflow-hidden">
                                             <div className="flex items-center gap-2 md:gap-3 shrink-1 min-w-0">
-                                                <span className="material-icons text-primary text-lg md:text-xl shrink-0">payments</span>
+                                                <CreditCard className="text-primary w-5 h-5 md:w-6 md:h-6 shrink-0" />
                                                 <h4 className="font-800 text-xs sm:text-base truncate">Detalle de Precios</h4>
                                             </div>
                                             <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
@@ -2063,7 +2078,7 @@ export default function ComparadorPage() {
 
                                     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                                         <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-slate-50/50 dark:bg-slate-800/20">
-                                            <span className="material-icons text-primary text-xl">fact_check</span>
+                                            <FileText className="text-primary w-6 h-6" />
                                             <h4 className="font-800 text-center md:text-left">Desglose de Factura Estimada</h4>
                                         </div>
                                         <div className="p-10 space-y-5">
@@ -2095,12 +2110,12 @@ export default function ComparadorPage() {
                                 <div className="space-y-8">
                                     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 space-y-10">
                                         <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 border-b border-slate-50 dark:border-slate-800 pb-4">
-                                            <span className="material-symbols-outlined text-primary">gavel</span>
+                                            <Gavel className="text-primary w-6 h-6" />
                                             <h4 className="font-800 text-center md:text-left">Condiciones Legales</h4>
                                         </div>
                                         <div className="space-y-8">
                                             <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
-                                                <div className="p-2 bg-green-500/10 text-green-500 rounded-xl"><span className="material-icons text-sm">verified_user</span></div>
+                                                <div className="p-2 bg-green-500/10 text-green-500 rounded-xl"><ShieldCheckIcon className="w-4 h-4" /></div>
                                                 <div>
                                                     <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Sin Permanencia</p>
                                                     <p className="text-xs text-slate-500 leading-relaxed">Puedes cambiar de tarifa o compañía en cualquier momento sin penalización.</p>
@@ -2108,7 +2123,7 @@ export default function ComparadorPage() {
                                             </div>
                                             {selectedResult.tariff.name.includes("PVPC") ? (
                                                 <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
-                                                    <div className="p-2 bg-blue-500/10 text-blue-500 rounded-xl"><span className="material-icons text-sm">auto_graph</span></div>
+                                                    <div className="p-2 bg-blue-500/10 text-blue-500 rounded-xl"><LineChart className="w-4 h-4" /></div>
                                                     <div>
                                                         <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precio Semi-Indexado</p>
                                                         <p className="text-xs text-slate-500 leading-relaxed">El precio real fluctúa cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
@@ -2117,14 +2132,14 @@ export default function ComparadorPage() {
                                             ) : (
                                                 <>
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
-                                                        <div className="p-2 bg-primary/10 text-primary rounded-xl"><span className="material-icons text-sm">schedule</span></div>
+                                                        <div className="p-2 bg-primary/10 text-primary rounded-xl"><ClockIcon className="w-4 h-4" /></div>
                                                         <div>
                                                             <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precios Fijos 12 Meses</p>
                                                             <p className="text-xs text-slate-500 leading-relaxed">El precio de la energía no sufrirá incrementos inesperados al menos durante el primer año de contrato.</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
-                                                        <div className="p-2 bg-amber-500/10 text-amber-500 rounded-xl"><span className="material-icons text-sm">military_tech</span></div>
+                                                        <div className="p-2 bg-amber-500/10 text-amber-500 rounded-xl"><Medal className="w-4 h-4" /></div>
                                                         <div>
                                                             <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Atención Continua</p>
                                                             <p className="text-xs text-slate-500 leading-relaxed">Incluye opciones de gestión rápida y posible aplicación de descuentos temporales directos de la comercializadora.</p>
@@ -2137,7 +2152,7 @@ export default function ComparadorPage() {
 
                                     <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-6">
                                         <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2">
-                                            <span className="material-icons text-primary text-sm">info</span>
+                                            <InfoIcon className="text-primary w-4 h-4" />
                                             <h4 className="font-bold text-sm text-center md:text-left">Información Oficial</h4>
                                         </div>
                                         <p className="text-[11px] text-slate-500 leading-relaxed bg-white dark:bg-background-dark/50 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
@@ -2151,7 +2166,7 @@ export default function ComparadorPage() {
                                             className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group transition-all"
                                         >
                                             Contratar esta Tarifa
-                                            <span className="material-icons text-base group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                                            <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                         </button>
                                         <div className="pt-4 flex justify-around">
                                             <button
@@ -2161,7 +2176,7 @@ export default function ComparadorPage() {
                                                 }}
                                                 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
                                             >
-                                                <span className="material-icons text-sm">share</span> WhatsApp
+                                                <Share2Icon className="w-4 h-4" /> WhatsApp
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -2171,7 +2186,7 @@ export default function ComparadorPage() {
                                                 }}
                                                 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
                                             >
-                                                <span className="material-icons text-sm">mail</span> Email
+                                                <MailIcon className="w-4 h-4" /> Email
                                             </button>
                                         </div>
                                     </div>
@@ -2184,7 +2199,7 @@ export default function ComparadorPage() {
                                     onClick={handleShare}
                                     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
-                                    <span className="material-symbols-outlined text-xl">share</span>
+                                    <Share2Icon className="w-6 h-6" />
                                     Compartir Tarifa
                                 </button>
                                 <div className="hidden md:block w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
@@ -2192,7 +2207,7 @@ export default function ComparadorPage() {
                                     onClick={handlePrint}
                                     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
-                                    <span className="material-symbols-outlined text-xl">print</span>
+                                    <PrinterIcon className="w-6 h-6" />
                                     Imprimir Resumen
                                 </button>
                                 <div className="hidden md:block w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
@@ -2200,7 +2215,7 @@ export default function ComparadorPage() {
                                     href="/#faq"
                                     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
-                                    <span className="material-symbols-outlined text-xl">help</span>
+                                    <HelpCircleIcon className="w-6 h-6" />
                                     Preguntas Frecuentes
                                 </Link>
                             </div>

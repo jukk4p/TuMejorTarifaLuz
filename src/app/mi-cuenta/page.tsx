@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { getDb, getAuthInstance } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus } from "lucide-react";
+import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock } from "lucide-react";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
 
@@ -54,6 +54,7 @@ export default function ProfilePage() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [selectedBill, setSelectedBill] = useState<SavedBill | null>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+    const [isZoomed, setIsZoomed] = useState(false);
 
     // Consumption state
     const [consumptionSettings, setConsumptionSettings] = useState({
@@ -265,7 +266,7 @@ export default function ProfilePage() {
                         <div className="text-center md:text-left space-y-2 grow">
                             <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-2">
                                 <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">Usuario Premium</span>
-                                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest rounded-full">Miembro desde 2024</span>
+                                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest rounded-full">Miembro desde 2026</span>
                             </div>
                             <h1 className="text-3xl md:text-4xl font-900 tracking-tight dark:text-white">Hola, {user.displayName || user.email?.split('@')[0]}!</h1>
                             <p className="text-slate-500 font-medium">{user.email}</p>
@@ -315,33 +316,61 @@ export default function ProfilePage() {
                                                 setSelectedBill(bill);
                                                 setIsDetailsModalOpen(true);
                                             }}
-                                            className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm hover:border-primary/30 transition-all group relative overflow-hidden cursor-pointer"
+                                            className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-7 shadow-sm hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all group relative overflow-hidden cursor-pointer flex flex-col h-full"
                                         >
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full"></div>
-                                            <div className="flex items-center gap-3 mb-6">
-                                                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
-                                                    <FileText className="text-primary w-6 h-6" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-800 text-sm">{bill.name}</h4>
-                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                                        {bill.createdAt?.toDate().toLocaleDateString() || '--'}
-                                                    </p>
+                                            {/* Decorative background element */}
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors"></div>
+                                            
+                                            <div className="flex items-start justify-between mb-8 relative z-10">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary/5 shrink-0 group-hover:scale-110 transition-transform">
+                                                        <FileText className="w-7 h-7" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-900 text-[15px] dark:text-white leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-1">{bill.name}</h4>
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-pulse"></div>
+                                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                                                {bill.createdAt?.toDate().toLocaleDateString() || '--'}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div className="space-y-4 mb-8">
-                                                <div className="flex justify-between items-center text-xs">
-                                                    <span className="text-slate-500">Total Detectado:</span>
-                                                    <span className="font-mono font-bold">{bill.current_bill_total?.toFixed(2)} €</span>
+                                            <div className="space-y-4 mb-10 relative z-10">
+                                                <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/30">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                                                            <Zap size={14} className="text-primary" />
+                                                        </div>
+                                                        <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">Total Detectado</span>
+                                                    </div>
+                                                    <span className="text-lg font-mono font-black text-primary drop-shadow-sm">{bill.current_bill_total?.toFixed(2)} €</span>
+                                                </div>
+                                                
+                                                <div className="grid grid-cols-2 gap-3 px-1">
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.15em]">Suministro</span>
+                                                        <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300 truncate">Vivienda</span>
+                                                    </div>
+                                                    <div className="flex flex-col gap-1 items-end text-right">
+                                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.15em]">Consumo</span>
+                                                        <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300">
+                                                            {((bill.energy_p1 || 0) + (bill.energy_p2 || 0) + (bill.energy_p3 || 0)).toFixed(0)} kWh
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <button
-                                                className="w-full h-11 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl text-[10px] font-extrabold uppercase tracking-widest hover:bg-primary hover:text-white transition-all border border-slate-200 dark:border-slate-700"
-                                            >
-                                                Ver Datos Digitalizados
-                                            </button>
+                                            <div className="mt-auto relative z-10">
+                                                <button
+                                                    className="w-full h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[1.25rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-slate-200 dark:shadow-none hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white"
+                                                >
+                                                    Explorar Análisis
+                                                    <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                                </button>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -741,33 +770,78 @@ export default function ProfilePage() {
             {isDetailsModalOpen && selectedBill && (
                 <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
                     <div
-                        className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-[2.5rem] p-8 md:p-10 shadow-3xl border border-slate-100 dark:border-slate-800 relative overflow-hidden animate-in zoom-in-95 duration-300"
+                        className="bg-white dark:bg-slate-900 w-full max-w-5xl lg:max-w-6xl h-[95vh] lg:h-[80vh] min-h-[600px] rounded-[2.5rem] p-6 sm:p-8 md:p-8 lg:p-10 shadow-3xl border border-slate-100 dark:border-slate-800 relative animate-in zoom-in-95 duration-300 flex flex-col lg:flex-row gap-8 overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-24 -mt-24"></div>
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
 
-                        <div className="relative z-10">
+                        {/* LEFT VIEW (DESKTOP): DOCUMENT PREVIEW */}
+                        {selectedBill.invoiceFileUrl && (
+                            <div className="hidden lg:flex w-1/2 h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/50 flex-col">
+                                <div className="p-4 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <FileText className="w-5 h-5 text-primary" />
+                                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Documento Original</span>
+                                    </div>
+                                    <a
+                                        href={selectedBill.invoiceFileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-[10px] font-bold bg-white dark:bg-slate-700 text-slate-500 hover:text-primary px-3 py-1.5 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-600 transition-colors"
+                                    >
+                                        Abrir en Pestaña
+                                    </a>
+                                </div>
+                                <div className="flex-1 w-full h-full relative p-2 overflow-hidden">
+                                    {selectedBill.invoiceFileUrl.toLowerCase().includes('.pdf') ? (
+                                        <iframe src={selectedBill.invoiceFileUrl} className="w-full h-full rounded-xl" title="Factura_Original" />
+                                    ) : (
+                                        <div 
+                                            className={`w-full h-full rounded-xl overflow-auto relative flex items-start justify-center cursor-zoom-in group ${isZoomed ? "cursor-zoom-out" : ""}`}
+                                            onClick={() => setIsZoomed(!isZoomed)}
+                                        >
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-20 pointer-events-none">
+                                                <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 text-white font-bold text-xs uppercase tracking-widest border border-white/20">
+                                                    <ZoomIn className="w-4 h-4" /> {isZoomed ? "Click para alejar" : "Click para acercar"}
+                                                </div>
+                                            </div>
+                                            <img 
+                                                src={selectedBill.invoiceFileUrl} 
+                                                alt="Factura Original" 
+                                                className={`transition-all duration-300 origin-top ${isZoomed ? "w-[200%] max-w-none" : "w-full object-contain"}`} 
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* RIGHT VIEW: ALIGNED DATA AND METRICS */}
+                        <div className={`relative z-10 flex flex-col h-full w-full ${selectedBill.invoiceFileUrl ? 'lg:w-1/2' : 'lg:w-full'} overflow-y-auto overflow-x-hidden pr-2 lg:pr-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full pb-6 lg:pb-0`}>
                             <div className="flex justify-between items-start mb-10">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
                                         <FileText className="w-8 h-8" />
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-900 tracking-tight dark:text-white mb-1">Datos Extraídos por IA</h3>
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{selectedBill.name} • {selectedBill.createdAt?.toDate().toLocaleDateString()}</p>
+                                        <h3 className="text-xl lg:text-2xl font-900 tracking-tight dark:text-white mb-1">Datos Extraídos por IA</h3>
+                                        <p className="text-[9px] lg:text-[10px] font-black text-slate-400 uppercase tracking-wider">{selectedBill.name}</p>
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => setIsDetailsModalOpen(false)}
+                                    onClick={() => {
+                                        setIsZoomed(false);
+                                        setIsDetailsModalOpen(false);
+                                    }}
                                     className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
                                 >
                                     <X size={20} />
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                                <div className="space-y-6">
-                                    <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10">
+                                <div className="space-y-4 sm:space-y-6">
+                                    <div className="p-5 sm:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                             <span className="w-1 h-1 bg-primary rounded-full"></span> Término de Potencia
                                         </p>
@@ -817,42 +891,129 @@ export default function ProfilePage() {
                                             <span className="text-xs font-bold text-green-500">P3 (Valle)</span>
                                             <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p3?.toFixed(1) || "0.0"} kWh</span>
                                         </div>
-                                        <div className="pt-2 flex justify-between items-center">
+                                        <div className="pt-2 flex justify-between items-center mt-2">
                                             <span className="text-xs font-black uppercase text-slate-400">Total</span>
-                                            <span className="text-lg font-mono font-black text-slate-900 dark:text-white">
+                                            <span className="text-xl font-mono font-black text-slate-900 dark:text-white">
                                                 {((selectedBill.energy_p1 || 0) + (selectedBill.energy_p2 || 0) + (selectedBill.energy_p3 || 0)).toFixed(1)} kWh
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            {/* CIRCULAR VISUAL BREAKDOWN WIDGET */}
+                            <div className="flex-grow flex flex-col p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 min-h-[260px] lg:mt-2 mb-4 lg:mb-4 lg:pb-8">
+                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 lg:mb-4 flex items-center gap-2">
+                                    <span className="w-1 h-1 bg-primary rounded-full"></span> Gráfico de Consumo por Tramos
+                                </p>
+                                
+                                {((selectedBill.energy_p1 || 0) + (selectedBill.energy_p2 || 0) + (selectedBill.energy_p3 || 0)) > 0 ? (
+                                    <div className="flex-grow flex flex-col sm:flex-row items-center justify-center gap-8 h-full py-2">
+                                        {(() => {
+                                            const total = (selectedBill.energy_p1 || 0) + (selectedBill.energy_p2 || 0) + (selectedBill.energy_p3 || 0);
+                                            const p1Percent = total > 0 ? ((selectedBill.energy_p1 || 0) / total) * 100 : 0;
+                                            const p2Percent = total > 0 ? ((selectedBill.energy_p2 || 0) / total) * 100 : 0;
+                                            const p3Percent = total > 0 ? ((selectedBill.energy_p3 || 0) / total) * 100 : 0;
+                                            
+                                            // The pie chart colors based on screenshot: Green (Valle), Yellow/Blue (Llano), Red/Orange (Punta)
+                                            // We'll use our established colors: Orange (Punta), Blue (Llano), Green (Valle)
+                                            const gradientStops = `#f97316 0% ${p1Percent}%, #3b82f6 ${p1Percent}% ${p1Percent + p2Percent}%, #22c55e ${p1Percent + p2Percent}% 100%`;
+                                            
+                                            return (
+                                                <>
+                                                    {/* THE DONUT CHART */}
+                                                    <div className="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-48 lg:h-48 shrink-0 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-transform hover:scale-105" 
+                                                         style={{ background: `conic-gradient(${gradientStops})` }}>
+                                                        {/* Inner hollow circle to make it a donut */}
+                                                        <div className="w-[70%] h-[70%] bg-slate-50 dark:bg-slate-900 rounded-full shadow-inner flex flex-col items-center justify-center z-10 border border-white/50 dark:border-slate-800/50 backdrop-blur-sm">
+                                                            <Clock className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-400 dark:text-slate-500 mb-0.5 lg:mb-1" />
+                                                            <span className="text-sm sm:text-base lg:text-lg font-black text-slate-800 dark:text-white leading-none">{total.toFixed(0)}</span>
+                                                            <span className="text-[8px] sm:text-[9px] uppercase font-bold text-slate-400 tracking-widest mt-0.5">kWh Total</span>
+                                                        </div>
+                                                        {/* Decorative outer glow based on colors could go here, but conic-gradient is enough */}
+                                                        <div className="absolute inset-0 rounded-full ring-2 ring-white/20 dark:ring-white/5 pointer-events-none"></div>
+                                                    </div>
 
-                            <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-100 dark:border-slate-800 mt-6">
+                                                    {/* LIST OF PERIODS */}
+                                                    <div className="flex flex-col gap-3 w-full sm:w-auto mt-4 sm:mt-0">
+                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-orange-500/30 transition-colors">
+                                                            <div className="w-3.5 h-3.5 rounded-full bg-orange-500 shrink-0 shadow-[0_0_12px_rgba(249,115,22,0.6)]"></div>
+                                                            <div className="flex flex-col flex-1">
+                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Punta</span>
+                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">10-14h y 18-22h</span>
+                                                            </div>
+                                                            <div className="text-right flex flex-col items-end">
+                                                                <div className="text-sm sm:text-base font-black text-orange-500 bg-orange-50 dark:bg-orange-500/10 px-2 py-0.5 rounded-lg">{p1Percent.toFixed(1)}%</div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-blue-500/30 transition-colors">
+                                                            <div className="w-3.5 h-3.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
+                                                            <div className="flex flex-col flex-1">
+                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Llano</span>
+                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">08-10h, 14-18h y 22-00h</span>
+                                                            </div>
+                                                            <div className="text-right flex flex-col items-end">
+                                                                <div className="text-sm sm:text-base font-black text-blue-500 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-lg">{p2Percent.toFixed(1)}%</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-green-500/30 transition-colors">
+                                                            <div className="w-3.5 h-3.5 rounded-full bg-green-500 shrink-0 shadow-[0_0_12px_rgba(34,197,94,0.6)]"></div>
+                                                            <div className="flex flex-col flex-1">
+                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Valle</span>
+                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">00-08h FinSemana</span>
+                                                            </div>
+                                                            <div className="text-right flex flex-col items-end">
+                                                                <div className="text-sm sm:text-base font-black text-green-500 bg-green-50 dark:bg-green-500/10 px-2 py-0.5 rounded-lg">{p3Percent.toFixed(1)}%</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            );
+                                        })()}
+                                    </div>
+                                ) : (
+                                    <div className="flex-grow flex items-center justify-center">
+                                        <div className="flex flex-col items-center gap-2 opacity-50">
+                                            <Clock className="w-8 h-8 text-slate-400" />
+                                            <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">Distribución no disponible</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            
+
+
+                            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
                                 {selectedBill.invoiceFileUrl && (
                                     <a
                                         href={selectedBill.invoiceFileUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-1 h-14 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-xs font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
+                                        className="lg:hidden w-full sm:flex-1 h-12 sm:h-14 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-[11px] sm:text-xs font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
                                     >
-                                        <span className="material-icons text-sm">picture_as_pdf</span>
+                                        <FileText className="w-4 h-4" />
                                         Ver Documento Original
                                     </a>
                                 )}
-                                <button
-                                    onClick={() => deleteBill(selectedBill.id, selectedBill.invoiceFilePath)}
-                                    className="w-14 h-14 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
-                                    title="Borrar Análisis"
-                                >
-                                    <span className="material-icons">delete_outline</span>
-                                </button>
-                                <button
-                                    onClick={() => router.push(`/comparador?historyId=${selectedBill.id}`)}
-                                    className="flex-1 h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-                                >
-                                    Ir a la Comparativa
-                                    <span className="material-icons text-sm">analytics</span>
-                                </button>
+                                <div className="flex gap-3 w-full sm:w-auto sm:flex-1">
+                                    <button
+                                        onClick={() => deleteBill(selectedBill.id, selectedBill.invoiceFilePath)}
+                                        className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
+                                        title="Borrar Análisis"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                    <button
+                                        onClick={() => router.push(`/comparador?historyId=${selectedBill.id}`)}
+                                        className="flex-1 h-12 sm:h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                    >
+                                        <span className="hidden sm:inline">Ir a la Comparativa</span>
+                                        <span className="sm:hidden">Comparar</span>
+                                        <BarChart3 className="w-4 h-4" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
