@@ -43,7 +43,7 @@ export default function AdminLogin() {
                             <Bolt className="text-primary w-8 h-8 fill-current" />
                         </div>
                         <div className="mt-6 space-y-2">
-                            <h1 className="text-3xl font-900 tracking-tighter text-slate-900 dark:text-white uppercase">
+                            <h1 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white uppercase">
                                 TuMejorTarifa<span className="text-primary">Luz</span>
                             </h1>
                             <div className="flex items-center justify-center gap-2">
@@ -58,13 +58,13 @@ export default function AdminLogin() {
                 {/* Login Card */}
                 <div className="w-full bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-slate-100 dark:border-slate-800">
                     <div className="mb-8">
-                        <h2 className="text-xl font-800 text-slate-900 dark:text-white mb-2">Acceso Administrador</h2>
+                        <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Acceso Administrador</h2>
                         <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Introduce tus credenciales para continuar.</p>
                     </div>
 
                     <form className="space-y-6" onSubmit={handleLogin}>
                         <div className="space-y-2">
-                            <label className="text-xs font-800 text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Usuario o Email</label>
+                            <label className="text-xs font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Usuario o Email</label>
                             <div className="relative">
                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
@@ -77,7 +77,7 @@ export default function AdminLogin() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs font-800 text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Contraseña</label>
+                            <label className="text-xs font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">Contraseña</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
@@ -106,7 +106,7 @@ export default function AdminLogin() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full bg-success hover:bg-success/90 dark:bg-success dark:hover:bg-success/90 text-white font-800 py-5 rounded-2xl shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-70"
+                            className="w-full bg-success hover:bg-success/90 dark:bg-success dark:hover:bg-success/90 text-white font-extrabold py-5 rounded-2xl shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-70"
                         >
                             {isLoading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -126,9 +126,9 @@ export default function AdminLogin() {
                         <ShieldAlert className="w-4 h-4" />
                         Uso exclusivo para administradores autorizados. El acceso no autorizado será monitoreado y reportado.
                     </p>
-                    <div className="flex items-center justify-center gap-4 text-[10px] font-900 text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    <div className="flex items-center justify-center gap-4 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                         <span>ESPAÑOL</span>
-                        <span className="w-[120px] h-[40px] flex items-center justify-center 1 bg-slate-200 dark:bg-slate-700 rounded-full"></span>
+                        <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
                         <Link href="#" className="hover:text-primary transition-colors">SOPORTE TÉCNICO</Link>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ export default function DashboardLayout({
                             <Zap className="text-white w-4 h-4 fill-current" />
                         </div>
                         {!isCollapsed && (
-                            <span className="text-lg font-800 tracking-tight dark:text-white truncate">
+                            <span className="text-lg font-extrabold tracking-tight dark:text-white truncate">
                                 Admin<span className="text-primary">Panel</span>
                             </span>
                         )}
@@ -79,7 +79,7 @@ export default function DashboardLayout({
                                     <User className="text-slate-400 w-5 h-5" />
                                 </div>
                                 <div className="flex-1 overflow-hidden">
-                                    <p className="text-xs font-800 truncate dark:text-white">Admin User</p>
+                                    <p className="text-xs font-extrabold truncate dark:text-white">Admin User</p>
                                     <p className="text-[10px] text-slate-400 font-bold truncate">admin@tarifa.es</p>
                                 </div>
                                 <LogOut className="w-4 h-4 text-slate-300 group-hover:text-red-500 transition-colors" />
@@ -106,7 +106,7 @@ export default function DashboardLayout({
                             >
                                 <Menu className="w-5 h-5" />
                             </button>
-                            <h2 className="text-sm font-800 text-slate-500 uppercase tracking-widest">
+                            <h2 className="text-sm font-extrabold text-slate-500 uppercase tracking-widest">
                                 {menuItems.find(i => pathname === i.href)?.name || "Gestión"}
                             </h2>
                         </div>
@@ -115,9 +115,11 @@ export default function DashboardLayout({
                                 <Bell className="w-5 h-5" />
                                 <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
                             </button>
-                            <div className="w-[120px] h-[40px] flex items-center justify-center 6 bg-slate-200 dark:bg-slate-800"></div>
-                            <div className="flex items-center gap-2">
-                                <div className="w-[120px] h-[40px] flex items-center justify-center 8 rounded-full bg-slate-200"></div>
+                            <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+                            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 pl-2 pr-4 py-1.5 rounded-full border border-slate-200 dark:border-slate-800">
+                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                    <User className="w-4 h-4" />
+                                </div>
                                 <ChevronDown className="w-4 h-4 text-slate-400" />
                             </div>
                         </div>

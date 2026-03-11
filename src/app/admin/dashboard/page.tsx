@@ -30,7 +30,7 @@ export default function DashboardPage() {
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="space-y-2">
-                <h1 className="text-3xl font-800 tracking-tight dark:text-white uppercase">Gestión de Tarifas <span className="text-primary">(Admin)</span></h1>
+                <h1 className="text-3xl font-extrabold tracking-tight dark:text-white uppercase">Gestión de Tarifas <span className="text-primary">(Admin)</span></h1>
                 <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl">Manejo detallado de los parámetros de comparación y mapeo técnico para el motor de recomendación.</p>
             </div>
 
@@ -40,7 +40,7 @@ export default function DashboardPage() {
                     <div key={i} className="premium-card p-6 flex items-center justify-between group overflow-hidden">
                         <div className="space-y-1">
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
-                            <p className={`text-4xl font-800 ${stat.color}`}>{stat.value}</p>
+                            <p className={`text-4xl font-extrabold ${stat.color}`}>{stat.value}</p>
                         </div>
                         <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
                             <stat.icon className="w-6 h-6" />
@@ -56,7 +56,7 @@ export default function DashboardPage() {
                     <div className="premium-card overflow-hidden !border-none !shadow-md">
                         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
                             <div>
-                                <h3 className="font-800 text-lg dark:text-white">Tarifas Activas Recientes</h3>
+                                <h3 className="font-extrabold text-lg dark:text-white">Tarifas Activas Recientes</h3>
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Últimas entradas en la base de datos</p>
                             </div>
                             <button className="text-xs font-bold text-primary hover:underline">Ver todas</button>
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                             <table className="w-full text-left">
                                 <thead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-800">
                                     <tr>
-                                        <th className="px-8 py-4 px-8 py-4">Empresa</th>
+                                        <th className="px-8 py-4">Empresa</th>
                                         <th className="px-8 py-4">Tarifa</th>
                                         <th className="px-8 py-4">P1 (€/kWh)</th>
                                         <th className="px-8 py-4">Estado</th>
@@ -112,7 +112,7 @@ export default function DashboardPage() {
 
                 <div className="space-y-6">
                     <div className="premium-card p-8 space-y-6">
-                        <h3 className="font-800 text-lg dark:text-white">Acciones Rápidas</h3>
+                        <h3 className="font-extrabold text-lg dark:text-white">Acciones Rápidas</h3>
                         <div className="space-y-3">
                             <button
                                 onClick={() => router.push("/admin/dashboard/tarifas")}
@@ -156,11 +156,11 @@ export default function DashboardPage() {
 
                     <div className="bg-gradient-to-br from-slate-900 to-[#101922] p-8 rounded-[2rem] text-white shadow-xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                        <h4 className="text-lg font-800 mb-2 relative z-10">Consistencia Engine</h4>
+                        <h4 className="text-lg font-extrabold mb-2 relative z-10">Consistencia Engine</h4>
                         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-4 relative z-10">Última revisión: backend_schema_v2</p>
                         <div className="flex items-center gap-2 mb-6">
-                            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                                <div className="w-[120px] h-[40px] flex items-center justify-center full bg-success"></div>
+                            <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div className="h-full bg-success rounded-full" style={{ width: '94%' }}></div>
                             </div>
                             <span className="text-[10px] font-bold text-success">94% OK</span>
                         </div>

@@ -66,7 +66,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto text-primary mb-4">
                             <Lock className="w-8 h-8 font-bold" />
                         </div>
-                        <h1 className="text-2xl font-800 dark:text-white uppercase transition-colors">Acceso Admin</h1>
+                        <h1 className="text-2xl font-extrabold dark:text-white uppercase transition-colors">Acceso Admin</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Introduce tus credenciales para gestionar el catálogo.</p>
                     </div>
 
@@ -104,7 +104,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-primary hover:bg-primary/90 text-white font-800 py-4 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs"
+                            className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs"
                         >
                             {loading ? "Cargando..." : "Entrar al Panel"}
                         </button>

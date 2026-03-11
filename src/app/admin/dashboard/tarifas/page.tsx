@@ -124,7 +124,7 @@ export default function TarifasAdminPage() {
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="space-y-1">
-                    <h1 className="text-2xl font-800 tracking-tight dark:text-white uppercase">Explorador de Tarifas</h1>
+                    <h1 className="text-2xl font-extrabold tracking-tight dark:text-white uppercase">Explorador de Tarifas</h1>
                     <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest">Base de datos técnica del comparador</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default function TarifasAdminPage() {
             <div className="premium-card overflow-hidden !border-none !shadow-lg">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-[#fcfdfe] dark:bg-slate-900/50 text-[10px] font-900 text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                        <thead className="bg-[#fcfdfe] dark:bg-slate-900/50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
                             <tr>
                                 <th className="px-8 py-5">Distribuidora / Compañía</th>
                                 <th className="px-8 py-5">Nombre Tarifa</th>
@@ -174,11 +174,11 @@ export default function TarifasAdminPage() {
                                 <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-all group">
                                     <td className="px-8 py-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-[120px] h-[40px] flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-slate-100 dark:border-slate-700 overflow-hidden p-1 shadow-sm">
+                                            <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-slate-100 dark:border-slate-800 overflow-hidden p-1 shadow-sm shrink-0">
                                                 {tariff.logo_url ? (
-                                                    <Image src={tariff.logo_url} alt={tariff.company} width={120} height={40} className="w-full h-full object-contain" />
+                                                    <Image src={tariff.logo_url} alt={tariff.company} width={80} height={40} className="w-full h-full object-contain" />
                                                 ) : getLogoPath(tariff.company) ? (
-                                                    <Image src={getLogoPath(tariff.company)!} alt={tariff.company} width={120} height={40} className="w-full h-full object-contain" />
+                                                    <Image src={getLogoPath(tariff.company)!} alt={tariff.company} width={80} height={40} className="w-full h-full object-contain" />
                                                 ) : (
                                                     (tariff.company || "?").charAt(0)
                                                 )}
@@ -199,7 +199,7 @@ export default function TarifasAdminPage() {
                                     </td>
                                     <td className="px-8 py-6">
                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 text-success text-[10px] font-bold uppercase tracking-tighter">
-                                            <span className="w-[120px] h-[40px] flex items-center justify-center 1.5 rounded-full bg-success"></span>
+                                            <span className="w-1.5 h-1.5 rounded-full bg-success"></span>
                                             Activa
                                         </span>
                                     </td>
@@ -237,7 +237,7 @@ export default function TarifasAdminPage() {
                         {/* Modal Header */}
                         <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                             <div>
-                                <h2 className="text-xl font-800 dark:text-white uppercase tracking-tight">Editor Manual de Tarifas</h2>
+                                <h2 className="text-xl font-extrabold dark:text-white uppercase tracking-tight">Editor Manual de Tarifas</h2>
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
                                     Consistencia: <span className="text-primary">backend_schema_v2</span>
                                 </p>
@@ -256,7 +256,7 @@ export default function TarifasAdminPage() {
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
                                     <Tag className="w-5 h-5" />
-                                    <h4 className="text-[11px] font-900 uppercase tracking-widest">Etiquetas de Identificación</h4>
+                                    <h4 className="text-[11px] font-black uppercase tracking-widest">Etiquetas de Identificación</h4>
                                 </div>
                                 <div className="grid grid-cols-1 gap-6">
                                     <div className="space-y-2">
@@ -364,7 +364,7 @@ export default function TarifasAdminPage() {
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
                                     <Zap className="w-5 h-5 fill-current" />
-                                    <h4 className="text-[11px] font-900 uppercase tracking-widest">Potencia / Power Capacity</h4>
+                                    <h4 className="text-[11px] font-black uppercase tracking-widest">Potencia / Power Capacity</h4>
                                 </div>
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
@@ -406,7 +406,7 @@ export default function TarifasAdminPage() {
                             <section className="space-y-6">
                                 <div className="flex items-center gap-3 text-primary">
                                     <CreditCard className="w-5 h-5" />
-                                    <h4 className="text-[11px] font-900 uppercase tracking-widest">Energía / Consumption Rates</h4>
+                                    <h4 className="text-[11px] font-black uppercase tracking-widest">Energía / Consumption Rates</h4>
                                 </div>
                                 <div className="space-y-6">
                                     <div className="space-y-2">
