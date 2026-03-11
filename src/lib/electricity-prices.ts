@@ -37,9 +37,10 @@ export async function getElectricityPrices(): Promise<ElectricityPriceData | nul
             headers: {
                 "x-api-key": TOKEN,
                 "Accept": "application/json; application/vnd.esios-api-v2+json",
+                "Content-Type": "application/json",
                 "User-Agent": "Mozilla/5.0"
             },
-            next: { revalidate: 3600 } // Volvemos a la caché de 1h
+            next: { revalidate: 3600 }
         });
 
         if (!response.ok) {
