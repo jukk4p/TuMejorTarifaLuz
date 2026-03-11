@@ -60,8 +60,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Grant permissions to nextjs user
-RUN chown -R nextjs:nodejs /app
+# Pre-create cache and data directories and grant permissions to nextjs user
+RUN mkdir -p .next/cache && chown -R nextjs:nodejs /app
 
 USER nextjs
 
