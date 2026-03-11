@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Bolt, User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert } from "lucide-react";
+import { Bolt, User, Lock, Eye, Check, Loader2, ArrowRight, ShieldAlert, ArrowLeft } from "lucide-react";
 
 export default function AdminLogin() {
     const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +25,15 @@ export default function AdminLogin() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"></div>
                 <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] dark:opacity-[0.05]" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, #137fec 1px, transparent 0)`, backgroundSize: '40px 40px' }}></div>
             </div>
+
+            {/* Back to Landing */}
+            <Link 
+                href="/" 
+                className="fixed top-6 left-6 md:top-10 md:left-10 z-50 flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-primary transition-all hover:-translate-x-1 shadow-sm"
+            >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                Volver a la web
+            </Link>
 
             <div className="relative z-10 w-full max-w-[450px] flex flex-col items-center">
                 {/* Logo Header */}
