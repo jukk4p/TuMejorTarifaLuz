@@ -5,7 +5,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Archive, BadgeCheck, Building2, Clock, PlusCircle, FileUp, RefreshCcw } from "lucide-react";
+import { Archive, BadgeCheck, Building2, Clock, PlusCircle, FileUp, RefreshCcw, Megaphone } from "lucide-react";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -150,6 +150,22 @@ export default function DashboardPage() {
                                     <RefreshCcw className="w-5 h-5" />
                                 </div>
                                 <span className="text-xs font-bold uppercase tracking-widest">Sincronizar API</span>
+                            </button>
+                            <button
+                                onClick={async () => {
+                                    const msg = prompt("Escribe el mensaje de la notificación global (Ej: Hemos añadido 10 nuevas tarifas):");
+                                    if (msg) {
+                                        const { notifySystemUpdate } = await import("@/lib/notifications");
+                                        await notifySystemUpdate("Nuevas Tarifas Disponibles", msg);
+                                        alert("¡Notificación global enviada!");
+                                    }
+                                }}
+                                className="w-full flex items-center gap-4 p-4 bg-primary/5 rounded-2xl hover:bg-primary/10 text-primary transition-all group border border-dashed border-primary/20"
+                            >
+                                <div className="p-2 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+                                    <Megaphone className="w-5 h-5" />
+                                </div>
+                                <span className="text-xs font-bold uppercase tracking-widest">Enviar Aviso Global</span>
                             </button>
                         </div>
                     </div>

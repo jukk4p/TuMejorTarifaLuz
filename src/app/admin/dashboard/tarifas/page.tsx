@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, updateDoc, deleteDoc, doc, writeBatch } from "firebase/firestore";
 import { INITIAL_TARIFFS } from "@/lib/initialTariffs";
-import { Search, RotateCcw, Plus, Edit2, Trash2, SearchX, X, Tag, Zap, CreditCard, Info } from "lucide-react";
+import { Search, RotateCcw, Plus, Edit2, Trash2, SearchX, X, Tag, Zap, CreditCard, Info, Megaphone } from "lucide-react";
+import { notifyTariffUpdate } from "@/lib/notifications";
 
 export default function TarifasAdminPage() {
     const router = useRouter();
@@ -18,6 +19,8 @@ export default function TarifasAdminPage() {
     const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [shouldNotify, setShouldNotify] = useState(false);
+    const [notifMessage, setNotifMessage] = useState("");
 
     const { tariffs: TARIFF_DATABASE } = useTariffs();
 
@@ -41,6 +44,8 @@ export default function TarifasAdminPage() {
             logo_url: ""
         });
         setSelectedIndex(tariff?.id ?? null);
+        setShouldNotify(false);
+        setNotifMessage("");
         setIsModalOpen(true);
     };
 
@@ -75,6 +80,14 @@ export default function TarifasAdminPage() {
                     e3_kwh: Number(payload.e3_kwh || 0),
                 };
                 await addDoc(collection(db, "tariffs"), cleanPayload);
+            }
+
+            if (shouldNotify) {
+                await notifyTariffUpdate(
+                    selectedTariff.name, 
+                    selectedTariff.company, 
+                    notifMessage || "Se han actualizado los precios y condiciones."
+                );
             }
 
             setIsModalOpen(false);
@@ -474,6 +487,40 @@ export default function TarifasAdminPage() {
                                     </p>
                                 </div>
                             </div>
+
+                            {/* Section: NOTIFICACIÓN */}
+                            <section className="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3 text-primary">
+                                        <Megaphone className="w-5 h-5" />
+                                        <h4 className="text-[11px] font-black uppercase tracking-widest">Notificar a Usuarios</h4>
+                                    </div>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input 
+                                            type="checkbox" 
+                                            className="sr-only peer" 
+                                            checked={shouldNotify}
+                                            onChange={() => setShouldNotify(!shouldNotify)}
+                                        />
+                                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                                
+                                {shouldNotify && (
+                                    <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Mensaje de la Notificación</label>
+                                            <textarea 
+                                                value={notifMessage}
+                                                onChange={(e) => setNotifMessage(e.target.value)}
+                                                placeholder="Ej: Bajada de precios en el tramo valle..."
+                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all min-h-[100px]"
+                                            ></textarea>
+                                            <p className="text-[10px] text-slate-400 italic">Este mensaje aparecerá en la campana de notificaciones de todos los usuarios registrados.</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </section>
                         </div>
 
                         {/* Modal Footer */}

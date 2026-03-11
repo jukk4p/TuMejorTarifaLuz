@@ -11,6 +11,7 @@ import React, { Suspense } from "react";
 import { Sun, Moon, User, LogOut, LogIn, Menu, X } from "lucide-react";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
+import NotificationBell from "./NotificationBell";
 
 function NavbarContent() {
     const { theme, setTheme } = useTheme();
@@ -85,6 +86,8 @@ function NavbarContent() {
 
                             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
 
+                            <NotificationBell />
+
                             {/* Theme Toggle */}
                             <button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -142,6 +145,7 @@ function NavbarContent() {
 
                         {/* Mobile controls */}
                         <div className="lg:hidden flex items-center gap-2">
+                            <NotificationBell />
                             <button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                                 className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all shadow-inner shrink-0"
