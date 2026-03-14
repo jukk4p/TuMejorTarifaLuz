@@ -293,9 +293,9 @@
     "type": "3 Periodos",
     "p1_kw_day": 0.0844,
     "p2_kw_day": 0.002,
-    "e1_kwh": 0.1709,
-    "e2_kwh": 0.1019,
-    "e3_kwh": 0.0839,
+    "e1_kwh": 0.1917,
+    "e2_kwh": 0.1227,
+    "e3_kwh": 0.1047,
     "permanence": false,
     "url": "https://sede.cnmc.gob.es/listado/censo/10"
   }
