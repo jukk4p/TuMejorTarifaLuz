@@ -64,10 +64,10 @@ export default function SupportSection() {
     ];
 
     return (
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-[0.2em] mb-8 relative inline-block">
                 APOYA EL PROYECTO
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-0.5 bg-primary"></span>
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-8 h-0.5 bg-primary"></span>
             </h4>
             
             <p className="text-sm leading-relaxed max-w-sm mb-6 text-slate-600 dark:text-slate-400">
@@ -85,8 +85,8 @@ export default function SupportSection() {
                 </button>
 
                 {isOpen && (
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 mb-3 w-64 bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200">
-                        <div className="px-3 pb-2 pt-1 border-b border-slate-100 dark:border-slate-800/50 mb-2">
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 mb-3 w-64 bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <div className="px-3 pb-2 pt-1 border-b border-slate-100 dark:border-slate-800/50 mb-2 text-center lg:text-left">
                             <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase">Elige una plataforma</span>
                         </div>
                         <div className="flex flex-col gap-1">
@@ -101,7 +101,7 @@ export default function SupportSection() {
                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${platform.bgColor} ${platform.iconColor} transition-transform group-hover:scale-105`}>
                                         {platform.icon}
                                     </div>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col text-left">
                                         <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{platform.name}</span>
                                         <span className="text-xs text-slate-500 dark:text-slate-400">{platform.description}</span>
                                     </div>
