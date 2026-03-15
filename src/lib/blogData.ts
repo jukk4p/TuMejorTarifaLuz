@@ -16,279 +16,372 @@ export const blogPosts: BlogPost[] = [
   {
     id: "guia-factura-luz-2026",
     slug: "como-leer-entender-factura-luz-2026",
-    title: "Guía Definitiva 2026: Cómo entender cada concepto de tu factura de la luz",
-    excerpt: "Desglosamos término a término tu recibo: potencia contratada, energía consumida, peajes e impuestos para que dejes de pagar por lo que no entiendes.",
+    title: "Guía Maestra 2026: Cómo descifrar cada concepto de tu factura eléctrica",
+    excerpt: "No permitas que la jerga técnica te confunda. Desglosamos paso a paso cada término de tu recibo para que detectes errores y optimices tu gasto mensual.",
     content: `
-      <h2>El laberinto del recibo eléctrico en 2026</h2>
-      <p>Entender la factura de la luz se ha convertido en un reto de ingeniería para la mayoría de los consumidores en España. Con los cambios normativos aplicados este 2026, han aparecido conceptos técnicos que pueden disparar tu gasto si no los vigilas de cerca.</p>
+      <h2>El laberinto del recibo eléctrico: Claves para el consumidor en 2026</h2>
+      <p>Entender la factura de la luz es el primer paso crítico para el ahorro real. Tras la última reforma energética, el recibo ha ganado en complejidad técnica, pero también en oportunidades para quienes saben dónde mirar.</p>
       
-      <div class="bg-primary/5 p-6 rounded-3xl border border-primary/10 my-10">
-        <h4 class="text-primary flex items-center gap-2 mb-3">
-          📊
-          Conceptos Clave para el Ahorro
+      <div class="bg-primary/5 p-8 rounded-[2rem] border border-primary/10 my-12">
+        <h4 class="text-primary font-900 uppercase tracking-widest text-xs flex items-center gap-3 mb-6">
+          <span class="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-lg">📊</span>
+          Desglose Táctico de Costes
         </h4>
-        <ul class="space-y-4">
-          <li class="flex gap-4">
-            <span class="font-900 text-primary">01.</span>
-            <span><strong>Término de Potencia (Fijo):</strong> Es el precio que pagas por la capacidad de conectar aparatos simultáneamente. Se mide en <strong>kW</strong> y representa el coste fijo de tu recibo.</span>
+        <ul class="space-y-6">
+          <li class="flex gap-5">
+            <span class="font-900 text-primary text-xl opacity-40">01.</span>
+            <div>
+              <p class="font-bold text-slate-900 dark:text-white mb-1">Término de Potencia (Peaje de Acceso)</p>
+              <p class="text-sm opacity-80 leading-relaxed">Es tu "coste fijo". Se paga por la capacidad de conectar dispositivos. Si nunca saltan los plomos, probablemente estés pagando de más por potencia que no usas.</p>
+            </div>
           </li>
-          <li class="flex gap-4">
-            <span class="font-900 text-primary">02.</span>
-            <span><strong>Término de Energía (Variable):</strong> El coste del consumo real medido en <strong>kWh</strong>. Aquí es donde la <strong>discriminación horaria</strong> juega su papel fundamental.</span>
+          <li class="flex gap-5">
+            <span class="font-900 text-primary text-xl opacity-40">02.</span>
+            <div>
+              <p class="font-bold text-slate-900 dark:text-white mb-1">Término de Energía (Consumo Real)</p>
+              <p class="text-sm opacity-80 leading-relaxed">El precio por cada kWh consumido. Aquí es donde la optimización de horarios y la elección de una tarifa adecuada (Fija vs Indexada) marcan la diferencia.</p>
+            </div>
           </li>
-          <li class="flex gap-4">
-            <span class="font-900 text-primary">03.</span>
-            <span><strong>Peajes e Impuestos:</strong> Los costes regulados que suponen casi el <strong>50% del total</strong> de lo que pagas cada mes.</span>
+          <li class="flex gap-5">
+            <span class="font-900 text-primary text-xl opacity-40">03.</span>
+            <div>
+              <p class="font-bold text-slate-900 dark:text-white mb-1">Impuestos y Cargos Regulados</p>
+              <p class="text-sm opacity-80 leading-relaxed">Incluye el Impuesto Eléctrico, el IVA (revisado en 2026) y el alquiler del contador. Representan casi la mitad del total de tu factura.</p>
+            </div>
           </li>
         </ul>
       </div>
 
-      <h3>Cómo optimizar según el tramo horario</h3>
-      <p>En el sistema actual, puedes optimizar tu gasto contratando potencias distintas para los diferentes tramos del día:</p>
+      <h3>Estrategia de Optimización por Tramos</h3>
+      <p>En el mercado actual, la flexibilidad es poder. Utilizar potencias diferenciadas para los tramos punta y valle permite, por ejemplo, mantener un coste fijo bajo durante el día y una potencia alta para cargar un vehículo eléctrico de noche sin penalizaciones.</p>
       
-      <div class="grid sm:grid-cols-2 gap-4 my-8">
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-          <p class="font-bold mb-1">Horas Punta ☀️</p>
-          <p class="text-sm">Menor potencia recomendada para ahorrar en el fijo.</p>
+      <div class="grid sm:grid-cols-2 gap-6 my-10">
+        <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800">
+          <p class="font-900 text-xs uppercase tracking-widest mb-3 opacity-50">Tramo Punta ☀️</p>
+          <p class="text-sm leading-relaxed">Mantén una potencia ajustada al mínimo necesario para las tareas domésticas esenciales. Es el tramo más caro para el término fijo.</p>
         </div>
-        <div class="p-4 bg-primary/10 rounded-2xl border border-primary/20">
-          <p class="font-bold text-primary mb-1">Horas Valle 🌙</p>
-          <p class="text-sm">Mayor potencia si necesitas cargar tu coche eléctrico.</p>
+        <div class="p-6 bg-primary/10 rounded-3xl border border-primary/20">
+          <p class="font-900 text-xs uppercase tracking-widest text-primary mb-3">Tramo Valle 🌙</p>
+          <p class="text-sm leading-relaxed text-slate-700 dark:text-slate-300">Aprovecha para configurar potencias superiores si tienes equipos de alta demanda nocturna, como acumuladores o aerotermia.</p>
         </div>
       </div>
 
-      <div class="bg-amber-50 dark:bg-amber-900/10 p-6 rounded-2xl border border-amber-200 dark:border-amber-900/30 my-8">
-        <p class="font-bold text-amber-800 dark:text-amber-400 mb-2 flex items-center gap-2">
-          💡
-          Consejo de Experto
+      <div class="bg-amber-50 dark:bg-amber-900/10 p-8 rounded-3xl border border-amber-200 dark:border-amber-900/30 my-10">
+        <p class="font-bold text-amber-800 dark:text-amber-400 mb-3 flex items-center gap-3">
+          <span class="text-xl">💡</span>
+          Veredicto del Analista
         </p>
-        <p class="text-sm">No pierdas tiempo con cálculos manuales. Nuestro <strong>comparador inteligente</strong> procesa estos datos automáticamente al subir tu PDF, analizando más de 50 tarifas en segundos.</p>
+        <p class="text-sm leading-relaxed">Analizar estos datos a mano es ineficiente. Nuestro algoritmo procesa miles de combinaciones tarifarias analizando directamente tu factura en PDF para ofrecerte el ahorro exacto sin margen de error.</p>
       </div>
     `,
     date: "2026-03-01",
     author: "Comité Experto",
     category: "Educación",
     image: "/guides/bill_expert_analysis.webp",
-    imageAlt: "Análisis experto de una factura de luz con desglose visual",
+    imageAlt: "Análisis técnico detallado de una factura de luz moderna",
     readTime: "7 min"
   },
   {
     id: "mercado-libre-vs-regulado",
     slug: "mercado-libre-vs-pvpc-cual-es-mejor-para-ti",
-    title: "Mercado Libre vs Regulado (PVPC): ¿Cuál es más rentable en 2026?",
-    excerpt: "Analizamos el nuevo sistema de cálculo del PVPC frente a las tarifas fijas del mercado libre tras la reforma energética.",
+    title: "Mercado Libre vs Regulado (PVPC): El Análisis Definitivo tras la Reforma",
+    excerpt: "Tras los últimos cambios legislativos de 2026, la comparativa entre tarifas indexadas y fijas ha dado un giro. ¿Cuál protege mejor tu bolsillo?",
     content: `
-      <h2>¿Dónde está el ahorro real: Mercado Libre o PVPC?</h2>
-      <p>La elección entre el mercado regulado y el libre ya no es una cuestión de azar, sino de **perfil de consumo**. Tras la reforma del 2026, las reglas han cambiado.</p>
+      <h2>¿Seguridad o volatilidad? El dilema energético en 2026</h2>
+      <p>La elección entre el mercado regulado (PVPC) y el mercado libre ya no es una cuestión de blanco o negro. En el escenario actual, la volatilidad geopolítica hace que las estrategias de ahorro deban ser más dinámicas que nunca.</p>
       
-      <div class="overflow-x-auto my-10">
-        <table class="w-full text-left border-collapse rounded-2xl overflow-hidden shadow-sm">
+      <div class="overflow-x-auto my-12">
+        <table class="w-full text-left border-collapse rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
           <thead>
             <tr class="bg-slate-900 text-white">
-              <th class="p-4 font-bold">Característica</th>
-              <th class="p-4 font-bold">Regulado (PVPC)</th>
-              <th class="p-4 font-bold">Mercado Libre</th>
+              <th class="p-6 font-bold uppercase tracking-widest text-xs">Atributo</th>
+              <th class="p-6 font-bold uppercase tracking-widest text-xs">PVPC (Regulado)</th>
+              <th class="p-6 font-bold uppercase tracking-widest text-xs">Mercado Libre</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-            <tr>
-              <td class="p-4 font-bold">Precio</td>
-              <td class="p-4 text-sm">Cambia cada hora (Variable)</td>
-              <td class="p-4 text-sm">Acordado con la Cía (Fijo o Var)</td>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+              <td class="p-6 font-bold text-slate-900 dark:text-white">Precio Energía</td>
+              <td class="p-6 text-sm">Cambia cada hora (Pool)</td>
+              <td class="p-6 text-sm">Precio pactado (Fijo/Híbrido)</td>
             </tr>
-            <tr>
-              <td class="p-4 font-bold">Bono Social</td>
-              <td class="p-4 text-sm">✅ Sí (Única opción)</td>
-              <td class="p-4 text-sm">❌ No disponible</td>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+              <td class="p-6 font-bold text-slate-900 dark:text-white">Bono Social</td>
+              <td class="p-6 text-sm font-bold text-emerald-600">✅ Compatible</td>
+              <td class="p-6 text-sm text-rose-600">❌ No compatible</td>
             </tr>
-            <tr>
-              <td class="p-4 font-bold">Transparencia</td>
-              <td class="p-4 text-sm">Máxima (Precios BOE)</td>
-              <td class="p-4 text-sm">Variable (Según contrato)</td>
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+              <td class="p-6 font-bold text-slate-900 dark:text-white">Estabilidad</td>
+              <td class="p-6 text-sm italic">Baja (Riesgo mercado)</td>
+              <td class="p-6 text-sm font-medium">Alta (Previsibilidad total)</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>¿Cuándo interesa el Mercado Regulado?</h3>
-      <p>Es la opción ideal si eres beneficiario del <strong>Bono Social</strong> o si tienes gran flexibilidad para desplazar tus consumos intensivos a las horas de madrugada y fines de semana. La transparencia es total, pero te expones a la volatilidad del mercado mayorista.</p>
+      <h3>Escenarios Recomendados según Perfil</h3>
+      <p>Si tu prioridad es la **estabilidad presupuestaria**, el mercado libre con tarifas fijas competitivas es tu mejor aliado este año. Evitas sorpresas ante picos de demanda invernales o crisis internacionales.</p>
       
-      <h3>¿Cuándo elegir el Mercado Libre?</h3>
-      <p>Si buscas <strong>tranquilidad y estabilidad</strong>. Con una tarifa fija 24h, pagas lo mismo sin importar la hora. En 2026, muchas comercializadoras ofrecen promociones agresivas que pueden incluso batir al PVPC si no eres un "expert" desplazando consumos.</p>
+      <p>Por otro lado, el **PVPC** sigue siendo la opción ganadora para usuarios que pueden automatizar el 80% de su consumo en horas de madrugada o fines de semana, y es imperativo para quienes cumplen los requisitos del Bono Social.</p>
 
-      <div class="border-l-4 border-primary pl-6 py-2 my-8 italic text-slate-500">
-        "El ahorro no depende de quién te venda la luz, sino de cómo y cuándo la utilizas. Analizamos más de 50 tarifas diarias para encontrar tu match perfecto."
+      <div class="border-l-4 border-primary pl-8 py-4 my-12 italic text-slate-600 dark:text-slate-400 font-medium text-lg leading-relaxed">
+        "No existe la mejor tarifa universal, existe la mejor tarifa para TU perfil de consumo. Ignorar esto es perder hasta un 30% de ahorro potencial."
       </div>
     `,
     date: "2026-02-26",
     author: "Dpto. de Análisis",
     category: "Comparativa",
     image: "/guides/market_comparison.webp",
-    imageAlt: "Tabla comparativa de mercados eléctricos para el ahorro",
+    imageAlt: "Comparativa técnica profesional de mercados eléctricos",
     readTime: "8 min"
+  },
+  {
+    id: "reclamar-factura-luz-excesiva",
+    slug: "guia-paso-a-paso-reclamar-factura-luz-excesiva-errores",
+    title: "Cómo reclamar una factura de luz excesiva: Guía de Derechos 2026",
+    excerpt: "¿Crees que tu contador está mal o te han cobrado de más? Te explicamos el proceso legal exacto para reclamar a tu compañía y recuperar tu dinero.",
+    content: `
+      <h2>Tus derechos como consumidor frente a las eléctricas</h2>
+      <p>Las lecturas estimadas incorrectas y los errores en el peaje de acceso son las principales causas de facturaciones hinchadas. En 2026, la normativa protege al usuario, pero es fundamental seguir los pasos legales correctos para que tu reclamación sea efectiva.</p>
+      
+      <div class="space-y-6 my-12">
+        <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
+          <h4 class="font-900 text-slate-900 dark:text-white mb-4 text-lg">1. Reclamación Directa (Atención al Cliente)</h4>
+          <p class="text-sm leading-relaxed opacity-80">El primer paso es siempre contactar con tu comercializadora. Debes solicitar un **número de incidencia**. Sin este código, no podrás escalar tu caso a organismos superiores.</p>
+        </div>
+        
+        <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
+          <h4 class="font-900 text-slate-900 dark:text-white mb-4 text-lg">2. Junta Arbitral de Consumo u OMIC</h4>
+          <p class="text-sm leading-relaxed opacity-80">Si en 30 días no tienes respuesta o esta es insatisfactoria, acude a la **OMIC** de tu ayuntamiento. El arbitraje de consumo es un proceso gratuito y vinculante para las empresas adheridas.</p>
+        </div>
+
+        <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
+          <h4 class="font-900 text-slate-900 dark:text-white mb-4 text-lg">3. Ministerio para la Transición Ecológica</h4>
+          <p class="text-sm leading-relaxed opacity-80">Para casos técnicos complejos relacionados con el contador o la red, puedes elevar tu queja a la **Dirección General de Energía** de tu comunidad autónoma.</p>
+        </div>
+      </div>
+
+      <div class="bg-rose-50 dark:bg-rose-900/10 p-8 rounded-3xl border border-rose-200 dark:border-rose-900/30 my-10">
+        <h4 class="text-rose-800 dark:text-rose-400 font-bold mb-3 flex items-center gap-3">
+          <span class="text-xl">⚠️</span>
+          Importante: No devuelvas el recibo sin avisar
+        </h4>
+        <p class="text-sm leading-relaxed text-rose-900/80 dark:text-rose-400/80">Devolver un recibo bancario sin haber iniciado un proceso de reclamación oficial puede conllevar intereses de demora o incluso el corte de suministro. Reclama primero, paga bajo protesta si es necesario, pero mantén siempre cubiertas las bases legales.</p>
+      </div>
+
+      <h3>Consejo experto: Documenta todo</h3>
+      <p>Haz fotos a tu contador el mismo día que recibes la factura. Esta prueba visual es irrefutable en un proceso de arbitraje si la lectura de la factura no coincide con la realidad.</p>
+    `,
+    date: "2026-03-12",
+    author: "Asesoría Jurídica",
+    category: "Educación",
+    image: "/guides/legal_claim.webp",
+    imageAlt: "Documentación legal y factura de luz para proceso de reclamación",
+    readTime: "9 min"
+  },
+  {
+    id: "etiquetado-energetico-electrodomesticos",
+    slug: "nuevo-etiquetado-energetico-electrodomesticos-ahorro-luz",
+    title: "Etiquetado Energético: Cómo elegir electrodomésticos que se pagan solos",
+    excerpt: "La diferencia entre una lavadora Clase A y una Clase F puede suponer 800€ de ahorro a lo largo de su vida útil. Aprende a leer la nueva etiqueta.",
+    content: `
+      <h2>Más allá de las letras: La rentabilidad de la eficiencia</h2>
+      <p>A menudo compramos el electrodoméstico más barato fijándonos solo en el precio del ticket. Sin embargo, un aparato eficiente es una inversión financiera con un retorno garantizado a través de tu factura de luz.</p>
+      
+      <div class="grid sm:grid-cols-2 gap-8 my-12">
+        <div class="p-8 bg-emerald-50 dark:bg-emerald-900/10 rounded-[2rem] border border-emerald-100 dark:border-emerald-900/30">
+          <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-emerald-500/20">A</div>
+          <h4 class="font-bold text-emerald-900 dark:text-emerald-400 mb-2">Clase A (Máxima Eficiencia)</h4>
+          <p class="text-xs leading-relaxed opacity-80">Tecnología punta, menor consumo de agua y energía. Amortización rápida en hogares con uso intensivo.</p>
+        </div>
+        <div class="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+          <div class="w-12 h-12 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-2xl mb-6 shadow-lg shadow-rose-500/20">G</div>
+          <h4 class="font-bold text-slate-900 dark:text-white mb-2">Clase G (Mínima Eficiencia)</h4>
+          <p class="text-xs leading-relaxed opacity-80">Precio inicial bajo, pero coste operativo disparado. Acaba costando el doble al cabo de 5 años.</p>
+        </div>
+      </div>
+
+      <h3>¿Qué ha cambiado en las etiquetas?</h3>
+      <p>Desde la última actualización, se han eliminado las confusas categorías A+, A++ y A+++. Ahora la escala es de la **A a la G**, siendo más rigurosa y dejando espacio para futuras innovaciones tecnológicas que superen los estándares actuales.</p>
+      
+      <div class="bg-primary/5 p-8 rounded-3xl border border-primary/10 my-10">
+        <h4 class="text-primary font-bold mb-4">La regla del 10/10</h4>
+        <p class="text-sm leading-relaxed mb-6">
+          Un electrodoméstico eficiente Clase A suele costar un 20% más, pero reduce el consumo operativo en un 40%. En una familia media, esto supone recuperar la inversión en menos de **2 años**.
+        </p>
+        <div class="flex gap-4">
+          <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-widest border border-slate-100 dark:border-slate-700">Inversión Inteligente</div>
+          <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-[10px] font-bold uppercase tracking-widest border border-slate-100 dark:border-slate-700">Ahorro Largo Plazo</div>
+        </div>
+      </div>
+
+      <h3>Dato curioso: El Código QR</h3>
+      <p>Todas las nuevas etiquetas incluyen un **Código QR**. Al escanearlo, accedes directamente a la base de datos europea (EPREL) con detalles técnicos exhaustivos que no caben en el cartón, como el ruido exacto o el consumo por cada 100 ciclos.</p>
+    `,
+    date: "2026-03-10",
+    author: "Consultoría de Consumo",
+    category: "Ahorro",
+    image: "/guides/energy_label.webp",
+    imageAlt: "Nueva etiqueta de eficiencia energética A-G para electrodomésticos",
+    readTime: "6 min"
   },
   {
     id: "optimizacion-potencia-ahorro",
     slug: "como-reducir-potencia-contratada-luz-ahorrar",
-    title: "Optimización de Potencia: El ahorro que el 90% de los usuarios ignora",
-    excerpt: "Te enseñamos a identificar si tienes contratada más potencia de la necesaria y cómo ajustarla para ahorrar hasta 150€ al año.",
+    title: "Optimización de Potencia: El ahorro oculto que el 90% ignora",
+    excerpt: "No pagues por una capacidad que no utilizas. Te enseñamos a ajustar tu potencia contratada para ahorrar hasta 150€ anuales sin riesgos.",
     content: `
-      <h2>Paga solo por la potencia que realmente utilizas</h2>
-      <p>Casi el 70% de los hogares españoles tienen contratada una potencia superior a la que necesitan "por si acaso". Este miedo a que "salten los plomos" cuesta de media <strong>50€ anuales por cada kW de exceso</strong>.</p>
+      <h2>Paga solo por lo que necesitas conectar</h2>
+      <p>En España, el exceso de potencia contratada es el "impuesto silencioso" más común. La mayoría de hogares mantienen una potencia sobredimensionada por miedo a cortes inoportunos, ignorando que los contadores inteligentes actuales permiten una gestión mucho más fina.</p>
       
-      <div class="bg-slate-900 text-white p-8 rounded-3xl my-10 relative overflow-hidden">
+      <div class="bg-slate-900 text-white p-10 rounded-[2.5rem] my-12 relative overflow-hidden shadow-2xl">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div class="relative z-10">
-          <h4 class="text-primary font-bold mb-4">¿Cómo saber si te sobra potencia?</h4>
-          <p class="text-sm text-slate-300 leading-relaxed mb-6">
-            Si nunca han saltado las protecciones de tu cuadro eléctrico al encender simultáneamente el horno, la lavadora y el aire acondicionado, tienes margen de mejora.
-          </p>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-              ⚡
-              <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Paso 1</p>
-              <p class="text-sm">Consulta tu <strong>pico máximo</strong> en la web de tu distribuidora.</p>
+          <h4 class="text-primary font-900 uppercase tracking-widest text-xs mb-6">Metodología de Ajuste</h4>
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-xl">🔍</div>
+              <p class="font-bold">Análisis de Picos</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Accede al área de cliente de tu distribuidora y descarga el histórico de <strong>picos máximos</strong> de los últimos 12 meses.</p>
             </div>
-            <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-              📝
-              <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Paso 2</p>
-              <p class="text-sm">Ajusta tu potencia a ese máximo + un pequeño margen.</p>
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-xl">📉</div>
+              <p class="font-bold">Ajuste Dinámico</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Si tu pico máximo fue de 3.4kW y tienes contratados 4.6kW, estás regalando dinero cada mes. Baja a 3.5kW con total seguridad.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <h3>Doble potencia: Una oportunidad de ahorro</h3>
-      <p>Recuerda que puedes contratar potencias distintas en los tramos <strong>Punta y Valle</strong>. Si cargas un coche eléctrico de noche, podrías subir la potencia en el tramo valle (más barato) y mantener una potencia mínima en el tramo punta.</p>
+      <h3>Doble potencia: Estrategia para vehículos eléctricos</h3>
+      <p>Es vital recordar que puedes configurar potencias distintas para los tramos **Punta y Valle**. Esto es crucial si cargas un coche eléctrico: puedes tener una potencia baja de día (3.3kW) y subirla a 7.4kW de noche para cargar rápido y barato.</p>
       
-      <div class="flex items-start gap-4 p-6 bg-primary/5 rounded-2xl border border-primary/10 my-8">
-        ℹ️
-        <div>
-          <p class="text-sm">Tu comercializadora puede cobrarte un pequeño trámite por el cambio (aprox. 10€), pero lo amortizarás en apenas dos meses con el ahorro generado.</p>
-        </div>
+      <div class="p-8 bg-primary/5 rounded-3xl border border-primary/10 my-10 flex gap-6 italic leading-relaxed text-slate-600 dark:text-slate-400">
+        <span class="text-3xl text-primary opacity-30 select-none">"</span>
+        El coste de bajar la potencia es mínimo (aprox. 11€), mientras que el ahorro en el término fijo se refleja desde el primer mes. Es la acción con mejor ROI del ahorro energético.
       </div>
     `,
     date: "2026-02-20",
     author: "Equipo Técnico",
     category: "Ahorro",
     image: "/guides/energy_efficiency.webp",
-    imageAlt: "Optimización de potencia eléctrica con guía de pasos",
+    imageAlt: "Dashboard de optimización de potencia y eficiencia energética",
     readTime: "6 min"
   },
   {
     id: "discriminacion-horaria-estrategias",
     slug: "discriminacion-horaria-horas-valle-llano-punta-como-ahorrar",
-    title: "Discriminación Horaria: Estrategias para reducir un 40% tu gasto",
-    excerpt: "Domina los tramos Punta, Llano y Valle. Estrategias prácticas para desplazar consumos críticos a las horas más económicas en 2026.",
+    title: "Ingeniería de Hábitos: Estrategias de Discriminación Horaria",
+    excerpt: "No se trata de vivir a oscuras, sino de saber cuándo pulsar el botón. Te damos las claves para desplazar consumos sin perder confort.",
     content: `
-      <h2>Domina el reloj para dominar tu factura</h2>
-      <p>La discriminación horaria no significa cambiar tu estilo de vida, sino aplicar <strong>inteligencia energética</strong>. Pequeños ajustes en el horario de tus electrodomésticos pueden suponer una diferencia abismal.</p>
+      <h2>Domina el reloj biológico de tu casa</h2>
+      <p>La discriminación horaria es la herramienta más potente para usuarios activos. Pequeños cambios en la programación de tus electrodomésticos pueden traducirse en una reducción del 40% en el término de energía.</p>
       
-      <div class="grid gap-4 my-10">
-        <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          ✅
+      <div class="grid gap-6 my-12">
+        <div class="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-start gap-6 group hover:border-primary/30 transition-all">
+          <span class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">🚿</span>
           <div>
-            <p class="font-bold">Ciclos de lavado programados</p>
-            <p class="text-sm opacity-70">Usa el inicio diferido para que terminen a las 08:00 AM.</p>
+            <p class="font-bold text-slate-900 dark:text-white mb-2">Termos Eléctricos Inteligentes</p>
+            <p class="text-sm opacity-70 leading-relaxed">Usa un temporizador para que el agua se caliente exclusivamente de 00:00 a 08:00. El aislamiento del termo la mantendrá caliente todo el día.</p>
           </div>
         </div>
-        <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          ✅
+        <div class="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-start gap-6 group hover:border-primary/30 transition-all">
+          <span class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">🧺</span>
           <div>
-            <p class="font-bold">Termos eléctricos con temporizador</p>
-            <p class="text-sm opacity-70">Calienta el agua solo durante el tramo Valle.</p>
-          </div>
-        </div>
-        <div class="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-          ✅
-          <div>
-            <p class="font-bold">Cocina por lotes (Batch Cooking)</p>
-            <p class="text-sm opacity-70">Usa el horno y la vitro en bloque durante el fin de semana.</p>
+            <p class="font-bold text-slate-900 dark:text-white mb-2">Programación Diferida</p>
+            <p class="text-sm opacity-70 leading-relaxed">Configura la lavadora y el lavavajillas para que terminen su ciclo justo antes de que empiece la hora punta de la mañana (08:00 AM).</p>
           </div>
         </div>
       </div>
 
-      <h3>Los tres tramos que debes conocer</h3>
-      <p>Consulta nuestro gráfico de precios en tiempo real para planificar tu jornada y maximizar el ahorro diario.</p>
-
-      <div class="p-6 bg-amber-50 dark:bg-amber-900/10 rounded-2xl border border-amber-200 dark:border-amber-900/30 my-8 flex gap-4">
-        ⚠️
-        <p class="text-sm"><strong>Evita las horas Punta (10-14h y 18-22h)</strong> para actividades de alto consumo. Es cuando la red está más saturada y el precio se dispara.</p>
-      </div>
+      <h3>El Mapa de los Tres Tramos</h3>
+      <p>Es vital tener interiorizado el semáforo energético:</p>
+      <ul class="space-y-4 my-8">
+        <li class="flex items-center gap-3 text-sm"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> <strong>Valle:</strong> 00:00 - 08:00h y fines de semana. Barra libre de ahorro.</li>
+        <li class="flex items-center gap-3 text-sm"><span class="w-2 h-2 rounded-full bg-amber-500"></span> <strong>Llano:</strong> Tramos intermedios durante el día. Coste moderado.</li>
+        <li class="flex items-center gap-3 text-sm"><span class="w-2 h-2 rounded-full bg-rose-500"></span> <strong>Punta:</strong> 10-14h y 18-22h. Evita consumos pesados a toda costa.</li>
+      </ul>
     `,
     date: "2026-02-15",
     author: "Estratega Energético",
     category: "Estrategia",
     image: "/guides/electricity_clock.webp",
-    imageAlt: "Infografía de tramos horarios punta llano y valle para ahorro de luz",
+    imageAlt: "Estrategias visuales para el uso de energía en horas económicas",
     readTime: "5 min"
   },
   {
     id: "autoconsumo-solar-pisos",
     slug: "autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad",
-    title: "Autoconsumo Solar en Pisos: ¿Es rentable en 2026?",
-    excerpt: "Todo sobre el autoconsumo compartido, subvenciones y plazos de amortización para comunidades de vecinos en España.",
+    title: "Energía Solar en Comunidades: El Despegue del Autoconsumo Colectivo",
+    excerpt: "Ya no necesitas una casa unifamiliar para producir tu propia energía. Resolvemos el enigma de las instalaciones en bloques de pisos.",
     content: `
-      <h2>Energía limpia sin necesidad de tejado propio</h2>
-      <p>El <strong>autoconsumo colectivo</strong> ha revolucionado el panorama energético en España. Ya no necesitas un chalet para disfrutar de la energía solar; ahora puedes compartir una instalación en tu comunidad de vecinos.</p>
+      <h2>Tu tejado comunitario: Una mina de oro energética</h2>
+      <p>España ha pasado de las trabas al sol a ser el paraíso del **autoconsumo compartido**. En 2026, los coeficientes de reparto dinámicos permiten que una comunidad de vecinos amortice su instalación en tiempo récord.</p>
       
-      <div class="grid sm:grid-cols-2 gap-6 my-10">
-        <div class="p-6 bg-emerald-50 dark:bg-emerald-900/10 rounded-3xl border border-emerald-100 dark:border-emerald-900/30">
-          <h4 class="text-emerald-900 dark:text-emerald-400 font-bold mb-3">Beneficios Directos</h4>
-          <ul class="space-y-2 text-sm">
-            <li class="flex items-center gap-2 font-medium">✨ Rebaja en IBI y Tasas</li>
-            <li class="flex items-center gap-2 font-medium">🛠️ Bajo coste de mantenimiento</li>
-            <li class="flex items-center gap-2 font-medium">📈 Revalorización del edificio</li>
+      <div class="grid sm:grid-cols-2 gap-8 my-12">
+        <div class="p-8 bg-emerald-50 dark:bg-emerald-900/10 rounded-[2rem] border border-emerald-100 dark:border-emerald-900/30">
+          <h4 class="text-emerald-900 dark:text-emerald-400 font-900 uppercase tracking-widest text-[10px] mb-4">Ventajas de Grupo</h4>
+          <ul class="space-y-3 text-sm font-medium">
+            <li class="flex items-center gap-3">🌟 Reducción del IBI (Hasta 50%)</li>
+            <li class="flex items-center gap-3">🌟 Mantenimiento compartido</li>
+            <li class="flex items-center gap-3">🌟 Independencia de la red</li>
           </ul>
         </div>
-        <div class="p-6 bg-sky-50 dark:bg-sky-900/10 rounded-3xl border border-sky-100 dark:border-sky-900/30">
-          <h4 class="text-sky-900 dark:text-sky-400 font-bold mb-3">Retorno de Inversión</h4>
-          <p class="text-2xl font-900 text-sky-600 mb-1">4-6 años</p>
-          <p class="text-xs opacity-70 italic text-sky-800 dark:text-sky-500">Plazo medio de amortización incluyendo ayudas públicas.</p>
+        <div class="p-8 bg-sky-50 dark:bg-sky-900/10 rounded-[2rem] border border-sky-100 dark:border-sky-900/30 flex flex-col justify-center">
+          <p class="text-[10px] font-900 uppercase tracking-widest text-sky-800 dark:text-sky-400 mb-2">Retorno Estimado</p>
+          <p class="text-4xl font-900 text-sky-600 mb-2">~4.5 años</p>
+          <p class="text-xs opacity-70 italic leading-relaxed text-sky-900 dark:text-sky-500">Calculado bajo el actual sistema de subvenciones europeas NextGen 2026.</p>
         </div>
       </div>
 
-      <h3>¿Cómo funciona el reparto de energía?</h3>
-      <p>La energía generada por las placas se reparte entre los vecinos según coeficientes acordados (normalmente por cuota de participación o consumo). Esto permite reducir la dependencia de la red eléctrica de forma solidaria.</p>
+      <h3>¿Cómo se reparte la luz generada?</h3>
+      <p>La energía se distribuye a través de la red de la distribuidora mediante un contrato de autoconsumo colectivo. No necesitas cables adicionales desde el tejado a tu casa; todo se gestiona virtualmente en tu contador inteligente.</p>
     `,
     date: "2026-02-10",
     author: "Consultoría Solar",
     category: "Solar",
     image: "/guides/solar_panels.webp",
-    imageAlt: "Paneles solares en edificio residencial con indicadores de ahorro",
+    imageAlt: "Instalación de paneles solares fotovoltaicos en azotea comunitaria",
     readTime: "9 min"
   },
   {
     id: "guia-carga-coche-electrico",
     slug: "mejor-tarifa-luz-coche-electrico-recarga-nocturna",
-    title: "Cargar el Coche Eléctrico en Casa: Guía definitiva para ahorrar",
-    excerpt: "Analizamos las mejores tarifas para VE y cómo aprovechar la potencia en horas valle para cargar por menos de 2€.",
+    title: "Movilidad Eléctrica: Guía de Carga y Optimización en el Hogar",
+    excerpt: "Cargar tu vehículo por menos de 2€ es posible. Analizamos las tarifas especiales de VE y la configuración ideal de tu Wallbox.",
     content: `
-      <h2>Convierte tu garaje en tu propia estación de servicio low-cost</h2>
-      <p>Tener un vehículo eléctrico solo es verdaderamente rentable si optimizas la carga en casa. Cargar la batería durante las <strong>horas valle (00:00 a 08:00)</strong> puede costar hasta diez veces menos que en la vía pública.</p>
+      <h2>Tu garaje: La gasolinera más barata del mundo</h2>
+      <p>El coche eléctrico es el mejor ahorrador si conoces las reglas del juego. Cargar en casa durante la noche no es solo cómodo, es hasta **diez veces más económico** que usar la infraestructura de carga pública.</p>
       
-      <div class="bg-primary p-8 rounded-[2rem] text-white my-10 shadow-lg shadow-primary/20 bg-gradient-to-br from-primary to-primary-dark">
-        <h4 class="text-white font-bold mb-4 flex items-center gap-2">
-          🚗🔋
-          La Regla de Oro del VE
+      <div class="bg-primary p-10 rounded-[2.5rem] text-white my-12 shadow-2xl bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24 blur-2xl"></div>
+        <h4 class="text-white font-900 uppercase tracking-widest text-xs mb-6 flex items-center gap-3">
+          <span class="text-xl">⚡</span>
+          KPIs del Ahorro en Movilidad
         </h4>
-        <p class="text-sm opacity-90 leading-relaxed mb-6">
-          No siempre necesitas la máxima potencia de carga. Una carga lenta a <strong>3.7kW</strong> durante 8 horas es suficiente para la mayoría de desplazamientos diarios.
-        </p>
-        <div class="p-4 bg-white/10 rounded-2xl border border-white/20">
-          <p class="text-xs font-bold uppercase tracking-widest text-primary-light mb-1">Dato Clave</p>
-          <p class="text-lg font-bold">Ahorro de hasta 1.200€ al año</p>
-          <p class="text-[10px] opacity-70">Comparado con el gasto en combustible fósil convencional.</p>
+        <div class="grid sm:grid-cols-2 gap-8">
+          <div class="p-6 bg-white/10 rounded-3xl border border-white/20">
+            <p class="text-[10px] font-bold uppercase tracking-widest opacity-60 mb-2">Coste 100km</p>
+            <p class="text-2xl font-900 text-white">1.35€ (aprox)</p>
+          </div>
+          <div class="p-6 bg-white/10 rounded-3xl border border-white/20">
+            <p class="text-[10px] font-bold uppercase tracking-widest opacity-60 mb-2">Ahorro vs Diesel</p>
+            <p class="text-2xl font-900 text-white">~1.400€/año</p>
+          </div>
         </div>
       </div>
 
-      <h3>Encuentra tu tarifa ideal</h3>
-      <p>Utiliza nuestra herramienta para encontrar la <strong>tarifa especial VE</strong> que mejor se adapte a tus kilómetros anuales y potencia necesaria.</p>
+      <h3>La importancia de una tarifa específica para VE</h3>
+      <p>Muchas comercializadoras ofrecen una **"Cero Horas"** (0.00€/kWh de 01:00 a 07:00). Si tus desplazamientos son predecibles, estas tarifas permiten que el coste de tu movilidad sea prácticamente anecdótico comparado con el combustible convencional.</p>
     `,
     date: "2026-03-05",
     author: "Movilidad Sostenible",
     category: "Movilidad",
     image: "/guides/ev_charging.webp",
-    imageAlt: "Carga de vehículo eléctrico optimizada con gráfico de ahorro nocturno",
+    imageAlt: "Carga doméstica inteligente de coche eléctrico conectada a smartphone",
     readTime: "7 min"
   },
   {
@@ -386,5 +479,80 @@ export const blogPosts: BlogPost[] = [
     image: "/guides/electricity_clock.webp",
     imageAlt: "Guía visual de horarios valle llano y punta para 2026",
     readTime: "8 min"
+  },
+  {
+    id: "aerotermia-ahorro-calefaccion",
+    slug: "aerotermia-que-es-ahorro-calefaccion-rentabilidad",
+    title: "Aerotermia: ¿Es realmente la clave del ahorro total en 2026?",
+    excerpt: "Analizamos el sistema de climatización que está jubilando al gas. Descubre su rentabilidad, coste de instalación y cómo reduce tu factura un 70%.",
+    content: `
+      <h2>Adiós a los combustibles fósiles: La era de la aerotermia</h2>
+      <p>La aerotermia se ha consolidado en 2026 como la tecnología reina de la eficiencia doméstica. Extrae hasta el **75% de la energía del aire exterior** (incluso bajo cero) para calentar o refrigerar tu hogar y producir agua caliente.</p>
+      
+      <div class="bg-primary/5 p-10 rounded-[2.5rem] border border-primary/10 my-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+        <h4 class="text-primary font-900 uppercase tracking-widest text-[10px] mb-6">Rendimiento Técnico (COP)</h4>
+        <div class="grid sm:grid-cols-2 gap-8">
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+            <p class="text-3xl font-900 text-slate-900 dark:text-white mb-2">1:4</p>
+            <p class="text-[10px] opacity-70 leading-relaxed">Por cada 1kW eléctrico consumido, la aerotermia entrega 4kW de calor. Un 400% de eficiencia frente al 95% de una caldera de gas.</p>
+          </div>
+          <div class="p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+            <p class="text-3xl font-900 text-emerald-600 mb-2">-70%</p>
+            <p class="text-[10px] opacity-70 leading-relaxed">Ahorro medio en la factura de calefacción comparado con sistemas de gasóleo o gas natural.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>¿Cuándo es rentable la inversión?</h3>
+      <p>Aunque el coste inicial es superior al de una caldera convencional, las subvenciones europeas vigentes en 2026 y el ahorro operativo mensual permiten amortizar la instalación en un periodo de **4 a 6 años**. Si además cuentas con placas solares, el coste de climatización puede llegar a ser virtualmente cero.</p>
+      
+      <div class="p-8 bg-slate-900 text-white rounded-3xl my-10">
+        <h4 class="text-primary-light font-bold mb-4">Integración con Suelo Radiante</h4>
+        <p class="text-sm opacity-80 leading-relaxed">La aerotermia trabaja de forma óptima a baja temperatura, lo que la convierte en la pareja perfecta del suelo radiante o los radiadores de baja temperatura. Menos calor desperdiciado, más confort táctil.</p>
+      </div>
+    `,
+    date: "2026-03-14",
+    author: "Ingeniería Térmica",
+    category: "Climatización",
+    image: "/guides/aerotermia.webp",
+    imageAlt: "Unidad de aerotermia moderna instalada en vivienda eficiente",
+    readTime: "8 min"
+  },
+  {
+    id: "auditoria-energetica-casera",
+    slug: "como-hacer-auditoria-energetica-casera-deteccion-fugas",
+    title: "Auditoría Energética Casera: 5 Pasos para Detectar Fugas de Dinero",
+    excerpt: "No necesitas un experto para empezar a ahorrar. Te enseñamos a identificar los puntos críticos de pérdida de energía en tu vivienda.",
+    content: `
+      <h2>Tu casa bajo el microscopio energético</h2>
+      <p>A menudo buscamos la tarifa más barata pero ignoramos que nuestra vivienda está "perdiendo" energía por rincones invisibles. Una auditoría casera puede reducir tu demanda de energía hasta en un 20% con cambios de bajo coste.</p>
+      
+      <div class="space-y-6 my-12">
+        <div class="p-8 bg-amber-50 dark:bg-amber-900/10 rounded-3xl border border-amber-200 dark:border-amber-900/30">
+          <h4 class="font-bold text-amber-900 dark:text-amber-400 mb-2">1. El Test de la Vela (Estanqueidad)</h4>
+          <p class="text-sm opacity-80">Pasa una vela encendida cerca de marcos de puertas y ventanas. Si la llama oscila, tienes un puente térmico. Solución: Burletes de silicona (Inversión: 10€).</p>
+        </div>
+        
+        <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800">
+          <h4 class="font-bold text-slate-900 dark:text-white mb-2">2. El Misterio del Stand-by</h4>
+          <p class="text-sm opacity-80">Los "vampiros energéticos" (luces rojas de la TV, cargadores, routers) pueden suponer el 10% de tu recibo. Usa regletas con interruptor para el "apagado total" nocturno.</p>
+        </div>
+
+        <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800">
+          <h4 class="font-bold text-slate-900 dark:text-white mb-2">3. Aislamiento de Persianas</h4>
+          <p class="text-sm opacity-80">El cajón de la persiana es el gran olvidado. Instalar un panel aislante dentro del cajón puede subir 2 grados la temperatura de la habitación en invierno.</p>
+        </div>
+      </div>
+
+      <h3>La Regla de los 21 Grados</h3>
+      <p>Cada grado adicional en el termostato incrementa el consumo un **7%**. Mantener tu casa a 21°C en invierno y 26°C en verano es el punto de equilibrio perfecto entre salud, confort y ahorro financiero.</p>
+    `,
+    date: "2026-03-15",
+    author: "Especialista en Eficiencia",
+    category: "Ahorro",
+    image: "/guides/home_audit.webp",
+    imageAlt: "Inspección térmica de vivienda para detección de fugas de calor",
+    readTime: "6 min"
   }
 ];

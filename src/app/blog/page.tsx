@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
-import { Search, PiggyBank, GraduationCap, ArrowLeftRight, Sun, BarChart3, ArrowRight, X } from "lucide-react";
+import { Search, PiggyBank, GraduationCap, ArrowLeftRight, Sun, BarChart3, ArrowRight, X, ThermometerSnowflake, CarFront } from "lucide-react";
 
 export default function BlogPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +17,8 @@ export default function BlogPage() {
         { name: "Todos", icon: null },
         { name: "Ahorro", icon: PiggyBank },
         { name: "Educación", icon: GraduationCap },
+        { name: "Climatización", icon: ThermometerSnowflake },
+        { name: "Movilidad", icon: CarFront },
         { name: "Comparativas", icon: ArrowLeftRight },
         { name: "Solar", icon: Sun },
         { name: "Estrategia", icon: BarChart3 }
