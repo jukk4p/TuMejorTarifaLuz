@@ -188,7 +188,7 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-24 pt-12 bg-background-light dark:bg-slate-900/10">
+        <section id="faq" className="pb-24 pt-12 bg-background-light dark:bg-slate-900/10 scroll-mt-32">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <JsonLd data={faqSchema} />
             <div className="text-center mb-16">

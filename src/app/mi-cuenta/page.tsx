@@ -13,6 +13,7 @@ import { db, auth } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock } from "lucide-react";
+import { useToast } from "@/components/providers/ToastProvider";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
 
@@ -46,6 +47,7 @@ export default function ProfilePage() {
     const [mounted, setMounted] = useState(false);
     const [savedBills, setSavedBills] = useState<SavedBill[]>([]);
     const [loadingBills, setLoadingBills] = useState(true);
+    const { showToast } = useToast();
 
     // Profile Edit state
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -140,11 +142,13 @@ export default function ProfilePage() {
             await setDoc(settingsRef, numericSettings, { merge: true });
 
             setIsEditModalOpen(false);
-            alert("✅ Perfil y consumos actualizados con éxito");
-            window.location.reload();
+            showToast("Perfil actualizado", "success", "Tus cambios se han guardado correctamente");
+            
+            // Recargar datos suavemente o reload si es necesario para Auth
+            setTimeout(() => window.location.reload(), 1500);
         } catch (error: any) {
             console.error("Error detallado:", error);
-            alert("⚠️ " + (error.message || "Error al actualizar el perfil"));
+            showToast("Error de actualización", "error", error.message || "No se pudieron guardar los cambios");
         } finally {
             setIsUpdating(false);
         }
@@ -190,10 +194,10 @@ export default function ProfilePage() {
             await deleteDoc(doc(db, "users", user.uid, "billInputs", billId));
 
             if (isDetailsModalOpen) setIsDetailsModalOpen(false);
-            alert("✅ Borrado completado con éxito.");
+            showToast("Estudio eliminado", "success", "El registro ha sido borrado de forma permanente");
         } catch (error) {
             console.error("Error general en el proceso de borrado:", error);
-            alert("❌ Hubo un fallo al eliminar el registro.");
+            showToast("Error al borrar", "error", "No se pudo eliminar el registro del servidor");
         }
     };
 

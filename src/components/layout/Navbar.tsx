@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import Image from "next/image";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import React, { Suspense } from "react";
-import { Sun, Moon, User, LogOut, LogIn, Menu, X } from "lucide-react";
+import { Sun, Moon, User, LogOut, LogIn, Menu, X, ChevronRight } from "lucide-react";
 
 const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
 import NotificationBell from "./NotificationBell";
@@ -66,7 +66,7 @@ function NavbarContent() {
 
     return (
         <>
-            <nav className="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 transition-colors duration-300">
+            <nav className="sticky top-0 z-50 bg-white/70 dark:bg-[#0A0D14]/80 backdrop-blur-xl border-b border-primary/5 dark:border-white/5 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <Link href="/" className="flex items-center gap-2 group">
@@ -81,8 +81,9 @@ function NavbarContent() {
                         <div className="hidden lg:flex items-center space-x-8">
                             <Link href="/comparador" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Comparador</Link>
                             <Link href="/companias" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Compañías</Link>
-                            <Link href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Blog</Link>
+                            <Link href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Guías</Link>
                             <Link href="/sobre-nosotros" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Nosotros</Link>
+                            <Link href="/#faq" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">FAQ</Link>
 
                             <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
 
@@ -91,17 +92,17 @@ function NavbarContent() {
                             {/* Theme Toggle */}
                             <button
                                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all hover:border-primary/30 shadow-inner"
+                                className="relative h-10 w-18 rounded-full bg-slate-100/50 dark:bg-slate-800/40 p-1 flex items-center justify-between border border-slate-200 dark:border-white/10 transition-all hover:border-primary/40 shadow-inner group/toggle"
                                 aria-label="Toggle theme"
                                 role="switch"
                                 aria-checked={theme === 'dark'}
                             >
-                                <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow-lg transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`} />
-                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
-                                    <Sun size={14} />
+                                <div className={`absolute h-8 w-8 rounded-full bg-white dark:bg-primary shadow-md transform transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${theme === 'dark' ? 'translate-x-[32px]' : 'translate-x-0'} group-hover/toggle:scale-105`} />
+                                <span className={`z-10 w-8 flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
+                                    <Sun size={15} strokeWidth={2.5} />
                                 </span>
-                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
-                                    <Moon size={14} />
+                                <span className={`z-10 w-8 flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
+                                    <Moon size={15} strokeWidth={2.5} />
                                 </span>
                             </button>
 
@@ -206,26 +207,56 @@ function NavbarContent() {
                         </div>
                     </div>
                 </div>
+            </nav>
 
-                {/* Mobile Menu Overlay */}
-                {isMenuOpen && (
-                    <div className="lg:hidden bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 animate-in slide-in-from-top duration-300">
-                        <div className="px-4 py-8 space-y-6">
-                            <Link href="/comparador" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Comparador Inteligente</Link>
-                            <Link href="/companias" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Comercializadoras</Link>
-                            <Link href="/blog" className="block text-lg font-800 text-slate-900 dark:text-white hover:text-primary transition-colors">Blog y Consejos</Link>
-                            <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="fixed inset-0 z-[60] lg:hidden">
+                    <div 
+                        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" 
+                        onClick={() => setIsMenuOpen(false)}
+                    />
+                    <div className="absolute top-20 left-0 right-0 bg-white dark:bg-[#0D1117] border-t border-slate-100 dark:border-white/5 animate-in slide-in-from-top duration-300 shadow-2xl overflow-y-auto max-h-[calc(100vh-80px)]">
+                        <div className="px-6 py-10 space-y-8">
+                            <nav className="space-y-4">
+                                <Link href="/comparador" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
+                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Comparador Inteligente</span>
+                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
+                                    </div>
+                                </Link>
+                                <Link href="/companias" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
+                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Comercializadoras</span>
+                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
+                                    </div>
+                                </Link>
+                                <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
+                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Guías de Ahorro</span>
+                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
+                                    </div>
+                                </Link>
+                                <Link href="/#faq" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
+                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Preguntas Frecuentes</span>
+                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
+                                    </div>
+                                </Link>
+                            </nav>
+                            
+                            <div className="pt-8 border-t border-slate-100 dark:border-white/5">
                                 {user ? (
                                     <button
                                         onClick={() => { logout(); setIsMenuOpen(false); }}
-                                        className="w-full p-4 rounded-2xl bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 font-bold text-center"
+                                        className="w-full py-4 rounded-2xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 font-bold text-center active:scale-95 transition-transform"
                                     >
-                                        Cerrar Sesión Correo
+                                        Cerrar Sesión
                                     </button>
                                 ) : (
                                     <button
                                         onClick={() => { setIsAuthModalOpen(true); setIsMenuOpen(false); }}
-                                        className="w-full p-4 rounded-2xl bg-primary text-white font-900 text-center uppercase tracking-widest shadow-xl shadow-primary/20"
+                                        className="w-full py-5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-900 text-center uppercase tracking-widest shadow-2xl shadow-slate-200 dark:shadow-none active:scale-95 transition-all"
                                     >
                                         Iniciar Sesión
                                     </button>
@@ -233,8 +264,8 @@ function NavbarContent() {
                             </div>
                         </div>
                     </div>
-                )}
-            </nav>
+                </div>
+            )}
 
             <AuthModal
                 isOpen={isAuthModalOpen}

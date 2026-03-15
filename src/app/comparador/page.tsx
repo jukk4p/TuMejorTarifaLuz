@@ -72,6 +72,8 @@ import {
     ZapOff
 } from "lucide-react";
 
+import { useToast } from "@/components/providers/ToastProvider";
+
 import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
 
@@ -83,6 +85,7 @@ export default function ComparadorPage() {
     const { user } = useAuth();
     const { favorites, toggleFavorite } = useFavorites();
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const { showToast } = useToast();
 
     const { tariffs } = useTariffs();
     const [step, setStep] = useState<Step>("input");
@@ -371,11 +374,11 @@ export default function ComparadorPage() {
                 invoiceFileType: uploadedFileType
             });
             console.log("Análisis guardado en Firestore correctamente");
-            alert("✅ Análisis y factura guardados correctamente!");
+            showToast("¡Estudio guardado!", "success", "Podrás consultar esta comparativa siempre que quieras desde tu perfil.");
         } catch (error: unknown) {
             const err = error as Error;
             console.error("Error guardando factura:", err.message);
-            alert("No se pudo guardar: " + err.message);
+            showToast("No se pudo guardar", "error", err.message || "Hubo un problema al conectar con el servidor.");
         } finally {
             setIsProcessing(false);
         }
