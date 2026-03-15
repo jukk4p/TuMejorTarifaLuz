@@ -362,22 +362,22 @@ export default async function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
               {[
-                { name: "Iberdrola", logo: "Iberdrola.png", scale: "scale-145" },
-                { name: "Endesa", logo: "Endesa.png", scale: "scale-60" },
-                { name: "Naturgy", logo: "Naturgy.png", scale: "scale-130" },
-                { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-135" },
-                { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-120" },
-                { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-110" },
-                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100" },
-                { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125" },
-                { name: "Visalia", logo: "Visalia.png", scale: "scale-85" },
-                { name: "Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png" },
-                { name: "Energya VM", logo: "Energiavm.png", scale: "scale-120" },
-                { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-125" },
-                { name: "Esluz", logo: "Esluz.png", scale: "scale-155" },
+                { name: "Iberdrola", logo: "Iberdrola.png", scale: "scale-145", slug: "iberdrola" },
+                { name: "Endesa", logo: "Endesa.png", scale: "scale-60", slug: "endesa" },
+                { name: "Naturgy", logo: "Naturgy.png", scale: "scale-130", slug: "naturgy" },
+                { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-135", slug: "repsol" },
+                { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-120", slug: "octopus-energy" },
+                { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-110", slug: "total-energies" },
+                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
+                { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125", slug: "imagina-energia" },
+                { name: "Visalia", logo: "Visalia.png", scale: "scale-85", slug: "visalia" },
+                { name: "Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
+                { name: "Energya VM", logo: "Energiavm.png", scale: "scale-120", slug: "energia-vm" },
+                { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-125", slug: "chc-energia" },
+                { name: "Esluz", logo: "Esluz.png", scale: "scale-155", slug: "esluz" },
               ].map((brand, i) => (
-                <div key={i} className="flex flex-col items-center gap-3">
-                  <div className="w-full aspect-[16/9] bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group hover:!shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700/50">
+                <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
+                  <div className="w-full aspect-[16/9] bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group-hover:!shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700/50 group-hover:border-primary/30 group-hover:-translate-y-1">
                     {brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
@@ -387,8 +387,8 @@ export default async function Home() {
                       <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
-                  <span className="text-[10px] font-bold text-slate-300 dark:text-slate-600 tracking-widest uppercase">{brand.name}</span>
-                </div>
+                  <span className="text-[10px] font-bold text-slate-300 dark:text-slate-600 tracking-widest uppercase group-hover:text-primary transition-colors">{brand.name}</span>
+                </Link>
               ))}
             </div>
 

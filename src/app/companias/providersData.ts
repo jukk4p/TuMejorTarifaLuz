@@ -114,5 +114,49 @@ export const providers: Provider[] = [
         cons: ["Catálogo de tarifas limitado", "Nicho muy específico"],
         slug: "imagina-energia",
         color: "#ffc20e"
+    },
+    {
+        id: "visalia",
+        name: "Visalia",
+        logo: "/logos/Visalia.png",
+        rating: 4.1,
+        description: "Grupo energético independiente que ofrece soluciones personalizadas para hogares y empresas, destacando por su proximidad y flexibilidad.",
+        pros: ["Atención cercana", "Flexibilidad en contratos", "Energía verde"],
+        cons: ["Marca menos conocida", "Menos servicios digitales"],
+        slug: "visalia",
+        color: "#00b4ff"
+    },
+    {
+        id: "energia-vm",
+        name: "Energya VM",
+        logo: "/logos/Energiavm.png",
+        rating: 4.2,
+        description: "Parte del Grupo Villar Mir, ofrece estabilidad y experiencia en el mercado energético con tarifas competitivas y energía 100% renovable.",
+        pros: ["Respaldo de gran grupo", "Tarifas competitivas", "Experiencia en mercado"],
+        cons: ["Interfaz digital básica", "Procesos tradicionales"],
+        slug: "energia-vm",
+        color: "#1e3a8a"
+    },
+    {
+        id: "chc-energia",
+        name: "CHC Energía",
+        logo: "/logos/Chcenergia.png",
+        rating: 4.0,
+        description: "Cercanía y servicio local. CHC Energía destaca por su amplia red de oficinas físicas en entornos rurales y semi-urbanos.",
+        pros: ["Gran red física", "Trato humano", "Factura sencilla"],
+        cons: ["Poca innovación tecnológica", "Tarifas menos dinámicas"],
+        slug: "chc-energia",
+        color: "#ed1c24"
+    },
+    {
+        id: "esluz",
+        name: "Esluz",
+        logo: "/logos/Esluz.png",
+        rating: 4.1,
+        description: "Comercializadora ágil y dinámica que busca simplificar el ahorro energético para el cliente doméstico con tarifas directas.",
+        pros: ["Simplicidad", "Trato ágil", "Tarifas claras"],
+        cons: ["Estructura pequeña", "Menos variedad de planes"],
+        slug: "esluz",
+        color: "#84cc16"
     }
 ];
