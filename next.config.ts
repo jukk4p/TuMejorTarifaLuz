@@ -63,6 +63,11 @@ const nextConfig: NextConfig = {
         destination: '/blog/mejor-tarifa-luz-coche-electrico-recarga-nocturna',
         permanent: true,
       },
+      {
+        source: '/blog/que-es-el-pvpc-y-como-funciona-la-nueva-tarifa-regulada',
+        destination: '/blog/que-es-el-pvpc-nueva-tarifa-regulada-2026-ahorro',
+        permanent: true,
+      },
     ];
   },
 };

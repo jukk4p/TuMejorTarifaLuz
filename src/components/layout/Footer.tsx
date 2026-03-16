@@ -181,7 +181,7 @@ export default function Footer() {
                     </div>
                     
                     <p className="text-xs font-bold text-slate-500 max-w-2xl px-4">
-                        © 2025 Tu Mejor Tarifa Luz – Comparador independiente de tarifas de luz en España. 
+                        © {new Date().getFullYear()} Tu Mejor Tarifa Luz – Comparador independiente de tarifas de luz en España. 
                         Analizamos el mercado diariamente para ofrecerte las mejores opciones de ahorro.
                     </p>
 
