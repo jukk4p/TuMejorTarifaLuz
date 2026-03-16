@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Menu, X, ChevronDown, ChevronRight, FileUp, Sun, Moon } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, FileUp, Sun, Moon, User, LogOut, Settings, Layout } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import NotificationBell from "./NotificationBell";
 
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", 
@@ -14,9 +16,11 @@ const COMPANIES = [
 
 export default function Navbar() {
     const { theme, setTheme } = useTheme();
+    const { user, logout } = useAuth();
     const [mounted, setMounted] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isCompaniesOpen, setIsCompaniesOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -104,7 +108,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Right Side Actions */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                         {/* Theme Toggle (Optional but nice) */}
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -113,6 +117,73 @@ export default function Navbar() {
                         >
                             {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
+
+                        {/* Notifications */}
+                        <div className="flex items-center">
+                            <NotificationBell />
+                        </div>
+
+                        {/* User Profile Dropdown */}
+                        {user ? (
+                            <div className="relative">
+                                <button 
+                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
+                                >
+                                    {user.photoURL ? (
+                                        <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <User size={18} className="text-primary" />
+                                    )}
+                                </button>
+
+                                {isUserMenuOpen && (
+                                    <>
+                                        <div 
+                                            className="fixed inset-0 z-[100]" 
+                                            onClick={() => setIsUserMenuOpen(false)}
+                                        ></div>
+                                        <div className="absolute right-0 mt-3 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-[#fcfdfe] dark:bg-slate-900/50">
+                                                <p className="text-sm font-black text-slate-900 dark:text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                                <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                                            </div>
+                                            <div className="p-2">
+                                                <Link 
+                                                    href="/mi-cuenta" 
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
+                                                >
+                                                    <Layout size={16} /> Panel de Control
+                                                </Link>
+                                                <Link 
+                                                    href="/mi-cuenta?tab=favoritos" 
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
+                                                >
+                                                    <Settings size={16} /> Configuración
+                                                </Link>
+                                            </div>
+                                            <div className="p-2 border-t border-slate-100 dark:border-slate-800">
+                                                <button 
+                                                    onClick={() => { setIsUserMenuOpen(false); logout(); }}
+                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all"
+                                                >
+                                                    <LogOut size={16} /> Cerrar Sesión
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        ) : (
+                            <Link 
+                                href="/?auth=login" 
+                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-all"
+                            >
+                                <User size={18} /> Entrar
+                            </Link>
+                        )}
 
                         {/* CTA Button */}
                         <Link 
@@ -158,8 +229,53 @@ export default function Navbar() {
                         </button>
                     </div>
 
+                    {/* User Profile for Mobile */}
+                    <div className="p-6 border-b border-slate-800 bg-[#151f2a]">
+                        {user ? (
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
+                                    {user.photoURL ? (
+                                        <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <User size={24} className="text-primary" />
+                                    )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-black text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                    <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                                </div>
+                                <button 
+                                    onClick={() => { setIsDrawerOpen(false); logout(); }}
+                                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                                >
+                                    <LogOut size={20} />
+                                </button>
+                            </div>
+                        ) : (
+                            <Link 
+                                href="/?auth=login" 
+                                onClick={() => setIsDrawerOpen(false)}
+                                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-xs font-900 uppercase tracking-widest shadow-lg shadow-primary/20"
+                            >
+                                <User size={18} /> Entrar en mi cuenta
+                            </Link>
+                        )}
+                    </div>
+
                     {/* Navigation Links */}
                     <div className="flex-1 overflow-y-auto p-6 space-y-2">
+                        {user && (
+                            <Link 
+                                href="/mi-cuenta" 
+                                className="flex items-center justify-between px-4 py-4 rounded-2xl bg-primary/5 text-primary font-bold border border-primary/10 mb-4"
+                                onClick={() => setIsDrawerOpen(false)}
+                            >
+                                <span className="flex items-center gap-2">
+                                    <Layout size={18} /> Mi Panel de Control
+                                </span>
+                                <ChevronRight size={18} />
+                            </Link>
+                        )}
                         <Link 
                             href="/comparador" 
                             className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"

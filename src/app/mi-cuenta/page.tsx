@@ -247,13 +247,13 @@ export default function ProfilePage() {
         <div className="min-h-screen bg-slate-50 dark:bg-background-dark transition-colors duration-300">
             <Navbar />
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
                 {/* Header Perfil */}
-                <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <div className="bg-white dark:bg-slate-900 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-6 sm:mb-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-primary/5 rounded-full blur-2xl sm:blur-3xl -mr-24 -mt-24 sm:-mr-32 sm:-mt-32"></div>
 
-                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-[2rem] bg-primary/10 border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden shrink-0">
+                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 sm:gap-8">
+                        <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-[1.25rem] sm:rounded-[2rem] bg-primary/10 border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden shrink-0">
                             {user.photoURL ? (
                                 <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
                             ) : (
@@ -264,12 +264,12 @@ export default function ProfilePage() {
                         </div>
 
                         <div className="text-center md:text-left space-y-2 grow">
-                            <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-2">
-                                <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">Usuario Premium</span>
-                                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-widest rounded-full">Miembro desde 2026</span>
+                            <div className="flex flex-wrap justify-center md:justify-start gap-1.5 sm:gap-2 mb-2">
+                                <span className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">Usuario Premium</span>
+                                <span className="px-2 sm:px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded-full">Miembro desde 2026</span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-900 tracking-tight dark:text-white">Hola, {user.displayName || user.email?.split('@')[0]}!</h1>
-                            <p className="text-slate-500 font-medium">{user.email}</p>
+                            <h1 className="text-2xl sm:text-4xl font-900 tracking-tight dark:text-white">Hola, {user.displayName || user.email?.split('@')[0]}!</h1>
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium">{user.email}</p>
                         </div>
 
                         <div className="shrink-0 flex gap-3">
@@ -283,20 +283,22 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                {/* Tabs de Navegación */}
-                <div className="flex bg-white dark:bg-slate-900 p-1.5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 mb-8 lg:w-fit">
-                    {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => (
-                        <button
-                            key={tab}
-                            onClick={() => setActiveTab(tab)}
-                            className={`px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${activeTab === tab
-                                ? "bg-primary text-white shadow-lg shadow-primary/20"
-                                : "text-slate-500 hover:text-primary"
-                                }`}
-                        >
-                            {tab}
-                        </button>
-                    ))}
+                {/* Tabs de Navegación con Scroll Horizontal en móvil */}
+                <div className="overflow-x-auto pb-4 sm:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="flex bg-white dark:bg-slate-900 p-1 rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 mb-2 sm:mb-8 min-w-max sm:min-w-0 lg:w-fit mx-auto lg:mx-0">
+                        {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab
+                                    ? "bg-primary text-white shadow-lg shadow-primary/20"
+                                    : "text-slate-500 hover:text-primary"
+                                    }`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Contenido de Tabs */}
@@ -483,7 +485,7 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {favoriteTariffs.length > 0 ? (
                                 favoriteTariffs.map((tariff) => (
-                                    <div key={tariff.id} className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-sm hover:border-primary transition-all group overflow-hidden relative flex flex-col h-full">
+                                    <div key={tariff.id} className="bg-white dark:bg-slate-900 rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-5 sm:p-8 shadow-sm hover:border-primary transition-all group overflow-hidden relative flex flex-col h-full">
                                         <div className="flex justify-between items-start mb-6">
                                             <button
                                                 onClick={(e) => {
@@ -502,9 +504,9 @@ export default function ProfilePage() {
                                         </div>
 
                                         {/* Precios Detallados con altura fija para alineación */}
-                                        <div className="grid grid-cols-2 gap-6 mb-8 min-h-[110px]">
+                                        <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-8 min-h-[110px]">
                                             <div className="space-y-3">
-                                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Energía (€/kWh)</p>
+                                                <p className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Energía (€/kWh)</p>
                                                 <div className="space-y-2">
                                                     <div className="flex justify-between items-center text-[11px] font-mono">
                                                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-600 dark:text-orange-400">P1</span>
