@@ -75,18 +75,10 @@ export const faqSchema = {
     "mainEntity": [
         {
             "@type": "Question",
-            "name": "¿Es seguro subir mi factura?",
+            "name": "¿Es seguro subir mi factura de la luz?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Absolutamente. Utilizamos protocolos de cifrado de nivel bancario (SSL/TLS) para proteger tus archivos. Solo extraemos los datos necesarios para el análisis y no compartimos tu información personal con terceros sin tu consentimiento explícito. Tu privacidad es nuestra prioridad absoluta."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Cómo se analizan los datos?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nuestra tecnología de Procesamiento de Datos y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
+                "text": "Sí, es completamente seguro. Utilizamos cifrado SSL/TLS de nivel bancario para proteger tus archivos. Solo extraemos los datos necesarios para el análisis comparativo y no compartimos tu información personal con terceros bajo ningún concepto."
             }
         },
         {
@@ -94,7 +86,7 @@ export const faqSchema = {
             "name": "¿Tengo que pagar por usar el comparador?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No, el uso de nuestra plataforma es 100% gratuito. Este es un proyecto independiente que busca ayudar a los usuarios a ahorrar de forma altruista. Los enlaces que proporcionamos son los oficiales de cada comercializadora y no recibimos comisión alguna por las contrataciones."
+                "text": "No, el comparador es completamente gratuito. Es un proyecto independiente diseñado para ayudar a las familias españolas a ahorrar en su factura de la luz. No percibimos ningún tipo de comisión de las comercializadoras."
             }
         },
         {
@@ -102,7 +94,15 @@ export const faqSchema = {
             "name": "¿Las tarifas están actualizadas?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sí, nuestra base de datos se sincroniza en tiempo real con las ofertas publicadas por las comercializadoras y el mercado mayorista (OMIE). Revisamos y actualizamos más de 25 tarifas diariamente para asegurarnos de que siempre veas la opción más competitiva disponible en el mercado español."
+                "text": "Sí, revisamos y actualizamos más de 25 tarifas diariamente sincronizando con el mercado mayorista OMIE y las publicaciones oficiales de las comercializadoras eléctricas españolas."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "¿Cómo se analizan los datos de mi factura?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nuestro sistema OCR identifica automáticamente el CUPS, la potencia contratada y el consumo horario de tu factura PDF. Estos datos se cruzan con el mercado actual para encontrar la tarifa más barata en segundos."
             }
         }
     ]
