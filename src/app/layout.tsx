@@ -48,6 +48,7 @@ export const metadata: Metadata = {
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ToastProvider } from "@/components/providers/ToastProvider";
+import AuthModalHandler from "@/components/auth/AuthModalHandler";
 import JsonLd, { organizationSchema } from "@/components/seo/JsonLd";
 
 export default function RootLayout({
@@ -68,6 +69,7 @@ export default function RootLayout({
 
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+            <AuthModalHandler />
             <ToastProvider>
               <JsonLd data={{
                 "@context": "https://schema.org",

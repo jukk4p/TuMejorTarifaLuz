@@ -7,7 +7,7 @@ import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
 import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
-import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp } from "lucide-react";
+import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -304,17 +304,17 @@ export default async function Home() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "history", title: "Evolución de Ahorro", desc: "Monitorea tu ahorro histórico y comprueba cuánto has dejado de pagar cada temporada con nuestras métricas." },
-                    { icon: "analytics", title: "Alertas Inteligentes", desc: "Vigilamos el mercado 24/7 y te avisamos si surge una tarifa que mejore tu contrato actual." },
-                    { icon: "description", title: "Bóveda Digital", desc: "Organiza y protege tus facturas PDF en un espacio seguro y privado, siempre disponible para consulta." },
-                    { icon: "auto_graph", title: "Previsión Energética", desc: "Anticípate a las subidas de precio con análisis basados en el mercado mayorista y previsiones personalizadas." }
+                    { icon: "analytics", title: "Análisis Personalizados", desc: "Guarda y organiza todos tus estudios de consumo eléctrico para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas en cualquier momento." },
+                    { icon: "description", title: "Gestión de Facturas", desc: "Almacena tus facturas de forma segura y accede a reportes técnicos avanzados con gráficos detallados para entender el desglose real de tu perfil de consumo." },
+                    { icon: "heart", title: "Tarifas Favoritas", desc: "Añade las ofertas que más te interesen a tu lista de favoritos para compararlas fácilmente y recibir avisos sobre sus variaciones de precio." },
+                    { icon: "bell", title: "Sistema de Alertas", desc: "Recibe notificaciones web y avisos automáticos personalizados en tiempo real cuando detectemos una tarifa que mejore tu contrato actual." }
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4 group">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                        {benefit.icon === 'history' && <HistoryIcon size={24} />}
                         {benefit.icon === 'analytics' && <BarChart3 size={24} />}
+                        {benefit.icon === 'heart' && <Heart size={24} />}
+                        {benefit.icon === 'bell' && <Bell size={24} />}
                         {benefit.icon === 'description' && <FileText size={24} />}
-                        {benefit.icon === 'auto_graph' && <TrendingUp size={24} />}
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-white group-hover:text-primary transition-colors">{benefit.title}</h4>
