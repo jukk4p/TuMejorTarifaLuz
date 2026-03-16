@@ -6,6 +6,8 @@ import Link from "next/link";
 import { getElectricityPrices } from "@/lib/electricity-prices";
 import PriceClock from "./PriceClock";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Precio de la Luz Hoy 2026: Horas más BARATAS y CARAS | TuMejorTarifaLuz",
     description: "Consulta el precio de la luz por horas en tiempo real para hoy con nuestro reloj interactivo. Descubre cuándo ahorrar en tu factura con datos oficiales del mercado regulado (PVPC).",

@@ -22,7 +22,7 @@ interface PriceClockProps {
 export default function PriceClock({ pricesArray, currentHour, stats }: PriceClockProps) {
     const [selectedHour, setSelectedHour] = useState(currentHour);
 
-    const activeItem = pricesArray.find(p => parseInt(p.hour.split("-")[0]) === selectedHour) || pricesArray[0];
+    const activeItem = pricesArray.find(p => parseInt(p.hour.split("-")[0]) === selectedHour) || pricesArray[0] || { hour: "00-01", price: 0, isCheap: false };
 
     // Colores dinámicos basados en el valor relativo
     const getPriceColor = (price: number) => {
