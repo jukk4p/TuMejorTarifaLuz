@@ -382,7 +382,7 @@ export default async function Home() {
                 { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-135", slug: "repsol" },
                 { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-120", slug: "octopus-energy" },
                 { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-110", slug: "total-energies" },
-                { name: "Niba", logo: "Niba.png", darkLogo: "Nibav1.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
+                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
                 { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125", slug: "imagina-energia" },
                 { name: "Visalia", logo: "Visalia.png", scale: "scale-85", slug: "visalia" },
                 { name: "Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
