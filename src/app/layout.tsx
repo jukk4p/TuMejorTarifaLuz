@@ -109,6 +109,44 @@ export default function RootLayout({
 
         {/* Cookie Consent System */}
         <Script id="cookie-consent-script" src="/cookies-consent.js" strategy="lazyOnload" />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://tumejortarifaluz.es/#organization",
+                  "name": "TuMejorTarifaLuz",
+                  "url": "https://tumejortarifaluz.es",
+                  "foundingDate": "2025",
+                  "founder": { "@type": "Person", "name": "Iván González" },
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://tumejortarifaluz.es/Logo.png"
+                  },
+                  "contactPoint": {
+                    "@type": "ContactPoint",
+                    "email": "hola@tumejortarifaluz.es",
+                    "contactType": "customer support",
+                    "availableLanguage": "Spanish"
+                  }
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://tumejortarifaluz.es/#website",
+                  "url": "https://tumejortarifaluz.es",
+                  "name": "TuMejorTarifaLuz",
+                  "publisher": {
+                    "@id": "https://tumejortarifaluz.es/#organization"
+                  }
+                }
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );
