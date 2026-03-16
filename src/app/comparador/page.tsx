@@ -69,7 +69,8 @@ import {
     Award,
     Mail,
     HelpCircle,
-    ZapOff
+    ZapOff,
+    FileUp
 } from "lucide-react";
 
 import { useToast } from "@/components/providers/ToastProvider";
@@ -89,6 +90,7 @@ export default function ComparadorPage() {
 
     const { tariffs } = useTariffs();
     const [step, setStep] = useState<Step>("input");
+    const [inputMethod, setInputMethod] = useState<"upload" | "manual" | null>(null);
     const [input, setInput] = useState<CalculationInput>({
         power_p1: 3.5,
         power_p2: 3.5,
@@ -131,6 +133,7 @@ export default function ComparadorPage() {
     const [uploadedFileRaw, setUploadedFileRaw] = useState<File | null>(null);
 
     const [showWithTaxes, setShowWithTaxes] = useState(false);
+    const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
     const applyTaxes = (price: number) => {
         if (!showWithTaxes) return price;
@@ -179,6 +182,7 @@ export default function ComparadorPage() {
                             current_price_p2: newInput.current_price_p2.toString().replace(".", ","),
                             current_price_p3: newInput.current_price_p3.toString().replace(".", ",")
                         });
+                        setHasAnalyzed(true);
                         setStep("results");
                     }
                 } catch (error: unknown) {
@@ -228,6 +232,16 @@ export default function ComparadorPage() {
         if (tariffIdFromUrl && tariffs.length > 0) {
             setSelectedTariffId(tariffIdFromUrl);
             setStep("detail");
+        }
+
+        // Check for direct upload or manual mode start
+        const mode = params.get("mode");
+        const hasSubir = params.has("subir") || params.get("subir") === "true";
+        
+        if (mode === "upload" || hasSubir) {
+            setInputMethod("upload");
+        } else if (mode === "manual") {
+            setInputMethod("manual");
         }
     }, [tariffs, user]);
 
@@ -389,8 +403,10 @@ export default function ComparadorPage() {
         setIsAiGenerated(false); // Manual entry reset
         setTimeout(() => {
             if (skipValidation) {
+                setHasAnalyzed(true);
                 setStep("results");
             } else {
+                setHasAnalyzed(true);
                 setStep("validation");
             }
             setIsProcessing(false);
@@ -488,6 +504,7 @@ export default function ComparadorPage() {
                     current_price_p1: "0,14", current_price_p2: "0,11", current_price_p3: "0,08"
                 });
             } finally {
+                setHasAnalyzed(true);
                 setStep("validation");
                 setIsProcessing(false);
             }
@@ -499,6 +516,7 @@ export default function ComparadorPage() {
     const confirmData = () => {
         setIsProcessing(true);
         setTimeout(() => {
+            setHasAnalyzed(true);
             setStep("results");
             setIsProcessing(false);
         }, 1000);
@@ -621,163 +639,254 @@ export default function ComparadorPage() {
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
                 {/* STEP 1: INPUT/DATA ENTRY */}
-                {step === "input" && (
-                    <div className="flex flex-col lg:flex-row gap-8">
+                {/* STEP 1: INPUT/DATA ENTRY */}
+                {step === "input" && !inputMethod && (
+                    <div className="max-w-5xl mx-auto py-12 px-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <div className="text-center mb-16">
+                            <h1 className="text-4xl md:text-5xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">
+                                ¿Cómo quieres <span className="text-primary italic">empezar</span>?
+                            </h1>
+                            <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                                Para darte el ahorro más exacto, necesitamos conocer tu consumo actual. Elige el método que prefieras para continuar.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Option 1: AI Analysis */}
+                            <button 
+                                onClick={() => setInputMethod("upload")}
+                                className="premium-card group p-10 md:p-14 text-center hover:border-primary/50 transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                            >
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                                <div className="w-24 h-24 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-primary/10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                                    <FileUp className="w-12 h-12 text-primary" />
+                                </div>
+                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4">Análisis por Factura</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-base mb-10 leading-relaxed flex-grow">
+                                    Sube tu factura en PDF o foto. Nuestra <span className="text-primary font-bold">IA de nivel experto</span> extraerá automáticamente tu potencia y consumos reales de cada tramo en segundos.
+                                </p>
+                                <div className="space-y-4 flex flex-col items-center">
+                                    <span className="w-fit px-10 bg-primary text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group-hover:bg-primary/90 transition-all mx-auto">
+                                        Subir mi factura
+                                        <ArrowRight size={18} />
+                                    </span>
+                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/5 py-2 px-4 rounded-full inline-block">Recomendado • Máxima Precisión</p>
+                                </div>
+                            </button>
+
+                            {/* Option 2: Manual Input */}
+                            <button 
+                                onClick={() => setInputMethod("manual")}
+                                className="premium-card group p-10 md:p-14 text-center hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                            >
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 dark:bg-slate-800/10 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/20 transition-colors"></div>
+                                <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
+                                    <Sliders className="w-12 h-12 text-slate-500" />
+                                </div>
+                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4">Entrada Manual</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-base mb-10 leading-relaxed flex-grow">
+                                    Si ya tienes tus datos a mano o quieres simular un consumo específico, utiliza nuestro formulario técnico simplificado.
+                                </p>
+                                <div className="space-y-4 flex flex-col items-center">
+                                    <span className="w-fit px-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-2xl shadow-xl shadow-slate-900/10 group-hover:bg-slate-800 dark:group-hover:bg-slate-100 transition-all flex items-center justify-center mx-auto">
+                                        Introducir datos a mano
+                                    </span>
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-slate-800 py-2 px-4 rounded-full inline-block">Control Total • Sin archivos</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {step === "input" && inputMethod && (
+                    <div className="flex flex-col lg:flex-row gap-8 animate-in fade-in duration-500">
                         <aside className="w-full lg:w-[400px] shrink-0 space-y-6">
                             <div className="premium-card p-6">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                                        <Terminal className="text-primary w-5 h-5" />
+                                <div className="flex items-center justify-between mb-8">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                                            <Terminal className="text-primary w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <h2 className="text-lg font-bold">Entrada de Datos</h2>
+                                            <p className="text-[10px] text-slate-500 uppercase font-mono tracking-tighter">Parámetros de Análisis</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h2 className="text-lg font-bold">Entrada de Datos</h2>
-                                        <p className="text-[10px] text-slate-500 uppercase font-mono tracking-tighter">Motor de Análisis Directo</p>
-                                    </div>
+                                    <button 
+                                        onClick={() => setInputMethod(null)}
+                                        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors text-slate-400 hover:text-primary"
+                                        title="Cambiar método"
+                                    >
+                                        <History size={18} />
+                                    </button>
                                 </div>
 
                                 <div className="space-y-6">
-                                    <label
-                                        htmlFor="ocr-upload"
-                                        className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
-                                    >
-                                        <input
-                                            id="ocr-upload"
-                                            type="file"
-                                            accept=".pdf,image/png,image/jpeg"
-                                            className="hidden"
-                                            onChange={handleFileUpload}
-                                            disabled={isProcessing}
-                                        />
-                                        <FileText className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
-                                        <div className="text-center">
-                                            <p className="text-sm font-bold">Análisis Técnico (OCR)</p>
-                                            <p className="text-[11px] text-slate-400">Escanea tu factura PDF o Imagen</p>
-                                        </div>
-                                    </label>
-
-
-
-                                    <div className="relative py-2 flex items-center uppercase text-[9px] font-bold text-slate-300 tracking-widest">
-                                        <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
-                                        <span className="mx-4">Ajuste Manual</span>
-                                        <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
-                                    </div>
-
-                                    <div className="space-y-5">
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="space-y-1.5">
-                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Días Factura</label>
-                                                <input
-                                                    type="text"
-                                                    inputMode="numeric"
-                                                    name="days"
-                                                    value={displayValues.days}
-                                                    onChange={handleInputChange}
-                                                    className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
-                                                />
+                                    {inputMethod === "upload" && (
+                                        <label
+                                            htmlFor="ocr-upload-sidebar"
+                                            className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
+                                        >
+                                            <input
+                                                id="ocr-upload-sidebar"
+                                                type="file"
+                                                accept=".pdf,image/png,image/jpeg"
+                                                className="hidden"
+                                                onChange={handleFileUpload}
+                                                disabled={isProcessing}
+                                            />
+                                            <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
+                                            <div className="text-center">
+                                                <p className="text-sm font-bold">Cambiar Factura</p>
+                                                <p className="text-[11px] text-slate-400">PDF o Imagen</p>
                                             </div>
-                                            <div className="space-y-1.5">
-                                                <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Precio Pagado (€)</label>
-                                                <input
-                                                    type="text"
-                                                    inputMode="decimal"
-                                                    name="current_bill_total"
-                                                    value={displayValues.current_bill_total}
-                                                    onChange={handleInputChange}
-                                                    className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
-                                                />
-                                            </div>
-                                        </div>
+                                        </label>
+                                    )}
 
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">Parámetros de Potencia</h4>
-                                        <div className="space-y-4">
-                                            <div className="space-y-1.5">
-                                                <div className="flex justify-between items-center px-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Punta (p1)</label>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    inputMode="decimal"
-                                                    name="power_p1"
-                                                    value={displayValues.power_p1}
-                                                    onChange={handleInputChange}
-                                                    placeholder="0,00"
-                                                    className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
-                                                />
+                                    {(inputMethod === "manual" || hasAnalyzed) && (
+                                        <div className="space-y-6">
+                                            <div className="relative py-2 flex items-center uppercase text-[9px] font-bold text-slate-300 tracking-widest">
+                                                <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
+                                                <span className="mx-4">Ajuste Manual</span>
+                                                <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
                                             </div>
-                                            <div className="space-y-1.5">
-                                                <div className="flex justify-between items-center px-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Potencia Valle (p2)</label>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    inputMode="decimal"
-                                                    name="power_p2"
-                                                    value={displayValues.power_p2}
-                                                    onChange={handleInputChange}
-                                                    placeholder="0,00"
-                                                    className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
-                                                />
-                                            </div>
-                                        </div>
 
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4">Consumo de Energía</h4>
-                                        <div className="space-y-4">
-                                            {[
-                                                { label: "Energía Punta (e1)", name: "energy_p1", val: input.energy_p1 },
-                                                { label: "Energía Llano (e2)", name: "energy_p2", val: input.energy_p2 },
-                                                { label: "Energía Valle (e3)", name: "energy_p3", val: input.energy_p3 },
-                                            ].map((item, idx) => (
-                                                <div key={idx} className="space-y-1.5">
-                                                    <div className="flex justify-between items-center px-1">
-                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">{item.label}</label>
+                                            <div className="space-y-5">
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Días Factura</label>
+                                                        <input
+                                                            type="text"
+                                                            inputMode="numeric"
+                                                            name="days"
+                                                            value={displayValues.days}
+                                                            onChange={handleInputChange}
+                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                        />
                                                     </div>
-                                                    <input
-                                                        type="text"
-                                                        inputMode="decimal"
-                                                        name={item.name}
-                                                        value={displayValues[item.name as keyof typeof displayValues]}
-                                                        onChange={handleInputChange}
-                                                        placeholder="0,00"
-                                                        className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
-                                                    />
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Precio Pagado (€)</label>
+                                                        <input
+                                                            type="text"
+                                                            inputMode="decimal"
+                                                            name="current_bill_total"
+                                                            value={displayValues.current_bill_total}
+                                                            onChange={handleInputChange}
+                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                        />
+                                                    </div>
                                                 </div>
-                                            ))}
-                                        </div>
 
-                                        <button onClick={() => startAnalysis(true)} disabled={isProcessing} className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50">
-                                            {isProcessing ? (
-                                                <>
-                                                    <Clock className="w-5 h-5 animate-spin" />
-                                                    Procesando...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <TrendingDown className="w-5 h-5" />
-                                                    Ejecutar Análisis Comparativo
-                                                </>
-                                            )}
-                                        </button>
-                                        <p className="text-[9px] text-center text-slate-400 italic">Cálculo motor TuMejorTarifaLuz v2.0</p>
-                                    </div>
+                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">Potencias (kW)</h4>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Punta (p1)</label>
+                                                        <input
+                                                            type="text"
+                                                            inputMode="decimal"
+                                                            name="power_p1"
+                                                            value={displayValues.power_p1}
+                                                            onChange={handleInputChange}
+                                                            placeholder="0,00"
+                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                        />
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Valle (p2)</label>
+                                                        <input
+                                                            type="text"
+                                                            inputMode="decimal"
+                                                            name="power_p2"
+                                                            value={displayValues.power_p2}
+                                                            onChange={handleInputChange}
+                                                            placeholder="0,00"
+                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
+                                                <div className="space-y-4">
+                                                    {[
+                                                        { label: "Punta (e1)", name: "energy_p1" },
+                                                        { label: "Llano (e2)", name: "energy_p2" },
+                                                        { label: "Valle (e3)", name: "energy_p3" },
+                                                    ].map((item, idx) => (
+                                                        <div key={idx} className="space-y-1.5">
+                                                            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">{item.label}</label>
+                                                            <input
+                                                                type="text"
+                                                                inputMode="decimal"
+                                                                name={item.name}
+                                                                value={displayValues[item.name as keyof typeof displayValues]}
+                                                                onChange={handleInputChange}
+                                                                placeholder="0,00"
+                                                                className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                <button 
+                                                    onClick={() => startAnalysis(true)} 
+                                                    disabled={isProcessing} 
+                                                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                                >
+                                                    {isProcessing ? (
+                                                        <>
+                                                            <Clock className="w-5 h-5 animate-spin" />
+                                                            Procesando...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <TrendingDown className="w-5 h-5" />
+                                                            Actualizar Análisis
+                                                        </>
+                                                    )}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </aside>
 
                         <section className="flex-1 space-y-6">
-                            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex items-center justify-between">
-                                <div className="flex items-center gap-4">
-                                    <div className="p-3 bg-green-500/10 text-green-500 rounded-xl">
-                                        <TrendingDown size={24} />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Ahorro en Tiempo Real</p>
-                                        <p className="font-bold text-lg">Ahorro Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></p>
+                            {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
+                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] group !border-none !shadow-2xl">
+                                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
+                                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/10 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/15 transition-colors duration-700"></div>
+
+                                    <div className="relative z-10 max-w-2xl w-full">
+                                        <label
+                                            htmlFor="ocr-upload-main"
+                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[3rem] p-16 bg-slate-50/50 dark:bg-slate-800/20 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
+                                        >
+                                            <input
+                                                id="ocr-upload-main"
+                                                type="file"
+                                                accept=".pdf,image/png,image/jpeg"
+                                                className="hidden"
+                                                onChange={handleFileUpload}
+                                                disabled={isProcessing}
+                                            />
+                                            <div className="w-32 h-32 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-xl shadow-primary/5 group-hover/upload:scale-110 group-hover/upload:rotate-3 transition-transform duration-500">
+                                                <FileUp className="w-16 h-16 text-primary" />
+                                            </div>
+                                            <h3 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Selecciona tu Factura</h3>
+                                            <p className="text-slate-500 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                                                Arrastra tu archivo aquí o haz clic para buscarlo.<br/>
+                                                Soportamos <span className="font-bold">PDF, JPG y PNG</span> hasta 4MB.
+                                            </p>
+                                            <div className="flex flex-wrap justify-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+                                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-success" /> Privacidad Cifrada</span>
+                                                <span className="flex items-center gap-1.5"><Brain size={14} className="text-primary" /> Análisis por IA</span>
+                                                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-500" /> Resultados en Segundos</span>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-
-                            {isProcessing ? (
+                            ) : isProcessing ? (
                                 <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[500px] group !border-none !shadow-2xl">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] -mr-64 -mt-64 animate-pulse duration-1000"></div>
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/20 rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse duration-1000" style={{ animationDelay: '0.5s' }}></div>
@@ -912,7 +1021,7 @@ export default function ComparadorPage() {
                                             <h3 className="text-4xl font-800 mb-6 tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
                                                 Comparador Inteligente
                                             </h3>
-                                            <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto">
+                                            <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto leading-relaxed">
                                                 Entorno analítico configurado. Procesamos sus parámetros eléctricos mediante algoritmos de mercado para garantizar la tarifa más económica del país.
                                             </p>
                                         </div>
@@ -943,6 +1052,7 @@ export default function ComparadorPage() {
                         </section>
                     </div>
                 )}
+
 
                 {/* STEP 2: VALIDATION / OCR PREVIEW */}
                 {step === "validation" && (
@@ -1223,7 +1333,7 @@ export default function ComparadorPage() {
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
-                                    <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € / año</span></h2>
+                                    <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
                                 </div>
                             </div>
                             <button
@@ -1377,12 +1487,12 @@ export default function ComparadorPage() {
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0].total.toFixed(2)} €</p>
+                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <TrendingDown className="w-3 h-3" />
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual</p>
+                                                <p className="text-[11px] font-bold tracking-tight">{results[0] ? `${Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1398,22 +1508,24 @@ export default function ComparadorPage() {
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{(results[0].total * 12).toFixed(2)} €</p>
+                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
                                                 <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
                                                     <TrendingDown className="w-3 h-3" />
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual</p>
+                                                <p className="text-[11px] font-bold tracking-tight">{results[0] ? `${Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}</p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div
                                         onClick={() => {
-                                            setSelectedTariffId(results[0].tariff.id!);
-                                            setStep("detail");
+                                            if (results[0]) {
+                                                setSelectedTariffId(results[0].tariff.id!);
+                                                setStep("detail");
+                                            }
                                         }}
-                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer transition-all duration-300 group"
+                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
                                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
@@ -1424,14 +1536,18 @@ export default function ComparadorPage() {
                                                 </div>
                                                 <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
                                             </div>
-                                            <div>
-                                                <div className="flex items-baseline gap-1 mb-1 justify-center">
-                                                    <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
-                                                    <span className="text-[10px] font-bold text-primary/60">€/kWh</span>
+                                            {results[0] ? (
+                                                <div>
+                                                    <div className="flex items-baseline gap-1 mb-1 justify-center">
+                                                        <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
+                                                        <span className="text-[10px] font-bold text-primary/60">€/kWh</span>
+                                                    </div>
+                                                    <p className="text-sm text-slate-800 dark:text-slate-100 font-bold mb-0.5">{results[0].tariff.name}</p>
+                                                    <p className="text-[9px] text-slate-400 uppercase tracking-widest leading-none block">{results[0].tariff.company}</p>
                                                 </div>
-                                                <p className="text-sm text-slate-800 dark:text-slate-100 font-bold mb-0.5">{results[0].tariff.name}</p>
-                                                <p className="text-[9px] text-slate-400 uppercase tracking-widest leading-none block">{results[0].tariff.company}</p>
-                                            </div>
+                                            ) : (
+                                                <p className="text-sm font-bold text-slate-400">Sin recomendaciones</p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -1448,7 +1564,7 @@ export default function ComparadorPage() {
                                         <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10">
                                             <button
                                                 onClick={saveBill}
-                                                disabled={isProcessing}
+                                                disabled={isProcessing || results.length === 0}
                                                 className="shrink-0 flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-primary/20 transition-all active:scale-95 disabled:opacity-50"
                                             >
                                                 {isProcessing ? (
@@ -1579,6 +1695,19 @@ export default function ComparadorPage() {
                                                     </tr>
                                                 </thead>
                                                 <tbody className="perspective-2000">
+                                                    {/* Empty State */}
+                                                    {results.length === 0 && (
+                                                        <tr>
+                                                            <td colSpan={5} className="py-20 text-center">
+                                                                <div className="flex flex-col items-center gap-4">
+                                                                    <ZapOff className="w-12 h-12 text-slate-300" />
+                                                                    <p className="text-slate-500 font-bold">No se han encontrado tarifas con estos filtros</p>
+                                                                    <button onClick={() => {setFilterSearch(""); setFilterPriceType("all"); setFilterPermanence("all");}} className="text-primary text-xs font-bold uppercase tracking-widest">Restablecer Filtros</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
                                                     {/* Baseline Reference - Premium & Standardized */}
                                                     <tr className="bg-slate-100/30 dark:bg-slate-800/20 border border-slate-200/50 dark:border-white/5 backdrop-blur-sm group relative z-10">
                                                         <td className="pl-8 pr-4 py-8 rounded-l-[1.5rem] relative">

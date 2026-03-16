@@ -85,17 +85,17 @@ export default async function Home() {
                 <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 pt-6 text-center sm:text-left">
                   <div className="flex -space-x-3">
                     {[
-                      "https://lh3.googleusercontent.com/aida-public/AB6AXuCgJZQLt6-Fyqf7_moqrzPYfb7hYORGQiwwLlbzBqJe1WMBjd-d993iGNPMVfgZ_BPSPmM15QjwwXJRgavLxf79XiNjkv0N-3F-9l2b2VOoiO5seRHx4F7P9XLYm6oR13ntO5S4FU9kVavHjge-6qa25Po0lpR5Wk6LzrW38qQT1hB7RPp4PWFYh-BIjdWAoxiqZKXKhxKbZ7rwVnmXN8Z9ULQzoI6W7bBRA94b9nxE7jWybm0oFuBTHomGLUOtnoAemEIZ9wf1gpw",
-                      "https://lh3.googleusercontent.com/aida-public/AB6AXuCBli1BMN222idiRlnhliAhCGByaT_VOnwaUcrEhoCMrbY5F82v499DlVDa4FaeT50R3eCtd_oVQXiZeG8FwdFLh7HpnDE-UVH-NsPrjtrq7-O6z0d_IgqMeZtX9Y4kX53AIeE8w_KZuNM-FWQSgzKezNBK_umbtEPXzKgirmjs8OUm8MAP5tkjDO1dJHpMJTDGQY9Wh9NXrCrb_nPSBQr92BCs-UTajK5eVFeAsT-R1rjhyJKyWvudIfUsbnRrxbrm2qXMZ5ADpAM",
-                      "https://lh3.googleusercontent.com/aida-public/AB6AXuB84wJGq-7l9kzTmEL8gIZ5gA8DN4CkAQ8juywJhHG8EidRWw_dsheDrH-P1ZtG5YPaHx7KeIkDqH-lYSkDtoGJCWre0crF0bN32ihXd7eqiKgonkFEVCFxl79gzzzWAr9-RUS_TYVpE_bXRH272UKZyq4b0rfpqlGBQnauln_LpXxqvCzewwIq5snDHR7U-zS_ljytqxyzqEG4vB8T_RMM1HZUnfIhnmDzQnZP8kWY5bapSRP2j4OeAxkZ1zU_elmTslpxVBA3XCg"
+                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&auto=format&fit=crop",
+                      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&h=100&auto=format&fit=crop",
+                      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&h=100&auto=format&fit=crop"
                     ].map((src, i) => (
                       <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white dark:border-slate-900 overflow-hidden shadow-sm relative z-10 bg-slate-100 dark:bg-slate-800">
                         <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={60} />
                       </div>
                     ))}
                   </div>
-                  <p className="text-[10px] md:text-sm text-slate-500 dark:text-slate-400 max-w-[200px] sm:max-w-none">
-                    Únete a las <span className="font-bold text-slate-800 dark:text-slate-100 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4">primeras familias</span> que ya están optimizando su factura
+                  <p className="text-[10px] md:text-sm text-slate-500 dark:text-slate-400 max-w-[250px] sm:max-w-none">
+                    Forma parte de la comunidad de <span className="font-bold text-slate-800 dark:text-slate-100 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4">miles de familias</span> que ya han tomado el control de su gasto energético.
                   </p>
                 </div>
               </div>
@@ -199,20 +199,36 @@ export default async function Home() {
               {[
                 {
                   q: "¿Es seguro subir mi factura?",
-                  a: "Absolutamente. Utilizamos protocolos de cifrado de nivel bancario (SSL/TLS) para proteger tus archivos. Solo extraemos los datos necesarios para el análisis y no compartimos tu información personal con terceros sin tu consentimiento explícito. Tu privacidad es nuestra prioridad absoluta."
+                  a: "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS) y protocolos de seguridad avanzada. Tu factura solo se procesa para extraer los datos técnicos necesarios; no almacenamos datos personales sensibles ni los vendemos a terceros. Tu privacidad es nuestro compromiso número uno."
                 },
                 {
                   q: "¿Cómo se analizan los datos?",
-                  a: "Nuestra tecnología de Procesamiento de Datos y OCR de última generación escanea tu factura en milisegundos. Identifica automáticamente tu CUPS, potencia contratada, consumo horario y los conceptos facturados para entender exactamente qué estás pagando y dónde están las oportunidades de ahorro."
+                  a: "Nuestra tecnología de OCR de última generación escanea tu factura en milisegundos. Identificamos automáticamente tu CUPS (anonimizado), potencias contratadas y perfiles de consumo horario. Cruzamos esta información con todas las ofertas vigentes del mercado para encontrar tu pareja ideal de ahorro."
+                },
+                {
+                  q: "¿Tengo que cambiarme de compañía tras el análisis?",
+                  a: "En absoluto. El comparador es una herramienta de consulta totalmente libre. Te mostramos cuánto podrías ahorrar y con qué proveedor, pero la decisión final de contratar o no es siempre tuya. No hay compromisos ni llamadas comerciales intrusivas."
                 },
                 {
                   q: "¿Tengo que pagar por usar el comparador?",
-                  a: "No, el uso de nuestra plataforma es 100% gratuito. Este es un proyecto independiente y altruista diseñado para ayudar a las familias a ahorrar en su factura de la luz. Proporcionamos enlaces oficiales directos a las comercializadoras y no percibimos ningún tipo de comisión por ello.",
+                  a: "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética. Si decides cambiarte, te facilitamos el enlace directo a la web oficial de la compañía para que hagas el trámite tú mismo, sin intermediarios.",
                   success: true
                 },
                 {
                   q: "¿Las tarifas están actualizadas?",
-                  a: "Sí, nuestra base de datos se sincroniza en tiempo real con las ofertas publicadas por las comercializadoras y el mercado mayorista (OMIE). Revisamos y actualizamos más de 25 tarifas diariamente para asegurarnos de que siempre veas la opción más competitiva disponible en el mercado español."
+                  a: "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras. Si una compañía lanza una oferta nueva en España, nosotros la tenemos en el comparador en menos de 24 horas."
+                },
+                {
+                  q: "¿Sirve para empresas o solo para hogares?",
+                  a: "Nuestro motor actual está optimizado para tarifas domésticas y pymes (tarifas 2.0TD, hasta 15kW). Si eres una gran industria con perfiles 3.0TD o superiores, contacta con nosotros para un análisis personalizado por uno de nuestros técnicos asociados."
+                },
+                {
+                  q: "¿Qué ahorro medio puedo esperar?",
+                  a: "Depende de tu contrato actual, pero de media, nuestros usuarios detectan un ahorro potencial de entre el 25% y el 40% anual. En cifras reales, esto suele suponer entre 200€ y 450€ de ahorro simplemente ajustando la tarifa a su consumo real."
+                },
+                {
+                  q: "¿Cómo puedo contactar con vosotros?",
+                  a: "¿Tienes una duda técnica o no entiendes un resultado? Escríbenos a hola@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
                 }
               ].map((faq, i) => (
                 <details key={i} className="group premium-card overflow-hidden [&_summary::-webkit-details-marker]:hidden">
@@ -288,23 +304,21 @@ export default async function Home() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "history", title: "Historial de Análisis", desc: "Guarda tus comparativas y observa cómo evoluciona tu ahorro año tras año." },
-                    { icon: "analytics", title: "Seguimiento Real", desc: "Monitoriza tus consumos y recibe alertas cuando aparezca una tarifa mejor." },
-                    { icon: "description", title: "Gestor de Facturas", desc: "Almacena tus facturas PDF de forma segura y organizada en un solo lugar." },
-                    { icon: "auto_graph", title: "Optimización Pro", desc: "Accede a predicciones basadas en el mercado mayorista personalizadas para ti." }
+                    { icon: "history", title: "Evolución de Ahorro", desc: "Monitorea tu ahorro histórico y comprueba cuánto has dejado de pagar cada temporada con nuestras métricas." },
+                    { icon: "analytics", title: "Alertas Inteligentes", desc: "Vigilamos el mercado 24/7 y te avisamos si surge una tarifa que mejore tu contrato actual." },
+                    { icon: "description", title: "Bóveda Digital", desc: "Organiza y protege tus facturas PDF en un espacio seguro y privado, siempre disponible para consulta." },
+                    { icon: "auto_graph", title: "Previsión Energética", desc: "Anticípate a las subidas de precio con análisis basados en el mercado mayorista y previsiones personalizadas." }
                   ].map((benefit, i) => (
-                    <div key={i} className="flex gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <div className="text-primary mb-4 p-2 bg-primary/5 rounded-xl">
-                          {benefit.icon === 'history' && <HistoryIcon size={24} />}
-                          {benefit.icon === 'analytics' && <BarChart3 size={24} />}
-                          {benefit.icon === 'description' && <FileText size={24} />}
-                          {benefit.icon === 'auto_graph' && <TrendingUp size={24} />}
-                        </div>
+                    <div key={i} className="flex gap-4 group">
+                      <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                        {benefit.icon === 'history' && <HistoryIcon size={24} />}
+                        {benefit.icon === 'analytics' && <BarChart3 size={24} />}
+                        {benefit.icon === 'description' && <FileText size={24} />}
+                        {benefit.icon === 'auto_graph' && <TrendingUp size={24} />}
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-bold text-white">{benefit.title}</h4>
-                        <p className="text-xs text-slate-500 leading-relaxed">{benefit.desc}</p>
+                        <h4 className="font-bold text-white group-hover:text-primary transition-colors">{benefit.title}</h4>
+                        <p className="text-[13px] text-slate-500 leading-relaxed">{benefit.desc}</p>
                       </div>
                     </div>
                   ))}

@@ -83,7 +83,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: "mercado-libre-vs-regulado",
-    slug: "mercado-libre-vs-pvpc-cual-es-mejor-para-ti",
+    slug: "mercado-libre-pvpc",
     title: "Mercado Libre vs Regulado (PVPC): El Análisis Definitivo tras la Reforma",
     excerpt: "Tras los últimos cambios legislativos de 2026, la comparativa entre tarifas indexadas y fijas ha dado un giro. ¿Cuál protege mejor tu bolsillo?",
     content: `

@@ -17,6 +17,9 @@
   --color-charcoal: #0B1219;
 
   --color-node-bg: #1a2632;
+  
+  --breakpoint-xxs: 420px;
+  --breakpoint-xxxs: 360px;
 
   /* Font Families */
   --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;

@@ -3,283 +3,225 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import dynamic from 'next/dynamic';
 import Image from "next/image";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import React, { Suspense } from "react";
-import { Sun, Moon, User, LogOut, LogIn, Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, FileUp, Sun, Moon } from "lucide-react";
 
-const AuthModal = dynamic(() => import('@/components/auth/AuthModal'), { ssr: false });
-import NotificationBell from "./NotificationBell";
+const COMPANIES = [
+    "Endesa", "Iberdrola", "Naturgy", "Repsol", 
+    "TotalEnergies", "Octopus", "Niba", "Imagina", 
+    "Visalia", "Nufri", "Energya VM", "CHC Energía", "Esluz"
+];
 
-function NavbarContent() {
+export default function Navbar() {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const { user, logout } = useAuth();
-    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const searchParams = useSearchParams();
-    const router = useRouter();
-    const pathname = usePathname();
-    const authParam = searchParams.get('auth');
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isCompaniesOpen, setIsCompaniesOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
+    // Prevent scroll when drawer is open
     useEffect(() => {
-        if (authParam === 'login' || authParam === 'register') {
-            setIsAuthModalOpen(true);
+        if (isDrawerOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
         }
-    }, [authParam]);
+    }, [isDrawerOpen]);
 
-    const handleCloseAuthModal = () => {
-        setIsAuthModalOpen(false);
-        // Clear auth param from URL if it exists
-        if (authParam) {
-            const params = new URLSearchParams(searchParams.toString());
-            params.delete('auth');
-            router.replace(`${pathname}${params.toString() ? `?${params.toString()}` : ''}`, { scroll: false });
-        }
-    };
+    if (!mounted) return <div className="h-20 bg-[#f6f7f8] dark:bg-[#101922] sticky top-0 z-50 animate-pulse"></div>;
 
-    if (!mounted) {
-        return (
-            <nav className="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 transition-colors duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-20">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
-                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain" priority />
-                            </div>
-                            <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white">
-                                TuMejorTarifa<span className="text-primary">Luz</span>
-                            </span>
-                        </Link>
-                    </div>
-                </div>
-            </nav>
-        );
-    }
+    const navLinks = [
+        { name: "Comparador", href: "/comparador" },
+        { name: "Guías", href: "/blog" },
+        { name: "¿Cómo funciona?", href: "/#como-funciona" },
+    ];
 
     return (
-        <>
-            <nav className="sticky top-0 z-50 bg-white/70 dark:bg-[#0A0D14]/80 backdrop-blur-xl border-b border-primary/5 dark:border-white/5 transition-all duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-20">
-                        <Link href="/" className="flex items-center gap-2 group">
-                            <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
-                                <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={48} height={48} className="object-contain group-hover:scale-110 transition-transform duration-500" priority />
+        <nav className="sticky top-0 z-50 bg-[#f6f7f8] dark:bg-[#101922] border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center h-20">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-2 group shrink-0">
+                        <div className="w-14 h-14 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
+                            <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={44} height={44} className="object-contain" priority />
+                        </div>
+                        <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline">
+                            TuMejorTarifa<span className="text-primary">Luz</span>
+                        </span>
+                    </Link>
+
+                    {/* Desktop Navigation */}
+                    <div className="hidden lg:flex items-center space-x-8">
+                        <Link href="/comparador" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Comparador</Link>
+                        
+                        {/* Companies Dropdown */}
+                        <div className="relative group">
+                            <button 
+                                className="flex items-center gap-1.5 text-sm font-bold text-slate-700 dark:text-slate-300 group-hover:text-[#137fec] transition-colors h-20"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                Compañías <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+                            </button>
+                            
+                            {/* Dropdown Menu */}
+                            <div className="absolute top-[calc(100%-8px)] left-1/2 -translate-x-1/2 w-[320px] bg-[#1a2632] border border-slate-800 rounded-2xl p-4 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
+                                <div className="grid grid-cols-2 gap-2">
+                                    {COMPANIES.map((company) => (
+                                        <Link 
+                                            key={company} 
+                                            href={`/companias/${
+                                                company === "TotalEnergies" ? "total-energies" :
+                                                company === "Octopus" ? "octopus-energy" :
+                                                company === "Imagina" ? "imagina-energia" :
+                                                company === "Nufri" ? "energia-nufri" :
+                                                company === "Energya VM" ? "energia-vm" :
+                                                company.toLowerCase().replace(" ", "-")
+                                            }`}
+                                            className="px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-[#137fec]/20 rounded-lg transition-colors flex items-center gap-2"
+                                        >
+                                            <div className="w-1 h-1 bg-[#137fec] rounded-full"></div>
+                                            {company}
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
-                            <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline">
-                                TuMejorTarifa<span className="text-primary">Luz</span>
-                            </span>
+                        </div>
+
+                        <Link href="/blog" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Guías</Link>
+                        <Link href="/#como-funciona" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">¿Cómo funciona?</Link>
+                    </div>
+
+                    {/* Right Side Actions */}
+                    <div className="flex items-center gap-4">
+                        {/* Theme Toggle (Optional but nice) */}
+                        <button
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="p-2 text-slate-500 hover:text-[#137fec] transition-colors lg:block hidden"
+                            aria-label="Toggle theme"
+                        >
+                            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
+
+                        {/* CTA Button */}
+                        <Link 
+                            href="/comparador?mode=upload" 
+                            className="bg-[#137fec] text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-[#137fec]/20 hover:shadow-[#137fec]/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-[#137fec]/50 whitespace-nowrap"
+                        >
+                            <FileUp size={14} className="hidden xxs:block" />
+                            Subir factura
                         </Link>
 
-                        <div className="hidden lg:flex items-center space-x-8">
-                            <Link href="/comparador" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Comparador</Link>
-                            <Link href="/companias" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Compañías</Link>
-                            <Link href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Guías</Link>
-                            <Link href="/sobre-nosotros" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Nosotros</Link>
-                            <Link href="/#faq" className="text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">FAQ</Link>
-
-                            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
-
-                            <NotificationBell />
-
-                            {/* Theme Toggle */}
-                            <button
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="relative h-10 w-18 rounded-full bg-slate-100/50 dark:bg-slate-800/40 p-1 flex items-center justify-between border border-slate-200 dark:border-white/10 transition-all hover:border-primary/40 shadow-inner group/toggle"
-                                aria-label="Toggle theme"
-                                role="switch"
-                                aria-checked={theme === 'dark'}
-                            >
-                                <div className={`absolute h-8 w-8 rounded-full bg-white dark:bg-primary shadow-md transform transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${theme === 'dark' ? 'translate-x-[32px]' : 'translate-x-0'} group-hover/toggle:scale-105`} />
-                                <span className={`z-10 w-8 flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
-                                    <Sun size={15} strokeWidth={2.5} />
-                                </span>
-                                <span className={`z-10 w-8 flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
-                                    <Moon size={15} strokeWidth={2.5} />
-                                </span>
-                            </button>
-
-                            {user ? (
-                                <div className="flex items-center gap-4">
-                                    <Link
-                                        href="/mi-cuenta"
-                                        className="flex items-center gap-2 group"
-                                    >
-                                        <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
-                                            {user.photoURL ? (
-                                                <Image 
-                                                    src={user.photoURL} 
-                                                    alt={user.displayName || "User"} 
-                                                    width={36} 
-                                                    height={36} 
-                                                    className="w-full h-full object-cover"
-                                                    unoptimized
-                                                />
-                                            ) : (
-                                            <User size={16} className="text-primary" />
-                                            )}
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Mi Perfil</span>
-                                            <span className="text-sm font-800 text-slate-900 dark:text-white truncate max-w-[120px]">
-                                                {user.displayName?.split(' ')[0] || user.email?.split('@')[0]}
-                                            </span>
-                                        </div>
-                                    </Link>
-                                    <button
-                                        onClick={() => logout()}
-                                        className="p-2 text-slate-400 hover:text-red-500 transition-colors"
-                                        title="Cerrar Sesión"
-                                    >
-                                        <LogOut size={18} />
-                                    </button>
-                                </div>
-                            ) : (
-                                <button
-                                    onClick={() => setIsAuthModalOpen(true)}
-                                    className="inline-flex items-center px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-900 uppercase tracking-widest shadow-xl shadow-slate-200 dark:shadow-none hover:scale-105 active:scale-95 transition-all"
-                                >
-                                    Entrar
-                                </button>
-                            )}
-                        </div>
-
-                        {/* Mobile controls */}
-                        <div className="lg:hidden flex items-center gap-1 sm:gap-2">
-                            <NotificationBell />
-                            <button
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-700 transition-all shadow-inner shrink-0"
-                                aria-label="Toggle theme"
-                            >
-                                <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-[28px]' : 'translate-x-0'}`} />
-                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
-                                    <Sun size={14} />
-                                </span>
-                                <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
-                                    <Moon size={14} />
-                                </span>
-                            </button>
-
-                            {user ? (
-                                <Link
-                                    href="/mi-cuenta"
-                                    className="w-9 h-9 flex items-center justify-center shrink-0"
-                                >
-                                    <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
-                                        {user.photoURL ? (
-                                            <Image 
-                                                src={user.photoURL} 
-                                                alt={user.displayName || "User"} 
-                                                width={32} 
-                                                height={32} 
-                                                className="w-full h-full object-cover"
-                                                unoptimized
-                                            />
-                                        ) : (
-                                            <User size={12} className="text-primary" />
-                                        )}
-                                    </div>
-                                </Link>
-                            ) : (
-                                <button
-                                    onClick={() => setIsAuthModalOpen(true)}
-                                    className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
-                                >
-                                    <LogIn size={20} />
-                                </button>
-                            )}
-
-                            <button
-                                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="w-9 h-9 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors shrink-0"
-                                aria-label={isMenuOpen ? "Cerrar menú principal" : "Abrir menú principal"}
-                            >
-                                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                            </button>
-                        </div>
+                        {/* Mobile Menu Button */}
+                        <button 
+                            className="lg:hidden p-2 text-slate-700 dark:text-slate-300 min-h-[48px] min-w-[48px] flex items-center justify-center -mr-2"
+                            onClick={() => setIsDrawerOpen(true)}
+                            aria-label="Abrir menú"
+                        >
+                            <Menu size={24} />
+                        </button>
                     </div>
                 </div>
-            </nav>
+            </div>
 
-            {/* Mobile Menu Overlay */}
-            {isMenuOpen && (
-                <div className="fixed inset-0 z-[60] lg:hidden">
-                    <div 
-                        className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" 
-                        onClick={() => setIsMenuOpen(false)}
-                    />
-                    <div className="absolute top-20 left-0 right-0 bg-white dark:bg-[#0D1117] border-t border-slate-100 dark:border-white/5 animate-in slide-in-from-top duration-300 shadow-2xl overflow-y-auto max-h-[calc(100vh-80px)]">
-                        <div className="px-6 py-10 space-y-8">
-                            <nav className="space-y-4">
-                                <Link href="/comparador" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
-                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Comparador Inteligente</span>
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
-                                    </div>
-                                </Link>
-                                <Link href="/companias" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
-                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Comercializadoras</span>
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
-                                    </div>
-                                </Link>
-                                <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
-                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Guías de Ahorro</span>
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
-                                    </div>
-                                </Link>
-                                <Link href="/#faq" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between group">
-                                    <span className="text-xl font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">Preguntas Frecuentes</span>
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                                        <ChevronRight size={16} className="text-slate-400 group-hover:text-primary" />
-                                    </div>
-                                </Link>
-                            </nav>
-                            
-                            <div className="pt-8 border-t border-slate-100 dark:border-white/5">
-                                {user ? (
-                                    <button
-                                        onClick={() => { logout(); setIsMenuOpen(false); }}
-                                        className="w-full py-4 rounded-2xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 font-bold text-center active:scale-95 transition-transform"
-                                    >
-                                        Cerrar Sesión
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={() => { setIsAuthModalOpen(true); setIsMenuOpen(false); }}
-                                        className="w-full py-5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-900 text-center uppercase tracking-widest shadow-2xl shadow-slate-200 dark:shadow-none active:scale-95 transition-all"
-                                    >
-                                        Iniciar Sesión
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {/* Mobile Drawer Overlay */}
+            {isDrawerOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] transition-opacity duration-300"
+                    onClick={() => setIsDrawerOpen(false)}
+                />
             )}
 
-            <AuthModal
-                isOpen={isAuthModalOpen}
-                onClose={handleCloseAuthModal}
-                initialMode={authParam === 'register' ? 'register' : 'login'}
-            />
-        </>
-    );
-}
+            {/* Mobile Drawer Panel */}
+            <div className={`fixed top-0 right-0 h-full w-[80%] max-w-[400px] bg-[#101922] z-[101] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+                <div className="flex flex-col h-full">
+                    {/* Header */}
+                    <div className="p-6 flex items-center justify-between border-b border-slate-800">
+                        <span className="text-lg font-900 text-white">Menú</span>
+                        <button 
+                            className="p-2 text-slate-400 hover:text-white transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
+                            onClick={() => setIsDrawerOpen(false)}
+                            aria-label="Cerrar menú"
+                        >
+                            <X size={24} />
+                        </button>
+                    </div>
 
-export default function Navbar() {
-    return (
-        <Suspense fallback={<nav className="sticky top-0 z-50 h-20 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10 transition-colors duration-300"></nav>}>
-            <NavbarContent />
-        </Suspense>
+                    {/* Navigation Links */}
+                    <div className="flex-1 overflow-y-auto p-6 space-y-2">
+                        <Link 
+                            href="/comparador" 
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            Comparador <ChevronRight size={18} className="text-[#137fec]" />
+                        </Link>
+
+                        {/* Mobile Accordion - Companies */}
+                        <div className="space-y-2">
+                            <button 
+                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-[#137fec]/10 border-[#137fec]/30 text-white' : 'bg-[#1a2632] text-white border-transparent'}`}
+                                onClick={() => setIsCompaniesOpen(!isCompaniesOpen)}
+                            >
+                                Compañías <ChevronDown size={18} className={`text-[#137fec] transition-transform duration-300 ${isCompaniesOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            
+                            {isCompaniesOpen && (
+                                <div className="grid grid-cols-1 gap-1 pl-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    {COMPANIES.map((company) => (
+                                        <Link 
+                                            key={company} 
+                                            href={`/companias/${
+                                                company === "TotalEnergies" ? "total-energies" :
+                                                company === "Octopus" ? "octopus-energy" :
+                                                company === "Imagina" ? "imagina-energia" :
+                                                company === "Nufri" ? "energia-nufri" :
+                                                company === "Energya VM" ? "energia-vm" :
+                                                company.toLowerCase().replace(" ", "-")
+                                            }`}
+                                            className="px-4 py-3 text-sm font-bold text-slate-400 hover:text-[#137fec] transition-colors flex items-center gap-2"
+                                            onClick={() => setIsDrawerOpen(false)}
+                                        >
+                                            <div className="w-1.5 h-1.5 bg-[#137fec] rounded-full"></div>
+                                            {company}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        <Link 
+                            href="/blog" 
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            Guías <ChevronRight size={18} className="text-[#137fec]" />
+                        </Link>
+
+                        <Link 
+                            href="/#como-funciona" 
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            ¿Cómo funciona? <ChevronRight size={18} className="text-[#137fec]" />
+                        </Link>
+                    </div>
+
+                    {/* Footer / Copyright */}
+                    <div className="p-8 border-t border-slate-800 text-center">
+                        <button
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="w-full py-4 rounded-2xl bg-[#1a2632] text-slate-300 font-bold mb-6 flex items-center justify-center gap-3 border border-slate-700"
+                        >
+                            {theme === "dark" ? <><Sun size={20} /> Cambiar Modo Claro</> : <><Moon size={20} /> Cambiar Modo Oscuro</>}
+                        </button>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">tumejortarifaluz eS</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
     );
 }
