@@ -3,6 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
 import { Zap, TrendingDown, Clock, BarChart3, AlertCircle, Info } from "lucide-react";
 import Link from "next/link";
+import { getElectricityPrices } from "@/lib/electricity-prices";
 
 export const metadata: Metadata = {
     title: "Precio de la Luz Hoy 2026: Horas más BARATAS y CARAS | TuMejorTarifaLuz",
@@ -12,36 +13,30 @@ export const metadata: Metadata = {
     }
 };
 
-async function getPrices() {
-    try {
-        // Usamos una API pública de precios de luz en España
-        const res = await fetch('https://api.preciodelaluz.org/v1/prices/all?zone=PCB', {
-            next: { revalidate: 3600 } // Revalidar cada hora
-        });
-        if (!res.ok) return null;
-        return await res.json();
-    } catch (e) {
-        return null;
-    }
-}
-
 export default async function PrecioLuzHoyPage() {
-    const pricesData = await getPrices();
+    const pricesData = await getElectricityPrices();
     
-    // Sort prices to find min and max
-    const pricesArray = pricesData ? Object.values(pricesData).map((p: any) => ({
-        hour: p.hour,
-        price: p.price / 1000, // Convert to €/kWh
-        isCheap: p['is-cheap'],
-        isUnderAvg: p['is-under-avg']
-    })) : [];
+    // Si no hay datos, usamos valores por defecto para no romper la UI
+    const prices = pricesData || {
+        current: 0,
+        average: 0,
+        min: 0,
+        minHour: "--:--",
+        max: 0,
+        maxHour: "--:--",
+        time: "--:--",
+        isLive: false,
+        allHours: []
+    };
 
-    const minPrice = pricesArray.length > 0 ? Math.min(...pricesArray.map(p => p.price)) : 0;
-    const maxPrice = pricesArray.length > 0 ? Math.max(...pricesArray.map(p => p.price)) : 0;
-    const avgPrice = pricesArray.length > 0 ? pricesArray.reduce((acc, p) => acc + p.price, 0) / pricesArray.length : 0;
+    const pricesArray = (prices.allHours || []).map((p) => ({
+        hour: `${String(p.hour).padStart(2, '0')}-${String(p.hour + 1).padStart(2, '0')}`,
+        price: p.value,
+        isCheap: p.value < prices.average
+    }));
 
-    const currentHour = new Date().getHours();
-    const currentPrice = pricesArray.find(p => parseInt(p.hour.split("-")[0]) === currentHour)?.price || 0;
+    const currentHourStr = prices.time.split(":")[0];
+    const currentHour = parseInt(currentHourStr);
 
     return (
         <>
@@ -69,8 +64,8 @@ export default async function PrecioLuzHoyPage() {
                                 <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Mínimo Hoy</span>
                                 <TrendingDown className="w-6 h-6" />
                             </div>
-                            <div className="text-4xl font-900 mb-2">{minPrice.toFixed(5)} <span className="text-lg">€/kWh</span></div>
-                            <p className="text-sm font-medium opacity-90">Hora más barata del día</p>
+                            <div className="text-4xl font-900 mb-2">{prices.min.toFixed(5)} <span className="text-lg">€/kWh</span></div>
+                            <p className="text-sm font-medium opacity-90">Hora más barata del día ({prices.minHour})</p>
                         </div>
                         
                         <div className="premium-card p-8 bg-slate-900 text-white shadow-xl shadow-slate-900/10">
@@ -78,7 +73,7 @@ export default async function PrecioLuzHoyPage() {
                                 <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Precio Actual</span>
                                 <Clock className="w-6 h-6 text-primary" />
                             </div>
-                            <div className="text-4xl font-900 mb-2 text-primary">{currentPrice.toFixed(5)} <span className="text-lg text-white">€/kWh</span></div>
+                            <div className="text-4xl font-900 mb-2 text-primary">{prices.current.toFixed(5)} <span className="text-lg text-white">€/kWh</span></div>
                             <p className="text-sm font-medium opacity-60">Media del pool ahora mismo</p>
                         </div>
 
@@ -87,7 +82,7 @@ export default async function PrecioLuzHoyPage() {
                                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Media del Día</span>
                                 <BarChart3 className="w-6 h-6 text-slate-400" />
                             </div>
-                            <div className="text-4xl font-900 mb-2 text-slate-900 dark:text-white">{avgPrice.toFixed(5)} <span className="text-lg opacity-40">€/kWh</span></div>
+                            <div className="text-4xl font-900 mb-2 text-slate-900 dark:text-white">{prices.average.toFixed(5)} <span className="text-lg opacity-40">€/kWh</span></div>
                             <p className="text-sm font-medium text-slate-500">Promedio de las 24 horas</p>
                         </div>
                     </div>
@@ -99,11 +94,11 @@ export default async function PrecioLuzHoyPage() {
                             <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Barata</span>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Debajo media</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="w-3 h-3 rounded-full bg-rose-500"></div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Cara</span>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Encima media</span>
                                 </div>
                             </div>
                         </div>
@@ -112,10 +107,10 @@ export default async function PrecioLuzHoyPage() {
                             {pricesArray.length > 0 ? pricesArray.map((p, i) => (
                                 <div key={i} className={`p-6 flex flex-col items-center justify-center space-y-3 transition-colors ${parseInt(p.hour.split("-")[0]) === currentHour ? 'bg-primary/5' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30'}`}>
                                     <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{p.hour}h</span>
-                                    <span className={`text-xl font-900 ${p.price === minPrice ? 'text-emerald-500' : p.price === maxPrice ? 'text-rose-500' : 'text-slate-900 dark:text-white'}`}>
+                                    <span className={`text-xl font-900 ${p.price === prices.min ? 'text-emerald-500' : p.price === prices.max ? 'text-rose-500' : 'text-slate-900 dark:text-white'}`}>
                                         {p.price.toFixed(5)}
                                     </span>
-                                    <div className={`w-2 h-2 rounded-full ${p.price < avgPrice ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>
+                                    <div className={`w-2 h-2 rounded-full ${p.price < prices.average ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>
                                 </div>
                             )) : (
                                 <div className="col-span-full p-20 text-center text-slate-400 italic">

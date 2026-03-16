@@ -1,6 +1,8 @@
 export interface ApiPriceData {
     value: number;
     datetime: string;
+    hour: number;
+    dateOnly: string;
 }
 
 export interface ElectricityPriceData {
