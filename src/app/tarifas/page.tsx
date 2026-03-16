@@ -2,12 +2,12 @@ import TarifasClient from "./TarifasClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Comparativa de Tarifas de Luz 2026: Precios kWh Actualizados",
-    description: "Consulta nuestro catálogo completo de tarifas de luz en España. Comparamos más de 150 ofertas de Iberdrola, Endesa, Octopus y más para que encuentres el precio más bajo.",
-    alternates: {
-        canonical: "https://tumejortarifaluz.es/tarifas"
-    }
-};
+  title: 'Tarifas de Luz 2026: Precios de Iberdrola, Endesa, Octopus y más | TuMejorTarifaLuz',
+  description: 'Catálogo actualizado diariamente con más de 25 tarifas de luz en España. Tarifa fija, tres periodos y PVPC. Compara precios reales del kWh sin intermediarios.',
+  alternates: {
+    canonical: 'https://tumejortarifaluz.es/tarifas'
+  }
+}
 
 export default function TarifasPage() {
     return <TarifasClient />;

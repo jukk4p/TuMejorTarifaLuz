@@ -44,6 +44,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/mercado-libre-vs-pvpc-cual-es-mejor-para-ti',
+        destination: '/blog/mercado-libre-pvpc',
+        permanent: true,
+      },
+      {
         source: '/blog/optimizacion-potencia-ahorro',
         destination: '/blog/como-reducir-potencia-contratada-luz-ahorrar',
         permanent: true,

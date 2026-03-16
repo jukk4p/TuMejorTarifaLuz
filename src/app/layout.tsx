@@ -69,7 +69,29 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
             <ToastProvider>
-              <JsonLd data={organizationSchema} />
+              <JsonLd data={{
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": "Organization",
+                    "@id": "https://tumejortarifaluz.es/#organization",
+                    "name": "TuMejorTarifaLuz",
+                    "url": "https://tumejortarifaluz.es",
+                    "logo": "https://tumejortarifaluz.es/Logo.png",
+                    "sameAs": [
+                      "https://x.com/tumejortarifaluz",
+                      "https://facebook.com/tumejortarifaluz"
+                    ]
+                  },
+                  {
+                    "@type": "WebSite",
+                    "@id": "https://tumejortarifaluz.es/#website",
+                    "url": "https://tumejortarifaluz.es",
+                    "name": "TuMejorTarifaLuz",
+                    "publisher": { "@id": "https://tumejortarifaluz.es/#organization" }
+                  }
+                ]
+              }} />
               {children}
             </ToastProvider>
           </ThemeProvider>

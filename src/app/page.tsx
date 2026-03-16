@@ -46,6 +46,7 @@ export default async function Home() {
       <JsonLd data={webSiteSchema} />
       <JsonLd data={organizationSchema} />
       <JsonLd data={webAppSchema} />
+      <JsonLd data={faqSchema} />
       <JsonLd data={getBreadcrumbSchema([
         { name: "Inicio", item: "/" },
         { name: "Comparador de Tarifas", item: "/comparador" }
