@@ -10,11 +10,11 @@ export async function generateMetadata(
   const company = providers.find(p => p.slug === slug);
   
   if (!company) {
-    return { title: 'Compañía no encontrada | TuMejorTarifaLuz' }
+    return { title: 'Compañía no encontrada' }
   }
   
   return {
-    title: `Tarifas ${company.name} 2026: Precios y Análisis | TuMejorTarifaLuz`,
+    title: `Tarifas ${company.name} 2026: Precios y Análisis`,
     description: `Precios actualizados de las tarifas de luz de ${company.name} en 2026. Análisis independiente: pros, contras y comparativa con otras compañías. Sin comisiones.`,
     alternates: {
       canonical: `https://tumejortarifaluz.es/companias/${slug}`

@@ -21,8 +21,8 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://tumejortarifaluz.es'),
   title: {
-    default: "Comparador de Tarifas de Luz Gratis 2026 | Sube tu Factura y Ahorra | TuMejorTarifaLuz",
-    template: "%s | Tu Mejor Tarifa Luz"
+    default: 'TuMejorTarifaLuz | Comparador de Tarifas de Luz Gratis',
+    template: '%s | TuMejorTarifaLuz'
   },
   description: "Compara más de 25 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra hasta 312€/año analizando tu consumo real sin registros.",
   openGraph: {

@@ -15,11 +15,11 @@ export async function generateMetadata(
   const post = blogPosts.find((p) => p.slug === slug);
   
   if (!post) {
-    return { title: 'Artículo no encontrado | TuMejorTarifaLuz' }
+    return { title: 'Artículo no encontrado' }
   }
   
   return {
-    title: `${post.title} | Guía 2026 | TuMejorTarifaLuz`,
+    title: `${post.title} | Guía 2026`,
     description: post.excerpt?.slice(0, 155) ?? post.title,
     openGraph: {
       title: post.title,
