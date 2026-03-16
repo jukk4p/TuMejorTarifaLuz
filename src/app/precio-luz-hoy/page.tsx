@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 export default async function PrecioLuzHoyPage() {
     const pricesData = await getElectricityPrices();
     
-    // Si no hay datos, usamos valores por defecto para no romper la UI
     const prices = pricesData || {
         current: 0,
         average: 0,
@@ -88,31 +87,50 @@ export default async function PrecioLuzHoyPage() {
                     </div>
 
                     {/* Hourly Table */}
-                    <div className="premium-card overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
-                        <div className="p-8 border-b border-slate-50 dark:border-slate-800/50 flex items-center justify-between">
-                            <h3 className="text-xl font-800 text-slate-900 dark:text-white uppercase tracking-tight">Evolución Horaria</h3>
-                            <div className="flex items-center gap-4">
+                    <div className="premium-card overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-100/50 dark:shadow-none">
+                        <div className="p-8 border-b border-slate-50 dark:border-slate-800/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 className="text-xl font-800 text-slate-900 dark:text-white uppercase tracking-tight">Evolución Horaria</h3>
+                                <p className="text-xs text-slate-400 font-medium">Precios por tramos de 1 hora para hoy</p>
+                            </div>
+                            <div className="flex items-center gap-6">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Debajo media</span>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Lo mejor</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full bg-rose-500"></div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Encima media</span>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Lo peor</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 divide-x divide-y divide-slate-50 dark:divide-slate-800/50">
-                            {pricesArray.length > 0 ? pricesArray.map((p, i) => (
-                                <div key={i} className={`p-6 flex flex-col items-center justify-center space-y-3 transition-colors ${parseInt(p.hour.split("-")[0]) === currentHour ? 'bg-primary/5' : 'hover:bg-slate-50 dark:hover:bg-slate-800/30'}`}>
-                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{p.hour}h</span>
-                                    <span className={`text-xl font-900 ${p.price === prices.min ? 'text-emerald-500' : p.price === prices.max ? 'text-rose-500' : 'text-slate-900 dark:text-white'}`}>
-                                        {p.price.toFixed(5)}
-                                    </span>
-                                    <div className={`w-2 h-2 rounded-full ${p.price < prices.average ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>
-                                </div>
-                            )) : (
+                            {pricesArray.length > 0 ? pricesArray.map((p, i) => {
+                                const startHour = parseInt(p.hour.split("-")[0]);
+                                const isCurrent = startHour === currentHour;
+                                const isBest = p.price === prices.min;
+                                const isWorst = p.price === prices.max;
+                                
+                                return (
+                                    <div key={i} className={`p-6 flex flex-col items-center justify-center gap-2 transition-all duration-300 relative ${isCurrent ? 'bg-primary/[0.03] ring-1 ring-inset ring-primary/10' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/20'}`}>
+                                        <span className={`text-[10px] font-bold tracking-tighter ${isCurrent ? 'text-primary' : 'text-slate-400'}`}>
+                                            {String(startHour).padStart(2, '0')}:00
+                                        </span>
+                                        <div className="text-center">
+                                            <span className={`text-lg font-900 block leading-none ${isBest ? 'text-emerald-500' : isWorst ? 'text-rose-500' : 'text-slate-700 dark:text-slate-200'}`}>
+                                                {p.price.toFixed(4)}
+                                            </span>
+                                            <span className="text-[8px] font-bold text-slate-300 dark:text-slate-500">€/kWh</span>
+                                        </div>
+                                        <div className={`w-full h-1 rounded-full mt-1 ${isBest ? 'bg-emerald-500' : isWorst ? 'bg-rose-500' : p.price < prices.average ? 'bg-emerald-500/20' : 'bg-rose-500/20'}`}></div>
+                                        {isCurrent && <span className="absolute top-2 right-2 flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                        </span>}
+                                    </div>
+                                );
+                            }) : (
                                 <div className="col-span-full p-20 text-center text-slate-400 italic">
                                     No se han podido cargar los precios en este momento. Inténtalo de nuevo más tarde.
                                 </div>

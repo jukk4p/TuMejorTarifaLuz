@@ -76,30 +76,61 @@ function processEsiosData(data: any): ElectricityPriceData | null {
         const currentHour = parseInt(madridTime.find(p => p.type === 'hour')?.value || '0');
         const currentMinute = madridTime.find(p => p.type === 'minute')?.value || '00';
 
+        // Obtener la fecha actual en Madrid para el filtrado
+        const madridToday = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Europe/Madrid',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(now);
+
         const prices = rawValues.map((v: any) => {
             const date = new Date(v.datetime);
-            // Obtener la hora en Madrid para cada punto de datos
-            const hourInMadrid = parseInt(new Intl.DateTimeFormat('es-ES', {
+            // Obtener la fecha y hora en Madrid para cada punto de datos
+            const formatter = new Intl.DateTimeFormat('es-ES', {
                 timeZone: 'Europe/Madrid',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
                 hour: 'numeric',
                 hour12: false
-            }).format(date));
+            });
+            const parts = formatter.formatToParts(date);
+            
+            const hour = parseInt(parts.find(p => p.type === 'hour')?.value || '0');
+            const day = parts.find(p => p.type === 'day')?.value;
+            const month = parts.find(p => p.type === 'month')?.value;
+            const year = parts.find(p => p.type === 'year')?.value;
+            
+            // Re-formatear a YYYY-MM-DD para comparar con madridToday
+            const dateOnly = `${year}-${month}-${day}`;
 
             return {
                 value: v.value / 1000,
-                hour: hourInMadrid,
+                hour: hour === 24 ? 0 : hour, // Ajuste para algunas APIs que devuelven 24
                 datetime: v.datetime,
-                dateOnly: v.datetime.split('T')[0]
+                dateOnly: dateOnly
             };
         });
 
-        const todayStr = now.toISOString().split('T')[0];
-        let filteredPrices = prices.filter((p: any) => p.dateOnly === todayStr);
+        // Filtrar estrictamente por el día de hoy en Madrid
+        let filteredPrices = prices.filter((p: any) => p.dateOnly === madridToday);
 
+        // Si es muy temprano y no hay datos del día (raro en ESIOS), cogemos los últimos 24
         if (filteredPrices.length === 0) {
-            filteredPrices = prices.slice(-24);
+            filteredPrices = prices.slice(0, 24);
         }
 
+        // Eliminar posibles duplicados de horas (a veces sucede en cambios de hora o solapamientos)
+        const uniqueHours = new Map();
+        filteredPrices.forEach((p: any) => {
+            if (!uniqueHours.has(p.hour)) {
+                uniqueHours.set(p.hour, p);
+            }
+        });
+        
+        filteredPrices = Array.from(uniqueHours.values());
+        
         if (filteredPrices.length === 0) return null;
 
         filteredPrices.sort((a: any, b: any) => a.hour - b.hour);
@@ -121,10 +152,10 @@ function processEsiosData(data: any): ElectricityPriceData | null {
             current: currentPriceItem.value,
             average: average,
             min: minItem.value,
-            minHour: `${minItem.hour}:00`,
+            minHour: `${String(minItem.hour).padStart(2, '0')}:00`,
             max: maxItem.value,
-            maxHour: `${maxItem.hour}:00`,
-            time: `${currentHour}:${currentMinute}`,
+            maxHour: `${String(maxItem.hour).padStart(2, '0')}:00`,
+            time: `${String(currentHour).padStart(2, '0')}:${currentMinute}`,
             isLive: true,
             allHours: filteredPrices
         };
