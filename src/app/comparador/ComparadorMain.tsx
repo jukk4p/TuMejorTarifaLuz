@@ -1441,7 +1441,7 @@ export default function ComparadorMain() {
                                                     type="text"
                                                     value={filterSearch}
                                                     onChange={e => setFilterSearch(e.target.value)}
-                                                    placeholder="Ej. Endesa, Zenith, Niba..."
+                                                    placeholder="Ej. Endesa, Iberdrola, Naturgy..."
                                                     className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm outline-none focus:border-primary transition-colors text-slate-800 dark:text-slate-100 placeholder:text-slate-400"
                                                 />
                                             </div>
@@ -1839,72 +1839,74 @@ export default function ComparadorMain() {
                                 </div>
 
                                 {/* BOTTOM BREAKDOWN BOX (THE BLACK BOX) */}
-                                <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-8">
-                                    <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-                                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+                                    {results.length > 0 && (
+                                        <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-8">
+                                            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+                                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
 
-                                    <div className="relative z-10 space-y-12">
-                                        {/* HEADER INSIDE BLACK BOX */}
-                                        <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/5 pb-10">
-                                            <div className="flex flex-col md:flex-row items-center gap-5 text-center md:text-left">
-                                                <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-lg shadow-primary/5">
-                                                    <BarChart3 className="text-primary w-8 h-8" />
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <h4 className="text-lg font-bold tracking-tight text-white/90">Desglose Técnico Transparente</h4>
-                                                    <p className="text-[10px] text-slate-500 uppercase tracking-[0.25em] font-black">
-                                                        Tarifa Ganadora: <span className="text-slate-400">{results[0].tariff.company} {results[0].tariff.name}</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
-                                        {[
-                                            { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4" />, border: "border-primary/40" },
-                                            { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Zap className="w-4 h-4" />, border: "border-white/10" },
-                                            { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4" />, border: "border-white/10" },
-                                            { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4" />, border: "border-white/10" },
-                                            { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4" />, border: "border-white/10" },
-                                            { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4" />, border: "border-white/10" },
-                                        ].map((item, idx) => (
-                                            <div key={idx} className="flex flex-col h-full">
-                                                <div className="flex items-center gap-2 text-slate-400 min-h-[40px] mb-4">
-                                                    <div className="text-slate-500">{item.icon}</div>
-                                                    <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
-                                                </div>
-                                                <div className={`pl-4 border-l-2 ${item.border} flex flex-col justify-center grow`}>
-                                                    <p className={`text-2xl font-900 tracking-tight ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{item.val.toFixed(2)} €</p>
-                                                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mt-1 opacity-70">{item.sub}</p>
+                                            <div className="relative z-10 space-y-12">
+                                                {/* HEADER INSIDE BLACK BOX */}
+                                                <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/5 pb-10">
+                                                    <div className="flex flex-col md:flex-row items-center gap-5 text-center md:text-left">
+                                                        <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shadow-lg shadow-primary/5">
+                                                            <BarChart3 className="text-primary w-8 h-8" />
+                                                        </div>
+                                                        <div className="space-y-1">
+                                                            <h4 className="text-lg font-bold tracking-tight text-white/90">Desglose Técnico Transparente</h4>
+                                                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.25em] font-black">
+                                                                Tarifa Ganadora: <span className="text-slate-400">{results[0].tariff.company} {results[0].tariff.name}</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
+                                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
+                                                {[
+                                                    { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4" />, border: "border-primary/40" },
+                                                    { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Zap className="w-4 h-4" />, border: "border-white/10" },
+                                                    { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4" />, border: "border-white/10" },
+                                                    { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4" />, border: "border-white/10" },
+                                                    { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4" />, border: "border-white/10" },
+                                                    { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4" />, border: "border-white/10" },
+                                                ].map((item, idx) => (
+                                                    <div key={idx} className="flex flex-col h-full">
+                                                        <div className="flex items-center gap-2 text-slate-400 min-h-[40px] mb-4">
+                                                            <div className="text-slate-500">{item.icon}</div>
+                                                            <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
+                                                        </div>
+                                                        <div className={`pl-4 border-l-2 ${item.border} flex flex-col justify-center grow`}>
+                                                            <p className={`text-2xl font-900 tracking-tight ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{item.val.toFixed(2)} €</p>
+                                                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mt-1 opacity-70">{item.sub}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
 
-                                    {/* TOTAL ESTIMATED DASHBOARD INSIDE BLACK BOX */}
-                                    <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-                                        <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-                                            <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-white/5 shadow-inner">
-                                                <Info className="text-slate-400 w-6 h-6" />
-                                            </div>
-                                            <div className="space-y-1">
-                                                <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Metodología de Cálculo</p>
-                                                <p className="text-[11px] text-slate-400 font-medium italic max-w-[320px] leading-relaxed">
-                                                    Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
-                                                </p>
+                                            {/* TOTAL ESTIMATED DASHBOARD INSIDE BLACK BOX */}
+                                            <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                                                <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                                                    <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-white/5 shadow-inner">
+                                                        <Info className="text-slate-400 w-6 h-6" />
+                                                    </div>
+                                                    <div className="space-y-1">
+                                                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Metodología de Cálculo</p>
+                                                        <p className="text-[11px] text-slate-400 font-medium italic max-w-[320px] leading-relaxed">
+                                                            Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-center md:text-right">
+                                                    <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
+                                                    <div className="flex items-baseline justify-center md:justify-end gap-3">
+                                                        <p className="text-7xl font-900 text-success drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
+                                                            {results[0].total.toFixed(2)}
+                                                            <span className="text-4xl ml-2 opacity-80">€</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="text-center md:text-right">
-                                            <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
-                                            <div className="flex items-baseline justify-center md:justify-end gap-3">
-                                                <p className="text-7xl font-900 text-success drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
-                                                    {results[0].total.toFixed(2)}
-                                                    <span className="text-4xl ml-2 opacity-80">€</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    )}
                             </div>
                         </div>
                     </div>
