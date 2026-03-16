@@ -41,6 +41,9 @@ RUN npm ci
 # Copy all files
 COPY . .
 
+# Invalidate cache for production build
+ARG CACHEBUST=1
+
 # Build the application
 RUN npm run build
 
