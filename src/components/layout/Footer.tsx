@@ -11,15 +11,24 @@ const COMPANIES = [
     "CHC Energía", "Esluz"
 ];
 
+const TOOLS = [
+    { name: "Comparador de tarifas", href: "/comparador" },
+    { name: "Precio de la luz hoy", href: "/precio-luz-hoy" },
+    { name: "Todas las tarifas", href: "/tarifas" },
+    { name: "Mi cuenta", href: "/mi-cuenta" },
+];
+
 const GUIDES = [
     { name: "Cómo entender tu factura", href: "/blog/como-leer-entender-factura-luz-2026" },
     { name: "Mercado libre vs PVPC", href: "/blog/mercado-libre-pvpc" },
     { name: "Cómo ajustar tu potencia", href: "/blog/como-reducir-potencia-contratada-luz-ahorrar" },
     { name: "Horas punta y valle", href: "/blog/horas-baratas-luz-horarios-valle-llano-punta" },
     { name: "Preguntas frecuentes", href: "/#faq" },
+    { name: "Ver todo el blog", href: "/blog" },
 ];
 
 const ABOUT = [
+    { name: "Sobre nosotros", href: "/sobre-nosotros" },
     { name: "¿Cómo funciona?", href: "/#como-funciona" },
     { name: "Aviso legal", href: "/legal/aviso-legal" },
     { name: "Política de privacidad", href: "/legal/privacidad" },
@@ -68,10 +77,31 @@ export default function Footer() {
     return (
         <footer className="bg-[#0B1219] text-slate-400 pt-20 pb-10 transition-colors duration-300 border-t border-slate-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* 3-Column Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-16 mb-20">
+                {/* 4-Column Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 lg:gap-12 mb-20">
                     
-                    {/* Col 1: Compañías */}
+                    {/* Col 1: Herramientas */}
+                    <FooterSection 
+                        title="Herramientas" 
+                        isOpen={openSection === 'herramientas'} 
+                        onToggle={() => toggleSection('herramientas')}
+                    >
+                        <ul className="space-y-4">
+                            {TOOLS.map((tool) => (
+                                <li key={tool.name}>
+                                    <Link 
+                                        href={tool.href}
+                                        className="text-sm hover:text-[#137fec] transition-colors flex items-center gap-3 group"
+                                    >
+                                        <div className="w-1.5 h-1.5 bg-slate-700 group-hover:bg-[#137fec] rounded-full transition-colors"></div>
+                                        {tool.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </FooterSection>
+
+                    {/* Col 2: Compañías */}
                     <FooterSection 
                         title="Compañías eléctricas" 
                         isOpen={openSection === 'compañías'} 

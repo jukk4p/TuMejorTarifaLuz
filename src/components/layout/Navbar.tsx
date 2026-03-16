@@ -35,8 +35,9 @@ export default function Navbar() {
 
     const navLinks = [
         { name: "Comparador", href: "/comparador" },
-        { name: "Guías", href: "/blog" },
-        { name: "¿Cómo funciona?", href: "/#como-funciona" },
+        { name: "Tarifas", href: "/tarifas" },
+        { name: "Precio Hoy", href: "/precio-luz-hoy", badge: "EN VIVO" },
+        { name: "Blog", href: "/blog" },
     ];
 
     return (
@@ -56,6 +57,7 @@ export default function Navbar() {
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-8">
                         <Link href="/comparador" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Comparador</Link>
+                        <Link href="/tarifas" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Tarifas</Link>
                         
                         {/* Companies Dropdown */}
                         <div className="relative group">
@@ -91,8 +93,14 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <Link href="/blog" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Guías</Link>
-                        <Link href="/#como-funciona" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">¿Cómo funciona?</Link>
+                        <Link href="/precio-luz-hoy" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors group">
+                            Precio Hoy
+                            <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-[10px] font-black text-emerald-500 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse group-hover:bg-white"></span>
+                                EN VIVO
+                            </span>
+                        </Link>
+                        <Link href="/blog" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Blog</Link>
                     </div>
 
                     {/* Right Side Actions */}
@@ -194,19 +202,34 @@ export default function Navbar() {
                         </div>
 
                         <Link 
+                            href="/tarifas" 
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            Tarifas <ChevronRight size={18} className="text-[#137fec]" />
+                        </Link>
+
+                        <Link 
+                            href="/precio-luz-hoy" 
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            onClick={() => setIsDrawerOpen(false)}
+                        >
+                            <span className="flex items-center gap-2">
+                                Precio Hoy
+                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-[9px] font-black text-emerald-400 border border-emerald-500/30">
+                                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                                    EN VIVO
+                                </span>
+                            </span>
+                            <ChevronRight size={18} className="text-[#137fec]" />
+                        </Link>
+
+                        <Link 
                             href="/blog" 
                             className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
-                            Guías <ChevronRight size={18} className="text-[#137fec]" />
-                        </Link>
-
-                        <Link 
-                            href="/#como-funciona" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
-                            onClick={() => setIsDrawerOpen(false)}
-                        >
-                            ¿Cómo funciona? <ChevronRight size={18} className="text-[#137fec]" />
+                            Blog <ChevronRight size={18} className="text-[#137fec]" />
                         </Link>
                     </div>
 
