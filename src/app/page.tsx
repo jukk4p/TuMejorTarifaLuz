@@ -382,7 +382,7 @@ export default async function Home() {
                 { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-135", slug: "repsol" },
                 { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-120", slug: "octopus-energy" },
                 { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-110", slug: "total-energies" },
-                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
+                { name: "Niba", logo: "Niba.png", darkLogo: "Nibav1.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
                 { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125", slug: "imagina-energia" },
                 { name: "Visalia", logo: "Visalia.png", scale: "scale-85", slug: "visalia" },
                 { name: "Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
@@ -394,11 +394,11 @@ export default async function Home() {
                   <div className="w-full aspect-[16/9] bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group-hover:!shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700/50 group-hover:border-primary/30 group-hover:-translate-y-1">
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 hidden dark:block ${(brand as any).darkScale || brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 hidden dark:block ${(brand as any).darkScale || brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="text-[10px] font-bold text-slate-300 dark:text-slate-600 tracking-widest uppercase group-hover:text-primary transition-colors">{brand.name}</span>

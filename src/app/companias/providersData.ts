@@ -27,8 +27,8 @@ export const providers: Provider[] = [
     {
         id: "niba",
         name: "Niba",
-        logo: "/logos/Nibav1.png",
-        logo_dark: "/logos/Niba.png",
+        logo: "/logos/Niba.png",
+        logo_dark: "/logos/Nibav1.png",
         rating: 4.7,
         description: "Una comercializadora digital que simplifica la energía para el consumidor moderno. Ofrece tarifas claras y una experiencia de usuario optimizada a través de su App.",
         pros: ["Experiencia 100% digital", "Tarifas muy competitivas (Zen/Tres)", "Sin trámites farragosos", "Enfoque en la eficiencia energética"],
