@@ -755,7 +755,7 @@ export default function ComparadorMain() {
                                             />
                                             <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
                                             <div className="text-center">
-                                                <p className="text-sm font-bold">Cambiar Factura</p>
+                                                <p className="text-sm font-bold">Cambiar factura</p>
                                                 <p className="text-[11px] text-slate-400">PDF o Imagen</p>
                                             </div>
                                         </label>
@@ -891,7 +891,7 @@ export default function ComparadorMain() {
                                             <div className="w-32 h-32 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-xl shadow-primary/5 group-hover/upload:scale-110 group-hover/upload:rotate-3 transition-transform duration-500">
                                                 <FileUp className="w-16 h-16 text-primary" />
                                             </div>
-                                            <h3 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Selecciona tu Factura</h3>
+                                            <h3 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Selecciona tu factura</h3>
                                             <p className="text-slate-500 dark:text-slate-400 text-lg mb-8 leading-relaxed">
                                                 Arrastra tu archivo aquí o haz clic para buscarlo.<br/>
                                                 Soportamos <span className="font-bold">PDF, JPG y PNG</span> hasta 4MB.
