@@ -727,7 +727,7 @@ export default function ComparadorMain() {
                                         </div>
                                         <div>
                                             <h2 className="text-lg font-bold">Entrada de Datos</h2>
-                                            <p className="text-[10px] text-slate-500 uppercase font-mono tracking-tighter">Parámetros de Análisis</p>
+                                            <p className="text-[10px] text-slate-500 font-mono tracking-tighter">Parámetros de análisis</p>
                                         </div>
                                     </div>
                                     <button 
@@ -896,10 +896,10 @@ export default function ComparadorMain() {
                                                 Arrastra tu archivo aquí o haz clic para buscarlo.<br/>
                                                 Soportamos <span className="font-bold">PDF, JPG y PNG</span> hasta 4MB.
                                             </p>
-                                            <div className="flex flex-wrap justify-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-success" /> Privacidad Cifrada</span>
+                                            <div className="flex flex-wrap justify-center gap-6 text-[10px] font-bold tracking-[0.2em] text-slate-400">
+                                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-success" /> Privacidad cifrada</span>
                                                 <span className="flex items-center gap-1.5"><Brain size={14} className="text-primary" /> Análisis inteligente</span>
-                                                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-500" /> Resultados en Segundos</span>
+                                                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-500" /> Resultados en segundos</span>
                                             </div>
                                         </label>
                                     </div>
