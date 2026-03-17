@@ -635,20 +635,20 @@ export default function ComparadorMain() {
                     <div className="max-w-7xl mx-auto px-4 flex items-center justify-around sm:justify-center gap-1.5 sm:gap-8 overflow-x-auto no-scrollbar">
                         <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-slate-400"}`}>
                             <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>1</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">Carga</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Carga</span>
                         </div>
                         <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
                         <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-slate-400"}`}>
                             <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>2</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">
-                                <span className="hidden sm:inline">Validación Factura</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">
+                                <span className="hidden sm:inline">Validación factura</span>
                                 <span className="inline sm:hidden">Validación</span>
                             </span>
                         </div>
                         <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
                         <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-slate-400"}`}>
                             <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>3</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap">Comparación</span>
+                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Comparación</span>
                         </div>
                     </div>
                 </div>
@@ -661,7 +661,7 @@ export default function ComparadorMain() {
                 {step === "input" && !inputMethod && (
                     <div className="max-w-5xl mx-auto py-12 px-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <div className="text-center mb-16">
-                            <h1 className="text-4xl md:text-5xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">
+                            <h1 className="text-4xl md:text-5xl font-900 text-slate-900 dark:text-white mb-6 tracking-tight">
                                 ¿Cómo quieres <span className="text-primary italic">empezar</span>?
                             </h1>
                             <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -688,7 +688,7 @@ export default function ComparadorMain() {
                                         Subir mi factura
                                         <ArrowRight size={18} />
                                     </span>
-                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/5 py-2 px-4 rounded-full inline-block">Recomendado • Máxima Precisión</p>
+                                    <p className="text-[10px] font-bold text-primary tracking-widest bg-primary/5 py-2 px-4 rounded-full inline-block">Recomendado • Máxima precisión</p>
                                 </div>
                             </button>
 
@@ -709,7 +709,7 @@ export default function ComparadorMain() {
                                     <span className="w-fit px-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-2xl shadow-xl shadow-slate-900/10 group-hover:bg-slate-800 dark:group-hover:bg-slate-100 transition-all flex items-center justify-center mx-auto">
                                         Introducir datos a mano
                                     </span>
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 dark:bg-slate-800 py-2 px-4 rounded-full inline-block">Control Total • Sin archivos</p>
+                                    <p className="text-[10px] font-bold text-slate-400 tracking-widest bg-slate-100 dark:bg-slate-800 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
                                 </div>
                             </button>
                         </div>
