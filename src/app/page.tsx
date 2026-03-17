@@ -329,10 +329,10 @@ export default async function Home() {
                     Crear mi cuenta gratuita
                     <UserPlus size={20} className="ml-2" />
                   </Link>
-                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest flex items-center gap-2">
-                    <CheckCircle size={14} className="text-sm" />
+                  <Link href="/comparador" className="inline-flex items-center gap-2 px-6 py-4 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-slate-300 hover:text-white font-bold rounded-2xl transition-all text-xs tracking-widest group">
+                    <CheckCircle size={14} className="text-primary group-hover:scale-110 transition-transform" />
                     O usa el comparador sin registro
-                  </p>
+                  </Link>
                 </div>
               </div>
 
