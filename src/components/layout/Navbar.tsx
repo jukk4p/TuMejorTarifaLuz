@@ -123,59 +123,19 @@ export default function Navbar() {
                             <NotificationBell />
                         </div>
 
-                        {/* User Profile Dropdown */}
+                        {/* User Profile Action */}
                         {user ? (
-                            <div className="relative">
-                                <button 
-                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
-                                >
-                                    {user.photoURL ? (
-                                        <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <User size={18} className="text-primary" />
-                                    )}
-                                </button>
-
-                                {isUserMenuOpen && (
-                                    <>
-                                        <div 
-                                            className="fixed inset-0 z-[100]" 
-                                            onClick={() => setIsUserMenuOpen(false)}
-                                        ></div>
-                                        <div className="absolute right-0 mt-3 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                                            <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-[#fcfdfe] dark:bg-slate-900/50">
-                                                <p className="text-sm font-black text-slate-900 dark:text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
-                                                <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
-                                            </div>
-                                            <div className="p-2">
-                                                <Link 
-                                                    href="/mi-cuenta" 
-                                                    onClick={() => setIsUserMenuOpen(false)}
-                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
-                                                >
-                                                    <Layout size={16} /> Panel de Control
-                                                </Link>
-                                                <Link 
-                                                    href="/mi-cuenta?tab=favoritos" 
-                                                    onClick={() => setIsUserMenuOpen(false)}
-                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
-                                                >
-                                                    <Settings size={16} /> Configuración
-                                                </Link>
-                                            </div>
-                                            <div className="p-2 border-t border-slate-100 dark:border-slate-800">
-                                                <button 
-                                                    onClick={() => { setIsUserMenuOpen(false); logout(); }}
-                                                    className="w-full flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all"
-                                                >
-                                                    <LogOut size={16} /> Cerrar Sesión
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </>
+                            <Link 
+                                href="/mi-cuenta"
+                                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
+                                aria-label="Mi Cuenta"
+                            >
+                                {user.photoURL ? (
+                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                ) : (
+                                    <User size={18} className="text-primary" />
                                 )}
-                            </div>
+                            </Link>
                         ) : (
                             <Link 
                                 href="/?auth=login" 

@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { db, auth } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock } from "lucide-react";
+import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, ChevronDown, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock, Calendar } from "lucide-react";
 import { useToast } from "@/components/providers/ToastProvider";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
@@ -56,6 +56,7 @@ export default function ProfilePage() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [selectedBill, setSelectedBill] = useState<SavedBill | null>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isZoomed, setIsZoomed] = useState(false);
 
     // Consumption state
@@ -247,57 +248,175 @@ export default function ProfilePage() {
         <div className="min-h-screen bg-slate-50 dark:bg-background-dark transition-colors duration-300">
             <Navbar />
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
-                {/* Header Perfil */}
-                <div className="bg-white dark:bg-slate-900 rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-12 shadow-sm border border-slate-100 dark:border-slate-800 mb-6 sm:mb-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-primary/5 rounded-full blur-2xl sm:blur-3xl -mr-24 -mt-24 sm:-mr-32 sm:-mt-32"></div>
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+                {/* Header Perfil Premium - Compacto */}
+                <div className="relative mb-6 sm:mb-8 group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/5 to-orange-500/10 rounded-[2rem] sm:rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-70 transition-opacity pointer-events-none"></div>
+                    
+                    <div className="relative bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 shadow-2xl shadow-primary/5 border border-white dark:border-slate-800 flex flex-col lg:flex-row items-center gap-6 lg:gap-10 overflow-hidden">
+                        {/* Decorative background shapes */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-orange-500/5 rounded-full blur-3xl -ml-24 -mb-24"></div>
 
-                    <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 sm:gap-8">
-                        <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-[1.25rem] sm:rounded-[2rem] bg-primary/10 border-4 border-white dark:border-slate-800 shadow-xl overflow-hidden shrink-0">
-                            {user.photoURL ? (
-                                <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
-                            ) : (
-                                <div className="w-full h-full flex items-center justify-center bg-primary/10">
-                                    <User className="text-primary w-10 h-10" />
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="text-center md:text-left space-y-2 grow">
-                            <div className="flex flex-wrap justify-center md:justify-start gap-1.5 sm:gap-2 mb-2">
-                                <span className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/20">Usuario Premium</span>
-                                <span className="px-2 sm:px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest rounded-full">Miembro desde 2026</span>
+                        {/* Avatar con Efecto Glow - Reducido */}
+                        <div className="relative shrink-0">
+                            <div className="absolute inset-0 bg-primary/20 rounded-[1.75rem] sm:rounded-[2rem] blur-xl animate-pulse"></div>
+                            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-[1.75rem] sm:rounded-[2rem] bg-white dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-2xl overflow-hidden z-10 transition-transform hover:scale-105 duration-500">
+                                {user.photoURL ? (
+                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
+                                        <UserIcon size={40} strokeWidth={1.5} />
+                                    </div>
+                                )}
                             </div>
-                            <h1 className="text-2xl sm:text-4xl font-900 tracking-tight dark:text-white">Hola, {user.displayName || user.email?.split('@')[0]}!</h1>
-                            <p className="text-xs sm:text-sm text-slate-500 font-medium">{user.email}</p>
+                            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-emerald-500 border-4 border-white dark:border-slate-900 rounded-xl flex items-center justify-center shadow-lg z-20">
+                                <Zap size={14} className="text-white fill-current" />
+                            </div>
                         </div>
 
-                        <div className="shrink-0 flex gap-3">
+                        {/* Info de Usuario - Compacta */}
+                        <div className="grow text-center lg:text-left space-y-3 relative z-10">
+                            <div className="space-y-0.5">
+                                <div className="flex flex-wrap justify-center lg:justify-start gap-1.5 mb-2">
+                                    <span className="px-2.5 py-0.5 bg-primary text-white text-[8px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-primary/20">Usuario Premium</span>
+                                    <span className="px-2.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200 dark:border-slate-700">Miembro 2026</span>
+                                </div>
+                                <h1 className="text-2xl sm:text-4xl font-900 tracking-tight dark:text-white leading-tight">
+                                    Hola, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">{user.displayName || user.email?.split('@')[0]}</span>!
+                                </h1>
+                                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">{user.email}</p>
+                            </div>
+
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 pt-1">
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                                    <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                                        <FileText size={14} />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{savedBills.filter(b => b.isAiGenerated).length}</p>
+                                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Facturas</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                                    <div className="w-7 h-7 rounded-lg bg-success/10 flex items-center justify-center text-success">
+                                        <Layout size={14} />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{savedBills.length}</p>
+                                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Estudios</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                                    <div className="w-7 h-7 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
+                                        <Star size={14} />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{favoriteTariffs.length}</p>
+                                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Favoritos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Botón Acción Lateral - Compacto */}
+                        <div className="shrink-0 relative z-10 w-full lg:w-auto">
                             <button
                                 onClick={() => setIsEditModalOpen(true)}
-                                className="h-12 px-6 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 hover:border-primary transition-all active:scale-95"
+                                className="w-full lg:w-auto overflow-hidden relative group/btn h-12 px-7 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none"
                             >
-                                Editar Perfil
+                                <span className="relative z-10 flex items-center justify-center gap-2.5">
+                                    <Settings size={16} />
+                                    Mi Configuración
+                                </span>
+                                <div className="absolute inset-0 bg-primary translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {/* Tabs de Navegación con Scroll Horizontal en móvil */}
-                <div className="overflow-x-auto pb-4 sm:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                    <div className="flex bg-white dark:bg-slate-900 p-1 rounded-xl sm:rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 mb-2 sm:mb-8 min-w-max sm:min-w-0 lg:w-fit mx-auto lg:mx-0">
-                        {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`px-5 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab
-                                    ? "bg-primary text-white shadow-lg shadow-primary/20"
-                                    : "text-slate-500 hover:text-primary"
-                                    }`}
-                            >
-                                {tab}
-                            </button>
-                        ))}
+                {/* Tabs de Navegación Responsive - Compactas */}
+                <div className="mb-8 lg:mb-10">
+                    {/* Vista Desktop: Tabs Horizontales */}
+                    <div className="hidden lg:block">
+                        <div className="flex bg-white dark:bg-slate-900 p-1.5 rounded-[1.75rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 w-fit mx-auto lg:mx-0">
+                            {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => {
+                                const Icon = tab === "facturas" ? FileText : tab === "comparativas" ? Layout : Star;
+                                const isActive = activeTab === tab;
+                                return (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`flex items-center gap-2.5 px-7 py-2.5 rounded-[1.25rem] text-[11px] font-800 uppercase tracking-[0.15em] transition-all duration-500 ${isActive
+                                            ? "bg-primary text-white shadow-lg shadow-primary/30 scale-[1.03]"
+                                            : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                            }`}
+                                    >
+                                        <Icon size={16} className={`${isActive ? "animate-bounce" : "opacity-50"}`} />
+                                        {tab}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Vista Móvil: Menú Desplegable Premium - Reducido */}
+                    <div className="lg:hidden relative">
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="w-full bg-white dark:bg-slate-900 p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none animate-in fade-in zoom-in-95 duration-300"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                                    {activeTab === "facturas" ? <FileText size={18} /> : activeTab === "comparativas" ? <Layout size={18} /> : <Star size={18} />}
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.15em] mb-0.5">Sección Actual</p>
+                                    <h4 className="text-xs font-900 dark:text-white uppercase tracking-widest">{activeTab}</h4>
+                                </div>
+                            </div>
+                            <div className={`w-7 h-7 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center transition-transform duration-500 ${isMobileMenuOpen ? 'rotate-180' : ''}`}>
+                                <ChevronDown size={14} className="text-slate-400" />
+                            </div>
+                        </button>
+
+                        {isMobileMenuOpen && (
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-[1.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+                                <div className="p-1.5 space-y-1">
+                                    {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => {
+                                        const Icon = tab === "facturas" ? FileText : tab === "comparativas" ? Layout : Star;
+                                        const isActive = activeTab === tab;
+                                        return (
+                                            <button
+                                                key={tab}
+                                                onClick={() => {
+                                                    setActiveTab(tab);
+                                                    setIsMobileMenuOpen(false);
+                                                }}
+                                                className={`w-full flex items-center justify-between p-3 rounded-xl transition-all ${isActive
+                                                    ? "bg-primary/5 text-primary"
+                                                    : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                                    }`}
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <Icon size={16} className={isActive ? "opacity-100" : "opacity-40"} />
+                                                    <span className="text-[10px] font-900 uppercase tracking-widest">{tab}</span>
+                                                </div>
+                                                {isActive && <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(var(--primary),0.5)]"></div>}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                        
+                        {/* Overlay para cerrar al hacer click fuera */}
+                        {isMobileMenuOpen && (
+                            <div 
+                                className="fixed inset-0 z-40 bg-black/5 backdrop-blur-[2px]" 
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            />
+                        )}
                     </div>
                 </div>
 
@@ -318,30 +437,33 @@ export default function ProfilePage() {
                                                 setSelectedBill(bill);
                                                 setIsDetailsModalOpen(true);
                                             }}
-                                            className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-7 shadow-sm hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all group relative overflow-hidden cursor-pointer flex flex-col h-full"
+                                            className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full cursor-pointer"
                                         >
-                                            {/* Decorative background element */}
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors"></div>
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
                                             
-                                            <div className="flex items-start justify-between mb-8 relative z-10">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary/5 shrink-0 group-hover:scale-110 transition-transform">
-                                                        <FileText className="w-7 h-7" />
+                                            <div className="relative z-10 flex flex-col h-full">
+                                                <div className="flex justify-between items-start mb-6">
+                                                    <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-inner">
+                                                        <FileText size={24} />
                                                     </div>
+                                                    <div className="text-right">
+                                                        <p className="text-[22px] font-black text-slate-900 dark:text-white leading-none mb-1">
+                                                            {bill.current_bill_total?.toFixed(2)}<span className="text-sm ml-1">€</span>
+                                                        </p>
+                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Total Factura</span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-4 mb-8">
                                                     <div>
-                                                        <h4 className="font-900 text-[15px] dark:text-white leading-tight mb-1 group-hover:text-primary transition-colors line-clamp-1">{bill.name}</h4>
+                                                        <h3 className="text-sm font-900 dark:text-white mb-1 group-hover:text-primary transition-colors line-clamp-1">{bill.name}</h3>
                                                         <div className="flex items-center gap-2">
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-primary/40 animate-pulse"></div>
-                                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                                                                {bill.createdAt?.toDate().toLocaleDateString() || '--'}
+                                                            <Calendar size={12} className="text-slate-400" />
+                                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                                {bill.createdAt ? new Date(bill.createdAt.seconds * 1000).toLocaleDateString() : 'Recién añadida'}
                                                             </p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="space-y-4 mb-10 relative z-10">
-                                                <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-700/30">
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
                                                             <Zap size={14} className="text-primary" />
@@ -365,8 +487,12 @@ export default function ProfilePage() {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-auto relative z-10">
+                                            <div className="mt-auto relative z-10 pt-6">
                                                 <button
+                                                    onClick={() => {
+                                                        setSelectedBill(bill);
+                                                        setIsDetailsModalOpen(true);
+                                                    }}
                                                     className="w-full h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[1.25rem] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-slate-200 dark:shadow-none hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white"
                                                 >
                                                     Explorar Análisis
@@ -407,55 +533,57 @@ export default function ProfilePage() {
                                     {savedBills.map((bill) => (
                                         <div
                                             key={bill.id}
+                                            className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-primary/30 transition-all duration-500 hover:scale-[1.02] relative overflow-hidden flex flex-col h-full cursor-pointer"
                                             onClick={() => router.push(`/comparador?historyId=${bill.id}`)}
-                                            className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm hover:border-primary/30 transition-all group relative overflow-hidden cursor-pointer"
                                         >
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-bl-full"></div>
-                                            <div className="flex items-center gap-3 mb-6">
-                                                <div className="w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center">
-                                                    <Layout className="text-success w-6 h-6" />
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-bl-full pointer-events-none"></div>
+                                            <div className="relative z-10 flex flex-col h-full">
+                                                <div className="flex items-center gap-3 mb-6">
+                                                    <div className="w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center">
+                                                        <Layout className="text-success w-6 h-6" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-800 text-sm group-hover:text-primary transition-colors">{bill.name}</h4>
+                                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                                            {bill.createdAt?.toDate().toLocaleDateString() || '--'}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <h4 className="font-800 text-sm">{bill.name}</h4>
-                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                                        {bill.createdAt?.toDate().toLocaleDateString() || '--'}
-                                                    </p>
-                                                </div>
-                                            </div>
 
-                                            <div className="space-y-4 mb-8">
-                                                <div className="flex justify-between items-center text-xs">
-                                                    <span className="text-slate-500">Gasto Original:</span>
-                                                    <span className="font-mono font-bold">{bill.current_bill_total?.toFixed(2)} €</span>
+                                                <div className="space-y-4 mb-8">
+                                                    <div className="flex justify-between items-center text-xs">
+                                                        <span className="text-slate-500">Gasto Original:</span>
+                                                        <span className="font-mono font-bold dark:text-white">{bill.current_bill_total?.toFixed(2)} €</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center text-xs">
+                                                        <span className="text-slate-500">Ahorro Mensual:</span>
+                                                        <span className="text-success font-bold">{bill.potentialSavings?.toFixed(2)} €</span>
+                                                    </div>
                                                 </div>
-                                                <div className="flex justify-between items-center text-xs">
-                                                    <span className="text-slate-500">Ahorro Mensual:</span>
-                                                    <span className="text-success font-bold">{bill.potentialSavings?.toFixed(2)} €</span>
+
+                                                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 mb-8 border border-slate-100 dark:border-slate-700/50">
+                                                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Ganador Sugerido</p>
+                                                    <p className="text-xs font-800 text-primary truncate">{bill.bestTariff}</p>
+                                                    <p className="text-[10px] text-slate-500 truncate">{bill.bestCompany}</p>
                                                 </div>
-                                            </div>
 
-                                            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 mb-8 border border-slate-100 dark:border-slate-700/50">
-                                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Ganador Sugerido</p>
-                                                <p className="text-xs font-800 text-primary truncate">{bill.bestTariff}</p>
-                                                <p className="text-[10px] text-slate-500">{bill.bestCompany}</p>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => router.push(`/comparador?historyId=${bill.id}`)}
-                                                    className="flex-1 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
-                                                >
-                                                    Ver Comparativa
-                                                </button>
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                    deleteBill(bill.id, bill.invoiceFilePath);
-                                                }}
-                                                className="w-11 h-11 bg-slate-50 dark:bg-slate-800 text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-colors"
-                                            >
-                                                <Trash2 size={18} />
-                                            </button>
+                                                <div className="mt-auto pt-6 flex gap-2" onClick={(e) => e.stopPropagation()}>
+                                                    <button
+                                                        onClick={() => router.push(`/comparador?historyId=${bill.id}`)}
+                                                        className="flex-1 h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[1.25rem] text-[10px] font-black uppercase tracking-widest hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all shadow-lg active:scale-95"
+                                                    >
+                                                        Ver Comparativa
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            deleteBill(bill.id, bill.invoiceFilePath);
+                                                        }}
+                                                        className="w-12 h-12 bg-red-500/10 text-red-500 rounded-[1.25rem] flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/10 active:scale-95"
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
@@ -485,74 +613,67 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {favoriteTariffs.length > 0 ? (
                                 favoriteTariffs.map((tariff) => (
-                                    <div key={tariff.id} className="bg-white dark:bg-slate-900 rounded-[1.5rem] sm:rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-5 sm:p-8 shadow-sm hover:border-primary transition-all group overflow-hidden relative flex flex-col h-full">
-                                        <div className="flex justify-between items-start mb-6">
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                if (tariff.id) toggleFavorite(tariff.id);
-                                            }}
-                                            className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20 shadow-sm hover:scale-110 active:scale-90 transition-all shrink-0"
-                                        >
-                                            <Star className="w-5 h-5 fill-current" />
-                                        </button>
-                                            <span className="text-[9px] font-bold px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 uppercase tracking-[0.15em] shrink-0">{tariff.type}</span>
-                                        </div>
-                                        <div className="mb-6">
-                                            <h4 className="font-800 dark:text-white text-lg mb-1 group-hover:text-primary transition-colors leading-tight line-clamp-1">{tariff.name}</h4>
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">{tariff.company}</p>
-                                        </div>
-
-                                        {/* Precios Detallados con altura fija para alineación */}
-                                        <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-8 min-h-[110px]">
-                                            <div className="space-y-3">
-                                                <p className="text-[8px] sm:text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Energía (€/kWh)</p>
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-center text-[11px] font-mono">
-                                                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-600 dark:text-orange-400">P1</span>
-                                                        <span className="font-bold text-slate-900 dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)}</span>
+                                        <div key={tariff.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
+                                            
+                                            <div className="relative z-10 flex flex-col h-full">
+                                                <div className="flex justify-between items-start mb-6">
+                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 shadow-inner border border-slate-100 dark:border-slate-700">
+                                                        <img
+                                                            src={getLogoPath(tariff.company || '') || ''}
+                                                            alt={tariff.company || 'Tarifa'}
+                                                            className="w-full h-full object-contain filter dark:brightness-110"
+                                                        />
                                                     </div>
-                                                    {tariff.type === '3 Periodos' ? (
-                                                        <>
-                                                            <div className="flex justify-between items-center text-[11px] font-mono">
-                                                                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">P2</span>
-                                                                <span className="font-bold text-slate-900 dark:text-white">{(tariff.e2_kwh || 0).toFixed(4)}</span>
-                                                            </div>
-                                                            <div className="flex justify-between items-center text-[11px] font-mono">
-                                                                <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400">P3</span>
-                                                                <span className="font-bold text-slate-900 dark:text-white">{(tariff.e3_kwh || 0).toFixed(4)}</span>
-                                                            </div>
-                                                        </>
-                                                    ) : (
-                                                        <div className="pt-2">
-                                                            <span className="text-[9px] font-bold text-slate-300 uppercase italic">Precio único 24h</span>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            if (tariff.id) toggleFavorite(tariff.id);
+                                                        }}
+                                                        className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm active:scale-90"
+                                                    >
+                                                        <Star size={20} className="fill-current" />
+                                                    </button>
+                                                </div>
+
+                                                <div className="mb-6">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <span className="px-2.5 py-1 bg-slate-50 dark:bg-slate-800 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-slate-100 dark:border-slate-700">{tariff.type}</span>
+                                                        {tariff.id?.includes('recomendado') && <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/10">Recomendado</span>}
+                                                    </div>
+                                                    <h4 className="text-lg font-900 dark:text-white leading-tight group-hover:text-primary transition-colors mb-0.5 line-clamp-1">{tariff.name}</h4>
+                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{tariff.company}</p>
+                                                </div>
+
+                                                {/* Precios Express */}
+                                                <div className="grid grid-cols-1 gap-2 mb-8">
+                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100/50 dark:border-slate-700/30">
+                                                        <div className="flex items-center gap-2">
+                                                            <Zap size={14} className="text-orange-500" />
+                                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Energía P1</span>
                                                         </div>
-                                                    )}
+                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kWh</span></span>
+                                                    </div>
+                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100/50 dark:border-slate-700/30">
+                                                        <div className="flex items-center gap-2">
+                                                            <Settings size={14} className="text-blue-500" />
+                                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Potencia P1</span>
+                                                        </div>
+                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.p1_kw_day || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kW</span></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="space-y-3">
-                                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">Potencia (€/kW día)</p>
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-center text-[11px] font-mono">
-                                                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-orange-500/10 text-orange-600 dark:text-orange-400">P1</span>
-                                                        <span className="font-bold text-slate-900 dark:text-white">{(tariff.p1_kw_day || 0).toFixed(5)}</span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center text-[11px] font-mono">
-                                                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-green-500/10 text-green-600 dark:text-green-400">P2</span>
-                                                        <span className="font-bold text-slate-900 dark:text-white">{(tariff.p2_kw_day || 0).toFixed(5)}</span>
-                                                    </div>
+
+                                                <div className="mt-auto pt-6">
+                                                    <button
+                                                        onClick={() => router.push(`/comparador?tariff=${tariff.id}`)}
+                                                        className="w-full h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-[10px] font-900 uppercase tracking-[0.2em] shadow-xl hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all active:scale-95"
+                                                    >
+                                                        Ver Detalles Completos
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button
-                                            onClick={() => router.push(`/comparador?tariff=${tariff.id}`)}
-                                            className="w-fit px-10 h-11 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all mt-auto mx-auto shadow-lg shadow-slate-200/50 dark:shadow-none"
-                                        >
-                                            Ver Detalles
-                                        </button>
-                                    </div>
-                                ))
+                                    ))
                             ) : (
                                 <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed md:col-span-2 lg:col-span-3">
                                     <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -577,74 +698,74 @@ export default function ProfilePage() {
 
             <Footer />
 
-            {/* Modal Editar Perfil y Configuración */}
+            {/* Modal Editar Perfil - Luxury Minimalist Edition */}
             {isEditModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-500">
+                <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-500 p-0 sm:p-6 lg:p-12"
+                     onClick={() => setIsEditModalOpen(false)}>
                     <div
-                        className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-[3rem] shadow-2xl border border-slate-200/50 dark:border-slate-800/50 relative overflow-hidden animate-in slide-in-from-bottom-12 zoom-in-95 duration-700 flex flex-col max-h-[90vh]"
+                        className="bg-white dark:bg-[#080b0f] w-full max-w-4xl rounded-t-[2.5rem] sm:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-t sm:border border-slate-200 dark:border-white/5 relative overflow-hidden animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-700 flex flex-col max-h-[92vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Decorative Background Elements */}
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-48 -mt-48 animate-pulse pointer-events-none"></div>
-                        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px] -ml-48 -mb-48 animate-pulse pointer-events-none"></div>
+                        {/* Sublime Ambient Glows - Enhanced Saturation */}
+                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -mr-48 -mt-48 pointer-events-none opacity-40"></div>
+                        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/20 rounded-full blur-[100px] -ml-40 -mb-40 pointer-events-none opacity-30"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none opacity-20"></div>
 
-                        {/* Modal Header */}
-                        <div className="relative z-10 p-8 md:p-10 pb-4 flex justify-between items-start border-b border-slate-100 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl">
-                            <div>
-                                <h3 className="text-3xl font-900 tracking-tight text-slate-900 dark:text-white mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
-                                    Configuración de Usuario
-                                </h3>
-                                <div className="flex items-center gap-3">
-                                    <div className="h-0.5 w-8 bg-primary rounded-full"></div>
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Perfil & Plantilla de Consumo</p>
+                        {/* Minimalist Header with Subtle Color */}
+                        <div className="relative z-10 px-8 py-6 sm:px-12 sm:py-8 flex items-center justify-between border-b border-slate-100 dark:border-white/5 bg-white/50 dark:bg-[#0a0e15]/60 backdrop-blur-2xl overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-emerald-500/5 pointer-events-none"></div>
+                            <div className="flex items-center gap-6">
+                                <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary border border-primary/20 group transition-all hover:bg-primary hover:text-white">
+                                    <Settings size={22} className="group-hover:rotate-90 transition-transform duration-700 ease-in-out" />
+                                </div>
+                                <div className="space-y-0.5">
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Preferencias</h3>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></span>
+                                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Sincronización Perfil IA</span>
+                                    </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsEditModalOpen(false)}
-                                className="w-12 h-12 rounded-2xl bg-slate-100/50 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 hover:text-primary hover:bg-white dark:hover:bg-slate-800 hover:rotate-90 shadow-sm border border-slate-200/20 dark:border-slate-700/30 transition-all duration-300"
+                                className="w-10 h-10 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
                             >
-                                <X size={20} />
+                                <X size={24} />
                             </button>
                         </div>
 
                         {/* Modal Body */}
-                        <div className="relative z-10 flex-1 overflow-y-auto p-8 md:p-10 pt-6 custom-scrollbar">
-                            <form onSubmit={handleUpdateProfile} className="space-y-12">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
-                                    {/* IDENTIDAD VISUAL */}
-                                    <div className="space-y-8 animate-in slide-in-from-left-4 duration-500 delay-100">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/10 shadow-inner">
-                                                <UserIcon size={18} />
-                                            </div>
-                                            <div>
-                                                <h4 className="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-[0.25em]">Identidad Visual</h4>
-                                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1">¿Cómo te ven los demás?</p>
-                                            </div>
+                        <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar">
+                            <form onSubmit={handleUpdateProfile} className="p-8 sm:p-12 space-y-12">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                                    
+                                    {/* SECCIÓN 01: IDENTIDAD */}
+                                    <div className="space-y-10">
+                                        <div className="space-y-1 flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                                            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">01. Perfil Público</h4>
                                         </div>
 
-                                        <div className="space-y-6 bg-slate-50/50 dark:bg-slate-800/20 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800/30">
-                                            <div className="space-y-2.5">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] ml-2 block">Nombre Público</label>
-                                                <div className="relative group transition-all duration-300">
-                                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                        <UserIcon className="text-slate-300 group-focus-within:text-primary transition-colors w-4.5 h-4.5" />
-                                                    </div>
-                                                    <input
-                                                        type="text"
-                                                        value={editName}
-                                                        onChange={(e) => setEditName(e.target.value)}
-                                                        className="w-full h-14 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl pl-12 pr-4 text-sm font-bold text-slate-900 dark:text-white focus:border-primary focus:ring-4 focus:ring-primary/5 outline-none transition-all shadow-sm"
-                                                        placeholder="Tu nombre..."
-                                                    />
-                                                </div>
+                                        <div className="space-y-8">
+                                            {/* Name Input */}
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Alias del Guerrero</label>
+                                                <input
+                                                    type="text"
+                                                    value={editName}
+                                                    onChange={(e) => setEditName(e.target.value)}
+                                                    className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl px-5 text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 focus:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)] transition-all placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                                                    placeholder="Tu nombre en el sistema..."
+                                                />
                                             </div>
 
+                                            {/* Avatar Selector */}
                                             <div className="space-y-4">
-                                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] ml-2 block">Selecciona tu Avatar</label>
-                                                
-                                                {/* Selector de Avatares (DiceBear) */}
-                                                <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 max-h-[220px] overflow-y-auto p-2 rounded-2xl bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 custom-scrollbar">
+                                                <div className="flex items-center justify-between ml-1">
+                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cámara de Avatares</label>
+                                                    <span className="text-[9px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded-full">Diseño Exclusivo</span>
+                                                </div>
+                                                <div className="grid grid-cols-5 gap-3 p-4 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-100 dark:border-white/5 max-h-[200px] overflow-y-auto custom-scrollbar-mini">
                                                     {[
                                                         { style: 'adventurer', seeds: ['Jasper', 'Felix', 'Aneka', 'Cloe', 'Jack'] },
                                                         { style: 'bottts', seeds: ['Buster', 'Coco', 'Dot', 'Gizmo', 'Leo'] },
@@ -660,171 +781,137 @@ export default function ProfilePage() {
                                                             key={avatar.id}
                                                             type="button"
                                                             onClick={() => setEditPhoto(avatar.url)}
-                                                            className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all p-1 hover:scale-105 active:scale-95 ${
+                                                            className={`relative aspect-square rounded-xl transition-all duration-300 ${
                                                                 editPhoto === avatar.url 
-                                                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" 
-                                                                : "border-transparent bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600"
+                                                                ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-[#080b0f] scale-105 shadow-xl shadow-primary/10" 
+                                                                : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
                                                             }`}
                                                         >
-                                                            <img src={avatar.url} alt="Avatar option" className="w-full h-full object-contain" />
-                                                            {editPhoto === avatar.url && (
-                                                                <div className="absolute top-1 right-1 w-3 h-3 bg-primary rounded-full flex items-center justify-center border border-white dark:border-slate-900">
-                                                                    <div className="w-1 h-1 bg-white rounded-full"></div>
-                                                                </div>
-                                                            )}
+                                                            <div className="absolute inset-0 bg-slate-200/50 dark:bg-white/5 rounded-xl" />
+                                                            <img src={avatar.url} alt="Ava" className="relative w-full h-full object-contain p-1.5 z-10" />
                                                         </button>
                                                     ))}
                                                 </div>
                                             </div>
 
-                                            {/* Preview miniatura y resumen */}
-                                            <div className="pt-2 flex items-center gap-4">
-                                                <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 border-2 border-primary shadow-xl overflow-hidden shrink-0 p-1">
-                                                    {editPhoto ? (
-                                                        <img 
-                                                            src={editPhoto} 
-                                                            alt="Preview" 
-                                                            className="w-full h-full object-contain"
-                                                        />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center bg-slate-50 dark:bg-slate-800">
-                                                            <UserIcon className="text-slate-300 w-6 h-6" />
-                                                        </div>
-                                                    )}
+                                            {/* Preview Card */}
+                                            <div className="flex items-center gap-6 p-5 bg-primary/[0.03] dark:bg-primary/[0.04] rounded-2xl border border-primary/10">
+                                                <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-900 border border-primary/20 shadow-sm flex items-center justify-center overflow-hidden">
+                                                    {editPhoto ? <img src={editPhoto} alt="Sel" className="w-full h-full object-contain" /> : <UserIcon className="text-slate-300" />}
                                                 </div>
-                                                <div className="space-y-1">
-                                                    <p className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest leading-none">Avatar Seleccionado</p>
-                                                    <p className="text-[9px] font-bold text-slate-400 leading-tight">Tu identidad visual se actualizará en todos tus estudios y comparativas.</p>
+                                                <div>
+                                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Avatar Seleccionado</p>
+                                                    <p className="text-sm font-bold text-slate-800 dark:text-white">Identidad Confirmada</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* CONSUMOS */}
-                                    <div className="space-y-8 animate-in slide-in-from-right-4 duration-500 delay-100">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/10 shadow-inner">
-                                                    <Zap size={18} />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-[11px] font-black text-slate-900 dark:text-white uppercase tracking-[0.25em]">Plantilla de Consumo</h4>
-                                                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1">Para comparativas instantáneas</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                                                <span className="text-[8px] font-black text-emerald-500 uppercase">Auto-fill listo</span>
-                                            </div>
+                                    {/* SECCIÓN 02: MÉTRICAS */}
+                                    <div className="space-y-10">
+                                        <div className="space-y-1 flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                                            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">02. Métricas de Consumo</h4>
                                         </div>
 
-                                        <div className="bg-slate-900 dark:bg-slate-800/50 p-8 rounded-[3rem] shadow-2xl space-y-8 border border-slate-800 relative group overflow-hidden">
-                                            {/* Glow effect internally */}
-                                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                                            
-                                            {/* Potencia */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Carga Contratada</span>
-                                                    <div className="h-px grow bg-white/5"></div>
-                                                </div>
+                                        <div className="space-y-8">
+                                            {/* Power Grid */}
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Potencia por Tramos (kW)</label>
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <div className="group/input relative">
-                                                        <span className="absolute -top-2 left-4 px-2 py-0.5 bg-slate-900 text-emerald-500 text-[8px] font-black rounded-full border border-emerald-500/30 z-10 transition-colors group-focus-within/input:bg-emerald-500 group-focus-within/input:text-white">P1 (kW)</span>
-                                                        <input
-                                                            type="text"
-                                                            name="power_p1"
-                                                            value={consumptionSettings.power_p1}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-14 bg-transparent border-2 border-white/10 rounded-2xl px-6 text-sm font-mono font-bold text-white focus:border-emerald-500 outline-none transition-all placeholder:text-white/20"
-                                                            placeholder="4,6"
-                                                        />
-                                                    </div>
-                                                    <div className="group/input relative">
-                                                        <span className="absolute -top-2 left-4 px-2 py-0.5 bg-slate-900 text-emerald-500 text-[8px] font-black rounded-full border border-emerald-500/30 z-10 transition-colors group-focus-within/input:bg-emerald-500 group-focus-within/input:text-white">P2 (kW)</span>
-                                                        <input
-                                                            type="text"
-                                                            name="power_p2"
-                                                            value={consumptionSettings.power_p2}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-14 bg-transparent border-2 border-white/10 rounded-2xl px-6 text-sm font-mono font-bold text-white focus:border-emerald-500 outline-none transition-all placeholder:text-white/20"
-                                                            placeholder="4,6"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Energía */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">Energía Mensual</span>
-                                                    <div className="h-px grow bg-white/5"></div>
-                                                </div>
-                                                <div className="grid grid-cols-3 gap-3">
-                                                    {['P1', 'P2', 'P3'].map((p, idx) => (
-                                                        <div key={p} className="relative">
+                                                    {['P1', 'P2'].map((p) => (
+                                                        <div key={p} className="relative group/field">
+                                                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">{p}</span>
                                                             <input
                                                                 type="text"
-                                                                name={`energy_p${idx + 1}`}
-                                                                value={consumptionSettings[`energy_p${idx + 1}` as keyof typeof consumptionSettings]}
+                                                                name={`power_p${p === 'P1' ? '1' : '2'}`}
+                                                                value={consumptionSettings[`power_p${p === 'P1' ? '1' : '2'}` as keyof typeof consumptionSettings]}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-2 text-center text-sm font-mono font-bold text-white focus:bg-white/10 focus:border-emerald-500 outline-none transition-all"
+                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl pl-12 pr-4 text-sm font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-primary/40 transition-all text-right"
+                                                                placeholder="4.60"
                                                             />
-                                                            <span className="absolute bottom-1 inset-x-0 text-center text-[8px] font-black text-white/30 uppercase tracking-widest">{p} (kWh)</span>
                                                         </div>
                                                     ))}
                                                 </div>
                                             </div>
 
-                                            {/* Otros */}
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <div className="p-4 bg-white/5 rounded-3xl border border-white/5 space-y-1">
-                                                    <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">Días Factura</p>
-                                                    <input
-                                                        type="text"
-                                                        name="days"
-                                                        value={consumptionSettings.days}
-                                                        onChange={handleConsumptionChange}
-                                                        className="w-full bg-transparent text-lg font-mono font-black text-white outline-none focus:text-emerald-400 transition-colors"
-                                                    />
+                                            {/* Energy Grid */}
+                                            <div className="space-y-3">
+                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Energía Estimada (kWh)</label>
+                                                <div className="grid grid-cols-3 gap-3">
+                                                    {['P1', 'P2', 'P3'].map((p, idx) => (
+                                                        <div key={idx} className="relative group/field">
+                                                            <span className="absolute inset-0 flex items-center justify-center text-[18px] font-black text-slate-100 dark:text-white/[0.02] pointer-events-none uppercase tracking-tighter">{p}</span>
+                                                            <input
+                                                                type="text"
+                                                                name={`energy_p${idx + 1}`}
+                                                                value={consumptionSettings[`energy_p${idx + 1}` as keyof typeof consumptionSettings]}
+                                                                onChange={handleConsumptionChange}
+                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl px-2 text-center text-sm font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-primary/40 relative z-10 transition-all"
+                                                                placeholder="120"
+                                                            />
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                                <div className="p-4 bg-white/5 rounded-3xl border border-white/5 space-y-1">
-                                                    <p className="text-[9px] font-black text-white/40 uppercase tracking-widest">Gasto (€)</p>
-                                                    <input
-                                                        type="text"
-                                                        name="current_bill_total"
-                                                        value={consumptionSettings.current_bill_total}
-                                                        onChange={handleConsumptionChange}
-                                                        className="w-full bg-transparent text-lg font-mono font-black text-emerald-500 outline-none"
-                                                    />
+                                            </div>
+
+                                            {/* Bill Totals Container */}
+                                            <div className="grid grid-cols-2 gap-4 pt-4">
+                                                <div className="space-y-3">
+                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Ciclo Mensual</label>
+                                                    <div className="relative">
+                                                        <Calendar size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                                        <input
+                                                            type="text"
+                                                            name="days"
+                                                            value={consumptionSettings.days}
+                                                            onChange={handleConsumptionChange}
+                                                            className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl pl-10 pr-12 text-sm font-bold text-slate-900 dark:text-white focus:outline-none"
+                                                        />
+                                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] font-bold text-slate-400 uppercase">Días</span>
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Gasto de Referencia</label>
+                                                    <div className="relative">
+                                                        <input
+                                                            type="text"
+                                                            name="current_bill_total"
+                                                            value={consumptionSettings.current_bill_total}
+                                                            onChange={handleConsumptionChange}
+                                                            className="w-full h-12 bg-primary/[0.03] dark:bg-primary/[0.05] border border-primary/20 rounded-xl px-4 text-sm font-bold text-primary focus:outline-none text-right"
+                                                        />
+                                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary uppercase">€</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="pt-8 border-t border-slate-100 dark:border-slate-800/50">
+                                {/* Footer Actions */}
+                                <div className="pt-12 mt-12 border-t border-slate-100 dark:border-white/5 flex flex-col items-center gap-8">
                                     <button
                                         type="submit"
                                         disabled={isUpdating}
-                                        className="w-full group relative overflow-hidden"
+                                        className="relative w-full sm:w-72 h-14 bg-slate-900 dark:bg-white rounded-full flex items-center justify-center gap-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-2xl shadow-primary/20 group overflow-hidden"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-primary to-orange-500 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
-                                        <div className="relative w-full h-20 bg-slate-900 text-white rounded-[2rem] flex items-center justify-center gap-4 transition-colors duration-300 group-hover:bg-transparent">
-                                            {isUpdating ? (
-                                                <>
-                                                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                                                    <span className="text-xs font-900 uppercase tracking-[0.3em]">Sincronizando nube...</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <span className="text-[11px] font-900 uppercase tracking-[0.3em]">Guardar Actualización de Perfil</span>
-                                                    <ChevronRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
-                                                </>
-                                            )}
-                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-primary via-emerald-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        {isUpdating ? (
+                                            <div className="relative z-10 w-5 h-5 border-2 border-slate-400 border-t-white dark:border-t-slate-900 rounded-full animate-spin"></div>
+                                        ) : (
+                                            <>
+                                                <span className="relative z-10 text-white dark:text-slate-900 group-hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors">Guardar Cambios</span>
+                                                <ChevronRight size={18} className="relative z-10 text-white dark:text-slate-900 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                                            </>
+                                        )}
                                     </button>
-                                    <p className="text-center mt-6 text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">Tus datos están protegidos por encriptación AES-256</p>
+                                    
+                                    <div className="flex items-center gap-6 opacity-30 select-none">
+                                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">End-to-End Encryption</span>
+                                        <div className="w-1 h-1 bg-slate-400 rounded-full"></div>
+                                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">v2.4.0 Final</span>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -833,11 +920,14 @@ export default function ProfilePage() {
             )}
 
 
-            {/* Modal Detalles de Factura Digitalizada */}
+            {/* Modal Detalles de Factura Digitalizada Premium */}
             {isDetailsModalOpen && selectedBill && (
-                <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+                <div 
+                    className="fixed inset-0 z-[110] flex items-center justify-center p-2 sm:p-4 lg:p-6 bg-slate-900/80 backdrop-blur-xl animate-in fade-in duration-500"
+                    onClick={() => setIsDetailsModalOpen(false)}
+                >
                     <div
-                        className="bg-white dark:bg-slate-900 w-full max-w-5xl lg:max-w-6xl h-[95vh] lg:h-[80vh] min-h-[600px] rounded-[2.5rem] p-6 sm:p-8 md:p-8 lg:p-10 shadow-3xl border border-slate-100 dark:border-slate-800 relative animate-in zoom-in-95 duration-300 flex flex-col lg:flex-row gap-8 overflow-hidden"
+                        className="bg-white dark:bg-slate-900 w-full max-w-5xl h-[90vh] lg:h-[80vh] rounded-[2rem] lg:rounded-[3rem] shadow-[0_32px_128px_rgba(0,0,0,0.5)] border border-white/20 relative overflow-hidden flex flex-col lg:flex-row animate-in slide-in-from-bottom-12 zoom-in-95 duration-700"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
@@ -884,15 +974,15 @@ export default function ProfilePage() {
                         )}
 
                         {/* RIGHT VIEW: ALIGNED DATA AND METRICS */}
-                        <div className={`relative z-10 flex flex-col h-full w-full ${selectedBill.invoiceFileUrl ? 'lg:w-1/2' : 'lg:w-full'} overflow-y-auto overflow-x-hidden pr-2 lg:pr-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full pb-6 lg:pb-0`}>
-                            <div className="flex justify-between items-start mb-10">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
-                                        <FileText className="w-8 h-8" />
+                        <div className={`relative z-10 flex flex-col h-full w-full ${selectedBill.invoiceFileUrl ? 'lg:w-1/2' : 'lg:w-full'} p-4 sm:p-6 lg:p-8`}>
+                            <div className="flex flex-col items-center text-center lg:flex-row lg:text-left lg:justify-between mb-6 lg:mb-8 relative">
+                                <div className="flex flex-col lg:flex-row items-center gap-3 lg:gap-4">
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
+                                        <FileText className="w-6 h-6 lg:w-7 lg:h-7" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl lg:text-2xl font-900 tracking-tight dark:text-white mb-1">Datos Extraídos por IA</h3>
-                                        <p className="text-[9px] lg:text-[10px] font-black text-slate-400 uppercase tracking-wider">{selectedBill.name}</p>
+                                        <h3 className="text-base lg:text-xl font-900 tracking-tight dark:text-white mb-0.5 lg:mb-1">Análisis IA</h3>
+                                        <p className="text-[7px] lg:text-[9px] font-black text-slate-400 uppercase tracking-wider">{selectedBill.name}</p>
                                     </div>
                                 </div>
                                 <button
@@ -900,52 +990,53 @@ export default function ProfilePage() {
                                         setIsZoomed(false);
                                         setIsDetailsModalOpen(false);
                                     }}
-                                    className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                                    className="absolute -top-1 -right-1 lg:relative lg:top-0 lg:right-0 w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
                                 >
-                                    <X size={20} />
+                                    <X size={18} />
                                 </button>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10">
-                                <div className="space-y-4 sm:space-y-6">
-                                    <div className="p-5 sm:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                            <div className="flex-1 overflow-y-auto overflow-x-hidden pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 mb-4">
+                                <div className="space-y-4 lg:space-y-6">
+                                    <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                             <span className="w-1 h-1 bg-primary rounded-full"></span> Término de Potencia
                                         </p>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-2 gap-4 w-full">
                                             <div>
                                                 <p className="text-[9px] font-bold text-slate-500 mb-1">P1 (Punta)</p>
-                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.power_p1?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
+                                                <p className="text-base font-mono font-bold dark:text-white">{selectedBill.power_p1?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
                                             </div>
                                             <div>
                                                 <p className="text-[9px] font-bold text-slate-500 mb-1">P2 (Valle)</p>
-                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.power_p2?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
+                                                <p className="text-base font-mono font-bold dark:text-white">{selectedBill.power_p2?.toFixed(2) || "0.00"} <span className="text-[10px] text-slate-400">kW</span></p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50">
+                                    <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                             <span className="w-1 h-1 bg-primary rounded-full"></span> Información General
                                         </p>
-                                        <div className="grid grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-2 gap-4 w-full">
                                             <div>
                                                 <p className="text-[9px] font-bold text-slate-500 mb-1">Días de Factura</p>
-                                                <p className="text-lg font-mono font-bold dark:text-white">{selectedBill.days || "--"} <span className="text-[10px] text-slate-400">días</span></p>
+                                                <p className="text-base font-mono font-bold dark:text-white">{selectedBill.days || "--"} <span className="text-[10px] text-slate-400">días</span></p>
                                             </div>
                                             <div>
                                                 <p className="text-[9px] font-bold text-slate-500 mb-1">Total Factura</p>
-                                                <p className="text-lg font-mono font-bold text-primary">{selectedBill.current_bill_total?.toFixed(2)} €</p>
+                                                <p className="text-base font-mono font-bold text-primary">{selectedBill.current_bill_total?.toFixed(2)} €</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 h-full">
+                                <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 h-full flex flex-col items-center text-center lg:items-start lg:text-left">
                                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                         <span className="w-1 h-1 bg-primary rounded-full"></span> Energía Consumida (kWh)
                                     </p>
-                                    <div className="space-y-4">
+                                    <div className="space-y-4 w-full">
                                         <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
                                             <span className="text-xs font-bold text-orange-500">P1 (Punta)</span>
                                             <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p1?.toFixed(1) || "0.0"} kWh</span>
@@ -969,8 +1060,8 @@ export default function ProfilePage() {
                             </div>
                             
                             {/* CIRCULAR VISUAL BREAKDOWN WIDGET */}
-                            <div className="flex-grow flex flex-col p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 min-h-[260px] lg:mt-2 mb-4 lg:mb-4 lg:pb-8">
-                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 lg:mb-4 flex items-center gap-2">
+                            <div className="flex-grow flex flex-col p-4 sm:p-5 lg:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 min-h-[260px] lg:mt-2 mb-8 lg:mb-10 lg:pb-8">
+                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3 lg:mb-4 flex items-center gap-2">
                                     <span className="w-1 h-1 bg-primary rounded-full"></span> Gráfico de Consumo por Tramos
                                 </p>
                                 
@@ -989,50 +1080,50 @@ export default function ProfilePage() {
                                             return (
                                                 <>
                                                     {/* THE DONUT CHART */}
-                                                    <div className="relative w-36 h-36 sm:w-44 sm:h-44 lg:w-48 lg:h-48 shrink-0 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-transform hover:scale-105" 
+                                                    <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 shrink-0 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-transform hover:scale-105" 
                                                          style={{ background: `conic-gradient(${gradientStops})` }}>
                                                         {/* Inner hollow circle to make it a donut */}
                                                         <div className="w-[70%] h-[70%] bg-slate-50 dark:bg-slate-900 rounded-full shadow-inner flex flex-col items-center justify-center z-10 border border-white/50 dark:border-slate-800/50 backdrop-blur-sm">
-                                                            <Clock className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-slate-400 dark:text-slate-500 mb-0.5 lg:mb-1" />
-                                                            <span className="text-sm sm:text-base lg:text-lg font-black text-slate-800 dark:text-white leading-none">{total.toFixed(0)}</span>
-                                                            <span className="text-[8px] sm:text-[9px] uppercase font-bold text-slate-400 tracking-widest mt-0.5">kWh Total</span>
+                                                            <Clock className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 text-slate-400 dark:text-slate-500 mb-0.5" />
+                                                            <span className="text-[10px] sm:text-xs lg:text-sm font-black text-slate-800 dark:text-white leading-none">{total.toFixed(0)}</span>
+                                                            <span className="text-[6px] sm:text-[7px] uppercase font-bold text-slate-400 tracking-widest mt-0.5">kWh Total</span>
                                                         </div>
                                                         {/* Decorative outer glow based on colors could go here, but conic-gradient is enough */}
                                                         <div className="absolute inset-0 rounded-full ring-2 ring-white/20 dark:ring-white/5 pointer-events-none"></div>
                                                     </div>
 
                                                     {/* LIST OF PERIODS */}
-                                                    <div className="flex flex-col gap-3 w-full sm:w-auto mt-4 sm:mt-0">
-                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-orange-500/30 transition-colors">
-                                                            <div className="w-3.5 h-3.5 rounded-full bg-orange-500 shrink-0 shadow-[0_0_12px_rgba(249,115,22,0.6)]"></div>
+                                                    <div className="flex flex-col gap-2 w-full sm:w-auto mt-4 sm:mt-0">
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-orange-500/30 transition-colors">
+                                                            <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-orange-500 shrink-0 shadow-[0_0_12px_rgba(249,115,22,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
-                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Punta</span>
-                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">10-14h y 18-22h</span>
+                                                                <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Punta</span>
+                                                                <span className="text-[8px] lg:text-[9px] text-slate-400 mt-0.5 leading-tight font-medium">10-14h y 18-22h</span>
                                                             </div>
                                                             <div className="text-right flex flex-col items-end">
-                                                                <div className="text-sm sm:text-base font-black text-orange-500 bg-orange-50 dark:bg-orange-500/10 px-2 py-0.5 rounded-lg">{p1Percent.toFixed(1)}%</div>
+                                                                <div className="text-xs lg:text-base font-black text-orange-500 bg-orange-50 dark:bg-orange-500/10 px-2 py-0.5 rounded-lg">{p1Percent.toFixed(1)}%</div>
                                                             </div>
                                                         </div>
                                                         
-                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-blue-500/30 transition-colors">
-                                                            <div className="w-3.5 h-3.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-blue-500/30 transition-colors">
+                                                            <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
-                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Llano</span>
-                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">08-10h, 14-18h y 22-00h</span>
+                                                                <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Llano</span>
+                                                                <span className="text-[8px] lg:text-[9px] text-slate-400 mt-0.5 leading-tight font-medium">08-10, 14-18, 22-00</span>
                                                             </div>
                                                             <div className="text-right flex flex-col items-end">
-                                                                <div className="text-sm sm:text-base font-black text-blue-500 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-lg">{p2Percent.toFixed(1)}%</div>
+                                                                <div className="text-xs lg:text-base font-black text-blue-500 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-lg">{p2Percent.toFixed(1)}%</div>
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex items-center gap-4 bg-white dark:bg-slate-900/60 p-3 sm:px-4 sm:py-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-green-500/30 transition-colors">
-                                                            <div className="w-3.5 h-3.5 rounded-full bg-green-500 shrink-0 shadow-[0_0_12px_rgba(34,197,94,0.6)]"></div>
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-green-500/30 transition-colors">
+                                                            <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-green-500 shrink-0 shadow-[0_0_12px_rgba(34,197,94,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
-                                                                <span className="text-[10px] sm:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Periodo Valle</span>
-                                                                <span className="text-[9px] text-slate-400 mt-0.5 max-w-[140px] leading-tight font-medium">00-08h FinSemana</span>
+                                                                <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Valle</span>
+                                                                <span className="text-[8px] lg:text-[9px] text-slate-400 mt-0.5 leading-tight font-medium">Noches y FinSemana</span>
                                                             </div>
                                                             <div className="text-right flex flex-col items-end">
-                                                                <div className="text-sm sm:text-base font-black text-green-500 bg-green-50 dark:bg-green-500/10 px-2 py-0.5 rounded-lg">{p3Percent.toFixed(1)}%</div>
+                                                                <div className="text-xs lg:text-base font-black text-green-500 bg-green-50 dark:bg-green-500/10 px-2 py-0.5 rounded-lg">{p3Percent.toFixed(1)}%</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1049,36 +1140,36 @@ export default function ProfilePage() {
                                     </div>
                                 )}
                             </div>
+                        </div>
                             
 
 
-                            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
+                            <div className="flex flex-col sm:flex-row gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
                                 {selectedBill.invoiceFileUrl && (
                                     <a
                                         href={selectedBill.invoiceFileUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="lg:hidden w-full sm:flex-1 h-12 sm:h-14 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-[11px] sm:text-xs font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
+                                        className="lg:hidden w-full sm:flex-1 h-10 sm:h-12 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
                                     >
-                                        <FileText className="w-4 h-4" />
+                                        <FileText className="w-3.5 h-3.5" />
                                         Ver Documento Original
                                     </a>
                                 )}
-                                <div className="flex gap-3 w-full sm:w-auto sm:flex-1">
+                                <div className="flex gap-2.5 w-full sm:w-auto sm:flex-1 justify-center">
                                     <button
                                         onClick={() => deleteBill(selectedBill.id, selectedBill.invoiceFilePath)}
-                                        className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
+                                        className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all border border-red-500/20"
                                         title="Borrar Análisis"
                                     >
-                                        <Trash2 className="w-5 h-5" />
+                                        <Trash2 className="w-4 h-4" />
                                     </button>
                                     <button
                                         onClick={() => router.push(`/comparador?historyId=${selectedBill.id}`)}
-                                        className="flex-1 h-12 sm:h-14 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                                        className="flex-1 h-10 sm:h-12 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 text-[9px] sm:text-[10px] font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
                                     >
-                                        <span className="hidden sm:inline">Ir a la Comparativa</span>
-                                        <span className="sm:hidden">Comparar</span>
-                                        <BarChart3 className="w-4 h-4" />
+                                        <span>Ir a la Comparativa</span>
+                                        <BarChart3 className="w-3.5 h-3.5" />
                                     </button>
                                 </div>
                             </div>
