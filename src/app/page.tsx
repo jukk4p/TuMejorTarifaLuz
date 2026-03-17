@@ -304,10 +304,10 @@ export default async function Home() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "analytics", title: "Análisis Personalizados", desc: "Organiza tus estudios de consumo para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas." },
-                    { icon: "description", title: "Gestión de Facturas", desc: "Almacena tus facturas de forma segura y accede a reportes avanzados con gráficos detallados de tu perfil de consumo." },
-                    { icon: "heart", title: "Tarifas Favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos sobre sus variaciones." },
-                    { icon: "bell", title: "Sistema de Alertas", desc: "Recibe avisos personalizados en tiempo real cuando detectemos una tarifa que mejore automáticamente tu contrato actual." }
+                    { icon: "analytics", title: "Análisis personalizados", desc: "Organiza tus estudios de consumo para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas." },
+                    { icon: "description", title: "Gestión de facturas", desc: "Almacena tus facturas de forma segura y accede a reportes avanzados con gráficos detallados de tu perfil de consumo." },
+                    { icon: "heart", title: "Tarifas favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos sobre sus variaciones." },
+                    { icon: "bell", title: "Sistema de alertas", desc: "Recibe avisos personalizados en tiempo real cuando detectemos una tarifa que mejore automáticamente tu contrato actual." }
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4 group">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
