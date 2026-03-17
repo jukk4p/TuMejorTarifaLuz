@@ -131,22 +131,22 @@ export default function TarifasClient() {
                                             {(tariff.type || "").includes("3 Periodos") ? (
                                                 <div className="grid grid-cols-3 gap-2">
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta (P1)</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(5)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Llano</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e2_kwh || tariff.e1_kwh || 0).toFixed(4)}</span>
+                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Llano (P2)</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e2_kwh || tariff.e1_kwh || 0).toFixed(5)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e3_kwh || tariff.e1_kwh || 0).toFixed(4)}</span>
+                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle (P3)</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e3_kwh || tariff.e1_kwh || 0).toFixed(5)}</span>
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase">Precio Fijo</span>
-                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kWh</span></span>
+                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(5)} <span className="text-[10px] text-slate-400 font-medium">€/kWh</span></span>
                                                 </div>
                                             )}
                                         </div>
@@ -157,18 +157,18 @@ export default function TarifasClient() {
                                             {(tariff.type || "").includes("3 Periodos") ? (
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
+                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta (P1)</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(5)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0).toFixed(4)}</span>
+                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle (P2)</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0).toFixed(5)}</span>
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Punta</span>
-                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kW/día</span></span>
+                                                    <span className="text-[10px] font-bold text-slate-400 uppercase">Punta (P1)</span>
+                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(5)} <span className="text-[10px] text-slate-400 font-medium">€/kW/día</span></span>
                                                 </div>
                                             )}
                                         </div>
