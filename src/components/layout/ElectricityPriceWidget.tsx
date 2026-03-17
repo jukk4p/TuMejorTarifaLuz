@@ -1,5 +1,6 @@
 import { getElectricityPrices } from "@/lib/electricity-prices";
 import { Bolt, TrendingDown, RefreshCcw, Clock, Info, UserX } from "lucide-react";
+import Link from "next/link";
 
 export default async function ElectricityPriceWidget() {
     const pricesData = await getElectricityPrices();
@@ -86,10 +87,10 @@ export default async function ElectricityPriceWidget() {
                         POOL mayorista. Si tienes **tarifa fija**, tu precio no depende de estos valores.
                     </p>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-primary/5 text-primary rounded-lg text-[10px] font-bold border border-primary/10 tracking-tight">
+                <Link href="/comparador" className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-[10px] font-bold border border-primary/20 tracking-tight transition-all active:scale-95">
                     <UserX size={12} />
                     Comparador de uso libre sin registro
-                </div>
+                </Link>
             </div>
         </div>
     );
