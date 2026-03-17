@@ -285,7 +285,7 @@ export default function ComparadorMain() {
         if (!isProcessing) return;
 
         if (isAiGenerated && step === "input") {
-            if (analysisProgress < 20) setAnalysisStatus("Iniciando Visión Artificial...");
+            if (analysisProgress < 20) setAnalysisStatus("Iniciando Visión Avanzada...");
             else if (analysisProgress < 40) setAnalysisStatus("Leyendo Estructura de Factura...");
             else if (analysisProgress < 60) setAnalysisStatus("Extrayendo Parámetros Técnicos...");
             else if (analysisProgress < 85) setAnalysisStatus("Validando Datos con Modelo Energético...");
@@ -681,7 +681,7 @@ export default function ComparadorMain() {
                                 </div>
                                 <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4">Análisis por Factura</h3>
                                 <p className="text-slate-500 dark:text-slate-400 text-base mb-10 leading-relaxed flex-grow">
-                                    Sube tu factura en PDF o foto. Nuestra <span className="text-primary font-bold">IA de nivel experto</span> extraerá automáticamente tu potencia y consumos reales de cada tramo en segundos.
+                                    Sube tu factura en PDF o foto. Nuestra <span className="text-primary font-bold">tecnología experta</span> extraerá automáticamente tu potencia y consumos reales de cada tramo en segundos.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
                                     <span className="w-fit px-10 bg-primary text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group-hover:bg-primary/90 transition-all mx-auto">
@@ -898,7 +898,7 @@ export default function ComparadorMain() {
                                             </p>
                                             <div className="flex flex-wrap justify-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
                                                 <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-success" /> Privacidad Cifrada</span>
-                                                <span className="flex items-center gap-1.5"><Brain size={14} className="text-primary" /> Análisis por IA</span>
+                                                <span className="flex items-center gap-1.5"><Brain size={14} className="text-primary" /> Análisis inteligente</span>
                                                 <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-500" /> Resultados en Segundos</span>
                                             </div>
                                         </label>
