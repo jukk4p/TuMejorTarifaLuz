@@ -329,8 +329,8 @@ export default async function Home() {
                     Crear mi cuenta gratuita
                     <UserPlus size={20} className="ml-2" />
                   </Link>
-                  <Link href="/comparador" className="inline-flex items-center gap-2 px-6 py-4 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-slate-300 hover:text-white font-bold rounded-2xl transition-all text-xs tracking-widest group">
-                    <CheckCircle size={14} className="text-primary group-hover:scale-110 transition-transform" />
+                  <Link href="/comparador" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-800/40 backdrop-blur-md border border-slate-700/50 hover:border-primary/50 hover:bg-slate-800/60 text-slate-400 hover:text-white font-bold rounded-2xl transition-all group active:scale-95 shadow-2xl">
+                    <CheckCircle size={20} className="text-primary group-hover:scale-110 transition-transform" />
                     O usa el comparador sin registro
                   </Link>
                 </div>

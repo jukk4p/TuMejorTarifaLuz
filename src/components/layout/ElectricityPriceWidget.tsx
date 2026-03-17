@@ -87,8 +87,8 @@ export default async function ElectricityPriceWidget() {
                         POOL mayorista. Si tienes **tarifa fija**, tu precio no depende de estos valores.
                     </p>
                 </div>
-                <Link href="/comparador" className="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-[10px] font-bold border border-primary/20 tracking-tight transition-all active:scale-95">
-                    <UserX size={12} />
+                <Link href="/comparador" className="flex items-center gap-2 px-4 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-xl text-[11px] font-bold border border-primary/20 tracking-tight transition-all active:scale-95 shadow-sm">
+                    <UserX size={14} className="opacity-80" />
                     Comparador de uso libre sin registro
                 </Link>
             </div>
