@@ -459,7 +459,11 @@ export default function ComparadorMain() {
                     }
                 } else {
                     const data = await response.json();
-                    setInput({
+                    const roundValue = (val: number, decimals: number = 2) => {
+                        return Math.round((val + Number.EPSILON) * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                    };
+
+                    const rawData = {
                         power_p1: data.power_p1 || 4.6,
                         power_p2: data.power_p2 || 4.6,
                         energy_p1: data.energy_p1 || 120,
@@ -470,18 +474,32 @@ export default function ComparadorMain() {
                         current_price_p1: data.current_price_p1 || 0,
                         current_price_p2: data.current_price_p2 || 0,
                         current_price_p3: data.current_price_p3 || 0
+                    };
+
+                    setInput({
+                        power_p1: roundValue(rawData.power_p1, 3),
+                        power_p2: roundValue(rawData.power_p2, 3),
+                        energy_p1: roundValue(rawData.energy_p1, 2),
+                        energy_p2: roundValue(rawData.energy_p2, 2),
+                        energy_p3: roundValue(rawData.energy_p3, 2),
+                        days: Math.round(rawData.days),
+                        current_bill_total: roundValue(rawData.current_bill_total, 2),
+                        current_price_p1: roundValue(rawData.current_price_p1, 4),
+                        current_price_p2: roundValue(rawData.current_price_p2, 4),
+                        current_price_p3: roundValue(rawData.current_price_p3, 4)
                     });
+
                     setDisplayValues({
-                        power_p1: (data.power_p1 || 4.6).toString().replace(".", ","),
-                        power_p2: (data.power_p2 || 4.6).toString().replace(".", ","),
-                        energy_p1: (data.energy_p1 || 120).toString().replace(".", ","),
-                        energy_p2: (data.energy_p2 || 85).toString().replace(".", ","),
-                        energy_p3: (data.energy_p3 || 150).toString().replace(".", ","),
-                        days: (data.days || 30).toString(),
-                        current_bill_total: (data.current_bill_total || 142.50).toString().replace(".", ","),
-                        current_price_p1: (data.current_price_p1 || 0).toString().replace(".", ","),
-                        current_price_p2: (data.current_price_p2 || 0).toString().replace(".", ","),
-                        current_price_p3: (data.current_price_p3 || 0).toString().replace(".", ",")
+                        power_p1: roundValue(rawData.power_p1, 3).toString().replace(".", ","),
+                        power_p2: roundValue(rawData.power_p2, 3).toString().replace(".", ","),
+                        energy_p1: roundValue(rawData.energy_p1, 2).toString().replace(".", ","),
+                        energy_p2: roundValue(rawData.energy_p2, 2).toString().replace(".", ","),
+                        energy_p3: roundValue(rawData.energy_p3, 2).toString().replace(".", ","),
+                        days: Math.round(rawData.days).toString(),
+                        current_bill_total: roundValue(rawData.current_bill_total, 2).toString().replace(".", ","),
+                        current_price_p1: roundValue(rawData.current_price_p1, 4).toString().replace(".", ","),
+                        current_price_p2: roundValue(rawData.current_price_p2, 4).toString().replace(".", ","),
+                        current_price_p3: roundValue(rawData.current_price_p3, 4).toString().replace(".", ",")
                     });
 
                 }
@@ -1358,19 +1376,19 @@ export default function ComparadorMain() {
                                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">Potencias</p>
                                             {input.power_p1 === input.power_p2 ? (
                                                 <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.power_p1}</p>
+                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.power_p1.toFixed(2).replace(/\.00$/, '')}</p>
                                                     <span className="text-[12px] text-slate-400 font-bold uppercase">kW</span>
                                                 </div>
                                             ) : (
                                                 <div className="space-y-1.5">
                                                     <div className="flex items-baseline gap-1 justify-center sm:justify-start">
                                                         <span className="text-[10px] font-bold text-slate-400 w-4">P1</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p1}</p>
+                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p1.toFixed(2).replace(/\.00$/, '')}</p>
                                                         <span className="text-[10px] text-slate-400 font-bold uppercase">kW</span>
                                                     </div>
                                                     <div className="flex items-baseline gap-1 justify-center sm:justify-start">
                                                         <span className="text-[10px] font-bold text-slate-400 w-4">P2</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p2}</p>
+                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p2.toFixed(2).replace(/\.00$/, '')}</p>
                                                         <span className="text-[10px] text-slate-400 font-bold uppercase">kW</span>
                                                     </div>
                                                 </div>
@@ -1380,24 +1398,24 @@ export default function ComparadorMain() {
                                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">{(input.energy_p2 === 0 && input.energy_p3 === 0) ? 'Consumo' : 'Consumos'}</p>
                                             {(input.energy_p2 === 0 && input.energy_p3 === 0) ? (
                                                 <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.energy_p1}</p>
+                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.energy_p1.toFixed(2).replace(/\.00$/, '')}</p>
                                                     <span className="text-[12px] text-slate-400 font-bold uppercase">kWh</span>
                                                 </div>
                                             ) : (
                                                 <div className="space-y-1.5">
                                                     <div className="flex items-baseline gap-1 justify-center sm:justify-start">
                                                         <span className="text-[10px] font-bold text-orange-400 w-4">P1</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p1}</p>
+                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p1.toFixed(2).replace(/\.00$/, '')}</p>
                                                         <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
                                                     </div>
                                                     <div className="flex items-baseline gap-1 justify-center sm:justify-start">
                                                         <span className="text-[10px] font-bold text-blue-400 w-4">P2</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p2}</p>
+                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p2.toFixed(2).replace(/\.00$/, '')}</p>
                                                         <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
                                                     </div>
                                                     <div className="flex items-baseline gap-1 justify-center sm:justify-start">
                                                         <span className="text-[10px] font-bold text-green-400 w-4">P3</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p3}</p>
+                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p3.toFixed(2).replace(/\.00$/, '')}</p>
                                                         <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
                                                     </div>
                                                 </div>
@@ -2214,8 +2232,8 @@ export default function ComparadorMain() {
                                         </div>
                                         <div className="p-10 space-y-5">
                                             {[
-                                                { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1 : input.power_p1 + "/" + input.power_p2) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
-                                                { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3) + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
+                                                { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1.toFixed(2).replace(/\.00$/, '') : input.power_p1.toFixed(2).replace(/\.00$/, '') + "/" + input.power_p2.toFixed(2).replace(/\.00$/, '')) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
+                                                { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3).toFixed(2).replace(/\.00$/, '') + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
                                             ].map((l, i) => (
                                                 <div key={i} className="flex justify-between text-sm py-1 border-b border-slate-50 dark:border-slate-800/50 pb-3">
                                                     <span className="font-medium text-slate-500">{l.l}</span>
