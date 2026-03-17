@@ -26,7 +26,7 @@ export default async function ElectricityPriceWidget() {
                 <div className="text-center md:text-left space-y-4 max-w-md w-full">
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 text-primary">
                         <Bolt size={24} className="md:size-[28px]" />
-                        <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la Luz Hoy</h3>
+                        <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la luz hoy</h3>
                         <div className="flex items-center gap-2">
                             {prices.isLive ? (
                                 <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[7px] md:text-[8px] font-bold tracking-wider">
@@ -69,7 +69,7 @@ export default async function ElectricityPriceWidget() {
                         </div>
                     </div>
                     <div className="bg-slate-50/50 dark:bg-slate-800/20 p-3 md:p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[110px] md:min-w-[130px]">
-                        <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest">Máximo</p>
+                        <p className="text-[8px] md:text-[9px] font-bold text-slate-400 tracking-widest">Máximo</p>
                         <p className="text-base md:text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
                             <Clock size={14} />
