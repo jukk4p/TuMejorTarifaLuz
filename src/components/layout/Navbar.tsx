@@ -11,7 +11,8 @@ import NotificationBell from "./NotificationBell";
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", 
     "TotalEnergies", "Octopus", "Niba", "Imagina", 
-    "Visalia", "Nufri", "Energya VM", "CHC Energía", "Esluz"
+    "Visalia", "Energía Nufri", "Energya VM", "CHC Energía", "Esluz",
+    "COR"
 ];
 
 export default function Navbar() {
@@ -49,9 +50,9 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="w-14 h-14 active:scale-95 transition-transform flex items-center justify-center overflow-hidden">
-                            <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={44} height={44} className="object-contain" priority />
+                    <Link href="/" className="flex items-center gap-3 group shrink-0">
+                        <div className="w-10 h-10 active:scale-95 transition-all flex items-center justify-center">
+                            <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={38} height={38} className="object-contain" priority />
                         </div>
                         <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline">
                             TuMejorTarifa<span className="text-primary">Luz</span>
@@ -73,36 +74,41 @@ export default function Navbar() {
                                 Compañías <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
                             </button>
                             
-                            {/* Dropdown Menu */}
                             <div className="absolute top-[calc(100%-8px)] left-1/2 -translate-x-1/2 w-[320px] bg-[#1a2632] border border-slate-800 rounded-2xl p-4 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
                                 <div className="grid grid-cols-2 gap-2">
                                     {COMPANIES.map((company) => (
                                         <Link 
                                             key={company} 
-                                            href={`/companias/${
-                                                company === "TotalEnergies" ? "total-energies" :
-                                                company === "Octopus" ? "octopus-energy" :
-                                                company === "Imagina" ? "imagina-energia" :
-                                                company === "Nufri" ? "energia-nufri" :
-                                                company === "Energya VM" ? "energia-vm" :
-                                                company.toLowerCase().replace(" ", "-")
-                                            }`}
+                                            href={company === "COR" 
+                                                ? "/companias/comercializadoras-referencia" 
+                                                : `/companias/${
+                                                    company === "TotalEnergies" ? "total-energies" :
+                                                    company === "Octopus" ? "octopus-energy" :
+                                                    company === "Imagina" ? "imagina-energia" :
+                                                    company === "Energía Nufri" ? "energia-nufri" :
+                                                    company === "Energya VM" ? "energia-vm" :
+                                                    company === "CHC Energía" ? "chc-energia" :
+                                                    company.toLowerCase().replace(" ", "-")
+                                                }`}
                                             className="px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-[#137fec]/20 rounded-lg transition-colors flex items-center gap-2"
                                         >
                                             <div className="w-1 h-1 bg-[#137fec] rounded-full"></div>
-                                            {company}
+                                            <span className="truncate">{company}</span>
                                         </Link>
                                     ))}
                                 </div>
                             </div>
                         </div>
 
-                        <Link href="/precio-luz-hoy" className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors group">
-                            Precio Hoy
-                            <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-[10px] font-black text-emerald-500 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse group-hover:bg-white"></span>
-                                EN VIVO
+                        <Link 
+                            href="/precio-luz-hoy" 
+                            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/10 hover:bg-emerald-500/15 transition-all group"
+                        >
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-tight">Precio hoy</span>
                         </Link>
                         <Link href="/blog" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Blog</Link>
                     </div>
@@ -127,13 +133,13 @@ export default function Navbar() {
                         {user ? (
                             <Link 
                                 href="/mi-cuenta"
-                                className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
+                                className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
                                 aria-label="Mi Cuenta"
                             >
                                 {user.photoURL ? (
                                     <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
                                 ) : (
-                                    <User size={18} className="text-primary" />
+                                    <User size={16} className="text-primary" />
                                 )}
                             </Link>
                         ) : (
@@ -145,10 +151,13 @@ export default function Navbar() {
                             </Link>
                         )}
 
+                        {/* Separator before CTA */}
+                        <div className="hidden sm:block h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+
                         {/* CTA Button */}
                         <Link 
                             href="/comparador?mode=upload" 
-                            className="bg-[#137fec] text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-[#137fec]/20 hover:shadow-[#137fec]/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-[#137fec]/50 whitespace-nowrap"
+                            className="bg-[#137fec] text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide flex items-center gap-2 shadow-lg shadow-[#137fec]/20 hover:shadow-[#137fec]/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-[#137fec]/50 whitespace-nowrap"
                         >
                             <FileUp size={14} className="hidden xxs:block" />
                             Subir factura
@@ -258,14 +267,17 @@ export default function Navbar() {
                                     {COMPANIES.map((company) => (
                                         <Link 
                                             key={company} 
-                                            href={`/companias/${
-                                                company === "TotalEnergies" ? "total-energies" :
-                                                company === "Octopus" ? "octopus-energy" :
-                                                company === "Imagina" ? "imagina-energia" :
-                                                company === "Nufri" ? "energia-nufri" :
-                                                company === "Energya VM" ? "energia-vm" :
-                                                company.toLowerCase().replace(" ", "-")
-                                            }`}
+                                            href={company === "COR" 
+                                                ? "/companias/comercializadoras-referencia" 
+                                                : `/companias/${
+                                                    company === "TotalEnergies" ? "total-energies" :
+                                                    company === "Octopus" ? "octopus-energy" :
+                                                    company === "Imagina" ? "imagina-energia" :
+                                                    company === "Energía Nufri" ? "energia-nufri" :
+                                                    company === "Energya VM" ? "energia-vm" :
+                                                    company === "CHC Energía" ? "chc-energia" :
+                                                    company.toLowerCase().replace(" ", "-")
+                                                }`}
                                             className="px-4 py-3 text-sm font-bold text-slate-400 hover:text-[#137fec] transition-colors flex items-center gap-2"
                                             onClick={() => setIsDrawerOpen(false)}
                                         >

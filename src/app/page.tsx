@@ -304,10 +304,10 @@ export default async function Home() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "analytics", title: "Análisis Personalizados", desc: "Guarda y organiza todos tus estudios de consumo eléctrico para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas en cualquier momento." },
-                    { icon: "description", title: "Gestión de Facturas", desc: "Almacena tus facturas de forma segura y accede a reportes técnicos avanzados con gráficos detallados para entender el desglose real de tu perfil de consumo." },
-                    { icon: "heart", title: "Tarifas Favoritas", desc: "Añade las ofertas que más te interesen a tu lista de favoritos para compararlas fácilmente y recibir avisos sobre sus variaciones de precio." },
-                    { icon: "bell", title: "Sistema de Alertas", desc: "Recibe notificaciones web y avisos automáticos personalizados en tiempo real cuando detectemos una tarifa que mejore tu contrato actual." }
+                    { icon: "analytics", title: "Análisis Personalizados", desc: "Organiza tus estudios de consumo para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas." },
+                    { icon: "description", title: "Gestión de Facturas", desc: "Almacena tus facturas de forma segura y accede a reportes avanzados con gráficos detallados de tu perfil de consumo." },
+                    { icon: "heart", title: "Tarifas Favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos sobre sus variaciones." },
+                    { icon: "bell", title: "Sistema de Alertas", desc: "Recibe avisos personalizados en tiempo real cuando detectemos una tarifa que mejore automáticamente tu contrato actual." }
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4 group">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -385,10 +385,11 @@ export default async function Home() {
                 { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
                 { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125", slug: "imagina-energia" },
                 { name: "Visalia", logo: "Visalia.png", scale: "scale-85", slug: "visalia" },
-                { name: "Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
+                { name: "Energía Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
                 { name: "Energya VM", logo: "Energiavm.png", scale: "scale-120", slug: "energia-vm" },
                 { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-125", slug: "chc-energia" },
                 { name: "Esluz", logo: "Esluz.png", scale: "scale-155", slug: "esluz" },
+                { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-110", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div className="w-full aspect-[16/9] bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group-hover:!shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700/50 group-hover:border-primary/30 group-hover:-translate-y-1">

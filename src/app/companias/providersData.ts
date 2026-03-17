@@ -158,5 +158,16 @@ export const providers: Provider[] = [
         cons: ["Estructura pequeña", "Menos variedad de planes"],
         slug: "esluz",
         color: "#84cc16"
+    },
+    {
+        id: "cor",
+        name: "COR",
+        logo: "/logos/Comercializadoras-de-referencia.png",
+        rating: 4.5,
+        description: "Comercializadoras de Referencia autorizadas por el Gobierno para ofrecer la tarifa regulada PVPC y gestionar el Bono Social Eléctrico.",
+        pros: ["Precio regulado por el mercado", "Acceso al Bono Social", "Transparencia gubernamental", "Sin permanencia"],
+        cons: ["Precio volátil según subasta horaria", "Sin servicios añadidos o descuentos"],
+        slug: "comercializadoras-referencia",
+        color: "#137fec"
     }
 ];

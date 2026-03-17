@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Heart, ChevronUp, ChevronDown } from "lucide-react";
+import { Heart, ChevronUp, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default function SupportSection() {
@@ -62,48 +62,52 @@ export default function SupportSection() {
             )
         }
     ];
-
     return (
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <h4 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-[0.2em] mb-8 relative inline-block">
-                APOYA EL PROYECTO
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 w-8 h-0.5 bg-primary"></span>
-            </h4>
-            
-            <p className="text-sm leading-relaxed max-w-sm mb-6 text-slate-600 dark:text-slate-400">
-                Somos 100% independientes y gratuitos. Si te hemos ayudado a ahorrar, considera apoyarnos para mantener el servicio activo.
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full">
+            <p className="text-[13px] leading-relaxed max-w-sm mb-6 text-slate-500 italic">
+                Proyecto 100% independiente y gratuito. ¡Apóyanos para seguir creciendo!
             </p>
 
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative w-full" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#F4F7FA] dark:bg-slate-800/80 border border-blue-200 shadow-sm hover:shadow dark:border-slate-700 hover:bg-[#ebf1f6] dark:hover:bg-slate-700 transition-all font-semibold text-slate-800 dark:text-slate-200"
+                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-[#1a2632] hover:bg-[#137fec]/10 border border-slate-800/50 hover:border-[#137fec]/30 transition-all group"
                 >
-                    <Heart className="w-5 h-5 text-blue-500" strokeWidth={2} />
-                    <span>Apoyar Proyecto</span>
-                    {isOpen ? <ChevronDown className="w-4 h-4 text-slate-500" /> : <ChevronUp className="w-4 h-4 text-slate-500" />}
+                    <div className="w-9 h-9 rounded-xl bg-[#137fec] flex items-center justify-center text-white shadow-lg shadow-[#137fec]/20 shrink-0 group-hover:scale-105 transition-transform">
+                        <Heart size={16} className={isOpen ? 'fill-current' : ''} />
+                    </div>
+                    <div className="flex flex-col text-left flex-1 min-w-0">
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#137fec]/60 mb-0.5">Donación</span>
+                        <span className="text-[12px] font-bold text-white tracking-tight">Apoyar Proyecto</span>
+                    </div>
+                    <div className={`transition-transform duration-300 pr-1 ${isOpen ? 'rotate-180' : ''}`}>
+                        <ChevronDown size={14} className="text-slate-500 group-hover:text-slate-400" />
+                    </div>
                 </button>
 
                 {isOpen && (
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 mb-3 w-64 bg-white dark:bg-slate-900 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 p-3 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200">
-                        <div className="px-3 pb-2 pt-1 border-b border-slate-100 dark:border-slate-800/50 mb-2 text-center lg:text-left">
-                            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase">Elige una plataforma</span>
+                    <div className="absolute bottom-full left-0 right-0 mb-3 bg-[#111921] rounded-2xl shadow-2xl border border-slate-800 p-2 z-[100] animate-in fade-in slide-in-from-bottom-2 duration-200 pointer-events-auto">
+                        <div className="px-3 pb-2 pt-1 border-b border-white/5 mb-1">
+                            <span className="text-[9px] font-bold text-slate-500 tracking-wider uppercase text-center block lg:text-left">Elige plataforma</span>
                         </div>
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1 overflow-visible">
                             {platforms.map((platform) => (
                                 <Link
                                     key={platform.name}
                                     href={platform.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-3 p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group"
+                                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors group/item w-full"
                                 >
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${platform.bgColor} ${platform.iconColor} transition-transform group-hover:scale-105`}>
+                                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${platform.bgColor} ${platform.iconColor} group-hover/item:scale-105 transition-transform`}>
                                         {platform.icon}
                                     </div>
-                                    <div className="flex flex-col text-left">
-                                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">{platform.name}</span>
-                                        <span className="text-xs text-slate-500 dark:text-slate-400">{platform.description}</span>
+                                    <div className="flex flex-col text-left min-w-0 flex-1">
+                                        <span className="text-[11px] font-bold text-white">{platform.name}</span>
+                                        <span className="text-[10px] text-slate-500 leading-tight truncate">{platform.description}</span>
+                                    </div>
+                                    <div className="ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity shrink-0">
+                                        <ChevronRight size={12} className="text-[#137fec]" />
                                     </div>
                                 </Link>
                             ))}
