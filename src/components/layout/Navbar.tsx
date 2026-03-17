@@ -118,10 +118,10 @@ export default function Navbar() {
                         {/* Theme Toggle (Optional but nice) */}
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="p-2 text-slate-500 hover:text-[#137fec] transition-colors lg:block hidden"
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-[#137fec] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all lg:flex hidden"
                             aria-label="Toggle theme"
                         >
-                            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+                            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
 
                         {/* Notifications */}
@@ -131,17 +131,52 @@ export default function Navbar() {
 
                         {/* User Profile Action */}
                         {user ? (
-                            <Link 
-                                href="/mi-cuenta"
-                                className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
-                                aria-label="Mi Cuenta"
-                            >
-                                {user.photoURL ? (
-                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
-                                ) : (
-                                    <User size={16} className="text-primary" />
+                            <div className="relative">
+                                <button 
+                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                    className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
+                                    aria-label="Menú de usuario"
+                                    aria-haspopup="true"
+                                    aria-expanded={isUserMenuOpen}
+                                >
+                                    {user.photoURL ? (
+                                        <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <User size={18} className="text-primary" />
+                                    )}
+                                </button>
+
+                                {/* Desktop User Dropdown */}
+                                {isUserMenuOpen && (
+                                    <>
+                                        <div 
+                                            className="fixed inset-0 z-40" 
+                                            onClick={() => setIsUserMenuOpen(false)}
+                                        ></div>
+                                        <div className="absolute right-0 mt-2 w-48 bg-[#1a2632] border border-slate-800 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+                                            <div className="px-4 py-2 border-b border-slate-800 mb-1">
+                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Usuario</p>
+                                                <p className="text-xs font-bold text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                            </div>
+                                            <Link 
+                                                href="/mi-cuenta" 
+                                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white hover:bg-primary/10 transition-colors"
+                                                onClick={() => setIsUserMenuOpen(false)}
+                                            >
+                                                <Layout size={14} className="text-primary" />
+                                                Mi Cuenta
+                                            </Link>
+                                            <button 
+                                                onClick={() => { logout(); setIsUserMenuOpen(false); }}
+                                                className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm font-bold text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
+                                            >
+                                                <LogOut size={14} />
+                                                Cerrar Sesión
+                                            </button>
+                                        </div>
+                                    </>
                                 )}
-                            </Link>
+                            </div>
                         ) : (
                             <Link 
                                 href="/?auth=login" 

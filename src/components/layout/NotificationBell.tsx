@@ -107,11 +107,11 @@ export default function NotificationBell() {
         <div className="relative">
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="relative p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
             >
-                <Bell size={20} className="text-slate-600 dark:text-slate-300 group-hover:text-primary transition-colors" />
+                <Bell size={18} className="text-slate-600 dark:text-slate-300 group-hover:text-primary transition-colors" />
                 {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900 animate-pulse">
+                    <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900 animate-pulse">
                         {unreadCount}
                     </span>
                 )}
