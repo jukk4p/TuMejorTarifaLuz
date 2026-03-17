@@ -125,13 +125,13 @@ export default function NotificationBell() {
                     ></div>
                     <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 hidden sm:block">
                         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-[#fcfdfe] dark:bg-slate-900/50">
-                            <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
+                            <h3 className="text-xs font-black tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
                                 Notificaciones
                                 {unreadCount > 0 && <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-[9px]">{unreadCount} nuevas</span>}
                             </h3>
                             <button 
                                 onClick={markAllAsRead}
-                                className="text-[9px] font-bold text-slate-400 hover:text-primary uppercase tracking-tighter"
+                                className="text-[9px] font-bold text-slate-400 hover:text-primary tracking-tighter"
                             >
                                 Marcar todo como leído
                             </button>
@@ -205,7 +205,7 @@ export default function NotificationBell() {
                                 <Link 
                                     href="/notificaciones" 
                                     onClick={() => setIsOpen(false)}
-                                    className="text-[10px] font-black text-slate-400 hover:text-primary uppercase tracking-[0.2em]"
+                                    className="text-[10px] font-black text-slate-400 hover:text-primary tracking-[0.2em]"
                                 >
                                     Ver todas las alertas
                                 </Link>
@@ -238,8 +238,8 @@ export default function NotificationBell() {
                                                 {n.message}
                                             </p>
                                             <div className="flex items-center gap-4 pt-2">
-                                                {n.link && <Link href={n.link} onClick={() => {setIsOpen(false); markAsRead(n.id!)}} className="text-[10px] font-black text-primary uppercase">Ver detalles</Link>}
-                                                <button onClick={() => hideNotification(n.id!)} className="text-[10px] font-black text-red-500 uppercase">Eliminar</button>
+                                                {n.link && <Link href={n.link} onClick={() => {setIsOpen(false); markAsRead(n.id!)}} className="text-[10px] font-black text-primary">Ver detalles</Link>}
+                                                <button onClick={() => hideNotification(n.id!)} className="text-[10px] font-black text-red-500">Eliminar</button>
                                             </div>
                                         </div>
                                         {!n.readBy?.includes(user?.uid || '') && (
@@ -260,7 +260,7 @@ export default function NotificationBell() {
                         </div>
 
                         <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
-                            <Link href="/notificaciones" onClick={() => setIsOpen(false)} className="block w-full py-4 bg-primary text-white text-[10px] font-black text-center uppercase tracking-[0.2em] rounded-2xl shadow-lg shadow-primary/20">
+                            <Link href="/notificaciones" onClick={() => setIsOpen(false)} className="block w-full py-4 bg-primary text-white text-[10px] font-black text-center tracking-[0.2em] rounded-2xl shadow-lg shadow-primary/20">
                                 Ver todas las alertas
                             </Link>
                         </div>

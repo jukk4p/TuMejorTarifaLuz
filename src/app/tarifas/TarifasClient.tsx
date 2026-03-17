@@ -189,7 +189,7 @@ export default function TarifasClient() {
                                             <span className={`${showWithTaxes ? 'translate-x-4' : 'translate-x-0.5'} inline-block h-3 w-3 transform rounded-full bg-white transition-transform`} />
                                         </button>
                                     </div>
-                                    <Link href={tariff.url} target="_blank" className="bg-primary text-white py-3 px-5 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all flex items-center justify-center gap-2 font-bold text-[10px] uppercase tracking-widest flex-1 md:flex-none">
+                                    <Link href={tariff.url} target="_blank" className="bg-primary text-white py-3 px-5 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all flex items-center justify-center gap-2 font-bold text-[10px] tracking-widest flex-1 md:flex-none">
                                         Contratar
                                         <ExternalLink className="w-4 h-4" />
                                     </Link>
@@ -203,7 +203,7 @@ export default function TarifasClient() {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px] -mr-32 -mt-32"></div>
                         <h2 className="text-3xl md:text-5xl font-900 text-white relative z-10 leading-tight">¿No sabes cuál elegir?<br /><span className="text-primary italic">Deja que nuestra IA decida.</span></h2>
                         <Link href="/comparador" className="inline-flex items-center gap-3 px-10 py-5 bg-white text-slate-900 font-900 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-2xl relative z-10">
-                            EJECUTAR COMPARADOR INTELIGENTE
+                            Ejecutar comparador inteligente
                             <Rocket className="w-6 h-6" />
                         </Link>
                     </div>

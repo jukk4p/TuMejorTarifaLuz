@@ -120,7 +120,7 @@ export default async function Home() {
                         <TrendingDown size={32} className="text-primary" />
                       </div>
                       <div className="space-y-1">
-                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">Ahorro medio anual</p>
+                        <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-[0.15em]">Ahorro medio anual</p>
                         <p className="text-3xl font-900 text-slate-900 dark:text-white tracking-tight flex items-baseline gap-2">
                           312,00€ <span className="text-[12px] font-bold text-success uppercase tracking-wider">(-38%)</span>
                         </p>
@@ -275,7 +275,7 @@ export default async function Home() {
                   </div>
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
-                    <span className="text-xs font-bold text-primary uppercase tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
+                    <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
                     <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
                   </div>
                 </Link>

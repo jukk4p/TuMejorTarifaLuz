@@ -52,7 +52,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                 className="w-full flex items-center justify-between py-6 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
-                <h4 className="text-white font-900 text-xs sm:text-sm uppercase tracking-[0.2em] relative lg:inline-block">
+                <h4 className="text-white font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
                     {title}
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-[#137fec] rounded-full"></span>
                 </h4>
@@ -192,7 +192,7 @@ export default function Footer() {
                                         <Mail size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 overflow-hidden text-left">
-                                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#137fec]/60 mb-0.5">Email</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-[#137fec]/60 mb-0.5">Email</span>
                                         <span className="text-[12px] font-bold text-white tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
@@ -201,7 +201,7 @@ export default function Footer() {
                                         <MapPin size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 text-left">
-                                        <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-0.5">España</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-slate-500 mb-0.5">España</span>
                                         <span className="text-[12px] font-bold text-white tracking-tight truncate">Servicio Nacional</span>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@ export default function Footer() {
                     {/* Simple badge */}
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#10b981]/10 border border-[#10b981]/20 rounded-full">
                         <div className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-                        <span className="text-[10px] font-900 text-[#10b981] uppercase tracking-widest">Actualizado hoy</span>
+                        <span className="text-[10px] font-900 text-[#10b981] tracking-widest">Actualizado hoy</span>
                     </div>
                 </div>
             </div>

@@ -77,8 +77,8 @@ export default function SupportSection() {
                         <Heart size={16} className={isOpen ? 'fill-current' : ''} />
                     </div>
                     <div className="flex flex-col text-left flex-1 min-w-0">
-                        <span className="text-[9px] font-bold uppercase tracking-widest text-[#137fec]/60 mb-0.5">Donación</span>
-                        <span className="text-[12px] font-bold text-white tracking-tight">Apoyar Proyecto</span>
+                        <span className="text-[9px] font-bold tracking-widest text-[#137fec]/60 mb-0.5">Donación</span>
+                        <span className="text-[12px] font-bold text-white tracking-tight">Apoyar proyecto</span>
                     </div>
                     <div className={`transition-transform duration-300 pr-1 ${isOpen ? 'rotate-180' : ''}`}>
                         <ChevronDown size={14} className="text-slate-500 group-hover:text-slate-400" />

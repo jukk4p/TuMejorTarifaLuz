@@ -175,7 +175,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                                     <button
                                         type="button"
                                         onClick={handleResetPassword}
-                                        className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest"
+                                        className="text-[10px] font-bold text-primary hover:underline tracking-widest"
                                     >
                                         ¿Olvidaste la clave?
                                     </button>
@@ -206,9 +206,9 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full h-14 bg-primary text-white font-900 text-sm uppercase tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+                            className="w-full h-14 bg-primary text-white font-900 text-sm tracking-widest rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
                         >
-                            {loading ? "Procesando..." : isLogin ? "Iniciar Sesión" : "Crear Mi Cuenta"}
+                            {loading ? "Procesando..." : isLogin ? "Iniciar sesión" : "Crear mi cuenta"}
                         </button>
                     </form>
 

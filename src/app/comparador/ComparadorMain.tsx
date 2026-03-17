@@ -1328,8 +1328,8 @@ export default function ComparadorMain() {
                                     </div>
 
                                     <div className="flex gap-4 pt-10">
-                                        <button onClick={() => setStep("input")} className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-4 font-bold rounded-2xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-colors">Editar Datos</button>
-                                        <button onClick={confirmData} className="flex-[2] bg-success hover:bg-success/90 text-white py-4 font-bold rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
+                                        <button onClick={() => setStep("input")} className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-4 font-bold rounded-2xl text-xs tracking-widest hover:bg-slate-50 transition-colors">Editar Datos</button>
+                                        <button onClick={confirmData} className="flex-[2] bg-success hover:bg-success/90 text-white py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
                                             Confirmar y Comparar
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
@@ -1649,13 +1649,13 @@ export default function ComparadorMain() {
                                                     <div className="flex items-center gap-3">
                                                         <button
                                                             onClick={() => viewDetail(res.tariff.id!)}
-                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all active:scale-95 ${idx === 0
+                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-[10px] tracking-widest transition-all active:scale-95 ${idx === 0
                                                                 ? "bg-primary text-white shadow-lg shadow-primary/20"
                                                                 : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
                                                                 }`}
                                                         >
                                                             <Eye className="w-4 h-4" />
-                                                            Ver Detalles
+                                                            Ver detalles
                                                         </button>
                                                         <button
                                                             onClick={(e) => {

@@ -259,7 +259,7 @@ export default function Navbar() {
                             <Link 
                                 href="/?auth=login" 
                                 onClick={() => setIsDrawerOpen(false)}
-                                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-xs font-900 uppercase tracking-widest shadow-lg shadow-primary/20"
+                                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-xs font-900 tracking-widest shadow-lg shadow-primary/20"
                             >
                                 <User size={18} /> Entrar en mi cuenta
                             </Link>
@@ -341,7 +341,7 @@ export default function Navbar() {
                                 Precio Hoy
                                 <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-[9px] font-black text-emerald-400 border border-emerald-500/30">
                                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                                    EN VIVO
+                                    En vivo
                                 </span>
                             </span>
                             <ChevronRight size={18} className="text-[#137fec]" />
