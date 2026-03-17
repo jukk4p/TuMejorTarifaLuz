@@ -15,6 +15,13 @@ export default function TarifasClient() {
     const [mounted, setMounted] = useState(false);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState<string>("all");
+    const [showWithTaxes, setShowWithTaxes] = useState(false);
+
+    const applyTaxes = (price: number) => {
+        if (!showWithTaxes) return price;
+        // + 5.11% impuesto eléctrico, then + 21% IVA
+        return price * 1.0511 * 1.21;
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -125,21 +132,21 @@ export default function TarifasClient() {
                                                 <div className="grid grid-cols-3 gap-2">
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
                                                         <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(4)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
                                                         <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Llano</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e2_kwh || tariff.e1_kwh || 0).toFixed(4)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
                                                         <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.e3_kwh || tariff.e1_kwh || 0).toFixed(4)}</span>
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase">Precio Fijo</span>
-                                                    <span className="font-800 text-slate-900 dark:text-white">{(tariff.e1_kwh ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kWh</span></span>
+                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.e1_kwh ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kWh</span></span>
                                                 </div>
                                             )}
                                         </div>
@@ -151,17 +158,17 @@ export default function TarifasClient() {
                                                 <div className="grid grid-cols-2 gap-2">
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
                                                         <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
                                                     </div>
                                                     <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
                                                         <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Valle</span>
-                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
+                                                        <span className="font-800 text-slate-900 dark:text-white text-xs">{applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0).toFixed(4)}</span>
                                                     </div>
                                                 </div>
                                             ) : (
                                                 <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                                     <span className="text-[10px] font-bold text-slate-400 uppercase">Punta</span>
-                                                    <span className="font-800 text-slate-900 dark:text-white">{(tariff.p1_kw_day ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kW/día</span></span>
+                                                    <span className="font-800 text-slate-900 dark:text-white">{applyTaxes(tariff.p1_kw_day ?? 0).toFixed(4)} <span className="text-[10px] text-slate-400 font-medium">€/kW/día</span></span>
                                                 </div>
                                             )}
                                         </div>
@@ -169,17 +176,22 @@ export default function TarifasClient() {
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col md:flex-row items-center justify-between gap-4">
-                                    {tariff.permanence ? (
-                                        <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">
-                                            <Lock className="w-4 h-4 text-amber-500" /> Permanencia
+                                    <div className="inline-flex items-center gap-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-3 shadow-sm shrink-0">
+                                        <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none whitespace-nowrap" onClick={() => setShowWithTaxes(!showWithTaxes)}>
+                                            {showWithTaxes ? 'Con impuestos' : 'Sin impuestos'}
                                         </span>
-                                    ) : (
-                                        <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-500 uppercase tracking-widest text-center">
-                                            <CheckCircle2 className="w-4 h-4" /> Sin Permanencia
-                                        </span>
-                                    )}
-                                    <Link href={tariff.url} target="_blank" className="bg-primary text-white p-4 md:p-2 w-full md:w-auto rounded-xl shadow-lg shadow-primary/20 hover:scale-105 md:hover:scale-110 active:scale-95 transition-all flex items-center justify-center">
-                                        <ExternalLink className="w-5 h-5" />
+                                        <button
+                                            role="switch"
+                                            aria-checked={showWithTaxes}
+                                            onClick={() => setShowWithTaxes(!showWithTaxes)}
+                                            className={`${showWithTaxes ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'} relative inline-flex h-4 w-8 items-center rounded-full transition-colors focus:outline-none shrink-0`}
+                                        >
+                                            <span className={`${showWithTaxes ? 'translate-x-4' : 'translate-x-0.5'} inline-block h-3 w-3 transform rounded-full bg-white transition-transform`} />
+                                        </button>
+                                    </div>
+                                    <Link href={tariff.url} target="_blank" className="bg-primary text-white py-3 px-5 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all flex items-center justify-center gap-2 font-bold text-[10px] uppercase tracking-widest flex-1 md:flex-none">
+                                        Contratar
+                                        <ExternalLink className="w-4 h-4" />
                                     </Link>
                                 </div>
                             </div>
