@@ -84,11 +84,11 @@ const ToastItem = ({ toast, onClose }: { toast: Toast; onClose: () => void }) =>
                 {icons[toast.type]}
             </div>
             <div className="flex-1 space-y-1">
-                <p className="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                <p className="text-sm font-bold text-text-primary leading-none">
                     {toast.message}
                 </p>
                 {toast.description && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    <p className="text-xs text-text-secondary font-medium">
                         {toast.description}
                     </p>
                 )}

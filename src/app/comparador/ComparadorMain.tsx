@@ -72,7 +72,9 @@ import {
     HelpCircle,
     ZapOff,
     FileUp,
-    ChevronDown
+    ChevronDown,
+    ArrowDownRight,
+    ArrowUpRight
 } from "lucide-react";
 
 import { useToast } from "@/components/providers/ToastProvider";
@@ -125,7 +127,8 @@ export default function ComparadorMain() {
     const [isAiGenerated, setIsAiGenerated] = useState(false);
     const [filterSearch, setFilterSearch] = useState("");
     const [filterPriceType, setFilterPriceType] = useState<"all" | "fixed" | "periods">("all");
-    const [filterPermanence, setFilterPermanence] = useState<"all" | "with" | "without">("all");
+    const [sortBy, setSortBy] = useState<"savings-desc" | "savings-asc">("savings-desc");
+    const [limitResults, setLimitResults] = useState<number>(Infinity);
 
     const [analysisProgress, setAnalysisProgress] = useState(0);
     const [analysisStatus, setAnalysisStatus] = useState("Mapeando Parámetros Eléctricos");
@@ -209,27 +212,27 @@ export default function ComparadorMain() {
         }
 
         if (isFixedRate && isHighSaving && energyDominates) {
-            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-success">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
+            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-accent">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
         }
 
         if (isFixedRate && isModerateSaving && powerDominates) {
-            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-success">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
+            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-accent">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
         }
 
         if (isThreePeriod && energyDominates) {
-            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-success">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
+            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-accent">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
         }
 
         if (isThreePeriod && !energyDominates) {
-            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-success">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (P1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
+            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-accent">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (P1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
         }
 
         if (isHighSaving) {
-            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-success">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
+            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-accent">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
         }
 
         // default
-        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-success">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
+        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-accent">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedResult, input, currentBreakdown]);
 
@@ -401,7 +404,7 @@ export default function ComparadorMain() {
 
     // Apply filters to base results
     const results = useMemo(() => {
-        return baseResults.filter(res => {
+        let filtered = baseResults.filter(res => {
             const company = res.tariff?.company?.toLowerCase() || "";
             const name = res.tariff?.name?.toLowerCase() || "";
             const search = filterSearch?.toLowerCase() || "";
@@ -411,13 +414,23 @@ export default function ComparadorMain() {
             if (filterPriceType === "fixed") matchesPrice = res.tariff?.type === "Fijo (1 Periodo)";
             if (filterPriceType === "periods") matchesPrice = res.tariff?.type === "3 Periodos";
 
-            let matchesPermanence = true;
-            if (filterPermanence === "with") matchesPermanence = res.tariff?.permanence === true;
-            if (filterPermanence === "without") matchesPermanence = res.tariff?.permanence === false;
-
-            return matchesSearch && matchesPrice && matchesPermanence;
+            return matchesSearch && matchesPrice;
         });
-    }, [baseResults, filterSearch, filterPriceType, filterPermanence]);
+
+        // Apply Sorting
+        filtered.sort((a, b) => {
+            if (sortBy === "savings-desc") return a.total - b.total; // Total low to high = savings high to low
+            if (sortBy === "savings-asc") return b.total - a.total;
+            return 0;
+        });
+
+        // Apply Limit
+        if (limitResults !== Infinity) {
+            filtered = filtered.slice(0, limitResults);
+        }
+
+        return filtered;
+    }, [baseResults, filterSearch, filterPriceType, sortBy, limitResults]);
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -686,7 +699,7 @@ export default function ComparadorMain() {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+        <div className="min-h-screen bg-background text-text-primary font-display">
             {/* Global Print Optimization Styles */}
             <style jsx global>{`
                 @media print {
@@ -699,7 +712,7 @@ export default function ComparadorMain() {
                     }
                     .premium-3d-card, .premium-card {
                         box-shadow: none !important;
-                        border: 1px solid #e2e8f0 !important;
+                        border: 1px solid var(--color-border) !important;
                         background: white !important;
                         transform: none !important;
                     }
@@ -724,23 +737,23 @@ export default function ComparadorMain() {
 
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
-                <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-4">
+                <div className="bg-surface border-b border-border py-4">
                     <div className="max-w-7xl mx-auto px-4 flex items-center justify-around sm:justify-center gap-1.5 sm:gap-8 overflow-x-auto no-scrollbar">
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>1</span>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-text-muted"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-surface-2"}`}>1</span>
                             <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Carga</span>
                         </div>
-                        <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>2</span>
+                        <div className="w-3 sm:w-8 h-[1px] bg-border shrink-0"></div>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-text-muted"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-surface-2"}`}>2</span>
                             <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">
                                 <span className="hidden sm:inline">Validación factura</span>
                                 <span className="inline sm:hidden">Validación</span>
                             </span>
                         </div>
-                        <div className="w-3 sm:w-8 h-[1px] bg-slate-200 dark:bg-slate-800 shrink-0"></div>
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-slate-400"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-slate-200 dark:bg-slate-800"}`}>3</span>
+                        <div className="w-3 sm:w-8 h-[1px] bg-border shrink-0"></div>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-text-muted"}`}>
+                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-surface-2"}`}>3</span>
                             <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Comparación</span>
                         </div>
                     </div>
@@ -754,10 +767,10 @@ export default function ComparadorMain() {
                 {step === "input" && !inputMethod && (
                     <div className="max-w-5xl mx-auto py-12 px-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <div className="text-center mb-16">
-                            <h1 className="text-4xl md:text-5xl font-900 text-slate-900 dark:text-white mb-6 tracking-tight">
+                            <h1 className="text-4xl md:text-5xl font-900 text-text-primary mb-6 tracking-tight">
                                 ¿Cómo quieres <span className="text-primary italic">empezar</span>?
                             </h1>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                            <p className="text-lg text-text-secondary font-medium max-w-2xl mx-auto leading-relaxed">
                                 Para darte el ahorro más exacto, necesitamos conocer tu consumo actual. Elige el método que prefieras para continuar.
                             </p>
                         </div>
@@ -772,12 +785,12 @@ export default function ComparadorMain() {
                                 <div className="w-24 h-24 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-primary/10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                                     <FileUp className="w-12 h-12 text-primary" />
                                 </div>
-                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4">Análisis por Factura</h3>
-                                <p className="text-slate-500 dark:text-slate-400 text-base mb-10 leading-relaxed flex-grow">
+                                <h3 className="text-2xl font-800 text-text-primary mb-4">Análisis por Factura</h3>
+                                <p className="text-text-secondary text-base mb-10 leading-relaxed flex-grow">
                                     Sube tu factura en PDF o foto. Nuestra <span className="text-primary font-bold">tecnología experta</span> extraerá automáticamente tu potencia y consumos reales de cada tramo en segundos.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
-                                    <span className="w-fit px-10 bg-primary text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group-hover:bg-primary/90 transition-all mx-auto">
+                                    <span className="w-fit px-10 bg-primary text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group-hover:bg-primary-hover transition-all mx-auto">
                                         Subir mi factura
                                         <ArrowRight size={18} />
                                     </span>
@@ -788,21 +801,21 @@ export default function ComparadorMain() {
                             {/* Option 2: Manual Input */}
                             <button 
                                 onClick={() => setInputMethod("manual")}
-                                className="premium-card group p-10 md:p-14 text-center hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                                className="premium-card group p-10 md:p-14 text-center hover:border-border hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
                             >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 dark:bg-slate-800/10 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/20 transition-colors"></div>
-                                <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
-                                    <Sliders className="w-12 h-12 text-slate-500" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-surface-2 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/20 transition-colors"></div>
+                                <div className="w-24 h-24 bg-surface-2 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
+                                    <Sliders className="w-12 h-12 text-text-muted" />
                                 </div>
-                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4">Entrada Manual</h3>
-                                <p className="text-slate-500 dark:text-slate-400 text-base mb-10 leading-relaxed flex-grow">
+                                <h3 className="text-2xl font-800 text-text-primary mb-4">Entrada Manual</h3>
+                                <p className="text-text-secondary text-base mb-10 leading-relaxed flex-grow">
                                     Si ya tienes tus datos a mano o quieres simular un consumo específico, utiliza nuestro formulario técnico simplificado.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
-                                    <span className="w-fit px-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-4 rounded-2xl shadow-xl shadow-slate-900/10 group-hover:bg-slate-800 dark:group-hover:bg-slate-100 transition-all flex items-center justify-center mx-auto">
+                                    <span className="w-fit px-10 bg-surface text-text-primary font-bold py-4 rounded-2xl shadow-xl border border-border group-hover:bg-surface-2 transition-all flex items-center justify-center mx-auto">
                                         Introducir datos a mano
                                     </span>
-                                    <p className="text-[10px] font-bold text-slate-400 tracking-widest bg-slate-100 dark:bg-slate-800 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
+                                    <p className="text-[10px] font-bold text-text-muted tracking-widest bg-surface-2 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
                                 </div>
                             </button>
                         </div>
@@ -820,12 +833,12 @@ export default function ComparadorMain() {
                                         </div>
                                         <div>
                                             <h2 className="text-lg font-bold">Entrada de Datos</h2>
-                                            <p className="text-[10px] text-slate-500 font-mono tracking-tighter">Parámetros de análisis</p>
+                                            <p className="text-[10px] text-text-muted font-mono tracking-tighter">Parámetros de análisis</p>
                                         </div>
                                     </div>
                                     <button 
                                         onClick={() => setInputMethod(null)}
-                                        className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors text-slate-400 hover:text-primary"
+                                        className="p-2 hover:bg-surface-2 rounded-xl transition-colors text-text-muted hover:text-primary"
                                         title="Cambiar método"
                                     >
                                         <History size={18} />
@@ -836,7 +849,7 @@ export default function ComparadorMain() {
                                     {inputMethod === "upload" && (
                                         <label
                                             htmlFor="ocr-upload-sidebar"
-                                            className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-slate-50 dark:bg-slate-800/50 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
+                                            className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-surface-2 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
                                         >
                                             <input
                                                 id="ocr-upload-sidebar"
@@ -849,49 +862,49 @@ export default function ComparadorMain() {
                                             <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
                                             <div className="text-center">
                                                 <p className="text-sm font-bold">Cambiar factura</p>
-                                                <p className="text-[11px] text-slate-400">PDF o Imagen</p>
+                                                <p className="text-[11px] text-text-muted">PDF o Imagen</p>
                                             </div>
                                         </label>
                                     )}
 
                                     {(inputMethod === "manual" || hasAnalyzed) && (
                                         <div className="space-y-6">
-                                            <div className="relative py-2 flex items-center uppercase text-[9px] font-bold text-slate-300 tracking-widest">
-                                                <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
+                                            <div className="relative py-2 flex items-center uppercase text-[9px] font-bold text-text-muted tracking-widest">
+                                                <div className="grow border-t border-border"></div>
                                                 <span className="mx-4">Ajuste Manual</span>
-                                                <div className="grow border-t border-slate-100 dark:border-slate-800"></div>
+                                                <div className="grow border-t border-border"></div>
                                             </div>
 
                                             <div className="space-y-5">
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Días Factura</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Días Factura</label>
                                                         <input
                                                             type="text"
                                                             inputMode="numeric"
                                                             name="days"
                                                             value={displayValues.days}
                                                             onChange={handleInputChange}
-                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Precio Pagado (€)</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Precio Pagado (€)</label>
                                                         <input
                                                             type="text"
                                                             inputMode="decimal"
                                                             name="current_bill_total"
                                                             value={displayValues.current_bill_total}
                                                             onChange={handleInputChange}
-                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">Potencias (kW)</h4>
+                                                <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Potencias (kW)</h4>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Punta (p1)</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (p1)</label>
                                                         <input
                                                             type="text"
                                                             inputMode="decimal"
@@ -899,11 +912,11 @@ export default function ComparadorMain() {
                                                             value={displayValues.power_p1}
                                                             onChange={handleInputChange}
                                                             placeholder="0,00"
-                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">Valle (p2)</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (p2)</label>
                                                         <input
                                                             type="text"
                                                             inputMode="decimal"
@@ -911,12 +924,12 @@ export default function ComparadorMain() {
                                                             value={displayValues.power_p2}
                                                             onChange={handleInputChange}
                                                             placeholder="0,00"
-                                                            className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
+                                                <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
                                                 <div className="space-y-4">
                                                     {[
                                                         { label: "Punta (e1)", name: "energy_p1" },
@@ -924,7 +937,7 @@ export default function ComparadorMain() {
                                                         { label: "Valle (e3)", name: "energy_p3" },
                                                     ].map((item, idx) => (
                                                         <div key={idx} className="space-y-1.5">
-                                                            <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase">{item.label}</label>
+                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
                                                             <input
                                                                 type="text"
                                                                 inputMode="decimal"
@@ -932,7 +945,7 @@ export default function ComparadorMain() {
                                                                 value={displayValues[item.name as keyof typeof displayValues]}
                                                                 onChange={handleInputChange}
                                                                 placeholder="0,00"
-                                                                className="w-full bg-slate-100 dark:bg-slate-800 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
                                                     ))}
@@ -941,7 +954,7 @@ export default function ComparadorMain() {
                                                 <button 
                                                     onClick={() => startAnalysis(true)} 
                                                     disabled={isProcessing} 
-                                                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                                    className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
                                                 >
                                                     {isProcessing ? (
                                                         <>
@@ -972,7 +985,7 @@ export default function ComparadorMain() {
                                     <div className="relative z-10 max-w-2xl w-full">
                                         <label
                                             htmlFor="ocr-upload-main"
-                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[3rem] p-16 bg-slate-50/50 dark:bg-slate-800/20 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
+                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[3rem] p-16 bg-surface-2 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
                                         >
                                             <input
                                                 id="ocr-upload-main"
@@ -985,21 +998,21 @@ export default function ComparadorMain() {
                                             <div className="w-32 h-32 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-xl shadow-primary/5 group-hover/upload:scale-110 group-hover/upload:rotate-3 transition-transform duration-500">
                                                 <FileUp className="w-16 h-16 text-primary" />
                                             </div>
-                                            <h3 className="text-3xl font-800 text-slate-900 dark:text-white mb-4">Selecciona tu factura</h3>
-                                            <p className="text-slate-500 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                                            <h3 className="text-3xl font-800 text-text-primary mb-4">Selecciona tu factura</h3>
+                                            <p className="text-text-secondary text-lg mb-8 leading-relaxed">
                                                 Arrastra tu archivo aquí o haz clic para buscarlo.<br/>
                                                 Soportamos <span className="font-bold">PDF, JPG y PNG</span> hasta 4MB.
                                             </p>
                                             <div className="flex flex-wrap justify-center gap-6 text-xs font-bold tracking-[0.2em] text-slate-400">
-                                                <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-success" /> Privacidad cifrada</span>
+                                                <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-accent" /> Privacidad cifrada</span>
                                                 <span className="flex items-center gap-2"><Brain size={16} className="text-primary" /> Análisis inteligente</span>
-                                                <span className="flex items-center gap-2"><Clock size={16} className="text-amber-500" /> Resultados en segundos</span>
+                                                <span className="flex items-center gap-2"><Clock size={16} className="text-warning" /> Resultados en segundos</span>
                                             </div>
                                         </label>
                                     </div>
                                 </div>
                             ) : isProcessing ? (
-                                <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] !border-none !shadow-2xl" style={{background: 'linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.95) 100%)'}}>
+                                <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] !border-none !shadow-2xl bg-gradient-to-br from-surface/95 to-surface-2/95">
                                     {/* Animated Background Grid */}
                                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #137fec 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
@@ -1031,18 +1044,18 @@ export default function ComparadorMain() {
 
                                             {/* Progress arc (SVG) */}
                                             <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] -rotate-90" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" className="stroke-slate-100 dark:stroke-slate-800" />
+                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" className="stroke-surface-2" />
                                                 <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" strokeLinecap="round"
-                                                    className={`transition-all duration-500 ease-out ${loaderStage === 0 ? 'stroke-primary' : loaderStage === 1 ? 'stroke-amber-400' : loaderStage === 2 ? 'stroke-emerald-500' : 'stroke-violet-500'}`}
+                                                    className={`transition-all duration-500 ease-out ${loaderStage === 0 ? 'stroke-primary' : loaderStage === 1 ? 'stroke-warning' : loaderStage === 2 ? 'stroke-accent' : 'stroke-violet-500'}`}
                                                     strokeDasharray={`${analysisProgress * 5.65} 565`}
-                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage === 0 ? '#137fec' : loaderStage === 1 ? '#f59e0b' : loaderStage === 2 ? '#10b981' : '#8b5cf6'})`}}
+                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage === 0 ? 'var(--color-primary)' : loaderStage === 1 ? 'var(--color-warning)' : loaderStage === 2 ? 'var(--color-accent)' : '#8b5cf6'})`}}
                                                 />
                                             </svg>
 
                                             {/* Central icon hub */}
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <div className={`w-24 h-24 md:w-28 md:h-28 rounded-[2rem] backdrop-blur-xl flex items-center justify-center transition-all duration-700 border shadow-2xl ${loaderStage === 0 ? 'bg-primary/5 border-primary/20 shadow-primary/10' : loaderStage === 1 ? 'bg-amber-400/5 border-amber-400/20 shadow-amber-400/10' : loaderStage === 2 ? 'bg-emerald-500/5 border-emerald-500/20 shadow-emerald-500/10' : 'bg-violet-500/5 border-violet-500/20 shadow-violet-500/10'}`}>
-                                                    <div key={`icon-${loaderStage}`} className={`animate-in zoom-in-75 fade-in duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-amber-500' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
+                                                    <div key={`icon-${loaderStage}`} className={`animate-in zoom-in-75 fade-in duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
                                                         {isAiGenerated && step === "input" ? (
                                                             loaderStage === 0 ? <Search className="w-10 h-10 md:w-12 md:h-12" /> :
                                                             loaderStage === 1 ? <FileText className="w-10 h-10 md:w-12 md:h-12" /> :
@@ -1075,12 +1088,12 @@ export default function ComparadorMain() {
                                         {/* === Percentage + Title === */}
                                         <div className="mb-6">
                                             <div className="flex items-center justify-center gap-3 mb-2">
-                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-amber-500' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
+                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning' : loaderStage === 2 ? 'text-accent' : 'text-violet-500'}`}>
                                                     {Math.round(analysisProgress)}
                                                 </span>
-                                                <span className="text-xl font-black text-slate-300">%</span>
+                                                <span className="text-xl font-black text-text-muted">%</span>
                                             </div>
-                                            <h3 key={`title-${loaderStage}`} className="text-lg md:text-xl font-800 tracking-tight text-slate-700 dark:text-slate-200 animate-in fade-in duration-500">
+                                            <h3 key={`title-${loaderStage}`} className="text-lg md:text-xl font-800 tracking-tight text-text-secondary animate-in fade-in duration-500">
                                                 {isAiGenerated && step === "input" ? "Procesando análisis..." :
                                                     loaderStage === 0 ? "Iniciando análisis..." :
                                                         loaderStage === 1 ? "Calculando costes..." :
@@ -1100,9 +1113,9 @@ export default function ComparadorMain() {
                                                 { label: 'Sync', icon: <CheckCircle2 size={11} /> },
                                             ].map((s, i) => (
                                                 <div key={i} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider transition-all duration-500 ${
-                                                    i < loaderStage ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20' :
-                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-amber-400/10 text-amber-600 border-amber-400/30 shadow-amber-400/10' : loaderStage === 2 ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30 shadow-emerald-500/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
-                                                    'bg-slate-50 text-slate-300 border border-slate-100'
+                                                    i < loaderStage ? 'bg-accent-bg text-accent border border-accent/20' :
+                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-warning/10 text-amber-600 border-warning/30 shadow-warning/10' : loaderStage === 2 ? 'bg-accent-bg text-accent border-accent/30 shadow-accent/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
+                                                    'bg-surface-2 text-text-muted border border-border'
                                                 }`}>
                                                     {i < loaderStage ? <CheckCircle2 size={11} className="text-emerald-500" /> : s.icon}
                                                     <span className="hidden sm:inline">{s.label}</span>
@@ -1112,17 +1125,17 @@ export default function ComparadorMain() {
 
                                         {/* === Progress Bar === */}
                                         <div className="w-full max-w-xs mb-4">
-                                            <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                            <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
                                                 <div
-                                                    className={`h-full rounded-full transition-all duration-300 ease-out ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' : loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' : loaderStage === 2 ? 'bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300' : 'bg-gradient-to-r from-violet-500 via-violet-400 to-violet-300'}`}
-                                                    style={{ width: `${analysisProgress}%`, boxShadow: `0 0 12px ${loaderStage === 0 ? '#137fec44' : loaderStage === 1 ? '#f59e0b44' : loaderStage === 2 ? '#10b98144' : '#8b5cf644'}` }}
+                                                    className={`h-full rounded-full transition-all duration-300 ease-out ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' : loaderStage === 1 ? 'bg-gradient-to-r from-primary via-warning to-warning/70' : loaderStage === 2 ? 'bg-gradient-to-r from-accent to-accent/70' : 'bg-gradient-to-r from-violet-500 via-violet-400 to-violet-300'}`}
+                                                    style={{ width: `${analysisProgress}%`, boxShadow: `0 0 12px ${loaderStage === 0 ? 'var(--color-primary)' : loaderStage === 1 ? 'var(--color-warning)' : loaderStage === 2 ? 'var(--color-accent)' : '#8b5cf644'}` }}
                                                 ></div>
                                             </div>
                                         </div>
 
                                         {/* === Status Text === */}
                                         <div className="h-6 flex items-center">
-                                            <p key={analysisStatus} className={`text-[10px] font-bold tracking-[0.3em] uppercase animate-in fade-in slide-in-from-bottom-1 duration-500 ${loaderStage === 0 ? 'text-primary/60' : loaderStage === 1 ? 'text-amber-500/60' : loaderStage === 2 ? 'text-emerald-500/60' : 'text-violet-500/60'}`}>
+                                            <p key={analysisStatus} className={`text-[10px] font-bold tracking-[0.3em] uppercase animate-in fade-in slide-in-from-bottom-1 duration-500 ${loaderStage === 0 ? 'text-primary/60' : loaderStage === 1 ? 'text-warning/60' : loaderStage === 2 ? 'text-accent/60' : 'text-violet-500/60'}`}>
                                                 {analysisStatus}
                                             </p>
                                         </div>
@@ -1139,30 +1152,30 @@ export default function ComparadorMain() {
                                         </div>
 
                                         <div className="mt-8">
-                                            <h3 className="text-4xl font-800 mb-6 tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                                            <h3 className="text-4xl font-800 mb-6 tracking-tight bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
                                                 Comparador Inteligente
                                             </h3>
-                                            <p className="text-slate-500 dark:text-slate-400 leading-relaxed mb-12 text-lg max-w-lg mx-auto leading-relaxed">
+                                            <p className="text-text-secondary leading-relaxed mb-12 text-lg max-w-lg mx-auto leading-relaxed">
                                                 Entorno analítico configurado. Procesamos sus parámetros eléctricos mediante algoritmos de mercado para garantizar la tarifa más económica del país.
                                             </p>
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-12 max-w-md mx-auto">
                                             <div className="space-y-3 group/item">
-                                                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
-                                                    <Activity className="w-6 h-6 text-slate-400 group-hover/item:text-primary transition-colors" />
+                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
+                                                    <Activity className="w-6 h-6 text-text-muted group-hover/item:text-primary transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Análisis</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted">Análisis</p>
                                             </div>
                                             <div className="space-y-3 group/item">
-                                                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-success/10 transition-colors">
-                                                    <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover/item:text-success transition-colors" />
+                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-accent-bg transition-colors">
+                                                    <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover/item:text-accent transition-colors" />
                                                 </div>
                                                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Verificación</p>
                                             </div>
                                             <div className="space-y-3 group/item">
-                                                <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto group-hover/item:bg-amber-500/10 transition-colors">
-                                                    <PiggyBank className="w-6 h-6 text-slate-400 group-hover/item:text-amber-500 transition-colors" />
+                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-warning/10 transition-colors">
+                                                    <PiggyBank className="w-6 h-6 text-slate-400 group-hover/item:text-warning transition-colors" />
                                                 </div>
                                                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Ahorro</p>
                                             </div>
@@ -1181,24 +1194,24 @@ export default function ComparadorMain() {
                         <div className="flex flex-col lg:flex-row gap-8 min-h-[700px]">
                             {/* LEFT: INVOICE PREVIEW */}
                             <div className="flex-1 premium-card overflow-hidden flex flex-col group/preview border-none shadow-2xl">
-                                <div className="px-8 py-5 border-b border-slate-100 dark:border-slate-800/50 flex justify-between items-center bg-white dark:bg-slate-900/50 transition-colors">
+                                <div className="px-8 py-5 border-b border-border flex justify-between items-center bg-surface transition-colors">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                                             <Eye className="text-primary w-4 h-4" />
                                         </div>
-                                        <span className="text-xs font-800 uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Vista Previa de Factura</span>
+                                        <span className="text-xs font-800 uppercase tracking-[0.2em] text-text-secondary">Vista Previa de Factura</span>
                                     </div>
-                                    <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
-                                        <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
+                                    <div className="flex items-center gap-2 bg-surface-2 p-1 rounded-xl">
+                                        <button className="p-2 hover:bg-surface border border-transparent hover:border-border hover:shadow-sm rounded-lg transition-all text-text-muted hover:text-primary active:scale-90">
                                             <ZoomIn className="w-5 h-5" />
                                         </button>
-                                        <div className="w-px h-4 bg-slate-300 dark:bg-slate-700 mx-1"></div>
-                                        <button className="p-2 hover:bg-white dark:hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-400 hover:text-primary active:scale-90">
+                                        <div className="w-px h-4 bg-border mx-1"></div>
+                                        <button className="p-2 hover:bg-surface border border-transparent hover:border-border hover:shadow-sm rounded-lg transition-all text-text-muted hover:text-primary active:scale-90">
                                             <ZoomOut className="w-5 h-5" />
                                         </button>
                                     </div>
                                 </div>
-                                <div className="flex-1 p-6 sm:p-12 overflow-y-auto bg-slate-50 dark:bg-slate-950/40 flex items-center justify-center relative">
+                                <div className="flex-1 p-6 sm:p-12 overflow-y-auto bg-background flex items-center justify-center relative">
                                     {/* Subtly animated background pattern */}
                                     <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[radial-gradient(#00c853_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
@@ -1229,19 +1242,19 @@ export default function ComparadorMain() {
                                             )}
                                         </div>
                                     ) : (
-                                        <div className="max-w-md mx-auto aspect-[1/1.414] bg-white dark:bg-slate-900 shadow-2xl rounded-xl p-12 border-t-[10px] border-primary relative overflow-hidden">
-                                            <div className="w-full h-24 bg-slate-100 dark:bg-slate-800 mb-8 rounded-lg animate-pulse"></div>
+                                        <div className="max-w-md mx-auto aspect-[1/1.414] bg-surface shadow-2xl rounded-xl p-12 border-t-[10px] border-primary relative overflow-hidden">
+                                            <div className="w-full h-24 bg-surface-2 mb-8 rounded-lg animate-pulse"></div>
                                             <div className="space-y-4">
-                                                <div className="w-3/4 h-3 bg-slate-50 dark:bg-slate-800 rounded-full"></div>
-                                                <div className="w-1/2 h-3 bg-slate-50 dark:bg-slate-800 rounded-full"></div>
+                                                <div className="w-3/4 h-3 bg-surface-2 rounded-full"></div>
+                                                <div className="w-1/2 h-3 bg-surface-2 rounded-full"></div>
                                             </div>
                                             <div className="mt-16 space-y-8">
-                                                <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4">
-                                                    <div className="w-24 h-4 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+                                                <div className="flex justify-between items-center border-b border-border pb-4">
+                                                    <div className="w-24 h-4 bg-surface-2 rounded-full"></div>
                                                     <div className="w-16 h-4 bg-primary/10 rounded-full"></div>
                                                 </div>
-                                                <div className="flex justify-between items-center border-b border-slate-50 dark:border-slate-800 pb-4">
-                                                    <div className="w-32 h-4 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+                                                <div className="flex justify-between items-center border-b border-border pb-4">
+                                                    <div className="w-32 h-4 bg-surface-2 rounded-full"></div>
                                                     <div className="w-12 h-4 bg-blue-500/10 rounded-full"></div>
                                                 </div>
                                             </div>
@@ -1260,18 +1273,18 @@ export default function ComparadorMain() {
                                         <CheckCircle2 className="w-4 h-4 font-bold" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-slate-800 dark:text-white uppercase mb-1">AUDITORÍA TÉCNICA DE DATOS</p>
-                                        <p className="text-[11px] text-slate-500 leading-relaxed">Verifique los campos técnicos extraídos de la factura para garantizar un cálculo preciso.</p>
+                                        <p className="text-xs font-bold text-text-primary uppercase mb-1">AUDITORÍA TÉCNICA DE DATOS</p>
+                                        <p className="text-[11px] text-text-secondary leading-relaxed">Verifique los campos técnicos extraídos de la factura para garantizar un cálculo preciso.</p>
                                     </div>
                                 </div>
 
                                 <div className="premium-card p-8 space-y-8">
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">METADATA DE FACTURACIÓN</h4>
+                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest border-b border-border pb-2">METADATA DE FACTURACIÓN</h4>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Total (total_amount)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Total (total_amount)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1280,12 +1293,12 @@ export default function ComparadorMain() {
                                                     name="current_bill_total"
                                                     value={displayValues.current_bill_total}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Días (billing_days)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Días (billing_days)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1294,18 +1307,18 @@ export default function ComparadorMain() {
                                                     name="days"
                                                     value={input.days.toString()}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">POTENCIA CONTRATADA</h4>
+                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest border-b border-border pb-2">POTENCIA CONTRATADA</h4>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Punta (p1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Punta (p1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1314,12 +1327,12 @@ export default function ComparadorMain() {
                                                     name="power_p1"
                                                     value={displayValues.power_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Valle (p2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Valle (p2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1328,18 +1341,18 @@ export default function ComparadorMain() {
                                                     name="power_p2"
                                                     value={displayValues.power_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">CONSUMO ENERGÍA (KWH)</h4>
+                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest border-b border-border pb-2">CONSUMO ENERGÍA (KWH)</h4>
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Punta (e1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Punta (e1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1348,12 +1361,12 @@ export default function ComparadorMain() {
                                                     name="energy_p1"
                                                     value={displayValues.energy_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Llano (e2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Llano (e2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1362,12 +1375,12 @@ export default function ComparadorMain() {
                                                     name="energy_p2"
                                                     value={displayValues.energy_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Consumo Valle (e3)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Valle (e3)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1376,18 +1389,18 @@ export default function ComparadorMain() {
                                                     name="energy_p3"
                                                     value={displayValues.energy_p3}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 pb-2">PRECIO ENERGÍA (€/KWH)</h4>
+                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest border-b border-border pb-2">PRECIO ENERGÍA (€/KWH)</h4>
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Punta (p1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Punta (p1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1396,12 +1409,12 @@ export default function ComparadorMain() {
                                                     name="current_price_p1"
                                                     value={displayValues.current_price_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Llano (p2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Llano (p2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1410,12 +1423,12 @@ export default function ComparadorMain() {
                                                     name="current_price_p2"
                                                     value={displayValues.current_price_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-slate-600 dark:text-slate-400 capitalize">Precio Valle (p3)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Valle (p3)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1424,15 +1437,15 @@ export default function ComparadorMain() {
                                                     name="current_price_p3"
                                                     value={displayValues.current_price_p3}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="flex gap-4 pt-10">
-                                        <button onClick={() => setStep("input")} className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-4 font-bold rounded-2xl text-xs tracking-widest hover:bg-slate-50 transition-colors">Editar Datos</button>
-                                        <button onClick={confirmData} className="flex-[2] bg-success hover:bg-success/90 text-white py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-success/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
+                                        <button onClick={() => setStep("input")} className="flex-1 bg-surface border border-border py-4 font-bold rounded-2xl text-xs tracking-widest hover:bg-surface-2 transition-colors">Editar Datos</button>
+                                        <button onClick={confirmData} className="flex-[2] bg-accent hover:bg-accent/90 text-white py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-accent/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
                                             Confirmar y Comparar
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
@@ -1448,22 +1461,22 @@ export default function ComparadorMain() {
                         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                             <button 
                                 onClick={() => setStep("results")}
-                                className="group flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-full shadow-lg shadow-slate-200/20 dark:shadow-none hover:-translate-x-1 transition-all active:scale-95 shrink-0"
+                                className="group flex items-center gap-2 px-6 py-3 bg-surface border border-border rounded-full shadow-lg shadow-slate-200/20 dark:shadow-none hover:-translate-x-1 transition-all active:scale-95 shrink-0"
                             >
                                 <ArrowLeft className="w-4 h-4 text-primary group-hover:-translate-x-1 transition-transform" />
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-primary transition-colors">Volver al comparador</span>
                             </button>
 
-                            <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50 relative">
+                            <div className="flex bg-surface-2 p-1.5 rounded-[2rem] border border-border relative">
                                 <button 
                                     onClick={() => setStudyMode("monthly")}
-                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'monthly' ? 'text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'monthly' ? 'text-white' : 'text-text-muted hover:text-text-primary'}`}
                                 >
                                     Mensual
                                 </button>
                                 <button 
                                     onClick={() => setStudyMode("annual")}
-                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'annual' ? 'text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'annual' ? 'text-white' : 'text-text-muted hover:text-text-primary'}`}
                                 >
                                     Anual
                                 </button>
@@ -1484,8 +1497,8 @@ export default function ComparadorMain() {
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Cálculo en tiempo real</span>
                                 </div>
                                 <div className="space-y-1">
-                                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">Estudio de ahorro {studyMode === 'monthly' ? 'mensual' : 'anual'}</h2>
-                                    <p className="text-lg text-slate-500 font-medium">Análisis inteligente para <span className="text-primary font-bold">{selectedResult.tariff.name}</span></p>
+                                    <h2 className="text-4xl md:text-5xl font-black text-text-primary tracking-tighter leading-none">Estudio de ahorro {studyMode === 'monthly' ? 'mensual' : 'anual'}</h2>
+                                    <p className="text-lg text-text-secondary font-medium">Análisis inteligente para <span className="text-primary font-bold">{selectedResult.tariff.name}</span></p>
                                 </div>
                             </div>
 
@@ -1497,10 +1510,10 @@ export default function ComparadorMain() {
 
                                     <button
                                         onClick={() => setIsStudySelectorOpen(!isStudySelectorOpen)}
-                                        className={`absolute inset-0 w-full bg-white dark:bg-slate-900 border-2 rounded-[2rem] transition-all duration-300 shadow-xl flex items-center justify-center overflow-hidden group ${
+                                        className={`absolute inset-0 w-full bg-surface border-2 rounded-[2rem] transition-all duration-300 shadow-xl flex items-center justify-center overflow-hidden group ${
                                             isStudySelectorOpen 
                                             ? "border-primary ring-[6px] ring-primary/10 -translate-y-1" 
-                                            : "border-slate-100 dark:border-slate-800 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1"
+                                            : "border-border hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1"
                                         }`}
                                     >
                                         <div className="absolute left-6 text-primary shrink-0 transition-all duration-300 group-hover:scale-125">
@@ -1509,10 +1522,10 @@ export default function ComparadorMain() {
                                         
                                         <div className="flex flex-col px-14 text-center truncate w-full">
                                             <span className="text-[10px] uppercase tracking-[0.3em] font-black text-slate-400 mb-0.5 truncate group-hover:text-primary/70 transition-colors uppercase">{selectedResult.tariff.company}</span>
-                                            <span className="text-slate-900 dark:text-white text-lg font-black leading-tight truncate tracking-tight">{selectedResult.tariff.name}</span>
+                                            <span className="text-text-primary text-lg font-black leading-tight truncate tracking-tight">{selectedResult.tariff.name}</span>
                                         </div>
 
-                                        <div className="absolute right-6 text-slate-400 transition-all duration-300 group-hover:text-primary">
+                                        <div className="absolute right-6 text-text-muted transition-all duration-300 group-hover:text-primary">
                                             <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${isStudySelectorOpen ? "rotate-180" : ""}`} />
                                         </div>
 
@@ -1522,9 +1535,9 @@ export default function ComparadorMain() {
 
                                     {isStudySelectorOpen && (
                                         <>
-                                            <div className="absolute top-full left-0 right-0 mt-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-700/80 rounded-[2rem] shadow-[0_30px_70px_rgba(0,0,0,0.15)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 z-[60]">
+                                            <div className="absolute top-full left-0 right-0 mt-4 bg-surface backdrop-blur-2xl border border-border rounded-[2rem] shadow-[0_30px_70px_rgba(0,0,0,0.15)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 z-[60]">
                                                 {/* Header centrado */}
-                                                <div className="px-6 pt-5 pb-3 text-center border-b border-slate-100 dark:border-slate-800">
+                                                <div className="px-6 pt-5 pb-3 text-center border-b border-border">
                                                     <span className="text-[9px] font-black uppercase tracking-[0.25em] text-slate-400">Tarifas recomendadas</span>
                                                 </div>
                                                 <div className="max-h-[380px] overflow-y-auto custom-scrollbar p-3">
@@ -1541,7 +1554,7 @@ export default function ComparadorMain() {
                                                                 className={`w-full px-5 py-3.5 rounded-2xl transition-all duration-200 flex items-center justify-between gap-4 mb-1 group/item ${
                                                                     isSelected
                                                                     ? "bg-primary text-white shadow-lg shadow-primary/25"
-                                                                    : "hover:bg-primary/5 text-slate-700 dark:text-slate-300 hover:text-primary"
+                                                                    : "hover:bg-primary/5 text-text-primary hover:text-primary"
                                                                 }`}
                                                             >
                                                                 <div className="flex flex-col items-start text-left min-w-0">
@@ -1554,8 +1567,8 @@ export default function ComparadorMain() {
                                                                             isSelected 
                                                                                 ? "bg-white/20 text-white" 
                                                                                 : itemDiff > 0 
-                                                                                    ? "bg-success/10 text-success" 
-                                                                                    : "bg-rose-500/10 text-rose-500"
+                                                                                    ? "bg-accent-bg text-accent" 
+                                                                                    : "bg-rose-500/10 text-warning"
                                                                         }`}>
                                                                             {itemDiff > 0 ? '-' : '+'}{Math.abs(itemDiff).toFixed(2)}€
                                                                         </span>
@@ -1589,12 +1602,12 @@ export default function ComparadorMain() {
                                 <div className="p-8 flex flex-col items-center h-full">
                                     <div className="w-full flex justify-between items-start mb-10">
                                         <div className="space-y-1">
-                                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Distribución de costes</h3>
-                                            <p className="text-[8px] font-bold text-slate-500 uppercase tracking-tighter">Comparativa Estructural</p>
+                                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-text-muted">Distribución de costes</h3>
+                                            <p className="text-[8px] font-bold text-text-secondary uppercase tracking-tighter">Comparativa Estructural</p>
                                         </div>
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-success/10 rounded-lg">
-                                                <TrendingDown className="w-4 h-4 text-success" />
+                                            <div className="p-2 bg-accent-bg rounded-lg">
+                                                <TrendingDown className="w-4 h-4 text-accent" />
                                             </div>
                                         </div>
                                     </div>
@@ -1621,11 +1634,11 @@ export default function ComparadorMain() {
                                                                     <Zap className="w-4 h-4" />
                                                                 </div>
                                                                 <div>
-                                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Energía</h4>
-                                                                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-0.5">Consumo {isAnnual ? 'Anual Estimado' : 'Variable Mensual'}</p>
+                                                                    <h4 className="text-xs font-black text-text-primary uppercase tracking-wider leading-none">Término de Energía</h4>
+                                                                    <p className="text-[9px] text-text-muted font-bold uppercase tracking-tighter mt-0.5">Consumo {isAnnual ? 'Anual Estimado' : 'Variable Mensual'}</p>
                                                                 </div>
                                                             </div>
-                                                            <div className={`text-sm font-black ${energyDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>
+                                                            <div className={`text-sm font-black ${energyDiff >= 0 ? 'text-accent' : 'text-warning'}`}>
                                                                 {energyDiff >= 0 ? '-' : '+'}{Math.abs(energyDiff).toFixed(2)}€
                                                             </div>
                                                         </div>
@@ -1633,10 +1646,10 @@ export default function ComparadorMain() {
                                                         {/* Barras principales */}
                                                         <div className="grid grid-cols-2 gap-4">
                                                             <div className="space-y-1.5">
-                                                                <div className="flex justify-between text-[9px] font-black uppercase text-slate-400 px-0.5">
-                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-slate-600 dark:text-slate-300">{(currentBreakdown.energy * m).toFixed(2)}€</span>
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-text-muted px-0.5">
+                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-text-secondary">{(currentBreakdown.energy * m).toFixed(2)}€</span>
                                                                 </div>
-                                                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full"><div className="h-full bg-slate-300 dark:bg-slate-600 rounded-full w-full opacity-60"></div></div>
+                                                                <div className="h-2 bg-surface-2 rounded-full"><div className="h-full bg-border rounded-full w-full opacity-60"></div></div>
                                                             </div>
                                                             <div className="space-y-1.5">
                                                                 <div className="flex justify-between text-[9px] font-black uppercase text-primary px-0.5">
@@ -1664,13 +1677,13 @@ export default function ComparadorMain() {
                                                                     
                                                                     const rowDiff = rowOldCost - rowNewCost;
                                                                     return (
-                                                                        <div key={i} className="flex items-center justify-between text-[9px] font-bold text-slate-500">
+                                                                        <div key={i} className="flex items-center justify-between text-[9px] font-bold text-text-secondary">
                                                                             <span className="uppercase tracking-wide">{row.label}</span>
                                                                             <div className="flex items-center gap-3">
-                                                                                <span className="font-mono text-slate-400">
+                                                                                <span className="font-mono text-text-muted">
                                                                                     {(row.kwh * m).toLocaleString('es-ES', { maximumFractionDigits: 1 })} kWh × {row.price.toFixed(4)}€/kWh
                                                                                 </span>
-                                                                                <span className={`font-mono font-black ${rowDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>{rowDiff >= 0 ? '-' : '+'}{Math.abs(rowDiff).toFixed(2)}€</span>
+                                                                                <span className={`font-mono font-black ${rowDiff >= 0 ? 'text-accent' : 'text-warning'}`}>{rowDiff >= 0 ? '-' : '+'}{Math.abs(rowDiff).toFixed(2)}€</span>
                                                                             </div>
                                                                         </div>
                                                                     );
@@ -1683,15 +1696,15 @@ export default function ComparadorMain() {
                                                     <div className="space-y-3">
                                                         <div className="flex justify-between items-center">
                                                             <div className="flex items-center gap-2">
-                                                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
+                                                                <div className="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center text-warning shrink-0">
                                                                     <CreditCard className="w-4 h-4" />
                                                                 </div>
                                                                 <div>
-                                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Potencia</h4>
+                                                                    <h4 className="text-xs font-black text-text-primary uppercase tracking-wider leading-none">Término de Potencia</h4>
                                                                     <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-0.5">{isAnnual ? 'Capacidad (12 meses)' : 'Capacidad Contratada'}</p>
                                                                 </div>
                                                             </div>
-                                                            <div className={`text-sm font-black ${powerDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>
+                                                            <div className={`text-sm font-black ${powerDiff >= 0 ? 'text-accent' : 'text-warning'}`}>
                                                                 {powerDiff >= 0 ? '-' : '+'}{Math.abs(powerDiff).toFixed(2)}€
                                                             </div>
                                                         </div>
@@ -1702,14 +1715,14 @@ export default function ComparadorMain() {
                                                                 <div className="flex justify-between text-[9px] font-black uppercase text-slate-400 px-0.5">
                                                                     <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-slate-600 dark:text-slate-300">{(currentBreakdown.powerPlusOthers * m).toFixed(2)}€</span>
                                                                 </div>
-                                                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full"><div className="h-full bg-slate-300 dark:bg-slate-600 rounded-full w-full opacity-60"></div></div>
+                                                                <div className="h-2 bg-surface-2 rounded-full"><div className="h-full bg-border rounded-full w-full opacity-60"></div></div>
                                                             </div>
                                                             <div className="space-y-1.5">
-                                                                <div className="flex justify-between text-[9px] font-black uppercase text-amber-500 px-0.5">
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-warning px-0.5">
                                                                     <span>{isAnnual ? 'Nueva Anual' : 'Nueva'}</span><span className="font-mono">{((selectedResult.total - selectedResult.costEnergy) * m).toFixed(2)}€</span>
                                                                 </div>
-                                                                <div className="h-2 bg-amber-500/10 rounded-full overflow-hidden">
-                                                                    <div className="h-full bg-amber-500 rounded-full" style={{ width: `${Math.min(100,((selectedResult.total - selectedResult.costEnergy) / (currentBreakdown.powerPlusOthers || 1)) * 100)}%` }}></div>
+                                                                <div className="h-2 bg-warning/10 rounded-full overflow-hidden">
+                                                                    <div className="h-full bg-warning rounded-full" style={{ width: `${Math.min(100,((selectedResult.total - selectedResult.costEnergy) / (currentBreakdown.powerPlusOthers || 1)) * 100)}%` }}></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1726,12 +1739,12 @@ export default function ComparadorMain() {
                                                                         <span className="uppercase tracking-wide">{row.label}</span>
                                                                         <div className="flex items-center gap-3">
                                                                             <span className="font-mono text-slate-400">{row.kw.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW × {row.price.toFixed(6)}€/día</span>
-                                                                            <span className="font-mono font-black text-amber-500">{rowCost.toFixed(2)}€</span>
+                                                                            <span className="font-mono font-black text-warning">{rowCost.toFixed(2)}€</span>
                                                                         </div>
                                                                     </div>
                                                                 );
                                                             })}
-                                                            <div className="border-t border-slate-100 dark:border-slate-800 pt-2 mt-1 space-y-1">
+                                                            <div className="border-t border-border pt-2 mt-1 space-y-1">
                                                                 <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
                                                                     <span className="uppercase tracking-wide">IEE (5.11%)</span>
                                                                     <span className="font-mono">{(selectedResult.taxIee * m).toFixed(2)}€</span>
@@ -1754,25 +1767,25 @@ export default function ComparadorMain() {
 
                                                     {/* ── DIVIDER ── */}
                                                     <div className="relative">
-                                                        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100 dark:border-slate-800"></div></div>
+                                                        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-border"></div></div>
                                                         <div className="relative flex justify-center">
-                                                            <div className="bg-white dark:bg-slate-900 px-4 text-slate-300"><TrendingDown className="w-4 h-4" /></div>
+                                                            <div className="bg-surface px-4 text-slate-300"><TrendingDown className="w-4 h-4" /></div>
                                                         </div>
                                                     </div>
 
                                                     {/* ── TOTAL ── */}
-                                                    <div className="p-5 bg-gradient-to-br from-success/5 to-primary/5 rounded-3xl border border-success/20 relative overflow-hidden">
-                                                        <div className="absolute top-0 right-0 w-24 h-24 bg-success/10 blur-3xl rounded-full -mr-12 -mt-12"></div>
+                                                    <div className="p-5 bg-gradient-to-br from-success/5 to-primary/5 rounded-3xl border border-accent/20 relative overflow-hidden">
+                                                        <div className="absolute top-0 right-0 w-24 h-24 bg-accent-bg blur-3xl rounded-full -mr-12 -mt-12"></div>
                                                         <div className="flex items-center justify-between relative z-10">
                                                             <div>
                                                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Impacto Global</p>
-                                                                <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">Ahorro {isAnnual ? 'Anual' : 'Mensual'}</h4>
+                                                                <h4 className="text-xl font-black text-text-primary uppercase tracking-tighter">Ahorro {isAnnual ? 'Anual' : 'Mensual'}</h4>
                                                             </div>
                                                             <div className="text-right">
-                                                                <div className="text-3xl font-black text-success tracking-tighter">
+                                                                <div className="text-3xl font-black text-accent tracking-tighter">
                                                                     {Math.abs(totalSaving).toFixed(2)}€
                                                                 </div>
-                                                                <div className="text-[9px] font-black bg-success/10 text-success px-2 py-0.5 rounded-full inline-block mt-1">
+                                                                <div className="text-[9px] font-black bg-accent-bg text-accent px-2 py-0.5 rounded-full inline-block mt-1">
                                                                     {totalSaving >= 0 ? '-' : '+'}{Math.round((Math.abs(totalSaving) / (totalActual || 1)) * 100)}% {isAnnual ? 'año' : 'factura'}
                                                                 </div>
                                                             </div>
@@ -1791,16 +1804,16 @@ export default function ComparadorMain() {
                                     {/* Card Actual */}
                                     <div className="premium-card p-6 border-l-4 border-slate-300 dark:border-slate-700 overflow-hidden relative group">
                                         <div className="flex justify-between items-start mb-3">
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tu gasto actual</p>
+                                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Tu gasto actual</p>
                                         </div>
                                         <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                                             <CreditCard className="w-16 h-16" />
                                         </div>
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-3xl font-black text-slate-700 dark:text-slate-300">{(studyMode === 'monthly' ? (input.current_bill_total || 0) : (input.current_bill_total || 0) * 12).toFixed(2)}</span>
-                                            <span className="text-lg font-bold text-slate-400">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
+                                            <span className="text-3xl font-black text-text-primary">{(studyMode === 'monthly' ? (input.current_bill_total || 0) : (input.current_bill_total || 0) * 12).toFixed(2)}</span>
+                                            <span className="text-lg font-bold text-text-muted">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
                                         </div>
-                                        <div className="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                        <div className="mt-4 w-full h-1.5 bg-surface-2 rounded-full overflow-hidden">
                                             <div className="h-full bg-slate-300 dark:bg-slate-600 w-full opacity-50"></div>
                                         </div>
                                     </div>
@@ -1824,28 +1837,25 @@ export default function ComparadorMain() {
                                 </div>
 
                                 {/* Gran Banner de Ahorro */}
-                                <div className="premium-card p-0 overflow-hidden bg-success/5 border-2 border-success/20 hover:border-success/40 transition-all relative">
+                                <div className="premium-card p-0 overflow-hidden bg-accent/5 border-2 border-accent/20 hover:border-accent/40 transition-all relative">
                                     <div className="flex flex-col sm:flex-row items-center">
-                                        <div className="bg-success px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-white shrink-0 w-full sm:w-auto">
+                                        <div className="bg-accent px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-white shrink-0 w-full sm:w-auto">
                                             <Trophy className="w-12 h-12 mb-3 animate-bounce" />
                                             <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Logro</span>
                                         </div>
                                         <div className="p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
                                             <div>
-                                                <h4 className="text-sm font-black text-success uppercase tracking-widest mb-1">Ahorro total calculado</h4>
-                                                <p className="text-slate-500 text-xs font-bold leading-relaxed px-1">Se han aplicado todos los impuestos y cánones vigentes.</p>
+                                                <h4 className="text-sm font-black text-accent uppercase tracking-widest mb-1">Ahorro total calculado</h4>
+                                                <p className="text-text-secondary text-xs font-bold leading-relaxed px-1">Se han aplicado todos los impuestos y cánones vigentes.</p>
                                             </div>
                                             <div className="text-center sm:text-right">
-                                                <div className={`text-5xl font-black tracking-tighter ${((input.current_bill_total || 0) - selectedResult.total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                <div className={`text-5xl font-black tracking-tighter ${((input.current_bill_total || 0) - selectedResult.total) >= 0 ? "text-accent" : "text-warning"}`}>
                                                     {Math.abs(studyMode === 'monthly' 
                                                         ? (input.current_bill_total || 0) - selectedResult.total 
                                                         : ((input.current_bill_total || 0) - selectedResult.total) * 12
                                                     ).toFixed(2)}
                                                     <span className="text-2xl ml-1 italic">€</span>
                                                 </div>
-                                                {studyMode === 'annual' && (
-                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Estimación x12 meses</p>
-                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -1860,7 +1870,7 @@ export default function ComparadorMain() {
                                         </div>
                                         <div className="space-y-3 pt-1">
                                             <h4 className="text-xs font-black text-primary uppercase tracking-[0.3em]">Análisis estratégico IA</h4>
-                                            <p className="text-slate-300 text-[15px] italic leading-relaxed font-medium">
+                                            <p className="text-text-primary text-[15px] italic leading-relaxed font-medium">
                                                 "{generateAIInsight}"
                                             </p>
                                         </div>
@@ -1880,25 +1890,25 @@ export default function ComparadorMain() {
                             {/* Lateral Collapse Trigger */}
                             <button 
                                 onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                                className={`fixed lg:absolute left-0 top-1/2 -translate-y-1/2 w-6 h-20 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-r-xl shadow-xl flex items-center justify-center text-slate-400 hover:text-primary transition-all z-[100] group active:scale-95 ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "translate-x-0" : "translate-x-[-100%] lg:translate-x-0 lg:left-[325px]"}`}
+                                className={`fixed lg:absolute left-0 top-1/2 -translate-y-1/2 w-6 h-20 bg-surface border border-border rounded-r-xl shadow-xl flex items-center justify-center text-slate-400 hover:text-primary transition-all z-[100] group active:scale-95 ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "translate-x-0" : "translate-x-[-100%] lg:translate-x-0 lg:left-[325px]"}`}
                             >
                                 <ChevronRight className={`w-4 h-4 transition-transform duration-500 ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "" : "rotate-180"}`} />
                             </button>
                             <aside className={`transition-all duration-500 ease-in-out shrink-0 overflow-hidden relative ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "w-0 lg:w-0 opacity-0 invisible" : "w-full lg:w-[325px] opacity-100 visible"}`}>
                                     {!isProfileCollapsed && (
-                                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+                                        <div className="bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500">
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
                                             <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
                                             
                                             <div className="flex justify-between items-center relative z-10">
                                                 <div className="space-y-1">
                                                     <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Tu suministro</h4>
-                                                    <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Perfil de Carga</p>
+                                                    <p className="text-xs font-black text-text-primary uppercase tracking-tight">Perfil de Carga</p>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <button 
                                                         onClick={() => setIsProfileCollapsed(true)}
-                                                        className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-slate-200/50 dark:border-white/5 active:scale-90"
+                                                        className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-border active:scale-90"
                                                         title="Colapsar a la cabecera"
                                                     >
                                                         <ChevronRight className="w-4 h-4 transition-transform duration-300" />
@@ -1907,40 +1917,40 @@ export default function ComparadorMain() {
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-8 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
-                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                                <div className="flex flex-col bg-surface-2 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
-                                                        <div className="w-1.5 h-3 bg-amber-500 rounded-full"></div>
-                                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Potencia Contratada</p>
+                                                        <div className="w-1.5 h-3 bg-warning rounded-full"></div>
+                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">Potencia Contratada</p>
                                                     </div>
                                                     {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
                                                         <div className="space-y-3">
                                                             <div className="flex justify-between items-center text-xs font-black">
-                                                                <span className="text-slate-400 uppercase tracking-tighter">P1 · Punta</span>
-                                                                <span className="text-amber-600">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                                <span className="text-text-muted uppercase tracking-tighter">P1 · Punta</span>
+                                                                <span className="text-warning">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
                                                             </div>
-                                                            <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-slate-100 dark:border-white/5">
-                                                                <span className="text-slate-400 uppercase tracking-tighter">P2 · Valle</span>
-                                                                <span className="text-amber-600">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                            <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-border">
+                                                                <span className="text-text-muted uppercase tracking-tighter">P2 · Valle</span>
+                                                                <span className="text-warning">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
                                                             </div>
                                                         </div>
                                                     ) : (
                                                         <div className="flex items-baseline gap-1.5">
-                                                            <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
+                                                            <p className="text-4xl font-black text-text-primary tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
                                                             <p className="text-xs text-slate-400 font-bold uppercase tracking-tight">kW</p>
                                                         </div>
                                                     )}
                                                 </div>
 
-                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                                <div className="flex flex-col bg-surface-2 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-primary rounded-full"></div>
-                                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Consumo Energético</p>
+                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">ENERGÍA CONSUMIDA</p>
                                                     </div>
                                                     <div className="space-y-3">
                                                         {[
-                                                            { label: 'P1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
-                                                            { label: 'P2 · Llano', val: input.energy_p2, color: 'text-primary' },
-                                                            { label: 'P3 · Valle', val: input.energy_p3, color: 'text-indigo-500' }
+                                                            { label: 'E1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
+                                                            { label: 'E2 · Llano', val: input.energy_p2, color: 'text-blue-500' },
+                                                            { label: 'E3 · Valle', val: input.energy_p3, color: 'text-accent' }
                                                         ].filter(p => p.val > 0).map((p, i) => (
                                                             <div key={i} className="flex justify-between items-center text-xs font-black">
                                                                 <span className="text-slate-400 uppercase tracking-tighter">{p.label}</span>
@@ -1950,15 +1960,15 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
 
-                                                <div className="relative pt-8 mt-2 border-t border-slate-100 dark:border-white/5 z-10">
-                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
+                                                <div className="relative pt-8 mt-2 border-t border-border z-10">
+                                                    <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
                                                     <div className="grid grid-cols-2 gap-3">
-                                                        <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
-                                                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
+                                                        <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                            <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
                                                             <p className="text-sm font-black text-primary">5.11%</p>
                                                         </div>
-                                                        <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
-                                                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
+                                                        <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                            <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
                                                             <p className="text-sm font-black text-primary">21%</p>
                                                         </div>
                                                     </div>
@@ -1969,16 +1979,16 @@ export default function ComparadorMain() {
 
                                     {/* FILTERS SECTION */}
                                     {!isFiltersCollapsed && (
-                                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+                                        <div className="bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
                                             {/* Deco Background Grid */}
                                             <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                                             
                                             <div className="flex justify-between items-center mb-8 relative z-10">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-slate-200/50 dark:border-white/5">
+                                                    <div className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-border">
                                                         <Filter className="w-4 h-4" />
                                                     </div>
-                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Filtros</h4>
+                                                    <h4 className="text-xs font-black text-text-primary uppercase tracking-[0.2em]">Filtros</h4>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     {results.length !== baseResults.length && (
@@ -1988,7 +1998,7 @@ export default function ComparadorMain() {
                                                     )}
                                                     <button 
                                                         onClick={() => setIsFiltersCollapsed(true)}
-                                                        className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-slate-200/50 dark:border-white/5 active:scale-90"
+                                                        className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-text-muted hover:text-primary transition-all border border-border active:scale-90"
                                                         title="Colapsar a la cabecera"
                                                     >
                                                         <ChevronRight className="w-4 h-4 transition-transform duration-300" />
@@ -1999,30 +2009,30 @@ export default function ComparadorMain() {
                                             <div className="space-y-8 relative z-10 animate-in slide-in-from-top-2 duration-300">
                                                 {/* Filter: Search Company */}
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
+                                                    <label className="text-[10px] font-black text-text-muted uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
                                                     <div className="relative group/input">
                                                         <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
-                                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within/input:text-primary" />
+                                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4 transition-colors group-focus-within/input:text-primary" />
                                                         <input
                                                             type="text"
                                                             value={filterSearch}
                                                             onChange={e => setFilterSearch(e.target.value)}
                                                             placeholder="Ej. Endesa, Iberdrola..."
-                                                            className="relative w-full bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white dark:focus:bg-slate-900 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400/70"
+                                                            className="relative w-full bg-surface-2 border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-surface transition-all text-text-primary placeholder:text-text-muted/70"
                                                         />
                                                     </div>
                                                 </div>
 
                                                 <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tipo de Precio</label>
-                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
+                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
                                                         {['all', 'fixed', 'periods'].map((t) => (
                                                             <button 
                                                                 key={t}
                                                                 onClick={() => setFilterPriceType(t as any)} 
                                                                 className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
                                                                     filterPriceType === t 
-                                                                    ? (t === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md')
+                                                                    ? (t === 'fixed' ? 'bg-warning text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-text-primary shadow-md')
                                                                     : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
                                                                 }`}
                                                             >
@@ -2033,19 +2043,45 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Permanencia</label>
-                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
-                                                        {['all', 'without', 'with'].map((p) => (
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Ordenar por</label>
+                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
+                                                        <button 
+                                                            onClick={() => setSortBy("savings-desc")} 
+                                                            className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                sortBy === "savings-desc" 
+                                                                ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
+                                                                : "text-slate-400 hover:text-slate-600"
+                                                            }`}
+                                                        >
+                                                            Mayor Ahorro
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => setSortBy("savings-asc")} 
+                                                            className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                sortBy === "savings-asc" 
+                                                                ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
+                                                                : "text-slate-400 hover:text-slate-600"
+                                                            }`}
+                                                        >
+                                                            Menor Ahorro
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Mostrar resultados</label>
+                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
+                                                        {[3, 5, Infinity].map((val) => (
                                                             <button 
-                                                                key={p}
-                                                                onClick={() => setFilterPermanence(p as any)} 
+                                                                key={val.toString()}
+                                                                onClick={() => setLimitResults(val)} 
                                                                 className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
-                                                                    filterPermanence === p 
-                                                                    ? 'bg-white dark:bg-slate-700 text-primary shadow-md' 
-                                                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                                    limitResults === val 
+                                                                    ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
+                                                                    : "text-slate-400 hover:text-slate-600"
                                                                 }`}
                                                             >
-                                                                {p === 'all' ? 'Todas' : p === 'without' ? 'Sin' : 'Con'}
+                                                                {val === Infinity ? 'Todas' : `Top ${val}`}
                                                             </button>
                                                         ))}
                                                     </div>
@@ -2059,20 +2095,20 @@ export default function ComparadorMain() {
                                 {/* TOP SAVING BANNER - MOVED HERE FOR WIDTH ALIGNMENT */}
                                 <div className="premium-card p-6 flex flex-col sm:flex-row items-center justify-between !rounded-2xl gap-6 text-center sm:text-left">
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
-                                        <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center shrink-0">
+                                        <div className="w-12 h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0">
                                             <TrendingDown className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
-                                            <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
+                                            <p className="text-[10px] font-bold text-text-secondary uppercase tracking-tighter">Análisis de Resultados</p>
+                                            <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => setStep("input")}
-                                        className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-6 py-2.5 rounded-full cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
+                                        className="flex items-center gap-2 bg-surface-2 px-6 py-2.5 rounded-full cursor-pointer hover:bg-surface border border-transparent hover:border-border transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
                                     >
-                                        <History className="w-4 h-4 text-slate-600 dark:text-slate-300" />
-                                        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">Nueva Comparativa</span>
+                                        <History className="w-4 h-4 text-text-secondary" />
+                                        <span className="text-[11px] font-bold text-text-primary">Nueva Comparativa</span>
                                     </button>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
@@ -2089,7 +2125,7 @@ export default function ComparadorMain() {
                                                 setStep("study");
                                             }
                                         }}
-                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center">
@@ -2106,17 +2142,17 @@ export default function ComparadorMain() {
                                                     ) : (
                                                         <>
                                                             {/* Label Mensual con Lock removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-warning/10 text-warning rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
                                                         </>
                                                     )}
                                                 </div>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-1.5 text-success">
-                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
+                                            <p className="text-3xl font-900 text-text-primary mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
+                                            <div className="flex items-center justify-center gap-1.5 text-accent">
+                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-accent-bg text-accent" : "bg-rose-500/10 text-warning"}`}>
                                                     {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
                                                 </div>
-                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-accent" : "text-warning"}`}>
                                                     {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro mensual' : 'coste adicional'}` : "Sin datos"}
                                                 </p>
                                             </div>
@@ -2136,35 +2172,35 @@ export default function ComparadorMain() {
                                                 setStep("study");
                                             }
                                         }}
-                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center">
                                             <div className="flex justify-between items-start mb-4 w-full text-left">
-                                                <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success group-hover:scale-110 transition-transform">
+                                                <div className="w-10 h-10 rounded-2xl bg-accent-bg flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
                                                     <Calendar className="w-5 h-5" />
                                                 </div>
                                                 <div className="flex flex-col items-end gap-1">
                                                     {user ? (
                                                         <>
                                                             {/* Label Anual removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-success/10 text-success rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-accent-bg text-accent rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
                                                         </>
                                                     ) : (
                                                         <>
                                                             {/* Label Anual con Lock removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-warning/10 text-warning rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
                                                         </>
                                                     )}
                                                 </div>
                                             </div>
-                                            <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
+                                            <p className="text-3xl font-900 text-text-primary mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5">
-                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
+                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-accent-bg text-accent" : "bg-rose-500/10 text-warning"}`}>
                                                     {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
                                                 </div>
-                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-success" : "text-rose-500"}`}>
-                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro anual' : 'diferencial anual'} (x12 meses)` : "Sin datos"}
+                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-accent" : "text-warning"}`}>
+                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro anual' : 'diferencial anual'}` : "Sin datos"}
                                                 </p>
                                             </div>
                                         </div>
@@ -2177,24 +2213,26 @@ export default function ComparadorMain() {
                                                 setStep("detail");
                                             }
                                         }}
-                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
-                                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
-                                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 rounded-tl-[100px] transition-transform group-hover:scale-110"></div>
+                                        <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-2xl flex-shrink-0 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10" : "bg-warning/10"}`}></div>
+                                        <div className={`absolute bottom-0 right-0 w-32 h-32 rounded-tl-[100px] transition-transform group-hover:scale-110 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/5" : "bg-warning/5"}`}></div>
                                         <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center">
-                                            <div className="flex justify-between items-start mb-2 w-full text-left">
-                                                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform">
+                                            <div className="flex justify-between items-start mb-4 w-full text-left">
+                                                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10 text-primary" : "bg-warning/10 text-warning"}`}>
                                                     <Trophy className="w-5 h-5" />
                                                 </div>
-                                                <span className="text-[10px] font-bold px-2 py-0.5 bg-primary/10 text-primary rounded-full uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles</span>
+                                                <div className="flex flex-col items-end gap-1">
+                                                    <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10 text-primary" : "bg-warning/10 text-warning"}`}>Ver Detalles</span>
+                                                </div>
                                             </div>
                                             {results[0] ? (
-                                                <div>
+                                                <div className="mt-auto">
                                                     <div className="flex items-baseline gap-1 mb-1 justify-center">
-                                                        <p className="text-3xl font-900 text-primary">{results[0].tariff.e1_kwh}</p>
-                                                        <span className="text-[10px] font-bold text-primary/60">€/kWh</span>
+                                                        <p className={`text-3xl font-900 ${(results[0]?.tariff.type === '3 Periodos') ? "text-primary" : "text-warning"}`}>{results[0].tariff.e1_kwh}</p>
+                                                        <span className={`text-[10px] font-bold ${(results[0]?.tariff.type === '3 Periodos') ? "text-primary/60" : "text-warning/60"}`}>€/kWh</span>
                                                     </div>
-                                                    <p className="text-sm text-slate-800 dark:text-slate-100 font-bold mb-0.5">{results[0].tariff.name}</p>
+                                                    <p className="text-sm text-text-primary font-bold mb-0.5">{results[0].tariff.name}</p>
                                                     <p className="text-[9px] text-slate-400 uppercase tracking-widest leading-none block">{results[0].tariff.company}</p>
                                                 </div>
                                             ) : (
@@ -2204,342 +2242,370 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
 
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm">
-                                    <div className="px-5 py-6 md:px-8 md:py-8 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm relative overflow-hidden group/header">
-                                        {/* Advanced Glow Decorations Moved Here */}
-                                        <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover/header:bg-primary/20 transition-all duration-1000 pointer-events-none"></div>
-                                        <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-success/5 rounded-full blur-[80px] group-hover/header:bg-success/10 transition-all duration-1000 pointer-events-none"></div>
+                                <div className="relative p-[1px] md:p-[2px] rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-primary/10 group/maincontainer mt-4">
+                                    {/* Animated Gradient Border Layer */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary via-emerald-400 to-amber-500 opacity-20 sm:opacity-40 group-hover/maincontainer:opacity-100 transition-opacity duration-1000 z-0"></div>
+                                    <div className="absolute inset-[-150%] bg-gradient-to-tr from-transparent via-primary/30 to-transparent animate-[spin_8s_linear_infinite] opacity-0 group-hover/maincontainer:opacity-50 z-0 pointer-events-none"></div>
+                                    
+                                    {/* Inner Main Container */}
+                                    <div className="relative bg-surface rounded-[calc(2rem-2px)] overflow-hidden h-full z-10 flex flex-col">
+                                        {(isProfileCollapsed || isFiltersCollapsed) && (
+                                            <div className="px-5 py-4 md:px-8 md:py-5 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-border bg-surface backdrop-blur-sm relative overflow-hidden group/header">
+                                                {/* Advanced Glow Decorations */}
+                                                <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover/header:bg-primary/20 transition-all duration-1000 pointer-events-none"></div>
+                                                <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-accent/5 rounded-full blur-[80px] group-hover/header:bg-accent-bg transition-all duration-1000 pointer-events-none"></div>
 
-                                        <h3 className="font-900 text-lg md:text-xl tracking-tight text-center flex flex-col md:flex-row items-center gap-3 text-slate-900 dark:text-white relative z-10">
-                                            Resultados de Comparativa
-                                        </h3>
-                                        <div className="flex justify-center sm:justify-start gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10 items-center">
-                                            {/* Collapsed section badges */}
-                                            {isProfileCollapsed && (
-                                                <button
-                                                    onClick={() => setIsProfileCollapsed(false)}
-                                                    className="shrink-0 flex items-center gap-2 bg-amber-500/10 text-amber-600 text-[10px] font-bold px-4 py-1.5 rounded-full border border-amber-500/20 hover:bg-amber-500/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
-                                                >
-                                                    <Zap className="w-4 h-4" />
-                                                    Perfil
-                                                    <ChevronLeft className="w-4 h-4 opacity-50" />
-                                                </button>
-                                            )}
-                                            {isFiltersCollapsed && (
-                                                <button
-                                                    onClick={() => setIsFiltersCollapsed(false)}
-                                                    className="shrink-0 flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold px-4 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
-                                                >
-                                                    <Filter className="w-4 h-4" />
-                                                    Filtros
-                                                    <ChevronLeft className="w-4 h-4 opacity-50" />
-                                                </button>
-                                            )}
-                                            <button
-                                                onClick={saveBill}
-                                                disabled={isProcessing || results.length === 0}
-                                                className="shrink-0 flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-bold px-4 py-1.5 rounded-full tracking-widest border border-primary/20 transition-all active:scale-95 disabled:opacity-50"
-                                            >
-                                                {isProcessing ? (
-                                                    <Clock className="w-4 h-4 animate-spin" />
-                                                ) : (
-                                                    <Database className="w-4 h-4" />
-                                                )}
-                                                {isProcessing ? "Guardando..." : "Guardar análisis"}
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
-                                    <div className="md:hidden px-4 space-y-4 pb-8">
-                                        {results.map((res, idx) => (
-                                            <div
-                                                key={idx}
-                                                className={`relative overflow-hidden rounded-[2rem] border transition-all duration-500 ${idx === 0
-                                                    ? "bg-white dark:bg-slate-900 border-primary/30 shadow-2xl shadow-primary/10 ring-2 ring-primary/5"
-                                                    : "bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 shadow-md"
-                                                    }`}
-                                            >
-                                                {/* Type Indicator Line Mobile - More subtle and pill-shaped */}
-                                                <div className={`absolute left-0 top-6 bottom-6 w-1 rounded-r-full z-10 ${res.tariff.type === '3 Periodos' ? 'bg-primary/60' : 'bg-amber-500/60'}`}></div>
-                                                {/* Top Saving Badge for #1 */}
-                                                {idx === 0 && (
-                                                    <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
-                                                )}
-
-                                                <div className="p-5 space-y-4">
-                                                    {/* Header: Company + Ahorro */}
-                                                    <div className="flex items-center justify-between gap-3">
-                                                        <div className="flex flex-col min-w-0 flex-1">
-                                                            <div className="flex items-center gap-2 mb-1">
-                                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest leading-none truncate">{res.tariff.company}</p>
-                                                            </div>
-                                                            <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none truncate">{res.tariff.name}</p>
-                                                        </div>
-
-                                                            <div className={`px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-in zoom-in-50 duration-500 ${((input.current_bill_total || 0) - res.total) > 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
-                                                                {((input.current_bill_total || 0) - res.total) > 0 ? <TrendingDown className="w-3 h-3 font-bold" /> : <TrendingUp className="w-3 h-3 font-bold" />}
-                                                                <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total) > 0 ? '-' : '+'}{Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)} €/mes</span>
-                                                            </div>
-                                                        </div>
-
-                                                    {/* Price Display */}
-                                                    <div className="flex items-end justify-between bg-slate-50/50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
-                                                        <div>
-                                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Tu cuota estimada</p>
-                                                            <div className="flex items-baseline gap-1">
-                                                                <span className="text-3xl font-900 text-slate-900 dark:text-white tracking-tighter">{res.total.toFixed(2)} €</span>
-                                                                <span className="text-[11px] font-bold text-slate-400">/mes</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right">
-                                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Precio kWh</p>
-                                                            <p className="text-sm font-mono font-black text-primary">{res.tariff.e1_kwh.toFixed(4)} €</p>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Action Footer */}
-                                                    <div className="flex items-center gap-3">
+                                                <div className="hidden md:block"></div>
+                                                <div className="flex justify-center sm:justify-start gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10 items-center">
+                                                    {isProfileCollapsed && (
                                                         <button
-                                                            onClick={() => {
-                                                                setSelectedTariffId(res.tariff.id!);
-                                                                setStep("detail");
-                                                            }}
-                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-[10px] tracking-widest transition-all active:scale-95 ${idx === 0
-                                                                ? "bg-primary text-white shadow-lg shadow-primary/20"
-                                                                : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
-                                                                }`}
+                                                            onClick={() => setIsProfileCollapsed(false)}
+                                                            className="shrink-0 flex items-center gap-2 bg-warning/10 text-warning text-[10px] font-bold px-4 py-1.5 rounded-full border border-warning/20 hover:bg-warning/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
                                                         >
-                                                            <Eye className="w-4 h-4" />
-                                                            Ver detalles
+                                                            <Zap className="w-4 h-4" />
+                                                            Perfil
+                                                            <ChevronLeft className="w-4 h-4 opacity-50" />
                                                         </button>
+                                                    )}
+                                                    {isFiltersCollapsed && (
                                                         <button
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                if (!user) {
-                                                                    setIsAuthModalOpen(true);
-                                                                    return;
-                                                                }
-                                                                if (res.tariff.id) toggleFavorite(res.tariff.id);
-                                                            }}
-                                                            className={`w-12 h-12 flex items-center justify-center rounded-xl border transition-all active:scale-90 ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                ? "bg-red-50 border-red-100 text-red-500"
-                                                                : "bg-slate-50 dark:bg-slate-800 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500"
-                                                                }`}
+                                                            onClick={() => setIsFiltersCollapsed(false)}
+                                                            className="shrink-0 flex items-center gap-2 bg-surface-2 text-text-secondary text-[10px] font-bold px-4 py-1.5 rounded-full border border-border hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
                                                         >
-                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? (
-                                                                <Heart className="w-5 h-5 fill-current" />
-                                                            ) : (
-                                                                <Heart className="w-5 h-5" />
-                                                            )}
+                                                            <Filter className="w-4 h-4" />
+                                                            Filtros
+                                                            <ChevronLeft className="w-4 h-4 opacity-50" />
                                                         </button>
-                                                    </div>
+                                                    )}
                                                 </div>
                                             </div>
-                                        ))}
+                                        )}
+
+                                    {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
+                                    {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
+                                    <div className="md:hidden px-4 space-y-6 pb-10">
+                                        {results.map((res, idx) => {
+                                            const saving = (input.current_bill_total || 0) - res.total;
+                                            const isWinner = idx === 0;
+                                            const logoPath = getLogoPath(res.tariff.company);
+                                            
+                                            return (
+                                                <div
+                                                    key={idx}
+                                                    className={`relative overflow-hidden rounded-[2rem] border transition-all duration-300 ${isWinner
+                                                        ? "bg-surface border-primary/40 shadow-2xl shadow-primary/5 ring-1 ring-primary/10"
+                                                        : "bg-surface border-border shadow-sm"
+                                                        }`}
+                                                >
+                                                    {isWinner && (
+                                                        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary z-10"></div>
+                                                    )}
+
+                                                    <div className="p-6 space-y-5">
+                                                        <div className="flex items-start justify-between">
+                                                            <div className="flex items-center gap-3">
+                                                                <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-border bg-white p-1.5 flex items-center justify-center">
+                                                                    {logoPath ? (
+                                                                        <Image 
+                                                                            src={logoPath} 
+                                                                            alt={res.tariff.company} 
+                                                                            width={40} 
+                                                                            height={40} 
+                                                                            className="w-full h-full object-contain"
+                                                                        />
+                                                                    ) : (
+                                                                        <Building2 className="w-5 h-5 text-text-muted" />
+                                                                    )}
+                                                                </div>
+                                                                <div className="flex flex-col min-w-0">
+                                                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-wider leading-none mb-1">{res.tariff.company}</span>
+                                                                    <span className="text-sm font-bold text-text-primary tracking-tight leading-tight uppercase font-heading">{res.tariff.name}</span>
+                                                                </div>
+                                                            </div>
+                                                            {isWinner && (
+                                                                <span className="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-tighter">Mejor opción</span>
+                                                            )}
+                                                        </div>
+
+                                                        <div className="grid grid-cols-2 gap-4 border-y border-border/50 py-5">
+                                                            <div className="flex flex-col">
+                                                                <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Cuota estimada</span>
+                                                                <div className="flex items-baseline gap-1">
+                                                                    <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{res.total.toFixed(2)}€</span>
+                                                                    <span className="text-[10px] text-text-muted font-bold uppercase">/mes</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="text-right flex flex-col items-end">
+                                                                <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1.5">Dif. Mensual</span>
+                                                                <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-heading font-black text-sm tracking-tight ${
+                                                                    saving > 0.01 
+                                                                        ? "bg-accent/10 text-accent shadow-sm shadow-accent/5" 
+                                                                        : saving < -0.01 
+                                                                            ? "bg-rose-500/10 text-rose-500 shadow-sm shadow-rose-500/5" 
+                                                                            : "bg-surface-2 text-text-muted"
+                                                                }`}>
+                                                                    {saving > 0.01 ? (
+                                                                        <>
+                                                                            <ArrowDownRight className="w-3.5 h-3.5" />
+                                                                            <span>{saving.toFixed(2)}€</span>
+                                                                        </>
+                                                                    ) : saving < -0.01 ? (
+                                                                        <>
+                                                                            <ArrowUpRight className="w-3.5 h-3.5" />
+                                                                            <span>{Math.abs(saving).toFixed(2)}€</span>
+                                                                        </>
+                                                                    ) : (
+                                                                        <span>—</span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-3 pt-1">
+                                                            <button
+                                                                onClick={() => {
+                                                                    setSelectedTariffId(res.tariff.id!);
+                                                                    setStep("detail");
+                                                                }}
+                                                                className="flex-1 bg-primary text-white py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.15em] shadow-lg shadow-primary/20 transition-all active:scale-95"
+                                                            >
+                                                                Ver detalles →
+                                                            </button>
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    if (!user) {
+                                                                        setIsAuthModalOpen(true);
+                                                                        return;
+                                                                    }
+                                                                    if (res.tariff.id) toggleFavorite(res.tariff.id);
+                                                                }}
+                                                                className={`w-14 h-14 flex items-center justify-center rounded-2xl border transition-all active:scale-90 ${res.tariff.id && favorites.includes(res.tariff.id)
+                                                                    ? "bg-red-50 border-red-100 text-red-500"
+                                                                    : "bg-surface-2 border-border text-text-muted"
+                                                                    }`}
+                                                            >
+                                                                <Heart className={`w-6 h-6 ${res.tariff.id && favorites.includes(res.tariff.id) ? "fill-current" : ""}`} />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
 
                                     {/* DESKTOP VIEW: TABLE (hidden md:block) */}
                                     <div className="hidden md:block overflow-x-auto overflow-y-hidden">
-                                        <div className="relative overflow-hidden rounded-b-[3.5rem] bg-white/40 dark:bg-slate-950/40 backdrop-blur-3xl border-x border-b border-slate-200/50 dark:border-white/10 p-4 shadow-[0_32px_120px_-15px_rgba(0,0,0,0.12)] dark:shadow-[0_32px_120px_-15px_rgba(0,0,0,0.5)] group/table">
-
-
+                                        <div className="bg-surface rounded-b-[2.5rem] border-x border-b border-border shadow-sm overflow-hidden relative">
                                             {/* Decorative Grid Background */}
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none z-0"
                                                 style={{ backgroundImage: 'radial-gradient(circle, currentColor 1.2px, transparent 1.2px)', backgroundSize: '32px 32px' }}></div>
 
-                                            <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
+                                            <table className="w-full border-collapse relative z-10">
                                                 <thead>
-                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase">
-                                                        <th className="pl-10 pr-4 py-8 w-[25%] align-middle text-left bg-slate-50/30 dark:bg-slate-900/40 rounded-l-[2rem] border-y border-l border-slate-100 dark:border-white/5">
-                                                            Compañía / Tarifa
-                                                        </th>
-                                                        <th className="px-4 py-8 w-[20%] align-middle text-left bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5 whitespace-nowrap">
-                                                            Energía (p1-p3)
-                                                        </th>
-                                                        <th className="px-4 py-8 w-[15%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            Total mes
-                                                        </th>
-                                                        <th className="px-4 py-8 w-[18%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            Ahorro mensual
-                                                        </th>
-                                                        <th className="px-4 py-8 w-[22%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 rounded-r-[2rem] border-y border-r border-slate-100 dark:border-white/5">
-                                                            Acción
-                                                        </th>
+                                                    <tr className="bg-surface-2 border-y border-border">
+                                                        <th className="py-3 px-8 text-left text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[25%] font-body">Compañía / Tarifa</th>
+                                                                                                                 <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[25%] font-body">Precios Energía</th>
+                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[15%] font-body">Total Mes</th>
+                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[20%] font-body">Ahorro</th>
+                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[15%] font-body">Acciones</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="perspective-2000">
+                                                <tbody className="divide-y divide-border/60">
                                                     {/* Empty State */}
                                                     {results.length === 0 && (
                                                         <tr>
                                                             <td colSpan={5} className="py-20 text-center">
                                                                 <div className="flex flex-col items-center gap-4">
-                                                                    <ZapOff className="w-12 h-12 text-slate-300" />
-                                                                    <p className="text-slate-500 font-bold">No se han encontrado tarifas con estos filtros</p>
-                                                                    <button onClick={() => {setFilterSearch(""); setFilterPriceType("all"); setFilterPermanence("all");}} className="text-primary text-xs font-bold uppercase tracking-widest">Restablecer Filtros</button>
+                                                                    <ZapOff className="w-12 h-12 text-text-muted" />
+                                                                    <p className="text-text-secondary font-bold">No se han encontrado tarifas con estos filtros</p>
+                                                                    <button onClick={() => {setFilterSearch(""); setFilterPriceType("all"); setSortBy("savings-desc"); setLimitResults(Infinity);}} className="text-primary text-xs font-bold uppercase tracking-widest hover:underline transition-all">Restablecer Filtros</button>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     )}
 
-                                                    {/* Baseline Reference - Premium & Standardized */}
-                                                    <tr className="bg-slate-100/30 dark:bg-slate-800/20 border border-slate-200/50 dark:border-white/5 backdrop-blur-sm group relative z-10">
-                                                        <td className="pl-8 pr-4 py-8 rounded-l-[1.5rem] relative">
-                                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-10 w-1 bg-slate-300 dark:bg-slate-600 rounded-full"></div>
+                                                    {/* Baseline Reference Row */}
+                                                    <tr className="bg-surface border-b border-border/40">
+                                                        <td className="py-6 px-8">
                                                             <div className="flex flex-col">
-                                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap mb-1">Tu Situación Actual</p>
-                                                                <p className="text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-tight">Referencia Base</p>
+                                                                <span className="text-[10px] text-text-secondary uppercase tracking-[0.1em] font-black mb-1">TU SITUACIÓN ACTUAL</span>
+                                                                <span className="font-bold text-text-secondary text-sm uppercase">REFERENCIA BASE</span>
                                                             </div>
                                                         </td>
-                                                        <td className="px-4 py-8 align-middle">
-                                                            <div className="flex flex-col">
-                                                                <div className="flex flex-col gap-0.5 text-[10px]">
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-orange-500/50"></div> <span className="font-bold text-orange-500/70 uppercase text-[8px]">P1:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{(input.current_price_p1 || 0).toFixed(4)}</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-blue-500/50"></div> <span className="font-bold text-blue-500/70 uppercase text-[8px]">P2:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{((input.current_price_p2 || 0) > 0 ? (input.current_price_p2 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
-                                                                    <div className="flex items-center gap-2"><div className="w-[3px] h-3 rounded-full bg-success/50"></div> <span className="font-bold text-success/70 uppercase text-[8px]">P3:</span> <span className="font-mono text-slate-500 dark:text-slate-400">{((input.current_price_p3 || 0) > 0 ? (input.current_price_p3 || 0) : (input.current_price_p1 || 0)).toFixed(4)}</span></div>
-                                                                </div>
+                                                        <td className="py-6 px-8 text-center">
+                                                            <div className="inline-flex flex-col gap-1 items-center opacity-80">
+                                                                {[
+                                                                    { label: 'E1', val: input.current_price_p1, color: 'bg-orange-500', shadow: 'rgba(249,115,22,0.3)' },
+                                                                    { label: 'E2', val: input.current_price_p2 || input.current_price_p1, color: 'bg-blue-500', shadow: 'rgba(59,130,246,0.3)' },
+                                                                    { label: 'E3', val: input.current_price_p3 || input.current_price_p1, color: 'bg-emerald-500', shadow: 'rgba(16,185,129,0.3)' }
+                                                                ].filter(p => (p.val || 0) > 0).map((p, i) => (
+                                                                    <div key={i} className="flex items-center gap-2.5">
+                                                                        <div className={`w-1.5 h-1.5 rounded-full ${p.color}`} style={{ boxShadow: `0 0 8px ${p.shadow}` }}></div>
+                                                                        <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">{p.label}</span>
+                                                                        <span className="tabular-nums font-bold text-text-secondary text-[13px]">{(p.val || 0).toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                    </div>
+                                                                ))}
+                                                                {!input.current_price_p1 && <span className="text-[10px] text-text-muted italic uppercase font-bold">Precio variable</span>}
                                                             </div>
                                                         </td>
-                                                        <td className="px-4 py-8 align-middle text-center">
-                                                            <span className="text-lg font-bold text-slate-400 dark:text-slate-500">{(input.current_bill_total || 0).toFixed(2)} €</span>
+                                                        <td className="py-6 px-8 text-center">
+                                                            <span className="font-heading font-black text-lg text-text-muted tabular-nums">{(input.current_bill_total || 0).toFixed(2)}€</span>
                                                         </td>
-                                                        <td className="px-4 py-8 align-middle text-center text-slate-300 dark:text-slate-700 font-black">—</td>
-                                                        <td className="pr-6 pl-4 py-8 rounded-r-[1.5rem] align-middle text-right">
-                                                            {/* Empty for baseline */}
+                                                        <td className="py-6 px-8 text-center">
+                                                            <span className="text-text-muted font-black text-xs uppercase tracking-widest">—</span>
+                                                        </td>
+                                                        <td className="py-6 px-8 text-center">
+                                                            <button
+                                                                onClick={saveBill}
+                                                                disabled={isProcessing || results.length === 0}
+                                                                className="inline-flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-black px-5 py-2.5 rounded-xl tracking-[0.1em] border border-primary/20 transition-all active:scale-95 disabled:opacity-50 uppercase shadow-sm"
+                                                            >
+                                                                {isProcessing ? (
+                                                                    <Clock className="w-4 h-4 animate-spin" />
+                                                                ) : (
+                                                                    <Database className="w-4 h-4" />
+                                                                )}
+                                                                {isProcessing ? "Guardando..." : "Guardar análisis"}
+                                                            </button>
                                                         </td>
                                                     </tr>
 
-                                                    {/* Comparison results - Hierarchical & High Performance */}
-                                                    {results.map((res, idx) => (
-                                                        <tr key={idx} className={`group relative transition-all duration-500 hover:z-20 ${idx === 0
-                                                            ? "bg-white dark:bg-slate-900 shadow-[0_40px_100px_-20px_rgba(var(--primary-rgb),0.3)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)] ring-2 ring-primary scale-[1.03] -translate-y-2 z-30"
-                                                            : "bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-900 border border-white/40 dark:border-white/5 hover:shadow-2xl hover:scale-[1.01] hover:-translate-y-1"
-                                                            }`}>
-                                                            <td className="pl-10 pr-4 py-10 rounded-l-[2rem] relative">
-                                                                {/* Type Indicator Line */}
-                                                                <div className={`absolute left-0 top-0 bottom-0 w-2 z-10 transition-all duration-500 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'} ${idx === 0 ? "h-full opacity-100" : "h-12 top-1/2 -translate-y-1/2 rounded-r-full group-hover:h-16 opacity-40"}`}></div>
-                                                                
-                                                                <div className="flex flex-col gap-2">
-                                                                    <div className="flex items-center gap-3">
-                                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs border ${idx === 0 ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200/50 dark:border-white/5"}`}>
-                                                                            {res.tariff.company?.[0]?.toUpperCase() || 'T'}
-                                                                        </div>
-                                                                        <div className="flex flex-col">
-                                                                            <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${idx === 0 ? "text-primary" : "text-slate-400 group-hover:text-primary/70"}`}>{res.tariff.company}</p>
-                                                                            <p className={`text-sm font-black tracking-tight leading-tight ${idx === 0 ? "text-slate-900 dark:text-white" : "text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors"}`}>{res.tariff.name}</p>
+                                                    {results.map((res, idx) => {
+                                                        const saving = (input.current_bill_total || 0) - res.total;
+                                                        const isWinner = idx === 0;
+                                                        const logoPath = getLogoPath(res.tariff.company);
+                                                        const isThreePeriod = res.tariff.type === "3 Periodos";
+
+                                                        return (
+                                                            <tr 
+                                                                key={idx} 
+                                                                className="transition-all duration-150 hover:bg-surface-2 group/row bg-surface"
+                                                            >
+                                                                <td className={`py-6 px-8 relative ${isWinner ? 'border-l-4 border-primary' : ''}`}>
+                                                                    <div className="flex items-center gap-4">
+                                                                        <div className="flex flex-col min-w-0">
+                                                                            <span className="font-heading font-black text-sm text-text-primary tracking-tight truncate uppercase leading-none mb-1 group-hover/row:text-primary transition-colors">{res.tariff.name}</span>
+                                                                            <span className="font-body text-[10px] font-black text-text-muted uppercase tracking-[0.1em] truncate">{res.tariff.company}</span>
+                                                                            {isWinner && (
+                                                                                <div className="mt-1.5">
+                                                                                    <span className="bg-primary/10 border border-primary/20 text-primary text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm shadow-primary/5">Mejor opción</span>
+                                                                                </div>
+                                                                            )}
                                                                         </div>
                                                                     </div>
-                                                                    {idx === 0 && (
-                                                                        <div className="mt-2 inline-flex">
-                                                                            <span className="bg-primary/10 text-primary text-[8px] font-black px-2 py-0.5 rounded-full border border-primary/20 uppercase tracking-[0.2em] animate-in slide-in-from-left-2 duration-500">Mejor opción para ti</span>
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
-                                                                <div className="flex flex-col gap-2">
-                                                                    {[
-                                                                        { label: 'Punta', val: res.tariff.e1_kwh, color: 'bg-orange-500' },
-                                                                        { label: 'Llano', val: res.tariff.e2_kwh || res.tariff.e1_kwh, color: 'bg-primary' },
-                                                                        { label: 'Valle', val: res.tariff.e3_kwh || res.tariff.e1_kwh, color: 'bg-indigo-500' }
-                                                                    ].map((p, i) => (
-                                                                        <div key={i} className="flex items-center justify-between text-[10px] group/item">
-                                                                            <div className="flex items-center gap-2">
-                                                                                <div className={`w-1 h-3 rounded-full ${p.color} opacity-60 group-hover/item:opacity-100 transition-opacity`}></div>
-                                                                                <span className="font-bold text-slate-400 uppercase text-[8px] tracking-widest">{p.label}</span>
-                                                                            </div>
-                                                                            <span className="font-mono font-black text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">{p.val.toFixed(4)}</span>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 text-center group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
-                                                                <div className="flex flex-col items-center">
-                                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Cuota fija</p>
-                                                                    <span className={`text-lg font-black tracking-tighter ${idx === 0 ? "text-primary scale-110" : "text-slate-900 dark:text-white"}`}>{res.total.toFixed(2)}€</span>
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 text-center relative overflow-hidden group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
-                                                                {idx === 0 && (
-                                                                    <div className="absolute inset-0 bg-success/5 animate-pulse transition-opacity"></div>
-                                                                )}
-                                                                <div className="flex flex-col items-center justify-center relative z-10">
-                                                                    <div className={`inline-flex items-center justify-center px-4 py-2 rounded-2xl ${((input.current_bill_total || 0) - res.total) >= 0 ? "bg-success/10 text-success border border-success/20" : "bg-rose-500/10 text-rose-500 border border-rose-500/20"}`}>
-                                                                        {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-5 h-5 mr-2" /> : <TrendingUp className="w-5 h-5 mr-2" />}
-                                                                        <span className="font-black tracking-tighter text-xl lg:text-2xl">
-                                                                            {Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)}<span className="text-[10px] font-bold ml-0.5">€/m</span>
-                                                                        </span>
-                                                                    </div>
-                                                                    <p className={`text-[8px] font-black uppercase tracking-[0.2em] mt-2 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success/70" : "text-rose-500/70"}`}>
-                                                                        {((input.current_bill_total || 0) - res.total) >= 0 ? 'Ahorro estimado' : 'Coste extra'}
-                                                                    </p>
-                                                                </div>
-                                                            </td>
-                                                            <td className="pr-10 pl-4 py-10 border-y border-r border-slate-100 dark:border-white/10 rounded-r-[2rem] text-right align-middle transition-colors">
-                                                                <div className="flex flex-col gap-2">
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            setSelectedTariffId(res.tariff.id!);
-                                                                            setStep("detail");
-                                                                        }}
-                                                                        className={`w-full py-2.5 rounded-xl font-black text-[9px] uppercase tracking-[0.1em] transition-all active:scale-95 flex items-center justify-center gap-1.5 ${idx === 0 
-                                                                            ? "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary/90" 
-                                                                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-white/5"}`}
-                                                                    >
-                                                                        <Eye className="w-3.5 h-3.5" />
-                                                                        Ver detalles
-                                                                    </button>
-                                                                    <button
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            if (!user) {
-                                                                                setIsAuthModalOpen(true);
-                                                                                return;
-                                                                            }
-                                                                            if (res.tariff.id) toggleFavorite(res.tariff.id);
-                                                                        }}
-                                                                        className={`group/heart w-full py-2 rounded-xl font-bold text-[8px] uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                            ? "bg-red-50 dark:bg-red-500/10 text-red-500 border border-red-100 dark:border-red-500/20"
-                                                                            : "bg-slate-50/50 dark:bg-slate-800/30 text-slate-400 dark:text-slate-500 hover:text-red-400 border border-transparent hover:border-red-100/50 dark:hover:border-red-500/10"
-                                                                        }`}
-                                                                    >
-                                                                        {res.tariff.id && favorites.includes(res.tariff.id) ? (
+                                                                </td>
+                                                                <td className="py-6 px-8 text-center">
+                                                                    <div className="inline-flex flex-col gap-1 items-center">
+                                                                        {isThreePeriod ? (
                                                                             <>
-                                                                                <Heart className="w-3 h-3 fill-current" />
-                                                                                Favorito
+                                                                                <div className="flex items-center gap-2.5">
+                                                                                    <div className="w-1.5 h-1.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.4)]"></div>
+                                                                                    <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">E1</span>
+                                                                                    <span className="tabular-nums font-bold text-text-secondary text-[13px]">{res.tariff.e1_kwh.toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                                </div>
+                                                                                <div className="flex items-center gap-2.5">
+                                                                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.4)]"></div>
+                                                                                    <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">E2</span>
+                                                                                    <span className="tabular-nums font-bold text-text-secondary text-[13px]">{res.tariff.e2_kwh.toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                                </div>
+                                                                                <div className="flex items-center gap-2.5">
+                                                                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]"></div>
+                                                                                    <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">E3</span>
+                                                                                    <span className="tabular-nums font-bold text-text-secondary text-[13px]">{res.tariff.e3_kwh.toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                                </div>
                                                                             </>
                                                                         ) : (
-                                                                            <>
-                                                                                <Heart className="w-3 h-3 transition-transform group-hover/heart:scale-110" />
-                                                                                Guardar
-                                                                            </>
+                                                                            <div className="flex items-center gap-2.5 py-4">
+                                                                                <div className="w-1.5 h-1.5 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.4)]"></div>
+                                                                                <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">E1</span>
+                                                                                <span className="tabular-nums font-bold text-text-secondary text-[13px]">{res.tariff.e1_kwh.toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                            </div>
                                                                         )}
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-6 px-8 text-center">
+                                                                    <span className="font-heading font-black text-xl text-text-primary tabular-nums tracking-tighter">{res.total.toFixed(2)}<span className="text-base ml-0.5 font-bold opacity-60">€</span></span>
+                                                                </td>
+                                                                <td className="py-6 px-8 text-center uppercase">
+                                                                    <div className={`inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-heading font-black text-base tracking-tight shadow-sm min-w-[100px] ${
+                                                                        saving > 0.01 
+                                                                            ? "bg-accent/10 text-accent border border-accent/20" 
+                                                                            : saving < -0.01 
+                                                                                ? "bg-rose-500/10 text-rose-500 border border-rose-500/20" 
+                                                                                : "bg-surface-2 text-text-muted border border-border"
+                                                                    }`}>
+                                                                        {saving > 0.01 ? (
+                                                                            <>
+                                                                                <ArrowDownRight className="w-4 h-4" />
+                                                                                <span>{saving.toFixed(2)}<span className="text-[10px] ml-0.5">€</span></span>
+                                                                            </>
+                                                                        ) : saving < -0.01 ? (
+                                                                            <>
+                                                                                <ArrowUpRight className="w-4 h-4" />
+                                                                                <span>{Math.abs(saving).toFixed(2)}<span className="text-[10px] ml-0.5">€</span></span>
+                                                                            </>
+                                                                        ) : (
+                                                                            <span className="text-sm">—</span>
+                                                                        )}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-6 px-8">
+                                                                    <div className="flex flex-col gap-2 max-w-[140px] ml-auto">
+                                                                        <button 
+                                                                            onClick={() => {
+                                                                                setSelectedTariffId(res.tariff.id!);
+                                                                                setStep("detail");
+                                                                            }}
+                                                                            className="bg-surface border border-primary text-primary text-[10px] font-black px-4 py-2 rounded-xl hover:bg-primary hover:text-white transition-all w-full uppercase tracking-widest shadow-sm active:scale-95"
+                                                                        >
+                                                                            Ver detalles
+                                                                        </button>
+                                                                        <button 
+                                                                            onClick={(e) => {
+                                                                                e.stopPropagation();
+                                                                                if (!user) {
+                                                                                    setIsAuthModalOpen(true);
+                                                                                    return;
+                                                                                }
+                                                                                if (res.tariff.id) toggleFavorite(res.tariff.id);
+                                                                            }}
+                                                                            className={`text-[10px] font-black px-4 py-2 rounded-xl transition-all w-full flex items-center justify-center gap-2 uppercase tracking-widest active:scale-95 ${
+                                                                                res.tariff.id && favorites.includes(res.tariff.id)
+                                                                                ? "bg-red-50 text-red-500 border border-red-100"
+                                                                                : "text-text-muted hover:bg-surface-2 border border-transparent"
+                                                                            }`}
+                                                                        >
+                                                                            <Heart className={`w-3.5 h-3.5 ${res.tariff.id && favorites.includes(res.tariff.id) ? "fill-current" : ""}`} />
+                                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? "Guardado" : "Guardar"}
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })}
                                                 </tbody>
                                             </table>
 
                                             {/* Technical Footer Area */}
-                                            <div className="relative z-10 mt-4 pt-6 pb-4 px-10 border-t border-slate-200/50 dark:border-white/5 flex items-center gap-3 text-slate-400">
-                                                <Info className="w-4 h-4 opacity-50" />
-                                                <p className="text-[10px] font-bold uppercase tracking-wider opacity-60">
-                                                    Precios estimados basados en tu consumo. El ahorro real puede variar según su perfil de uso técnico.
+                                            <div className="relative z-10 py-6 px-8 border-t border-border flex items-center gap-3 text-slate-400 bg-surface-2/30">
+                                                <Info className="w-4 h-4 opacity-50 text-primary" />
+                                                <p className="text-xs font-semibold text-text-secondary">
+                                                    Precios estimados con impuestos incluidos (IVA 21% e IEE). El ahorro real puede variar según su perfil de consumo técnico.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
 
+                                    </div>
                                 </div>
 
                                 {/* BOTTOM BREAKDOWN BOX (THE BLACK BOX) */}
                                     {results.length > 0 && (
                                         <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-8">
                                             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-                                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+                                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
 
                                             <div className="relative z-10 space-y-12">
                                                 {/* HEADER INSIDE BLACK BOX */}
@@ -2550,8 +2616,8 @@ export default function ComparadorMain() {
                                                         </div>
                                                         <div className="space-y-1">
                                                             <h4 className="text-lg font-bold tracking-tight text-white/90">Desglose Técnico Transparente</h4>
-                                                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.25em] font-black">
-                                                                Tarifa Ganadora: <span className="text-slate-400">{results[0].tariff.company} {results[0].tariff.name}</span>
+                                                            <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.25em] font-black">
+                                                                Tarifa Ganadora: <span className="text-text-muted">{results[0].tariff.company} {results[0].tariff.name}</span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -2567,13 +2633,13 @@ export default function ComparadorMain() {
                                                     { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4" />, border: "border-white/10" },
                                                 ].map((item, idx) => (
                                                     <div key={idx} className="flex flex-col h-full">
-                                                        <div className="flex items-center gap-2 text-slate-400 min-h-[40px] mb-4">
-                                                            <div className="text-slate-500">{item.icon}</div>
+                                                        <div className="flex items-center gap-2 text-text-muted min-h-[40px] mb-4">
+                                                            <div className="text-text-secondary">{item.icon}</div>
                                                             <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
                                                         </div>
-                                                        <div className={`pl-4 border-l-2 ${item.border} flex flex-col justify-center grow`}>
+                                                        <div className={`pl-4 border-l-2 ${item.border} flex flex-col gap-1`}>
                                                             <p className={`text-2xl font-900 tracking-tight ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{item.val.toFixed(2)} €</p>
-                                                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mt-1 opacity-70">{item.sub}</p>
+                                                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter opacity-70 leading-none">{item.sub}</p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -2582,20 +2648,20 @@ export default function ComparadorMain() {
                                             {/* TOTAL ESTIMATED DASHBOARD INSIDE BLACK BOX */}
                                             <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
                                                 <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-                                                    <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-white/5 shadow-inner">
-                                                        <Info className="text-slate-400 w-6 h-6" />
+                                                    <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center border border-border">
+                                                        <Info className="text-text-muted w-6 h-6" />
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Metodología de Cálculo</p>
-                                                        <p className="text-[11px] text-slate-400 font-medium italic max-w-[320px] leading-relaxed">
+                                                        <p className="text-[10px] text-text-muted font-black uppercase tracking-widest">Metodología de Cálculo</p>
+                                                        <p className="text-[11px] text-text-muted font-medium italic max-w-[320px] leading-relaxed">
                                                             Cálculo basado en parámetros reales de mercado (BOE). Análisis realizado en tiempo real.
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="text-center md:text-right">
-                                                    <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
+                                                    <div className="text-center md:text-right">
+                                                    <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
                                                     <div className="flex items-baseline justify-center md:justify-end gap-3">
-                                                        <p className="text-7xl font-900 text-success drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
+                                                        <p className="text-7xl font-900 text-accent drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
                                                             {results[0].total.toFixed(2)}
                                                             <span className="text-4xl ml-2 opacity-80">€</span>
                                                         </p>
@@ -2612,26 +2678,26 @@ export default function ComparadorMain() {
                 {/* STEP 3.5: GRAPHIC ANALYSIS VIEW */}
                 {step === "analysis" && results.length > 0 && (
                     <div className="max-w-4xl mx-auto space-y-8 animate-in slide-in-from-bottom-5 duration-700 ease-out">
-                        <div className="flex flex-col md:flex-row justify-between items-center bg-white/40 dark:bg-slate-950/20 backdrop-blur-xl p-8 rounded-[2.5rem] border border-slate-200/50 dark:border-white/5 shadow-xl">
+                        <div className="flex flex-col md:flex-row justify-between items-center bg-surface backdrop-blur-xl p-8 rounded-[2.5rem] border border-border shadow-xl">
                             <div className="text-center md:text-left mb-4 md:mb-0">
                                 <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
                                     <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                    <h3 className="text-2xl font-900 tracking-tight text-slate-800 dark:text-white">Análisis Comparativo Gráfico</h3>
+                                    <h3 className="text-2xl font-900 tracking-tight text-text-primary">Análisis Comparativo Gráfico</h3>
                                 </div>
-                                <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em] ml-3">Comparativa de Mercado en Tiempo Real</p>
+                                <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.2em] ml-3">Comparativa de Mercado en Tiempo Real</p>
                             </div>
                             <button
                                 onClick={() => setStep("results")}
-                                className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 transition-all active:scale-95 flex items-center gap-2 group"
+                                className="bg-surface-2 hover:bg-slate-200 dark:hover:bg-slate-700 p-4 rounded-2xl border border-border transition-all active:scale-95 flex items-center gap-2 group"
                             >
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Cerrar</span>
                                 <X className="w-6 h-6 text-slate-400" />
                             </button>
                         </div>
 
-                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
+                        <div className="bg-surface border border-border rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64"></div>
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-success/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
 
                             <div className="relative z-10 space-y-16">
                                 {/* CHART CONTAINER */}
@@ -2640,22 +2706,22 @@ export default function ComparadorMain() {
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-end px-2">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                                                    <History className="text-slate-400 w-5 h-5" />
+                                                <div className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center border border-border">
+                                                    <History className="text-text-muted w-5 h-5" />
                                                 </div>
                                                 <div>
-                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 leading-none mb-1">Tu Situación Actual</p>
-                                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-tighter">Referencia de Mercado</p>
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-text-muted leading-none mb-1">Tu Situación Actual</p>
+                                                    <p className="text-sm font-bold text-text-secondary uppercase tracking-tighter">Referencia de Mercado</p>
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-3xl font-900 text-slate-400 line-through opacity-50">{(input.current_bill_total || 0).toFixed(2)} €</p>
-                                                <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Gasto Base</p>
+                                                <p className="text-3xl font-900 text-text-muted line-through opacity-50">{(input.current_bill_total || 0).toFixed(2)} €</p>
+                                                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Gasto Base</p>
                                             </div>
                                         </div>
-                                        <div className="h-4 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-700/50 relative">
+                                        <div className="h-4 bg-surface-2 rounded-full overflow-hidden border border-border relative">
                                             <div
-                                                className="h-full bg-slate-400/20 rounded-full transition-all duration-1000 ease-out"
+                                                className="h-full bg-text-muted/20 rounded-full transition-all duration-1000 ease-out"
                                                 style={{ width: '100%' }}
                                             ></div>
                                         </div>
@@ -2678,7 +2744,7 @@ export default function ComparadorMain() {
                                                         <div className="flex items-center gap-4">
                                                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border transition-all ${idx === 0
                                                                 ? "bg-primary/10 border-primary/20 text-primary shadow-lg shadow-primary/10 scale-110"
-                                                                : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-slate-400"
+                                                                : "bg-surface-2 border-border text-slate-400"
                                                                 }`}>
                                                                 {idx === 0 ? (
                                                                     <Trophy className="w-5 h-5" />
@@ -2688,12 +2754,12 @@ export default function ComparadorMain() {
                                                             </div>
                                                             <div className="flex flex-col">
                                                                 <p className={`text-[10px] font-black uppercase tracking-widest leading-none mb-1 ${idx === 0 ? "text-primary" : "text-slate-400"}`}>{res.tariff.company}</p>
-                                                                <p className="text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
+                                                                <p className="text-lg font-bold text-text-primary group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
                                                             </div>
                                                         </div>
                                                         <div className="text-right">
                                                             <p className={`text-3xl font-900 ${idx === 0 ? "text-primary" : "text-slate-700 dark:text-slate-300"}`}>{res.total.toFixed(2)} €</p>
-                                                            <p className={`text-[10px] font-bold uppercase tracking-widest ${saving > 0 ? "text-success" : "text-slate-400"}`}>
+                                                            <p className={`text-[10px] font-bold uppercase tracking-widest ${saving > 0 ? "text-accent" : "text-text-muted"}`}>
                                                                 {saving > 0 ? `-${(saving / (input.current_bill_total || 1) * 100).toFixed(1)}% ahorro` : `${res.total.toFixed(2)} €/mes`}
                                                             </p>
                                                         </div>
@@ -2723,16 +2789,16 @@ export default function ComparadorMain() {
                                 </div>
 
                                 {/* KEY INSIGHTS & ACTIONS */}
-                                <div className="pt-12 border-t border-slate-100 dark:border-slate-800 grid md:grid-cols-2 gap-8">
-                                    <div className="p-8 bg-success/[0.03] border border-success/10 rounded-[2.5rem] flex flex-col justify-center relative overflow-hidden group">
-                                        <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-success/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+                                <div className="pt-12 border-t border-border grid md:grid-cols-2 gap-8">
+                                    <div className="p-8 bg-accent/[0.03] border border-accent/10 rounded-[2.5rem] flex flex-col justify-center relative overflow-hidden group">
+                                        <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-accent/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
                                         <div className="flex items-center gap-5 relative z-10">
-                                            <div className="w-16 h-16 rounded-[1.25rem] bg-success/10 flex items-center justify-center text-success shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
+                                            <div className="w-16 h-16 rounded-[1.25rem] bg-accent-bg flex items-center justify-center text-accent shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
                                                 <PiggyBank className="w-10 h-10" />
                                             </div>
                                             <div>
-                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-success/60 leading-none mb-2">Ahorro Máximo Proyectado</p>
-                                                <p className="text-4xl font-900 text-success tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ año</span></p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/60 leading-none mb-2">Ahorro Máximo Proyectado</p>
+                                                <p className="text-4xl font-900 text-accent tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ año</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -2750,7 +2816,7 @@ export default function ComparadorMain() {
                                         </button>
                                         <button
                                             onClick={() => setStep("results")}
-                                            className="w-full bg-white dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white font-bold py-4 rounded-[1.5rem] text-[10px] uppercase tracking-widest border border-slate-100 dark:border-slate-700 transition-all"
+                                            className="w-full bg-surface text-text-secondary hover:text-text-primary font-bold py-4 rounded-[1.5rem] text-[10px] uppercase tracking-widest border border-border transition-all"
                                         >
                                             Volver al Listado
                                         </button>
@@ -2760,9 +2826,9 @@ export default function ComparadorMain() {
                         </div>
 
                         <div className="flex items-center justify-center gap-4 text-slate-400">
-                            <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                            <div className="h-px w-12 bg-border"></div>
                             <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del Análisis Gráfico</p>
-                            <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                            <div className="h-px w-12 bg-border"></div>
                         </div>
                     </div>
                 )}
@@ -2788,9 +2854,9 @@ export default function ComparadorMain() {
 
                             <div className="grid lg:grid-cols-3 gap-8 perspective-1000">
                                 <div className="lg:col-span-2 space-y-6">
-                                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 relative overflow-hidden premium-3d-card hover:translate-y-[-4px]">
+                                    <div className="bg-surface rounded-3xl border border-border p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 relative overflow-hidden premium-3d-card hover:translate-y-[-4px]">
                                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
-                                        <div className="w-32 h-32 md:w-32 md:h-32 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 flex items-center justify-center p-4 md:p-6 shrink-0 shadow-sm relative z-10 mx-auto md:mx-0">
+                                        <div className="w-32 h-32 md:w-32 md:h-32 rounded-2xl bg-surface border border-border flex items-center justify-center p-4 md:p-6 shrink-0 shadow-sm relative z-10 mx-auto md:mx-0">
                                             {selectedResult.tariff.logo_url ? (
                                                 <img
                                                     src={selectedResult.tariff.logo_url}
@@ -2805,8 +2871,8 @@ export default function ComparadorMain() {
                                                 />
                                             ) : (
                                                 <div className="relative flex items-center justify-center">
-                                                    <div className="w-full aspect-square bg-slate-200 dark:bg-slate-700 rounded blur-sm"></div>
-                                                    <Building2 className="absolute text-4xl text-slate-300 w-10 h-10" />
+                                                    <div className="w-full aspect-square bg-surface-2 rounded blur-sm"></div>
+                                                    <Building2 className="absolute text-4xl text-text-muted w-10 h-10" />
                                                 </div>
                                             )}
                                         </div>
@@ -2815,97 +2881,97 @@ export default function ComparadorMain() {
                                                 {selectedResult === results[0] && (
                                                     <span className="bg-primary text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest leading-none flex items-center shadow-md shadow-primary/20">Top Recomendado</span>
                                                 )}
-                                                <span className={`text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest leading-none flex items-center ${selectedResult.tariff.name.includes("PVPC") ? "bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400" : "bg-success text-white shadow-md shadow-success/20"}`}>
+                                                <span className={`text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest leading-none flex items-center ${selectedResult.tariff.name.includes("PVPC") ? "bg-surface-2 text-text-secondary" : "bg-accent text-white shadow-md shadow-success/20"}`}>
                                                     {selectedResult.tariff.name.includes("PVPC") ? "Mercado Regulado" : "Energía 100% Verde"}
                                                 </span>
                                             </div>
                                             <h1 className="text-3xl md:text-4xl font-800 tracking-tight">Tarifa {selectedResult.tariff.name}</h1>
-                                            <p className="text-slate-500 leading-relaxed text-sm">
+                                            <p className="text-text-secondary leading-relaxed text-sm">
                                                 {selectedResult.tariff.name.includes("PVPC")
                                                     ? "Tarifa del Mercado Regulado (Precio Voluntario para el Pequeño Consumidor). El precio varía cada hora según la demanda; los precios mostrados son las medias recientes."
                                                     : "Opción competitiva en el mercado libre para consumidores domésticos que buscan estabilidad o buen precio sin penalizaciones abusivas."}
                                             </p>
                                         </div>
-                                        <div className="w-full md:w-auto text-center md:text-right shrink-0 mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-slate-800">
-                                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Coste Mensual Estimado</p>
+                                        <div className="w-full md:w-auto text-center md:text-right shrink-0 mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-border">
+                                            <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-1">Coste Mensual Estimado</p>
                                             <p className="text-5xl md:text-6xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
-                                            <p className="text-[10px] text-slate-400 font-medium italic mt-2">impuestos incluidos (IVA 21%)</p>
+                                            <p className="text-[10px] text-text-muted font-medium italic mt-2">impuestos incluidos (IVA 21%)</p>
                                         </div>
                                     </div>
 
-                                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="px-5 md:px-10 py-5 md:py-6 border-b border-slate-100 dark:border-slate-800 flex flex-row justify-between items-center bg-slate-50/50 dark:bg-slate-800/20 gap-2 overflow-hidden">
+                                    <div className="bg-surface rounded-3xl border border-border overflow-hidden">
+                                        <div className="px-5 md:px-10 py-5 md:py-6 border-b border-border flex flex-row justify-between items-center bg-surface-2 gap-2 overflow-hidden">
                                             <div className="flex items-center gap-2 md:gap-3 shrink-1 min-w-0">
                                                 <CreditCard className="text-primary w-5 h-5 md:w-6 md:h-6 shrink-0" />
                                                 <h4 className="font-800 text-xs sm:text-base truncate">Detalle de Precios</h4>
                                             </div>
-                                            <div className="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
-                                                <span className="text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer select-none whitespace-nowrap transition-colors" onClick={() => setShowWithTaxes(!showWithTaxes)}>
+                                            <div className="inline-flex items-center gap-2 bg-surface border border-border rounded-full py-1.5 px-2 md:px-3 shadow-sm shrink-0">
+                                                <span className="text-[8px] sm:text-[10px] font-bold text-text-secondary uppercase tracking-widest cursor-pointer select-none whitespace-nowrap transition-colors" onClick={() => setShowWithTaxes(!showWithTaxes)}>
                                                     {showWithTaxes ? 'Con impuestos' : 'Sin impuestos'}
                                                 </span>
                                                 <button
                                                     role="switch"
                                                     aria-checked={showWithTaxes}
                                                     onClick={() => setShowWithTaxes(!showWithTaxes)}
-                                                    className={`${showWithTaxes ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'} relative inline-flex h-4 w-8 items-center rounded-full transition-colors focus:outline-none shrink-0`}
+                                                    className={`${showWithTaxes ? 'bg-primary' : 'bg-text-muted'} relative inline-flex h-4 w-8 items-center rounded-full transition-colors focus:outline-none shrink-0`}
                                                 >
-                                                    <span className={`${showWithTaxes ? 'translate-x-4' : 'translate-x-0.5'} inline-block h-3 w-3 transform rounded-full bg-white transition-transform`} />
+                                                    <span className={`${showWithTaxes ? 'translate-x-4' : 'translate-x-0.5'} inline-block h-3 w-3 transform rounded-full bg-surface transition-transform`} />
                                                 </button>
                                             </div>
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">Término de Potencia</h5>
+                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left">Término de Potencia</h5>
                                                 <div className="space-y-3">
-                                                    <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                                    <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
                                                         <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} € €/kW día</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                                                    <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Valle (P2)</span>
                                                         <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} € €/kW día</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-slate-500 uppercase tracking-tighter text-center md:text-left">Término de Energía</h5>
+                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left">Término de Energía</h5>
                                                 {(selectedResult.tariff?.type || "").includes('3 Periodos') ? (
                                                     <div className="space-y-3">
                                                         <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-orange-500"></span>
-                                                                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Punta (P1)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Punta (P1)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-blue-500"></span>
-                                                                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Llano (P2)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Llano (P2)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-green-500"></span>
-                                                                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Valle (P3)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Valle (P3)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-slate-500">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
                                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio Único (24h)</div>
                                                         <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
-                                                        <p className="text-[10px] text-slate-500 italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
+                                                        <p className="text-[10px] text-text-secondary italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                                        <div className="px-10 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-slate-50/50 dark:bg-slate-800/20">
+                                    <div className="bg-surface rounded-3xl border border-border overflow-hidden">
+                                        <div className="px-10 py-6 border-b border-border flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-surface-2">
                                             <FileText className="text-primary w-6 h-6" />
                                             <h4 className="font-800 text-center md:text-left">Desglose de Factura Estimada</h4>
                                         </div>
@@ -2914,18 +2980,18 @@ export default function ComparadorMain() {
                                                 { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1.toFixed(2).replace(/\.00$/, '') : input.power_p1.toFixed(2).replace(/\.00$/, '') + "/" + input.power_p2.toFixed(2).replace(/\.00$/, '')) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
                                                 { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3).toFixed(2).replace(/\.00$/, '') + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
                                             ].map((l, i) => (
-                                                <div key={i} className="flex justify-between text-sm py-1 border-b border-slate-50 dark:border-slate-800/50 pb-3">
-                                                    <span className="font-medium text-slate-500">{l.l}</span>
+                                                <div key={i} className="flex justify-between text-sm py-1 border-b border-border pb-3">
+                                                    <span className="font-medium text-text-secondary">{l.l}</span>
                                                     <span className="font-bold">{l.v}</span>
                                                 </div>
                                             ))}
                                             <div className="space-y-3 pt-4 text-xs">
-                                                <div className="flex justify-between text-slate-500"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} €</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} €</span></div>
-                                                <div className="flex justify-between text-slate-500"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
                                             </div>
-                                            <div className="pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <div className="pt-8 border-t border-border flex justify-between items-center">
                                                 <span className="text-xl font-800">Total Factura</span>
                                                 <div className="text-right">
                                                     <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
@@ -2936,8 +3002,8 @@ export default function ComparadorMain() {
                                 </div>
 
                                 <div className="space-y-8">
-                                    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 space-y-10">
-                                        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 border-b border-slate-50 dark:border-slate-800 pb-4">
+                                    <div className="bg-surface rounded-3xl border border-border p-10 space-y-10">
+                                        <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 border-b border-border pb-4">
                                             <Gavel className="text-primary w-6 h-6" />
                                             <h4 className="font-800 text-center md:text-left">Condiciones Legales</h4>
                                         </div>
@@ -2946,7 +3012,7 @@ export default function ComparadorMain() {
                                                 <div className="p-2 bg-green-500/10 text-green-500 rounded-xl"><ShieldCheckIcon className="w-4 h-4" /></div>
                                                 <div>
                                                     <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Sin Permanencia</p>
-                                                    <p className="text-xs text-slate-500 leading-relaxed">Puedes cambiar de tarifa o compañía en cualquier momento sin penalización.</p>
+                                                    <p className="text-xs text-text-secondary leading-relaxed">Puedes cambiar de tarifa o compañía en cualquier momento sin penalización.</p>
                                                 </div>
                                             </div>
                                             {selectedResult.tariff.name.includes("PVPC") ? (
@@ -2954,7 +3020,7 @@ export default function ComparadorMain() {
                                                     <div className="p-2 bg-blue-500/10 text-blue-500 rounded-xl"><LineChart className="w-4 h-4" /></div>
                                                     <div>
                                                         <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precio Semi-Indexado</p>
-                                                        <p className="text-xs text-slate-500 leading-relaxed">El precio real fluctúa cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
+                                                        <p className="text-xs text-text-secondary leading-relaxed">El precio real fluctúa cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
                                                     </div>
                                                 </div>
                                             ) : (
@@ -2963,14 +3029,14 @@ export default function ComparadorMain() {
                                                         <div className="p-2 bg-primary/10 text-primary rounded-xl"><ClockIcon className="w-4 h-4" /></div>
                                                         <div>
                                                             <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precios Fijos 12 Meses</p>
-                                                            <p className="text-xs text-slate-500 leading-relaxed">El precio de la energía no sufrirá incrementos inesperados al menos durante el primer año de contrato.</p>
+                                                            <p className="text-xs text-text-secondary leading-relaxed">El precio de la energía no sufrirá incrementos inesperados al menos durante el primer año de contrato.</p>
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
-                                                        <div className="p-2 bg-amber-500/10 text-amber-500 rounded-xl"><Medal className="w-4 h-4" /></div>
+                                                        <div className="p-2 bg-warning/10 text-warning rounded-xl"><Medal className="w-4 h-4" /></div>
                                                         <div>
                                                             <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Atención Continua</p>
-                                                            <p className="text-xs text-slate-500 leading-relaxed">Incluye opciones de gestión rápida y posible aplicación de descuentos temporales directos de la comercializadora.</p>
+                                                            <p className="text-xs text-text-secondary leading-relaxed">Incluye opciones de gestión rápida y posible aplicación de descuentos temporales directos de la comercializadora.</p>
                                                         </div>
                                                     </div>
                                                 </>
@@ -2978,12 +3044,12 @@ export default function ComparadorMain() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl space-y-6">
+                                    <div className="bg-surface-2 border border-border p-8 rounded-3xl space-y-6">
                                         <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2">
                                             <InfoIcon className="text-primary w-4 h-4" />
                                             <h4 className="font-bold text-sm text-center md:text-left">Información Oficial</h4>
                                         </div>
-                                        <p className="text-[11px] text-slate-500 leading-relaxed bg-white dark:bg-background-dark/50 p-6 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                                        <p className="text-[11px] text-text-secondary leading-relaxed bg-surface p-6 rounded-2xl border border-border">
                                             {selectedResult.tariff.name.includes("PVPC")
                                                 ? "Este contrato pertenece al Mercado Regulado, supervisado directamente por el Estado. Únicamente aplicable en potencias inferiores a 10 kW."
                                                 : "Este contrato se encuentra en el mercado libre, lo que permite aprovechar promociones o estabilidad de precios, siempre rigiéndose bajo la normativa de la CNMC."}
@@ -2991,7 +3057,7 @@ export default function ComparadorMain() {
 
                                         <button
                                             onClick={() => window.open(selectedResult.tariff.url, '_blank')}
-                                            className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group transition-all"
+                                            className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-5 rounded-2xl text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 flex items-center justify-center gap-2 group transition-all"
                                         >
                                             Contratar esta Tarifa
                                             <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
@@ -3002,7 +3068,7 @@ export default function ComparadorMain() {
                                                     const text = encodeURIComponent(`¡Mira esta tarifa de luz! ${selectedResult.tariff.company} - ${selectedResult.tariff.name} por solo €${selectedResult.total.toFixed(2)} €/mes. Puedes verla aquí: ${window.location.href}`);
                                                     window.open(`https://wa.me/?text=${text}`, '_blank');
                                                 }}
-                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
+                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-text-secondary hover:text-primary transition-colors"
                                             >
                                                 <Share2Icon className="w-4 h-4" /> WhatsApp
                                             </button>
@@ -3012,7 +3078,7 @@ export default function ComparadorMain() {
                                                     const body = encodeURIComponent(`Hola,\n\nHe encontrado esta tarifa de luz que podría interesarte:\n\nCompañía: ${selectedResult.tariff.company}\nTarifa: ${selectedResult.tariff.name}\nPrecio estimado: €${selectedResult.total.toFixed(2)} €/mes\n\nPuedes ver más detalles aquí: ${window.location.href}`);
                                                     window.location.href = `mailto:?subject=${subject}&body=${body}`;
                                                 }}
-                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-primary transition-colors"
+                                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-text-secondary hover:text-primary transition-colors"
                                             >
                                                 <MailIcon className="w-4 h-4" /> Email
                                             </button>
@@ -3020,26 +3086,26 @@ export default function ComparadorMain() {
                                     </div>
 
 
-                            <div className="pt-20 flex flex-wrap justify-center items-center gap-6 md:gap-10 border-t border-slate-100 dark:border-slate-800">
+                            <div className="pt-20 flex flex-wrap justify-center items-center gap-6 md:gap-10 border-t border-border">
                                 <button
                                     onClick={handleShare}
-                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
+                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
                                     <Share2Icon className="w-6 h-6" />
                                     Compartir Tarifa
                                 </button>
-                                <div className="hidden md:block w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
+                                <div className="hidden md:block w-px h-6 bg-border"></div>
                                 <button
                                     onClick={handlePrint}
-                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
+                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
                                     <PrinterIcon className="w-6 h-6" />
                                     Imprimir Resumen
                                 </button>
-                                <div className="hidden md:block w-px h-6 bg-slate-200 dark:bg-slate-800"></div>
+                                <div className="hidden md:block w-px h-6 bg-border"></div>
                                 <Link
                                     href="/#faq"
-                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
+                                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
                                     <HelpCircleIcon className="w-6 h-6" />
                                     Preguntas Frecuentes

@@ -46,19 +46,19 @@ interface FooterSectionProps {
 
 function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps) {
     return (
-        <div className="border-b lg:border-none border-slate-800/50 last:border-none">
+        <div className="border-b lg:border-none border-border/50 last:border-none">
             <button 
                 onClick={onToggle}
                 className="w-full flex items-center justify-between py-6 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
-                <h4 className="text-white font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
+                <h4 className="text-white uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
                     {title}
-                    <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-[#137fec] rounded-full"></span>
+                    <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
                 </h4>
                 <ChevronDown 
                     size={20} 
-                    className={`text-[#137fec] transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
+                    className={`text-primary transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
                 />
             </button>
             <div className={`${isOpen ? 'max-h-[1000px] opacity-100 pb-8 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'} lg:max-h-none lg:opacity-100 lg:block lg:overflow-visible transition-all duration-500 lg:transition-none`}>
@@ -76,14 +76,14 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#0B1219] text-slate-400 pt-20 pb-10 transition-colors duration-300 border-t border-slate-800">
+        <footer className="bg-surface text-text-secondary pt-20 pb-10 transition-colors duration-300 border-t border-border">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* 4-Column Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20 items-start">
                     
                     {/* Col 1: Herramientas */}
                     <FooterSection 
-                        title="Herramientas" 
+                        title="HERRAMIENTAS" 
                         isOpen={openSection === 'herramientas'} 
                         onToggle={() => toggleSection('herramientas')}
                     >
@@ -92,9 +92,9 @@ export default function Footer() {
                                 <li key={tool.name}>
                                     <Link 
                                         href={tool.href}
-                                        className="text-sm hover:text-[#137fec] transition-colors flex items-center gap-3 group"
+                                        className="text-sm hover:text-primary transition-colors flex items-center gap-3 group"
                                     >
-                                        <div className="w-1.5 h-1.5 bg-slate-700 group-hover:bg-[#137fec] rounded-full transition-colors"></div>
+                                        <div className="w-1.5 h-1.5 bg-border group-hover:bg-primary rounded-full transition-colors"></div>
                                         {tool.name}
                                     </Link>
                                 </li>
@@ -104,7 +104,7 @@ export default function Footer() {
 
                     {/* Col 2: Compañías */}
                     <FooterSection 
-                        title="Compañías" 
+                        title="COMPAÑÍAS" 
                         isOpen={openSection === 'compañías'} 
                         onToggle={() => toggleSection('compañías')}
                     >
@@ -140,7 +140,7 @@ export default function Footer() {
 
                     {/* Col 3: Guías */}
                     <FooterSection 
-                        title="Guías y recursos" 
+                        title="GUÍAS Y RECURSOS" 
                         isOpen={openSection === 'guías'} 
                         onToggle={() => toggleSection('guías')}
                     >
@@ -149,9 +149,9 @@ export default function Footer() {
                                 <Link 
                                     key={guide.name} 
                                     href={guide.href} 
-                                    className="text-sm hover:text-[#137fec] transition-colors flex items-center gap-2.5 group"
+                                    className="text-sm hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center group-hover:bg-[#137fec]/10 transition-colors shrink-0">
+                                    <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
                                         <ExternalLink size={14} />
                                     </div>
                                     <span className="truncate">{guide.name}</span>
@@ -159,7 +159,7 @@ export default function Footer() {
                             ))}
 
                             {/* Integrated Support Section - Desktop only */}
-                            <div className="hidden lg:block mt-4 pt-6 border-t border-slate-800/50">
+                            <div className="hidden lg:block mt-4 pt-6 border-t border-border/50">
                                 <SupportSection />
                             </div>
                         </div>
@@ -167,7 +167,7 @@ export default function Footer() {
 
                     {/* Col 4: Sobre nosotros */}
                     <FooterSection 
-                        title="Sobre nosotros" 
+                        title="SOBRE NOSOTROS" 
                         isOpen={openSection === 'sobre'} 
                         onToggle={() => toggleSection('sobre')}
                     >
@@ -176,9 +176,9 @@ export default function Footer() {
                                 <Link 
                                     key={item.name} 
                                     href={item.href} 
-                                    className="text-sm hover:text-[#137fec] transition-colors flex items-center gap-2.5 group"
+                                    className="text-sm hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-slate-800/50 flex items-center justify-center group-hover:bg-[#137fec]/10 transition-colors shrink-0">
+                                    <div className="w-8 h-8 rounded-lg bg-surface-2 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0">
                                         <ShieldCheck size={14} />
                                     </div>
                                     <span className="truncate">{item.name}</span>
@@ -187,22 +187,22 @@ export default function Footer() {
 
                             {/* Contact Mini-cards - perfectly aligned with Col 3 support card on desktop */}
                             <div className="mt-4 pt-6 border-t border-slate-800/50 flex flex-col gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-[#1a2632] hover:bg-[#137fec]/10 hover:border-[#137fec]/30 transition-all border border-slate-800/50 min-w-0 group">
-                                    <div className="w-9 h-9 rounded-xl bg-[#137fec] flex items-center justify-center text-white shrink-0 shadow-lg shadow-[#137fec]/20 group-hover:scale-105 transition-transform">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface-2 hover:bg-primary/10 hover:border-primary/30 transition-all border border-border/50 min-w-0 group">
+                                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 overflow-hidden text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-[#137fec]/60 mb-0.5">Email</span>
-                                        <span className="text-[12px] font-bold text-white tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-primary/60 mb-0.5">Email</span>
+                                        <span className="text-[12px] font-bold text-text-primary tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-[#1a2632] border border-slate-800/50 min-w-0 group hover:bg-[#137fec]/5 transition-all">
-                                    <div className="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500 shrink-0 group-hover:bg-[#137fec]/10 group-hover:text-[#137fec] transition-colors">
+                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface-2 border border-border/50 min-w-0 group hover:bg-primary/5 transition-all">
+                                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-slate-500 mb-0.5">España</span>
-                                        <span className="text-[12px] font-bold text-white tracking-tight truncate">Servicio Nacional</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-primary/60 mb-0.5 uppercase">España</span>
+                                        <span className="text-[12px] font-bold text-text-primary tracking-tight truncate">Servicio Nacional</span>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@ export default function Footer() {
                     {/* Independent Support Section - Mobile only */}
                     <div className="lg:hidden">
                         <FooterSection 
-                            title="Apoya el proyecto" 
+                            title="APOYA EL PROYECTO" 
                             isOpen={openSection === 'apoyo'} 
                             onToggle={() => toggleSection('apoyo')}
                         >
@@ -222,7 +222,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-10 border-t border-slate-800 flex flex-col items-center text-center gap-6">
+                <div className="pt-10 border-t border-border flex flex-col items-center text-center gap-6">
                     <div className="flex flex-col items-center gap-3 group">
                         <div className="w-16 h-16 active:scale-95 transition-all flex items-center justify-center p-1">
                             <div className="relative w-full h-full">
@@ -234,20 +234,20 @@ export default function Footer() {
                                 />
                             </div>
                         </div>
-                        <span className="text-3xl font-800 tracking-tight text-white group-hover:text-primary transition-colors">
-                            TuMejorTarifa<span className="text-primary group-hover:text-[#137fec]">Luz</span>
+                        <span className="text-3xl font-800 tracking-tight text-text-primary group-hover:text-primary transition-colors">
+                            TuMejorTarifa<span className="text-primary group-hover:text-primary">Luz</span>
                         </span>
                     </div>
                     
-                    <p className="text-xs font-bold text-slate-500 max-w-2xl px-4">
+                    <p className="text-xs font-bold text-text-muted max-w-2xl px-4">
                         © {new Date().getFullYear()} TuMejorTarifaLuz – Comparador independiente de tarifas de luz en España. 
                         Analizamos el mercado diariamente para ofrecerte las mejores opciones de ahorro.
                     </p>
 
                     {/* Simple badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#10b981]/10 border border-[#10b981]/20 rounded-full">
-                        <div className="w-2 h-2 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-                        <span className="text-[10px] font-900 text-[#10b981] tracking-widest">Actualizado hoy</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/10 border border-accent/20 rounded-full">
+                        <div className="w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                        <span className="text-[10px] font-900 text-accent tracking-widest">Actualizado hoy</span>
                     </div>
                 </div>
             </div>

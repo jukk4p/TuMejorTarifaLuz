@@ -36,7 +36,7 @@ export default function Navbar() {
         }
     }, [isDrawerOpen]);
 
-    if (!mounted) return <div className="h-20 bg-[#f6f7f8] dark:bg-[#101922] sticky top-0 z-50 animate-pulse"></div>;
+    if (!mounted) return <div className="h-20 bg-background sticky top-0 z-50 animate-pulse"></div>;
 
     const navLinks = [
         { name: "Comparador", href: "/comparador" },
@@ -46,7 +46,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="sticky top-0 z-50 bg-[#f6f7f8] dark:bg-[#101922] border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <nav className="sticky top-0 z-50 bg-background border-b border-border transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
@@ -62,27 +62,27 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <span className="text-2xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline group-hover:text-primary transition-colors">
+                        <span className="text-2xl font-800 tracking-tight text-text-primary hidden sm:inline group-hover:text-primary transition-colors">
                             TuMejorTarifa<span className="text-primary group-hover:text-primary-dark">Luz</span>
                         </span>
                     </Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-8">
-                        <Link href="/comparador" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Comparador</Link>
-                        <Link href="/tarifas" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Tarifas</Link>
+                        <Link href="/comparador" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Comparador</Link>
+                        <Link href="/tarifas" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Tarifas</Link>
                         
                         {/* Companies Dropdown */}
                         <div className="relative group">
                             <button 
-                                className="flex items-center gap-1.5 text-sm font-bold text-slate-700 dark:text-slate-300 group-hover:text-[#137fec] transition-colors h-20"
+                                className="flex items-center gap-1.5 text-sm font-bold text-text-secondary group-hover:text-primary transition-colors h-20"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
                                 Compañías <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
                             </button>
                             
-                            <div className="absolute top-[calc(100%-8px)] left-1/2 -translate-x-1/2 w-[320px] bg-[#1a2632] border border-slate-800 rounded-2xl p-4 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
+                            <div className="absolute top-[calc(100%-8px)] left-1/2 -translate-x-1/2 w-[320px] bg-surface border border-border rounded-2xl p-4 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
                                 <div className="grid grid-cols-2 gap-2">
                                     {COMPANIES.map((company) => (
                                         <Link 
@@ -98,9 +98,9 @@ export default function Navbar() {
                                                     company === "CHC Energía" ? "chc-energia" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
-                                            className="px-3 py-2 text-xs font-bold text-slate-300 hover:text-white hover:bg-[#137fec]/20 rounded-lg transition-colors flex items-center gap-2"
+                                            className="px-3 py-2 text-xs font-bold text-text-secondary hover:text-text-primary hover:bg-primary/20 rounded-lg transition-colors flex items-center gap-2"
                                         >
-                                            <div className="w-1 h-1 bg-[#137fec] rounded-full"></div>
+                                            <div className="w-1 h-1 bg-primary rounded-full"></div>
                                             <span className="truncate">{company}</span>
                                         </Link>
                                     ))}
@@ -110,15 +110,15 @@ export default function Navbar() {
 
                         <Link 
                             href="/precio-luz-hoy" 
-                            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/10 hover:bg-emerald-500/15 transition-all group"
+                            className="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-accent/5 border border-accent/10 hover:bg-accent/15 transition-all group"
                         >
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent/40 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                             </span>
-                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 tracking-tight">Precio hoy</span>
+                            <span className="text-xs font-bold text-accent tracking-tight">Precio hoy</span>
                         </Link>
-                        <Link href="/blog" className="text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-[#137fec] transition-colors">Blog</Link>
+                        <Link href="/blog" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Blog</Link>
                     </div>
 
                     {/* Right Side Actions */}
@@ -126,7 +126,7 @@ export default function Navbar() {
                         {/* Theme Toggle (Optional but nice) */}
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-[#137fec] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all lg:flex hidden"
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface-2 transition-all lg:flex hidden"
                             aria-label="Toggle theme"
                         >
                             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -161,14 +161,14 @@ export default function Navbar() {
                                             className="fixed inset-0 z-40" 
                                             onClick={() => setIsUserMenuOpen(false)}
                                         ></div>
-                                        <div className="absolute right-0 mt-2 w-48 bg-[#1a2632] border border-slate-800 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
-                                            <div className="px-4 py-2 border-b border-slate-800 mb-1">
-                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Usuario</p>
-                                                <p className="text-xs font-bold text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                        <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+                                            <div className="px-4 py-2 border-b border-border mb-1">
+                                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">Usuario</p>
+                                                <p className="text-xs font-bold text-text-primary truncate">{user.displayName || user.email?.split('@')[0]}</p>
                                             </div>
                                             <Link 
                                                 href="/mi-cuenta" 
-                                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-slate-300 hover:text-white hover:bg-primary/10 transition-colors"
+                                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-text-secondary hover:text-text-primary hover:bg-primary/10 transition-colors"
                                                 onClick={() => setIsUserMenuOpen(false)}
                                             >
                                                 <Layout size={14} className="text-primary" />
@@ -188,19 +188,19 @@ export default function Navbar() {
                         ) : (
                             <Link 
                                 href="/?auth=login" 
-                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-primary transition-all"
+                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-text-secondary hover:text-primary transition-all"
                             >
                                 <User size={18} /> Entrar
                             </Link>
                         )}
 
                         {/* Separator before CTA */}
-                        <div className="hidden sm:block h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+                        <div className="hidden sm:block h-8 w-px bg-border mx-2"></div>
 
                         {/* CTA Button */}
                         <Link 
                             href="/comparador?mode=upload" 
-                            className="bg-[#137fec] text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide flex items-center gap-2 shadow-lg shadow-[#137fec]/20 hover:shadow-[#137fec]/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-[#137fec]/50 whitespace-nowrap"
+                            className="bg-primary text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide flex items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
                         >
                             <FileUp size={14} className="hidden xxs:block" />
                             Subir factura
@@ -208,7 +208,7 @@ export default function Navbar() {
 
                         {/* Mobile Menu Button */}
                         <button 
-                            className="lg:hidden p-2 text-slate-700 dark:text-slate-300 min-h-[48px] min-w-[48px] flex items-center justify-center -mr-2"
+                            className="lg:hidden p-2 text-text-secondary min-h-[48px] min-w-[48px] flex items-center justify-center -mr-2"
                             onClick={() => setIsDrawerOpen(true)}
                             aria-label="Abrir menú"
                         >
@@ -227,13 +227,13 @@ export default function Navbar() {
             )}
 
             {/* Mobile Drawer Panel */}
-            <div className={`fixed top-0 right-0 h-full w-[80%] max-w-[400px] bg-[#101922] z-[101] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div className={`fixed top-0 right-0 h-full w-[80%] max-w-[400px] bg-surface z-[101] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="flex flex-col h-full">
                     {/* Header */}
-                    <div className="p-6 flex items-center justify-between border-b border-slate-800">
-                        <span className="text-lg font-900 text-white">Menú</span>
+                    <div className="p-6 flex items-center justify-between border-b border-border">
+                        <span className="text-lg font-900 text-text-primary">Menú</span>
                         <button 
-                            className="p-2 text-slate-400 hover:text-white transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
+                            className="p-2 text-text-muted hover:text-text-primary transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
                             onClick={() => setIsDrawerOpen(false)}
                             aria-label="Cerrar menú"
                         >
@@ -242,7 +242,7 @@ export default function Navbar() {
                     </div>
 
                     {/* User Profile for Mobile */}
-                    <div className="p-6 border-b border-slate-800 bg-[#151f2a]">
+                    <div className="p-6 border-b border-border bg-surface-2">
                         {user ? (
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
@@ -253,12 +253,12 @@ export default function Navbar() {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-black text-white truncate">{user.displayName || user.email?.split('@')[0]}</p>
-                                    <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                                    <p className="text-sm font-black text-text-primary truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                    <p className="text-[10px] text-text-muted truncate">{user.email}</p>
                                 </div>
                                 <button 
                                     onClick={() => { setIsDrawerOpen(false); logout(); }}
-                                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
+                                    className="p-2 text-text-muted hover:text-red-500 transition-colors"
                                 >
                                     <LogOut size={20} />
                                 </button>
@@ -290,19 +290,19 @@ export default function Navbar() {
                         )}
                         <Link 
                             href="/comparador" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
-                            Comparador <ChevronRight size={18} className="text-[#137fec]" />
+                            Comparador <ChevronRight size={18} className="text-primary" />
                         </Link>
 
                         {/* Mobile Accordion - Companies */}
                         <div className="space-y-2">
                             <button 
-                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-[#137fec]/10 border-[#137fec]/30 text-white' : 'bg-[#1a2632] text-white border-transparent'}`}
+                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30 text-text-primary' : 'bg-surface-2 text-text-primary border-transparent'}`}
                                 onClick={() => setIsCompaniesOpen(!isCompaniesOpen)}
                             >
-                                Compañías <ChevronDown size={18} className={`text-[#137fec] transition-transform duration-300 ${isCompaniesOpen ? 'rotate-180' : ''}`} />
+                                Compañías <ChevronDown size={18} className={`text-primary transition-transform duration-300 ${isCompaniesOpen ? 'rotate-180' : ''}`} />
                             </button>
                             
                             {isCompaniesOpen && (
@@ -321,10 +321,10 @@ export default function Navbar() {
                                                     company === "CHC Energía" ? "chc-energia" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
-                                            className="px-4 py-3 text-sm font-bold text-slate-400 hover:text-[#137fec] transition-colors flex items-center gap-2"
+                                            className="px-4 py-3 text-sm font-bold text-text-muted hover:text-primary transition-colors flex items-center gap-2"
                                             onClick={() => setIsDrawerOpen(false)}
                                         >
-                                            <div className="w-1.5 h-1.5 bg-[#137fec] rounded-full"></div>
+                                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
                                             {company}
                                         </Link>
                                     ))}
@@ -334,45 +334,45 @@ export default function Navbar() {
 
                         <Link 
                             href="/tarifas" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
-                            Tarifas <ChevronRight size={18} className="text-[#137fec]" />
+                            Tarifas <ChevronRight size={18} className="text-primary" />
                         </Link>
 
                         <Link 
                             href="/precio-luz-hoy" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             <span className="flex items-center gap-2">
                                 Precio Hoy
-                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-[9px] font-black text-emerald-400 border border-emerald-500/30">
-                                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent/20 text-[9px] font-black text-accent border border-accent/30">
+                                    <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
                                     En vivo
                                 </span>
                             </span>
-                            <ChevronRight size={18} className="text-[#137fec]" />
+                            <ChevronRight size={18} className="text-primary" />
                         </Link>
 
                         <Link 
                             href="/blog" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-[#1a2632] text-white font-bold hover:bg-[#137fec]/10 transition-all border border-transparent hover:border-[#137fec]/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
-                            Blog <ChevronRight size={18} className="text-[#137fec]" />
+                            Blog <ChevronRight size={18} className="text-primary" />
                         </Link>
                     </div>
 
                     {/* Footer / Copyright */}
-                    <div className="p-8 border-t border-slate-800 text-center">
+                    <div className="p-8 border-t border-border text-center">
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-full py-4 rounded-2xl bg-[#1a2632] text-slate-300 font-bold mb-6 flex items-center justify-center gap-3 border border-slate-700"
+                            className="w-full py-4 rounded-2xl bg-surface text-text-secondary font-bold mb-6 flex items-center justify-center gap-3 border border-border"
                         >
                             {theme === "dark" ? <><Sun size={20} /> Cambiar Modo Claro</> : <><Moon size={20} /> Cambiar Modo Oscuro</>}
                         </button>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">tumejortarifaluz eS</p>
+                        <p className="text-[10px] text-text-muted font-bold uppercase tracking-widest">tumejortarifaluz eS</p>
                     </div>
                 </div>
             </div>

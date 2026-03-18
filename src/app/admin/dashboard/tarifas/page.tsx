@@ -127,12 +127,12 @@ export default function TarifasAdminPage() {
                             placeholder="Buscar por compañía o nombre..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
+                            className="bg-surface border border-border rounded-xl pl-10 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
                         />
                     </div>
                     <button
                         onClick={() => openEditor()}
-                        className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
+                        className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
                     >
                         <Plus className="w-4 h-4" />
                         Añadir Tarifa
@@ -143,7 +143,7 @@ export default function TarifasAdminPage() {
             <div className="premium-card overflow-hidden !border-none !shadow-lg">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-[#fcfdfe] dark:bg-slate-900/50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                        <thead className="bg-[#fcfdfe] dark:bg-slate-900/50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-border">
                             <tr>
                                 <th className="px-8 py-5">Distribuidora / Compañía</th>
                                 <th className="px-8 py-5">Nombre Tarifa</th>
@@ -158,7 +158,7 @@ export default function TarifasAdminPage() {
                                 <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-all group">
                                     <td className="px-8 py-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-slate-100 dark:border-slate-800 overflow-hidden p-1 shadow-sm shrink-0">
+                                            <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-border overflow-hidden p-1 shadow-sm shrink-0">
                                                 {tariff.logo_url ? (
                                                     <Image src={tariff.logo_url} alt={tariff.company} width={80} height={40} className="w-full h-full object-contain" />
                                                 ) : getLogoPath(tariff.company) ? (
@@ -167,11 +167,11 @@ export default function TarifasAdminPage() {
                                                     (tariff.company || "?").charAt(0)
                                                 )}
                                             </div>
-                                            <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{tariff.company}</span>
+                                            <span className="text-sm font-bold text-text-secondary">{tariff.company}</span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <span className="text-xs font-bold text-slate-500 dark:text-slate-400">{tariff.name}</span>
+                                        <span className="text-xs font-bold text-text-secondary">{tariff.name}</span>
                                     </td>
                                     <td className="px-8 py-6">
                                         <span className="px-2.5 py-1 rounded-md bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-tighter border border-primary/10">
@@ -182,8 +182,8 @@ export default function TarifasAdminPage() {
                                         <span className="font-mono text-xs font-bold text-slate-600 dark:text-slate-300">{(tariff.e1_kwh ?? 0).toFixed(4)} €</span>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-success/10 text-success text-[10px] font-bold uppercase tracking-tighter">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-success"></span>
+                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[10px] font-bold uppercase tracking-tighter">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                                             Activa
                                         </span>
                                     </td>
@@ -204,8 +204,8 @@ export default function TarifasAdminPage() {
                     </table>
                 </div>
                 {filteredTariffs.length === 0 && (
-                    <div className="p-20 text-center space-y-4 bg-white dark:bg-slate-900">
-                        <div className="w-16 h-16 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-full mx-auto">
+                    <div className="p-20 text-center space-y-4 bg-surface">
+                        <div className="w-16 h-16 flex items-center justify-center bg-surface-2 rounded-full mx-auto">
                             <SearchX className="w-10 h-10 text-slate-200" />
                         </div>
                         <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">No se encontraron resultados para "{searchTerm}"</p>
@@ -217,9 +217,9 @@ export default function TarifasAdminPage() {
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex justify-end animate-in fade-in duration-300">
                     <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
-                    <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col animate-in slide-in-from-right-full duration-500 ease-out">
+                    <div className="relative w-full max-w-2xl bg-surface h-full shadow-2xl flex flex-col animate-in slide-in-from-right-full duration-500 ease-out">
                         {/* Modal Header */}
-                        <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <div className="p-8 border-b border-border flex justify-between items-center">
                             <div>
                                 <h2 className="text-xl font-extrabold dark:text-white uppercase tracking-tight">Editor Manual de Tarifas</h2>
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
@@ -245,7 +245,7 @@ export default function TarifasAdminPage() {
                                 <div className="grid grid-cols-1 gap-6">
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Nombre Distribuidora / Compañía</label>
+                                            <label className="text-xs font-bold text-text-secondary">Nombre Distribuidora / Compañía</label>
                                             <span className="text-[10px] font-mono text-primary/50">provider_name</span>
                                         </div>
                                         <div className="flex gap-3">
@@ -254,11 +254,11 @@ export default function TarifasAdminPage() {
                                                     type="text"
                                                     value={selectedTariff?.company || ""}
                                                     onChange={e => setSelectedTariff({ ...selectedTariff!, company: e.target.value })}
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                    className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                     placeholder="Ej: Energía Nufri"
                                                 />
                                             </div>
-                                            <div className="w-20 h-14 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-center p-2 shadow-sm shrink-0">
+                                            <div className="w-20 h-14 bg-surface rounded-xl border border-border flex items-center justify-center p-2 shadow-sm shrink-0">
                                                 {selectedTariff?.logo_url ? (
                                                     <Image
                                                         src={selectedTariff.logo_url}
@@ -283,59 +283,59 @@ export default function TarifasAdminPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Nombre de la Tarifa</label>
+                                            <label className="text-xs font-bold text-text-secondary">Nombre de la Tarifa</label>
                                             <span className="text-[10px] font-mono text-primary/50">tariff_name</span>
                                         </div>
                                         <input
                                             type="text"
                                             value={selectedTariff?.name || ""}
                                             onChange={e => setSelectedTariff({ ...selectedTariff!, name: e.target.value })}
-                                            className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                         />
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <div className="flex justify-between">
-                                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">URL de Contratación</label>
+                                                <label className="text-xs font-bold text-text-secondary">URL de Contratación</label>
                                                 <span className="text-[10px] font-mono text-primary/50">contract_url</span>
                                             </div>
                                             <input
                                                 type="text"
                                                 value={selectedTariff?.url || ""}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, url: e.target.value })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 placeholder="https://..."
                                             />
                                         </div>
                                         <div className="space-y-2">
                                             <div className="flex justify-between">
-                                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">URL del Logo (Opcional)</label>
+                                                <label className="text-xs font-bold text-text-secondary">URL del Logo (Opcional)</label>
                                                 <span className="text-[10px] font-mono text-primary/50">logo_custom_url</span>
                                             </div>
                                             <input
                                                 type="text"
                                                 value={selectedTariff?.logo_url || ""}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, logo_url: e.target.value })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 placeholder="https://.../logo.png"
                                             />
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Tipo de Tarifa</label>
+                                            <label className="text-xs font-bold text-text-secondary">Tipo de Tarifa</label>
                                             <select
                                                 value={selectedTariff?.type}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, type: e.target.value as Tariff['type'] })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer">
+                                                className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer">
                                                 <option value="Fijo (1 Periodo)">Fixed / Fijo</option>
                                                 <option value="3 Periodos">3 Periods / Indexado</option>
                                             </select>
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Estado del Registro</label>
-                                            <select className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer">
+                                            <label className="text-xs font-bold text-text-secondary">Estado del Registro</label>
+                                            <select className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer">
                                                 <option>Active / Publicado</option>
                                                 <option>Draft / Borrador</option>
                                             </select>
@@ -353,7 +353,7 @@ export default function TarifasAdminPage() {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Potencia Punta (P1)</label>
+                                            <label className="text-xs font-bold text-text-secondary">Potencia Punta (P1)</label>
                                             <span className="text-[10px] font-mono text-primary/50">price_power_peak</span>
                                         </div>
                                         <div className="relative">
@@ -363,13 +363,13 @@ export default function TarifasAdminPage() {
                                                 inputMode="decimal"
                                                 value={selectedTariff?.p1_kw_day ?? ""}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, p1_kw_day: e.target.value.replace(',', '.') as any })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl pl-10 pr-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full bg-surface-2 border-transparent rounded-xl pl-10 pr-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Potencia Valle (P2)</label>
+                                            <label className="text-xs font-bold text-text-secondary">Potencia Valle (P2)</label>
                                             <span className="text-[10px] font-mono text-primary/50">price_power_offpeak</span>
                                         </div>
                                         <div className="relative">
@@ -379,7 +379,7 @@ export default function TarifasAdminPage() {
                                                 inputMode="decimal"
                                                 value={selectedTariff?.p2_kw_day ?? ""}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, p2_kw_day: e.target.value.replace(',', '.') as any })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl pl-10 pr-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full bg-surface-2 border-transparent rounded-xl pl-10 pr-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             />
                                         </div>
                                     </div>
@@ -395,7 +395,7 @@ export default function TarifasAdminPage() {
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Energía Punta / Única (E1)</label>
+                                            <label className="text-xs font-bold text-text-secondary">Energía Punta / Única (E1)</label>
                                             <span className="text-[10px] font-mono text-primary/50">price_energy_peak</span>
                                         </div>
                                         <div className="relative">
@@ -404,7 +404,7 @@ export default function TarifasAdminPage() {
                                                 inputMode="decimal"
                                                 value={selectedTariff?.e1_kwh ?? ""}
                                                 onChange={e => setSelectedTariff({ ...selectedTariff!, e1_kwh: e.target.value.replace(',', '.') as any })}
-                                                className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                             />
                                             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 uppercase">KWH</span>
                                         </div>
@@ -412,7 +412,7 @@ export default function TarifasAdminPage() {
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <div className="flex justify-between">
-                                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Energía Llano (E2)</label>
+                                                <label className="text-xs font-bold text-text-secondary">Energía Llano (E2)</label>
                                                 <span className="text-[10px] font-mono text-primary/50">price_energy_mid</span>
                                             </div>
                                             <div className="relative">
@@ -421,14 +421,14 @@ export default function TarifasAdminPage() {
                                                     inputMode="decimal"
                                                     value={selectedTariff?.e2_kwh ?? ""}
                                                     onChange={e => setSelectedTariff({ ...selectedTariff!, e2_kwh: e.target.value.replace(',', '.') as any })}
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                    className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 />
                                                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 uppercase">KWH</span>
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <div className="flex justify-between">
-                                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Energía Valle (E3)</label>
+                                                <label className="text-xs font-bold text-text-secondary">Energía Valle (E3)</label>
                                                 <span className="text-[10px] font-mono text-primary/50">price_energy_offpeak</span>
                                             </div>
                                             <div className="relative">
@@ -437,7 +437,7 @@ export default function TarifasAdminPage() {
                                                     inputMode="decimal"
                                                     value={selectedTariff?.e3_kwh ?? ""}
                                                     onChange={e => setSelectedTariff({ ...selectedTariff!, e3_kwh: e.target.value.replace(',', '.') as any })}
-                                                    className="w-full bg-slate-50 dark:bg-slate-800 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                                    className="w-full bg-surface-2 border-transparent rounded-xl px-5 py-4 text-sm font-mono font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                                 />
                                                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 uppercase">KWH</span>
                                             </div>
@@ -452,7 +452,7 @@ export default function TarifasAdminPage() {
                                     <Info className="w-5 h-5" />
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-xs font-bold text-slate-800 dark:text-white uppercase">Aviso de Sincronización</p>
+                                    <p className="text-xs font-bold text-text-primary uppercase">Aviso de Sincronización</p>
                                     <p className="text-[11px] text-slate-500 leading-relaxed font-medium">
                                         Las modificaciones manuales en campos mapeados por <span className="text-primary">price_*</span> se bloquearán hasta la próxima conciliación de CSV para mantener la integridad del motor de cálculo.
                                     </p>
@@ -460,7 +460,7 @@ export default function TarifasAdminPage() {
                             </div>
 
                             {/* Section: NOTIFICACIÓN */}
-                            <section className="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
+                            <section className="space-y-6 bg-surface-2 p-6 rounded-2xl border border-dashed border-border">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3 text-primary">
                                         <Megaphone className="w-5 h-5" />
@@ -480,12 +480,12 @@ export default function TarifasAdminPage() {
                                 {shouldNotify && (
                                     <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
                                         <div className="space-y-2">
-                                            <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Mensaje de la Notificación</label>
+                                            <label className="text-xs font-bold text-text-secondary uppercase">Mensaje de la Notificación</label>
                                             <textarea 
                                                 value={notifMessage}
                                                 onChange={(e) => setNotifMessage(e.target.value)}
                                                 placeholder="Ej: Bajada de precios en el tramo valle..."
-                                                className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all min-h-[100px]"
+                                                className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all min-h-[100px]"
                                             ></textarea>
                                             <p className="text-[10px] text-slate-400 italic">Este mensaje aparecerá en la campana de notificaciones de todos los usuarios registrados.</p>
                                         </div>
@@ -495,17 +495,17 @@ export default function TarifasAdminPage() {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-[#fcfdfe] dark:bg-slate-900/50 grid grid-cols-2 gap-4">
+                        <div className="p-8 border-t border-border bg-[#fcfdfe] dark:bg-slate-900/50 grid grid-cols-2 gap-4">
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
+                                className="w-full bg-white dark:bg-slate-800 border border-border text-slate-600 dark:text-slate-300 font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
                             >
                                 Cancelar
                             </button>
                             <button
                                 onClick={handleSave}
                                 disabled={isSubmitting}
-                                className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
+                                className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-4 rounded-xl text-xs uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
                             >
                                 {isSubmitting ? "Guardando..." : "Guardar Registro"}
                             </button>

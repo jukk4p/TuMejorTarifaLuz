@@ -119,10 +119,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                 onClick={onClose}
             ></div>
 
-            <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-slate-100 dark:border-slate-800">
+            <div className="relative w-full max-w-md bg-surface rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-border">
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
+                    className="absolute top-6 right-6 p-2 rounded-full bg-surface-2 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
                 >
                     <X size={20} />
                 </button>
@@ -140,7 +140,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                     <button
                         onClick={handleGoogleLogin}
                         disabled={loading}
-                        className="w-full h-14 flex items-center justify-center gap-3 px-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl font-bold text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm active:scale-95 disabled:opacity-50"
+                        className="w-full h-14 flex items-center justify-center gap-3 px-6 bg-white dark:bg-slate-800 border border-border rounded-2xl font-bold text-sm text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm active:scale-95 disabled:opacity-50"
                     >
                         <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
                         <span>Continuar con Google</span>
@@ -148,10 +148,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
 
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-slate-100 dark:border-slate-800"></div>
+                            <div className="w-full border-t border-border"></div>
                         </div>
                         <div className="relative flex justify-center text-[10px] uppercase font-bold tracking-widest">
-                            <span className="px-4 bg-white dark:bg-slate-900 text-slate-400">O con tu correo</span>
+                            <span className="px-4 bg-surface text-slate-400">O con tu correo</span>
                         </div>
                     </div>
 
@@ -163,7 +163,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full h-14 bg-slate-50 dark:bg-slate-800 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
+                                className="w-full h-14 bg-surface-2 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
                                 placeholder="tu@email.com"
                             />
                         </div>
@@ -186,7 +186,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full h-14 bg-slate-50 dark:bg-slate-800 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
+                                className="w-full h-14 bg-surface-2 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -222,7 +222,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                     </div>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-center gap-4">
+                <div className="bg-surface-2 p-6 border-t border-border flex items-center justify-center gap-4">
                     <div className="flex -space-x-2">
                         {[1, 2, 3].map(i => (
                             <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 overflow-hidden shadow-sm">

@@ -46,7 +46,7 @@ export default function DashboardLayout({
         <AdminGuard>
             <div className="flex h-screen bg-slate-50 dark:bg-[#0B0F13] transition-colors duration-300">
                 {/* Sidebar */}
-                <aside className={`bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
+                <aside className={`bg-surface border-r border-border flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
                     <div className="p-6 flex items-center gap-3">
                         <div className="min-w-[32px] h-8 flex items-center justify-center overflow-hidden">
                             <Image 
@@ -73,7 +73,7 @@ export default function DashboardLayout({
                                     href={item.href}
                                     className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${isActive
                                         ? "bg-primary/10 text-primary shadow-sm"
-                                        : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                        : "text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-800"
                                         }`}
                                 >
                                 <item.icon className={`w-5 h-5 ${isActive ? "text-primary" : "group-hover:text-primary transition-colors"}`} />
@@ -84,11 +84,11 @@ export default function DashboardLayout({
                     </div>
 
                     {/* Sidebar Footer / User Profile */}
-                    <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+                    <div className="p-4 border-t border-border">
                         {!isCollapsed && (
                             <div
                                 onClick={handleLogout}
-                                className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl flex items-center gap-3 group cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+                                className="bg-surface-2 p-4 rounded-2xl flex items-center gap-3 group cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
                             >
                                 <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden shrink-0">
                                     <User className="text-slate-400 w-5 h-5" />
@@ -113,7 +113,7 @@ export default function DashboardLayout({
 
                 {/* Main Content Area */}
                 <main className="flex-1 overflow-y-auto">
-                    <header className="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 sticky top-0 z-40">
+                    <header className="h-20 bg-surface backdrop-blur-md border-b border-border flex items-center justify-between px-8 sticky top-0 z-40">
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => setIsCollapsed(!isCollapsed)}
@@ -130,11 +130,11 @@ export default function DashboardLayout({
                             {mounted && (
                                 <button
                                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                    className="relative h-9 w-16 rounded-full bg-slate-100 dark:bg-slate-800/50 p-1 flex items-center justify-between border border-slate-200 dark:border-slate-800 transition-all hover:border-primary/30 shadow-inner mr-2"
+                                    className="relative h-9 w-16 rounded-full bg-surface-2 p-1 flex items-center justify-between border border-border transition-all hover:border-primary/30 shadow-inner mr-2"
                                     aria-label="Toggle theme"
                                 >
                                     <div className={`absolute h-7 w-7 rounded-full bg-white dark:bg-primary shadow-lg transform transition-all duration-300 ease-in-out ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`} />
-                                    <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-amber-500'}`}>
+                                    <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-slate-500' : 'text-warning'}`}>
                                         <Sun size={14} />
                                     </span>
                                     <span className={`z-10 w-7 flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-500'}`}>
@@ -156,7 +156,7 @@ export default function DashboardLayout({
                             <div className="relative">
                                 <button 
                                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                    className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 pl-2 pr-4 py-1.5 rounded-full border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all active:scale-95"
+                                    className="flex items-center gap-3 bg-surface-2 pl-2 pr-4 py-1.5 rounded-full border border-border hover:border-primary/30 transition-all active:scale-95"
                                 >
                                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                         <User className="w-4 h-4" />
@@ -170,8 +170,8 @@ export default function DashboardLayout({
                                             className="fixed inset-0 z-10" 
                                             onClick={() => setIsUserMenuOpen(false)}
                                         ></div>
-                                        <div className="absolute right-0 mt-3 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden z-20 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
-                                            <div className="p-4 border-b border-slate-50 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+                                        <div className="absolute right-0 mt-3 w-56 bg-surface rounded-2xl shadow-2xl border border-border overflow-hidden z-20 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                                            <div className="p-4 border-b border-border bg-surface-2">
                                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sesión de Admin</p>
                                                 <p className="text-sm font-bold dark:text-white truncate">admin@tarifa.es</p>
                                             </div>
@@ -190,7 +190,7 @@ export default function DashboardLayout({
                                                     <Settings size={16} className="text-slate-400 group-hover:text-primary" />
                                                     Ajustes de Cuenta
                                                 </Link>
-                                                <div className="h-px bg-slate-50 dark:bg-slate-800 my-2 mx-2"></div>
+                                                <div className="h-px bg-surface-2 my-2 mx-2"></div>
                                                 <button 
                                                     onClick={handleLogout}
                                                     className="w-full flex items-center gap-3 px-4 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-colors group"

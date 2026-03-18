@@ -87,7 +87,7 @@ export default function NotificationsPage() {
         switch (type) {
             case 'tariff_update': 
                 return (
-                    <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-500/10 flex items-center justify-center text-amber-500 shadow-sm border border-amber-100 dark:border-amber-500/20">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-warning/10 flex items-center justify-center text-warning shadow-sm border border-amber-100 dark:border-amber-500/20">
                         <Zap className="w-6 h-6" />
                     </div>
                 );
@@ -115,7 +115,7 @@ export default function NotificationsPage() {
     if (!user && !loading) {
         return (
             <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-                <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-400">
+                <div className="w-20 h-20 bg-surface-2 rounded-full flex items-center justify-center text-slate-400">
                     <Bell size={40} />
                 </div>
                 <h1 className="text-xl font-bold dark:text-white">Inicia sesión para ver tus avisos</h1>
@@ -133,12 +133,12 @@ export default function NotificationsPage() {
                         <div className="flex items-center gap-2">
                             <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-full">Actualizaciones</span>
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Centro de Alertas</h1>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium">Historial completo de cambios en tarifas y actualizaciones del sistema.</p>
+                        <h1 className="text-4xl font-black text-text-primary tracking-tight uppercase">Centro de Alertas</h1>
+                        <p className="text-text-secondary font-medium">Historial completo de cambios en tarifas y actualizaciones del sistema.</p>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className="bg-white dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 flex shadow-sm">
+                        <div className="bg-surface p-1 rounded-xl border border-border flex shadow-sm">
                             <button 
                                 onClick={() => setFilter('all')}
                                 className={`px-4 py-2 text-[10px] font-black uppercase tracking-tight rounded-lg transition-all ${filter === 'all' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:text-primary'}`}
@@ -154,7 +154,7 @@ export default function NotificationsPage() {
                         </div>
                         <button 
                             onClick={markAllAsRead}
-                            className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-500 hover:text-primary transition-all shadow-sm group"
+                            className="p-3 bg-surface border border-border rounded-xl text-slate-500 hover:text-primary transition-all shadow-sm group"
                             title="Marcar todo como leído"
                         >
                             <Check size={18} />
@@ -167,11 +167,11 @@ export default function NotificationsPage() {
                     {loading ? (
                         <div className="space-y-4">
                             {[1, 2, 3].map(i => (
-                                <div key={i} className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 animate-pulse flex gap-6">
-                                    <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-2xl"></div>
+                                <div key={i} className="bg-surface p-8 rounded-3xl border border-border animate-pulse flex gap-6">
+                                    <div className="w-12 h-12 bg-surface-2 rounded-2xl"></div>
                                     <div className="flex-1 space-y-4">
-                                        <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded w-1/4"></div>
-                                        <div className="h-3 bg-slate-100 dark:bg-slate-800 rounded w-3/4"></div>
+                                        <div className="h-4 bg-surface-2 rounded w-1/4"></div>
+                                        <div className="h-3 bg-surface-2 rounded w-3/4"></div>
                                     </div>
                                 </div>
                             ))}
@@ -180,7 +180,7 @@ export default function NotificationsPage() {
                         filteredNotifications.map((n) => (
                             <div 
                                 key={n.id} 
-                                className={`group bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border transition-all duration-300 relative overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 ${!n.readBy?.includes(user?.uid || '') ? 'border-primary/20 bg-primary/[0.01]' : 'border-slate-100 dark:border-slate-800'}`}
+                                className={`group bg-surface p-6 md:p-8 rounded-[2rem] border transition-all duration-300 relative overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 ${!n.readBy?.includes(user?.uid || '') ? 'border-primary/20 bg-primary/[0.01]' : 'border-border'}`}
                             >
                                 {!n.readBy?.includes(user?.uid || '') && (
                                     <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
@@ -194,7 +194,7 @@ export default function NotificationsPage() {
                                     <div className="flex-1 space-y-3">
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                                             <div className="flex items-center gap-3">
-                                                <h3 className={`text-lg font-extrabold ${!n.readBy?.includes(user?.uid || '') ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>
+                                                <h3 className={`text-lg font-extrabold ${!n.readBy?.includes(user?.uid || '') ? 'text-text-primary' : 'text-slate-500'}`}>
                                                     {n.title}
                                                 </h3>
                                                 {!n.readBy?.includes(user?.uid || '') && (
@@ -214,7 +214,7 @@ export default function NotificationsPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl font-medium">
+                                        <p className="text-text-secondary leading-relaxed max-w-2xl font-medium">
                                             {n.message}
                                         </p>
 
@@ -232,7 +232,7 @@ export default function NotificationsPage() {
                                             {!n.readBy?.includes(user?.uid || '') && (
                                                 <button 
                                                     onClick={() => markAsRead(n.id!)}
-                                                    className="text-[10px] font-black text-slate-400 hover:text-slate-900 dark:hover:text-white uppercase tracking-widest transition-colors"
+                                                    className="text-[10px] font-black text-slate-400 hover:text-text-primary uppercase tracking-widest transition-colors"
                                                 >
                                                     Marcar como leído
                                                 </button>
@@ -243,8 +243,8 @@ export default function NotificationsPage() {
                             </div>
                         ))
                     ) : (
-                        <div className="text-center py-24 bg-white dark:bg-slate-900 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800 space-y-6">
-                            <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto text-slate-200">
+                        <div className="text-center py-24 bg-surface rounded-[3rem] border border-dashed border-border space-y-6">
+                            <div className="w-20 h-20 bg-surface-2 rounded-full flex items-center justify-center mx-auto text-slate-200">
                                 <Bell size={40} />
                             </div>
                             <div className="space-y-2">

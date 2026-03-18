@@ -36,11 +36,11 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
 
     const getPriceTailwindColor = (price: number) => {
         if (price === stats.min) return 'text-emerald-500';
-        if (price === stats.max) return 'text-rose-500';
+        if (price === stats.max) return 'text-warning';
         const ratio = (price - stats.min) / (stats.max - stats.min || 1);
         if (ratio < 0.3) return 'text-emerald-500';
-        if (ratio < 0.7) return 'text-amber-500';
-        return 'text-rose-500';
+        if (ratio < 0.7) return 'text-warning';
+        return 'text-warning';
     };
 
     // Generar el path del anillo de calor (Heatmap Ring)
@@ -64,7 +64,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             {/* Bloque Izquierdo: La Consola Visual */}
-            <div className="premium-card p-4 md:p-8 flex flex-col items-center justify-center bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl relative overflow-hidden min-h-[500px] md:min-h-[600px]">
+            <div className="premium-card p-4 md:p-8 flex flex-col items-center justify-center bg-surface border border-border shadow-2xl relative overflow-hidden min-h-[500px] md:min-h-[600px]">
                 {/* Fondo Decorativo */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] opacity-50"></div>
@@ -121,7 +121,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                                     <div className={`w-full h-full rounded-full flex items-center justify-center text-[10px] font-black transition-all border-2
                                         ${isSelected 
                                             ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-primary shadow-[0_0_20px_rgba(14,165,233,0.3)]' 
-                                            : 'bg-white dark:bg-slate-800 text-slate-400 border-slate-100 dark:border-slate-800'
+                                            : 'bg-white dark:bg-slate-800 text-slate-400 border-border'
                                         }
                                         ${isCurrent && !isSelected ? 'ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900' : ''}
                                     `}>
@@ -133,10 +133,10 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                     </div>
 
                     {/* Display Central */}
-                    <div className="absolute w-[180px] h-[180px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-full border border-slate-100 dark:border-slate-800 shadow-inner flex flex-col items-center justify-center pointer-events-none">
+                    <div className="absolute w-[180px] h-[180px] bg-surface backdrop-blur-xl rounded-full border border-border shadow-inner flex flex-col items-center justify-center pointer-events-none">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Tramo</span>
                         <div className="flex items-baseline gap-1">
-                            <span className="text-4xl font-900 text-slate-900 dark:text-white leading-none">
+                            <span className="text-4xl font-900 text-text-primary leading-none">
                                 {String(selectedHour).padStart(2, '0')}
                             </span>
                             <span className="text-xl font-black text-primary">:00</span>
@@ -157,7 +157,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Muy Barato</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.4)]"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-warning shadow-[0_0_8px_rgba(245,158,11,0.4)]"></div>
                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Normal</span>
                     </div>
                     <div className="flex items-center gap-2">

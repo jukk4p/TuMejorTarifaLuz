@@ -62,10 +62,10 @@ export default function ComercializadorasReferenciaPage() {
                             <ShieldCheck className="w-4 h-4" />
                             Mercado Regulado
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-900 text-slate-900 dark:text-white leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-900 text-text-primary leading-tight">
                             Comercializadoras de <span className="text-primary">Referencia</span>
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400">
+                        <p className="text-xl text-text-secondary">
                             Las únicas autorizadas por el Gobierno para ofrecer la tarifa PVPC y gestionar el Bono Social Eléctrico.
                         </p>
                     </div>
@@ -73,8 +73,8 @@ export default function ComercializadorasReferenciaPage() {
                     {/* What is a COR? */}
                     <div className="grid md:grid-cols-2 gap-12 mb-32 items-center">
                         <div className="space-y-6">
-                            <h2 className="text-3xl font-800 text-slate-900 dark:text-white">¿Qué son exactamente?</h2>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
+                            <h2 className="text-3xl font-800 text-text-primary">¿Qué son exactamente?</h2>
+                            <p className="text-text-secondary leading-relaxed text-lg">
                                 Son compañías eléctricas designadas por el Gobierno bajo unos requisitos muy estrictos de solvencia y capacidad para operar en el <strong>mercado regulado</strong>.
                             </p>
                             <div className="space-y-4">
@@ -91,23 +91,23 @@ export default function ComercializadorasReferenciaPage() {
                                 ))}
                             </div>
                         </div>
-                        <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl space-y-8">
+                        <div className="bg-surface p-8 rounded-[2rem] border border-border shadow-xl space-y-8">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-2xl bg-warning/10 text-warning flex items-center justify-center">
                                     <Info className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-800 text-slate-900 dark:text-white">Información Clave</h3>
+                                <h3 className="text-xl font-800 text-text-primary">Información Clave</h3>
                             </div>
                             <div className="space-y-6">
-                                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white mb-2">¿Cómo diferenciarlas?</p>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                <div className="p-4 rounded-xl bg-surface-2 border border-border">
+                                    <p className="text-sm font-bold text-text-primary mb-2">¿Cómo diferenciarlas?</p>
+                                    <p className="text-sm text-text-secondary">
                                         Aunque pertenecen a los mismos grupos que las grandes eléctricas (Endesa, Iberdrola...), tienen nombres y CIF distintos para evitar confusión con el mercado libre.
                                     </p>
                                 </div>
-                                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
-                                    <p className="text-sm font-bold text-slate-900 dark:text-white mb-2">¿Cuál es mejor?</p>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400">
+                                <div className="p-4 rounded-xl bg-surface-2 border border-border">
+                                    <p className="text-sm font-bold text-text-primary mb-2">¿Cuál es mejor?</p>
+                                    <p className="text-sm text-text-secondary">
                                         En el mercado regulado, <strong>todas ofrecen exactamente el mismo precio</strong>, ya que este lo fija el mercado diario y la REE. La única diferencia es la calidad de su atención al cliente.
                                     </p>
                                 </div>
@@ -118,28 +118,28 @@ export default function ComercializadorasReferenciaPage() {
                     {/* List of Companies */}
                     <div className="mb-32">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-800 text-slate-900 dark:text-white mb-4">Listado de Compañías (2026)</h2>
-                            <p className="text-slate-500 dark:text-slate-400">Las comercializadoras autorizadas para ofrecer el PVPC.</p>
+                            <h2 className="text-3xl md:text-4xl font-800 text-text-primary mb-4">Listado de Compañías (2026)</h2>
+                            <p className="text-text-secondary">Las comercializadoras autorizadas para ofrecer el PVPC.</p>
                         </div>
                         <div className="grid md:grid-cols-2 gap-8">
                             {COR_COMPANIES.map((company) => (
-                                <div key={company.name} className="group premium-card bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                                <div key={company.name} className="group premium-card bg-surface p-8 border border-border hover:border-primary/30 transition-all duration-300">
                                     <div className="flex justify-between items-start mb-6">
-                                        <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700">
+                                        <div className="p-3 bg-surface-2 rounded-2xl border border-border">
                                             <Building2 className="w-8 h-8 text-primary" />
                                         </div>
                                         <a href={company.website} target="_blank" rel="noopener noreferrer" className="p-2 text-slate-400 hover:text-primary transition-colors">
                                             <ExternalLink className="w-5 h-5" />
                                         </a>
                                     </div>
-                                    <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                                    <h3 className="text-2xl font-800 text-text-primary mb-2 group-hover:text-primary transition-colors">
                                         {company.name}
                                     </h3>
                                     <p className="text-sm font-bold text-primary/80 mb-4 uppercase tracking-widest">{company.group}</p>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                    <p className="text-text-secondary leading-relaxed text-sm">
                                         {company.description}
                                     </p>
-                                    <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                    <div className="mt-8 pt-6 border-t border-border flex justify-between items-center">
                                         <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Mercado Regulado</span>
                                         <a 
                                             href={company.website} 
@@ -158,7 +158,7 @@ export default function ComercializadorasReferenciaPage() {
                     {/* FAQ Mini Section */}
                     <div className="max-w-4xl mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-800 text-slate-900 dark:text-white mb-4 flex items-center justify-center gap-3">
+                            <h2 className="text-3xl font-800 text-text-primary mb-4 flex items-center justify-center gap-3">
                                 <HelpCircle className="w-8 h-8 text-primary" />
                                 Dudas Frecuentes
                             </h2>
@@ -178,9 +178,9 @@ export default function ComercializadorasReferenciaPage() {
                                     a: "No todas, pero las ligadas a las grandes (Iberdrola, Endesa, Naturgy) suelen permitir gestiones del mercado regulado en sus centros de atención presencial."
                                 }
                             ].map((faq, i) => (
-                                <div key={i} className="bg-white dark:bg-slate-900/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                                    <h4 className="text-lg font-800 text-slate-900 dark:text-white mb-3">{faq.q}</h4>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+                                <div key={i} className="bg-surface p-6 rounded-2xl border border-border shadow-sm">
+                                    <h4 className="text-lg font-800 text-text-primary mb-3">{faq.q}</h4>
+                                    <p className="text-text-secondary text-sm leading-relaxed">{faq.a}</p>
                                 </div>
                             ))}
                         </div>

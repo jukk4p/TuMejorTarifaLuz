@@ -18,7 +18,7 @@ export default async function ElectricityPriceWidget() {
     };
 
     return (
-        <div className="relative premium-card p-6 md:p-10 overflow-hidden border border-slate-100 dark:border-slate-800">
+        <div className="relative premium-card p-6 md:p-10 overflow-hidden border border-border">
             <div className="absolute top-0 right-0 p-4 md:p-8 opacity-5">
                 <Bolt size={120} className="md:size-[160px]" />
             </div>
@@ -30,8 +30,8 @@ export default async function ElectricityPriceWidget() {
                         <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la luz hoy</h3>
                         <div className="flex items-center gap-2">
                             {prices.isLive ? (
-                                <span className="flex items-center gap-1.5 px-2 py-0.5 bg-success/10 text-success rounded text-[7px] md:text-[8px] font-bold tracking-wider">
-                                    <span className="w-1 h-1 bg-success rounded-full animate-pulse"></span>
+                                <span className="flex items-center gap-1.5 px-2 py-0.5 bg-accent-bg text-accent rounded text-[7px] md:text-[8px] font-bold tracking-wider">
+                                    <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
                                     En vivo
                                 </span>
                             ) : (
@@ -42,18 +42,18 @@ export default async function ElectricityPriceWidget() {
                         </div>
                     </div>
                     <div className="space-y-0">
-                        <p className="text-[9px] md:text-[10px] font-bold text-slate-400 dark:text-slate-500 tracking-[0.2em] mb-1">Media nacional pool</p>
+                        <p className="text-[9px] md:text-[10px] font-bold text-text-muted tracking-[0.2em] mb-1">Media nacional pool</p>
                         <div className="flex items-baseline justify-center md:justify-start gap-2">
-                            <span className="text-5xl md:text-6xl font-800 text-slate-900 dark:text-white tracking-tight leading-none">{prices.average.toFixed(4)}</span>
+                            <span className="text-5xl md:text-6xl font-800 text-text-primary tracking-tight leading-none">{prices.average.toFixed(4)}</span>
                             <span className="text-base md:text-lg font-bold text-slate-400">€/kWh</span>
                         </div>
                     </div>
                     <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-success/10 text-success rounded-full text-[10px] md:text-[11px] font-bold">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-bg text-accent rounded-full text-[10px] md:text-[11px] font-bold">
                             <TrendingDown size={14} className="md:size-[16px]" />
                             {prices.current < prices.average ? 'Bajo media' : 'Estable'}
                         </div>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-full text-[10px] md:text-[11px] font-bold">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-2 text-text-secondary rounded-full text-[10px] md:text-[11px] font-bold">
                             <RefreshCcw size={14} className="md:size-[16px]" />
                             {prices.time}
                         </div>
@@ -61,17 +61,17 @@ export default async function ElectricityPriceWidget() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 md:gap-4 w-full md:w-auto">
-                    <div className="bg-slate-50/50 dark:bg-slate-800/20 p-3 md:p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[110px] md:min-w-[130px]">
+                    <div className="bg-surface-2 p-3 md:p-5 rounded-3xl border border-border text-center space-y-2 min-w-[110px] md:min-w-[130px]">
                         <p className="text-[8px] md:text-[9px] font-bold text-slate-400 tracking-widest">Mínimo</p>
-                        <p className="text-base md:text-xl font-800 text-success">{prices.min.toFixed(4)}€</p>
+                        <p className="text-base md:text-xl font-800 text-accent">{prices.min.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
                             <Clock size={14} />
                             {prices.minHour}
                         </div>
                     </div>
-                    <div className="bg-slate-50/50 dark:bg-slate-800/20 p-3 md:p-5 rounded-3xl border border-slate-100 dark:border-slate-800/50 text-center space-y-2 min-w-[110px] md:min-w-[130px]">
+                    <div className="bg-surface-2 p-3 md:p-5 rounded-3xl border border-border text-center space-y-2 min-w-[110px] md:min-w-[130px]">
                         <p className="text-[8px] md:text-[9px] font-bold text-slate-400 tracking-widest">Máximo</p>
-                        <p className="text-base md:text-xl font-800 text-slate-900 dark:text-white">{prices.max.toFixed(4)}€</p>
+                        <p className="text-base md:text-xl font-800 text-text-primary">{prices.max.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
                             <Clock size={14} />
                             {prices.maxHour}
@@ -80,8 +80,8 @@ export default async function ElectricityPriceWidget() {
                 </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+            <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3 text-text-secondary">
                     <Info size={14} className="text-primary" />
                     <p className="text-[11px] leading-relaxed italic">
                         POOL mayorista. Si tienes **tarifa fija**, tu precio no depende de estos valores.

@@ -238,14 +238,14 @@ export default function ProfilePage() {
 
     if (authLoading || !user) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-background-dark flex items-center justify-center">
+            <div className="min-h-screen bg-slate-50 dark:bg-background flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-background-dark transition-colors duration-300">
+        <div className="min-h-screen bg-slate-50 dark:bg-background transition-colors duration-300">
             <Navbar />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -253,7 +253,7 @@ export default function ProfilePage() {
                 <div className="relative mb-6 sm:mb-8 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/5 to-orange-500/10 rounded-[2rem] sm:rounded-[2.5rem] blur-2xl opacity-50 group-hover:opacity-70 transition-opacity pointer-events-none"></div>
                     
-                    <div className="relative bg-white/70 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 shadow-2xl shadow-primary/5 border border-white dark:border-slate-800 flex flex-col lg:flex-row items-center gap-6 lg:gap-10 overflow-hidden">
+                    <div className="relative bg-surface backdrop-blur-xl rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 shadow-2xl shadow-primary/5 border border-white dark:border-slate-800 flex flex-col lg:flex-row items-center gap-6 lg:gap-10 overflow-hidden">
                         {/* Decorative background shapes */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
                         <div className="absolute bottom-0 left-0 w-48 h-48 bg-orange-500/5 rounded-full blur-3xl -ml-24 -mb-24"></div>
@@ -280,39 +280,39 @@ export default function ProfilePage() {
                             <div className="space-y-0.5">
                                 <div className="flex flex-wrap justify-center lg:justify-start gap-1.5 mb-2">
                                     <span className="px-2.5 py-0.5 bg-primary text-white text-[8px] font-black uppercase tracking-widest rounded-full shadow-lg shadow-primary/20">Usuario Premium</span>
-                                    <span className="px-2.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-full border border-slate-200 dark:border-slate-700">Miembro 2026</span>
+                                    <span className="px-2.5 py-0.5 bg-surface-2 text-text-secondary text-[8px] font-black uppercase tracking-widest rounded-full border border-border">Miembro 2026</span>
                                 </div>
                                 <h1 className="text-2xl sm:text-4xl font-900 tracking-tight dark:text-white leading-tight">
                                     Hola, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">{user.displayName || user.email?.split('@')[0]}</span>!
                                 </h1>
-                                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">{user.email}</p>
+                                <p className="text-xs sm:text-sm text-text-secondary font-medium">{user.email}</p>
                             </div>
 
                             <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 pt-1">
-                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-border">
                                     <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                                         <FileText size={14} />
                                     </div>
                                     <div className="text-left">
-                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{savedBills.filter(b => b.isAiGenerated).length}</p>
+                                        <p className="text-[12px] font-black text-text-primary leading-none">{savedBills.filter(b => b.isAiGenerated).length}</p>
                                         <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Facturas</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
-                                    <div className="w-7 h-7 rounded-lg bg-success/10 flex items-center justify-center text-success">
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-border">
+                                    <div className="w-7 h-7 rounded-lg bg-accent-bg flex items-center justify-center text-accent">
                                         <Layout size={14} />
                                     </div>
                                     <div className="text-left">
-                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{savedBills.length}</p>
+                                        <p className="text-[12px] font-black text-text-primary leading-none">{savedBills.length}</p>
                                         <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Estudios</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                                <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-border">
                                     <div className="w-7 h-7 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
                                         <Star size={14} />
                                     </div>
                                     <div className="text-left">
-                                        <p className="text-[12px] font-black text-slate-900 dark:text-white leading-none">{favoriteTariffs.length}</p>
+                                        <p className="text-[12px] font-black text-text-primary leading-none">{favoriteTariffs.length}</p>
                                         <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest">Favoritos</p>
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@ export default function ProfilePage() {
                 <div className="mb-8 lg:mb-10">
                     {/* Vista Desktop: Tabs Horizontales */}
                     <div className="hidden lg:block">
-                        <div className="flex bg-white dark:bg-slate-900 p-1.5 rounded-[1.75rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 w-fit mx-auto lg:mx-0">
+                        <div className="flex bg-surface p-1.5 rounded-[1.75rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-border w-fit mx-auto lg:mx-0">
                             {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => {
                                 const Icon = tab === "facturas" ? FileText : tab === "comparativas" ? Layout : Star;
                                 const isActive = activeTab === tab;
@@ -364,7 +364,7 @@ export default function ProfilePage() {
                     <div className="lg:hidden relative">
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="w-full bg-white dark:bg-slate-900 p-3.5 rounded-2xl flex items-center justify-between border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none animate-in fade-in zoom-in-95 duration-300"
+                            className="w-full bg-surface p-3.5 rounded-2xl flex items-center justify-between border border-border shadow-xl shadow-slate-200/40 dark:shadow-none animate-in fade-in zoom-in-95 duration-300"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
@@ -375,13 +375,13 @@ export default function ProfilePage() {
                                     <h4 className="text-xs font-900 dark:text-white uppercase tracking-widest">{activeTab}</h4>
                                 </div>
                             </div>
-                            <div className={`w-7 h-7 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center transition-transform duration-500 ${isMobileMenuOpen ? 'rotate-180' : ''}`}>
+                            <div className={`w-7 h-7 rounded-full bg-surface-2 flex items-center justify-center transition-transform duration-500 ${isMobileMenuOpen ? 'rotate-180' : ''}`}>
                                 <ChevronDown size={14} className="text-slate-400" />
                             </div>
                         </button>
 
                         {isMobileMenuOpen && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-900 rounded-[1.5rem] border border-slate-100 dark:border-slate-800 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-surface rounded-[1.5rem] border border-border shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
                                 <div className="p-1.5 space-y-1">
                                     {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => {
                                         const Icon = tab === "facturas" ? FileText : tab === "comparativas" ? Layout : Star;
@@ -437,17 +437,17 @@ export default function ProfilePage() {
                                                 setSelectedBill(bill);
                                                 setIsDetailsModalOpen(true);
                                             }}
-                                            className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full cursor-pointer"
+                                            className="group relative bg-surface rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full cursor-pointer"
                                         >
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
                                             
                                             <div className="relative z-10 flex flex-col h-full">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className="w-14 h-14 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-inner">
+                                                    <div className="w-14 h-14 bg-surface-2 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-inner">
                                                         <FileText size={24} />
                                                     </div>
                                                     <div className="text-right">
-                                                        <p className="text-[22px] font-black text-slate-900 dark:text-white leading-none mb-1">
+                                                        <p className="text-[22px] font-black text-text-primary leading-none mb-1">
                                                             {bill.current_bill_total?.toFixed(2)}<span className="text-sm ml-1">€</span>
                                                         </p>
                                                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Total Factura</span>
@@ -465,10 +465,10 @@ export default function ProfilePage() {
                                                         </div>
                                                     </div>
                                                     <div className="flex items-center gap-3">
-                                                        <div className="w-8 h-8 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-sm">
+                                                        <div className="w-8 h-8 rounded-xl bg-surface flex items-center justify-center shadow-sm">
                                                             <Zap size={14} className="text-primary" />
                                                         </div>
-                                                        <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">Total Detectado</span>
+                                                        <span className="text-[10px] font-black text-text-secondary uppercase tracking-widest">Total Detectado</span>
                                                     </div>
                                                     <span className="text-lg font-mono font-black text-primary drop-shadow-sm">{bill.current_bill_total?.toFixed(2)} €</span>
                                                 </div>
@@ -503,8 +503,8 @@ export default function ProfilePage() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed">
-                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed">
+                                    <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                         <Zap className="text-slate-300 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Sin facturas digitalizadas</h3>
@@ -533,14 +533,14 @@ export default function ProfilePage() {
                                     {savedBills.map((bill) => (
                                         <div
                                             key={bill.id}
-                                            className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-primary/30 transition-all duration-500 hover:scale-[1.02] relative overflow-hidden flex flex-col h-full cursor-pointer"
+                                            className="group bg-surface rounded-[2.5rem] border border-border p-8 shadow-xl shadow-slate-200/50 dark:shadow-none hover:border-primary/30 transition-all duration-500 hover:scale-[1.02] relative overflow-hidden flex flex-col h-full cursor-pointer"
                                             onClick={() => router.push(`/comparador?historyId=${bill.id}`)}
                                         >
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 rounded-bl-full pointer-events-none"></div>
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-bl-full pointer-events-none"></div>
                                             <div className="relative z-10 flex flex-col h-full">
                                                 <div className="flex items-center gap-3 mb-6">
-                                                    <div className="w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center">
-                                                        <Layout className="text-success w-6 h-6" />
+                                                    <div className="w-12 h-12 bg-accent-bg rounded-2xl flex items-center justify-center">
+                                                        <Layout className="text-accent w-6 h-6" />
                                                     </div>
                                                     <div>
                                                         <h4 className="font-800 text-sm group-hover:text-primary transition-colors">{bill.name}</h4>
@@ -557,11 +557,11 @@ export default function ProfilePage() {
                                                     </div>
                                                     <div className="flex justify-between items-center text-xs">
                                                         <span className="text-slate-500">Ahorro Mensual:</span>
-                                                        <span className="text-success font-bold">{bill.potentialSavings?.toFixed(2)} €</span>
+                                                        <span className="text-accent font-bold">{bill.potentialSavings?.toFixed(2)} €</span>
                                                     </div>
                                                 </div>
 
-                                                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 mb-8 border border-slate-100 dark:border-slate-700/50">
+                                                <div className="bg-surface-2 rounded-2xl p-4 mb-8 border border-border">
                                                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Ganador Sugerido</p>
                                                     <p className="text-xs font-800 text-primary truncate">{bill.bestTariff}</p>
                                                     <p className="text-[10px] text-slate-500 truncate">{bill.bestCompany}</p>
@@ -589,8 +589,8 @@ export default function ProfilePage() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed">
-                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed">
+                                    <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                         <Layout className="text-slate-300 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">No tienes comparativas</h3>
@@ -613,12 +613,12 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {favoriteTariffs.length > 0 ? (
                                 favoriteTariffs.map((tariff) => (
-                                        <div key={tariff.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full">
+                                        <div key={tariff.id} className="group relative bg-surface rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full">
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
                                             
                                             <div className="relative z-10 flex flex-col h-full">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 shadow-inner border border-slate-100 dark:border-slate-700">
+                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 shadow-inner border border-border">
                                                         <img
                                                             src={getLogoPath(tariff.company || '') || ''}
                                                             alt={tariff.company || 'Tarifa'}
@@ -638,7 +638,7 @@ export default function ProfilePage() {
 
                                                 <div className="mb-6">
                                                     <div className="flex items-center gap-2 mb-2">
-                                                        <span className="px-2.5 py-1 bg-slate-50 dark:bg-slate-800 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-slate-100 dark:border-slate-700">{tariff.type}</span>
+                                                        <span className="px-2.5 py-1 bg-surface-2 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-border">{tariff.type}</span>
                                                         {tariff.id?.includes('recomendado') && <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/10">Recomendado</span>}
                                                     </div>
                                                     <h4 className="text-lg font-900 dark:text-white leading-tight group-hover:text-primary transition-colors mb-0.5 line-clamp-1">{tariff.name}</h4>
@@ -647,14 +647,14 @@ export default function ProfilePage() {
 
                                                 {/* Precios Express */}
                                                 <div className="grid grid-cols-1 gap-2 mb-8">
-                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100/50 dark:border-slate-700/30">
+                                                    <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
                                                             <Zap size={14} className="text-orange-500" />
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Energía P1</span>
                                                         </div>
                                                         <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kWh</span></span>
                                                     </div>
-                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100/50 dark:border-slate-700/30">
+                                                    <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
                                                             <Settings size={14} className="text-blue-500" />
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Potencia P1</span>
@@ -675,8 +675,8 @@ export default function ProfilePage() {
                                         </div>
                                     ))
                             ) : (
-                                <div className="bg-white dark:bg-slate-900 rounded-[2rem] p-12 text-center border border-slate-100 dark:border-slate-800 border-dashed md:col-span-2 lg:col-span-3">
-                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed md:col-span-2 lg:col-span-3">
+                                    <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                         <Star className="text-primary/20 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Tu lista de guardados está vacía</h3>
@@ -685,7 +685,7 @@ export default function ProfilePage() {
                                     </p>
                                     <button
                                         onClick={() => router.push("/tarifas")}
-                                        className="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                                        className="inline-flex items-center gap-2 px-8 py-4 bg-surface-2 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
                                     >
                                         Explorar Tarifas
                                     </button>
@@ -703,7 +703,7 @@ export default function ProfilePage() {
                 <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-500 p-0 sm:p-6 lg:p-12"
                      onClick={() => setIsEditModalOpen(false)}>
                     <div
-                        className="bg-white dark:bg-[#080b0f] w-full max-w-4xl rounded-t-[2.5rem] sm:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-t sm:border border-slate-200 dark:border-white/5 relative overflow-hidden animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-700 flex flex-col max-h-[92vh]"
+                        className="bg-white dark:bg-[#080b0f] w-full max-w-4xl rounded-t-[2.5rem] sm:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-t sm:border border-border relative overflow-hidden animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-700 flex flex-col max-h-[92vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Sublime Ambient Glows - Enhanced Saturation */}
@@ -719,16 +719,16 @@ export default function ProfilePage() {
                                     <Settings size={22} className="group-hover:rotate-90 transition-transform duration-700 ease-in-out" />
                                 </div>
                                 <div className="space-y-0.5">
-                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Preferencias</h3>
+                                    <h3 className="text-xl font-bold text-text-primary tracking-tight">Preferencias</h3>
                                     <div className="flex items-center gap-2">
                                         <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></span>
-                                        <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Sincronización Perfil IA</span>
+                                        <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Sincronización Perfil IA</span>
                                     </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsEditModalOpen(false)}
-                                className="w-10 h-10 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+                                className="w-10 h-10 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 flex items-center justify-center text-slate-400 hover:text-text-primary transition-all"
                             >
                                 <X size={24} />
                             </button>
@@ -754,7 +754,7 @@ export default function ProfilePage() {
                                                     type="text"
                                                     value={editName}
                                                     onChange={(e) => setEditName(e.target.value)}
-                                                    className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl px-5 text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 focus:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)] transition-all placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                                                    className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl px-5 text-sm font-semibold text-text-primary focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 focus:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)] transition-all placeholder:text-slate-300 dark:placeholder:text-slate-700"
                                                     placeholder="Tu nombre en el sistema..."
                                                 />
                                             </div>
@@ -796,12 +796,12 @@ export default function ProfilePage() {
 
                                             {/* Preview Card */}
                                             <div className="flex items-center gap-6 p-5 bg-primary/[0.03] dark:bg-primary/[0.04] rounded-2xl border border-primary/10">
-                                                <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-900 border border-primary/20 shadow-sm flex items-center justify-center overflow-hidden">
+                                                <div className="w-14 h-14 rounded-xl bg-surface border border-primary/20 shadow-sm flex items-center justify-center overflow-hidden">
                                                     {editPhoto ? <img src={editPhoto} alt="Sel" className="w-full h-full object-contain" /> : <UserIcon className="text-slate-300" />}
                                                 </div>
                                                 <div>
-                                                    <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">Avatar Seleccionado</p>
-                                                    <p className="text-sm font-bold text-slate-800 dark:text-white">Identidad Confirmada</p>
+                                                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest leading-none mb-1">Avatar Seleccionado</p>
+                                                    <p className="text-sm font-bold text-text-primary">Identidad Confirmada</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -827,7 +827,7 @@ export default function ProfilePage() {
                                                                 name={`power_p${p === 'P1' ? '1' : '2'}`}
                                                                 value={consumptionSettings[`power_p${p === 'P1' ? '1' : '2'}` as keyof typeof consumptionSettings]}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl pl-12 pr-4 text-sm font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-primary/40 transition-all text-right"
+                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl pl-12 pr-4 text-sm font-mono font-bold text-text-primary focus:outline-none focus:border-primary/40 transition-all text-right"
                                                                 placeholder="4.60"
                                                             />
                                                         </div>
@@ -847,7 +847,7 @@ export default function ProfilePage() {
                                                                 name={`energy_p${idx + 1}`}
                                                                 value={consumptionSettings[`energy_p${idx + 1}` as keyof typeof consumptionSettings]}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl px-2 text-center text-sm font-mono font-bold text-slate-900 dark:text-white focus:outline-none focus:border-primary/40 relative z-10 transition-all"
+                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl px-2 text-center text-sm font-mono font-bold text-text-primary focus:outline-none focus:border-primary/40 relative z-10 transition-all"
                                                                 placeholder="120"
                                                             />
                                                         </div>
@@ -866,7 +866,7 @@ export default function ProfilePage() {
                                                             name="days"
                                                             value={consumptionSettings.days}
                                                             onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 rounded-xl pl-10 pr-12 text-sm font-bold text-slate-900 dark:text-white focus:outline-none"
+                                                            className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl pl-10 pr-12 text-sm font-bold text-text-primary focus:outline-none"
                                                         />
                                                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] font-bold text-slate-400 uppercase">Días</span>
                                                     </div>
@@ -927,15 +927,15 @@ export default function ProfilePage() {
                     onClick={() => setIsDetailsModalOpen(false)}
                 >
                     <div
-                        className="bg-white dark:bg-slate-900 w-full max-w-5xl h-[90vh] lg:h-[80vh] rounded-[2rem] lg:rounded-[3rem] shadow-[0_32px_128px_rgba(0,0,0,0.5)] border border-white/20 relative overflow-hidden flex flex-col lg:flex-row animate-in slide-in-from-bottom-12 zoom-in-95 duration-700"
+                        className="bg-surface w-full max-w-5xl h-[90vh] lg:h-[80vh] rounded-[2rem] lg:rounded-[3rem] shadow-[0_32px_128px_rgba(0,0,0,0.5)] border border-white/20 relative overflow-hidden flex flex-col lg:flex-row animate-in slide-in-from-bottom-12 zoom-in-95 duration-700"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
 
                         {/* LEFT VIEW (DESKTOP): DOCUMENT PREVIEW */}
                         {selectedBill.invoiceFileUrl && (
-                            <div className="hidden lg:flex w-1/2 h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/50 flex-col">
-                                <div className="p-4 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                            <div className="hidden lg:flex w-1/2 h-full rounded-2xl overflow-hidden border border-border bg-surface-2 flex-col">
+                                <div className="p-4 bg-surface-2 border-b border-border flex items-center justify-between">
                                     <div className="flex items-center gap-2">
                                         <FileText className="w-5 h-5 text-primary" />
                                         <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Documento Original</span>
@@ -990,7 +990,7 @@ export default function ProfilePage() {
                                         setIsZoomed(false);
                                         setIsDetailsModalOpen(false);
                                     }}
-                                    className="absolute -top-1 -right-1 lg:relative lg:top-0 lg:right-0 w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
+                                    className="absolute -top-1 -right-1 lg:relative lg:top-0 lg:right-0 w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-surface-2 flex items-center justify-center text-slate-400 hover:text-primary transition-colors"
                                 >
                                     <X size={18} />
                                 </button>
@@ -999,7 +999,7 @@ export default function ProfilePage() {
                             <div className="flex-1 overflow-y-auto overflow-x-hidden pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 mb-4">
                                 <div className="space-y-4 lg:space-y-6">
-                                    <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 flex flex-col items-center text-center lg:items-start lg:text-left">
+                                    <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                             <span className="w-1 h-1 bg-primary rounded-full"></span> Término de Potencia
                                         </p>
@@ -1015,7 +1015,7 @@ export default function ProfilePage() {
                                         </div>
                                     </div>
 
-                                    <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 flex flex-col items-center text-center lg:items-start lg:text-left">
+                                    <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                             <span className="w-1 h-1 bg-primary rounded-full"></span> Información General
                                         </p>
@@ -1032,26 +1032,26 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
 
-                                <div className="p-3.5 sm:p-5 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 h-full flex flex-col items-center text-center lg:items-start lg:text-left">
+                                <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border h-full flex flex-col items-center text-center lg:items-start lg:text-left">
                                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
                                         <span className="w-1 h-1 bg-primary rounded-full"></span> Energía Consumida (kWh)
                                     </p>
                                     <div className="space-y-4 w-full">
-                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                        <div className="flex justify-between items-center pb-2 border-b border-border">
                                             <span className="text-xs font-bold text-orange-500">P1 (Punta)</span>
                                             <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p1?.toFixed(1) || "0.0"} kWh</span>
                                         </div>
-                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                        <div className="flex justify-between items-center pb-2 border-b border-border">
                                             <span className="text-xs font-bold text-blue-500">P2 (Llano)</span>
                                             <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p2?.toFixed(1) || "0.0"} kWh</span>
                                         </div>
-                                        <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-700/50">
+                                        <div className="flex justify-between items-center pb-2 border-b border-border">
                                             <span className="text-xs font-bold text-green-500">P3 (Valle)</span>
                                             <span className="font-mono font-bold dark:text-white">{selectedBill.energy_p3?.toFixed(1) || "0.0"} kWh</span>
                                         </div>
                                         <div className="pt-2 flex justify-between items-center mt-2">
                                             <span className="text-xs font-black uppercase text-slate-400">Total</span>
-                                            <span className="text-xl font-mono font-black text-slate-900 dark:text-white">
+                                            <span className="text-xl font-mono font-black text-text-primary">
                                                 {((selectedBill.energy_p1 || 0) + (selectedBill.energy_p2 || 0) + (selectedBill.energy_p3 || 0)).toFixed(1)} kWh
                                             </span>
                                         </div>
@@ -1060,7 +1060,7 @@ export default function ProfilePage() {
                             </div>
                             
                             {/* CIRCULAR VISUAL BREAKDOWN WIDGET */}
-                            <div className="flex-grow flex flex-col p-4 sm:p-5 lg:p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800/50 min-h-[260px] lg:mt-2 mb-8 lg:mb-10 lg:pb-8">
+                            <div className="flex-grow flex flex-col p-4 sm:p-5 lg:p-6 bg-surface-2 rounded-2xl border border-border min-h-[260px] lg:mt-2 mb-8 lg:mb-10 lg:pb-8">
                                 <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3 lg:mb-4 flex items-center gap-2">
                                     <span className="w-1 h-1 bg-primary rounded-full"></span> Gráfico de Consumo por Tramos
                                 </p>
@@ -1084,8 +1084,8 @@ export default function ProfilePage() {
                                                          style={{ background: `conic-gradient(${gradientStops})` }}>
                                                         {/* Inner hollow circle to make it a donut */}
                                                         <div className="w-[70%] h-[70%] bg-slate-50 dark:bg-slate-900 rounded-full shadow-inner flex flex-col items-center justify-center z-10 border border-white/50 dark:border-slate-800/50 backdrop-blur-sm">
-                                                            <Clock className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 text-slate-400 dark:text-slate-500 mb-0.5" />
-                                                            <span className="text-[10px] sm:text-xs lg:text-sm font-black text-slate-800 dark:text-white leading-none">{total.toFixed(0)}</span>
+                                                            <Clock className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 text-text-muted mb-0.5" />
+                                                            <span className="text-[10px] sm:text-xs lg:text-sm font-black text-text-primary leading-none">{total.toFixed(0)}</span>
                                                             <span className="text-[6px] sm:text-[7px] uppercase font-bold text-slate-400 tracking-widest mt-0.5">kWh Total</span>
                                                         </div>
                                                         {/* Decorative outer glow based on colors could go here, but conic-gradient is enough */}
@@ -1094,7 +1094,7 @@ export default function ProfilePage() {
 
                                                     {/* LIST OF PERIODS */}
                                                     <div className="flex flex-col gap-2 w-full sm:w-auto mt-4 sm:mt-0">
-                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-orange-500/30 transition-colors">
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-surface p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-orange-500/30 transition-colors">
                                                             <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-orange-500 shrink-0 shadow-[0_0_12px_rgba(249,115,22,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
                                                                 <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Punta</span>
@@ -1105,7 +1105,7 @@ export default function ProfilePage() {
                                                             </div>
                                                         </div>
                                                         
-                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-blue-500/30 transition-colors">
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-surface p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-blue-500/30 transition-colors">
                                                             <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-blue-500 shrink-0 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
                                                                 <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Llano</span>
@@ -1116,7 +1116,7 @@ export default function ProfilePage() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex items-center gap-3 lg:gap-4 bg-white dark:bg-slate-900/60 p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-green-500/30 transition-colors">
+                                                        <div className="flex items-center gap-3 lg:gap-4 bg-surface p-2.5 lg:p-3.5 rounded-2xl border border-slate-150 dark:border-slate-800 shadow-sm hover:border-green-500/30 transition-colors">
                                                             <div className="w-2.5 lg:w-3.5 h-2.5 lg:h-3.5 rounded-full bg-green-500 shrink-0 shadow-[0_0_12px_rgba(34,197,94,0.6)]"></div>
                                                             <div className="flex flex-col flex-1">
                                                                 <span className="text-[9px] lg:text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">Valle</span>
@@ -1144,13 +1144,13 @@ export default function ProfilePage() {
                             
 
 
-                            <div className="flex flex-col sm:flex-row gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+                            <div className="flex flex-col sm:flex-row gap-2.5 pt-4 border-t border-border mt-4">
                                 {selectedBill.invoiceFileUrl && (
                                     <a
                                         href={selectedBill.invoiceFileUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="lg:hidden w-full sm:flex-1 h-10 sm:h-12 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-bold hover:bg-slate-200 transition-all border border-slate-200 dark:border-slate-700"
+                                        className="lg:hidden w-full sm:flex-1 h-10 sm:h-12 bg-surface-2 text-text-primary rounded-2xl flex items-center justify-center gap-2 text-[10px] sm:text-[11px] font-bold hover:bg-slate-200 transition-all border border-border"
                                     >
                                         <FileText className="w-3.5 h-3.5" />
                                         Ver Documento Original

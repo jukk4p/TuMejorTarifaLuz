@@ -83,7 +83,7 @@ export default function NotificationsManagementPage() {
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'tariff_update': return <Zap className="text-amber-500" size={18} />;
+            case 'tariff_update': return <Zap className="text-warning" size={18} />;
             case 'system_update': return <ShieldAlert className="text-primary" size={18} />;
             case 'price_drop': return <Zap className="text-emerald-500" size={18} />;
             case 'new_tariff': return <Megaphone className="text-blue-500" size={18} />;
@@ -103,19 +103,19 @@ export default function NotificationsManagementPage() {
                 <div className="flex items-center gap-4">
                     <button 
                         onClick={() => router.back()}
-                        className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-50 transition-colors"
+                        className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-border flex items-center justify-center hover:bg-slate-50 transition-colors"
                     >
-                        <ChevronLeft size={20} className="text-slate-600 dark:text-slate-400" />
+                        <ChevronLeft size={20} className="text-text-secondary" />
                     </button>
                     <div>
                         <h1 className="text-3xl font-extrabold tracking-tight dark:text-white uppercase">Gestión de Notificaciones</h1>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium text-sm">Administra los avisos y comunicaciones directas con los usuarios.</p>
+                        <p className="text-text-secondary font-medium text-sm">Administra los avisos y comunicaciones directas con los usuarios.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleCreateGlobal}
                     disabled={isCreating}
-                    className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-2xl flex items-center gap-2 text-xs font-900 uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
+                    className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-2xl flex items-center gap-2 text-xs font-900 uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
                 >
                     <Plus size={16} />
                     Nueva Notificación Global
@@ -127,14 +127,14 @@ export default function NotificationsManagementPage() {
                 <div className="lg:col-span-1 premium-card p-6 space-y-4">
                     <div className="space-y-1">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Enviadas</p>
-                        <p className="text-4xl font-extrabold text-slate-900 dark:text-white">{notifications.length}</p>
+                        <p className="text-4xl font-extrabold text-text-primary">{notifications.length}</p>
                     </div>
-                    <div className="h-px bg-slate-100 dark:bg-slate-800"></div>
+                    <div className="h-px bg-surface-2"></div>
                     <div className="space-y-2">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Filtros Rápidos</p>
                         <div className="flex flex-wrap gap-2">
                             <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black rounded-full uppercase">SISTEMA</span>
-                            <span className="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-black rounded-full uppercase">TARIFAS</span>
+                            <span className="px-3 py-1 bg-warning/10 text-warning text-[10px] font-black rounded-full uppercase">TARIFAS</span>
                             <span className="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-black rounded-full uppercase">OFERTAS</span>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ export default function NotificationsManagementPage() {
                             placeholder="Buscar en el historial de notificaciones..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 h-14 pl-12 pr-4 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                            className="w-full bg-surface-2 border border-border h-14 pl-12 pr-4 rounded-2xl text-sm font-bold outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         />
                     </div>
                 </div>
@@ -156,7 +156,7 @@ export default function NotificationsManagementPage() {
 
             {/* Notifications List */}
             <div className="premium-card overflow-hidden">
-                <div className="px-8 py-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/30">
+                <div className="px-8 py-5 border-b border-border bg-surface-2">
                     <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Historial Cronológico</h3>
                 </div>
                 
@@ -176,7 +176,7 @@ export default function NotificationsManagementPage() {
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
-                            <thead className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-800">
+                            <thead className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-border">
                                 <tr>
                                     <th className="px-8 py-4">Aviso</th>
                                     <th className="px-8 py-4">Mensaje</th>
@@ -190,17 +190,17 @@ export default function NotificationsManagementPage() {
                                     <tr key={notif.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                                         <td className="px-8 py-6">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
+                                                <div className="w-10 h-10 rounded-xl bg-surface border border-border flex items-center justify-center shadow-sm">
                                                     {getIcon(notif.type)}
                                                 </div>
                                                 <div className="space-y-0.5">
                                                     <p className="text-sm font-black dark:text-white truncate max-w-[150px]">{notif.title}</p>
-                                                    <span className="text-[8px] font-black px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded uppercase">{notif.type.replace('_', ' ')}</span>
+                                                    <span className="text-[8px] font-black px-1.5 py-0.5 bg-surface-2 text-slate-500 rounded uppercase">{notif.type.replace('_', ' ')}</span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-8 py-6">
-                                            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 max-w-sm font-medium">
+                                            <p className="text-xs text-text-secondary line-clamp-2 max-w-sm font-medium">
                                                 {notif.message}
                                             </p>
                                         </td>

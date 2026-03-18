@@ -71,7 +71,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                             <Lock className="w-8 h-8 font-bold" />
                         </div>
                         <h1 className="text-2xl font-extrabold dark:text-white uppercase transition-colors">Acceso Admin</h1>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Introduce tus credenciales para gestionar el catálogo.</p>
+                        <p className="text-sm text-text-secondary font-medium">Introduce tus credenciales para gestionar el catálogo.</p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-6">
@@ -109,7 +109,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
                         <div className="flex items-center justify-between text-xs pt-2">
                             <label className="flex items-center gap-2 cursor-pointer group">
-                                <div className={`w-5 h-5 rounded-md border-2 ${rememberMe ? 'bg-primary border-primary' : 'border-slate-200 dark:border-slate-700'} group-hover:border-primary transition-colors flex items-center justify-center`}>
+                                <div className={`w-5 h-5 rounded-md border-2 ${rememberMe ? 'bg-primary border-primary' : 'border-border'} group-hover:border-primary transition-colors flex items-center justify-center`}>
                                     <input 
                                         type="checkbox" 
                                         className="hidden" 
@@ -118,7 +118,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                                     />
                                     {rememberMe && <Check className="w-3 h-3 text-white" />}
                                 </div>
-                                <span className="font-bold text-slate-500 dark:text-slate-400">Recordarme</span>
+                                <span className="font-bold text-text-secondary">Recordarme</span>
                             </label>
                         </div>
 
@@ -132,7 +132,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs"
+                            className="w-full bg-primary hover:bg-primary-hover text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs"
                         >
                             {loading ? "Cargando..." : "Entrar al Panel"}
                         </button>

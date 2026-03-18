@@ -18,7 +18,7 @@ export default function LogsPage() {
             <div className="premium-card p-8">
                 <div className="space-y-4">
                     {logs.map((log, i) => (
-                        <div key={i} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                        <div key={i} className="flex items-center justify-between p-4 bg-surface-2 rounded-xl border border-border">
                             <div className="flex items-center gap-4">
                                 <span className="font-mono text-[11px] text-slate-400">{log.time}</span>
                                 <div className="space-y-0.5">
@@ -26,7 +26,7 @@ export default function LogsPage() {
                                     <p className="text-[10px] text-slate-400 font-bold uppercase">Usuario: {log.user}</p>
                                 </div>
                             </div>
-                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${log.status === 'success' ? 'bg-success/10 text-success' : 'bg-amber-500/10 text-amber-500'
+                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${log.status === 'success' ? 'bg-accent-bg text-accent' : 'bg-warning/10 text-warning'
                                 }`}>
                                 {log.status}
                             </span>

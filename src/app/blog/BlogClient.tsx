@@ -40,14 +40,14 @@ export default function BlogClient() {
                 { name: "Inicio", item: "/" },
                 { name: "Blog de Ahorro", item: "/blog" }
             ])} />
-            <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-32 pb-20">
+            <main className="min-h-screen bg-slate-50 dark:bg-background pt-32 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="text-center max-w-3xl mx-auto mb-16 px-4">
-                        <h1 className="text-4xl md:text-6xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
+                        <h1 className="font-heading text-4xl md:text-6xl font-bold text-text-primary mb-6 uppercase tracking-tight leading-[1.1]">
                             Blog de <span className="text-primary italic">Ahorro Energético</span>
                         </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
+                        <p className="text-lg text-text-secondary font-medium">
                             Consejos, guías y noticias para que tomes el control de tu factura de luz y descubras cómo optimizar tu consumo.
                         </p>
                     </div>
@@ -62,7 +62,7 @@ export default function BlogClient() {
                                 placeholder="Busca guías de ahorro, tarifas, autoconsumo..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-[2rem] py-5 pl-16 pr-8 outline-none focus:border-primary/50 focus:shadow-2xl focus:shadow-primary/5 transition-all text-sm font-medium dark:text-white"
+                                className="w-full bg-white dark:bg-slate-800 border-2 border-border rounded-[2rem] py-5 pl-16 pr-8 outline-none focus:border-primary/50 focus:shadow-2xl focus:shadow-primary/5 transition-all text-sm font-medium dark:text-white"
                             />
                             {searchQuery && (
                                 <button 
@@ -83,7 +83,7 @@ export default function BlogClient() {
                                     className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 border shadow-sm shrink-0
                                         ${selectedCategory === cat.name
                                             ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-xl shadow-slate-900/10"
-                                            : "bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-100 dark:border-slate-700 hover:border-primary hover:text-primary"
+                                            : "bg-white dark:bg-slate-800 text-text-secondary border-border hover:border-primary hover:text-primary"
                                         }`}
                                 >
                                     {cat.icon && <cat.icon size={16} />}
@@ -99,7 +99,7 @@ export default function BlogClient() {
                             {filteredPosts.map((post) => (
                                 <article
                                     key={post.id}
-                                    className="premium-card group bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-800"
+                                    className="premium-card group bg-surface overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 border border-border"
                                 >
                                     <Link href={`/blog/${post.slug}`} className="relative block aspect-video overflow-hidden">
                                         <Image
@@ -116,23 +116,23 @@ export default function BlogClient() {
                                     </Link>
 
                                     <div className="p-8 flex flex-col flex-grow">
-                                        <div className="flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">
+                                        <div className="flex items-center gap-4 font-body text-xs font-normal opacity-60 text-slate-400 uppercase tracking-widest mb-4">
                                             <span>{new Date(post.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
                                             <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
                                             <span>{post.readTime}</span>
                                         </div>
 
-                                        <h2 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">
+                                        <h2 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight">
                                             <Link href={`/blog/${post.slug}`}>
                                                 {post.title}
                                             </Link>
                                         </h2>
 
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 flex-grow">
+                                        <p className="text-sm text-text-secondary leading-relaxed mb-6 flex-grow">
                                             {post.excerpt}
                                         </p>
 
-                                        <div className="pt-6 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between mt-auto">
+                                        <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
                                             <Link href={`/blog/${post.slug}`} className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-2 group/btn">
                                                 Leer más
                                                 <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -143,12 +143,12 @@ export default function BlogClient() {
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-white dark:bg-slate-800/50 rounded-[2rem] p-16 text-center border-2 border-dashed border-slate-100 dark:border-slate-800">
-                            <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div className="bg-white dark:bg-slate-800/50 rounded-[2rem] p-16 text-center border-2 border-dashed border-border">
+                            <div className="w-20 h-20 bg-surface-2 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <Search className="text-slate-400" size={32} />
                             </div>
-                            <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-2">No se encontraron guías</h3>
-                            <p className="text-slate-500 dark:text-slate-400">Intenta con otros términos o cambia la categoría.</p>
+                            <h3 className="text-xl font-800 text-text-primary mb-2">No se encontraron guías</h3>
+                            <p className="text-text-secondary">Intenta con otros términos o cambia la categoría.</p>
                             <button 
                                 onClick={() => { setSearchQuery(""); setSelectedCategory("Todos"); }}
                                 className="mt-8 text-primary font-bold text-sm uppercase tracking-widest hover:underline"
@@ -162,7 +162,7 @@ export default function BlogClient() {
                     <div className="mt-24 p-8 md:p-16 bg-slate-900 dark:bg-slate-800 rounded-[2rem] text-center text-white relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
                         <div className="relative z-10 max-w-2xl mx-auto">
-                            <h2 className="text-3xl font-800 mb-6 font-display">¿Quieres más consejos de ahorro?</h2>
+                            <h2 className="font-heading text-3xl font-semibold mb-6">¿Quieres más consejos de ahorro?</h2>
                             <p className="text-slate-400 mb-10">Únete a nuestra newsletter y recibe una selección quincenal de las mejores tarifas y trucos energéticos.</p>
                             <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
                                 <input
@@ -170,7 +170,7 @@ export default function BlogClient() {
                                     placeholder="Tu correo electrónico"
                                     className="flex-grow bg-slate-800 border border-slate-700 rounded-xl px-6 py-4 outline-none focus:border-primary transition-colors text-white"
                                 />
-                                <button className="bg-primary hover:bg-primary/90 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary/20">
+                                <button className="bg-primary hover:bg-primary-hover text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary/20">
                                     Suscribirme
                                 </button>
                             </form>

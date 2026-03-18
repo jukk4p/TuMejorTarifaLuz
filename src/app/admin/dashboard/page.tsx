@@ -95,15 +95,15 @@ export default function DashboardPage() {
     const stats = [
         { label: "Total Tarifas", value: totalTariffs, color: "text-primary", bg: "bg-primary/10", icon: Archive },
         { label: "Compañías", value: totalCompanies, color: "text-emerald-500", bg: "bg-emerald-500/10", icon: Building2 },
-        { label: "Servicio Cloud", value: "Online", color: "text-success", bg: "bg-success/10", icon: BadgeCheck },
-        { label: "Sincronización", value: "Auto", color: "text-amber-500", bg: "bg-amber-500/10", icon: Clock },
+        { label: "Servicio Cloud", value: "Online", color: "text-accent", bg: "bg-accent-bg", icon: BadgeCheck },
+        { label: "Sincronización", value: "Auto", color: "text-warning", bg: "bg-warning/10", icon: Clock },
     ];
 
     return (
         <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="space-y-2">
                 <h1 className="text-3xl font-extrabold tracking-tight dark:text-white uppercase">Panel de Control <span className="text-primary">(Admin)</span></h1>
-                <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl">Gestión global de la plataforma, actualización de tarifas y comunicaciones directas con usuarios.</p>
+                <p className="text-text-secondary font-medium max-w-2xl">Gestión global de la plataforma, actualización de tarifas y comunicaciones directas con usuarios.</p>
             </div>
 
             {/* Stats Grid */}
@@ -125,7 +125,7 @@ export default function DashboardPage() {
             <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-6">
                     <div className="premium-card overflow-hidden !border-none !shadow-md">
-                        <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
+                        <div className="px-8 py-6 border-b border-border flex justify-between items-center bg-surface">
                             <div>
                                 <h3 className="font-extrabold text-lg dark:text-white">Últimas Tarifas Añadidas</h3>
                                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Sincronización en tiempo real con la nube</p>
@@ -137,9 +137,9 @@ export default function DashboardPage() {
                                 Ver base completa →
                             </button>
                         </div>
-                        <div className="overflow-x-auto bg-white dark:bg-slate-900">
+                        <div className="overflow-x-auto bg-surface">
                             <table className="w-full text-left">
-                                <thead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-50 dark:border-slate-800">
+                                <thead className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-border">
                                     <tr>
                                         <th className="px-8 py-4">Empresa</th>
                                         <th className="px-8 py-4">Tarifa</th>
@@ -152,7 +152,7 @@ export default function DashboardPage() {
                                         <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer group">
                                             <td className="px-8 py-5">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center border border-slate-100 dark:border-slate-700 overflow-hidden p-1 shadow-sm">
+                                                    <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center border border-border overflow-hidden p-1 shadow-sm">
                                                         {getLogoPath(tariff.company, mounted && resolvedTheme === 'dark') ? (
                                                             <img
                                                                 src={getLogoPath(tariff.company, mounted && resolvedTheme === 'dark')!}
@@ -167,9 +167,9 @@ export default function DashboardPage() {
                                                 </div>
                                             </td>
                                             <td className="px-8 py-5">
-                                                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{tariff.name}</p>
+                                                <p className="text-xs text-text-secondary font-medium">{tariff.name}</p>
                                             </td>
-                                            <td className="px-8 py-5 font-mono text-xs font-bold text-slate-900 dark:text-white">
+                                            <td className="px-8 py-5 font-mono text-xs font-bold text-text-primary">
                                                 {(tariff.e1_kwh ?? 0).toFixed(4)}
                                             </td>
                                             <td className="px-8 py-5">
@@ -191,25 +191,25 @@ export default function DashboardPage() {
                     {changes.length > 0 && (
                         <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-[2rem] p-8 space-y-6 animate-in zoom-in-95 duration-500">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-amber-500 rounded-2xl text-white shadow-lg shadow-amber-500/20">
+                                <div className="p-3 bg-warning rounded-2xl text-white shadow-lg shadow-amber-500/20">
                                     <AlertCircle className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h3 className="font-black text-lg text-amber-900 dark:text-amber-500 uppercase leading-none">Diferencias Detectadas</h3>
-                                    <p className="text-[10px] text-amber-700/60 dark:text-amber-500/60 font-black uppercase tracking-widest">data.json vs cloud snapshot</p>
+                                    <h3 className="font-black text-lg text-amber-900 dark:text-warning uppercase leading-none">Diferencias Detectadas</h3>
+                                    <p className="text-[10px] text-amber-700/60 dark:text-warning/60 font-black uppercase tracking-widest">data.json vs cloud snapshot</p>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
                                 {changes.map((change, i) => (
-                                    <div key={i} className="flex items-center justify-between bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-amber-200/50 dark:border-amber-900/30">
+                                    <div key={i} className="flex items-center justify-between bg-surface p-4 rounded-xl border border-amber-200/50 dark:border-amber-900/30">
                                         <div className="flex items-center gap-3">
-                                            {change.type === 'down' ? <TrendingDown size={14} className="text-emerald-500" /> : <TrendingUp size={14} className="text-amber-500" />}
+                                            {change.type === 'down' ? <TrendingDown size={14} className="text-emerald-500" /> : <TrendingUp size={14} className="text-warning" />}
                                             <span className="text-xs font-bold dark:text-white uppercase truncate max-w-[120px]">{change.tariff.company}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="text-[10px] font-mono text-slate-400 line-through">{change.previousPrice.toFixed(4)}€</span>
-                                            <span className={`text-[11px] font-mono font-black ${change.type === 'down' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                                            <span className={`text-[11px] font-mono font-black ${change.type === 'down' ? 'text-emerald-500' : 'text-warning'}`}>
                                                 {change.currentPrice.toFixed(4)}€
                                             </span>
                                         </div>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
                             <button
                                 onClick={handleSyncAndNotify}
                                 disabled={isSyncing}
-                                className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-2xl shadow-xl shadow-amber-500/20 transition-all active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest disabled:opacity-50"
+                                className="w-full bg-warning hover:bg-amber-600 text-white font-black py-4 rounded-2xl shadow-xl shadow-amber-500/20 transition-all active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest disabled:opacity-50"
                             >
                                 {isSyncing ? <RefreshCcw className="animate-spin w-4 h-4" /> : <CheckCircle2 className="w-4 h-4" />}
                                 Sincronizar y Notificar {changes.length} Cambios
@@ -237,7 +237,7 @@ export default function DashboardPage() {
                         <div className="space-y-3">
                             <button
                                 onClick={() => router.push("/admin/dashboard/tarifas")}
-                                className="w-full flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl hover:bg-primary/10 hover:text-primary transition-all group border border-transparent hover:border-primary/20"
+                                className="w-full flex items-center gap-4 p-4 bg-surface-2 rounded-2xl hover:bg-primary/10 hover:text-primary transition-all group border border-transparent hover:border-primary/20"
                             >
                                 <div className="p-2.5 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                                     <PlusCircle className="w-5 h-5" />
@@ -264,7 +264,7 @@ export default function DashboardPage() {
 
                             <button
                                 onClick={() => router.push("/admin/dashboard/notificaciones")}
-                                className="w-full flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all group border border-slate-200 dark:border-slate-800"
+                                className="w-full flex items-center gap-4 p-4 bg-surface-2 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all group border border-border"
                             >
                                 <div className="p-2.5 bg-white dark:bg-slate-700 rounded-xl group-hover:bg-slate-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-slate-900 transition-colors shadow-sm">
                                     <Clock className="w-5 h-5" />
@@ -274,9 +274,9 @@ export default function DashboardPage() {
                         </div>
                     </div>
 
-                    <div className="p-6 bg-slate-100/50 dark:bg-slate-800/30 rounded-[2rem] border border-slate-200 dark:border-slate-800">
+                    <div className="p-6 bg-surface-2 rounded-[2rem] border border-border">
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">CONSEJO DE SEGURIDAD</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                        <p className="text-xs text-text-secondary leading-relaxed font-medium">
                             Cualquier cambio en las tarifas o notificaciones globales es **irreversible** y afecta a todos los usuarios registrados en tiempo real.
                         </p>
                     </div>

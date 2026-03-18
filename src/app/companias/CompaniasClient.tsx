@@ -19,7 +19,7 @@ export default function CompaniasClient() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-24 pb-20">
+            <main className="min-h-screen bg-slate-50 dark:bg-background pt-24 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Hero Section */}
                     <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
@@ -27,10 +27,10 @@ export default function CompaniasClient() {
                             <ShieldCheck className="w-4 h-4" />
                             Análisis Imparcial
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-800 text-slate-900 dark:text-white leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-800 text-text-primary leading-tight">
                             Mejores <span className="text-primary">Comercializadoras</span> Eléctricas 2026
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400">
+                        <p className="text-xl text-text-secondary">
                             Analizamos a fondo cada compañía para que elijas basándote en datos reales, atención al cliente y transparencia.
                         </p>
                     </div>
@@ -41,7 +41,7 @@ export default function CompaniasClient() {
                             <Link
                                 key={provider.id}
                                 href={`/companias/${provider.slug}`}
-                                className="group premium-card p-10 flex flex-col hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-800/50 bg-white dark:bg-slate-900"
+                                className="group premium-card p-10 flex flex-col hover:shadow-2xl transition-all duration-500 border border-border bg-surface"
                             >
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="w-24 h-12 relative flex items-center justify-center transition-all duration-500">
@@ -52,7 +52,7 @@ export default function CompaniasClient() {
                                         />
                                     </div>
                                     <div className="flex flex-col items-end">
-                                        <div className="flex items-center gap-1 text-amber-500 mb-1">
+                                        <div className="flex items-center gap-1 text-warning mb-1">
                                             <Star className="w-5 h-5 fill-current" />
                                             <span className="font-bold text-lg">{provider.rating}</span>
                                         </div>
@@ -60,25 +60,25 @@ export default function CompaniasClient() {
                                     </div>
                                 </div>
 
-                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors">
+                                <h3 className="text-2xl font-800 text-text-primary mb-4 group-hover:text-primary transition-colors">
                                     {provider.name}
                                 </h3>
 
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">
+                                <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">
                                     {provider.description.substring(0, 120)}...
                                 </p>
 
                                 <div className="space-y-3 mb-8">
                                     {provider.pros.slice(0, 2).map((pro, i) => (
-                                        <div key={i} className="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                                        <div key={i} className="flex items-center gap-2 text-xs font-medium text-text-secondary">
                                             <CheckCircle className="w-4 h-4 text-emerald-500" />
                                             {pro}
                                         </div>
                                     ))}
                                 </div>
 
-                                <div className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex items-center justify-between mt-auto">
-                                    <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest group-hover:translate-x-1 transition-transform inline-flex items-center gap-2">
+                                <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
+                                    <span className="text-xs font-bold text-text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-2">
                                         Ver análisis completo
                                         <ArrowRight className="w-4 h-4 text-primary" />
                                     </span>
@@ -88,11 +88,11 @@ export default function CompaniasClient() {
                     </div>
 
                     {/* FAQ / Trust Content */}
-                    <div className="mt-32 p-12 bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div className="mt-32 p-12 bg-surface rounded-[2.5rem] border border-border relative overflow-hidden">
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div>
-                                <h3 className="text-3xl font-800 text-slate-900 dark:text-white mb-6">¿Cómo puntuamos a las compañías?</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed space-y-4">
+                                <h3 className="text-3xl font-800 text-text-primary mb-6">¿Cómo puntuamos a las compañías?</h3>
+                                <p className="text-text-secondary leading-relaxed space-y-4">
                                     Nuestro equipo de expertos revisa mensualmente tres pilares fundamentales:
                                 </p>
                                 <ul className="mt-8 space-y-4">
@@ -106,8 +106,8 @@ export default function CompaniasClient() {
                                                 <BadgeCheck className="w-5 h-5" />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-slate-900 dark:text-white text-sm">{item.t}</p>
-                                                <p className="text-xs text-slate-500 dark:text-slate-400">{item.d}</p>
+                                                <p className="font-bold text-text-primary text-sm">{item.t}</p>
+                                                <p className="text-xs text-text-secondary">{item.d}</p>
                                             </div>
                                         </li>
                                     ))}
@@ -122,7 +122,7 @@ export default function CompaniasClient() {
                                                 <Shield className="w-6 h-6" />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-slate-900 dark:text-white">Garantía TuMejorTarifaLuz</p>
+                                                <p className="font-bold text-text-primary">Garantía TuMejorTarifaLuz</p>
                                                 <p className="text-xs text-slate-400 italic">Análisis 100% independiente</p>
                                             </div>
                                         </div>

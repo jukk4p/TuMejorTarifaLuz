@@ -70,7 +70,7 @@ export default function GuiasPage() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-24 pb-20">
+            <main className="min-h-screen bg-slate-50 dark:bg-background pt-24 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
@@ -78,10 +78,10 @@ export default function GuiasPage() {
                             <BookOpen className="w-4 h-4" />
                             Centro de Aprendizaje
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-800 text-slate-900 dark:text-white leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-800 text-text-primary leading-tight">
                             Guías Profesionales para el <span className="text-primary">Ahorro Energético</span>
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400">
+                        <p className="text-xl text-text-secondary">
                             Contenido experto actualizado a la normativa de 2026 para ayudarte a tomar el control de tu gasto eléctrico.
                         </p>
                     </div>
@@ -104,8 +104,8 @@ export default function GuiasPage() {
                                         <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase">{guides[0].category}</span>
                                         <span className="text-sm text-slate-400 font-medium">{guides[0].date}</span>
                                     </div>
-                                    <h2 className="text-3xl font-800 text-slate-900 dark:text-white leading-tight">{guides[0].title}</h2>
-                                    <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{guides[0].summary}</p>
+                                    <h2 className="text-3xl font-800 text-text-primary leading-tight">{guides[0].title}</h2>
+                                    <p className="text-lg text-text-secondary leading-relaxed">{guides[0].summary}</p>
                                     <Link href={`/guias/${guides[0].slug}`} className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-xl w-fit hover:shadow-xl transition-all">
                                         Leer Guía Completa
                                         <ArrowRight className="w-5 h-5" />
@@ -118,15 +118,15 @@ export default function GuiasPage() {
                     {/* Grid */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {guides.slice(1).map((guide, i) => (
-                            <div key={i} className="premium-card p-8 flex flex-col group border border-slate-100 dark:border-slate-800/50">
+                            <div key={i} className="premium-card p-8 flex flex-col group border border-border">
                                 <div className="flex items-center justify-between mb-6">
                                     <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-primary/5 px-2 py-1 rounded">{guide.category}</span>
                                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{guide.date}</span>
                                 </div>
-                                <h3 className="text-xl font-800 text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight">
+                                <h3 className="text-xl font-800 text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight">
                                     {guide.title}
                                 </h3>
-                                <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+                                <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                         src={guide.image}
@@ -134,14 +134,14 @@ export default function GuiasPage() {
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 flex-grow">
+                                <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">
                                     {guide.summary}
                                 </p>
                                 <Link
                                     href={`/guias/${guide.slug}`}
-                                    className="pt-6 border-t border-slate-100 dark:border-slate-800/50 flex items-center justify-between group-hover:bg-slate-50 dark:group-hover:bg-slate-800/20 -mx-8 px-8 transition-colors"
+                                    className="pt-6 border-t border-border flex items-center justify-between group-hover:bg-slate-50 dark:group-hover:bg-slate-800/20 -mx-8 px-8 transition-colors"
                                 >
-                                    <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest">Leer más</span>
+                                    <span className="text-xs font-bold text-text-primary uppercase tracking-widest">Leer más</span>
                                     <ArrowRight className="text-primary w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                 </Link>
                             </div>
@@ -159,7 +159,7 @@ export default function GuiasPage() {
                                     placeholder="Tu email..."
                                     className="flex-grow px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary"
                                 />
-                                <button className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">
+                                <button className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary-hover transition-all">
                                     Suscribirse
                                 </button>
                             </div>

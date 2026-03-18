@@ -96,7 +96,7 @@ export default function GuiaDetalle() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-white dark:bg-background-dark pt-24 pb-20">
+            <main className="min-h-screen bg-white dark:bg-background pt-24 pb-20">
                 <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="space-y-6 mb-12">
@@ -111,10 +111,10 @@ export default function GuiaDetalle() {
                             <span>•</span>
                             <span>8 min de lectura</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white leading-tight">
+                        <h1 className="text-4xl md:text-5xl font-800 text-text-primary leading-tight">
                             {guide.title}
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                        <p className="text-xl text-text-secondary leading-relaxed font-medium">
                             {guide.summary}
                         </p>
                     </div>
@@ -135,13 +135,13 @@ export default function GuiaDetalle() {
                     </div>
 
                     {/* Author / Share Placeholder for AdSense */}
-                    <div className="mt-16 pt-16 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="mt-16 pt-16 border-t border-border flex flex-col md:flex-row items-center justify-between gap-8">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
                                 <User className="text-slate-400 w-5 h-5" />
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">Equipo Editorial</p>
+                                <p className="text-sm font-bold text-text-primary">Equipo Editorial</p>
                                 <p className="text-xs text-slate-400">Expertos en Normativa Eléctrica</p>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ export default function GuiaDetalle() {
                             <p className="text-sm font-bold text-slate-400 uppercase">Compartir:</p>
                             <div className="flex gap-2">
                                 {[{icon: Share2, label: 'share'}, {icon: LinkIcon, label: 'link'}, {icon: Bookmark, label: 'bookmark'}].map((btn, idx) => (
-                                    <button key={idx} className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors">
+                                    <button key={idx} className="w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center hover:bg-primary/10 hover:text-primary transition-colors">
                                         <btn.icon className="w-4 h-4" />
                                     </button>
                                 ))}

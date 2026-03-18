@@ -64,31 +64,31 @@ export default function SupportSection() {
     ];
     return (
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full">
-            <p className="text-[13px] leading-relaxed max-w-sm mb-6 text-slate-500 italic">
+            <p className="text-[13px] leading-relaxed max-w-sm mb-6 text-text-muted italic">
                 Proyecto 100% independiente y gratuito. ¡Apóyanos para seguir creciendo!
             </p>
 
             <div className="relative w-full" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-[#1a2632] hover:bg-[#137fec]/10 border border-slate-800/50 hover:border-[#137fec]/30 transition-all group"
+                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-surface-2 hover:bg-primary/10 border border-border/50 hover:border-primary/30 transition-all group"
                 >
-                    <div className="w-9 h-9 rounded-xl bg-[#137fec] flex items-center justify-center text-white shadow-lg shadow-[#137fec]/20 shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0 group-hover:scale-105 transition-transform">
                         <Heart size={16} className={isOpen ? 'fill-current' : ''} />
                     </div>
                     <div className="flex flex-col text-left flex-1 min-w-0">
-                        <span className="text-[9px] font-bold tracking-widest text-[#137fec]/60 mb-0.5">Donación</span>
-                        <span className="text-[12px] font-bold text-white tracking-tight">Apoyar proyecto</span>
+                        <span className="text-[9px] font-bold tracking-widest text-primary/60 mb-0.5">Donación</span>
+                        <span className="text-[12px] font-bold text-text-primary tracking-tight">Apoyar proyecto</span>
                     </div>
                     <div className={`transition-transform duration-300 pr-1 ${isOpen ? 'rotate-180' : ''}`}>
-                        <ChevronDown size={14} className="text-slate-500 group-hover:text-slate-400" />
+                        <ChevronDown size={14} className="text-text-muted group-hover:text-text-secondary" />
                     </div>
                 </button>
 
                 {isOpen && (
-                    <div className="absolute bottom-full left-0 right-0 mb-3 bg-[#111921] rounded-2xl shadow-2xl border border-slate-800 p-2 z-[100] animate-in fade-in slide-in-from-bottom-2 duration-200 pointer-events-auto">
-                        <div className="px-3 pb-2 pt-1 border-b border-white/5 mb-1">
-                            <span className="text-[9px] font-bold text-slate-500 tracking-wider uppercase text-center block lg:text-left">Elige plataforma</span>
+                    <div className="absolute bottom-full left-0 right-0 mb-3 bg-surface rounded-2xl shadow-2xl border border-border p-2 z-[100] animate-in fade-in slide-in-from-bottom-2 duration-200 pointer-events-auto">
+                        <div className="px-3 pb-2 pt-1 border-b border-border/10 mb-1">
+                            <span className="text-[9px] font-bold text-text-muted tracking-wider uppercase text-center block lg:text-left">Elige plataforma</span>
                         </div>
                         <div className="flex flex-col gap-1 overflow-visible">
                             {platforms.map((platform) => (
@@ -103,11 +103,11 @@ export default function SupportSection() {
                                         {platform.icon}
                                     </div>
                                     <div className="flex flex-col text-left min-w-0 flex-1">
-                                        <span className="text-[11px] font-bold text-white">{platform.name}</span>
-                                        <span className="text-[10px] text-slate-500 leading-tight truncate">{platform.description}</span>
+                                        <span className="text-[11px] font-bold text-text-primary">{platform.name}</span>
+                                        <span className="text-[10px] text-text-muted leading-tight truncate">{platform.description}</span>
                                     </div>
                                     <div className="ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity shrink-0">
-                                        <ChevronRight size={12} className="text-[#137fec]" />
+                                        <ChevronRight size={12} className="text-primary" />
                                     </div>
                                 </Link>
                             ))}

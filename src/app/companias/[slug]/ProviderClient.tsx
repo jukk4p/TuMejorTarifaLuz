@@ -30,7 +30,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-white dark:bg-background-dark pt-24 pb-20">
+            <main className="min-h-screen bg-white dark:bg-background pt-24 pb-20">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header with Back Button */}
                     <div className="mb-12">
@@ -51,12 +51,12 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 />
                             </div>
                             <div className="flex-grow text-center md:text-left space-y-4">
-                                <h1 className="text-4xl md:text-5xl font-800 text-slate-900 dark:text-white">{provider.name}</h1>
-                                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">{provider.description}</p>
+                                <h1 className="text-4xl md:text-5xl font-800 text-text-primary">{provider.name}</h1>
+                                <p className="text-lg text-text-secondary max-w-2xl">{provider.description}</p>
                             </div>
                             <div className="flex flex-col items-center justify-center p-8 bg-white dark:bg-slate-800 rounded-[2rem] shadow-xl border border-primary/10">
                                 <div className="text-5xl font-900 text-primary mb-2">{provider.rating}</div>
-                                <div className="flex items-center gap-0.5 text-amber-500 mb-2">
+                                <div className="flex items-center gap-0.5 text-warning mb-2">
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
@@ -77,7 +77,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
                                     <ThumbsUp className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white">Lo mejor</h3>
+                                <h3 className="text-2xl font-800 text-text-primary">Lo mejor</h3>
                             </div>
                             <ul className="space-y-4">
                                 {provider.pros.map((pro, i) => (
@@ -95,12 +95,12 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 <div className="w-12 h-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-500/30">
                                     <ThumbsDown className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-2xl font-800 text-slate-900 dark:text-white">A mejorar</h3>
+                                <h3 className="text-2xl font-800 text-text-primary">A mejorar</h3>
                             </div>
                             <ul className="space-y-4">
                                 {provider.cons.map((con, i) => (
                                     <li key={i} className="flex items-start gap-4">
-                                        <Minus className="w-5 h-5 text-rose-500 mt-0.5 shrink-0" />
+                                        <Minus className="w-5 h-5 text-warning mt-0.5 shrink-0" />
                                         <span className="text-slate-700 dark:text-slate-300 font-medium">{con}</span>
                                     </li>
                                 ))}
@@ -112,8 +112,8 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                     <div className="space-y-10">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                             <div className="space-y-2">
-                                <h2 className="text-3xl md:text-4xl font-900 text-slate-900 dark:text-white tracking-tight">Tarifas Disponibles</h2>
-                                <p className="text-slate-500 dark:text-slate-400 font-medium">Precios actualizados mercado 2026</p>
+                                <h2 className="text-3xl md:text-4xl font-900 text-text-primary tracking-tight">Tarifas Disponibles</h2>
+                                <p className="text-text-secondary font-medium">Precios actualizados mercado 2026</p>
                             </div>
                             <div className="hidden md:block h-px flex-grow mx-8 bg-gradient-to-r from-slate-100 via-slate-200 to-transparent dark:from-slate-800 dark:via-slate-700 dark:to-transparent"></div>
                         </div>
@@ -125,12 +125,12 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                         {/* Decorative Shadow Blur */}
                                         <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-primary-dark/20 rounded-[2.5rem] blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
                                         
-                                        <div className="relative premium-card !p-0 overflow-hidden bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 transition-all duration-500">
+                                        <div className="relative premium-card !p-0 overflow-hidden bg-surface border border-border transition-all duration-500">
                                             {/* Card Top Header */}
-                                            <div className="px-8 py-5 border-b border-slate-50 dark:border-slate-800/50 flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between gap-4 bg-slate-50/50 dark:bg-slate-800/30">
+                                            <div className="px-8 py-5 border-b border-border flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between gap-4 bg-surface-2">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                                                    <h4 className="text-xl font-900 text-slate-900 dark:text-white tracking-tight">{tariff.name}</h4>
+                                                    <h4 className="text-xl font-900 text-text-primary tracking-tight">{tariff.name}</h4>
                                                 </div>
                                                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
                                                     {tariff.type}
@@ -144,10 +144,10 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                     {/* Energía Block */}
                                                     <div className="space-y-6 text-center sm:text-left">
                                                         <div className="flex items-center justify-center sm:justify-start gap-2.5">
-                                                            <div className="w-6 h-6 rounded-md bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                                            <div className="w-6 h-6 rounded-md bg-warning/10 flex items-center justify-center text-warning">
                                                                 <span className="text-[14px]">⚡</span>
                                                             </div>
-                                                            <span className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Energía</span>
+                                                            <span className="text-[11px] font-black text-text-muted uppercase tracking-[0.2em]">Energía</span>
                                                         </div>
                                                         
                                                         {(tariff.type || "").includes("3 Periodos") ? (
@@ -159,13 +159,13 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                                 ].map((item, idx) => (
                                                                     <div key={idx} className="space-y-1">
                                                                         <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-wider">{item.label}</span>
-                                                                        <span className="text-xl md:text-2xl font-900 text-slate-900 dark:text-white">{(item.val ?? 0).toFixed(4)}</span>
+                                                                        <span className="text-xl md:text-2xl font-900 text-text-primary">{(item.val ?? 0).toFixed(4)}</span>
                                                                     </div>
                                                                 ))}
                                                             </div>
                                                         ) : (
                                                             <div className="flex items-baseline justify-center sm:justify-start gap-2">
-                                                                <span className="text-3xl lg:text-4xl font-900 text-slate-900 dark:text-white group-hover:text-primary transition-colors">{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
+                                                                <span className="text-3xl lg:text-4xl font-900 text-text-primary group-hover:text-primary transition-colors">{(tariff.e1_kwh ?? 0).toFixed(4)}</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -176,7 +176,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                             <div className="w-6 h-6 rounded-md bg-blue-500/10 flex items-center justify-center text-blue-500">
                                                                 <span className="text-[14px]">🔌</span>
                                                             </div>
-                                                            <span className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Potencia</span>
+                                                            <span className="text-[11px] font-black text-text-muted uppercase tracking-[0.2em]">Potencia</span>
                                                         </div>
 
                                                         {(tariff.type || "").includes("3 Periodos") ? (
@@ -187,13 +187,13 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                                 ].map((item, idx) => (
                                                                     <div key={idx} className="space-y-1">
                                                                         <span className="block text-[9px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-wider">{item.label}</span>
-                                                                        <span className="text-xl md:text-2xl font-900 text-slate-900 dark:text-white">{(item.val ?? 0).toFixed(4)}</span>
+                                                                        <span className="text-xl md:text-2xl font-900 text-text-primary">{(item.val ?? 0).toFixed(4)}</span>
                                                                     </div>
                                                                 ))}
                                                             </div>
                                                         ) : (
                                                             <div className="flex items-baseline justify-center sm:justify-start gap-2">
-                                                                <span className="text-3xl lg:text-4xl font-900 text-slate-900 dark:text-white">{(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
+                                                                <span className="text-3xl lg:text-4xl font-900 text-text-primary">{(tariff.p1_kw_day ?? 0).toFixed(4)}</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -214,7 +214,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center py-12 p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
+                                <div className="text-center py-12 p-8 border-2 border-dashed border-border rounded-3xl">
                                     <p className="text-slate-500">Consulta nuestro comparador para ver las ofertas personalizadas de {provider.name}.</p>
                                 </div>
                             )}

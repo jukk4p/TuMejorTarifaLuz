@@ -95,8 +95,8 @@ export default function NotificationBell() {
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'tariff_update': return <Zap className="w-4 h-4 text-amber-500" />;
-            case 'price_drop': return <Megaphone className="w-4 h-4 text-success" />;
+            case 'tariff_update': return <Zap className="w-4 h-4 text-warning" />;
+            case 'price_drop': return <Megaphone className="w-4 h-4 text-accent" />;
             default: return <Info className="w-4 h-4 text-primary" />;
         }
     };
@@ -123,9 +123,9 @@ export default function NotificationBell() {
                         className="fixed inset-0 z-[100]" 
                         onClick={() => setIsOpen(false)}
                     ></div>
-                    <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 hidden sm:block">
-                        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-[#fcfdfe] dark:bg-slate-900/50">
-                            <h3 className="text-xs font-black tracking-widest text-slate-900 dark:text-white flex items-center gap-2">
+                    <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-surface border border-border rounded-2xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 hidden sm:block">
+                        <div className="p-4 border-b border-border flex justify-between items-center bg-[#fcfdfe] dark:bg-slate-900/50">
+                            <h3 className="text-xs font-black tracking-widest text-text-primary flex items-center gap-2">
                                 Notificaciones
                                 {unreadCount > 0 && <span className="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-[9px]">{unreadCount} nuevas</span>}
                             </h3>
@@ -153,12 +153,12 @@ export default function NotificationBell() {
                                             </div>
                                             <div className="flex-1 space-y-1">
                                                 <div className="flex justify-between items-start">
-                                                    <p className={`text-[11px] font-bold ${!n.readBy?.includes(user?.uid || '') ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>{n.title}</p>
+                                                    <p className={`text-[11px] font-bold ${!n.readBy?.includes(user?.uid || '') ? 'text-text-primary' : 'text-slate-500'}`}>{n.title}</p>
                                                     <span className="text-[9px] text-slate-400">
                                                         {n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}
                                                     </span>
                                                 </div>
-                                                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                                                <p className="text-[11px] text-text-secondary leading-relaxed">
                                                     {n.message}
                                                 </p>
                                                 {n.link && (
@@ -192,7 +192,7 @@ export default function NotificationBell() {
                                 ))
                             ) : (
                                 <div className="p-12 text-center space-y-3">
-                                    <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto text-slate-300">
+                                    <div className="w-12 h-12 bg-surface-2 rounded-full flex items-center justify-center mx-auto text-slate-300">
                                         <Bell size={24} />
                                     </div>
                                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">No hay notificaciones</p>
@@ -201,7 +201,7 @@ export default function NotificationBell() {
                         </div>
 
                         {notifications.length > 0 && (
-                            <div className="p-3 border-t border-slate-100 dark:border-slate-800 text-center">
+                            <div className="p-3 border-t border-border text-center">
                                 <Link 
                                     href="/notificaciones" 
                                     onClick={() => setIsOpen(false)}
@@ -214,9 +214,9 @@ export default function NotificationBell() {
                     </div>
 
                     {/* Versión Móvil: Centrada y con overlay diferente */}
-                    <div className="fixed inset-x-4 top-[72px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 sm:hidden flex flex-col max-h-[70vh]">
-                        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
-                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-900 dark:text-white"> Notificaciones </h3>
+                    <div className="fixed inset-x-4 top-[72px] bg-surface border border-border rounded-3xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 sm:hidden flex flex-col max-h-[70vh]">
+                        <div className="p-5 border-b border-border flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-primary"> Notificaciones </h3>
                             <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
                                 <X size={20} className="text-slate-400" />
                             </button>
@@ -226,15 +226,15 @@ export default function NotificationBell() {
                             {notifications.length > 0 ? (
                                 notifications.map((n) => (
                                     <div key={n.id} className={`p-5 flex gap-4 relative ${!n.readBy?.includes(user?.uid || '') ? 'bg-primary/[0.03]' : ''}`}>
-                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                        <div className="shrink-0 w-10 h-10 rounded-xl bg-surface-2 flex items-center justify-center">
                                             {getIcon(n.type)}
                                         </div>
                                         <div className="flex-1 min-w-0 space-y-1">
                                             <div className="flex justify-between items-start gap-2">
-                                                <p className={`text-xs font-black truncate ${!n.readBy?.includes(user?.uid || '') ? 'text-slate-900 dark:text-white' : 'text-slate-500'}`}>{n.title}</p>
+                                                <p className={`text-xs font-black truncate ${!n.readBy?.includes(user?.uid || '') ? 'text-text-primary' : 'text-slate-500'}`}>{n.title}</p>
                                                 <span className="shrink-0 text-[10px] font-bold text-slate-400">{n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}</span>
                                             </div>
-                                            <p className="text-xs text-slate-500 dark:text-slate-400 leading-tight">
+                                            <p className="text-xs text-text-secondary leading-tight">
                                                 {n.message}
                                             </p>
                                             <div className="flex items-center gap-4 pt-2">
@@ -259,7 +259,7 @@ export default function NotificationBell() {
                             )}
                         </div>
 
-                        <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+                        <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-border">
                             <Link href="/notificaciones" onClick={() => setIsOpen(false)} className="block w-full py-4 bg-primary text-white text-[10px] font-black text-center tracking-[0.2em] rounded-2xl shadow-lg shadow-primary/20">
                                 Ver todas las alertas
                             </Link>

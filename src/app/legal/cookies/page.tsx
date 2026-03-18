@@ -7,11 +7,11 @@ export default function Cookies() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-32 pb-20">
+            <main className="min-h-screen bg-slate-50 dark:bg-background pt-32 pb-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="premium-card p-12 md:p-16 bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 space-y-12">
+                    <div className="premium-card p-12 md:p-16 bg-surface shadow-xl border border-border space-y-12">
                         <div className="text-center space-y-4">
-                            <h1 className="text-4xl font-800 text-slate-900 dark:text-white uppercase tracking-tight">Política de Cookies</h1>
+                            <h1 className="text-4xl font-800 text-text-primary uppercase tracking-tight">Política de Cookies</h1>
                             <p className="text-slate-500 uppercase tracking-widest text-[10px] font-bold">Última actualización: Marzo 2026</p>
                         </div>
 

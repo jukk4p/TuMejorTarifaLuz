@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 { name: post.title, item: `/blog/${post.slug}` }
             ])} />
             <JsonLd data={getArticleSchema(post)} />
-            <main className="min-h-screen bg-white dark:bg-background-dark pt-32 pb-20">
+            <main className="min-h-screen bg-white dark:bg-background pt-32 pb-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}
                     <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">
@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         <ChevronRight size={10} />
                         <Link href="/blog" className="hover:text-primary transition-colors">Blog</Link>
                         <ChevronRight size={10} />
-                        <span className="text-slate-900 dark:text-white truncate max-w-[200px]">{post.title}</span>
+                        <span className="text-text-primary truncate max-w-[200px]">{post.title}</span>
                     </nav>
 
                     {/* Article Header */}
@@ -79,15 +79,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 {post.readTime} de lectura
                             </span>
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-900 text-slate-900 dark:text-white mb-8 leading-[1.1] tracking-tight">
+                        <h1 className="text-3xl md:text-5xl font-900 text-text-primary mb-8 leading-[1.1] tracking-tight">
                             {post.title}
                         </h1>
-                        <div className="flex items-center gap-4 py-6 border-y border-slate-100 dark:border-slate-800/50">
+                        <div className="flex items-center gap-4 py-6 border-y border-border">
                             <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
                                 {post.author.charAt(0)}
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-slate-900 dark:text-white">{post.author}</p>
+                                <p className="text-sm font-bold text-text-primary">{post.author}</p>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                     Publicado el {new Date(post.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
                                 </p>
@@ -117,16 +117,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     />
 
                     {/* Footer Share */}
-                    <div className="mt-16 pt-8 border-t border-slate-100 dark:border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-6">
-                        <p className="text-sm font-bold text-slate-900 dark:text-white">¿Te ha resultado útil? Compártelo:</p>
+                    <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <p className="text-sm font-bold text-text-primary">¿Te ha resultado útil? Compártelo:</p>
                         <div className="flex items-center gap-3">
-                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en Facebook">
+                            <button className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-border" title="Compartir en Facebook">
                                 <Facebook size={18} />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-black hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en X (Twitter)">
+                            <button className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center hover:bg-black hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-border" title="Compartir en X (Twitter)">
                                 <Twitter size={18} />
                             </button>
-                            <button className="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700" title="Compartir en LinkedIn">
+                            <button className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white transition-all text-slate-500 dark:text-slate-300 shadow-sm border border-border" title="Compartir en LinkedIn">
                                 <Linkedin size={18} />
                             </button>
                         </div>
@@ -134,7 +134,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     {/* Related Posts */}
                     <div className="mt-24">
-                        <h3 className="text-2xl font-800 text-slate-900 dark:text-white mb-8 tracking-tight">Artículos relacionados</h3>
+                        <h3 className="text-2xl font-800 text-text-primary mb-8 tracking-tight">Artículos relacionados</h3>
                         <div className="grid sm:grid-cols-2 gap-8">
                             {relatedPosts.map((rPost) => (
                                 <Link key={rPost.id} href={`/blog/${rPost.slug}`} className="group">
@@ -146,7 +146,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     </div>
-                                    <h4 className="font-800 text-slate-900 dark:text-white group-hover:text-primary transition-colors leading-tight">
+                                    <h4 className="font-800 text-text-primary group-hover:text-primary transition-colors leading-tight">
                                         {rPost.title}
                                     </h4>
                                 </Link>

@@ -43,7 +43,7 @@ export default async function PrecioLuzHoyPage() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen bg-slate-50 dark:bg-background-dark pt-32 pb-24">
+            <main className="min-h-screen bg-slate-50 dark:bg-background pt-32 pb-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-6">
@@ -51,10 +51,10 @@ export default async function PrecioLuzHoyPage() {
                             <Zap size={14} />
                             Mercado Regulado (PVPC)
                         </div>
-                        <h1 className="text-4xl md:text-7xl font-900 text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+                        <h1 className="text-4xl md:text-7xl font-900 text-text-primary leading-[1.1] tracking-tight">
                             Analizador de <span className="text-primary italic">Precio Hoy</span>
                         </h1>
-                        <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                        <p className="text-lg text-text-secondary font-medium leading-relaxed">
                             Interactúa con nuestra <span className="text-slate-900 dark:text-slate-200 font-bold">Consola Energética</span>. Pulsa sobre las horas del reloj para ver el desglose detallado de cada tramo en tiempo real.
                         </p>
                     </div>
@@ -74,35 +74,35 @@ export default async function PrecioLuzHoyPage() {
 
                     {/* Secondary Data: Quick Summary Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-                        <div className="premium-card p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center gap-6">
+                        <div className="premium-card p-8 bg-surface border border-border flex items-center gap-6">
                             <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
                                 <LayoutGrid size={28} />
                             </div>
                             <div>
-                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Mínimo Diario</p>
-                                <p className="text-3xl font-900 text-slate-900 dark:text-white">{prices.min.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
+                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mb-1">Mínimo Diario</p>
+                                <p className="text-3xl font-900 text-text-primary">{prices.min.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
                                 <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter mt-1">A las {prices.minHour}</p>
                             </div>
                         </div>
 
-                        <div className="premium-card p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center gap-6 ring-2 ring-primary/20">
+                        <div className="premium-card p-8 bg-surface border border-border flex items-center gap-6 ring-2 ring-primary/20">
                             <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                                 <ClockIcon size={28} />
                             </div>
                             <div>
                                 <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Precio Ahora mismo</p>
-                                <p className="text-3xl font-900 text-slate-900 dark:text-white">{prices.current.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
+                                <p className="text-3xl font-900 text-text-primary">{prices.current.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1">Actualizado: {prices.time}</p>
                             </div>
                         </div>
 
-                        <div className="premium-card p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center gap-6">
+                        <div className="premium-card p-8 bg-surface border border-border flex items-center gap-6">
                             <div className="w-14 h-14 rounded-2xl bg-slate-500/10 text-slate-500 flex items-center justify-center shrink-0">
                                 <BarChart3 size={28} />
                             </div>
                             <div>
-                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Media de la jornada</p>
-                                <p className="text-3xl font-900 text-slate-900 dark:text-white">{prices.average.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
+                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mb-1">Media de la jornada</p>
+                                <p className="text-3xl font-900 text-text-primary">{prices.average.toFixed(5)} <span className="text-sm font-bold opacity-40">€/kWh</span></p>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1">Pool mayorista 24h</p>
                             </div>
                         </div>
@@ -116,19 +116,19 @@ export default async function PrecioLuzHoyPage() {
                                     <AlertCircle className="w-8 h-8" />
                                 </div>
                                 <div>
-                                    <h4 className="text-2xl font-800 text-slate-900 dark:text-white mb-2 tracking-tight">¿Por qué usar el reloj?</h4>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    <h4 className="text-2xl font-800 text-text-primary mb-2 tracking-tight">¿Por qué usar el reloj?</h4>
+                                    <p className="text-text-secondary leading-relaxed font-medium">
                                         Entender visualmente el ciclo diario del mercado eléctrico te permite anticipar las zonas "Valle" y "Punta" de forma intuitiva. Los precios corresponden al mercado regulado (PVPC), base de todos los ahorros en España.
                                     </p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
-                                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
+                                <div className="w-14 h-14 rounded-2xl bg-warning/10 flex items-center justify-center text-warning shrink-0">
                                     <Info className="w-8 h-8" />
                                 </div>
                                 <div>
-                                    <h4 className="text-2xl font-800 text-slate-900 dark:text-white mb-2 tracking-tight">Efecto del Pool</h4>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                                    <h4 className="text-2xl font-800 text-text-primary mb-2 tracking-tight">Efecto del Pool</h4>
+                                    <p className="text-text-secondary leading-relaxed font-medium">
                                         Si tu factura está en el mercado libre con precio fijo, este reloj te sirve para validar si tu actual tarifa es más barata que el precio de mercado o si deberías considerar un cambio.
                                     </p>
                                 </div>
