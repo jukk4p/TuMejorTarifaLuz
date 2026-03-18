@@ -26,6 +26,7 @@ import {
     Printer as PrinterIcon,
     HelpCircle as HelpCircleIcon,
     ChevronRight,
+    ChevronLeft,
     ArrowLeft as ArrowLeftIcon,
     Terminal, 
     Zap, 
@@ -138,6 +139,10 @@ export default function ComparadorMain() {
     const [studyMode, setStudyMode] = useState<"monthly" | "annual" | null>(null);
     const [isStudySelectorOpen, setIsStudySelectorOpen] = useState(false);
     const [pendingStudyMode, setPendingStudyMode] = useState<"monthly" | "annual" | null>(null);
+
+    const [isProfileCollapsed, setIsProfileCollapsed] = useState(false);
+    const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     // Auto-open Study view after login if user had a pending mode
     useEffect(() => {
@@ -952,12 +957,13 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
                                         </div>
+
                                     )}
                                 </div>
                             </div>
                         </aside>
 
-                        <section className="flex-1 space-y-6">
+                            <section className="flex-1 space-y-6">
                             {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
                                 <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] group !border-none !shadow-2xl">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
@@ -993,123 +999,132 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : isProcessing ? (
-                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[500px] group !border-none !shadow-2xl">
-                                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[100px] -mr-64 -mt-64 animate-pulse duration-1000"></div>
-                                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/20 rounded-full blur-[80px] -ml-48 -mb-48 animate-pulse duration-1000" style={{ animationDelay: '0.5s' }}></div>
-                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.7)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,23,42,0.8)_100%)]"></div>
+                                <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] !border-none !shadow-2xl" style={{background: 'linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.95) 100%)'}}>
+                                    {/* Animated Background Grid */}
+                                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                                        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #137fec 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+                                        {/* Scanning line */}
+                                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-[scan_3s_ease-in-out_infinite]"></div>
+                                        {/* Gradient orbs */}
+                                        <div className={`absolute w-[600px] h-[600px] rounded-full blur-[120px] -top-48 -right-48 transition-all duration-1000 ${loaderStage === 0 ? 'bg-primary/10' : loaderStage === 1 ? 'bg-amber-400/10' : loaderStage === 2 ? 'bg-emerald-400/10' : 'bg-violet-500/10'}`}></div>
+                                        <div className={`absolute w-[400px] h-[400px] rounded-full blur-[100px] -bottom-32 -left-32 transition-all duration-1000 ${loaderStage === 0 ? 'bg-violet-500/8' : loaderStage === 1 ? 'bg-primary/8' : loaderStage === 2 ? 'bg-amber-400/8' : 'bg-emerald-400/8'}`}></div>
+                                    </div>
 
-                                    <div className="relative z-10 max-w-2xl w-full flex flex-col items-center">
-                                        <div className="relative w-56 h-56 mb-12 perspective-1000 group/loader">
-                                            {/* Rings - colors change per stage */}
-                                            <div className={`absolute inset-0 border-y-[6px] rounded-full animate-[spin_3s_linear_infinite] opacity-40 blur-[1px] transition-all duration-700 ${loaderStage === 0 ? 'border-primary' :
-                                                loaderStage === 1 ? 'border-amber-400' :
-                                                    loaderStage === 2 ? 'border-success' :
-                                                        loaderStage === 3 ? 'border-ai-purple' :
-                                                            'border-primary'
-                                                }`}></div>
-                                            <div className={`absolute inset-4 border-x-[5px] rounded-full animate-[spin_2.5s_linear_infinite_reverse] opacity-50 transition-all duration-700 ${loaderStage === 0 ? 'border-ai-purple' :
-                                                loaderStage === 1 ? 'border-primary' :
-                                                    loaderStage === 2 ? 'border-amber-400' :
-                                                        loaderStage === 3 ? 'border-success' :
-                                                            'border-amber-400'
-                                                }`}></div>
-                                            <div className={`absolute inset-8 border-y-[4px] rounded-full animate-[spin_4s_linear_infinite] opacity-60 transition-all duration-700 ${loaderStage === 0 ? 'border-success' :
-                                                loaderStage === 1 ? 'border-ai-purple' :
-                                                    loaderStage === 2 ? 'border-primary' :
-                                                        loaderStage === 3 ? 'border-amber-400' :
-                                                            'border-success'
-                                                }`}></div>
-                                            <div className={`absolute inset-12 border-x-[3px] rounded-full animate-[spin_2s_linear_infinite_reverse] opacity-70 transition-all duration-700 ${loaderStage === 0 ? 'border-amber-400' :
-                                                loaderStage === 1 ? 'border-success' :
-                                                    loaderStage === 2 ? 'border-ai-purple' :
-                                                        loaderStage === 3 ? 'border-primary' :
-                                                            'border-ai-purple'
-                                                }`}></div>
+                                    <div className="relative z-10 w-full flex flex-col items-center">
 
-                                            {/* AI Scanning Beam (only for OCR) */}
-                                            {isAiGenerated && step === "input" && (
-                                                <div className="absolute inset-0 z-20 overflow-hidden rounded-full pointer-events-none">
-                                                    <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-primary/0 via-primary/30 to-primary/0 animate-[scan_2s_ease-in-out_infinite]"></div>
-                                                    <div className="absolute top-0 left-0 w-full h-[2px] bg-primary/80 shadow-[0_0_15px_rgba(var(--primary-rgb),0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
-                                                </div>
-                                            )}
+                                        {/* === MAIN ORB LOADER === */}
+                                        <div className="relative w-44 h-44 md:w-52 md:h-52 mb-8">
+                                            {/* Outer pulse rings */}
+                                            <div className={`absolute inset-0 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-10 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`}></div>
+                                            <div className={`absolute -inset-3 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-5 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`} style={{animationDelay: '0.5s'}}></div>
+                                            
+                                            {/* Spinning arc rings */}
+                                            <svg className="absolute inset-0 w-full h-full animate-[spin_4s_linear_infinite]" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="95" fill="none" strokeWidth="1.5" strokeDasharray="60 200" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-primary/40' : loaderStage === 1 ? 'stroke-amber-400/40' : loaderStage === 2 ? 'stroke-emerald-500/40' : 'stroke-violet-500/40'}`} />
+                                            </svg>
+                                            <svg className="absolute inset-0 w-full h-full animate-[spin_3s_linear_infinite_reverse]" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="85" fill="none" strokeWidth="1" strokeDasharray="40 180" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-violet-500/30' : loaderStage === 1 ? 'stroke-primary/30' : loaderStage === 2 ? 'stroke-amber-400/30' : 'stroke-emerald-500/30'}`} />
+                                            </svg>
+                                            <svg className="absolute inset-0 w-full h-full animate-[spin_6s_linear_infinite]" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="75" fill="none" strokeWidth="2" strokeDasharray="30 120" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-emerald-500/25' : loaderStage === 1 ? 'stroke-violet-500/25' : loaderStage === 2 ? 'stroke-primary/25' : 'stroke-amber-400/25'}`} />
+                                            </svg>
 
-                                            {/* Central Hub - Dynamic Icons per stage */}
+                                            {/* Progress arc (SVG) */}
+                                            <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] -rotate-90" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" className="stroke-slate-100 dark:stroke-slate-800" />
+                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" strokeLinecap="round"
+                                                    className={`transition-all duration-500 ease-out ${loaderStage === 0 ? 'stroke-primary' : loaderStage === 1 ? 'stroke-amber-400' : loaderStage === 2 ? 'stroke-emerald-500' : 'stroke-violet-500'}`}
+                                                    strokeDasharray={`${analysisProgress * 5.65} 565`}
+                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage === 0 ? '#137fec' : loaderStage === 1 ? '#f59e0b' : loaderStage === 2 ? '#10b981' : '#8b5cf6'})`}}
+                                                />
+                                            </svg>
+
+                                            {/* Central icon hub */}
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className={`w-36 h-36 bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl rounded-[3.5rem] shadow-[0_0_100px_rgba(var(--primary-rgb),0.3)] flex flex-col items-center justify-center transition-all duration-700 border-2 relative overflow-hidden group/hub ${loaderStage === 0 ? 'border-primary/30 shadow-primary/20' :
-                                                    loaderStage === 1 ? 'border-amber-400/30 shadow-amber-400/20' :
-                                                        loaderStage === 2 ? 'border-success/30 shadow-success/20' :
-                                                            loaderStage === 3 ? 'border-ai-purple/30 shadow-ai-purple/20' :
-                                                                'border-primary/30 shadow-primary/20'
-                                                    }`}>
-                                                    <div className={`absolute inset-0 opacity-10 bg-gradient-to-br transition-all duration-700 ${loaderStage === 0 ? 'from-primary to-ai-purple' :
-                                                        loaderStage === 1 ? 'from-amber-400 to-primary' :
-                                                            loaderStage === 2 ? 'from-success to-amber-400' :
-                                                                loaderStage === 3 ? 'from-ai-purple to-success' :
-                                                                    'from-primary to-ai-purple'
-                                                        }`}></div>
-
-                                                    <div className={`animate-in zoom-in-50 duration-700 transition-all ${loaderStage === 0 ? 'text-primary' :
-                                                        loaderStage === 1 ? 'text-amber-400' :
-                                                            loaderStage === 2 ? 'text-success' :
-                                                                loaderStage === 3 ? 'text-ai-purple' :
-                                                                    'text-primary'
-                                                        }`}>
+                                                <div className={`w-24 h-24 md:w-28 md:h-28 rounded-[2rem] backdrop-blur-xl flex items-center justify-center transition-all duration-700 border shadow-2xl ${loaderStage === 0 ? 'bg-primary/5 border-primary/20 shadow-primary/10' : loaderStage === 1 ? 'bg-amber-400/5 border-amber-400/20 shadow-amber-400/10' : loaderStage === 2 ? 'bg-emerald-500/5 border-emerald-500/20 shadow-emerald-500/10' : 'bg-violet-500/5 border-violet-500/20 shadow-violet-500/10'}`}>
+                                                    <div key={`icon-${loaderStage}`} className={`animate-in zoom-in-75 fade-in duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-amber-500' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
                                                         {isAiGenerated && step === "input" ? (
-                                                            loaderStage === 0 ? <Search className="w-16 h-16" /> :
-                                                            loaderStage === 1 ? <FileText className="w-16 h-16" /> :
-                                                            loaderStage === 2 ? <Brain className="w-16 h-16" /> :
-                                                            loaderStage === 3 ? <CheckCircle2 className="w-16 h-16" /> : <Clock className="w-16 h-16" />
+                                                            loaderStage === 0 ? <Search className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 1 ? <FileText className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 2 ? <Brain className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 3 ? <CheckCircle2 className="w-10 h-10 md:w-12 md:h-12" /> : <Clock className="w-10 h-10 md:w-12 md:h-12" />
                                                         ) : (
-                                                            loaderStage === 0 ? <Terminal className="w-16 h-16" /> :
-                                                            loaderStage === 1 ? <Zap className="w-16 h-16" /> :
-                                                            loaderStage === 2 ? <TrendingDown className="w-16 h-16" /> :
-                                                            loaderStage === 3 ? <ArrowLeftRight className="w-16 h-16" /> : <Clock className="w-16 h-16" />
+                                                            loaderStage === 0 ? <Terminal className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 1 ? <Zap className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 2 ? <TrendingDown className="w-10 h-10 md:w-12 md:h-12" /> :
+                                                            loaderStage === 3 ? <ArrowLeftRight className="w-10 h-10 md:w-12 md:h-12" /> : <Clock className="w-10 h-10 md:w-12 md:h-12" />
                                                         )}
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* Orbital Particles - position shifts per stage */}
-                                            <div className={`absolute w-4 h-4 rounded-full blur-[1px] animate-[ping_2s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'top-0 left-1/2 bg-primary shadow-[0_0_10px_#137fec]' : 'top-1/4 right-0 bg-amber-400 shadow-[0_0_10px_#f59e0b]'
-                                                }`}></div>
-                                            <div className={`absolute w-3 h-3 rounded-full blur-[1px] animate-[ping_1.5s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'bottom-4 right-4 bg-ai-purple shadow-[0_0_8px_#8b5cf6]' : 'bottom-0 left-1/2 bg-success shadow-[0_0_8px_#10b981]'
-                                                }`} style={{ animationDelay: '0.4s' }}></div>
-                                            <div className={`absolute w-3.5 h-3.5 rounded-full blur-[1px] animate-[ping_2.5s_linear_infinite] transition-all duration-700 ${loaderStage % 2 === 0 ? 'top-1/4 -left-4 bg-success shadow-[0_0_8px_#10b981]' : 'top-0 right-1/4 bg-ai-purple shadow-[0_0_8px_#8b5cf6]'
-                                                }`} style={{ animationDelay: '0.8s' }}></div>
+                                            {/* Floating orbital dots */}
+                                            {[0, 1, 2, 3, 4, 5].map((i) => (
+                                                <div key={i} className={`absolute w-1.5 h-1.5 rounded-full transition-all duration-700 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`}
+                                                    style={{
+                                                        top: `${50 + 48 * Math.sin((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
+                                                        left: `${50 + 48 * Math.cos((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
+                                                        opacity: 0.3 + (i % 3) * 0.2,
+                                                        animation: `ping ${1.5 + i * 0.3}s cubic-bezier(0, 0, 0.2, 1) infinite`,
+                                                        animationDelay: `${i * 0.2}s`
+                                                    }}
+                                                />
+                                            ))}
                                         </div>
 
-                                        <h3 key={`title-${loaderStage}`} className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white animate-in fade-in duration-500">
-                                            {isAiGenerated && step === "input" ? "Procesando análisis..." :
-                                                loaderStage === 0 ? "Iniciando análisis..." :
-                                                    loaderStage === 1 ? "Calculando..." :
-                                                        loaderStage === 2 ? "Optimizando..." :
-                                                            loaderStage === 3 ? "Comparando tarifas..." :
-                                                                "Finalizando..."}
-                                        </h3>
-                                        <div className="flex flex-col items-center gap-4 w-full">
-                                            <div className="flex items-baseline gap-2">
-                                                <p className="text-primary font-mono text-2xl font-black">{Math.round(analysisProgress)}%</p>
-                                                <span className="text-[10px] font-bold text-slate-400 tracking-widest animate-pulse">Procesando</span>
+                                        {/* === Percentage + Title === */}
+                                        <div className="mb-6">
+                                            <div className="flex items-center justify-center gap-3 mb-2">
+                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-amber-500' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
+                                                    {Math.round(analysisProgress)}
+                                                </span>
+                                                <span className="text-xl font-black text-slate-300">%</span>
                                             </div>
+                                            <h3 key={`title-${loaderStage}`} className="text-lg md:text-xl font-800 tracking-tight text-slate-700 dark:text-slate-200 animate-in fade-in duration-500">
+                                                {isAiGenerated && step === "input" ? "Procesando análisis..." :
+                                                    loaderStage === 0 ? "Iniciando análisis..." :
+                                                        loaderStage === 1 ? "Calculando costes..." :
+                                                            loaderStage === 2 ? "Optimizando tarifas..." :
+                                                                loaderStage === 3 ? "Comparando mercado..." :
+                                                                    "Finalizando..."}
+                                            </h3>
+                                        </div>
 
-                                            <div className="w-80 h-3 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-inner group-hover/loader:border-primary/30 transition-colors">
+                                        {/* === Step Indicators === */}
+                                        <div className="flex items-center gap-1.5 mb-6">
+                                            {[
+                                                { label: 'Mapeo', icon: <Terminal size={11} /> },
+                                                { label: 'Cálculo', icon: <Zap size={11} /> },
+                                                { label: 'Ahorro', icon: <TrendingDown size={11} /> },
+                                                { label: 'Mercado', icon: <ArrowLeftRight size={11} /> },
+                                                { label: 'Sync', icon: <CheckCircle2 size={11} /> },
+                                            ].map((s, i) => (
+                                                <div key={i} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider transition-all duration-500 ${
+                                                    i < loaderStage ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20' :
+                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-amber-400/10 text-amber-600 border-amber-400/30 shadow-amber-400/10' : loaderStage === 2 ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30 shadow-emerald-500/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
+                                                    'bg-slate-50 text-slate-300 border border-slate-100'
+                                                }`}>
+                                                    {i < loaderStage ? <CheckCircle2 size={11} className="text-emerald-500" /> : s.icon}
+                                                    <span className="hidden sm:inline">{s.label}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* === Progress Bar === */}
+                                        <div className="w-full max-w-xs mb-4">
+                                            <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                                 <div
-                                                    className={`h-full transition-all duration-300 ease-out shadow-[0_0_20px_rgba(var(--primary-rgb),0.4)] ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' :
-                                                        loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' :
-                                                            loaderStage === 2 ? 'bg-gradient-to-r from-primary via-success to-success/80' :
-                                                                loaderStage === 3 ? 'bg-gradient-to-r from-primary via-ai-purple to-ai-purple/80' :
-                                                                    'bg-gradient-to-r from-primary via-ai-purple to-success'
-                                                        }`}
-                                                    style={{ width: `${analysisProgress}%` }}
+                                                    className={`h-full rounded-full transition-all duration-300 ease-out ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' : loaderStage === 1 ? 'bg-gradient-to-r from-primary via-amber-400 to-amber-300' : loaderStage === 2 ? 'bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-300' : 'bg-gradient-to-r from-violet-500 via-violet-400 to-violet-300'}`}
+                                                    style={{ width: `${analysisProgress}%`, boxShadow: `0 0 12px ${loaderStage === 0 ? '#137fec44' : loaderStage === 1 ? '#f59e0b44' : loaderStage === 2 ? '#10b98144' : '#8b5cf644'}` }}
                                                 ></div>
                                             </div>
+                                        </div>
 
-                                            <div className="h-8 flex items-center">
-                                                <p key={analysisStatus} className="text-[11px] font-bold text-ai-purple tracking-[0.4em] animate-in fade-in slide-in-from-bottom-2 duration-700">
-                                                    {analysisStatus}
-                                                </p>
-                                            </div>
+                                        {/* === Status Text === */}
+                                        <div className="h-6 flex items-center">
+                                            <p key={analysisStatus} className={`text-[10px] font-bold tracking-[0.3em] uppercase animate-in fade-in slide-in-from-bottom-1 duration-500 ${loaderStage === 0 ? 'text-primary/60' : loaderStage === 1 ? 'text-amber-500/60' : loaderStage === 2 ? 'text-emerald-500/60' : 'text-violet-500/60'}`}>
+                                                {analysisStatus}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -1653,8 +1668,7 @@ export default function ComparadorMain() {
                                                                             <span className="uppercase tracking-wide">{row.label}</span>
                                                                             <div className="flex items-center gap-3">
                                                                                 <span className="font-mono text-slate-400">
-                                                                                    {(row.kwh * m).toLocaleString('es-ES', { maximumFractionDigits: 2 })} kWh
-                                                                                    {!currentBreakdown.isEstimated && ` × ${row.price.toFixed(4)}€`}
+                                                                                    {(row.kwh * m).toLocaleString('es-ES', { maximumFractionDigits: 1 })} kWh × {row.price.toFixed(4)}€/kWh
                                                                                 </span>
                                                                                 <span className={`font-mono font-black ${rowDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>{rowDiff >= 0 ? '-' : '+'}{Math.abs(rowDiff).toFixed(2)}€</span>
                                                                             </div>
@@ -1860,182 +1874,210 @@ export default function ComparadorMain() {
                 {/* STEP 3: RESULTS DASHBOARD */}
                 {step === "results" && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        {/* TOP SAVING BANNER */}
-                        <div className="premium-card p-6 flex flex-col sm:flex-row items-center justify-between !rounded-2xl gap-6 text-center sm:text-left">
-                            <div className="flex flex-col sm:flex-row items-center gap-4">
-                                <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center shrink-0">
-                                    <TrendingDown className="w-6 h-6" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
-                                    <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => setStep("input")}
-                                className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-6 py-2.5 rounded-full cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
-                            >
-                                <History className="w-4 h-4 text-slate-600 dark:text-slate-300" />
-                                <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">Nueva Comparativa</span>
-                            </button>
-                        </div>
 
-                        <div className="flex flex-col lg:flex-row gap-8 perspective-1000">
+                        <div className="flex flex-col lg:flex-row gap-8 perspective-1000 relative">
                             {/* LEFT: CURRENT PROFILE SUMMARY */}
-                            <aside className="w-full lg:w-[325px] shrink-0 space-y-6">
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
-                                    <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                                    <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
-                                    
-                                    <div className="flex justify-between items-center relative z-10">
-                                        <div className="space-y-1">
-                                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Tu suministro</h4>
-                                            <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Perfil de Carga</p>
-                                        </div>
-                                        <div className="w-8 h-8 rounded-xl bg-success/10 flex items-center justify-center text-success border border-success/20">
-                                            <CheckCircle2 className="w-4 h-4" />
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 gap-8 relative z-10">
-                                        <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
-                                            <div className="flex items-center gap-2 mb-4">
-                                                <div className="w-1.5 h-3 bg-amber-500 rounded-full"></div>
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Potencia Contratada</p>
+                            {/* Lateral Collapse Trigger */}
+                            <button 
+                                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                                className={`fixed lg:absolute left-0 top-1/2 -translate-y-1/2 w-6 h-20 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-r-xl shadow-xl flex items-center justify-center text-slate-400 hover:text-primary transition-all z-[100] group active:scale-95 ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "translate-x-0" : "translate-x-[-100%] lg:translate-x-0 lg:left-[325px]"}`}
+                            >
+                                <ChevronRight className={`w-4 h-4 transition-transform duration-500 ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "" : "rotate-180"}`} />
+                            </button>
+                            <aside className={`transition-all duration-500 ease-in-out shrink-0 overflow-hidden relative ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "w-0 lg:w-0 opacity-0 invisible" : "w-full lg:w-[325px] opacity-100 visible"}`}>
+                                    {!isProfileCollapsed && (
+                                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+                                            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+                                            <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                                            
+                                            <div className="flex justify-between items-center relative z-10">
+                                                <div className="space-y-1">
+                                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Tu suministro</h4>
+                                                    <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Perfil de Carga</p>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <button 
+                                                        onClick={() => setIsProfileCollapsed(true)}
+                                                        className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-slate-200/50 dark:border-white/5 active:scale-90"
+                                                        title="Colapsar a la cabecera"
+                                                    >
+                                                        <ChevronRight className="w-4 h-4 transition-transform duration-300" />
+                                                    </button>
+                                                    <div className="w-8 h-8 rounded-xl bg-success/10 flex items-center justify-center text-success border border-success/20">
+                                                        <CheckCircle2 className="w-4 h-4" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
+
+                                            <div className="grid grid-cols-1 gap-8 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
+                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                                    <div className="flex items-center gap-2 mb-4">
+                                                        <div className="w-1.5 h-3 bg-amber-500 rounded-full"></div>
+                                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Potencia Contratada</p>
+                                                    </div>
+                                                    {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
+                                                        <div className="space-y-3">
+                                                            <div className="flex justify-between items-center text-xs font-black">
+                                                                <span className="text-slate-400 uppercase tracking-tighter">P1 · Punta</span>
+                                                                <span className="text-amber-600">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                            </div>
+                                                            <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-slate-100 dark:border-white/5">
+                                                                <span className="text-slate-400 uppercase tracking-tighter">P2 · Valle</span>
+                                                                <span className="text-amber-600">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
+                                                            <p className="text-xs text-slate-400 font-bold uppercase tracking-tight">kW</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                                    <div className="flex items-center gap-2 mb-4">
+                                                        <div className="w-1.5 h-3 bg-primary rounded-full"></div>
+                                                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Consumo Energético</p>
+                                                    </div>
+                                                    <div className="space-y-3">
+                                                        {[
+                                                            { label: 'P1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
+                                                            { label: 'P2 · Valle', val: input.energy_p2, color: 'text-primary' },
+                                                            { label: 'P3 · Valle', val: input.energy_p3, color: 'text-indigo-500' }
+                                                        ].filter(p => p.val > 0).map((p, i) => (
+                                                            <div key={i} className="flex justify-between items-center text-xs font-black">
+                                                                <span className="text-slate-400 uppercase tracking-tighter">{p.label}</span>
+                                                                <span className={p.color}>{p.val.toLocaleString('es-ES', { maximumFractionDigits: 1 })} kWh</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                <div className="relative pt-8 mt-2 border-t border-slate-100 dark:border-white/5 z-10">
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
+                                                    <div className="grid grid-cols-2 gap-3">
+                                                        <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
+                                                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
+                                                            <p className="text-sm font-black text-primary">5.11%</p>
+                                                        </div>
+                                                        <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
+                                                            <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
+                                                            <p className="text-sm font-black text-primary">21%</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* FILTERS SECTION */}
+                                    {!isFiltersCollapsed && (
+                                        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+                                            {/* Deco Background Grid */}
+                                            <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+                                            
+                                            <div className="flex justify-between items-center mb-8 relative z-10">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-slate-200/50 dark:border-white/5">
+                                                        <Filter className="w-4 h-4" />
+                                                    </div>
+                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Filtros</h4>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    {results.length !== baseResults.length && (
+                                                        <div className="px-3 py-1 bg-primary/10 rounded-full border border-primary/20 animate-in zoom-in duration-500">
+                                                            <span className="text-[9px] font-black text-primary uppercase tracking-widest">{results.length}</span>
+                                                        </div>
+                                                    )}
+                                                    <button 
+                                                        onClick={() => setIsFiltersCollapsed(true)}
+                                                        className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-slate-200/50 dark:border-white/5 active:scale-90"
+                                                        title="Colapsar a la cabecera"
+                                                    >
+                                                        <ChevronRight className="w-4 h-4 transition-transform duration-300" />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-8 relative z-10 animate-in slide-in-from-top-2 duration-300">
+                                                {/* Filter: Search Company */}
                                                 <div className="space-y-3">
-                                                    <div className="flex justify-between items-center text-xs font-black">
-                                                        <span className="text-slate-400 uppercase tracking-tighter">P1 · Punta</span>
-                                                        <span className="text-amber-600">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
+                                                    <div className="relative group/input">
+                                                        <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
+                                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within/input:text-primary" />
+                                                        <input
+                                                            type="text"
+                                                            value={filterSearch}
+                                                            onChange={e => setFilterSearch(e.target.value)}
+                                                            placeholder="Ej. Endesa, Iberdrola..."
+                                                            className="relative w-full bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white dark:focus:bg-slate-900 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400/70"
+                                                        />
                                                     </div>
-                                                    <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-slate-100 dark:border-white/5">
-                                                        <span className="text-slate-400 uppercase tracking-tighter">P2 · Valle</span>
-                                                        <span className="text-amber-600">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                </div>
+
+                                                <div className="space-y-3">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tipo de Precio</label>
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
+                                                        {['all', 'fixed', 'periods'].map((t) => (
+                                                            <button 
+                                                                key={t}
+                                                                onClick={() => setFilterPriceType(t as any)} 
+                                                                className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                    filterPriceType === t 
+                                                                    ? (t === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md')
+                                                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                                }`}
+                                                            >
+                                                                {t === 'all' ? 'Todos' : t === 'fixed' ? 'Fijo' : 'Tramos'}
+                                                            </button>
+                                                        ))}
                                                     </div>
                                                 </div>
-                                            ) : (
-                                                <div className="flex items-baseline gap-1.5">
-                                                    <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
-                                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-tight">kW</p>
-                                                </div>
-                                            )}
-                                        </div>
 
-                                        <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
-                                            <div className="flex items-center gap-2 mb-4">
-                                                <div className="w-1.5 h-3 bg-primary rounded-full"></div>
-                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Consumo Energético</p>
-                                            </div>
-                                            <div className="space-y-3">
-                                                {[
-                                                    { label: 'P1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
-                                                    { label: 'P2 · Valle', val: input.energy_p2, color: 'text-primary' },
-                                                    { label: 'P3 · Valle', val: input.energy_p3, color: 'text-indigo-500' }
-                                                ].filter(p => p.val > 0).map((p, i) => (
-                                                    <div key={i} className="flex justify-between items-center text-xs font-black">
-                                                        <span className="text-slate-400 uppercase tracking-tighter">{p.label}</span>
-                                                        <span className={p.color}>{p.val.toLocaleString('es-ES', { maximumFractionDigits: 1 })} kWh</span>
+                                                <div className="space-y-3">
+                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Permanencia</label>
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
+                                                        {['all', 'without', 'with'].map((p) => (
+                                                            <button 
+                                                                key={p}
+                                                                onClick={() => setFilterPermanence(p as any)} 
+                                                                className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                    filterPermanence === p 
+                                                                    ? 'bg-white dark:bg-slate-700 text-primary shadow-md' 
+                                                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                                }`}
+                                                            >
+                                                                {p === 'all' ? 'Todas' : p === 'without' ? 'Sin' : 'Con'}
+                                                            </button>
+                                                        ))}
                                                     </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="relative pt-8 mt-2 border-t border-slate-100 dark:border-white/5 z-10">
-                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
-                                            <div className="grid grid-cols-2 gap-3">
-                                                <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
-                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
-                                                    <p className="text-sm font-black text-primary">5.11%</p>
-                                                </div>
-                                                <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
-                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
-                                                    <p className="text-sm font-black text-primary">21%</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* FILTERS SECTION */}
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
-                                    {/* Deco Background Grid */}
-                                    <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-                                    
-                                    <div className="flex justify-between items-center mb-8 relative z-10">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-slate-200/50 dark:border-white/5">
-                                                <Filter className="w-4 h-4" />
-                                            </div>
-                                            <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Filtros</h4>
-                                        </div>
-                                        {results.length !== baseResults.length && (
-                                            <div className="px-3 py-1 bg-primary/10 rounded-full border border-primary/20 animate-in zoom-in duration-500">
-                                                <span className="text-[9px] font-black text-primary uppercase tracking-widest">{results.length} tarifas</span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    <div className="space-y-8 relative z-10">
-                                        {/* Filter: Search Company */}
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
-                                            <div className="relative group/input">
-                                                <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
-                                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within/input:text-primary" />
-                                                <input
-                                                    type="text"
-                                                    value={filterSearch}
-                                                    onChange={e => setFilterSearch(e.target.value)}
-                                                    placeholder="Ej. Endesa, Iberdrola..."
-                                                    className="relative w-full bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white dark:focus:bg-slate-900 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400/70"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tipo de Precio</label>
-                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
-                                                {['all', 'fixed', 'periods'].map((t) => (
-                                                    <button 
-                                                        key={t}
-                                                        onClick={() => setFilterPriceType(t as any)} 
-                                                        className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
-                                                            filterPriceType === t 
-                                                            ? (t === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md')
-                                                            : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
-                                                        }`}
-                                                    >
-                                                        {t === 'all' ? 'Todos' : t === 'fixed' ? 'Fijo' : 'Tramos'}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Permanencia</label>
-                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
-                                                {['all', 'without', 'with'].map((p) => (
-                                                    <button 
-                                                        key={p}
-                                                        onClick={() => setFilterPermanence(p as any)} 
-                                                        className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
-                                                            filterPermanence === p 
-                                                            ? 'bg-white dark:bg-slate-700 text-primary shadow-md' 
-                                                            : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
-                                                        }`}
-                                                    >
-                                                        {p === 'all' ? 'Todas' : p === 'without' ? 'Sin' : 'Con'}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </aside>
-
+                                    )}
+                                </aside>
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
+                                {/* TOP SAVING BANNER - MOVED HERE FOR WIDTH ALIGNMENT */}
+                                <div className="premium-card p-6 flex flex-col sm:flex-row items-center justify-between !rounded-2xl gap-6 text-center sm:text-left">
+                                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                                        <div className="w-12 h-12 bg-green-500/10 text-green-500 rounded-2xl flex items-center justify-center shrink-0">
+                                            <TrendingDown className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Análisis de Resultados</p>
+                                            <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-success">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => setStep("input")}
+                                        className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-6 py-2.5 rounded-full cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
+                                    >
+                                        <History className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+                                        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">Nueva Comparativa</span>
+                                    </button>
+                                </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
                                     <div
                                         onClick={() => {
@@ -2061,12 +2103,12 @@ export default function ComparadorMain() {
                                                 <div className="flex flex-col items-end gap-1">
                                                     {user ? (
                                                         <>
-                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Mensual</span>
+                                                            {/* Label Mensual removido por redundancia */}
                                                             <span className="text-[10px] font-bold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 flex items-center gap-1 group-hover:hidden"><Lock className="w-3 h-3" />Mensual</span>
+                                                            {/* Label Mensual con Lock removido */}
                                                             <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
                                                         </>
                                                     )}
@@ -2108,12 +2150,12 @@ export default function ComparadorMain() {
                                                 <div className="flex flex-col items-end gap-1">
                                                     {user ? (
                                                         <>
-                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Anual</span>
+                                                            {/* Label Anual removido */}
                                                             <span className="text-[10px] font-bold px-3 py-1 bg-success/10 text-success rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 flex items-center gap-1 group-hover:hidden"><Lock className="w-3 h-3" />Anual</span>
+                                                            {/* Label Anual con Lock removido */}
                                                             <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
                                                         </>
                                                     )}
@@ -2174,7 +2216,28 @@ export default function ComparadorMain() {
                                         <h3 className="font-900 text-lg md:text-xl tracking-tight text-center flex flex-col md:flex-row items-center gap-3 text-slate-900 dark:text-white relative z-10">
                                             Resultados de Comparativa
                                         </h3>
-                                        <div className="flex justify-center sm:justify-start gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10">
+                                        <div className="flex justify-center sm:justify-start gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 no-scrollbar relative z-10 items-center">
+                                            {/* Collapsed section badges */}
+                                            {isProfileCollapsed && (
+                                                <button
+                                                    onClick={() => setIsProfileCollapsed(false)}
+                                                    className="shrink-0 flex items-center gap-2 bg-amber-500/10 text-amber-600 text-[10px] font-bold px-4 py-1.5 rounded-full border border-amber-500/20 hover:bg-amber-500/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
+                                                >
+                                                    <Zap className="w-4 h-4" />
+                                                    Perfil
+                                                    <ChevronLeft className="w-4 h-4 opacity-50" />
+                                                </button>
+                                            )}
+                                            {isFiltersCollapsed && (
+                                                <button
+                                                    onClick={() => setIsFiltersCollapsed(false)}
+                                                    className="shrink-0 flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold px-4 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-primary/10 hover:text-primary hover:border-primary/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
+                                                >
+                                                    <Filter className="w-4 h-4" />
+                                                    Filtros
+                                                    <ChevronLeft className="w-4 h-4 opacity-50" />
+                                                </button>
+                                            )}
                                             <button
                                                 onClick={saveBill}
                                                 disabled={isProcessing || results.length === 0}
@@ -2937,8 +3000,6 @@ export default function ComparadorMain() {
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
 
                             <div className="pt-20 flex flex-wrap justify-center items-center gap-6 md:gap-10 border-t border-slate-100 dark:border-slate-800">
                                 <button
@@ -2966,7 +3027,9 @@ export default function ComparadorMain() {
                                 </Link>
                             </div>
                         </div>
-                    )}
+                        </div>
+                    </div>
+                )}
             </main>
 
             <Footer />
@@ -2974,5 +3037,3 @@ export default function ComparadorMain() {
         </div>
     );
 }
-
-
