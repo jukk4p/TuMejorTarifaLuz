@@ -70,7 +70,8 @@ import {
     Mail,
     HelpCircle,
     ZapOff,
-    FileUp
+    FileUp,
+    ChevronDown
 } from "lucide-react";
 
 import { useToast } from "@/components/providers/ToastProvider";
@@ -78,7 +79,7 @@ import { useToast } from "@/components/providers/ToastProvider";
 import { db, storage } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
 
-type Step = "input" | "validation" | "results" | "detail" | "analysis";
+type Step = "input" | "validation" | "results" | "detail" | "analysis" | "study";
 
 export default function ComparadorMain() {
     const { resolvedTheme } = useTheme();
@@ -134,6 +135,8 @@ export default function ComparadorMain() {
 
     const [showWithTaxes, setShowWithTaxes] = useState(false);
     const [hasAnalyzed, setHasAnalyzed] = useState(false);
+    const [studyMode, setStudyMode] = useState<"monthly" | "annual" | null>(null);
+    const [isStudySelectorOpen, setIsStudySelectorOpen] = useState(false);
 
     const applyTaxes = (price: number) => {
         if (!showWithTaxes) return price;
@@ -141,11 +144,37 @@ export default function ComparadorMain() {
         return price * 1.0511 * 1.21;
     };
 
-    // Memoized results
     const baseResults = useMemo(() => compareAllTariffs(tariffs, input), [tariffs, input]);
+    const selectedResult = useMemo(() => baseResults.find(r => r.tariff.id === selectedTariffId) || baseResults[0], [baseResults, selectedTariffId]);
+
+    const currentBreakdown = useMemo(() => {
+        const energyCost = (input.energy_p1 * (input.current_price_p1 || 0)) +
+                           (input.energy_p2 * (input.current_price_p2 || input.current_price_p1 || 0)) +
+                           (input.energy_p3 * (input.current_price_p3 || input.current_price_p1 || 0));
+        
+        const total = input.current_bill_total || 0;
+        // Approximation: taxes and others are proportional, but we group them to show "Rest of Bill" vs "Energy"
+        // Actually, let's just show Energy vs Energy and Power vs Power (if we can estimate it)
+        // Since we don't have current power price, we'll label it as "Potencia y fijos"
+        const powerAndOthers = Math.max(0, total - energyCost);
+        
+        return {
+            energy: energyCost,
+            powerPlusOthers: powerAndOthers,
+            total: total
+        };
+    }, [input]);
 
     useEffect(() => {
         setMounted(true);
+    }, []);
+
+    // RESET SCROLL ON STEP CHANGE (FIXES MOBILE UX)
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "instant" });
+    }, [step]);
+    
+    useEffect(() => {
         const params = new URLSearchParams(window.location.search);
 
         // Check for history load
@@ -285,17 +314,17 @@ export default function ComparadorMain() {
         if (!isProcessing) return;
 
         if (isAiGenerated && step === "input") {
-            if (analysisProgress < 20) setAnalysisStatus("Iniciando Visión Avanzada...");
-            else if (analysisProgress < 40) setAnalysisStatus("Leyendo Estructura de Factura...");
-            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo Parámetros Técnicos...");
-            else if (analysisProgress < 85) setAnalysisStatus("Validando Datos con Modelo Energético...");
-            else setAnalysisStatus("Sincronizando con Mercado Eléctrico...");
+            if (analysisProgress < 20) setAnalysisStatus("Iniciando visión avanzada...");
+            else if (analysisProgress < 40) setAnalysisStatus("Leyendo estructura de factura...");
+            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo parámetros técnicos...");
+            else if (analysisProgress < 85) setAnalysisStatus("Validando datos con modelo energético...");
+            else setAnalysisStatus("Sincronizando con mercado eléctrico...");
         } else {
-            if (analysisProgress < 20) setAnalysisStatus("Mapeando Parámetros Eléctricos");
-            else if (analysisProgress < 40) setAnalysisStatus("Procesando Potencia Contratada");
-            else if (analysisProgress < 60) setAnalysisStatus("Calculando Ahorro en Tiempo Real");
-            else if (analysisProgress < 80) setAnalysisStatus("Comparando con 25+ Tarifas");
-            else setAnalysisStatus("Sincronizando con Mercado Mayorista");
+            if (analysisProgress < 20) setAnalysisStatus("Mapeando parámetros eléctricos");
+            else if (analysisProgress < 40) setAnalysisStatus("Procesando potencia contratada");
+            else if (analysisProgress < 60) setAnalysisStatus("Calculando ahorro en tiempo real");
+            else if (analysisProgress < 80) setAnalysisStatus("Comparando con 25+ tarifas");
+            else setAnalysisStatus("Sincronizando con mercado mayorista");
         }
     }, [analysisProgress, isProcessing, isAiGenerated, step]);
 
@@ -322,10 +351,6 @@ export default function ComparadorMain() {
         });
     }, [baseResults, filterSearch, filterPriceType, filterPermanence]);
 
-    const selectedResult = useMemo(() => {
-        if (!selectedTariffId) return null;
-        return baseResults.find(r => r.tariff.id === selectedTariffId) || results[0] || null;
-    }, [selectedTariffId, baseResults, results]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -858,7 +883,7 @@ export default function ComparadorMain() {
                                                     ) : (
                                                         <>
                                                             <TrendingDown className="w-5 h-5" />
-                                                            Actualizar Análisis
+                                                            Calcular ahorro
                                                         </>
                                                     )}
                                                 </button>
@@ -896,10 +921,10 @@ export default function ComparadorMain() {
                                                 Arrastra tu archivo aquí o haz clic para buscarlo.<br/>
                                                 Soportamos <span className="font-bold">PDF, JPG y PNG</span> hasta 4MB.
                                             </p>
-                                            <div className="flex flex-wrap justify-center gap-6 text-[10px] font-bold tracking-[0.2em] text-slate-400">
-                                                <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-success" /> Privacidad cifrada</span>
-                                                <span className="flex items-center gap-1.5"><Brain size={14} className="text-primary" /> Análisis inteligente</span>
-                                                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-500" /> Resultados en segundos</span>
+                                            <div className="flex flex-wrap justify-center gap-6 text-xs font-bold tracking-[0.2em] text-slate-400">
+                                                <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-success" /> Privacidad cifrada</span>
+                                                <span className="flex items-center gap-2"><Brain size={16} className="text-primary" /> Análisis inteligente</span>
+                                                <span className="flex items-center gap-2"><Clock size={16} className="text-amber-500" /> Resultados en segundos</span>
                                             </div>
                                         </label>
                                     </div>
@@ -992,7 +1017,7 @@ export default function ComparadorMain() {
                                         </div>
 
                                         <h3 key={`title-${loaderStage}`} className="text-4xl font-900 mb-2 tracking-tight text-slate-900 dark:text-white animate-in fade-in duration-500">
-                                            {isAiGenerated && step === "input" ? "Procesando Análisis..." :
+                                            {isAiGenerated && step === "input" ? "Procesando análisis..." :
                                                 loaderStage === 0 ? "Iniciando análisis..." :
                                                     loaderStage === 1 ? "Calculando..." :
                                                         loaderStage === 2 ? "Optimizando..." :
@@ -1002,7 +1027,7 @@ export default function ComparadorMain() {
                                         <div className="flex flex-col items-center gap-4 w-full">
                                             <div className="flex items-baseline gap-2">
                                                 <p className="text-primary font-mono text-2xl font-black">{Math.round(analysisProgress)}%</p>
-                                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest animate-pulse">Procesando</span>
+                                                <span className="text-[10px] font-bold text-slate-400 tracking-widest animate-pulse">Procesando</span>
                                             </div>
 
                                             <div className="w-80 h-3 bg-slate-100 dark:bg-slate-800/50 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-inner group-hover/loader:border-primary/30 transition-colors">
@@ -1018,7 +1043,7 @@ export default function ComparadorMain() {
                                             </div>
 
                                             <div className="h-8 flex items-center">
-                                                <p key={analysisStatus} className="text-[11px] font-bold text-ai-purple uppercase tracking-[0.4em] animate-in fade-in slide-in-from-bottom-2 duration-700">
+                                                <p key={analysisStatus} className="text-[11px] font-bold text-ai-purple tracking-[0.4em] animate-in fade-in slide-in-from-bottom-2 duration-700">
                                                     {analysisStatus}
                                                 </p>
                                             </div>
@@ -1340,6 +1365,351 @@ export default function ComparadorMain() {
                     </div>
                 )}
 
+                {step === "study" && selectedResult && (
+                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <button 
+                                onClick={() => setStep("results")}
+                                className="group flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-full shadow-lg shadow-slate-200/20 dark:shadow-none hover:-translate-x-1 transition-all active:scale-95 shrink-0"
+                            >
+                                <ArrowLeft className="w-4 h-4 text-primary group-hover:-translate-x-1 transition-transform" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-primary transition-colors">Volver al comparador</span>
+                            </button>
+
+                            <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[2rem] border border-slate-200/50 dark:border-slate-700/50 relative">
+                                <button 
+                                    onClick={() => setStudyMode("monthly")}
+                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'monthly' ? 'text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                                >
+                                    Mensual
+                                </button>
+                                <button 
+                                    onClick={() => setStudyMode("annual")}
+                                    className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'annual' ? 'text-white' : 'text-slate-400 hover:text-slate-600'}`}
+                                >
+                                    Anual
+                                </button>
+                                {/* Animated Background Pill */}
+                                <div 
+                                    className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-primary rounded-full shadow-lg shadow-primary/30 transition-all duration-500 ease-spring ${studyMode === 'annual' ? 'translate-x-[calc(100%+0px)]' : 'translate-x-0'}`}
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-12 py-10 relative">
+                            {/* Fondo decorativo ESPECTACULAR (Mesh Gradient) */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[300px] bg-gradient-to-b from-primary/5 via-transparent to-transparent blur-3xl rounded-full opacity-60 pointer-events-none -z-10"></div>
+                            
+                            <div className="flex flex-col items-center text-center space-y-4">
+                                <div className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-1.5 rounded-full text-primary border border-primary/20 animate-fade-in">
+                                    <Zap className="w-4 h-4 fill-current" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Cálculo en tiempo real</span>
+                                </div>
+                                <div className="space-y-1">
+                                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">Estudio de ahorro {studyMode === 'monthly' ? 'mensual' : 'anual'}</h2>
+                                    <p className="text-lg text-slate-500 font-medium">Análisis inteligente para <span className="text-primary font-bold">{selectedResult.tariff.name}</span></p>
+                                </div>
+                            </div>
+
+                            {/* Selector de tarifas ESPECTACULAR */}
+                            <div className="relative w-fit min-w-[280px] max-w-full px-1 z-50 mx-auto">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block text-center opacity-80">Selección de inteligencia</label>
+                                
+                                <div className="relative group/selector">
+                                    {/* Elemento oculto para ancho intrínseco */}
+                                    <div className="h-0 overflow-hidden invisible whitespace-nowrap px-14 py-6 font-bold text-lg text-center">
+                                        {results.slice(0, 12).map(res => (
+                                            <div key={res.tariff.id}>{res.tariff.company} - {res.tariff.name}</div>
+                                        ))}
+                                    </div>
+
+                                    <button
+                                        onClick={() => setIsStudySelectorOpen(!isStudySelectorOpen)}
+                                        className={`absolute inset-0 w-full bg-white dark:bg-slate-900 border-2 rounded-[2rem] transition-all duration-300 shadow-xl flex items-center justify-center overflow-hidden group ${
+                                            isStudySelectorOpen 
+                                            ? "border-primary ring-[6px] ring-primary/10 -translate-y-1" 
+                                            : "border-slate-100 dark:border-slate-800 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1"
+                                        }`}
+                                    >
+                                        <div className="absolute left-6 text-primary shrink-0 transition-all duration-300 group-hover:scale-125">
+                                            <BarChart3 className="w-6 h-6" />
+                                        </div>
+                                        
+                                        <div className="flex flex-col px-14 text-center truncate w-full">
+                                            <span className="text-[10px] uppercase tracking-[0.3em] font-black text-slate-400 mb-0.5 truncate group-hover:text-primary/70 transition-colors uppercase">{selectedResult.tariff.company}</span>
+                                            <span className="text-slate-900 dark:text-white text-lg font-black leading-tight truncate tracking-tight">{selectedResult.tariff.name}</span>
+                                        </div>
+
+                                        <div className="absolute right-6 text-slate-400 transition-all duration-300 group-hover:text-primary">
+                                            <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${isStudySelectorOpen ? "rotate-180" : ""}`} />
+                                        </div>
+
+                                        {/* Efecto de brillo premium en hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite] pointer-events-none"></div>
+                                    </button>
+
+                                    {isStudySelectorOpen && (
+                                        <>
+                                            <div className="absolute top-full left-0 right-0 mt-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-2 border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-[0_30px_70px_rgba(0,0,0,0.2)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 p-3 z-[60] min-w-full">
+                                                <div className="max-h-[400px] overflow-y-auto custom-scrollbar pr-1 py-1">
+                                                    <div className="px-5 py-3 mb-2 border-b border-slate-50 dark:border-slate-800/50">
+                                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">Tarifas recomendadas</span>
+                                                    </div>
+                                                    {results.slice(0, 12).map((res) => (
+                                                        <button
+                                                            key={res.tariff.id}
+                                                            onClick={() => {
+                                                                setSelectedTariffId(res.tariff.id!);
+                                                                setIsStudySelectorOpen(false);
+                                                            }}
+                                                            className={`w-full text-center px-6 py-4 rounded-2xl transition-all duration-200 flex items-center justify-center mb-1 group/item ${
+                                                                selectedTariffId === res.tariff.id 
+                                                                ? "bg-primary text-white shadow-lg shadow-primary/25" 
+                                                                : "hover:bg-primary/5 text-slate-600 dark:text-slate-400 hover:text-primary"
+                                                            }`}
+                                                        >
+                                                            <div className="flex flex-col items-center">
+                                                                <span className={`text-[8px] uppercase tracking-[0.2em] font-black mb-0.5 ${selectedTariffId === res.tariff.id ? "text-white/80" : "text-slate-400 group-hover/item:text-primary/70"}`}>{res.tariff.company}</span>
+                                                                <span className="font-bold text-base tracking-tight">{res.tariff.name}</span>
+                                                            </div>
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Fondo de enfoque al abrir (Overlay con Blur) */}
+                                {isStudySelectorOpen && (
+                                    <div className="fixed inset-0 z-[45] bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-500" onClick={() => setIsStudySelectorOpen(false)}></div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
+                            {/* Panel Izquierdo: Gráfico de Impacto Visual */}
+                            <div className="lg:col-span-5 premium-card overflow-hidden group relative">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-success to-primary"></div>
+                                <div className="p-8 flex flex-col items-center h-full">
+                                    <div className="w-full flex justify-between items-start mb-10">
+                                        <div className="space-y-1">
+                                            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Distribución de costes</h3>
+                                            <p className="text-[8px] font-bold text-slate-500 uppercase tracking-tighter">Comparativa Estructural</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-success/10 rounded-lg">
+                                                <TrendingDown className="w-4 h-4 text-success" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex-1 w-full space-y-10 pt-4 pb-4">
+                                        {/* Row 1: Termino de Energía */}
+                                        <div className="space-y-4">
+                                            <div className="flex justify-between items-end">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                                                        <Zap className="w-4 h-4" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Energía</h4>
+                                                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-1">Consumo Variable</p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="text-sm font-black text-success">
+                                                        -{Math.max(0, (currentBreakdown.energy - selectedResult.costEnergy)).toFixed(2)}€ ahorro
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-6 pt-2">
+                                                {/* Actual Energy */}
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-slate-400 px-1">
+                                                        <span>Factura Actual</span>
+                                                        <span className="text-slate-600 dark:text-slate-300 font-mono">{currentBreakdown.energy.toFixed(2)}€</span>
+                                                    </div>
+                                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800">
+                                                        <div className="h-full bg-slate-400/40 rounded-full transition-all duration-[1.5s]" style={{ width: '100%' }}></div>
+                                                    </div>
+                                                </div>
+                                                {/* Optimized Energy */}
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-primary px-1">
+                                                        <span>Nueva Tarifa</span>
+                                                        <span className="font-mono">{selectedResult.costEnergy.toFixed(2)}€</span>
+                                                    </div>
+                                                    <div className="h-2.5 bg-primary/10 rounded-full overflow-hidden border border-primary/20">
+                                                        <div 
+                                                            className="h-full bg-primary rounded-full transition-all duration-[1.5s] shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]" 
+                                                            style={{ width: `${(selectedResult.costEnergy / (currentBreakdown.energy || 1)) * 100}%` }}
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Row 2: Potencia y Fijos */}
+                                        <div className="space-y-4">
+                                            <div className="flex justify-between items-end">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                                        <CreditCard className="w-4 h-4" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Potencia y otros fijos</h4>
+                                                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-1">Capacidad y equipos</p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className={`text-sm font-black ${ (currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)) >= 0 ? 'text-success' : 'text-slate-400'}`}>
+                                                        {Math.abs(currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)).toFixed(2)}€ { (currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)) >= 0 ? ' ahorro' : ' diferencia'}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-6 pt-2">
+                                                {/* Actual Power */}
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-slate-400 px-1">
+                                                        <span>Factura Actual</span>
+                                                        <span className="text-slate-600 dark:text-slate-300 font-mono">{currentBreakdown.powerPlusOthers.toFixed(2)}€</span>
+                                                    </div>
+                                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800">
+                                                        <div className="h-full bg-slate-400/40 rounded-full transition-all duration-[1.5s]" style={{ width: '100%' }}></div>
+                                                    </div>
+                                                </div>
+                                                {/* Optimized Power */}
+                                                <div className="space-y-2">
+                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-amber-500 px-1">
+                                                        <span>Nueva Tarifa</span>
+                                                        <span className="font-mono">{(selectedResult.total - selectedResult.costEnergy).toFixed(2)}€</span>
+                                                    </div>
+                                                    <div className="h-2.5 bg-amber-500/10 rounded-full overflow-hidden border border-amber-500/20">
+                                                        <div 
+                                                            className="h-full bg-amber-500 rounded-full transition-all duration-[1.5s] shadow-[0_0_10px_rgba(245,158,11,0.5)]" 
+                                                            style={{ width: `${((selectedResult.total - selectedResult.costEnergy) / (currentBreakdown.powerPlusOthers || 1)) * 100}%` }}
+                                                        ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Divider with Icon */}
+                                        <div className="relative py-4">
+                                            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100 dark:border-slate-800"></div></div>
+                                            <div className="relative flex justify-center">
+                                                <div className="bg-white dark:bg-slate-900 px-4 text-slate-300"><TrendingDown className="w-4 h-4" /></div>
+                                            </div>
+                                        </div>
+
+                                        {/* Row 3: Total Impact */}
+                                        <div className="p-6 bg-gradient-to-br from-success/5 to-primary/5 rounded-3xl border border-success/20 overflow-hidden relative group">
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-success/10 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-success/20 transition-all"></div>
+                                            <div className="flex items-center justify-between relative z-10">
+                                                <div>
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Impacto Global</p>
+                                                    <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">Ahorro Mensual</h4>
+                                                </div>
+                                                <div className="text-right">
+                                                    <div className="text-3xl font-black text-success tracking-tighter">
+                                                        {Math.max(0, currentBreakdown.total - selectedResult.total).toFixed(2)}€
+                                                    </div>
+                                                    <div className="text-[9px] font-black bg-success/10 text-success px-2 py-0.5 rounded-full inline-block mt-1">
+                                                        -{Math.round((Math.max(0, currentBreakdown.total - selectedResult.total) / (currentBreakdown.total || 1)) * 100)}% factura
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Panel Derecho: Comparativa y Análisis */}
+                            <div className="col-span-1 lg:col-span-7 space-y-8">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    {/* Card Actual */}
+                                    <div className="premium-card p-6 border-l-4 border-slate-300 dark:border-slate-700 overflow-hidden relative group">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tu gasto actual</p>
+                                        </div>
+                                        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                            <CreditCard className="w-16 h-16" />
+                                        </div>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-3xl font-black text-slate-700 dark:text-slate-300">{(studyMode === 'monthly' ? (input.current_bill_total || 0) : (input.current_bill_total || 0) * 12).toFixed(2)}</span>
+                                            <span className="text-lg font-bold text-slate-400">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
+                                        </div>
+                                        <div className="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                            <div className="h-full bg-slate-300 dark:bg-slate-600 w-full opacity-50"></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Card Nueva */}
+                                    <div className="premium-card p-6 border-l-4 border-primary overflow-hidden relative group bg-gradient-to-br from-primary/5 to-transparent">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <p className="text-[10px] font-black text-primary uppercase tracking-widest">Nueva optimización</p>
+                                        </div>
+                                        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                            <Zap className="w-16 h-16" />
+                                        </div>
+                                        <div className="flex items-baseline gap-1">
+                                            <span className="text-3xl font-black text-primary">{(studyMode === 'monthly' ? selectedResult.total : selectedResult.total * 12).toFixed(2)}</span>
+                                            <span className="text-lg font-bold text-primary/60">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
+                                        </div>
+                                        <div className="mt-4 w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
+                                            <div className="h-full bg-primary animate-pulse-slow w-full shadow-[0_0_10px_rgba(26,188,156,0.5)]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Gran Banner de Ahorro */}
+                                <div className="premium-card p-0 overflow-hidden bg-success/5 border-2 border-success/20 hover:border-success/40 transition-all relative">
+                                    <div className="flex flex-col sm:flex-row items-center">
+                                        <div className="bg-success px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-white shrink-0 w-full sm:w-auto">
+                                            <Trophy className="w-12 h-12 mb-3 animate-bounce" />
+                                            <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Logro</span>
+                                        </div>
+                                        <div className="p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
+                                            <div>
+                                                <h4 className="text-sm font-black text-success uppercase tracking-widest mb-1">Ahorro total calculado</h4>
+                                                <p className="text-slate-500 text-xs font-bold leading-relaxed px-1">Se han aplicado todos los impuestos y cánones vigentes.</p>
+                                            </div>
+                                            <div className="text-center sm:text-right">
+                                                <div className="text-5xl font-black text-success tracking-tighter">
+                                                    {(studyMode === 'monthly' 
+                                                        ? Math.max(0, (input.current_bill_total || 0) - selectedResult.total) 
+                                                        : Math.max(0, ((input.current_bill_total || 0) - selectedResult.total) * 12)
+                                                    ).toFixed(2)}
+                                                    <span className="text-2xl ml-1 italic">€</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Análisis Experto Refinado */}
+                                <div className="premium-card p-8 bg-slate-900 border-none shadow-2xl relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                                    <div className="flex items-start gap-5 relative z-10">
+                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20">
+                                            <Brain className="w-8 h-8" />
+                                        </div>
+                                        <div className="space-y-3 pt-1">
+                                            <h4 className="text-xs font-black text-primary uppercase tracking-[0.3em]">Análisis estratégico IA</h4>
+                                            <p className="text-slate-300 text-[15px] italic leading-relaxed font-medium">
+                                                "Cambiando a la tarifa <span className="text-primary font-bold not-italic">{selectedResult.tariff.name}</span> de <span className="text-primary font-bold not-italic">{selectedResult.tariff.company}</span>, obtendrás una reducción directa en el término de energía. Tu perfil de consumo encaja perfectamente con esta estructura de precios."
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* STEP 3: RESULTS DASHBOARD */}
                 {step === "results" && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -1495,7 +1865,14 @@ export default function ComparadorMain() {
                             <div className="flex-1 space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
                                     <div
-                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
+                                        onClick={() => {
+                                            if (results[0]) {
+                                                setSelectedTariffId(results[0].tariff.id!);
+                                                setStudyMode("monthly");
+                                                setStep("study");
+                                            }
+                                        }}
+                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center">
@@ -1503,7 +1880,10 @@ export default function ComparadorMain() {
                                                 <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                                                     <FileText className="w-5 h-5" />
                                                 </div>
-                                                <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Mes Est.</span>
+                                                <div className="flex flex-col items-end gap-1">
+                                                    <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Mensual</span>
+                                                    <span className="text-[10px] font-bold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                </div>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
@@ -1516,7 +1896,14 @@ export default function ComparadorMain() {
                                     </div>
 
                                     <div
-                                        className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300"
+                                        onClick={() => {
+                                            if (results[0]) {
+                                                setSelectedTariffId(results[0].tariff.id!);
+                                                setStudyMode("annual");
+                                                setStep("study");
+                                            }
+                                        }}
+                                        className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-success/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center">
@@ -1524,7 +1911,10 @@ export default function ComparadorMain() {
                                                 <div className="w-10 h-10 rounded-2xl bg-success/10 flex items-center justify-center text-success group-hover:scale-110 transition-transform">
                                                     <Calendar className="w-5 h-5" />
                                                 </div>
-                                                <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg uppercase tracking-widest border border-slate-200 dark:border-slate-700/50">Anual</span>
+                                                <div className="flex flex-col items-end gap-1">
+                                                    <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Anual</span>
+                                                    <span className="text-[10px] font-bold px-3 py-1 bg-success/10 text-success rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                </div>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
@@ -1583,14 +1973,14 @@ export default function ComparadorMain() {
                                             <button
                                                 onClick={saveBill}
                                                 disabled={isProcessing || results.length === 0}
-                                                className="shrink-0 flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-widest border border-primary/20 transition-all active:scale-95 disabled:opacity-50"
+                                                className="shrink-0 flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-bold px-4 py-1.5 rounded-full tracking-widest border border-primary/20 transition-all active:scale-95 disabled:opacity-50"
                                             >
                                                 {isProcessing ? (
                                                     <Clock className="w-4 h-4 animate-spin" />
                                                 ) : (
                                                     <Database className="w-4 h-4" />
                                                 )}
-                                                {isProcessing ? "Guardando..." : "Guardar Análisis"}
+                                                {isProcessing ? "Guardando..." : "Guardar análisis"}
                                             </button>
                                         </div>
                                     </div>
@@ -1648,8 +2038,11 @@ export default function ComparadorMain() {
                                                     {/* Action Footer */}
                                                     <div className="flex items-center gap-3">
                                                         <button
-                                                            onClick={() => viewDetail(res.tariff.id!)}
-                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-[10px] tracking-widest transition-all active:scale-95 ${idx === 0
+                                                            onClick={() => {
+                                                                setSelectedTariffId(res.tariff.id!);
+                                                                setStep("detail");
+                                                            }}
+                                                            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-[10px] tracking-widest transition-all active:scale-95 ${idx === 0
                                                                 ? "bg-primary text-white shadow-lg shadow-primary/20"
                                                                 : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
                                                                 }`}
@@ -1694,21 +2087,21 @@ export default function ComparadorMain() {
 
                                             <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
                                                 <thead>
-                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] whitespace-nowrap">
+                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.3em] whitespace-nowrap">
                                                         <th className="pl-8 pr-4 py-10 w-[33%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 rounded-l-3xl border-y border-l border-slate-100 dark:border-white/5">
-                                                            TARIFA / COMERCIALIZADORA
+                                                            Tarifa / comercializadora
                                                         </th>
                                                         <th className="px-4 py-10 w-[14%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            ENERGÍA
+                                                            Energía
                                                         </th>
                                                         <th className="px-4 py-10 w-[14%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            TOTAL MES
+                                                            Total mes
                                                         </th>
                                                         <th className="px-4 py-10 w-[18%] align-middle text-center text-success font-black bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            AHORRO
+                                                            Ahorro
                                                         </th>
                                                         <th className="px-4 py-10 w-[21%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 rounded-r-3xl border-y border-r border-slate-100 dark:border-white/5">
-                                                            ACCIÓN
+                                                            Acción
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -1749,10 +2142,7 @@ export default function ComparadorMain() {
                                                         </td>
                                                         <td className="px-4 py-8 align-middle text-center text-slate-300 dark:text-slate-700 font-black">—</td>
                                                         <td className="pr-6 pl-4 py-8 rounded-r-[1.5rem] align-middle text-right">
-                                                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200/50 dark:bg-slate-800/50 text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                                                                <Lock className="w-3 h-3" />
-                                                                Punto de Comparación
-                                                            </div>
+                                                            {/* Empty for baseline */}
                                                         </td>
                                                     </tr>
 
@@ -1830,7 +2220,10 @@ export default function ComparadorMain() {
                                                                     </button>
                                                                     <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
                                                                     <button
-                                                                        onClick={() => viewDetail(res.tariff.id!)}
+                                                                        onClick={() => {
+                                                                            setSelectedTariffId(res.tariff.id!);
+                                                                            setStep("detail");
+                                                                        }}
                                                                         title="Ver detalles"
                                                                         className="p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent text-primary hover:text-primary/70"
                                                                     >
@@ -1948,7 +2341,7 @@ export default function ComparadorMain() {
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300">Cerrar</span>
                                 <X className="w-6 h-6 text-slate-400" />
                             </button>
-                        </div >
+                        </div>
 
                         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3.5rem] p-10 md:p-16 shadow-2xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64"></div>
@@ -2085,7 +2478,7 @@ export default function ComparadorMain() {
                             <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fin del Análisis Gráfico</p>
                             <div className="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
                         </div>
-                    </div >
+                    </div>
                 )}
 
                 {/* STEP 4: TARIFF DETAIL VIEW */}
