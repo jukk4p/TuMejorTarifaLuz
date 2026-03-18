@@ -43,6 +43,7 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
         case "endesa": return "/logos/Endesa.png";
         case "naturgy": return "/logos/Naturgy.png";
         case "esluz": return "/logos/Esluz.png";
+        case "comercializadoras de referencia": return "/logos/Comercializadoras-de-referencia.png";
         default: return null;
     }
 };

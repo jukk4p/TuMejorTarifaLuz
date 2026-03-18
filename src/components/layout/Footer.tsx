@@ -224,11 +224,18 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-slate-800 flex flex-col items-center text-center gap-6">
                     <div className="flex flex-col items-center gap-3 group">
-                        <div className="w-12 h-12 active:scale-95 transition-transform flex items-center justify-center overflow-hidden bg-white/5 rounded-2xl p-2 shadow-sm border border-slate-800">
-                            <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={40} height={40} className="object-contain" />
+                        <div className="w-16 h-16 active:scale-95 transition-all flex items-center justify-center p-1">
+                            <div className="relative w-full h-full">
+                                <Image 
+                                    src="/Logo.png" 
+                                    alt="TuMejorTarifaLuz" 
+                                    fill
+                                    className="object-contain" 
+                                />
+                            </div>
                         </div>
-                        <span className="text-xl font-800 tracking-tight text-white">
-                            TuMejorTarifa<span className="text-primary">Luz</span>
+                        <span className="text-3xl font-800 tracking-tight text-white group-hover:text-primary transition-colors">
+                            TuMejorTarifa<span className="text-primary group-hover:text-[#137fec]">Luz</span>
                         </span>
                     </div>
                     

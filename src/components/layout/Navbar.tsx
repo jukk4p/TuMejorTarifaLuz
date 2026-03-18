@@ -50,12 +50,20 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group shrink-0">
-                        <div className="w-10 h-10 active:scale-95 transition-all flex items-center justify-center">
-                            <Image src="/Logo.png" alt="TuMejorTarifaLuz" width={38} height={38} className="object-contain" priority />
+                    <Link href="/" className="flex items-center gap-2 group shrink-0">
+                        <div className="w-14 h-14 active:scale-95 transition-all flex items-center justify-center p-0.5">
+                            <div className="relative w-full h-full">
+                                <Image 
+                                    src="/Logo.png" 
+                                    alt="TuMejorTarifaLuz" 
+                                    fill
+                                    className="object-contain" 
+                                    priority 
+                                />
+                            </div>
                         </div>
-                        <span className="text-xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline">
-                            TuMejorTarifa<span className="text-primary">Luz</span>
+                        <span className="text-2xl font-800 tracking-tight text-slate-900 dark:text-white hidden sm:inline group-hover:text-primary transition-colors">
+                            TuMejorTarifa<span className="text-primary group-hover:text-primary-dark">Luz</span>
                         </span>
                     </Link>
 

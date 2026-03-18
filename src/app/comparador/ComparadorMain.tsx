@@ -1903,9 +1903,6 @@ export default function ComparadorMain() {
                                                     >
                                                         <ChevronRight className="w-4 h-4 transition-transform duration-300" />
                                                     </button>
-                                                    <div className="w-8 h-8 rounded-xl bg-success/10 flex items-center justify-center text-success border border-success/20">
-                                                        <CheckCircle2 className="w-4 h-4" />
-                                                    </div>
                                                 </div>
                                             </div>
 
@@ -1942,7 +1939,7 @@ export default function ComparadorMain() {
                                                     <div className="space-y-3">
                                                         {[
                                                             { label: 'P1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
-                                                            { label: 'P2 · Valle', val: input.energy_p2, color: 'text-primary' },
+                                                            { label: 'P2 · Llano', val: input.energy_p2, color: 'text-primary' },
                                                             { label: 'P3 · Valle', val: input.energy_p3, color: 'text-indigo-500' }
                                                         ].filter(p => p.val > 0).map((p, i) => (
                                                             <div key={i} className="flex justify-between items-center text-xs font-black">
@@ -2353,20 +2350,20 @@ export default function ComparadorMain() {
 
                                             <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
                                                 <thead>
-                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.3em] whitespace-nowrap">
-                                                        <th className="pl-8 pr-4 py-10 w-[30%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 rounded-l-3xl border-y border-l border-slate-100 dark:border-white/5">
+                                                    <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase">
+                                                        <th className="pl-10 pr-4 py-8 w-[25%] align-middle text-left bg-slate-50/30 dark:bg-slate-900/40 rounded-l-[2rem] border-y border-l border-slate-100 dark:border-white/5">
                                                             Compañía / Tarifa
                                                         </th>
-                                                        <th className="px-4 py-10 w-[14%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            Energía
+                                                        <th className="px-4 py-8 w-[20%] align-middle text-left bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5 whitespace-nowrap">
+                                                            Energía (p1-p3)
                                                         </th>
-                                                        <th className="px-4 py-10 w-[14%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
+                                                        <th className="px-4 py-8 w-[15%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             Total mes
                                                         </th>
-                                                        <th className="px-4 py-10 w-[21%] align-middle text-center text-success font-black bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
-                                                            Ahorro
+                                                        <th className="px-4 py-8 w-[18%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
+                                                            Ahorro mensual
                                                         </th>
-                                                        <th className="px-4 py-10 w-[21%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 rounded-r-3xl border-y border-r border-slate-100 dark:border-white/5">
+                                                        <th className="px-4 py-8 w-[22%] align-middle text-center bg-slate-50/30 dark:bg-slate-900/40 rounded-r-[2rem] border-y border-r border-slate-100 dark:border-white/5">
                                                             Acción
                                                         </th>
                                                     </tr>
@@ -2415,57 +2412,83 @@ export default function ComparadorMain() {
                                                     {/* Comparison results - Hierarchical & High Performance */}
                                                     {results.map((res, idx) => (
                                                         <tr key={idx} className={`group relative transition-all duration-500 hover:z-20 ${idx === 0
-                                                            ? "bg-white dark:bg-slate-900 shadow-[0_25px_80px_-15px_rgba(var(--primary-rgb),0.2)] dark:shadow-[0_25px_80px_-15px_rgba(0,0,0,0.6)] ring-2 ring-primary/20 scale-[1.02] -translate-y-1"
-                                                            : "bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-900 border border-white/40 dark:border-white/5 hover:shadow-xl hover:scale-[1.01] hover:-translate-y-1"
+                                                            ? "bg-white dark:bg-slate-900 shadow-[0_40px_100px_-20px_rgba(var(--primary-rgb),0.3)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)] ring-2 ring-primary scale-[1.03] -translate-y-2 z-30"
+                                                            : "bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-900 border border-white/40 dark:border-white/5 hover:shadow-2xl hover:scale-[1.01] hover:-translate-y-1"
                                                             }`}>
-                                                            <td className="pl-8 pr-4 py-8 transition-all duration-300 rounded-l-3xl relative">
+                                                            <td className="pl-10 pr-4 py-10 rounded-l-[2rem] relative">
                                                                 {/* Type Indicator Line */}
-                                                                <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-12 w-1 rounded-r-full z-10 transition-all duration-500 group-hover:h-16 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'}`}></div>
-                                                                {idx === 0 && (
-                                                                    <>
-                                                                        <div className="absolute left-0 top-1/2 -translate-y-1/2 h-20 w-1.5 bg-gradient-to-b from-primary via-primary-light to-primary rounded-full z-30 shadow-[0_0_25px_rgba(var(--primary-rgb),0.6)]"></div>
-                                                                        <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.06] to-transparent pointer-events-none rounded-l-3xl"></div>
-                                                                    </>
-                                                                )}
-                                                                <div className="flex flex-col gap-1.5">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${idx === 0 ? "text-primary" : "text-slate-400 group-hover:text-primary/70"}`}>{res.tariff.company}</p>
-                                                                    </div>
-                                                                    <p className="text-base font-black text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight leading-tight">{res.tariff.name}</p>
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5">
-                                                                <div className="flex flex-col">
-                                                                    <div className="flex flex-col gap-1 text-[10px]">
-                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-orange-500"></div> <span className="font-bold text-orange-500 uppercase text-[8px] w-4">P1:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{res.tariff.e1_kwh.toFixed(4)}</span></div>
-                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-blue-500"></div> <span className="font-bold text-blue-500 uppercase text-[8px] w-4">P2:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{(res.tariff.e2_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
-                                                                        <div className="flex items-center gap-2.5"><div className="w-1 h-3 rounded-full bg-success"></div> <span className="font-bold text-success uppercase text-[8px] w-4">P3:</span> <span className="font-mono font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-primary">{(res.tariff.e3_kwh || res.tariff.e1_kwh).toFixed(4)}</span></div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5 text-center">
-                                                                <div className="flex flex-col items-center">
-                                                                    <span className={`text-xl font-black tracking-tighter ${idx === 0 ? "text-primary scale-110" : "text-slate-900 dark:text-white"}`}>{res.total.toFixed(2)} €</span>
-                                                                </div>
-                                                            </td>
-                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/5 text-center">
-                                                                <div className="flex flex-col items-center justify-center relative">
-                                                                    {idx === 0 && (
-                                                                        <div className="absolute -inset-6 bg-success/10 blur-2xl rounded-full animate-pulse z-0"></div>
-                                                                    )}
-                                                                    <div className={`flex items-center justify-center gap-1.5 relative z-10 whitespace-nowrap flex-nowrap ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-rose-500"}`}>
-                                                                        <div className="opacity-70 shrink-0">
-                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-5 h-5" /> : <TrendingUp className="w-5 h-5" />}
+                                                                <div className={`absolute left-0 top-0 bottom-0 w-2 z-10 transition-all duration-500 ${res.tariff.type === '3 Periodos' ? 'bg-primary' : 'bg-amber-500'} ${idx === 0 ? "h-full opacity-100" : "h-12 top-1/2 -translate-y-1/2 rounded-r-full group-hover:h-16 opacity-40"}`}></div>
+                                                                
+                                                                <div className="flex flex-col gap-2">
+                                                                    <div className="flex items-center gap-3">
+                                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs border ${idx === 0 ? "bg-primary text-white border-primary shadow-lg shadow-primary/20" : "bg-slate-100 dark:bg-slate-800 text-slate-500 border-slate-200/50 dark:border-white/5"}`}>
+                                                                            {res.tariff.company?.[0]?.toUpperCase() || 'T'}
                                                                         </div>
-                                                                        <span className="font-black tracking-tighter text-2xl">
-                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? '-' : '+'}
-                                                                            {Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)} €
+                                                                        <div className="flex flex-col">
+                                                                            <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${idx === 0 ? "text-primary" : "text-slate-400 group-hover:text-primary/70"}`}>{res.tariff.company}</p>
+                                                                            <p className={`text-sm font-black tracking-tight leading-tight ${idx === 0 ? "text-slate-900 dark:text-white" : "text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors"}`}>{res.tariff.name}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    {idx === 0 && (
+                                                                        <div className="mt-2 inline-flex">
+                                                                            <span className="bg-primary/10 text-primary text-[8px] font-black px-2 py-0.5 rounded-full border border-primary/20 uppercase tracking-[0.2em] animate-in slide-in-from-left-2 duration-500">Mejor opción para ti</span>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
+                                                                <div className="flex flex-col gap-2">
+                                                                    {[
+                                                                        { label: 'Punta', val: res.tariff.e1_kwh, color: 'bg-orange-500' },
+                                                                        { label: 'Llano', val: res.tariff.e2_kwh || res.tariff.e1_kwh, color: 'bg-primary' },
+                                                                        { label: 'Valle', val: res.tariff.e3_kwh || res.tariff.e1_kwh, color: 'bg-indigo-500' }
+                                                                    ].map((p, i) => (
+                                                                        <div key={i} className="flex items-center justify-between text-[10px] group/item">
+                                                                            <div className="flex items-center gap-2">
+                                                                                <div className={`w-1 h-3 rounded-full ${p.color} opacity-60 group-hover/item:opacity-100 transition-opacity`}></div>
+                                                                                <span className="font-bold text-slate-400 uppercase text-[8px] tracking-widest">{p.label}</span>
+                                                                            </div>
+                                                                            <span className="font-mono font-black text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">{p.val.toFixed(4)}</span>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 text-center group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
+                                                                <div className="flex flex-col items-center">
+                                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Cuota fija</p>
+                                                                    <span className={`text-lg font-black tracking-tighter ${idx === 0 ? "text-primary scale-110" : "text-slate-900 dark:text-white"}`}>{res.total.toFixed(2)}€</span>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-4 py-8 align-middle border-y border-slate-100 dark:border-white/10 text-center relative overflow-hidden group-hover:bg-slate-50/30 dark:group-hover:bg-white/[0.02] transition-colors">
+                                                                {idx === 0 && (
+                                                                    <div className="absolute inset-0 bg-success/5 animate-pulse transition-opacity"></div>
+                                                                )}
+                                                                <div className="flex flex-col items-center justify-center relative z-10">
+                                                                    <div className={`inline-flex items-center justify-center px-4 py-2 rounded-2xl ${((input.current_bill_total || 0) - res.total) >= 0 ? "bg-success/10 text-success border border-success/20" : "bg-rose-500/10 text-rose-500 border border-rose-500/20"}`}>
+                                                                        {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-5 h-5 mr-2" /> : <TrendingUp className="w-5 h-5 mr-2" />}
+                                                                        <span className="font-black tracking-tighter text-xl lg:text-2xl">
+                                                                            {Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)}<span className="text-[10px] font-bold ml-0.5">€/m</span>
                                                                         </span>
                                                                     </div>
+                                                                    <p className={`text-[8px] font-black uppercase tracking-[0.2em] mt-2 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success/70" : "text-rose-500/70"}`}>
+                                                                        {((input.current_bill_total || 0) - res.total) >= 0 ? 'Ahorro estimado' : 'Coste extra'}
+                                                                    </p>
                                                                 </div>
                                                             </td>
-                                                            <td className="pr-6 pl-4 py-8 border-y border-slate-100 dark:border-white/5 rounded-r-3xl text-right align-middle">
-                                                                <div className="inline-flex items-center gap-1 px-1.5 py-1.5 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 border border-slate-100 dark:border-white/5 shadow-sm">
+                                                            <td className="pr-10 pl-4 py-10 border-y border-r border-slate-100 dark:border-white/10 rounded-r-[2rem] text-right align-middle transition-colors">
+                                                                <div className="flex flex-col gap-2">
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            setSelectedTariffId(res.tariff.id!);
+                                                                            setStep("detail");
+                                                                        }}
+                                                                        className={`w-full py-2.5 rounded-xl font-black text-[9px] uppercase tracking-[0.1em] transition-all active:scale-95 flex items-center justify-center gap-1.5 ${idx === 0 
+                                                                            ? "bg-primary text-white shadow-lg shadow-primary/20 hover:bg-primary/90" 
+                                                                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/50 dark:border-white/5"}`}
+                                                                    >
+                                                                        <Eye className="w-3.5 h-3.5" />
+                                                                        Ver detalles
+                                                                    </button>
                                                                     <button
                                                                         onClick={(e) => {
                                                                             e.stopPropagation();
@@ -2475,26 +2498,22 @@ export default function ComparadorMain() {
                                                                             }
                                                                             if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                                         }}
-                                                                        title={res.tariff.id && favorites.includes(res.tariff.id) ? "Quitar de favoritos" : "Añadir a favoritos"}
-                                                                        className={`p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                            ? "text-red-500"
-                                                                            : "text-slate-400 dark:text-slate-500 hover:text-primary"
-                                                                            }`}
+                                                                        className={`group/heart w-full py-2 rounded-xl font-bold text-[8px] uppercase tracking-widest transition-all flex items-center justify-center gap-1.5 ${res.tariff.id && favorites.includes(res.tariff.id)
+                                                                            ? "bg-red-50 dark:bg-red-500/10 text-red-500 border border-red-100 dark:border-red-500/20"
+                                                                            : "bg-slate-50/50 dark:bg-slate-800/30 text-slate-400 dark:text-slate-500 hover:text-red-400 border border-transparent hover:border-red-100/50 dark:hover:border-red-500/10"
+                                                                        }`}
                                                                     >
-                                                                        <div className="text-xl">
-                                                                            {res.tariff.id && favorites.includes(res.tariff.id) ? <Heart className="w-5 h-5 fill-current" /> : <Heart className="w-5 h-5" />}
-                                                                        </div>
-                                                                    </button>
-                                                                    <div className="w-[1px] h-4 bg-slate-200 dark:bg-slate-700/50 mx-0.5"></div>
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            setSelectedTariffId(res.tariff.id!);
-                                                                            setStep("detail");
-                                                                        }}
-                                                                        title="Ver detalles"
-                                                                        className="p-2 transition-all hover:scale-110 active:scale-95 flex items-center justify-center bg-transparent text-primary hover:text-primary/70"
-                                                                    >
-                                                                        <Eye className="w-6 h-6" />
+                                                                        {res.tariff.id && favorites.includes(res.tariff.id) ? (
+                                                                            <>
+                                                                                <Heart className="w-3 h-3 fill-current" />
+                                                                                Favorito
+                                                                            </>
+                                                                        ) : (
+                                                                            <>
+                                                                                <Heart className="w-3 h-3 transition-transform group-hover/heart:scale-110" />
+                                                                                Guardar
+                                                                            </>
+                                                                        )}
                                                                     </button>
                                                                 </div>
                                                             </td>
