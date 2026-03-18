@@ -224,7 +224,7 @@ export default function ComparadorMain() {
         }
 
         if (isThreePeriod && !energyDominates) {
-            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-accent">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (P1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
+            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-accent">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (E1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
         }
 
         if (isHighSaving) {
@@ -837,7 +837,7 @@ export default function ComparadorMain() {
                                         </div>
                                     </div>
                                     <button 
-                                        onClick={() => setInputMethod(null)}
+                                        onClick={() => setInputMethod(prev => prev === "manual" ? "upload" : "manual")}
                                         className="p-2 hover:bg-surface-2 rounded-xl transition-colors text-text-muted hover:text-primary"
                                         title="Cambiar método"
                                     >
@@ -904,7 +904,7 @@ export default function ComparadorMain() {
                                                 <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Potencias (kW)</h4>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (p1)</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (P1)</label>
                                                         <input
                                                             type="text"
                                                             inputMode="decimal"
@@ -916,7 +916,7 @@ export default function ComparadorMain() {
                                                         />
                                                     </div>
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (p2)</label>
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (P2)</label>
                                                         <input
                                                             type="text"
                                                             inputMode="decimal"
@@ -932,9 +932,9 @@ export default function ComparadorMain() {
                                                 <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
                                                 <div className="space-y-4">
                                                     {[
-                                                        { label: "Punta (e1)", name: "energy_p1" },
-                                                        { label: "Llano (e2)", name: "energy_p2" },
-                                                        { label: "Valle (e3)", name: "energy_p3" },
+                                                        { label: "Punta (E1)", name: "energy_p1" },
+                                                        { label: "Llano (E2)", name: "energy_p2" },
+                                                        { label: "Valle (E3)", name: "energy_p3" },
                                                     ].map((item, idx) => (
                                                         <div key={idx} className="space-y-1.5">
                                                             <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
@@ -1318,7 +1318,7 @@ export default function ComparadorMain() {
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Punta (p1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Punta (P1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1332,7 +1332,7 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Valle (p2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Valle (P2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1352,7 +1352,7 @@ export default function ComparadorMain() {
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Punta (e1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Punta (E1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1366,7 +1366,7 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Llano (e2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Llano (E2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1380,7 +1380,7 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Valle (e3)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Consumo Valle (E3)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1400,7 +1400,7 @@ export default function ComparadorMain() {
                                         <div className="space-y-4">
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Punta (p1)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Punta (E1)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1414,7 +1414,7 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Llano (p2)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Llano (E2)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -1428,7 +1428,7 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="space-y-1.5">
                                                 <div className="flex items-center gap-1">
-                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Valle (p3)</label>
+                                                    <label className="text-[11px] font-bold text-text-secondary capitalize">Precio Valle (E3)</label>
                                                     <CheckCircle2 className="text-green-500 w-3 h-3" />
                                                 </div>
                                                 <input
@@ -2940,21 +2940,21 @@ export default function ComparadorMain() {
                                                         <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-orange-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Punta (P1)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Punta (E1)</span>
                                                             </div>
                                                             <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-blue-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Llano (P2)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Llano (E2)</span>
                                                             </div>
                                                             <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-green-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Valle (P3)</span>
+                                                                <span className="text-xs font-bold text-text-primary">Valle (E3)</span>
                                                             </div>
                                                             <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>

@@ -330,35 +330,53 @@ export default async function Home() {
                     Crear mi cuenta gratuita
                     <UserPlus size={20} className="ml-2" />
                   </Link>
-                  <Link href="/comparador" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface-2 border border-border hover:border-primary/50 hover:bg-surface text-text-secondary hover:text-text-primary font-body font-semibold rounded-2xl transition-all group active:scale-95 shadow-2xl">
-                    <CheckCircle size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                  <Link href="/comparador" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface/50 backdrop-blur-sm border border-border hover:border-primary/30 hover:bg-surface text-text-muted hover:text-text-primary font-body font-bold text-sm tracking-tight rounded-2xl transition-all group active:scale-95 shadow-sm hover:shadow-xl hover:shadow-primary/5">
+                    <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                      <CheckCircle size={16} className="transition-transform group-hover:scale-110" />
+                    </div>
                     O usa el comparador sin registro
                   </Link>
                 </div>
               </div>
 
               <div className="hidden lg:block relative">
-                <div className="bg-gradient-to-br from-surface to-surface-2 p-8 rounded-[3rem] border border-border shadow-3xl">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-surface-2 rounded-full animate-pulse"></div>
-                        <div className="space-y-2">
-                          <div className="w-32 h-3 bg-surface-2 rounded animate-pulse"></div>
-                          <div className="w-24 h-2 bg-surface-2/80 rounded animate-pulse"></div>
+                {/* Visual Backdrop Glows */}
+                <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
+                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px] animate-pulse delay-700"></div>
+
+                <div className="bg-surface/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-border shadow-3xl relative overflow-hidden group/skeleton">
+                  {/* Glassmorphism Shine */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/skeleton:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+                  
+                  <div className="space-y-8">
+                    <div className="flex items-center justify-between border-b border-border/40 pb-7">
+                      <div className="flex items-center gap-5">
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-md animate-pulse"></div>
+                          <div className="w-14 h-14 bg-surface-2 rounded-2xl relative z-10 border border-border"></div>
+                        </div>
+                        <div className="space-y-2.5">
+                          <div className="w-40 h-3.5 bg-surface-2 rounded-full animate-pulse"></div>
+                          <div className="w-28 h-2 bg-surface-2/60 rounded-full animate-pulse delay-300"></div>
                         </div>
                       </div>
-                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                        <Bell size={14} className="text-primary" />
+                      <div className="w-10 h-10 bg-primary/10 rounded-2xl flex items-center justify-center shadow-inner">
+                        <Bell size={18} className="text-primary animate-bounce" />
                       </div>
                     </div>
-                    <div className="space-y-4">
-                      <div className="h-40 bg-surface-2/50 rounded-2xl border border-border/10 flex items-center justify-center">
-                        <BarChart3 size={60} className="text-text-muted/40" />
+                    
+                    <div className="space-y-6">
+                      <div className="h-44 bg-surface-2/30 rounded-[2rem] border border-border/40 flex items-center justify-center relative overflow-hidden group/chart">
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
+                        <BarChart3 size={64} className="text-primary/20 group-hover/chart:scale-110 transition-transform duration-700" />
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="h-20 bg-surface-2 rounded-2xl border border-border"></div>
-                        <div className="h-20 bg-surface-2 rounded-2xl border border-border"></div>
+                      <div className="grid grid-cols-2 gap-5">
+                        <div className="h-24 bg-surface-2/40 rounded-3xl border border-border/60 relative overflow-hidden">
+                          <div className="absolute top-3 left-3 w-8 h-1 bg-primary/20 rounded-full"></div>
+                        </div>
+                        <div className="h-24 bg-surface-2/40 rounded-3xl border border-border/60 relative overflow-hidden">
+                          <div className="absolute top-3 left-3 w-8 h-1 bg-accent/20 rounded-full"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
