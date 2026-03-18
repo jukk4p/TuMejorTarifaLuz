@@ -137,6 +137,18 @@ export default function ComparadorMain() {
     const [hasAnalyzed, setHasAnalyzed] = useState(false);
     const [studyMode, setStudyMode] = useState<"monthly" | "annual" | null>(null);
     const [isStudySelectorOpen, setIsStudySelectorOpen] = useState(false);
+    const [pendingStudyMode, setPendingStudyMode] = useState<"monthly" | "annual" | null>(null);
+
+    // Auto-open Study view after login if user had a pending mode
+    useEffect(() => {
+        if (user && pendingStudyMode && results.length > 0) {
+            setSelectedTariffId(results[0].tariff.id!);
+            setStudyMode(pendingStudyMode);
+            setStep("study");
+            setPendingStudyMode(null);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, pendingStudyMode]);
 
     const applyTaxes = (price: number) => {
         if (!showWithTaxes) return price;
@@ -148,22 +160,73 @@ export default function ComparadorMain() {
     const selectedResult = useMemo(() => baseResults.find(r => r.tariff.id === selectedTariffId) || baseResults[0], [baseResults, selectedTariffId]);
 
     const currentBreakdown = useMemo(() => {
-        const energyCost = (input.energy_p1 * (input.current_price_p1 || 0)) +
+        const total = (input.current_bill_total || 0);
+        let energyCost = (input.energy_p1 * (input.current_price_p1 || 0)) +
                            (input.energy_p2 * (input.current_price_p2 || input.current_price_p1 || 0)) +
                            (input.energy_p3 * (input.current_price_p3 || input.current_price_p1 || 0));
         
-        const total = input.current_bill_total || 0;
-        // Approximation: taxes and others are proportional, but we group them to show "Rest of Bill" vs "Energy"
-        // Actually, let's just show Energy vs Energy and Power vs Power (if we can estimate it)
-        // Since we don't have current power price, we'll label it as "Potencia y fijos"
+        let isEstimated = false;
+        // If prices are missing (e.g. manual mode), estimate a 65% energy / 35% power split of the total bill
+        if (total > 0 && energyCost === 0) {
+            energyCost = total * 0.65;
+            isEstimated = true;
+        }
+
         const powerAndOthers = Math.max(0, total - energyCost);
         
         return {
             energy: energyCost,
             powerPlusOthers: powerAndOthers,
-            total: total
+            total,
+            isEstimated
         };
     }, [input]);
+
+    // ── AI Insight Generator ──────────────────────────────────────────────────
+    const generateAIInsight = useMemo(() => {
+        if (!selectedResult) return '';
+        const tariff = selectedResult.tariff;
+        const saving = Math.max(0, (input.current_bill_total || 0) - selectedResult.total);
+        const savingPct = Math.round((saving / (input.current_bill_total || 1)) * 100);
+        const energySaving = Math.max(0, currentBreakdown.energy - selectedResult.costEnergy);
+        const powerSaving = Math.max(0, currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy));
+        const isFixedRate = tariff.type === 'Fijo (1 Periodo)';
+        const isThreePeriod = tariff.type === '3 Periodos';
+        const hasPermanence = tariff.permanence;
+        const energyDominates = energySaving > powerSaving;
+        const powerDominates = powerSaving > energySaving * 1.5;
+        const isHighSaving = savingPct >= 25;
+        const isModerateSaving = savingPct >= 10 && savingPct < 25;
+        const isPVPC = tariff.name.toLowerCase().includes('pvpc') || tariff.company.toLowerCase().includes('referencia');
+
+        if (isPVPC) {
+            return <>La tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> indexa tu consumo al precio horario del mercado mayorista. Es ideal si consumes principalmente en periodos valle (noche y fin de semana), donde el precio suele ser significativamente más bajo.</>;
+        }
+
+        if (isFixedRate && isHighSaving && energyDominates) {
+            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-success">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
+        }
+
+        if (isFixedRate && isModerateSaving && powerDominates) {
+            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-success">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
+        }
+
+        if (isThreePeriod && energyDominates) {
+            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-success">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
+        }
+
+        if (isThreePeriod && !energyDominates) {
+            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-success">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (P1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
+        }
+
+        if (isHighSaving) {
+            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-success">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
+        }
+
+        // default
+        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-success">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedResult, input, currentBreakdown]);
 
     useEffect(() => {
         setMounted(true);
@@ -1412,16 +1475,10 @@ export default function ComparadorMain() {
                             </div>
 
                             {/* Selector de tarifas ESPECTACULAR */}
-                            <div className="relative w-fit min-w-[280px] max-w-full px-1 z-50 mx-auto">
+                            <div className="relative w-full max-w-[480px] mx-auto px-1 z-50">
                                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block text-center opacity-80">Selección de inteligencia</label>
                                 
-                                <div className="relative group/selector">
-                                    {/* Elemento oculto para ancho intrínseco */}
-                                    <div className="h-0 overflow-hidden invisible whitespace-nowrap px-14 py-6 font-bold text-lg text-center">
-                                        {results.slice(0, 12).map(res => (
-                                            <div key={res.tariff.id}>{res.tariff.company} - {res.tariff.name}</div>
-                                        ))}
-                                    </div>
+                                <div className="relative block group/selector h-[72px]">
 
                                     <button
                                         onClick={() => setIsStudySelectorOpen(!isStudySelectorOpen)}
@@ -1450,30 +1507,53 @@ export default function ComparadorMain() {
 
                                     {isStudySelectorOpen && (
                                         <>
-                                            <div className="absolute top-full left-0 right-0 mt-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-2 border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-[0_30px_70px_rgba(0,0,0,0.2)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 p-3 z-[60] min-w-full">
-                                                <div className="max-h-[400px] overflow-y-auto custom-scrollbar pr-1 py-1">
-                                                    <div className="px-5 py-3 mb-2 border-b border-slate-50 dark:border-slate-800/50">
-                                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">Tarifas recomendadas</span>
-                                                    </div>
-                                                    {results.slice(0, 12).map((res) => (
-                                                        <button
-                                                            key={res.tariff.id}
-                                                            onClick={() => {
-                                                                setSelectedTariffId(res.tariff.id!);
-                                                                setIsStudySelectorOpen(false);
-                                                            }}
-                                                            className={`w-full text-center px-6 py-4 rounded-2xl transition-all duration-200 flex items-center justify-center mb-1 group/item ${
-                                                                selectedTariffId === res.tariff.id 
-                                                                ? "bg-primary text-white shadow-lg shadow-primary/25" 
-                                                                : "hover:bg-primary/5 text-slate-600 dark:text-slate-400 hover:text-primary"
-                                                            }`}
-                                                        >
-                                                            <div className="flex flex-col items-center">
-                                                                <span className={`text-[8px] uppercase tracking-[0.2em] font-black mb-0.5 ${selectedTariffId === res.tariff.id ? "text-white/80" : "text-slate-400 group-hover/item:text-primary/70"}`}>{res.tariff.company}</span>
-                                                                <span className="font-bold text-base tracking-tight">{res.tariff.name}</span>
-                                                            </div>
-                                                        </button>
-                                                    ))}
+                                            <div className="absolute top-full left-0 right-0 mt-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-700/80 rounded-[2rem] shadow-[0_30px_70px_rgba(0,0,0,0.15)] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 z-[60]">
+                                                {/* Header centrado */}
+                                                <div className="px-6 pt-5 pb-3 text-center border-b border-slate-100 dark:border-slate-800">
+                                                    <span className="text-[9px] font-black uppercase tracking-[0.25em] text-slate-400">Tarifas recomendadas</span>
+                                                </div>
+                                                <div className="max-h-[380px] overflow-y-auto custom-scrollbar p-3">
+                                                    {results.slice(0, 12).map((res) => {
+                                                        const isSelected = selectedTariffId === res.tariff.id;
+                                                        const itemDiff = (input.current_bill_total || 0) - res.total;
+                                                        return (
+                                                            <button
+                                                                key={res.tariff.id}
+                                                                onClick={() => {
+                                                                    setSelectedTariffId(res.tariff.id!);
+                                                                    setIsStudySelectorOpen(false);
+                                                                }}
+                                                                className={`w-full px-5 py-3.5 rounded-2xl transition-all duration-200 flex items-center justify-between gap-4 mb-1 group/item ${
+                                                                    isSelected
+                                                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                                                    : "hover:bg-primary/5 text-slate-700 dark:text-slate-300 hover:text-primary"
+                                                                }`}
+                                                            >
+                                                                <div className="flex flex-col items-start text-left min-w-0">
+                                                                    <span className={`text-[8px] uppercase tracking-[0.2em] font-black mb-0.5 truncate ${isSelected ? "text-white/80" : "text-slate-400 group-hover/item:text-primary/70"}`}>{res.tariff.company}</span>
+                                                                    <span className="font-bold text-sm tracking-tight truncate">{res.tariff.name}</span>
+                                                                </div>
+                                                                <div className="flex items-center gap-2 shrink-0">
+                                                                    {Math.abs(itemDiff) >= 0.01 && (
+                                                                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                                                                            isSelected 
+                                                                                ? "bg-white/20 text-white" 
+                                                                                : itemDiff > 0 
+                                                                                    ? "bg-success/10 text-success" 
+                                                                                    : "bg-rose-500/10 text-rose-500"
+                                                                        }`}>
+                                                                            {itemDiff > 0 ? '-' : '+'}{Math.abs(itemDiff).toFixed(2)}€
+                                                                        </span>
+                                                                    )}
+                                                                    {isSelected && (
+                                                                        <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                                                                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </button>
+                                                        );
+                                                    })}
                                                 </div>
                                             </div>
                                         </>
@@ -1504,125 +1584,189 @@ export default function ComparadorMain() {
                                         </div>
                                     </div>
                                     
-                                    <div className="flex-1 w-full space-y-10 pt-4 pb-4">
-                                        {/* Row 1: Termino de Energía */}
-                                        <div className="space-y-4">
-                                            <div className="flex justify-between items-end">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                                                        <Zap className="w-4 h-4" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Energía</h4>
-                                                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-1">Consumo Variable</p>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="text-sm font-black text-success">
-                                                        -{Math.max(0, (currentBreakdown.energy - selectedResult.costEnergy)).toFixed(2)}€ ahorro
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div className="flex-1 w-full space-y-8 pt-2 pb-4">
+                                        {(() => {
+                                            const m = studyMode === 'annual' ? 12 : 1;
+                                            const isAnnual = studyMode === 'annual';
+                                            
+                                            // Pre-calculated values to avoid repetition
+                                            const energyDiff = (currentBreakdown.energy - selectedResult.costEnergy) * m;
+                                            const powerDiff = (currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)) * m;
+                                            const totalActual = currentBreakdown.total * m;
+                                            const totalOptimized = selectedResult.total * m;
+                                            const totalSaving = (currentBreakdown.total - selectedResult.total) * m;
 
-                                            <div className="grid grid-cols-2 gap-6 pt-2">
-                                                {/* Actual Energy */}
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-slate-400 px-1">
-                                                        <span>Factura Actual</span>
-                                                        <span className="text-slate-600 dark:text-slate-300 font-mono">{currentBreakdown.energy.toFixed(2)}€</span>
-                                                    </div>
-                                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800">
-                                                        <div className="h-full bg-slate-400/40 rounded-full transition-all duration-[1.5s]" style={{ width: '100%' }}></div>
-                                                    </div>
-                                                </div>
-                                                {/* Optimized Energy */}
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-primary px-1">
-                                                        <span>Nueva Tarifa</span>
-                                                        <span className="font-mono">{selectedResult.costEnergy.toFixed(2)}€</span>
-                                                    </div>
-                                                    <div className="h-2.5 bg-primary/10 rounded-full overflow-hidden border border-primary/20">
-                                                        <div 
-                                                            className="h-full bg-primary rounded-full transition-all duration-[1.5s] shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]" 
-                                                            style={{ width: `${(selectedResult.costEnergy / (currentBreakdown.energy || 1)) * 100}%` }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            return (
+                                                <>
+                                                    {/* ── ENERGÍA ── */}
+                                                    <div className="space-y-3">
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                                                    <Zap className="w-4 h-4" />
+                                                                </div>
+                                                                <div>
+                                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Energía</h4>
+                                                                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-0.5">Consumo {isAnnual ? 'Anual Estimado' : 'Variable Mensual'}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className={`text-sm font-black ${energyDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>
+                                                                {energyDiff >= 0 ? '-' : '+'}{Math.abs(energyDiff).toFixed(2)}€
+                                                            </div>
+                                                        </div>
 
-                                        {/* Row 2: Potencia y Fijos */}
-                                        <div className="space-y-4">
-                                            <div className="flex justify-between items-end">
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
-                                                        <CreditCard className="w-4 h-4" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Potencia y otros fijos</h4>
-                                                        <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-1">Capacidad y equipos</p>
-                                                    </div>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className={`text-sm font-black ${ (currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)) >= 0 ? 'text-success' : 'text-slate-400'}`}>
-                                                        {Math.abs(currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)).toFixed(2)}€ { (currentBreakdown.powerPlusOthers - (selectedResult.total - selectedResult.costEnergy)) >= 0 ? ' ahorro' : ' diferencia'}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                        {/* Barras principales */}
+                                                        <div className="grid grid-cols-2 gap-4">
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-slate-400 px-0.5">
+                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-slate-600 dark:text-slate-300">{(currentBreakdown.energy * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full"><div className="h-full bg-slate-300 dark:bg-slate-600 rounded-full w-full opacity-60"></div></div>
+                                                            </div>
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-primary px-0.5">
+                                                                    <span>{isAnnual ? 'Nueva Anual' : 'Nueva'}</span><span className="font-mono">{(selectedResult.costEnergy * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="h-2 bg-primary/10 rounded-full overflow-hidden">
+                                                                    <div className="h-full bg-primary rounded-full" style={{ width: `${Math.min(100,(selectedResult.costEnergy / (currentBreakdown.energy || 1)) * 100)}%` }}></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                            <div className="grid grid-cols-2 gap-6 pt-2">
-                                                {/* Actual Power */}
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-slate-400 px-1">
-                                                        <span>Factura Actual</span>
-                                                        <span className="text-slate-600 dark:text-slate-300 font-mono">{currentBreakdown.powerPlusOthers.toFixed(2)}€</span>
+                                                        {/* Sub-desglose por periodos */}
+                                                        <div className="ml-10 space-y-1.5 border-l-2 border-primary/10 pl-3">
+                                                            {(() => {
+                                                                const totalKwhManual = input.energy_p1 + input.energy_p2 + input.energy_p3;
+                                                                return [
+                                                                    { label: 'P1 · Punta', kwh: input.energy_p1, price: selectedResult.tariff.e1_kwh, currentPrice: (input.current_price_p1 || 0) },
+                                                                    { label: 'P2 · Llano', kwh: input.energy_p2, price: selectedResult.tariff.e2_kwh, currentPrice: (input.current_price_p2 || input.current_price_p1 || 0) },
+                                                                    { label: 'P3 · Valle', kwh: input.energy_p3, price: selectedResult.tariff.e3_kwh, currentPrice: (input.current_price_p3 || input.current_price_p1 || 0) },
+                                                                ].filter(r => r.kwh > 0).map((row, i) => {
+                                                                    const rowNewCost = row.kwh * row.price * m;
+                                                                    const rowOldCost = currentBreakdown.isEstimated
+                                                                        ? (currentBreakdown.energy * (row.kwh / (totalKwhManual || 1))) * m
+                                                                        : row.kwh * row.currentPrice * m;
+                                                                    
+                                                                    const rowDiff = rowOldCost - rowNewCost;
+                                                                    return (
+                                                                        <div key={i} className="flex items-center justify-between text-[9px] font-bold text-slate-500">
+                                                                            <span className="uppercase tracking-wide">{row.label}</span>
+                                                                            <div className="flex items-center gap-3">
+                                                                                <span className="font-mono text-slate-400">
+                                                                                    {(row.kwh * m).toLocaleString('es-ES', { maximumFractionDigits: 2 })} kWh
+                                                                                    {!currentBreakdown.isEstimated && ` × ${row.price.toFixed(4)}€`}
+                                                                                </span>
+                                                                                <span className={`font-mono font-black ${rowDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>{rowDiff >= 0 ? '-' : '+'}{Math.abs(rowDiff).toFixed(2)}€</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                });
+                                                            })()}
+                                                        </div>
                                                     </div>
-                                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800">
-                                                        <div className="h-full bg-slate-400/40 rounded-full transition-all duration-[1.5s]" style={{ width: '100%' }}></div>
-                                                    </div>
-                                                </div>
-                                                {/* Optimized Power */}
-                                                <div className="space-y-2">
-                                                    <div className="flex justify-between items-baseline text-[9px] font-black uppercase text-amber-500 px-1">
-                                                        <span>Nueva Tarifa</span>
-                                                        <span className="font-mono">{(selectedResult.total - selectedResult.costEnergy).toFixed(2)}€</span>
-                                                    </div>
-                                                    <div className="h-2.5 bg-amber-500/10 rounded-full overflow-hidden border border-amber-500/20">
-                                                        <div 
-                                                            className="h-full bg-amber-500 rounded-full transition-all duration-[1.5s] shadow-[0_0_10px_rgba(245,158,11,0.5)]" 
-                                                            style={{ width: `${((selectedResult.total - selectedResult.costEnergy) / (currentBreakdown.powerPlusOthers || 1)) * 100}%` }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        {/* Divider with Icon */}
-                                        <div className="relative py-4">
-                                            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100 dark:border-slate-800"></div></div>
-                                            <div className="relative flex justify-center">
-                                                <div className="bg-white dark:bg-slate-900 px-4 text-slate-300"><TrendingDown className="w-4 h-4" /></div>
-                                            </div>
-                                        </div>
+                                                    {/* ── POTENCIA ── */}
+                                                    <div className="space-y-3">
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
+                                                                    <CreditCard className="w-4 h-4" />
+                                                                </div>
+                                                                <div>
+                                                                    <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider leading-none">Término de Potencia</h4>
+                                                                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter mt-0.5">{isAnnual ? 'Capacidad (12 meses)' : 'Capacidad Contratada'}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className={`text-sm font-black ${powerDiff >= 0 ? 'text-success' : 'text-rose-500'}`}>
+                                                                {powerDiff >= 0 ? '-' : '+'}{Math.abs(powerDiff).toFixed(2)}€
+                                                            </div>
+                                                        </div>
 
-                                        {/* Row 3: Total Impact */}
-                                        <div className="p-6 bg-gradient-to-br from-success/5 to-primary/5 rounded-3xl border border-success/20 overflow-hidden relative group">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-success/10 blur-3xl rounded-full -mr-16 -mt-16 group-hover:bg-success/20 transition-all"></div>
-                                            <div className="flex items-center justify-between relative z-10">
-                                                <div>
-                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Impacto Global</p>
-                                                    <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">Ahorro Mensual</h4>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="text-3xl font-black text-success tracking-tighter">
-                                                        {Math.max(0, currentBreakdown.total - selectedResult.total).toFixed(2)}€
+                                                        {/* Barras principales */}
+                                                        <div className="grid grid-cols-2 gap-4">
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-slate-400 px-0.5">
+                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-slate-600 dark:text-slate-300">{(currentBreakdown.powerPlusOthers * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full"><div className="h-full bg-slate-300 dark:bg-slate-600 rounded-full w-full opacity-60"></div></div>
+                                                            </div>
+                                                            <div className="space-y-1.5">
+                                                                <div className="flex justify-between text-[9px] font-black uppercase text-amber-500 px-0.5">
+                                                                    <span>{isAnnual ? 'Nueva Anual' : 'Nueva'}</span><span className="font-mono">{((selectedResult.total - selectedResult.costEnergy) * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="h-2 bg-amber-500/10 rounded-full overflow-hidden">
+                                                                    <div className="h-full bg-amber-500 rounded-full" style={{ width: `${Math.min(100,((selectedResult.total - selectedResult.costEnergy) / (currentBreakdown.powerPlusOthers || 1)) * 100)}%` }}></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Sub-desglose P1/P2 potencia */}
+                                                        <div className="ml-10 space-y-1.5 border-l-2 border-amber-500/10 pl-3">
+                                                            {[
+                                                                { label: 'P1 · Punta', kw: input.power_p1, price: selectedResult.tariff.p1_kw_day, days: input.days },
+                                                                { label: 'P2 · Valle', kw: input.power_p2, price: selectedResult.tariff.p2_kw_day, days: input.days },
+                                                            ].filter(r => r.kw > 0).map((row, i) => {
+                                                                const rowCost = row.kw * row.price * row.days * m;
+                                                                return (
+                                                                    <div key={i} className="flex items-center justify-between text-[9px] font-bold text-slate-500">
+                                                                        <span className="uppercase tracking-wide">{row.label}</span>
+                                                                        <div className="flex items-center gap-3">
+                                                                            <span className="font-mono text-slate-400">{row.kw.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW × {row.price.toFixed(6)}€/día</span>
+                                                                            <span className="font-mono font-black text-amber-500">{rowCost.toFixed(2)}€</span>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                            <div className="border-t border-slate-100 dark:border-slate-800 pt-2 mt-1 space-y-1">
+                                                                <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
+                                                                    <span className="uppercase tracking-wide">IEE (5.11%)</span>
+                                                                    <span className="font-mono">{(selectedResult.taxIee * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
+                                                                    <span className="uppercase tracking-wide">Bono Social</span>
+                                                                    <span className="font-mono">{(selectedResult.costBonoSocial * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
+                                                                    <span className="uppercase tracking-wide">Contador</span>
+                                                                    <span className="font-mono">{(selectedResult.costMeter * m).toFixed(2)}€</span>
+                                                                </div>
+                                                                <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
+                                                                    <span className="uppercase tracking-wide">IVA (21%)</span>
+                                                                    <span className="font-mono">{(selectedResult.taxIva * m).toFixed(2)}€</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="text-[9px] font-black bg-success/10 text-success px-2 py-0.5 rounded-full inline-block mt-1">
-                                                        -{Math.round((Math.max(0, currentBreakdown.total - selectedResult.total) / (currentBreakdown.total || 1)) * 100)}% factura
+
+                                                    {/* ── DIVIDER ── */}
+                                                    <div className="relative">
+                                                        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100 dark:border-slate-800"></div></div>
+                                                        <div className="relative flex justify-center">
+                                                            <div className="bg-white dark:bg-slate-900 px-4 text-slate-300"><TrendingDown className="w-4 h-4" /></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                                    {/* ── TOTAL ── */}
+                                                    <div className="p-5 bg-gradient-to-br from-success/5 to-primary/5 rounded-3xl border border-success/20 relative overflow-hidden">
+                                                        <div className="absolute top-0 right-0 w-24 h-24 bg-success/10 blur-3xl rounded-full -mr-12 -mt-12"></div>
+                                                        <div className="flex items-center justify-between relative z-10">
+                                                            <div>
+                                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Impacto Global</p>
+                                                                <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">Ahorro {isAnnual ? 'Anual' : 'Mensual'}</h4>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <div className="text-3xl font-black text-success tracking-tighter">
+                                                                    {Math.abs(totalSaving).toFixed(2)}€
+                                                                </div>
+                                                                <div className="text-[9px] font-black bg-success/10 text-success px-2 py-0.5 rounded-full inline-block mt-1">
+                                                                    {totalSaving >= 0 ? '-' : '+'}{Math.round((Math.abs(totalSaving) / (totalActual || 1)) * 100)}% {isAnnual ? 'año' : 'factura'}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            );
+                                        })()}
                                     </div>
                                 </div>
                             </div>
@@ -1678,13 +1822,16 @@ export default function ComparadorMain() {
                                                 <p className="text-slate-500 text-xs font-bold leading-relaxed px-1">Se han aplicado todos los impuestos y cánones vigentes.</p>
                                             </div>
                                             <div className="text-center sm:text-right">
-                                                <div className="text-5xl font-black text-success tracking-tighter">
-                                                    {(studyMode === 'monthly' 
-                                                        ? Math.max(0, (input.current_bill_total || 0) - selectedResult.total) 
-                                                        : Math.max(0, ((input.current_bill_total || 0) - selectedResult.total) * 12)
+                                                <div className={`text-5xl font-black tracking-tighter ${((input.current_bill_total || 0) - selectedResult.total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                    {Math.abs(studyMode === 'monthly' 
+                                                        ? (input.current_bill_total || 0) - selectedResult.total 
+                                                        : ((input.current_bill_total || 0) - selectedResult.total) * 12
                                                     ).toFixed(2)}
                                                     <span className="text-2xl ml-1 italic">€</span>
                                                 </div>
+                                                {studyMode === 'annual' && (
+                                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Estimación x12 meses</p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -1700,7 +1847,7 @@ export default function ComparadorMain() {
                                         <div className="space-y-3 pt-1">
                                             <h4 className="text-xs font-black text-primary uppercase tracking-[0.3em]">Análisis estratégico IA</h4>
                                             <p className="text-slate-300 text-[15px] italic leading-relaxed font-medium">
-                                                "Cambiando a la tarifa <span className="text-primary font-bold not-italic">{selectedResult.tariff.name}</span> de <span className="text-primary font-bold not-italic">{selectedResult.tariff.company}</span>, obtendrás una reducción directa en el término de energía. Tu perfil de consumo encaja perfectamente con esta estructura de precios."
+                                                "{generateAIInsight}"
                                             </p>
                                         </div>
                                     </div>
@@ -1735,126 +1882,152 @@ export default function ComparadorMain() {
 
                         <div className="flex flex-col lg:flex-row gap-8 perspective-1000">
                             {/* LEFT: CURRENT PROFILE SUMMARY */}
-                            <aside className="w-full lg:w-[320px] shrink-0 space-y-6">
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] relative overflow-hidden shadow-sm space-y-8 group hover:shadow-md transition-shadow">
-                                    <div className="flex justify-between items-center flex-col sm:flex-row gap-3">
-                                        <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center sm:text-left">Perfil Actual</h4>
-                                        <CheckCircle2 className="w-5 h-5 text-success" />
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center sm:text-left">
-                                        <div className="flex flex-col items-center sm:items-start">
-                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">Potencias</p>
-                                            {input.power_p1 === input.power_p2 ? (
-                                                <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.power_p1.toFixed(2).replace(/\.00$/, '')}</p>
-                                                    <span className="text-[12px] text-slate-400 font-bold uppercase">kW</span>
-                                                </div>
-                                            ) : (
-                                                <div className="space-y-1.5">
-                                                    <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                        <span className="text-[10px] font-bold text-slate-400 w-4">P1</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p1.toFixed(2).replace(/\.00$/, '')}</p>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">kW</span>
-                                                    </div>
-                                                    <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                        <span className="text-[10px] font-bold text-slate-400 w-4">P2</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.power_p2.toFixed(2).replace(/\.00$/, '')}</p>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">kW</span>
-                                                    </div>
-                                                </div>
-                                            )}
+                            <aside className="w-full lg:w-[325px] shrink-0 space-y-6">
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1">
+                                    <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+                                    <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                                    
+                                    <div className="flex justify-between items-center relative z-10">
+                                        <div className="space-y-1">
+                                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Tu suministro</h4>
+                                            <p className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-tight">Perfil de Carga</p>
                                         </div>
-                                        <div className="flex flex-col items-center sm:items-start">
-                                            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">{(input.energy_p2 === 0 && input.energy_p3 === 0) ? 'Consumo' : 'Consumos'}</p>
-                                            {(input.energy_p2 === 0 && input.energy_p3 === 0) ? (
-                                                <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                    <p className="text-4xl font-900 text-slate-800 dark:text-slate-100 tracking-tight">{input.energy_p1.toFixed(2).replace(/\.00$/, '')}</p>
-                                                    <span className="text-[12px] text-slate-400 font-bold uppercase">kWh</span>
-                                                </div>
-                                            ) : (
-                                                <div className="space-y-1.5">
-                                                    <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                        <span className="text-[10px] font-bold text-orange-400 w-4">P1</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p1.toFixed(2).replace(/\.00$/, '')}</p>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
-                                                    </div>
-                                                    <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                        <span className="text-[10px] font-bold text-blue-400 w-4">P2</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p2.toFixed(2).replace(/\.00$/, '')}</p>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
-                                                    </div>
-                                                    <div className="flex items-baseline gap-1 justify-center sm:justify-start">
-                                                        <span className="text-[10px] font-bold text-green-400 w-4">P3</span>
-                                                        <p className="text-xl font-900 text-slate-800 dark:text-slate-100">{input.energy_p3.toFixed(2).replace(/\.00$/, '')}</p>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase">kWh</span>
-                                                    </div>
-                                                </div>
-                                            )}
+                                        <div className="w-8 h-8 rounded-xl bg-success/10 flex items-center justify-center text-success border border-success/20">
+                                            <CheckCircle2 className="w-4 h-4" />
                                         </div>
                                     </div>
-                                    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-[1.5rem] p-6 space-y-4 border border-slate-100 dark:border-slate-800">
-                                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center">Desglose Fiscal Optimizado</p>
-                                        <div className="flex flex-col sm:flex-row gap-4">
-                                            <div className="flex-1 bg-white dark:bg-slate-900 p-4 rounded-2xl text-center border border-slate-100 dark:border-slate-800 shadow-sm">
-                                                <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Imp. IEE</p>
-                                                <p className="text-sm font-900 text-primary">5.11%</p>
+
+                                    <div className="grid grid-cols-1 gap-8 relative z-10">
+                                        <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <div className="w-1.5 h-3 bg-amber-500 rounded-full"></div>
+                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Potencia Contratada</p>
                                             </div>
-                                            <div className="flex-1 bg-white dark:bg-slate-900 p-4 rounded-2xl text-center border border-slate-100 dark:border-slate-800 shadow-sm">
-                                                <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">IVA</p>
-                                                <p className="text-sm font-900 text-primary">21%</p>
+                                            {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
+                                                <div className="space-y-3">
+                                                    <div className="flex justify-between items-center text-xs font-black">
+                                                        <span className="text-slate-400 uppercase tracking-tighter">P1 · Punta</span>
+                                                        <span className="text-amber-600">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-slate-100 dark:border-white/5">
+                                                        <span className="text-slate-400 uppercase tracking-tighter">P2 · Valle</span>
+                                                        <span className="text-amber-600">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-baseline gap-1.5">
+                                                    <p className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
+                                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-tight">kW</p>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/30 p-5 rounded-3xl border border-slate-100/50 dark:border-white/5 group-hover:bg-white dark:group-hover:bg-slate-800/50 transition-colors">
+                                            <div className="flex items-center gap-2 mb-4">
+                                                <div className="w-1.5 h-3 bg-primary rounded-full"></div>
+                                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Consumo Energético</p>
+                                            </div>
+                                            <div className="space-y-3">
+                                                {[
+                                                    { label: 'P1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
+                                                    { label: 'P2 · Valle', val: input.energy_p2, color: 'text-primary' },
+                                                    { label: 'P3 · Valle', val: input.energy_p3, color: 'text-indigo-500' }
+                                                ].filter(p => p.val > 0).map((p, i) => (
+                                                    <div key={i} className="flex justify-between items-center text-xs font-black">
+                                                        <span className="text-slate-400 uppercase tracking-tighter">{p.label}</span>
+                                                        <span className={p.color}>{p.val.toLocaleString('es-ES', { maximumFractionDigits: 1 })} kWh</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="relative pt-8 mt-2 border-t border-slate-100 dark:border-white/5 z-10">
+                                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
+                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
+                                                    <p className="text-sm font-black text-primary">5.11%</p>
+                                                </div>
+                                                <div className="group/tax relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-2xl text-center border border-slate-200/50 dark:border-white/5 shadow-sm transition-all hover:border-primary/30">
+                                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
+                                                    <p className="text-sm font-black text-primary">21%</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* FILTERS SECTION */}
-                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 rounded-[2rem] shadow-sm group hover:shadow-md transition-shadow">
-                                    <div className="flex justify-between items-center mb-6">
-                                        <div className="flex items-center gap-2">
-                                            <Filter className="text-slate-400 w-4 h-4 group-hover:text-primary transition-colors" />
-                                            <h4 className="text-[10px] font-bold text-slate-800 dark:text-slate-100 uppercase tracking-widest">Filtros</h4>
+                                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+                                    {/* Deco Background Grid */}
+                                    <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+                                    
+                                    <div className="flex justify-between items-center mb-8 relative z-10">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-slate-200/50 dark:border-white/5">
+                                                <Filter className="w-4 h-4" />
+                                            </div>
+                                            <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Filtros</h4>
                                         </div>
                                         {results.length !== baseResults.length && (
-                                            <span className="text-[9px] font-bold text-primary uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded animate-pulse">{results.length} RESULTADOS</span>
+                                            <div className="px-3 py-1 bg-primary/10 rounded-full border border-primary/20 animate-in zoom-in duration-500">
+                                                <span className="text-[9px] font-black text-primary uppercase tracking-widest">{results.length} tarifas</span>
+                                            </div>
                                         )}
                                     </div>
 
-                                    <div className="space-y-6">
+                                    <div className="space-y-8 relative z-10">
                                         {/* Filter: Search Company */}
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Buscar Compañía / Tarifa</label>
-                                            <div className="relative">
-                                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
+                                            <div className="relative group/input">
+                                                <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
+                                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within/input:text-primary" />
                                                 <input
                                                     type="text"
                                                     value={filterSearch}
                                                     onChange={e => setFilterSearch(e.target.value)}
-                                                    placeholder="Ej. Endesa, Iberdrola, Naturgy..."
-                                                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm outline-none focus:border-primary transition-colors text-slate-800 dark:text-slate-100 placeholder:text-slate-400"
+                                                    placeholder="Ej. Endesa, Iberdrola..."
+                                                    className="relative w-full bg-slate-50/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white dark:focus:bg-slate-900 transition-all text-slate-800 dark:text-slate-100 placeholder:text-slate-400/70"
                                                 />
                                             </div>
                                         </div>
 
-                                        <div className="w-full border-t border-slate-100 dark:border-slate-800/50"></div>
-
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tipo de Precio</label>
-                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-xl p-1 border border-slate-200 dark:border-slate-800/50">
-                                                <button onClick={() => setFilterPriceType('all')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'all' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm ring-1 ring-slate-200 dark:ring-white/10' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}>Todos</button>
-                                                <button onClick={() => setFilterPriceType('fixed')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : 'text-slate-500 hover:text-amber-600'}`}>Fijo</button>
-                                                <button onClick={() => setFilterPriceType('periods')} className={`flex-1 text-[10px] font-bold py-2 rounded-lg uppercase tracking-widest transition-all ${filterPriceType === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:text-primary'}`}>Tramos</button>
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tipo de Precio</label>
+                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
+                                                {['all', 'fixed', 'periods'].map((t) => (
+                                                    <button 
+                                                        key={t}
+                                                        onClick={() => setFilterPriceType(t as any)} 
+                                                        className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                            filterPriceType === t 
+                                                            ? (t === 'fixed' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-md')
+                                                            : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                        }`}
+                                                    >
+                                                        {t === 'all' ? 'Todos' : t === 'fixed' ? 'Fijo' : 'Tramos'}
+                                                    </button>
+                                                ))}
                                             </div>
                                         </div>
 
-                                        <div className="w-full border-t border-slate-100 dark:border-slate-800/50"></div>
-
-                                        {/* Filter: Permanence */}
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Permanencia</label>
-                                            <div className="flex bg-slate-50 dark:bg-slate-800/50 rounded-lg p-1 border border-slate-200 dark:border-slate-700">
-                                                <button onClick={() => setFilterPermanence('all')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPermanence === 'all' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Todas</button>
-                                                <button onClick={() => setFilterPermanence('without')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPermanence === 'without' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Sin</button>
-                                                <button onClick={() => setFilterPermanence('with')} className={`flex-1 text-[10px] font-bold py-2 rounded-md uppercase tracking-widest transition-all ${filterPermanence === 'with' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>Con</button>
+                                        <div className="space-y-3">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Permanencia</label>
+                                            <div className="flex bg-slate-100/50 dark:bg-slate-800/30 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-800/50">
+                                                {['all', 'without', 'with'].map((p) => (
+                                                    <button 
+                                                        key={p}
+                                                        onClick={() => setFilterPermanence(p as any)} 
+                                                        className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                            filterPermanence === p 
+                                                            ? 'bg-white dark:bg-slate-700 text-primary shadow-md' 
+                                                            : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                        }`}
+                                                    >
+                                                        {p === 'all' ? 'Todas' : p === 'without' ? 'Sin' : 'Con'}
+                                                    </button>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
@@ -1866,6 +2039,11 @@ export default function ComparadorMain() {
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
                                     <div
                                         onClick={() => {
+                                            if (!user) {
+                                                setPendingStudyMode("monthly");
+                                                setIsAuthModalOpen(true);
+                                                return;
+                                            }
                                             if (results[0]) {
                                                 setSelectedTariffId(results[0].tariff.id!);
                                                 setStudyMode("monthly");
@@ -1881,22 +2059,38 @@ export default function ComparadorMain() {
                                                     <FileText className="w-5 h-5" />
                                                 </div>
                                                 <div className="flex flex-col items-end gap-1">
-                                                    <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Mensual</span>
-                                                    <span className="text-[10px] font-bold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                    {user ? (
+                                                        <>
+                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Mensual</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 flex items-center gap-1 group-hover:hidden"><Lock className="w-3 h-3" />Mensual</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-1.5 text-success">
-                                                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
-                                                    <TrendingDown className="w-3 h-3" />
+                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
+                                                    {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{results[0] ? `${Math.max(0, (input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}</p>
+                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                    {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro mensual' : 'coste adicional'}` : "Sin datos"}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div
                                         onClick={() => {
+                                            if (!user) {
+                                                setPendingStudyMode("annual");
+                                                setIsAuthModalOpen(true);
+                                                return;
+                                            }
                                             if (results[0]) {
                                                 setSelectedTariffId(results[0].tariff.id!);
                                                 setStudyMode("annual");
@@ -1912,16 +2106,27 @@ export default function ComparadorMain() {
                                                     <Calendar className="w-5 h-5" />
                                                 </div>
                                                 <div className="flex flex-col items-end gap-1">
-                                                    <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Anual</span>
-                                                    <span className="text-[10px] font-bold px-3 py-1 bg-success/10 text-success rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                    {user ? (
+                                                        <>
+                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 group-hover:hidden animate-in fade-in duration-300">Anual</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-success/10 text-success rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-lg tracking-widest border border-slate-200 dark:border-slate-700/50 flex items-center gap-1 group-hover:hidden"><Lock className="w-3 h-3" />Anual</span>
+                                                            <span className="text-[10px] font-bold px-3 py-1 bg-amber-500/10 text-amber-600 rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </div>
                                             <p className="text-3xl font-900 text-slate-900 dark:text-white mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-1.5 text-success">
-                                                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-success/10">
-                                                    <TrendingDown className="w-3 h-3" />
+                                            <div className="flex items-center justify-center gap-1.5">
+                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
+                                                    {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
                                                 </div>
-                                                <p className="text-[11px] font-bold tracking-tight">{results[0] ? `${Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}</p>
+                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro anual' : 'diferencial anual'} (x12 meses)` : "Sin datos"}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -2012,13 +2217,11 @@ export default function ComparadorMain() {
                                                             <p className="text-[13px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-none truncate">{res.tariff.name}</p>
                                                         </div>
 
-                                                        {((input.current_bill_total || 0) - res.total) > 0 && (
-                                                            <div className="bg-success/10 text-success px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-in zoom-in-50 duration-500">
-                                                                <TrendingDown className="w-3 h-3 font-bold" />
-                                                                <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total).toFixed(2)} €/mes</span>
+                                                            <div className={`px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shrink-0 whitespace-nowrap animate-in zoom-in-50 duration-500 ${((input.current_bill_total || 0) - res.total) > 0 ? "bg-success/10 text-success" : "bg-rose-500/10 text-rose-500"}`}>
+                                                                {((input.current_bill_total || 0) - res.total) > 0 ? <TrendingDown className="w-3 h-3 font-bold" /> : <TrendingUp className="w-3 h-3 font-bold" />}
+                                                                <span className="text-[10px] font-black tracking-tight">{((input.current_bill_total || 0) - res.total) > 0 ? '-' : '+'}{Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)} €/mes</span>
                                                             </div>
-                                                        )}
-                                                    </div>
+                                                        </div>
 
                                                     {/* Price Display */}
                                                     <div className="flex items-end justify-between bg-slate-50/50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
@@ -2088,8 +2291,8 @@ export default function ComparadorMain() {
                                             <table className="w-full text-left border-separate border-spacing-y-4 px-4 table-fixed relative z-10">
                                                 <thead>
                                                     <tr className="text-[10px] font-black text-slate-400 dark:text-slate-500 tracking-[0.3em] whitespace-nowrap">
-                                                        <th className="pl-8 pr-4 py-10 w-[33%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 rounded-l-3xl border-y border-l border-slate-100 dark:border-white/5">
-                                                            Tarifa / comercializadora
+                                                        <th className="pl-8 pr-4 py-10 w-[30%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 rounded-l-3xl border-y border-l border-slate-100 dark:border-white/5">
+                                                            Compañía / Tarifa
                                                         </th>
                                                         <th className="px-4 py-10 w-[14%] align-middle text-left bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             Energía
@@ -2097,7 +2300,7 @@ export default function ComparadorMain() {
                                                         <th className="px-4 py-10 w-[14%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             Total mes
                                                         </th>
-                                                        <th className="px-4 py-10 w-[18%] align-middle text-center text-success font-black bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
+                                                        <th className="px-4 py-10 w-[21%] align-middle text-center text-success font-black bg-slate-50/50 dark:bg-slate-900/40 border-y border-slate-100 dark:border-white/5">
                                                             Ahorro
                                                         </th>
                                                         <th className="px-4 py-10 w-[21%] align-middle text-center bg-slate-50/50 dark:bg-slate-900/40 rounded-r-3xl border-y border-r border-slate-100 dark:border-white/5">
@@ -2187,12 +2390,13 @@ export default function ComparadorMain() {
                                                                     {idx === 0 && (
                                                                         <div className="absolute -inset-6 bg-success/10 blur-2xl rounded-full animate-pulse z-0"></div>
                                                                     )}
-                                                                    <div className={`flex items-center gap-1.5 relative z-10 ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-rose-500"}`}>
-                                                                        <div className="opacity-70">
-                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-6 h-6" /> : <TrendingUp className="w-6 h-6" />}
+                                                                    <div className={`flex items-center justify-center gap-1.5 relative z-10 whitespace-nowrap flex-nowrap ${((input.current_bill_total || 0) - res.total) >= 0 ? "text-success" : "text-rose-500"}`}>
+                                                                        <div className="opacity-70 shrink-0">
+                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? <TrendingDown className="w-5 h-5" /> : <TrendingUp className="w-5 h-5" />}
                                                                         </div>
                                                                         <span className="font-black tracking-tighter text-2xl">
-                                                                            {((input.current_bill_total || 0) - res.total).toFixed(2)} €
+                                                                            {((input.current_bill_total || 0) - res.total) >= 0 ? '-' : '+'}
+                                                                            {Math.abs((input.current_bill_total || 0) - res.total).toFixed(2)} €
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -2318,10 +2522,10 @@ export default function ComparadorMain() {
                                             </div>
                                         </div>
                                     )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
                 {/* STEP 3.5: GRAPHIC ANALYSIS VIEW */}
                 {step === "analysis" && results.length > 0 && (

@@ -304,14 +304,15 @@ export default async function Home() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "analytics", title: "Análisis personalizados", desc: "Organiza tus estudios de consumo para realizar un seguimiento detallado de tu ahorro y obtener comparativas avanzadas." },
-                    { icon: "description", title: "Gestión de facturas", desc: "Almacena tus facturas de forma segura y accede a reportes avanzados con gráficos detallados de tu perfil de consumo." },
-                    { icon: "heart", title: "Tarifas favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos sobre sus variaciones." },
+                    { icon: "analytics", title: "Estudio de Ahorro", desc: "Accede al desglose mensual y anual de tu ahorro real con la nueva tarifa: distribución de costes entre energía y potencia, y proyección de impacto sobre tu factura." },
+                    { icon: "brain", title: "Análisis IA Personalizado", desc: "Cada tarifa genera un análisis único adaptado a tu perfil: tipo de contrato, origen del ahorro, fracturas de permanencia y recomendaciones concretas para maximizar tu beneficio." },
+                    { icon: "heart", title: "Tarifas favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos cuando cambien sus condiciones o price." },
                     { icon: "bell", title: "Sistema de alertas", desc: "Recibe avisos personalizados en tiempo real cuando detectemos una tarifa que mejore automáticamente tu contrato actual." }
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4 group">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                         {benefit.icon === 'analytics' && <BarChart3 size={24} />}
+                        {benefit.icon === 'brain' && <Brain size={24} />}
                         {benefit.icon === 'heart' && <Heart size={24} />}
                         {benefit.icon === 'bell' && <Bell size={24} />}
                         {benefit.icon === 'description' && <FileText size={24} />}
