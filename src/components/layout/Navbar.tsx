@@ -116,7 +116,7 @@ export default function Navbar() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent/40 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                             </span>
-                            <span className="text-xs font-bold text-accent tracking-tight">Precio hoy</span>
+                            <span className="text-xs font-bold text-accent-bg-text tracking-tight uppercase">Precio hoy</span>
                         </Link>
                         <Link href="/blog" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Blog</Link>
                     </div>
@@ -347,7 +347,7 @@ export default function Navbar() {
                         >
                             <span className="flex items-center gap-2">
                                 Precio Hoy
-                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent/20 text-[9px] font-black text-accent border border-accent/30">
+                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent/10 text-[9px] font-black text-accent-bg-text border border-accent/30">
                                     <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
                                     En vivo
                                 </span>

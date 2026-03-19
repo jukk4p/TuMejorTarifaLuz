@@ -30,7 +30,7 @@ export default async function ElectricityPriceWidget() {
                         <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la luz hoy</h3>
                         <div className="flex items-center gap-2">
                             {prices.isLive ? (
-                                <span className="flex items-center gap-1.5 px-2 py-0.5 bg-accent-bg text-accent rounded text-[7px] md:text-[8px] font-bold tracking-wider">
+                                <span className="flex items-center gap-1.5 px-2 py-0.5 bg-accent-bg text-accent-bg-text rounded text-[7px] md:text-[8px] font-bold tracking-wider">
                                     <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
                                     En vivo
                                 </span>
@@ -49,7 +49,7 @@ export default async function ElectricityPriceWidget() {
                         </div>
                     </div>
                     <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-bg text-accent rounded-full text-[10px] md:text-[11px] font-bold">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-bg text-accent-bg-text rounded-full text-[10px] md:text-[11px] font-bold">
                             <TrendingDown size={14} className="md:size-[16px]" />
                             {prices.current < prices.average ? 'Bajo media' : 'Estable'}
                         </div>
@@ -63,7 +63,7 @@ export default async function ElectricityPriceWidget() {
                 <div className="grid grid-cols-2 gap-3 md:gap-4 w-full md:w-auto">
                     <div className="bg-surface-2 p-3 md:p-5 rounded-3xl border border-border text-center space-y-2 min-w-[110px] md:min-w-[130px]">
                         <p className="text-[8px] md:text-[9px] font-bold text-slate-400 tracking-widest">Mínimo</p>
-                        <p className="text-base md:text-xl font-800 text-accent">{prices.min.toFixed(4)}€</p>
+                        <p className="text-base md:text-xl font-800 text-savings">{prices.min.toFixed(4)}€</p>
                         <div className="flex items-center justify-center gap-1 text-[8px] md:text-[9px] font-bold text-slate-400/70">
                             <Clock size={14} />
                             {prices.minHour}

@@ -122,7 +122,7 @@ export default async function Home() {
                       <div className="space-y-1">
                         <p className="text-[10px] font-bold text-text-muted tracking-[0.15em]">Ahorro medio anual</p>
                         <p className="font-heading text-4xl font-bold text-text-primary tracking-tight flex items-baseline gap-2">
-                          312,00€ <span className="text-[12px] font-bold text-accent uppercase tracking-wider">(-38%)</span>
+                          312,00€ <span className="text-[12px] font-bold text-savings uppercase tracking-wider">(-38%)</span>
                         </p>
                       </div>
                     </div>
@@ -176,10 +176,10 @@ export default async function Home() {
 
               <div className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-surface border-2 border-border rounded-full flex items-center justify-center mb-6 group-hover:border-accent group-hover:shadow-xl transition-all duration-300">
-                  <div className="w-8 h-8 bg-accent-bg rounded-full flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 bg-accent-bg rounded-full flex items-center justify-center text-accent-bg-text group-hover:scale-110 transition-transform">
                     <PiggyBank size={20} />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center font-bold shadow-md">3</div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-accent text-accent-text rounded-full flex items-center justify-center font-bold shadow-md">3</div>
                 </div>
                 <h3 className="font-heading text-xl font-medium text-text-primary mb-3">Descubre tu ahorro</h3>
                 <p className="font-body text-sm font-normal text-text-secondary">Recibe una recomendación personalizada con la tarifa que realmente te hará ahorrar cada mes.</p>
@@ -234,7 +234,7 @@ export default async function Home() {
                 <details key={i} className="group premium-card overflow-hidden [&_summary::-webkit-details-marker]:hidden">
                   <summary className="flex items-center justify-between p-6 cursor-pointer select-none list-none">
                     <span className="font-heading text-base font-medium text-text-primary">{faq.q}</span>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-accent-bg text-accent" : "bg-primary/10 text-primary"}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-accent-bg text-accent-bg-text" : "bg-primary/10 text-primary"}`}>
                       <ChevronDown size={20} />
                     </div>
                   </summary>

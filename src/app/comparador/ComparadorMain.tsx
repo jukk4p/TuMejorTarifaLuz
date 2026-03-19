@@ -212,27 +212,27 @@ export default function ComparadorMain() {
         }
 
         if (isFixedRate && isHighSaving && energyDominates) {
-            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-accent">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
+            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-savings">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
         }
 
         if (isFixedRate && isModerateSaving && powerDominates) {
-            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-accent">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
+            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-savings">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
         }
 
         if (isThreePeriod && energyDominates) {
-            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-accent">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
+            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
         }
 
         if (isThreePeriod && !energyDominates) {
-            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-accent">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (E1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
+            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-savings">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (E1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
         }
 
         if (isHighSaving) {
-            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-accent">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
+            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
         }
 
         // default
-        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-accent">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
+        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-savings">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedResult, input, currentBreakdown]);
 
@@ -1088,7 +1088,7 @@ export default function ComparadorMain() {
                                         {/* === Percentage + Title === */}
                                         <div className="mb-6">
                                             <div className="flex items-center justify-center gap-3 mb-2">
-                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning' : loaderStage === 2 ? 'text-accent' : 'text-violet-500'}`}>
+                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning-text' : loaderStage === 2 ? 'text-savings' : 'text-violet-500'}`}>
                                                     {Math.round(analysisProgress)}
                                                 </span>
                                                 <span className="text-xl font-black text-text-muted">%</span>
@@ -1114,7 +1114,7 @@ export default function ComparadorMain() {
                                             ].map((s, i) => (
                                                 <div key={i} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider transition-all duration-500 ${
                                                     i < loaderStage ? 'bg-accent-bg text-accent border border-accent/20' :
-                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-warning/10 text-amber-600 border-warning/30 shadow-warning/10' : loaderStage === 2 ? 'bg-accent-bg text-accent border-accent/30 shadow-accent/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
+                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-warning/10 text-warning-text border-warning/30 shadow-warning/10' : loaderStage === 2 ? 'bg-accent-bg text-accent-bg-text border-accent/30 shadow-accent/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
                                                     'bg-surface-2 text-text-muted border border-border'
                                                 }`}>
                                                     {i < loaderStage ? <CheckCircle2 size={11} className="text-emerald-500" /> : s.icon}
@@ -1445,7 +1445,7 @@ export default function ComparadorMain() {
 
                                     <div className="flex gap-4 pt-10">
                                         <button onClick={() => setStep("input")} className="flex-1 bg-surface border border-border py-4 font-bold rounded-2xl text-xs tracking-widest hover:bg-surface-2 transition-colors">Editar Datos</button>
-                                        <button onClick={confirmData} className="flex-[2] bg-accent hover:bg-accent/90 text-white py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-accent/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
+                                        <button onClick={confirmData} className="flex-[2] bg-accent hover:bg-accent/90 text-accent-text py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-accent/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
                                             Confirmar y Comparar
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
@@ -1839,7 +1839,7 @@ export default function ComparadorMain() {
                                 {/* Gran Banner de Ahorro */}
                                 <div className="premium-card p-0 overflow-hidden bg-accent/5 border-2 border-accent/20 hover:border-accent/40 transition-all relative">
                                     <div className="flex flex-col sm:flex-row items-center">
-                                        <div className="bg-accent px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-white shrink-0 w-full sm:w-auto">
+                                        <div className="bg-accent px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-accent-text shrink-0 w-full sm:w-auto">
                                             <Trophy className="w-12 h-12 mb-3 animate-bounce" />
                                             <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Logro</span>
                                         </div>
@@ -2659,9 +2659,9 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
                                                     <div className="text-center md:text-right">
-                                                    <p className="text-[10px] text-text-secondary font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
+                                                    <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
                                                     <div className="flex items-baseline justify-center md:justify-end gap-3">
-                                                        <p className="text-7xl font-900 text-accent drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
+                                                        <p className="text-7xl font-900 text-savings drop-shadow-[0_0_30px_rgba(34,197,94,0.2)] tracking-tighter">
                                                             {results[0].total.toFixed(2)}
                                                             <span className="text-4xl ml-2 opacity-80">€</span>
                                                         </p>
@@ -2793,12 +2793,12 @@ export default function ComparadorMain() {
                                     <div className="p-8 bg-accent/[0.03] border border-accent/10 rounded-[2.5rem] flex flex-col justify-center relative overflow-hidden group">
                                         <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-accent/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
                                         <div className="flex items-center gap-5 relative z-10">
-                                            <div className="w-16 h-16 rounded-[1.25rem] bg-accent-bg flex items-center justify-center text-accent shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
+                                            <div className="w-16 h-16 rounded-[1.25rem] bg-accent-bg flex items-center justify-center text-accent-bg-text shadow-lg shadow-success/10 group-hover:rotate-12 transition-transform">
                                                 <PiggyBank className="w-10 h-10" />
                                             </div>
                                             <div>
-                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/60 leading-none mb-2">Ahorro Máximo Proyectado</p>
-                                                <p className="text-4xl font-900 text-accent tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ año</span></p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent-bg-text leading-none mb-2">Ahorro Máximo Proyectado</p>
+                                                <p className="text-4xl font-900 text-savings tracking-tighter">{Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € <span className="text-sm font-bold opacity-60 uppercase tracking-widest ml-1">/ año</span></p>
                                             </div>
                                         </div>
                                     </div>

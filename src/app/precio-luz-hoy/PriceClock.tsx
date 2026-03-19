@@ -257,14 +257,14 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                     </div>
                 </div>
 
-                <div className="premium-card p-6 bg-emerald-500 text-white rounded-[2rem] flex items-center gap-6 shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-default">
+                <div className="premium-card p-6 bg-emerald-500 text-accent-text rounded-[2rem] flex items-center gap-6 shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-default">
                     <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30">
                         <TrendingDown size={28} />
                     </div>
                     <div className="space-y-0.5">
-                        <h4 className="font-black uppercase tracking-tighter leading-none text-white/80">Meta-Ahorro</h4>
+                        <h4 className="font-black uppercase tracking-tighter leading-none opacity-80">Meta-Ahorro</h4>
                         <p className="text-xl font-900 leading-tight">Gasta un 40% menos</p>
-                        <p className="text-[10px] font-bold text-white/60 uppercase">Siguiendo los horarios valle</p>
+                        <p className="text-[10px] font-bold opacity-60 uppercase">Siguiendo los horarios valle</p>
                     </div>
                 </div>
             </div>

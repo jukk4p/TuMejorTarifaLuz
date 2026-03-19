@@ -107,7 +107,7 @@ export default function SobreNosotros() {
                             </div>
                             <h2 className="text-2xl font-800 text-text-primary flex items-center gap-3">
                                 <span className="w-8 h-8 rounded-lg bg-accent-bg flex items-center justify-center">
-                                    <Eye className="w-4 h-4 text-accent" />
+                                    <Eye className="w-4 h-4 text-accent-bg-text" />
                                 </span>
                                 Nuestra Visión
                             </h2>
