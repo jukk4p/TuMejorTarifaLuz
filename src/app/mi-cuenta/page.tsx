@@ -466,7 +466,7 @@ export default function ProfilePage() {
                                                     </div>
                                                     <div className="flex items-center gap-3">
                                                         <div className="w-8 h-8 rounded-xl bg-surface flex items-center justify-center shadow-sm">
-                                                            <Zap size={14} className="text-primary" />
+                                                            <span className="text-sm">⚡</span>
                                                         </div>
                                                         <span className="text-[10px] font-black text-text-secondary uppercase tracking-widest">Total Detectado</span>
                                                     </div>
@@ -505,7 +505,7 @@ export default function ProfilePage() {
                             ) : (
                                 <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed">
                                     <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                        <Zap className="text-slate-300 w-8 h-8" />
+                                        <span className="text-3xl text-slate-300">⚡</span>
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Sin facturas digitalizadas</h3>
                                     <p className="text-sm text-slate-500 max-w-sm mx-auto mb-8">
@@ -649,14 +649,14 @@ export default function ProfilePage() {
                                                 <div className="grid grid-cols-1 gap-2 mb-8">
                                                     <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
-                                                            <Zap size={14} className="text-orange-500" />
+                                                            <span className="text-base">⚡</span>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Energía P1</span>
                                                         </div>
                                                         <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kWh</span></span>
                                                     </div>
                                                     <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
-                                                            <Settings size={14} className="text-blue-500" />
+                                                            <span className="text-base">🔌</span>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Potencia P1</span>
                                                         </div>
                                                         <span className="text-sm font-mono font-black dark:text-white">{(tariff.p1_kw_day || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kW</span></span>
@@ -1001,7 +1001,7 @@ export default function ProfilePage() {
                                 <div className="space-y-4 lg:space-y-6">
                                     <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                            <span className="w-1 h-1 bg-primary rounded-full"></span> Término de Potencia
+                                            <span>🔌</span> Término de Potencia
                                         </p>
                                         <div className="grid grid-cols-2 gap-4 w-full">
                                             <div>
@@ -1017,7 +1017,7 @@ export default function ProfilePage() {
 
                                     <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border flex flex-col items-center text-center lg:items-start lg:text-left">
                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                            <span className="w-1 h-1 bg-primary rounded-full"></span> Información General
+                                            <span>📄</span> Información General
                                         </p>
                                         <div className="grid grid-cols-2 gap-4 w-full">
                                             <div>
@@ -1034,7 +1034,7 @@ export default function ProfilePage() {
 
                                 <div className="p-3.5 sm:p-5 bg-surface-2 rounded-2xl border border-border h-full flex flex-col items-center text-center lg:items-start lg:text-left">
                                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                                        <span className="w-1 h-1 bg-primary rounded-full"></span> Energía Consumida (kWh)
+                                        <span>⚡</span> Energía Consumida (kWh)
                                     </p>
                                     <div className="space-y-4 w-full">
                                         <div className="flex justify-between items-center pb-2 border-b border-border">

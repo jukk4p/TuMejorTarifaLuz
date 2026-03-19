@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Comparativa de Comercializadoras de Luz en España 2026',
-  description: 'Análisis independiente de Iberdrola, Endesa, Naturgy, Octopus, Repsol y más. Precios actualizados y opiniones objetivas. Sin comisiones.',
+  description: 'Ranking de las mejores comercializadoras de luz en España 2026. Analizamos Octopus, Niba, Iberdrola, Endesa y 10 compañías más por precio, atención y transparencia.',
   alternates: { canonical: 'https://tumejortarifaluz.es/companias' }
 }
 

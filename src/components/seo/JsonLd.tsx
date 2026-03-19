@@ -125,7 +125,7 @@ export const getArticleSchema = (post: any) => ({
     "image": `https://tumejortarifaluz.es${post.image}`,
     "author": {
         "@type": "Person",
-        "name": post.author
+        "name": post.author.name
     },
     "publisher": {
         "@type": "Organization",
@@ -137,4 +137,33 @@ export const getArticleSchema = (post: any) => ({
     },
     "datePublished": post.date,
     "description": post.excerpt
+});
+
+export const getBlogPostingSchema = (posts: any[]) => ({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "blogPost": posts.map(post => ({
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://tumejortarifaluz.es${post.image}`,
+        "datePublished": post.date,
+        "dateModified": post.dateUpdated || post.date,
+        "author": {
+            "@type": "Person",
+            "name": post.author.name
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "TuMejorTarifaLuz",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://tumejortarifaluz.es/Logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://tumejortarifaluz.es/blog/${post.slug}`
+        }
+    }))
 });

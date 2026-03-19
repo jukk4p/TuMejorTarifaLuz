@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Tarifas de Luz 2026: Iberdrola, Endesa, Octopus y más',
-  description: 'Catálogo actualizado diariamente con más de 25 tarifas de luz en España. Tarifa fija, tres periodos y PVPC. Compara precios reales sin intermediarios.',
+  description: 'Catálogo completo de tarifas de luz en España 2026. Compara precios de energía y potencia de Iberdrola, Endesa, Octopus y 11 compañías más. Actualizado diariamente.',
   alternates: { canonical: 'https://tumejortarifaluz.es/tarifas' }
 }
 

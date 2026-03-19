@@ -1,17 +1,20 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Zap, TrendingDown, TrendingUp, Clock, Info, ShieldCheck, ZapOff } from "lucide-react";
 
 interface PriceItem {
     hour: string;
     price: number;
     isCheap: boolean;
+    hourNum: number;
 }
 
 interface PriceClockProps {
     pricesArray: PriceItem[];
     currentHour: number;
+    selectedHour: number;
+    onHourChange: (hour: number) => void;
     stats: {
         min: number;
         avg: number;
@@ -19,10 +22,8 @@ interface PriceClockProps {
     }
 }
 
-export default function PriceClock({ pricesArray, currentHour, stats }: PriceClockProps) {
-    const [selectedHour, setSelectedHour] = useState(currentHour);
-
-    const activeItem = pricesArray.find(p => parseInt(p.hour.split("-")[0]) === selectedHour) || pricesArray[0] || { hour: "00-01", price: 0, isCheap: false };
+export default function PriceClock({ pricesArray, currentHour, selectedHour, onHourChange, stats }: PriceClockProps) {
+    const activeItem = pricesArray.find(p => p.hourNum === selectedHour) || pricesArray[0] || { hour: "00-01", price: 0, isCheap: false, hourNum: 0 };
 
     // Colores dinámicos basados en el valor relativo
     const getPriceColor = (price: number) => {
@@ -43,6 +44,22 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
         return 'text-warning';
     };
 
+    // Generar el tramo dinámico según el precio
+    const getDynamicDescription = () => {
+        const diff = ((activeItem.price - stats.avg) / stats.avg) * 100;
+        if (diff < -20) {
+            return "Hora ideal para encender lavadora, lavavajillas y cargar el vehículo eléctrico.";
+        } else if (diff > 20) {
+            return "Hora cara. Pospón lavadora, horno y climatización hasta las horas de menor precio.";
+        } else {
+            return "Precio en rango normal. Evita los grandes electrodomésticos si puedes esperar a las horas valle.";
+        }
+    };
+
+    const savingsPercentage = useMemo(() => {
+        return (((stats.max - stats.min) / stats.max) * 100).toFixed(1);
+    }, [stats.min, stats.max]);
+
     // Generar el path del anillo de calor (Heatmap Ring)
     const heatmapSegments = useMemo(() => {
         return pricesArray.map((p, i) => {
@@ -57,7 +74,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
             const x2 = 200 + radius * Math.cos(endAngle * Math.PI / 180);
             const y2 = 200 + radius * Math.sin(endAngle * Math.PI / 180);
             
-            return { x1, y1, x2, y2, color, hour: i };
+            return { x1, y1, x2, y2, color, hour: p.hourNum };
         });
     }, [pricesArray, stats]);
 
@@ -85,7 +102,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                                 strokeWidth="8"
                                 strokeLinecap="round"
                                 className="transition-all duration-300 opacity-80 hover:opacity-100 cursor-pointer"
-                                onClick={() => setSelectedHour(s.hour)}
+                                onClick={() => onHourChange(s.hour)}
                             />
                         ))}
 
@@ -109,7 +126,7 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                             return (
                                 <button
                                     key={i}
-                                    onClick={() => setSelectedHour(i)}
+                                    onClick={() => onHourChange(i)}
                                     className={`absolute pointer-events-auto w-10 h-10 -ml-5 -mt-5 rounded-full flex items-center justify-center transition-all duration-500
                                         ${isSelected ? 'scale-125 z-30' : 'hover:scale-110 z-10'}
                                     `}
@@ -174,14 +191,14 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
             {/* Bloque Derecho: Análisis y Gráfico de Tendencia */}
             <div className="flex flex-col gap-6">
                 <div className="premium-card p-8 md:p-10 flex-1 flex flex-col bg-slate-900 text-white relative overflow-hidden border border-white/10 shadow-3xl group">
-                    <div className="absolute top-0 right-0 p-8 opacity-5">
-                        <Zap size={140} className="rotate-12" />
+                    <div className="absolute top-0 right-0 p-4 md:p-8 opacity-5">
+                        <span className="text-8xl md:text-[160px] block rotate-12">⚡</span>
                     </div>
                     
                     <div className="relative z-10 space-y-8 flex-1">
                         <div className="flex justify-between items-center">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-xl text-primary text-[10px] font-black uppercase tracking-widest border border-white/5">
-                                <Zap size={14} /> Análisis de Energía
+                                <span>⚡</span> Análisis de Energía
                             </div>
                             {activeItem.price < stats.avg ? (
                                 <div className="text-emerald-400 flex items-center gap-1 animate-bounce">
@@ -206,36 +223,46 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                             
                             <p className="text-sm font-medium text-slate-400 leading-relaxed max-w-sm">
                                 Este tramo horario representa una <span className="text-white font-bold">{activeItem.price < stats.avg ? 'oportunidad de ahorro' : 'zona punta de consumo'}</span>. 
-                                {activeItem.price < stats.avg 
-                                    ? " Es el momento ideal para programar lavadoras y sistemas de climatización."
-                                    : " Recomendamos posponer consumos intensivos a horarios marcados en verde."}
+                                {getDynamicDescription()}
                             </p>
                         </div>
 
-                        {/* Sparkline Visual (Simple SVG Trend) */}
+                        {/* Sparkline Visual (Full Area Trend) */}
                         <div className="pt-8 space-y-4">
                              <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Tendencia 24h</p>
-                             <div className="h-20 w-full flex items-end gap-1 px-1">
+                             <div className="h-28 w-full flex items-end gap-1 px-1 relative">
                                 {pricesArray.map((p, i) => {
                                     const h = ((p.price - stats.min) / (stats.max - stats.min || 1)) * 100;
-                                    const isSelected = selectedHour === i;
+                                    const isSelected = selectedHour === p.hourNum;
+                                    const isBelowAvg = p.price < stats.avg;
+                                    
                                     return (
                                         <div 
                                             key={i}
-                                            className={`flex-1 rounded-t-sm transition-all duration-300 cursor-pointer ${isSelected ? 'opacity-100 scale-y-110 !w-4' : 'opacity-40 hover:opacity-100 hover:scale-y-105'}`}
-                                            style={{ 
-                                                height: `${Math.max(5, h)}%`,
-                                                backgroundColor: getPriceColor(p.price)
-                                            }}
-                                            onClick={() => setSelectedHour(i)}
-                                        />
+                                            className={`flex-1 relative transition-all duration-300 cursor-pointer ${isSelected ? 'opacity-100 scale-y-110' : 'opacity-40 hover:opacity-100'}`}
+                                            style={{ height: `${Math.max(10, h)}%` }}
+                                            onClick={() => onHourChange(p.hourNum)}
+                                        >
+                                            {/* Bar part */}
+                                            <div 
+                                                className="absolute inset-0 rounded-t-sm"
+                                                style={{ backgroundColor: getPriceColor(p.price) }}
+                                            />
+                                            {/* Area coloring (Simulated with simple conditional background extension) */}
+                                            <div 
+                                                className={`absolute bottom-0 left-0 right-0 w-full h-[300%] -z-10 transition-colors opacity-10 
+                                                    ${isBelowAvg ? 'bg-emerald-500' : 'bg-rose-500'}`}
+                                            />
+                                        </div>
                                     );
                                 })}
                              </div>
-                             <div className="flex justify-between text-[8px] font-black text-slate-600 uppercase tracking-widest pt-1">
-                                <span>00:00</span>
-                                <span>12:00</span>
-                                <span>23:00</span>
+                             <div className="flex justify-between text-[8px] font-black text-slate-500 uppercase tracking-widest pt-3 px-1 border-t border-white/5">
+                                <span>00h</span>
+                                <span>06h</span>
+                                <span>12h</span>
+                                <span>18h</span>
+                                <span>23h</span>
                              </div>
                         </div>
 
@@ -250,21 +277,21 @@ export default function PriceClock({ pricesArray, currentHour, stats }: PriceClo
                             <div className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-1 group/item hover:border-primary/50 transition-colors">
                                 <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Impacto Factura</p>
                                 <p className="text-2xl font-black text-white">
-                                    {activeItem.price < stats.avg ? 'Bajo' : 'Medio-Alto'}
+                                    {activeItem.price < stats.avg ? 'Ahorro' : 'Elevado'}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="premium-card p-6 bg-emerald-500 text-accent-text rounded-[2rem] flex items-center gap-6 shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-default">
+                <div className="premium-card p-6 bg-emerald-500 text-slate-900 rounded-[2rem] flex items-center gap-6 shadow-xl shadow-emerald-500/20 active:scale-[0.98] transition-all cursor-default">
                     <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/30">
                         <TrendingDown size={28} />
                     </div>
                     <div className="space-y-0.5">
                         <h4 className="font-black uppercase tracking-tighter leading-none opacity-80">Meta-Ahorro</h4>
-                        <p className="text-xl font-900 leading-tight">Gasta un 40% menos</p>
-                        <p className="text-[10px] font-bold opacity-60 uppercase">Siguiendo los horarios valle</p>
+                        <p className="text-xl font-900 leading-tight">Gasta un {savingsPercentage}% menos</p>
+                        <p className="text-[10px] font-bold opacity-60 uppercase">Diferencia entre Máximo y Mínimo</p>
                     </div>
                 </div>
             </div>

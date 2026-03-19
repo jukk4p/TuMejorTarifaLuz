@@ -1824,7 +1824,7 @@ export default function ComparadorMain() {
                                             <p className="text-[10px] font-black text-primary uppercase tracking-widest">Nueva optimización</p>
                                         </div>
                                         <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                                            <Zap className="w-16 h-16" />
+                                            <span className="text-6xl">⚡</span>
                                         </div>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-3xl font-black text-primary">{(studyMode === 'monthly' ? selectedResult.total : selectedResult.total * 12).toFixed(2)}</span>
@@ -2262,7 +2262,7 @@ export default function ComparadorMain() {
                                                             onClick={() => setIsProfileCollapsed(false)}
                                                             className="shrink-0 flex items-center gap-2 bg-warning/10 text-warning text-[10px] font-bold px-4 py-1.5 rounded-full border border-warning/20 hover:bg-warning/20 transition-all active:scale-95 animate-in fade-in slide-in-from-left-2 duration-300"
                                                         >
-                                                            <Zap className="w-4 h-4" />
+                                                            <span className="w-4 h-4 flex items-center justify-center text-xs">⚡</span>
                                                             Perfil
                                                             <ChevronLeft className="w-4 h-4 opacity-50" />
                                                         </button>
@@ -2625,8 +2625,8 @@ export default function ComparadorMain() {
                                             </div>
                                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
                                                 {[
-                                                    { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4" />, border: "border-primary/40" },
-                                                    { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Zap className="w-4 h-4" />, border: "border-white/10" },
+                                                    { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <span className="text-sm">⚡</span>, border: "border-primary/40" },
+                                                    { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <span className="text-sm">🔌</span>, border: "border-white/10" },
                                                     { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4" />, border: "border-white/10" },
                                                     { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4" />, border: "border-white/10" },
                                                     { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4" />, border: "border-white/10" },
@@ -2921,7 +2921,9 @@ export default function ComparadorMain() {
                                         </div>
                                         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left">Término de Potencia</h5>
+                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+                                                    <span>🔌</span> Término de Potencia
+                                                </h5>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
@@ -2934,7 +2936,9 @@ export default function ComparadorMain() {
                                                 </div>
                                             </div>
                                             <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left">Término de Energía</h5>
+                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+                                                    <span>⚡</span> Término de Energía
+                                                </h5>
                                                 {(selectedResult.tariff?.type || "").includes('3 Periodos') ? (
                                                     <div className="space-y-3">
                                                         <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">

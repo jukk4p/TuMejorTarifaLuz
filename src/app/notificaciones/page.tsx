@@ -87,8 +87,8 @@ export default function NotificationsPage() {
         switch (type) {
             case 'tariff_update': 
                 return (
-                    <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-warning/10 flex items-center justify-center text-warning shadow-sm border border-amber-100 dark:border-amber-500/20">
-                        <Zap className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-warning/10 flex items-center justify-center text-warning shadow-sm border border-amber-100 dark:border-amber-500/20 text-xl">
+                        ⚡
                     </div>
                 );
             case 'price_drop': 

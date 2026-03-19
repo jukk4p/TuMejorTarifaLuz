@@ -20,13 +20,13 @@ export default async function ElectricityPriceWidget() {
     return (
         <div className="relative premium-card p-6 md:p-10 overflow-hidden border border-border">
             <div className="absolute top-0 right-0 p-4 md:p-8 opacity-5">
-                <Bolt size={120} className="md:size-[160px]" />
+                <span className="text-8xl md:text-[160px] block rotate-12">⚡</span>
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 relative z-10">
                 <div className="text-center md:text-left space-y-4 max-w-md w-full">
                     <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 text-primary">
-                        <Bolt size={24} className="md:size-[28px]" />
+                        <span className="text-xl md:text-2xl">⚡</span>
                         <h3 className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap">Precio de la luz hoy</h3>
                         <div className="flex items-center gap-2">
                             {prices.isLive ? (

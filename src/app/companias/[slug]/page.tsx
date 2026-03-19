@@ -14,8 +14,8 @@ export async function generateMetadata(
   }
   
   return {
-    title: `Tarifas ${company.name} 2026: Precios y Análisis`,
-    description: `Precios actualizados de las tarifas de luz de ${company.name} en 2026. Análisis independiente: pros, contras y comparativa con otras compañías. Sin comisiones.`,
+    title: `Tarifas ${company.name} 2026: Precios y Análisis Completo`,
+    description: `Análisis completo de ${company.name} en España 2026. Tarifa ${company.popularTariffName || 'destacada'} desde ${company.minPrice.toFixed(3)} €/kWh. Opiniones, puntuación ${company.rating}/5 y comparativa detallada.`,
     alternates: {
       canonical: `https://tumejortarifaluz.es/companias/${slug}`
     }
