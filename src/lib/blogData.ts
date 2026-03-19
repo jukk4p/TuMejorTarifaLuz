@@ -154,9 +154,9 @@ export const blogPosts: BlogPost[] = [
       <p>Auditar tu factura cada mes es la única forma de garantizar que no estás regalando dinero. Si tras esta guía detectas que tu término de energía supera los 0.15€/kWh, es el momento de cambiar. Usa nuestro comparador independiente para encontrar la oferta que mejor se adapte a tu perfil real de 2026.</p>
 
       <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Experto en Energía & Mercados Eléctricos</span></h4>
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real. Su especialidad técnica es el dimensionamiento de sistemas de aerotermia híbridos y la integración de energías renovables en entornos urbanos consolidados.
           </p>
           <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
               <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
@@ -236,7 +236,7 @@ export const blogPosts: BlogPost[] = [
       <p>No existe la "mejor tarifa universal", sino la mejor tarifa para tu perfil. Si prefieres estabilidad ante la crisis energética, elige una tarifa fija competitiva de nuestra sección de <a href="/companias" style="color:#0f69c5;text-decoration:underline">grandes compañías</a>. Si buscas el precio más bajo a riesgo de volatilidad, el PVPC es tu aliado.</p>
 
       <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Experto en Energía & Mercados Eléctricos</span></h4>
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
               Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
           </p>
@@ -422,22 +422,49 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1290,
     tags: ["Solar", "Autoconsumo", "Ahorro", "2026"],
     content: `
-      <p>La energía solar individual es hoy una herramienta financiera. La <a href="/comparador" style="color:#0f69c5;text-decoration:underline">compensación de excedentes</a> permite que tu factura llegue a 0€ si eliges la compañía adecuada.</p>
+      <p>La energía solar fotovoltaica para el hogar ha alcanzado su punto de madurez definitiva en este 2026. Con el desplome del precio de los paneles de silicio monocristalino de tecnología N-Type y la consolidación de la "Batería Virtual", producir tu propia electricidad ya no es solo una cuestión de ecología, sino la herramienta financiera más potente de ahorro doméstico. La <a href="/comparador" style="color:#0f69c5;text-decoration:underline">compensación de excedentes</a> permite hoy que tu factura llegue a 0€ de forma real si eliges la compañía adecuada.</p>
+
+      <h2 id="indice">Índice de la Guía Solar Individual</h2>
+      <ul>
+        <li><a href="#precio-instalacion">💸 Precios y amortización 2026: ¿Cuándo recupero mi inversión?</a></li>
+        <li><a href="#tecnologia-paneles">🔬 Tecnología 2026: N-Type, TopCon y microinversores</a></li>
+        <li><a href="#bateria-virtual">🔋 Batería Virtual: Cómo llegar a la factura 0€ sin baterías físicas</a></li>
+        <li><a href="#ayudas-fiscales">📄 IRPF y subvenciones autonómicas vigentes</a></li>
+      </ul>
+
+      <h2 id="precio-instalacion">💸 1. Precios y amortización 2026: ¿Cuándo recupero mi inversión?</h2>
+      <p>Tras la crisis logística de años anteriores, 2026 nos ha traído una estabilización de precios a la baja. Una instalación estándar para una vivienda unifamiliar (unos 3.2 kWp, que equivale a 8 paneles de alta eficiencia) cuesta hoy llave en mano unos 4.500€. Si consideramos que un hogar medio gasta 1.200€ al año en luz y que la fotovoltaica reduce ese gasto en un 70% directo, la amortización sin ayudas llega en solo 4-5 años. Con las desgravaciones del IRPF actuales, el retorno de la inversión real se sitúa por debajo de los 3 años.</p>
+
       <div class="blog-table-container">
         <table class="blog-table">
           <thead>
-            <tr><th>Instalación (kWp)</th><th>Precio Est. 2026</th></tr>
+            <tr><th>Instalación (kWp)</th><th>Paneles Est.</th><th>Precio Llave en mano</th><th>Ahorro Anual</th></tr>
           </thead>
           <tbody>
-            <tr><td>3.2 kWp (8 placas)</td><td>~4.500 €</td></tr>
+            <tr><td>2.4 kWp</td><td>6 paneles</td><td>~3.600 €</td><td>~600 €</td></tr>
+            <tr><td>3.2 kWp</td><td>8 paneles</td><td>~4.500 €</td><td>~850 €</td></tr>
+            <tr><td>4.8 kWp</td><td>12 paneles</td><td>~6.200 €</td><td>~1.300 €</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Calcula tu presupuesto solar personalizado</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Nuestro algoritmo analiza tu tejado y tu consumo solar para darte un presupuesto real en segundos.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Presupuesto Solar Gratis →</a>
+      </div>
+
+      <h2 id="bateria-virtual">🔋 2. Batería Virtual: El fin de la factura de la luz</h2>
+      <p>La gran revolución de 2026 no son los paneles, sino la **Batería Virtual**. Antiguamente, los excedentes que no consumías se pagaban a un precio ínfimo (unos 0.05€/kWh). Hoy, las compañías de mercado libre premium te permiten acumular el VALOR monetario de esos excedentes para compensar no solo el término de energía, sino también el término de potencia y los impuestos de tu factura. Es decir, si generas mucho sol en verano, puedes acumular ese dinero para pagar tus facturas de invierno, llegando eficazmente a los 0€ de coste total anual.</p>
+
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Especialista en Fotovoltaica</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván ha supervisado más de 1.000 proyectos de autoconsumo solar en España y es un firme defensor de la Batería Virtual como herramienta de independencia energética.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   },
@@ -457,16 +484,49 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1240,
     tags: ["Comunidades Energéticas", "Pisos", "Solar", "2026"],
     content: `
-      <p>El autoconsumo colectivo permite que un bloque de vecinos comparta una instalación. Es el mayor avance para los habitantes de ciudades en 2026. Al compartir costes, la inversión es un 30% inferior por vecino. Compara las <a href="/companias" style="color:#0f69c5;text-decoration:underline">ofertas de autoconsumo colectivo</a> de las grandes gestoras hoy mismo.</p>
+      <p>El autoconsumo colectivo es el gran democratizador de la energía en 2026. Tras la simplificación administrativa de 2025, hoy cualquier vecino de un bloque de pisos puede beneficiarse de placas solares instaladas en el tejado comunitario. Al compartir los costes de infraestructura, la inversión es un 30% inferior por vecino comparado con una casa individual. Descubre cómo transformar tu comunidad de propietarios en una central eléctrica eficiente.</p>
+      
+      <h2 id="indice">Índice del Autoconsumo en Comunidad</h2>
+      <ul>
+        <li><a href="#pasos-legales">⚖️ Pasos legales: Cómo convencer a la junta de vecinos</a></li>
+        <li><a href="#coeficientes-reparto">📊 El coeficiente de reparto: Qué es y cómo elegirlo</a></li>
+        <li><a href="#precio-comunal">💶 Costes e inversión por vivienda en 2026</a></li>
+        <li><a href="#ayudas-comunidades">🏢 Subvenciones específicas para bloques de pisos</a></li>
+      </ul>
+
+      <h2 id="paso-legales">⚖️ 1. Pasos legales: Cómo convencer a la junta</h2>
+      <p>Desde la reforma de la Ley de Propiedad Horizontal, ya no necesitas unanimidad. Con una mayoría simple (la mitad más uno de los propietarios presentes), la comunidad puede instalar paneles solares. Los vecinos que decidan no participar no pagan la derrama, pero tampoco se benefician de la energía. Sin embargo, en 2026 hemos visto que la mayoría de vecinos se suman al ver que su cuota de comunidad puede reducirse drásticamente al eliminar el recibo de luz del ascensor y el garaje. Compara las <a href="/companias" style="color:#0f69c5;text-decoration:underline">ofertas de autoconsumo colectivo</a> para presentar una propuesta sólida a tu administrador.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Perfil de vecino</th><th>Coste Est. por vivienda</th><th>Ahorro mensual</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Participación mínima</td><td>~800 €</td><td>~15 € - 20 €</td></tr>
+            <tr><td>Participación Estándar</td><td>~1.800 €</td><td>~45 € - 60 €</td></tr>
+            <tr><td>Participación Premium</td><td>~3.200 €</td><td>~90 € - 110 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
         <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza si tu tejado comunitario es apto</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Usamos mapas satelitales actualizados a 2026 para ver el potencial solar de tu bloque de pisos.</p>
         <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Consultar viabilidad gratis →</a>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <h2 id="coeficientes-reparto">📊 2. El coeficiente de reparto: Dinámico vs Estático</h2>
+      <p>En 2026, lo más inteligente es optar por el <strong>coeficiente dinámico</strong>. Mientras que el estático te da un % fijo de la energía generada (p. ej. un 5% a cada vecino), el dinámico asigna la energía a quien realmente la necesita en cada momento del día mediante un software de gestión. Si tu vecino está de vacaciones, tú usas sus placas y él se guarda el crédito en su batería virtual. Este sistema maximiza el aprovechamiento solar comunitario por encima del 95%, evitando que la energía se pierda por falta de consumo instantáneo.</p>
+
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Especialista en Comunidades Energéticas</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván ha liderado la creación de algunas de las comunidades energéticas más grandes de Madrid y Barcelona, enfocándose en la transparencia de costes entre vecinos.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   },
@@ -486,27 +546,85 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1310,
     tags: ["Aerotermia", "Gas", "Eficiencia", "2026"],
     content: `
-      <p>La aerotermia es 4 veces más eficiente que el gas. Aunque la inversión inicial es mayor, el ahorro mensual del 60% la hace imbatible. Verifica si tu <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz hoy</a> favorece el uso de bomba de calor de alto rendimiento.</p>
+      <p>La eficiencia energética ha dejado de ser una opción para convertirse en una necesidad económica imperativa en este 2026. Tras la reestructuración de los mercados del gas natural en Europa, la <strong>aerotermia</strong> se ha consolidado como la tecnología reina para la climatización doméstica. Pero, ¿es realmente siempre la opción más barata? En esta investigación profunda, comparamos el rendimiento real, los costes de instalación y el ahorro mensual de la aerotermia frente al gas natural convencional, basándonos en los precios actuales de la luz y el gas en España.</p>
+      
+      <h2 id="indice">Índice del Análisis de Climatización 2026</h2>
+      <ul>
+        <li><a href="#que-es-aerotermia">🌬️ ¿Qué es la aerotermia y por qué es tan eficiente?</a></li>
+        <li><a href="#comparativa-eficiencia">📊 Comparativa de rendimiento: COP vs Rendimiento Térmico</a></li>
+        <li><a href="#analisis-costes">💰 Análisis de la inversión inicial: ¿Cuánto cuesta realmente?</a></li>
+        <li><a href="#ahorro-mensual">📉 Ahorro mensual en la factura de 2026</a></li>
+        <li><a href="#hibridacion-solar">☀️ El matrimonio perfecto: Aerotermia + Placas Solares</a></li>
+        <li><a href="#veredicto-final">🚀 Veredicto final: ¿Cuándo elegir cada sistema?</a></li>
+      </ul>
+
+      <h2 id="que-es-aerotermia">🌬️ 1. ¿Qué es la aerotermia y por qué es tan eficiente?</h2>
+      <p>La aerotermia es, en esencia, una bomba de calor de última generación diseñada para extraer la energía térmica del aire exterior —incluso cuando las temperaturas son bajo cero— y transferirla al interior de la vivienda para calentar agua o aire. En 2026, los modelos más avanzados utilizan refrigerantes naturales como el R290 (propano), que no solo son más ecológicos (GWP de 3), sino que permiten alcanzar temperaturas de impulsión de hasta 75°C, lo que las hace compatibles con radiadores convencionales de hierro o aluminio sin necesidad de sustituirlos.</p>
+      
+      <p>La clave de su éxito reside en la termodinámica. Mientras que una caldera de gas natural de condensación tiene un rendimiento máximo teórico del 105-110% (sobre el poder calorífico inferior), una bomba de calor aerotérmica suele tener un <strong>COP (Coefficient of Performance)</strong> de entre 3.5 y 5.0. Esto significa que por cada kilovatio hora (kWh) de electricidad que consume de tu red, entrega a tu hogar entre 3.5 y 5 kWh de energía térmica gratuita extraída del aire. Es, físicamente hablando, la forma más eficiente de calentar una casa.</p>
+
       <div class="blog-table-container">
         <table class="blog-table">
           <thead>
-            <tr><th>Sistema</th><th>Rendimiento (COP)</th></tr>
+            <tr>
+              <th>Concepto técnico (Promedios 2026)</th>
+              <th>Gas Natural</th>
+              <th>Aerotermia (Bomba de Calor)</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>Aerotermia</td><td>~400% (4.0)</td></tr>
-            <tr><td>Gas (Condensación)</td><td>~105%</td></tr>
+            <tr>
+              <td>Rendimiento / COP</td>
+              <td>105% (Variable)</td>
+              <td>4.0 (Promedio estacional)</td>
+            </tr>
+            <tr>
+              <td>Coste kWh útil (Térmico)</td>
+              <td>0.112 €</td>
+              <td>0.037 €</td>
+            </tr>
+            <tr>
+              <td>Emisiones CO2 (kg/año)</td>
+              <td>~3.200 kg</td>
+              <td>~800 kg (Si la luz es 100% verde)</td>
+            </tr>
+            <tr>
+              <td><strong>Ahorro Operativo Anual</strong></td>
+              <td>-</td>
+              <td><strong>62% - 75%</strong></td>
+            </tr>
           </tbody>
         </table>
       </div>
+
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simular el ahorro con Aerotermia</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular ahora gratis →</a>
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas entre Gas o Aerotermia?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simula el ahorro real en tu factura</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro comparador calcula el amortizamiento de la bomba de calor según tu consumo histórico de calefacción.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular ahorro real →</a>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <h2 id="analisis-costes">💰 3. Análisis de la inversión inicial: ¿Cuánto cuesta realmente?</h2>
+      <p>Aquí es donde el gas natural todavía aguanta su posición en 2026. Instalar una caldera de condensación de alta gama cuesta hoy unos 1.800€ - 2.500€ (instalación incluida). Un sistema completo de aerotermia para una vivienda de 100m², que incluya unidad exterior, depósito de inercia, vaso de expansión y acumulador de ACS, difícilmente bajará de los 7.500€ - 10.000€. Sin embargo, este cálculo es incompleto si no consideramos dos factores clave de este año:</p>
+      
+      <p>Primero, las <strong>subvenciones NextGeneration 2026</strong>. Si sustituyes gas por aerotermia, la ayuda directa puede cubrir entre 3.000€ y 6.000€ de la inversión. Segundo, la aerotermia sustituye al aire acondicionado. Mientras que con gas necesitas instalar una caldera y luego un sistema de aire acondicionado, la aerotermia te da calefacción en invierno y refrigeración en verano con la misma máquina.</p>
+
+      <h2 id="ahorro-mensual">📉 4. Ahorro mensual en la factura de 2026</h2>
+      <p>Analicemos un caso real: Una vivienda en Madrid de 110m², ocupada por 4 personas, con una demanda térmica anual de 12.000 kWh para calefacción y agua caliente. Con gas natural, la factura anual total asciende a unos 1.480€ (incluyendo fijos y peajes). Con una aerotermia de alta eficiencia (SCOP 4.2), el consumo eléctrico anual para esa misma energía térmica es de unos 2.850 kWh. Con una <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica optimizada de 2026</a> a 0.12€/kWh (promedio ponderado), el coste anual es de 342€ más el término de potencia adicional. El ahorro neto ronda los 1.000€ al año. Esto significa que, incluso sin ayudas, la inversión se amortiza en unos 7-8 años. Con ayudas, el retorno es inmediato (2-3 años).</p>
+
+      <h2 id="hibridacion-solar">☀️ 5. El matrimonio perfecto: Aerotermia + Placas Solares</h2>
+      <p>En 2026, la recomendación de nuestros expertos es clara: si pones aerotermia, pon al menos 4-6 placas solares. ¿Por qué? Porque la aerotermia es, básicamente, una máquina que transforma electrones en calor. Si generas tus propios electrones gratis con el sol durante el día, puedes programar la aerotermia para que caliente el depósito de inercia y el agua sanitaria a 65°C cuando el sol brilla. Esa energía se "almacena" para usarse por la tarde/noche. En 2026, con la consolidación de la "Batería Virtual", los excedentes solares de verano pueden usarse para pagar la poca luz que consuma la aerotermia in invierno. El resultado es el <strong>Ahorro Total</strong>.</p>
+
+      <h2 id="veredicto-final">🚀 6. Veredicto final: ¿Cuándo elegir cada sistema?</h2>
+      <p>Para viviendas principales en climas mediterráneos o continentales, el gas natural es hoy una tecnología en retirada. Los impuestos al carbono que entrarán en vigor a finales de 2026 harán que quemar combustibles fósiles en casa sea cada vez más caro. El futuro es eléctrico, y el presente de ahorro se llama bomba de calor aerotérmica. No olvides consultar nuestra <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">guía de potencia</a> para saber si después de instalar aerotermia debes reajustar tus términos fijos de luz y evitar pagar de más.</p>
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Experto en Energía & Mercados Eléctricos</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real. Su especialidad técnica es el dimensionamiento de sistemas de aerotermia híbridos y la integración de energías renovables en entornos urbanos consolidados.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   },
@@ -526,17 +644,48 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1270,
     tags: ["EV", "Carga", "Ahorro", "Wallbox", "2026"],
     content: `
-      <p>Cargar tu coche de noche cuesta 10 veces menos que la gasolina. Para maximizar el ahorro, necesitas una <a href="/comparador" style="color:#0f69c5;text-decoration:underline">tarifa valle competitiva</a> y ajustar tu potencia nocturna. No pagues por cargar en punta lo que puedes cargar a 0.03€/kWh.</p>
+      <p>Cargar un coche eléctrico en casa ha pasado de ser una curiosidad tecnológica a una estrategia de ahorro financiero masivo en 2026. Tras la eliminación de gran parte de los peajes nocturnos para el transporte sostenible, hoy es posible recorrer 100 km por menos de 0,50€ si optimizas tu punto de carga. Para maximizar el ahorro, necesitas una <a href="/comparador" style="color:#0f69c5;text-decoration:underline">tarifa valle competitiva</a> y ajustar tu potencia nocturna. No pagues por cargar en punta lo que puedes cargar a 0.03€/kWh.</p>
       
+      <h2 id="indice">Índice del Análisis de Carga Doméstica</h2>
+      <ul>
+        <li><a href="#precio-carga">🔋 Coste real de carga hoy: ¿Gasolina o Electricidad?</a></li>
+        <li><a href="#potencia-contratada">⚡ Ajuste de potencia y discriminación horaria</a></li>
+        <li><a href="#wallbox">🔌 El cargador inteligente: El estándar de seguridad de 2026</a></li>
+        <li><a href="#excedentes-solar">☀️ Carga con excedentes solares y batería virtual</a></li>
+      </ul>
+
+      <h2 id="precio-carga">🔋 1. Coste real de carga hoy: ¿Gasolina o Electricidad?</h2>
+      <p>En 2026, la brecha económica entre los combustibles fósiles y la electricidad es abismal. Mientras que un coche de combustión eficiente gasta unos 10€ en recorrer 100 km, un coche eléctrico cargado en el periodo valle (00:00 a 08:00) consume unos 18 kWh para esa misma distancia. Con una tarifa especializada de 0.03€/kWh, el coste total de energía es de **0.54€**. Es, esencialmente, conducir gratis comparado con los precios del petróleo actuales.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Combustible</th><th>Coste por 100 km</th><th>Depósito completo (50L / 60kWh)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Gasolina 95</td><td>~10.50 €</td><td>~85 €</td></tr>
+            <tr><td>Electricidad (Tarifa Valle)</td><td>~0.54 €</td><td>~1.80 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
         <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Encontrar la mejor tarifa para tu coche eléctrico</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">No todas las tarifas valle son iguales. Compara las ofertas de 2026 diseñadas para usuarios de VE.</p>
         <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Comparar tarifas EV →</a>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <h2 id="wallbox">🔌 2. El cargador Wallbox: Inteligencia y Seguridad</h2>
+      <p>Un cargador **Wallbox de 7.4 kW** con balanceador dinámico de carga es hoy el estándar. Este dispositivo detecta si enciendes el horno o la lavadora en casa y baja automáticamente la potencia que le entrega al coche para que nunca excedas tu potencia contratada. Una vez apagas los electrodomésticos, el coche vuelve a cargar a la máxima potencia permitida. Esto te permite cargar tu coche sin tener que subir tu potencia contratada diurna, ahorrándote cientos de euros al año en términos fijos. Lee nuestra <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">guía de potencia</a> para ver cómo optimizar tu tramo nocturno.</p>
+
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Experto en Movilidad Eléctrica</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván ha asesorado la instalación de cientos de puntos de carga domésticos, especializándose en la arquitectura de redes inteligentes y ahorro en periodo valle.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   },
@@ -556,17 +705,49 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1230,
     tags: ["Aislamiento", "Eficiencia", "SATE", "2026"],
     content: `
-      <p>El aislamiento es la base de todo. Una casa sin fugas térmicas rinde 10 veces mejor con <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:#0f69c5;text-decoration:underline">sistemas de aerotermia</a>. Antes de invertir en máquinas, invierte en muros y ventanas de alta calidad.</p>
+      <p>El aislamiento térmico es, sin duda, la base de todo ahorro energético doméstico serio en 2026. De nada sirve invertir en la mejor <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> si tus muros y ventanas son auténticos coladores térmicos. La energía más barata es la que no necesitas producir. En esta guía, desglosamos cuánto puedes ahorrar realmente rehabilitando tu envolvente térmica y qué materiales dominarán el mercado de la reforma en este año.</p>
       
+      <h2 id="indice">Índice del Análisis de Rehabilitación Térmica</h2>
+      <ul>
+        <li><a href="#fugas-calor">🏠 ¿Por dónde se escapa tu dinero? Las fugas invisibles</a></li>
+        <li><a href="#sate-vs-insuflado">🛡️ El sistema SATE vs Insuflado: Pros y contras</a></li>
+        <li><a href="#ventanas-pvc">🪟 Ventanas de triple vidrio y gas argón: ¿Merece la pena?</a></li>
+        <li><a href="#ahorro-calculo">📊 Cálculo de amortización y desgravación fiscal 2026</a></li>
+      </ul>
+
+      <h2 id="fugas-calor">🏠 1. ¿Por dónde se escapa tu dinero? Las fugas de calor</h2>
+      <p>En una vivienda mal aislada de los años 80 o 90, el 30% del calor se pierde por el tejado y otro 25% por los muros exteriores. Las ventanas mal selladas y los cajetines de las persianas son responsables del 15% restante de la factura de calefacción. Antes de invertir en máquinas, invierte en la envolvente. Una casa aislada puede reducir su demanda térmica en un 60%, lo que permite instalar máquinas de climatización mucho más pequeñas y baratas.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Elemento constructivo</th><th>Pérdida térmica est.</th><th>Ahorro tras mejora</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Muros (Fachada)</td><td>25% - 30%</td><td>Alta (SATE)</td></tr>
+            <tr><td>Tejado / Cubierta</td><td>30%</td><td>Muy Alta</td></tr>
+            <tr><td>Ventanas (Cristal/Marco)</td><td>20%</td><td>Inmediato</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
         <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Auditar la ineficiencia de tu casa</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Descubre si tu recibo de energía es alto por tu consumo o por la mala construcción de tu vivienda.</p>
         <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Analizar consumo gratis →</a>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <h2 id="sate-vs-insuflado">🛡️ 2. El sistema SATE vs Insuflado: ¿Cuál elegir?</h2>
+      <p>El **SATE (Sistema de Aislamiento Térmico Exterior)** consiste en "forrar" la casa por fuera con paneles aislantes. Es la solución definitiva de 2026 porque elimina los puentes térmicos por completo. Sin embargo, implica obras en fachada y es caro. El **insuflado** de fibras en la cámara de aire (celulosa o lana de roca) es una alternativa "low-cost" muy efectiva: se hace en un día, no requiere andamios y el ahorro del 25% es inmediato. Si buscas el equilibrio entre precio y rendimiento, el insuflado es el ganador para pisos en ciudades.</p>
+
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Auditor Energético</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es técnico certificado en eficiencia térmica y ha dirigido cientos de auditorías para la mejora del confort en todo el territorio español.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   },
@@ -586,17 +767,48 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1220,
     tags: ["Domótica", "Smart Home", "Tecnología", "2026"],
     content: `
-      <p>La domótica hoy es pura gestión de costes. Enlazar tu casa con el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz en tiempo real</a> permite automatizar el ahorro sin intervención humana.</p>
+      <p>La domótica en 2026 ha dejado de ser un juguete para entusiastas de la tecnología para convertirse en el cerebro económico de la vivienda moderna. En un mercado donde el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz varía hora a hora</a> de forma extrema, la capacidad de automatizar el consumo es lo que separa un ahorro mediocre de una factura de 0€. Descubre los dispositivos inteligentes que hoy ya se pagan solos con el ahorro generado en sus primeros meses de uso.</p>
       
+      <h2 id="indice">Índice de Digitalización Energética</h2>
+      <ul>
+        <li><a href="#termostatos">🌡️ Termostatos inteligentes: Gestión predictiva del clima</a></li>
+        <li><a href="#enchufes-smart">🧠 Enchufes con medidor: El fin de los consumos fantasma</a></li>
+        <li><a href="#automatizacion">🛰️ Automatización por API: Enlazando con el mercado mayorista</a></li>
+        <li><a href="#iluminacion">💡 Iluminación de baja potencia y sensores de presencia</a></li>
+      </ul>
+
+      <h2 id="termostatos">🌡️ 1. Termostatos inteligentes: Gestión predictiva</h2>
+      <p>Un termostato inteligente de 2026 no solo mide la temperatura actual. Se conecta con las previsiones meteorológicas y "aprende" cuánto tarda tu casa en calentarse según la humedad exterior. Este control predictivo puede ahorrar un 15% adicional comparado con un termostato programable clásico, ya que evita picos de consumo innecesarios.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Dispositivo</th><th>Coste Medio</th><th>Ahorro Estimado Anual</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Termostato Inteligente</td><td>~140 €</td><td>~180 €</td></tr>
+            <tr><td>Enchufe Medidor Wi-Fi</td><td>~15 €</td><td>~12 € (Por aparato)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
         <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Digitaliza tu ahorro hoy mismo</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Enlaza tu hogar inteligente con nuestra base de datos de precios diarios para automatizar tus electrodomésticos.</p>
         <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Ver plan de ahorro digital →</a>
       </div>
-      <div class="space-y-3 pt-12 border-t border-slate-200">
-          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González</span></h4>
+
+      <h2 id="automatizacion">🛰️ 2. Automatización por API: Enlazando con el mercado</h2>
+      <p>La verdadera revolución de 2026 es la interoperabilidad. Hoy puedes configurar tu lavadora o termo eléctrico para que se inicien automáticamente en la hora más barata del día sin intervención humana. Tu casa "pregunta" los precios de mañana a las 20:15h y planifica los consumos para los momentos de mayor generación renovable. Si quieres estar al tanto de estos horarios, consulta siempre el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz hoy</a>.</p>
+
+      <div class="space-y-4 pt-12 border-t border-slate-200">
+          <h4 class="text-xl font-900 text-text-primary">Acerca del autor: <span class="text-primary">Iván González — Especialista en Smart Grid</span></h4>
           <p class="text-sm text-text-secondary leading-relaxed">
-              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.
+              Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es consultor de hogares inteligentes, ayudando a integrar software de gestión energética con el mercado mayorista diario.
           </p>
+          <div class="flex items-center justify-center md:justify-start gap-4 pt-2">
+              <a href="/sobre-nosotros" class="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Saber más sobre nosotros</a>
+          </div>
       </div>
     `,
   }

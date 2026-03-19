@@ -24,8 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic blog routes
   const blogRoutes = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
+    lastModified: new Date(post.dateUpdated || post.date),
+    changeFrequency: 'weekly' as const, // Forzar rastreo tras gran actualización
     priority: 0.6,
   }));
 
