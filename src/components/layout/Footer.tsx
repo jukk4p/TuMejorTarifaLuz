@@ -52,7 +52,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                 className="w-full flex items-center justify-between py-6 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
-                <h4 className="text-[#334155] uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
+                <h4 className="text-slate-900 uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
                     {title}
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
                 </h4>
@@ -76,7 +76,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#eef2f7] text-[#334155] pt-20 pb-10 transition-colors duration-300 border-t border-border/50">
+        <footer className="bg-[#eef2f7] text-slate-800 pt-20 pb-10 transition-colors duration-300 border-t border-border/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Badge: Proyecto Independiente */}
                 <div className="flex justify-center md:justify-start mb-10">
@@ -102,7 +102,7 @@ export default function Footer() {
                                 <li key={tool.name}>
                                     <Link 
                                         href={tool.href}
-                                        className="text-[13px] text-[#334155] font-600 hover:text-primary transition-colors flex items-center gap-3 group"
+                                        className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-3 group"
                                     >
                                         <div className="w-1.5 h-1.5 bg-slate-300 group-hover:bg-primary rounded-full transition-colors"></div>
                                         {tool.name}
@@ -131,7 +131,7 @@ export default function Footer() {
                                         company === "CHC Energía" ? "chc-energia" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
-                                    className="text-[13px] text-[#334155] font-600 hover:text-primary transition-colors flex items-center gap-2 group"
+                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2 group"
                                 >
                                     <div className="w-1 h-1 bg-slate-300 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                     <span className="truncate">{company}</span>
@@ -140,7 +140,7 @@ export default function Footer() {
                             {/* Adding the regulated market as one more in the group */}
                             <Link 
                                 href="/companias/comercializadoras-referencia"
-                                className="text-[13px] text-[#334155] font-600 hover:text-primary transition-colors flex items-center gap-2 group transition-all"
+                                className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2 group transition-all"
                             >
                                 <div className="w-1 h-1 bg-slate-300 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                 <span className="truncate">COR</span>
@@ -159,7 +159,7 @@ export default function Footer() {
                                 <Link 
                                     key={guide.name} 
                                     href={guide.href} 
-                                    className="text-[13px] text-[#334155] font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
                                     <div className="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-slate-200">
                                         <ExternalLink size={14} />
@@ -186,7 +186,7 @@ export default function Footer() {
                                 <Link 
                                     key={item.name} 
                                     href={item.href} 
-                                    className="text-[13px] text-[#334155] font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
                                     <div className="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-slate-200">
                                         <ShieldCheck size={14} />
@@ -249,7 +249,7 @@ export default function Footer() {
                         </span>
                     </div>
                     
-                    <p className="text-[11px] md:text-xs font-bold text-[#64748b] max-w-2xl px-4">
+                    <p className="text-[11px] md:text-xs font-bold text-slate-700 max-w-2xl px-4">
                         © 2026 TuMejorTarifaLuz – Comparador independiente de tarifas de luz en España. 
                         Analizamos el mercado diariamente para ofrecerte las mejores opciones de ahorro.
                     </p>
