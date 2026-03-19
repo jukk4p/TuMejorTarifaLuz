@@ -65,10 +65,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 dateModified: post.dateUpdated || post.date,
                 author: {
                     "@type": "Person",
-                    "name": post.author.name,
+                    "name": "Iván González",
                     "url": "https://tumejortarifaluz.es/sobre-nosotros"
                 }
             }} />
+            {post.id === "preguntas-frecuentes-luz" && post.faqData && (
+                <JsonLd data={{
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": post.faqData.map(faq => ({
+                        "@type": "Question",
+                        "name": faq.question,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": faq.answer
+                        }
+                    }))
+                }} />
+            )}
             <main className="min-h-screen bg-white dark:bg-background pt-32 pb-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}
