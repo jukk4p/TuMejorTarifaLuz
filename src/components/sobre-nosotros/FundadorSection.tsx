@@ -36,7 +36,7 @@ export default function FundadorSection() {
                   TuMejorTarifaLuz nació en 2025 como proyecto personal de Iván González, desarrollador que durante más de dos años analizó facturas de luz de forma manual para familiares y amigos.
                 </p>
                 <p className="text-text-secondary leading-relaxed text-lg text-pretty">
-                  Hoy, el comparador analiza más de 150 tarifas activas de más de 20 compañías, actualizado diariamente con datos de OMIE y las comercializadoras. Todo esto sin pedir el teléfono, sin vender datos y sin cobrar un euro al usuario.
+                  Hoy, el comparador analiza más de 25 tarifas activas de las 14 compañías más importantes de España, actualizado diariamente con datos de OMIE y las comercializadoras. Todo esto sin pedir el teléfono, sin vender datos y sin cobrar un euro al usuario.
                 </p>
               </div>
             </div>

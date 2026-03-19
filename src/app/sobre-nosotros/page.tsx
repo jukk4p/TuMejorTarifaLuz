@@ -129,8 +129,8 @@ export default function SobreNosotros() {
                     <div className="text-center space-y-10">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                             {[
-                                { number: "150+", label: "Tarifas Activas" },
-                                { number: "20+", label: "Compañías" },
+                                { number: "25+", label: "Tarifas Activas" },
+                                { number: "14+", label: "Compañías" },
                                 { number: "312€", label: "Ahorro Medio" },
                                 { number: "100%", label: "Gratis" }
                             ].map((stat, i) => (

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'TuMejorTarifaLuz | Comparador de Tarifas de Luz Gratis',
     template: '%s | TuMejorTarifaLuz'
   },
-  description: "Compara más de 25 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra hasta 312€/año analizando tu consumo real sin registros.",
+  description: "Compara más de 25 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra hasta 312€/año analizando tu consumo real en más de 14 compañías sin registros.",
   openGraph: {
     type: "website",
     locale: "es_ES",
