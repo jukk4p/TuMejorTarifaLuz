@@ -62,7 +62,7 @@ export default function SupportSection() {
                     href={platform.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center gap-4 p-4 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] border-primary/20 shadow-sm' : 'bg-white border-[#E2E8F0] hover:border-primary/20 shadow-sm'}`}
+                    className={`flex items-center gap-4 p-4 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] dark:bg-primary/10 border-primary/20 shadow-sm' : 'bg-surface border-border hover:border-primary/20 shadow-sm'}`}
                 >
                     <div className="shrink-0 group-hover/item:scale-105 transition-transform duration-300">
                         {platform.icon}

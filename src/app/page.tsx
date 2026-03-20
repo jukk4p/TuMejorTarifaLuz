@@ -155,12 +155,12 @@ export default async function Home() {
                 <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
                 <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
                 
-                <div className="relative bg-white rounded-3xl md:rounded-[3rem] shadow-2.5xl md:shadow-[0_48px_96px_-16px_rgba(0,0,0,0.12)] border border-border/40 overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto">
+                <div className="relative bg-white dark:bg-surface-2/40 backdrop-blur-3xl rounded-3xl md:rounded-[3rem] shadow-2.5xl md:shadow-[0_48px_96px_-16px_rgba(0,0,0,0.12)] border border-border/40 dark:border-white/10 overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto">
                    {/* Card Header */}
                    <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between">
                      <div className="space-y-1 md:space-y-1.5">
-                        <p className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-[0.25em]">Tu potencial de</p>
-                        <p className="text-xs sm:text-sm md:text-[18px] font-black text-text-primary uppercase tracking-[0.12em]">Ahorro real</p>
+                        <p className="text-[9px] md:text-[11px] font-black text-text-muted dark:text-white/40 uppercase tracking-[0.25em]">Tu potencial de</p>
+                        <p className="text-xs sm:text-sm md:text-[18px] font-black text-text-primary dark:text-white uppercase tracking-[0.12em]">Ahorro real</p>
                      </div>
                      <div className="px-3 md:px-4 py-1.5 md:py-2 bg-savings/10 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5">
                         <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-savings rounded-full animate-pulse"></div>
@@ -168,21 +168,21 @@ export default async function Home() {
                      </div>
                    </div>
 
-                   <div className="w-full h-px bg-border/40"></div>
+                   <div className="w-full h-px bg-border/40 dark:bg-white/10"></div>
 
                    {/* Main Comparison Area */}
                    <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
                      <div className="flex items-center justify-between gap-3 sm:gap-6 relative">
                         {/* Current Tariff */}
                         <div className="flex-1 space-y-3 md:space-y-5">
-                           <p className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-widest">Tarifa actual</p>
+                           <p className="text-[9px] md:text-[11px] font-black text-text-muted dark:text-white/40 uppercase tracking-widest">Tarifa actual</p>
                            <div className="space-y-0.5 md:space-y-1">
-                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-text-primary leading-none">Iberdrola</p>
-                              <p className="text-[10px] md:text-[13px] text-text-muted font-bold tracking-tight">Plan Estable</p>
+                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-text-primary dark:text-white leading-none">Iberdrola</p>
+                              <p className="text-[10px] md:text-[13px] text-text-muted dark:text-white/30 font-bold tracking-tight">Plan Estable</p>
                            </div>
                            <div className="flex items-baseline gap-1 md:gap-1.5">
-                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-text-primary tracking-tight">0,162</span>
-                              <span className="text-[9px] md:text-sm font-bold text-text-muted opacity-60">€/kWh*</span>
+                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-text-primary dark:text-white tracking-tight">0,162</span>
+                              <span className="text-[9px] md:text-sm font-bold text-text-muted dark:text-white/40 opacity-60">€/kWh*</span>
                            </div>
                         </div>
 
@@ -198,45 +198,43 @@ export default async function Home() {
                            <p className="text-[9px] md:text-[11px] font-black text-savings uppercase tracking-widest">Recomendada</p>
                            <div className="space-y-0.5 md:space-y-1">
                               <p className="text-sm sm:text-lg md:text-2xl font-900 text-savings leading-none">Visalia</p>
-                              <p className="text-[10px] md:text-[13px] text-text-muted font-bold tracking-tight">Luz Fijo 24h</p>
+                              <p className="text-[10px] md:text-[13px] text-text-muted dark:text-white/30 font-bold tracking-tight">Luz Fijo 24h</p>
                            </div>
                            <div className="flex items-baseline gap-1 md:gap-1.5 justify-end">
                               <span className="text-xl sm:text-3xl md:text-4xl font-900 text-savings tracking-tight">0,098</span>
-                              <span className="text-[9px] md:text-sm font-bold text-text-muted opacity-60">€/kWh*</span>
+                              <span className="text-[9px] md:text-sm font-bold text-text-muted dark:text-white/40 opacity-60">€/kWh*</span>
                            </div>
                         </div>
                      </div>
 
                      {/* Savings Box */}
-                     <div className="bg-savings/5 border border-savings/25 rounded-2xl md:rounded-[2.5rem] p-5 sm:p-8 md:p-10 flex items-center justify-between gap-4 md:gap-8 relative overflow-hidden group/savings">
+                     {/* Savings Box - Optimized for single line */}
+                     <div className="bg-savings/5 border border-savings/25 rounded-2xl md:rounded-3xl p-4 md:p-6 flex items-center justify-between gap-4 relative overflow-hidden group/savings">
                         <div className="absolute inset-0 bg-gradient-to-r from-savings/5 to-transparent -translate-x-full group-hover/savings:translate-x-full transition-transform duration-1000"></div>
-                        <div className="space-y-1.5 md:space-y-2.5 relative z-10">
-                           <p className="text-[9px] md:text-[11px] font-black text-text-secondary uppercase tracking-widest leading-none">Ahorro estimado anual</p>
-                           <p className="text-2xl sm:text-4xl md:text-5xl font-900 text-savings tracking-tighter flex items-baseline gap-2 md:gap-3">
-                              339€ <span className="text-sm sm:text-xl md:text-2xl text-savings/60 font-black">/ año</span>
-                           </p>
+                        <div className="space-y-1 relative z-10">
+                           <p className="text-[9px] md:text-[10px] font-black text-text-secondary dark:text-white/60 uppercase tracking-widest leading-none">Ahorro estimado anual</p>
+                           <div className="flex items-baseline gap-2">
+                              <span className="text-2xl md:text-4xl font-900 text-savings tracking-tighter">339,24€</span>
+                              <span className="text-xs md:text-sm text-savings/60 font-black">/ año</span>
+                           </div>
                         </div>
-                        <div className="px-3 md:px-6 py-2.5 md:py-5 bg-savings/15 border border-savings/30 rounded-xl md:rounded-3xl text-center flex flex-col shrink-0 min-w-[70px] md:min-w-[110px] relative z-10 shadow-lg shadow-savings/5">
-                           <span className="text-lg sm:text-2xl md:text-3xl font-900 text-savings leading-none">-45%</span>
-                           <span className="text-[8px] md:text-[11px] font-black text-savings uppercase tracking-tighter pt-1 md:pt-1.5 opacity-80">en gasto</span>
+                        <div className="px-4 py-2.5 bg-savings/15 border border-savings/30 rounded-xl md:rounded-2xl text-center flex items-center gap-2.5 shrink-0 relative z-10 shadow-lg shadow-savings/5">
+                           <span className="text-xl md:text-2xl font-900 text-savings leading-none">-34,37%</span>
+                           <span className="text-[9px] font-black text-savings uppercase tracking-tighter opacity-80 hidden sm:block">de ahorro</span>
                         </div>
                      </div>
                    </div>
 
-                   {/* Card Footer */}
-                   <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-border/5 border-t border-border/40 mt-auto flex items-center justify-between">
+                   <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-border/5 dark:bg-white/5 border-t border-border/40 dark:border-white/10 mt-auto flex items-center justify-between">
                      <div className="flex items-center gap-2 md:gap-3">
-                        <div className="w-6 md:w-8 h-6 md:h-8 rounded-full bg-text-muted/10 flex items-center justify-center">
-                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted" />
+                        <div className="w-6 md:w-8 h-6 md:h-8 rounded-full bg-text-muted/10 dark:bg-white/10 flex items-center justify-center">
+                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted dark:text-white/40" />
                         </div>
-                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">Basado en tu perfil de consumo real</p>
-                     </div>
-                     <div className="px-4 md:px-6 py-2 md:py-3 bg-text-muted/10 rounded-xl md:rounded-2xl border border-border/40 shadow-inner">
-                        <span className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-[0.15em] opacity-30">Ver oferta</span>
+                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted dark:text-white/30 uppercase tracking-[0.08em]">Cálculo basado en un consumo de 250kWh</p>
                      </div>
                    </div>
                 </div>
-              </div>
+               </div>
             </div>
           </div>
         </section>
@@ -251,13 +249,13 @@ export default async function Home() {
         </section>
 
         {/* Support & Independence Section */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-surface dark:bg-background relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
               
               {/* Left Side: Brand & Mission */}
               <div className="space-y-12">
-                <div className="inline-flex items-center gap-4 p-2 bg-[#F3F9FF] rounded-2xl border border-primary/5 pr-6">
+                <div className="inline-flex items-center gap-4 p-2 bg-[#F3F9FF] dark:bg-primary/10 rounded-2xl border border-primary/5 pr-6">
                   <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                     <Heart size={24} className="fill-current" />
                   </div>
@@ -277,7 +275,7 @@ export default async function Home() {
                   
                   <div className="flex flex-wrap gap-3 pt-4">
                     {["Sin comisiones", "Sin publicidad", "Sin afiliados", "100% gratuito"].map((chip) => (
-                      <div key={chip} className="inline-flex items-center gap-2 px-4 py-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-full">
+                      <div key={chip} className="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border rounded-full">
                         <div className="w-1.5 h-1.5 bg-primary/40 rounded-full"></div>
                         <span className="text-[11px] font-bold text-text-secondary uppercase tracking-widest">{chip}</span>
                       </div>
@@ -289,7 +287,7 @@ export default async function Home() {
               {/* Right Side: Quote & Donation */}
               <div className="space-y-8">
                 {/* Quote Card */}
-                <div className="bg-[#F8FAFC]/50 border border-[#E2E8F0] p-8 md:p-10 rounded-[2.5rem] space-y-8">
+                <div className="premium-card bg-[#F8FAFC]/50 dark:bg-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8">
                   <div className="text-primary opacity-30">
                     <HistoryIcon size={24} className="rotate-180" />
                   </div>
@@ -307,8 +305,8 @@ export default async function Home() {
                 </div>
                 
                 {/* Donation Card */}
-                <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
-                  <div className="px-8 pt-8 pb-6 border-b border-[#E2E8F0]/60">
+                <div className="bg-surface-2/30 dark:bg-surface-2/20 border border-border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
+                  <div className="px-8 pt-8 pb-6 border-b border-border/40">
                     <div className="space-y-1 text-center sm:text-left">
                       <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">Apoya el proyecto</p>
                       <p className="text-lg font-900 text-text-primary">Si te ha ahorrado dinero, devuelve un poco</p>
@@ -317,7 +315,7 @@ export default async function Home() {
                   <div className="p-8">
                     <SupportSection />
                   </div>
-                  <div className="px-8 py-5 bg-white/50 border-t border-[#E2E8F0]/40 flex justify-center text-center">
+                  <div className="px-8 py-5 bg-surface-2/50 dark:bg-white/5 border-t border-border/40 flex justify-center text-center">
                     <p className="text-[10px] font-bold text-text-muted/60 uppercase tracking-[0.05em]">
                       Pago seguro · Sin suscripción · Gracias por apoyar
                     </p>
