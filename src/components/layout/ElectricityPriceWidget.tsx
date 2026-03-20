@@ -1,4 +1,4 @@
-import { getElectricityPrices } from "@/lib/electricity-prices";
+import { getElectricityPrices } from "@/lib/energy-prices";
 import { Bolt, TrendingDown, RefreshCcw, Clock, Info, UserX } from "lucide-react";
 import Link from "next/link";
 

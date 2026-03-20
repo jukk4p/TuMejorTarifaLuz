@@ -5,15 +5,17 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
-import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
-import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
 import SupportSection from "@/components/ui/SupportSection";
 import SocialProof from "@/components/ui/SocialProof";
-import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search } from "lucide-react";
+import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
+import { getElectricityPrices } from "@/lib/energy-prices";
+import UrgencyBar from "@/components/ui/UrgencyBar";
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
+  const prices = await getElectricityPrices();
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
@@ -239,14 +241,8 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Electricity Price Widget */}
-        <section className="py-8 md:py-12 bg-background overflow-hidden border-b border-border/40">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Suspense fallback={<ElectricityPriceSkeleton />}>
-              <ElectricityPriceWidget />
-            </Suspense>
-          </div>
-        </section>
+        {/* Urgency Bar */}
+        <UrgencyBar />
 
         {/* Support & Independence Section */}
         <section className="py-24 bg-surface dark:bg-background relative overflow-hidden">
@@ -429,6 +425,45 @@ export default async function Home() {
                 </details>
               ))}
             </div>
+
+            {/* Post-FAQ Action Block */}
+            <div className="mt-16 bg-surface-2 dark:bg-white/5 border border-border rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+              
+              <div className="grid md:grid-cols-2 gap-12 relative z-10">
+                {/* Doubt Column */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-text-primary">¿Todavía tienes dudas?</h3>
+                  <p className="text-sm text-text-secondary leading-relaxed max-w-sm">
+                    Si no has encontrado la respuesta que buscabas o tu factura es compleja, nuestro equipo te ayuda de forma personalizada.
+                  </p>
+                  <a 
+                    href="mailto:hola@tumejortarifaluz.es" 
+                    className="inline-flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[11px] hover:gap-4 transition-all"
+                  >
+                    Escríbenos a hola@tumejortarifaluz.es
+                    <ArrowRight size={14} />
+                  </a>
+                </div>
+
+                {/* Ready Column */}
+                <div className="space-y-6 flex flex-col justify-center">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold text-text-primary">¿Ya tienes todo claro?</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      La media de ahorro es de 312€ al año. No esperes más para empezar a ahorrar hoy.
+                    </p>
+                  </div>
+                  <Link 
+                    href="/comparador?mode=upload" 
+                    className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-5 bg-primary text-white font-black uppercase tracking-widest text-[11px] rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all text-center"
+                  >
+                    Sube tu factura ahora
+                    <CloudUpload size={18} className="ml-3" />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -444,14 +479,10 @@ export default async function Home() {
                 <h2 className="font-heading text-3xl font-semibold text-text-primary tracking-tight">Consejos para ahorrar en tu recibo</h2>
                 <p className="text-lg text-text-secondary leading-relaxed">Aprende a navegar el mercado eléctrico con la información de nuestros expertos.</p>
               </div>
-              <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all">
-                Ver todo el blog
-                <ArrowRight size={14} />
-              </Link>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(0, 6).map((post, i) => (
+              {blogPosts.slice(0, 3).map((post, i) => (
                 <Link key={i} href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
                   <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
@@ -466,6 +497,16 @@ export default async function Home() {
                 </Link>
               ))}
             </div>
+
+            <div className="mt-16 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-surface border border-border text-text-secondary font-bold hover:shadow-xl transition-all group hover:border-primary/30"
+              >
+                Ver todos los artículos
+                <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} />
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -478,21 +519,21 @@ export default async function Home() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <h2 className="font-heading text-3xl font-semibold text-text-primary tracking-tight leading-tight">
-                    Toma el control total de <br />
-                    <span className="text-primary italic">tu factura de luz</span>
+                  <h2 className="font-heading text-3xl md:text-4xl font-900 text-text-primary tracking-tight leading-tight">
+                    ¿Quieres ahorrar de verdad o <br />
+                    <span className="text-primary italic">solo mirar un número?</span>
                   </h2>
-                  <p className="text-xl text-text-secondary leading-relaxed">
-                    Al registrarte en TuMejorTarifaLuz, accedes a herramientas avanzadas diseñadas para maximizar tu ahorro a largo plazo.
+                  <p className="text-xl text-text-secondary leading-relaxed font-medium">
+                    <span className="text-text-primary font-bold">Sin cuenta solo ves el resultado una vez.</span> Con tu cuenta gratuita guardas tu análisis, recibes alertas automáticas y comparas tu ahorro en el tiempo para no volver a pagar de más nunca.
                   </p>
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "analytics", title: "Estudio de Ahorro", desc: "Accede al desglose mensual y anual de tu ahorro real con la nueva tarifa: distribución de costes entre energía y potencia, y proyección de impacto sobre tu factura." },
-                    { icon: "brain", title: "Análisis IA Personalizado", desc: "Cada tarifa genera un análisis único adaptado a tu perfil: tipo de contrato, origen del ahorro, fracturas de permanencia y recomendaciones concretas para maximizar tu beneficio." },
-                    { icon: "heart", title: "Tarifas favoritas", desc: "Guarda las ofertas más interesantes en tu lista para compararlas fácilmente y recibir avisos cuando cambien sus condiciones o price." },
-                    { icon: "bell", title: "Sistema de alertas", desc: "Recibe avisos personalizados en tiempo real cuando detectemos una tarifa que mejore automáticamente tu contrato actual." }
+                    { icon: "analytics", title: "Estudio de Ahorro Pro", desc: "No te quedes en la superficie. Accede al desglose técnico de potencia y energía para entender exactamente dónde se va tu dinero cada mes." },
+                    { icon: "brain", title: "Tu Consultor IA 24/7", desc: "Nuestro motor analiza la letra pequeña y te avisa de permanencias ocultas o costes fantasma antes de que los pagues." },
+                    { icon: "heart", title: "Radar de Oportunidades", desc: "Guarda tus tarifas favoritas y recibe un aviso instantáneo si bajan de precio o si aparece una oferta superior para tu perfil." },
+                    { icon: "bell", title: "Alertas Anti-Subidas", desc: "Te avisamos de inmediato si detectamos una oportunidad de ahorro masivo o si tu contrato actual deja de ser competitivo." }
                   ].map((benefit, i) => (
                     <div key={i} className="flex gap-4 group">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-surface transition-all duration-300">
@@ -500,10 +541,9 @@ export default async function Home() {
                         {benefit.icon === 'brain' && <Brain size={24} />}
                         {benefit.icon === 'heart' && <Heart size={24} />}
                         {benefit.icon === 'bell' && <Bell size={24} />}
-                        {benefit.icon === 'description' && <FileText size={24} />}
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-heading text-base font-semibold text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h4>
+                        <h4 className="font-heading text-base font-black text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h4>
                         <p className="font-body text-sm font-normal text-text-secondary leading-relaxed">{benefit.desc}</p>
                       </div>
                     </div>
@@ -628,9 +668,12 @@ export default async function Home() {
           <div className="max-w-5xl mx-auto bg-primary rounded-[2rem] p-8 md:p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-primary/30">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
-            <h2 className="font-heading text-3xl font-semibold mb-6 relative z-10">¿Listo para dejar de pagar de más?</h2>
-            <p className="text-white/90 text-lg mb-10 max-w-2xl mx-auto relative z-10">
-              Solo necesitas 30 segundos para subir tu factura. Nuestro motor de optimización hará el resto del trabajo por ti.
+            <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 relative z-10 leading-tight">
+              La media de ahorro es de <span className="text-white underline decoration-white/30">312€ al año</span>.<br />
+              ¿Cuánto podrías ahorrar tú?
+            </h2>
+            <p className="text-white/90 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto relative z-10 text-pretty">
+              Solo necesitas 30 segundos para subir tu factura. Nuestro motor analiza el mercado en tiempo real y encuentra tu tarifa ideal sin que tengas que hacer nada.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
               <Link href="/comparador?mode=upload" className="px-10 py-5 bg-white dark:bg-surface-2 text-primary dark:text-white font-body font-semibold rounded-xl hover:bg-white/90 transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200">

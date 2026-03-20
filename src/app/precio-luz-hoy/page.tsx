@@ -1,7 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
-import { getElectricityPrices } from "@/lib/electricity-prices";
+import { getElectricityPrices } from "@/lib/energy-prices";
 import PrecioLuzHoyClient from "./PrecioLuzHoyClient";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
