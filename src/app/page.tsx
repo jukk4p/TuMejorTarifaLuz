@@ -93,7 +93,10 @@ export default async function Home() {
       ])} />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center bg-gradient-to-br from-background via-primary/5 to-background">
+        <section 
+          className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center"
+          style={{ background: 'linear-gradient(160deg, #EEF2F8 0%, #F8FAFF 100%)' }}
+        >
           <div className="hero-glow-1"></div>
           <div className="hero-glow-2"></div>
 
@@ -110,7 +113,7 @@ export default async function Home() {
                 <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-900 text-text-primary leading-[1.05] md:leading-[1.02] tracking-tight">
                   Compara <span className="text-primary italic">tarifas de luz</span> gratis y ahorra
                 </h1>
-                <p className="font-body text-lg md:text-xl font-normal text-text-secondary max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0">
+                <p className="font-body text-lg md:text-xl font-normal text-[#334155] max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0">
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
                 </p>
                 <div className="flex flex-col items-center lg:items-start gap-5 md:gap-6">
@@ -245,7 +248,7 @@ export default async function Home() {
         <UrgencyBar />
 
         {/* Support & Independence Section */}
-        <section className="py-24 bg-surface dark:bg-background relative overflow-hidden">
+        <section className="py-24 bg-[#EEF2F8] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
               
@@ -324,7 +327,7 @@ export default async function Home() {
         </section>
 
         {/* How it Works Section */}
-        <section id="como-funciona" className="py-24 bg-background relative">
+        <section id="como-funciona" className="py-24 bg-white relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">¿Cómo funciona nuestro comparador?</h2>
@@ -370,7 +373,7 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-24 pt-12 bg-background scroll-mt-32">
+        <section id="faq" className="pb-24 pt-12 bg-[#F0F4FF] scroll-mt-32">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
@@ -419,7 +422,7 @@ export default async function Home() {
                       <ChevronDown size={20} />
                     </div>
                   </summary>
-                  <div className="font-body text-sm font-normal px-6 pb-6 text-text-secondary leading-relaxed">
+                  <div className="font-body text-sm font-normal px-6 pb-6 text-[#334155] leading-relaxed">
                     {faq.a}
                   </div>
                 </details>
@@ -434,7 +437,7 @@ export default async function Home() {
                 {/* Doubt Column */}
                 <div className="space-y-4">
                   <h3 className="text-xl font-bold text-text-primary">¿Todavía tienes dudas?</h3>
-                  <p className="text-sm text-text-secondary leading-relaxed max-w-sm">
+                  <p className="text-sm text-[#334155] leading-relaxed max-w-sm">
                     Si no has encontrado la respuesta que buscabas o tu factura es compleja, nuestro equipo te ayuda de forma personalizada.
                   </p>
                   <a 
@@ -450,7 +453,7 @@ export default async function Home() {
                 <div className="space-y-6 flex flex-col justify-center">
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold text-text-primary">¿Ya tienes todo claro?</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">
+                    <p className="text-sm text-[#334155] leading-relaxed">
                       La media de ahorro es de 312€ al año. No esperes más para empezar a ahorrar hoy.
                     </p>
                   </div>
@@ -468,7 +471,7 @@ export default async function Home() {
         </section>
 
         {/* Knowledge Center Section */}
-        <section id="guias" className="py-24 bg-background">
+        <section id="guias" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl space-y-4">
@@ -511,7 +514,7 @@ export default async function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-24 bg-surface dark:bg-black relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -mr-64 -mt-64 opacity-50"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mb-48 opacity-30"></div>
 
@@ -612,7 +615,7 @@ export default async function Home() {
         </section>
 
         {/* Brand Logos Grid Section */}
-        <section className="py-24 bg-surface-2 border-y border-border">
+        <section className="py-24 bg-[#F0F4FF] border-y border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 space-y-4">
               <h2 className="font-heading text-3xl font-semibold text-text-primary">Comparamos entre las mejores comercializadoras</h2>
@@ -664,22 +667,22 @@ export default async function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-5xl mx-auto bg-primary rounded-[2rem] p-8 md:p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-primary/30">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
-            <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 relative z-10 leading-tight">
-              La media de ahorro es de <span className="text-white underline decoration-white/30">312€ al año</span>.<br />
+        <section className="py-20 px-4 bg-white">
+          <div className="max-w-5xl mx-auto bg-[#0F1923] rounded-[2rem] p-8 md:p-16 text-center text-[#F1F5F9] relative overflow-hidden shadow-2xl shadow-primary/30">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+            <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 relative z-10 leading-tight text-[#F1F5F9]">
+              La media de ahorro es de <span className="text-white underline decoration-white/20">312€ al año</span>.<br />
               ¿Cuánto podrías ahorrar tú?
             </h2>
-            <p className="text-white/90 text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto relative z-10 text-pretty">
+            <p className="text-[#CBD5E1] text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto relative z-10 text-pretty">
               Solo necesitas 30 segundos para subir tu factura. Nuestro motor analiza el mercado en tiempo real y encuentra tu tarifa ideal sin que tengas que hacer nada.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-white dark:bg-surface-2 text-primary dark:text-white font-body font-semibold rounded-xl hover:bg-white/90 transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200">
+              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-primary text-white font-body font-semibold rounded-xl hover:bg-primary-hover transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200 uppercase tracking-widest text-[11px]">
                 Comenzar análisis gratuito
               </Link>
-              <Link href="/tarifas" className="px-10 py-5 bg-white/10 dark:bg-surface/20 border border-white/30 dark:border-border/30 text-white font-body font-semibold rounded-xl hover:bg-white/20 transition-colors duration-200">
+              <Link href="/tarifas" className="px-10 py-5 bg-white/10 border border-white/20 text-[#CBD5E1] font-body font-semibold rounded-xl hover:bg-white/20 transition-colors duration-200">
                 Ver tarifas actuales
               </Link>
             </div>

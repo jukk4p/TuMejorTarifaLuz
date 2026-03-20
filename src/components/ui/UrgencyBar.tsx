@@ -90,7 +90,7 @@ export default async function UrgencyBar() {
   const copy = getUrgencyCopy(prices.current, prices.average, peakHourNum);
 
   return (
-    <div className="bg-text-primary dark:bg-surface-2 border-y border-white/10 py-5 relative overflow-hidden group">
+    <div className="bg-[#0F1923] border-y border-white/5 py-5 relative overflow-hidden group">
       {/* Subtle moving background effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 opacity-30 animate-pulse pointer-events-none"></div>
       
@@ -104,10 +104,10 @@ export default async function UrgencyBar() {
                 <Zap size={24} className="text-primary animate-pulse" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest leading-none mb-2">Precio ahora</span>
-                <span className="text-2xl lg:text-3xl font-900 text-white tracking-tight leading-none">
+                <span className="text-[10px] font-black text-[#94A3B8] uppercase tracking-widest leading-none mb-2">Precio ahora</span>
+                <span className="text-2xl lg:text-3xl font-900 text-[#F1F5F9] tracking-tight leading-none">
                   {prices.current.toFixed(4)}
-                  <span className="ml-2 text-xs text-white/30 font-bold uppercase tracking-tighter">€/kWh</span>
+                  <span className="ml-2 text-xs text-[#94A3B8] font-bold uppercase tracking-tighter">€/kWh</span>
                 </span>
                 <p className={`text-[10px] font-bold mt-1.5 uppercase tracking-wider ${zone.className}`}>
                   {zone.label}
@@ -128,10 +128,10 @@ export default async function UrgencyBar() {
 
           {/* Mejora 2: Copy de urgencia (hidden on mobile) */}
           <div className="flex-1 px-5 hidden md:block max-w-lg">
-            <p className="text-[14px] lg:text-[15px] font-bold text-white leading-tight mb-1.5">
+            <p className="text-[14px] lg:text-[15px] font-bold text-[#F1F5F9] leading-tight mb-1.5">
               {copy.headline}
             </p>
-            <p className="text-[11px] lg:text-[12px] text-white/60 font-medium leading-snug">
+            <p className="text-[11px] lg:text-[12px] text-[#CBD5E1] font-medium leading-snug">
               {copy.subtext}{' '}
               <Link href="/precio-luz-hoy" className="text-primary hover:text-primary-hover font-bold transition-colors inline-flex items-center gap-1 group/link">
                 Ver detalle horario <ArrowRight size={10} className="transition-transform group-hover/link:translate-x-0.5" />
@@ -153,7 +153,7 @@ export default async function UrgencyBar() {
             {/* Enlace secundario */}
             <Link
               href="/precio-luz-hoy"
-              className="flex items-center gap-2 text-[11px] font-bold text-white/40 hover:text-white transition-colors whitespace-nowrap px-4 py-1"
+              className="flex items-center gap-2 text-[11px] font-bold text-[#94A3B8] hover:text-[#F1F5F9] transition-colors whitespace-nowrap px-4 py-1"
             >
               <svg className="w-3.5 h-3.5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <circle cx="6" cy="6" r="4"/>

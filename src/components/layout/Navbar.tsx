@@ -231,7 +231,7 @@ export default function Navbar() {
                 className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] shadow-[0_0_50px_rgba(0,0,0,0.5)] transform transition-all duration-500 ease-out border-l border-border/50 ${isDrawerOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`}
                 style={{ 
                     zIndex: 9999, 
-                    backgroundColor: theme === 'dark' ? '#0a0f18' : '#ffffff',
+                    backgroundColor: theme === 'dark' ? '#0F1923' : '#ffffff',
                     opacity: 1
                 }}
             >

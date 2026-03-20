@@ -52,7 +52,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                 className="w-full flex items-center justify-between py-4 sm:py-5 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
-                <h4 className="text-text-primary uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
+                <h4 className="text-[#E2E8F0] uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
                     {title}
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
                 </h4>
@@ -76,7 +76,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-surface text-text-secondary pt-12 md:pt-20 pb-10 transition-colors duration-300 border-t border-border">
+        <footer className="bg-[#070E18] text-[#CBD5E1] pt-12 md:pt-20 pb-10 border-t border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
 
@@ -94,9 +94,9 @@ export default function Footer() {
                                 <li key={tool.name}>
                                     <Link 
                                         href={tool.href}
-                                        className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-3 group"
+                                        className="text-[13px] text-[#CBD5E1] font-600 hover:text-white transition-colors flex items-center gap-3 group"
                                     >
-                                        <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors"></div>
+                                        <div className="w-1.5 h-1.5 bg-white/10 group-hover:bg-primary rounded-full transition-colors"></div>
                                         {tool.name}
                                     </Link>
                                 </li>
@@ -123,18 +123,17 @@ export default function Footer() {
                                         company === "CHC Energía" ? "chc-energia" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
-                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2 group"
+                                    className="text-[13px] text-[#CBD5E1] font-600 hover:text-white transition-colors flex items-center gap-2 group"
                                 >
-                                    <div className="w-1 h-1 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
+                                    <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                     <span className="truncate">{company}</span>
                                 </Link>
                             ))}
-                            {/* Adding the regulated market as one more in the group */}
                             <Link 
                                 href="/companias/comercializadoras-referencia"
-                                className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2 group transition-all"
+                                className="text-[13px] text-[#CBD5E1] font-600 hover:text-white transition-colors flex items-center gap-2 group transition-all"
                             >
-                                <div className="w-1 h-1 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
+                                <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                 <span className="truncate">COR</span>
                             </Link>
                         </div>
@@ -151,17 +150,15 @@ export default function Footer() {
                                 <Link 
                                     key={guide.name} 
                                     href={guide.href} 
-                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-[#CBD5E1] font-600 hover:text-white transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-border">
+                                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0 border border-white/10">
                                         <ExternalLink size={14} />
                                     </div>
                                     <span className="truncate">{guide.name}</span>
                                 </Link>
                             ))}
-
-                                {/* Support card removed from here as it is now at the top */}
-                            </div>
+                        </div>
                     </FooterSection>
 
                     {/* Col 4: Sobre nosotros */}
@@ -175,44 +172,42 @@ export default function Footer() {
                                 <Link 
                                     key={item.name} 
                                     href={item.href} 
-                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-[#CBD5E1] font-600 hover:text-white transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-border">
+                                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors shrink-0 border border-white/10">
                                         <ShieldCheck size={14} />
                                     </div>
                                     <span className="truncate">{item.name}</span>
                                 </Link>
                             ))}
 
-                            {/* Contact Mini-cards - perfectly aligned with Col 3 support card on desktop */}
-                            <div className="mt-4 pt-6 border-t border-border flex flex-col gap-2 lg:gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-background hover:bg-primary/5 hover:border-primary/30 transition-all border border-border min-w-0 group shadow-sm">
+                            {/* Contact Mini-cards */}
+                            <div className="mt-4 pt-6 border-t border-white/10 flex flex-col gap-2 lg:gap-3">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 min-w-0 group shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 overflow-hidden text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">Email</span>
-                                        <span className="text-[12px] font-bold text-text-primary tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-[#94A3B8] mb-0.5 uppercase">Email</span>
+                                        <span className="text-[12px] font-bold text-[#F1F5F9] tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-background border border-border min-w-0 group hover:bg-primary/5 transition-all shadow-sm">
+                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white/5 border border-white/10 min-w-0 group hover:bg-primary/10 transition-all shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">España</span>
-                                        <span className="text-[12px] font-bold text-text-primary tracking-tight truncate">Servicio Nacional</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-[#94A3B8] mb-0.5 uppercase">España</span>
+                                        <span className="text-[12px] font-bold text-[#F1F5F9] tracking-tight truncate">Servicio Nacional</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </FooterSection>
-
-                    {/* Bottom support removed as it is now at the top */}
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-10 border-t border-border flex flex-col items-center text-center gap-6">
+                <div className="pt-10 border-t border-white/10 flex flex-col items-center text-center gap-6">
                     <div className="flex flex-col items-center gap-3 group">
                         <div className="w-16 h-16 active:scale-95 transition-all flex items-center justify-center p-1">
                             <div className="relative w-full h-full">
@@ -220,16 +215,16 @@ export default function Footer() {
                                     src="/Logo.png" 
                                     alt="TuMejorTarifaLuz" 
                                     fill
-                                    className="object-contain dark:brightness-110" 
+                                    className="object-contain brightness-110" 
                                 />
                             </div>
                         </div>
-                        <span className="text-3xl font-800 tracking-tight text-text-primary group-hover:text-primary transition-colors">
+                        <span className="text-3xl font-800 tracking-tight text-[#F1F5F9] group-hover:text-primary transition-colors">
                             TuMejorTarifa<span className="text-primary group-hover:text-primary">Luz</span>
                         </span>
                     </div>
                     
-                    <p className="text-[11px] md:text-xs font-bold text-text-muted max-w-2xl px-4">
+                    <p className="text-[11px] md:text-xs font-bold text-[#94A3B8] max-w-2xl px-4">
                         © 2026 TuMejorTarifaLuz – Comparador independiente de tarifas de luz en España. 
                         Analizamos el mercado diariamente para ofrecerte las mejores opciones de ahorro.
                     </p>

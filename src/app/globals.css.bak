@@ -6,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --color-bg: #ffffff;
-  --color-surface: #f8fafc;
+  --color-bg: #f6f7f8;
+  --color-surface: #ffffff;
   --color-surface-2: #f1f5f9;
   --color-border: #e2e8f0;
   --color-primary: #0f69c5;
@@ -19,18 +19,18 @@
   --color-warning: #f59e0b;
   --color-warning-text: #0f172a;
   --color-savings: #10b981;
-  --color-text-primary: #020617;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748b;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
 }
 
 .dark {
-  --color-bg: #0b1118;
-  --color-surface: #121d2a;
-  --color-surface-2: #1a2638;
-  --color-border: #233145;
-  --color-primary: #3b82f6;
-  --color-primary-hover: #60a5fa;
+  --color-bg: #101922;
+  --color-surface: #1a2632;
+  --color-surface-2: #1e293b;
+  --color-border: #2d3748;
+  --color-primary: #137fec;
+  --color-primary-hover: #1e8bf5;
   --color-accent: #10b981;
   --color-accent-bg: #064e3b;
   --color-accent-text: #10b981;
@@ -38,9 +38,9 @@
   --color-warning: #fbbf24;
   --color-warning-text: #0f172a;
   --color-savings: #34d399;
-  --color-text-primary: #f8fafc;
+  --color-text-primary: #f1f5f9;
   --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  --color-text-muted: #475569;
 }
 
 @theme {
@@ -60,25 +60,6 @@
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
-
-  /* Fondos de sección */
-  --color-section-white:     #FFFFFF;
-  --color-section-soft:      #F0F4FF;   /* azul muy suave — secciones de apoyo */
-  --color-section-muted:     #EEF2F8;   /* azul claro — descanso visual */
-  --color-section-dark:      #0F1923;   /* azul casi negro — énfasis */
-  --color-section-footer:    #070E18;   /* negro azulado — footer */
-
-  /* Texto sobre fondos CLAROS (secciones blancas y azules) */
-  --color-text-heading:      #0F172A;   /* títulos principales */
-  --color-text-body:         #334155;   /* cuerpo de texto — corregido de #475569 */
-  --color-text-muted-light:  #475569;   /* secundario sobre blanco puro */
-  --color-text-subtle:       #64748B;   /* hints, fechas, metadata */
-
-  /* Texto sobre fondos OSCUROS (#0F1923 y #070E18) */
-  --color-text-dark-primary:   #F1F5F9;  /* títulos y texto principal */
-  --color-text-dark-secondary: #CBD5E1;  /* links y texto normal — ratio 6.8:1 */
-  --color-text-dark-muted:     #94A3B8;  /* labels, subtítulos — ratio 4.6:1 */
-  --color-text-dark-heading:   #E2E8F0;  /* títulos de columna en footer — ratio 9.1:1 */
 
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
