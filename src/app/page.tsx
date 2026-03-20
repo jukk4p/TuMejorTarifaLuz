@@ -228,9 +228,9 @@ export default async function Home() {
                    <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-border/5 dark:bg-white/5 border-t border-border/40 dark:border-white/10 mt-auto flex items-center justify-between">
                      <div className="flex items-center gap-2 md:gap-3">
                         <div className="w-6 md:w-8 h-6 md:h-8 rounded-full bg-text-muted/10 dark:bg-white/10 flex items-center justify-center">
-                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted dark:text-white/40" />
+                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted dark:text-text-secondary" />
                         </div>
-                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted dark:text-white/30 uppercase tracking-[0.08em]">Cálculo basado en un consumo de 250kWh</p>
+                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted dark:text-text-secondary uppercase tracking-[0.08em]">Cálculo basado en un consumo de 250kWh</p>
                      </div>
                    </div>
                 </div>
@@ -261,7 +261,7 @@ export default async function Home() {
                   </div>
                   <div className="space-y-0.5">
                     <h2 className="text-lg font-900 text-primary">Misión independencia</h2>
-                    <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.2em]">Tu ahorro es nuestro compromiso</p>
+                    <p className="text-[10px] font-black text-primary/60 dark:text-primary/80 uppercase tracking-[0.2em]">Tu ahorro es nuestro compromiso</p>
                   </div>
                 </div>
                 
@@ -298,7 +298,7 @@ export default async function Home() {
                     <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
                       TM
                     </div>
-                    <p className="text-xs font-bold text-text-muted">
+                    <p className="text-xs font-bold text-text-muted dark:text-text-secondary">
                       — Equipo TuMejorTarifaLuz
                     </p>
                   </div>
@@ -308,7 +308,7 @@ export default async function Home() {
                 <div className="bg-surface-2/30 dark:bg-surface-2/20 border border-border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
                   <div className="px-8 pt-8 pb-6 border-b border-border/40">
                     <div className="space-y-1 text-center sm:text-left">
-                      <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">Apoya el proyecto</p>
+                      <p className="text-[10px] font-black text-text-muted dark:text-text-secondary uppercase tracking-[0.2em]">Apoya el proyecto</p>
                       <p className="text-lg font-900 text-text-primary">Si te ha ahorrado dinero, devuelve un poco</p>
                     </div>
                   </div>
@@ -316,7 +316,7 @@ export default async function Home() {
                     <SupportSection />
                   </div>
                   <div className="px-8 py-5 bg-surface-2/50 dark:bg-white/5 border-t border-border/40 flex justify-center text-center">
-                    <p className="text-[10px] font-bold text-text-muted/60 uppercase tracking-[0.05em]">
+                    <p className="text-[10px] font-bold text-text-muted/60 dark:text-text-secondary/80 uppercase tracking-[0.05em]">
                       Pago seguro · Sin suscripción · Gracias por apoyar
                     </p>
                   </div>
@@ -596,7 +596,7 @@ export default async function Home() {
                 { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-110", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
-                  <div className="w-full aspect-[2/1] bg-white rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border border-border group-hover:border-primary/40 group-hover:-translate-y-1">
+                  <div className="w-full aspect-[2/1] bg-white dark:bg-white/5 rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border border-border group-hover:border-primary/40 group-hover:-translate-y-1">
                     {brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
@@ -606,7 +606,7 @@ export default async function Home() {
                       <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
-                  <span className="font-body text-xs font-medium text-text-muted tracking-widest uppercase group-hover:text-primary transition-colors">{brand.name}</span>
+                  <span className="font-body text-xs font-medium text-text-muted dark:text-text-secondary tracking-widest uppercase group-hover:text-primary transition-colors">{brand.name}</span>
                 </Link>
               ))}
             </div>

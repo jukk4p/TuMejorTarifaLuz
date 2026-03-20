@@ -69,7 +69,7 @@ export default function SupportSection() {
                     </div>
                     <div className="flex flex-col text-left min-w-0 flex-1">
                         <span className="text-[15px] font-900 text-text-primary tracking-tight">{platform.name}</span>
-                        <span className="text-[11px] text-text-muted font-bold uppercase tracking-widest">{platform.description}</span>
+                        <span className="text-[11px] text-text-muted dark:text-text-secondary font-bold uppercase tracking-widest">{platform.description}</span>
                     </div>
                     {platform.recommend && (
                         <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full hidden sm:block shrink-0">
@@ -77,7 +77,7 @@ export default function SupportSection() {
                         </div>
                     )}
                     <div className="ml-auto flex items-center justify-center w-6 h-6 rounded-full bg-border/20 group-hover/item:bg-primary/10 transition-colors">
-                        <ChevronRight size={14} className="text-text-muted group-hover/item:text-primary" />
+                        <ChevronRight size={14} className="text-text-muted dark:text-text-secondary group-hover/item:text-primary" />
                     </div>
                 </Link>
             ))}
