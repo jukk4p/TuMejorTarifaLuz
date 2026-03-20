@@ -343,49 +343,49 @@ export default function TarifasClient() {
                     </div>
 
                     {/* Bottom CTA */}
-                    <div className="mt-32 p-16 bg-[#eff6ff] rounded-[3rem] border border-blue-100/50 text-center relative overflow-hidden shadow-sm">
+                    <div className="mt-32 p-8 md:p-16 bg-primary/5 dark:bg-primary/10 rounded-[3rem] border border-primary/20 text-center relative overflow-hidden shadow-sm">
                         <div className="max-w-3xl mx-auto space-y-10 relative z-10">
                             <div className="space-y-4">
-                                <h2 className="text-3xl md:text-5xl font-900 text-[#1e3a8a] leading-[1.1] tracking-tight">
+                                <h2 className="text-3xl md:text-5xl font-900 text-text-primary leading-[1.1] tracking-tight">
                                     ¿No sabes cuál elegir? <br />
-                                    <span className="text-[#0f69c5] italic">Deja que nuestra IA decida.</span>
+                                    <span className="text-primary italic">Deja que nuestra IA decida.</span>
                                 </h2>
-                                <p className="text-lg text-[#3b82f6] font-medium leading-relaxed">
+                                <p className="text-lg text-text-secondary font-medium leading-relaxed">
                                     Sube tu factura y nuestro algoritmo cruza tu consumo real con las 24 tarifas del catálogo 
                                     para encontrar tu ahorro garantizado.
                                 </p>
                             </div>
                             
-                            <div className="grid sm:grid-cols-3 gap-6 text-left">
-                                <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white">
-                                    <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 shrink-0">
+                            <div className="grid sm:grid-cols-3 gap-4 md:gap-6 text-left">
+                                <div className="flex items-center gap-3 bg-surface/50 backdrop-blur-sm p-4 rounded-2xl border border-border/50">
+                                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
                                         <Check size={18} strokeWidth={3} />
                                     </div>
-                                    <span className="text-[11px] font-black text-blue-900 uppercase tracking-widest">Análisis en &lt;30 seg.</span>
+                                    <span className="text-[11px] font-black text-text-primary uppercase tracking-widest">Análisis en &lt;30 seg.</span>
                                 </div>
-                                <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white">
-                                    <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 shrink-0">
+                                <div className="flex items-center gap-3 bg-surface/50 backdrop-blur-sm p-4 rounded-2xl border border-border/50">
+                                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
                                         <Check size={18} strokeWidth={3} />
                                     </div>
-                                    <span className="text-[11px] font-black text-blue-900 uppercase tracking-widest">Resultado preciso</span>
+                                    <span className="text-[11px] font-black text-text-primary uppercase tracking-widest">Resultado preciso</span>
                                 </div>
-                                <div className="flex items-center gap-3 bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white">
-                                    <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 shrink-0">
+                                <div className="flex items-center gap-3 bg-surface/50 backdrop-blur-sm p-4 rounded-2xl border border-border/50">
+                                    <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
                                         <Check size={18} strokeWidth={3} />
                                     </div>
-                                    <span className="text-[11px] font-black text-blue-900 uppercase tracking-widest">Sin registro</span>
+                                    <span className="text-[11px] font-black text-text-primary uppercase tracking-widest">Sin registro</span>
                                 </div>
                             </div>
 
                             <div className="pt-4 flex flex-col items-center gap-4">
                                 <Link 
                                     href="/comparador" 
-                                    className="inline-flex items-center gap-4 px-12 py-6 bg-[#0f69c5] text-white font-900 text-lg rounded-[2rem] hover:scale-105 active:scale-95 hover:shadow-2xl hover:shadow-primary/40 transition-all"
+                                    className="inline-flex items-center gap-4 px-12 py-6 bg-primary text-white font-900 text-lg rounded-[2rem] hover:scale-105 active:scale-95 hover:shadow-2xl hover:shadow-primary/40 transition-all shadow-xl shadow-primary/20"
                                 >
                                     EJECUTAR ANALIZADOR
                                     <Rocket className="w-7 h-7" />
                                 </Link>
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Gratis para siempre • Proyecto independiente</p>
+                                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Gratis para siempre • Proyecto independiente</p>
                             </div>
                         </div>
                     </div>

@@ -77,11 +77,11 @@ export const blogPosts: BlogPost[] = [
       <h2 id="cups-dni">2. El CUPS: Tu identificador universal</h2>
       <p>El Código Universal de Punto de Suministro (CUPS) es el dato técnica más importante de tu contrato. No cambia aunque cambies de compañía. Empieza por **ES00** y tiene 20 o 22 dígitos. Tener este código a mano te permite consultar tus <a href="/comparador" style="color:#0f69c5;text-decoration:underline">curvas de carga reales</a> en la web de la distribuidora, algo vital para saber si realmente te favorece una tarifa PVPC o mercado libre.</p>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas de si te están cobrando bien?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu factura oficial en 30 segundos</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Sube tu PDF y nuestro algoritmo detectará errores de facturación y comparará tu precio con las mejores ofertas de 2026.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular ahorro real →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Dudas de si te están cobrando bien?</span>
+        <span class="cta-title">Analiza tu factura oficial en 30 segundos</span>
+        <span class="cta-description">Sube tu PDF y nuestro algoritmo detectará errores de facturación y comparará tu precio con las mejores ofertas de 2026.</span>
+        <a href="/comparador" class="cta-button">Simular ahorro real →</a>
       </div>
 
       <h2 id="termino-potencia">3. El término de potencia: ¿Por qué pagas aunque no estés en casa?</h2>
@@ -169,11 +169,11 @@ export const blogPosts: BlogPost[] = [
         <li><strong>Tarifas Planas con Cuota:</strong> Compañías como Holaluz o Endesa ofrecen cuotas fijas basadas en tu histórico. Ojo: no son un "todo incluido", a final de año suelen pedir regularizaciones si te has pasado del consumo pactado.</li>
       </ul>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas entre mercado libre o regulado?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu factura oficial en 30 segundos</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro algoritmo cruza tu consumo real con el coste del PVPC y las 24 mejores ofertas libres para darte el veredicto definitivo.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular mi ahorro gratis →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Dudas entre mercado libre o regulado?</span>
+        <span class="cta-title">Analiza tu factura oficial en 30 segundos</span>
+        <span class="cta-description">Nuestro algoritmo cruza tu consumo real con el coste del PVPC y las 24 mejores ofertas libres para darte el veredicto definitivo.</span>
+        <a href="/comparador" class="cta-button">Simular mi ahorro gratis →</a>
       </div>
 
       <h2 id="comparativa-real">3. Comparativa de Precios 2026: ¿Qué es más barato hoy?</h2>
@@ -279,11 +279,11 @@ export const blogPosts: BlogPost[] = [
       <p>El primer paso es siempre presentar la queja formal ante tu comercializadora. No basta con una conversación teléfonica informal. Debes exigir un **Número de Referencia de Reclamación**. Nuestra recomendación técnica en 2026 es realizarla siempre por correo electrónico certificado o a través del área de cliente, adjuntando capturas de pantalla de tu contador si es necesario.</p>
       <p>La comercializadora tiene un plazo improrrogable de **30 días naturales** para dar una respuesta motivada. Si te dicen que "todo es correcto" sin dar pruebas del registro de telemedida por horas del día reclamado, su respuesta no es válida y habilita el siguiente paso.</p>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas sobre tu recibo actual?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Audita tu factura con IA en 30 segundos</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestra herramienta cruza tus datos con el mercado real de 2026 y detecta cargos indebidos automáticamente.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Realizar auditoría gratis →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Dudas sobre tu recibo actual?</span>
+        <span class="cta-title">Audita tu factura con IA en 30 segundos</span>
+        <span class="cta-description">Nuestra herramienta cruza tus datos con el mercado real de 2026 y detecta cargos indebidos automáticamente.</span>
+        <a href="/comparador" class="cta-button">Realizar auditoría gratis →</a>
       </div>
 
       <h2 id="defensor-cliente">3. El Defensor del Cliente: Una figura infrautilizada</h2>
@@ -367,11 +367,11 @@ export const blogPosts: BlogPost[] = [
       <h2 id="reparabilidad">3. El Índice de Reparabilidad: Una novedad de 2026</h2>
       <p>Como gran novedad para este año, la mayoría de los electrodomésticos grandes ya incluyen junto a la eficiencia energética un **Índice de Reparabilidad obligado por la UE**. Se muestra con un icono de un destornillador y una llave inglesa con una puntuación del 1 al 10. No solo se trata de ahorrar energía, sino de no tener que tirar el aparato en 5 años porque no existen piezas. Una nota superior a 8 garantiza que el fabricante suministrará recambios durante al menos 10 años y que el aparato es fácil de desmontar por un técnico especializado.</p>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Vas a renovar tu cocina este mes?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simula el ahorro en tu factura real</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Introduce el consumo de tu nuevo aparato y nuestro algoritmo te dirá cuánto bajará tu recibo mensual según tu tarifa actual.</p>
-        <a href="/tarifas" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular mi ahorro →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Vas a renovar tu cocina este mes?</span>
+        <span class="cta-title">Simula el ahorro en tu factura real</span>
+        <span class="cta-description">Introduce el consumo de tu nuevo aparato y nuestro algoritmo te dirá cuánto bajará tu recibo mensual según tu tarifa actual.</span>
+        <a href="/tarifas" class="cta-button">Simular mi ahorro →</a>
       </div>
 
       <h2 id="analisis-frigorificos">4. Frigoríficos: El consumo 24/7 y la Clase Cimática</h2>
@@ -465,11 +465,11 @@ export const blogPosts: BlogPost[] = [
       </ul>
       <p><strong>El truco de experto 2026:</strong> Si tienes coche eléctrico, puedes mantener una potencia punta baja (p.ej. 3.3 kW) para el uso diurno normal, y contratar una potencia valle muy alta (ej. 7.4 kW o 9.2 kW) para cargar el vehículo a máxima velocidad de madrugada. Como el coste del kW en el tramo valle es casi despreciable (apenas pagas 1,25€ al año por cada kW extra), este ajuste te da una libertad enorme sin apenas coste.</p>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Deseas saber tu potencia ideal hoy mismo?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu curva de carga real en 30 segundos</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestra herramienta gratuita cruza tus picos de demanda máxima históricos con el coste de los tramos de 2026 para decirte cuánto puedes bajar sin riesgo de cortes.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular potencia ideal gratis →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Deseas saber tu potencia ideal hoy mismo?</span>
+        <span class="cta-title">Analiza tu curva de carga real en 30 segundos</span>
+        <span class="cta-description">Nuestra herramienta gratuita cruza tus picos de demanda máxima históricos con el coste de los tramos de 2026 para decirte cuánto puedes bajar sin riesgo de cortes.</span>
+        <a href="/comparador" class="cta-button">Simular potencia ideal gratis →</a>
       </div>
 
       <h2 id="curva-disparo">3. La Verdad sobre el ICP y la curva de tolerancia</h2>
@@ -627,11 +627,11 @@ export const blogPosts: BlogPost[] = [
       <h2 id="bono-social-profundidad">2. El Bono Social en 2026: ¿Quién se queda fuera?</h2>
       <p>Tras la reforma de 2025, el Bono Social se ha vuelto más estricto en la verificación de rentas pero más generoso en los descuentos. Hoy, una familia numerosa tiene derecho automático, pero los consumidores prefieren la categoría de "Vulnerable Severo" por sus descuentos del 80%. Recuerda que para solicitarlo debes estar sí o sí en una **comercializadora de referencia** y tener una potencia contratada inferior a 10 kW. Si tu compañía actual no te ofrece el bono, es porque estás en el mercado libre y debes tramitar el cambio al regulado.</p>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas sobre tus derechos?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu derecho al pago regulado</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestra calculadora te dice en 10 segundos si cumples los requisitos de renta para el Bono Social 2026.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Verificar Bono Social →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Dudas sobre tus derechos?</span>
+        <span class="cta-title">Analiza tu derecho al pago regulado</span>
+        <span class="cta-description">Nuestra calculadora te dice en 10 segundos si cumples los requisitos de renta para el Bono Social 2026.</span>
+        <a href="/comparador" class="cta-button">Verificar Bono Social →</a>
       </div>
 
       <h2 id="factura-0">3. ¿Es real la factura de 0 euros con placas solares?</h2>
@@ -710,10 +710,10 @@ export const blogPosts: BlogPost[] = [
         </table>
       </div>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Calcula tu presupuesto solar personalizado 2026</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro algoritmo analiza tu tejado y tu perfil de consumo horario para darte un presupuesto real en segundos.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Presupuesto Solar Gratis →</a>
+      <div class="blog-cta-card">
+        <span class="cta-title">Calcula tu presupuesto solar personalizado 2026</span>
+        <span class="cta-description">Nuestro algoritmo analiza tu tejado y tu perfil de consumo horario para darte un presupuesto real en segundos.</span>
+        <a href="/comparador" class="cta-button">Presupuesto Solar Gratis →</a>
       </div>
 
       <h2 id="tecnologia-paneles">🔬 2. Tecnología 2026: N-Type, TopCon y el fin del PERC</h2>
@@ -784,10 +784,10 @@ export const blogPosts: BlogPost[] = [
         </table>
       </div>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza si tu tejado comunitario es apto 2026</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestra IA analiza la sombra de los edificios colindantes y el área útil de tu azotea en tiempo real.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Consultar viabilidad de comunidad →</a>
+      <div class="blog-cta-card">
+        <span class="cta-title">Analiza si tu tejado comunitario es apto 2026</span>
+        <span class="cta-description">Nuestra IA analiza la sombra de los edificios colindantes y el área útil de tu azotea en tiempo real.</span>
+        <a href="/comparador" class="cta-button">Consultar viabilidad de comunidad →</a>
       </div>
 
       <h2 id="coeficientes-reparto">📊 2. Coeficientes de reparto: Dinámico vs Estático</h2>
@@ -883,11 +883,11 @@ export const blogPosts: BlogPost[] = [
         </table>
       </div>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas entre Gas o Aerotermia?</p>
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simula el ahorro real en tu factura</p>
-        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro comparador calcula el amortizamiento de la bomba de calor según tu consumo histórico de calefacción.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular ahorro real →</a>
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Dudas entre Gas o Aerotermia?</span>
+        <span class="cta-title">Simula el ahorro real en tu factura</span>
+        <span class="cta-description">Nuestro comparador calcula el amortizamiento de la bomba de calor según tu consumo histórico de calefacción.</span>
+        <a href="/comparador" class="cta-button">Simular ahorro real →</a>
       </div>
 
       <h2 id="analisis-costes">💰 3. Análisis de la inversión inicial: ¿Cuánto cuesta realmente?</h2>
@@ -1099,10 +1099,10 @@ export const blogPosts: BlogPost[] = [
         </table>
       </div>
 
-      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
-        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Digitaliza tu ahorro hoy mismo</p>
-        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Enlaza tu hogar inteligente con nuestra base de datos de precios diarios para automatizar tus electrodomésticos.</p>
-        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Ver plan de ahorro digital →</a>
+      <div class="blog-cta-card">
+        <span class="cta-title">Digitaliza tu ahorro hoy mismo</span>
+        <span class="cta-description">Enlaza tu hogar inteligente con nuestra base de datos de precios diarios para automatizar tus electrodomésticos.</span>
+        <a href="/comparador" class="cta-button">Ver plan de ahorro digital →</a>
       </div>
 
       <h2 id="automatizacion">🛰️ 2. Automatización por API: Enlazando con el mercado mayorista</h2>

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Heart, ChevronUp, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-export default function SupportSection() {
+export default function SupportSection({ dropDownDirection = "up" }: { dropDownDirection?: "up" | "down" }) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,14 +66,14 @@ export default function SupportSection() {
         <div className="relative w-full" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-background hover:bg-primary/5 border border-border hover:border-primary/30 transition-all group shadow-sm"
+                    className="w-full h-[58px] flex items-center gap-3 p-3 rounded-2xl bg-surface-2 hover:bg-surface-3 border border-border/50 hover:border-primary/30 transition-all group shadow-sm active:scale-[0.98]"
                 >
-                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0 group-hover:scale-105 transition-transform">
                         <Heart size={16} className={isOpen ? 'fill-current' : ''} />
                     </div>
                     <div className="flex flex-col text-left flex-1 min-w-0">
-                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">Donación</span>
-                        <span className="text-[12px] font-bold text-text-primary tracking-tight">Apoyar proyecto</span>
+                        <span className="text-[10px] font-bold tracking-[0.2em] text-text-muted mb-0.5 uppercase mb-0.5">Donación</span>
+                        <span className="text-[14px] font-bold text-text-primary tracking-tight">Apoyar proyecto</span>
                     </div>
                     <div className={`transition-transform duration-300 pr-1 ${isOpen ? 'rotate-180' : ''}`}>
                         <ChevronDown size={14} className="text-text-muted group-hover:text-text-secondary" />
@@ -81,7 +81,7 @@ export default function SupportSection() {
                 </button>
 
                 {isOpen && (
-                    <div className="absolute bottom-full left-0 right-0 mb-3 bg-surface rounded-2xl shadow-2xl border border-border p-2 z-[100] animate-in fade-in slide-in-from-bottom-2 duration-200 pointer-events-auto">
+                    <div className={`absolute ${dropDownDirection === "up" ? "bottom-full mb-3" : "top-full mt-3"} left-0 right-0 bg-surface rounded-2xl shadow-2xl border border-border p-2 z-[100] animate-in fade-in slide-in-from-${dropDownDirection === "up" ? "bottom" : "top"}-2 duration-200 pointer-events-auto`}>
                         <div className="px-3 pb-2 pt-1 border-b border-border/10 mb-1">
                             <span className="text-[9px] font-bold text-text-muted tracking-wider uppercase text-center block lg:text-left">Elige plataforma</span>
                         </div>

@@ -132,8 +132,8 @@ export default function Navbar() {
                             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
 
-                        {/* Notifications */}
-                        <div className="flex items-center">
+                        {/* Notifications - Hidden on very small screens */}
+                        <div className="hidden sm:flex items-center">
                             <NotificationBell />
                         </div>
 
@@ -142,7 +142,7 @@ export default function Navbar() {
                             <div className="relative">
                                 <button 
                                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                    className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
+                                    className="hidden lg:flex w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
                                     aria-label="Menú de usuario"
                                     aria-haspopup="true"
                                     aria-expanded={isUserMenuOpen}
@@ -197,12 +197,12 @@ export default function Navbar() {
                         {/* Separator before CTA */}
                         <div className="hidden sm:block h-8 w-px bg-border mx-2"></div>
 
-                        {/* CTA Button */}
+                        {/* CTA Button - Hidden on mobile, shown from sm up */}
                         <Link 
                             href="/comparador?mode=upload" 
-                            className="bg-primary text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide flex items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
+                            className="hidden sm:flex bg-primary text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
                         >
-                            <FileUp size={14} className="hidden xxs:block" />
+                            <FileUp size={14} className="hidden md:block" />
                             Subir factura
                         </Link>
 
@@ -227,7 +227,14 @@ export default function Navbar() {
             )}
 
             {/* Mobile Drawer Panel */}
-            <div className={`fixed top-0 right-0 h-full w-[80%] max-w-[400px] bg-surface z-[101] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <div 
+                className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] shadow-[0_0_50px_rgba(0,0,0,0.5)] transform transition-all duration-500 ease-out border-l border-border/50 ${isDrawerOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`}
+                style={{ 
+                    zIndex: 9999, 
+                    backgroundColor: theme === 'dark' ? '#0a0f18' : '#ffffff',
+                    opacity: 1
+                }}
+            >
                 <div className="flex flex-col h-full">
                     {/* Header */}
                     <div className="p-6 flex items-center justify-between border-b border-border">

@@ -863,10 +863,10 @@ export default function ComparadorMain() {
                                     Si ya tienes tus datos a mano o quieres simular un consumo específico, utiliza nuestro formulario técnico simplificado.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
-                                    <span className="w-fit px-10 bg-surface text-text-primary font-bold py-4 rounded-2xl shadow-xl border border-border group-hover:bg-surface-2 transition-all flex items-center justify-center mx-auto">
+                                    <span className="w-fit px-10 bg-surface dark:bg-surface-2 text-text-primary font-bold py-4 rounded-2xl shadow-xl border border-border dark:border-border/50 group-hover:bg-surface-2 dark:group-hover:bg-surface-3 transition-all flex items-center justify-center mx-auto">
                                         Introducir datos a mano
                                     </span>
-                                    <p className="text-[10px] font-bold text-text-muted tracking-widest bg-surface-2 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
+                                    <p className="text-[10px] font-bold text-text-muted tracking-widest bg-surface-2 dark:bg-slate-800/40 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
                                 </div>
                             </button>
                         </div>

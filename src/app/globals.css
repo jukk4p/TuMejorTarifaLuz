@@ -178,4 +178,31 @@
   .blog-card {
     @apply p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-border shadow-sm hover:shadow-xl transition-all duration-300;
   }
+
+  .blog-cta-card {
+    @apply my-10 p-8 md:p-10 rounded-[2rem] text-center shadow-xl transition-all;
+    background-color: color-mix(in srgb, var(--color-primary), transparent 95%);
+    border: 1px solid color-mix(in srgb, var(--color-primary), transparent 85%);
+  }
+
+  .dark .blog-cta-card {
+    background-color: color-mix(in srgb, var(--color-primary), transparent 90%);
+    border-color: color-mix(in srgb, var(--color-primary), transparent 70%);
+  }
+
+  .blog-cta-card .cta-label {
+    @apply text-[11px] font-black text-primary uppercase tracking-[0.2em] mb-3 block;
+  }
+
+  .blog-cta-card .cta-title {
+    @apply text-xl md:text-2xl font-black text-text-primary mb-4 block leading-tight;
+  }
+
+  .blog-cta-card .cta-description {
+    @apply text-sm md:text-base text-text-secondary mb-8 block leading-relaxed max-w-xl mx-auto;
+  }
+
+  .blog-cta-card .cta-button {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all;
+  }
 }

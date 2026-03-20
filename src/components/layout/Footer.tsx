@@ -49,7 +49,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
         <div className="border-b lg:border-none border-border/50 last:border-none">
             <button 
                 onClick={onToggle}
-                className="w-full flex items-center justify-between py-6 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
+                className="w-full flex items-center justify-between py-4 sm:py-5 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
                 <h4 className="text-text-primary uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
@@ -61,7 +61,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                     className={`text-primary transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
                 />
             </button>
-            <div className={`${isOpen ? 'max-h-[1000px] opacity-100 pb-8 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'} lg:max-h-none lg:opacity-100 lg:block lg:overflow-visible transition-all duration-500 lg:transition-none`}>
+            <div className={`${isOpen ? 'max-h-[1000px] opacity-100 pb-6 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'} lg:max-h-none lg:opacity-100 lg:block lg:overflow-visible transition-all duration-500 lg:transition-none`}>
                 {children}
             </div>
         </div>
@@ -76,20 +76,30 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-surface text-text-secondary pt-20 pb-10 transition-colors duration-300 border-t border-border">
+        <footer className="bg-surface text-text-secondary pt-12 md:pt-20 pb-10 transition-colors duration-300 border-t border-border">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Badge: Proyecto Independiente */}
-                <div className="flex justify-center md:justify-start mb-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/5 border-l-4 border-accent rounded-r-[6px] shadow-sm">
-                        <Heart size={14} className="text-accent" fill="currentColor" />
-                        <span className="text-[11px] font-bold text-accent tracking-tight">
-                            Proyecto 100% independiente y gratuito – ¡Apóyanos para seguir creciendo!
-                        </span>
+                {/* Header: Independence & Support */}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12 pb-10 border-b border-border">
+                    <div className="flex flex-col gap-3 max-w-xl">
+                        <div className="inline-flex items-center gap-2 self-start px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
+                            <Heart size={12} className="text-accent fill-current" />
+                            <span className="text-[10px] font-black text-accent uppercase tracking-widest">Proyecto Independiente</span>
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-black text-text-primary leading-tight">
+                            TuMejorTarifaLuz es un proyecto <span className="text-primary">100% gratuito</span> financiado por su comunidad.
+                        </h3>
+                        <p className="text-sm text-text-secondary font-medium">
+                            No pertenecemos a ninguna eléctrica. Analizamos el mercado de forma transparente para ayudarte a ahorrar de verdad.
+                        </p>
+                    </div>
+                    
+                    <div className="w-full lg:w-[320px] shrink-0">
+                        <SupportSection dropDownDirection="down" />
                     </div>
                 </div>
 
                 {/* 4-Column Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-20 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-20 items-start">
                     
                     {/* Col 1: Herramientas */}
                     <FooterSection 
@@ -168,11 +178,8 @@ export default function Footer() {
                                 </Link>
                             ))}
 
-                            {/* Integrated Support Section - Desktop only */}
-                            <div className="hidden lg:block mt-4 pt-6 border-t border-border">
-                                <SupportSection />
+                                {/* Support card removed from here as it is now at the top */}
                             </div>
-                        </div>
                     </FooterSection>
 
                     {/* Col 4: Sobre nosotros */}
@@ -219,12 +226,7 @@ export default function Footer() {
                         </div>
                     </FooterSection>
 
-                    {/* Independent Support Section - Mobile only */}
-                    <div className="lg:hidden">
-                        <div className="mt-4 border-t border-border pt-6 overflow-hidden">
-                            <SupportSection />
-                        </div>
-                    </div>
+                    {/* Bottom support removed as it is now at the top */}
                 </div>
 
                 {/* Bottom Bar */}

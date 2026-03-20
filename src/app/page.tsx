@@ -79,7 +79,7 @@ export default async function Home() {
                     <CloudUpload size={20} />
                     Subir mi factura
                   </Link>
-                  <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-surface border-2 border-border hover:border-primary/40 text-text-secondary font-body font-semibold rounded-xl transition-all text-sm md:text-base">
+                  <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-surface dark:bg-surface-2 border-2 border-border hover:border-primary/40 text-text-secondary font-body font-semibold rounded-xl transition-all text-sm md:text-base">
                     Introducir datos manualmente
                   </Link>
                 </div>
@@ -330,7 +330,7 @@ export default async function Home() {
                     Crear mi cuenta gratuita
                     <UserPlus size={20} className="ml-2" />
                   </Link>
-                  <Link href="/comparador" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface/50 backdrop-blur-sm border border-border hover:border-primary/30 hover:bg-surface text-text-muted hover:text-text-primary font-body font-bold text-sm tracking-tight rounded-2xl transition-all group active:scale-95 shadow-sm hover:shadow-xl hover:shadow-primary/5">
+                  <Link href="/comparador" className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface/50 dark:bg-surface-2/50 backdrop-blur-sm border border-border hover:border-primary/30 hover:bg-surface text-text-muted hover:text-text-primary font-body font-bold text-sm tracking-tight rounded-2xl transition-all group active:scale-95 shadow-sm hover:shadow-xl hover:shadow-primary/5">
                     <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                       <CheckCircle size={16} className="transition-transform group-hover:scale-110" />
                     </div>
@@ -448,10 +448,10 @@ export default async function Home() {
               Solo necesitas 30 segundos para subir tu factura. Nuestro motor de optimización hará el resto del trabajo por ti.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-white text-primary font-body font-semibold rounded-xl hover:bg-white/90 transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200">
+              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-white dark:bg-surface-2 text-primary dark:text-white font-body font-semibold rounded-xl hover:bg-white/90 transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200">
                 Comenzar análisis gratuito
               </Link>
-              <Link href="/tarifas" className="px-10 py-5 bg-white/10 border border-white/30 text-white font-body font-semibold rounded-xl hover:bg-white/20 transition-colors duration-200">
+              <Link href="/tarifas" className="px-10 py-5 bg-white/10 dark:bg-surface/20 border border-white/30 dark:border-border/30 text-white font-body font-semibold rounded-xl hover:bg-white/20 transition-colors duration-200">
                 Ver tarifas actuales
               </Link>
             </div>
