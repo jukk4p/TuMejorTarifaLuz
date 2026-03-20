@@ -52,7 +52,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                 className="w-full flex items-center justify-between py-6 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
                 aria-expanded={isOpen}
             >
-                <h4 className="text-slate-900 uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
+                <h4 className="text-text-primary uppercase font-900 text-xs sm:text-sm tracking-[0.2em] relative lg:inline-block">
                     {title}
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
                 </h4>
@@ -76,13 +76,13 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#eef2f7] text-slate-800 pt-20 pb-10 transition-colors duration-300 border-t border-border/50">
+        <footer className="bg-background text-text-secondary pt-20 pb-10 transition-colors duration-300 border-t border-border/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Badge: Proyecto Independiente */}
                 <div className="flex justify-center md:justify-start mb-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#f0fdf4] border-[0.5px] border-[#bbf7d0] rounded-[6px] shadow-sm">
-                        <Heart size={14} className="text-[#064e3b]" fill="currentColor" />
-                        <span className="text-[11px] font-bold text-[#064e3b] tracking-tight">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/5 border-[0.5px] border-accent/20 rounded-[6px] shadow-sm">
+                        <Heart size={14} className="text-accent" fill="currentColor" />
+                        <span className="text-[11px] font-bold text-accent tracking-tight">
                             Proyecto 100% independiente y gratuito
                         </span>
                     </div>
@@ -102,9 +102,9 @@ export default function Footer() {
                                 <li key={tool.name}>
                                     <Link 
                                         href={tool.href}
-                                        className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-3 group"
+                                        className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-3 group"
                                     >
-                                        <div className="w-1.5 h-1.5 bg-slate-300 group-hover:bg-primary rounded-full transition-colors"></div>
+                                        <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors"></div>
                                         {tool.name}
                                     </Link>
                                 </li>
@@ -131,18 +131,18 @@ export default function Footer() {
                                         company === "CHC Energía" ? "chc-energia" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
-                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2 group"
+                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2 group"
                                 >
-                                    <div className="w-1 h-1 bg-slate-300 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
+                                    <div className="w-1 h-1 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                     <span className="truncate">{company}</span>
                                 </Link>
                             ))}
                             {/* Adding the regulated market as one more in the group */}
                             <Link 
                                 href="/companias/comercializadoras-referencia"
-                                className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2 group transition-all"
+                                className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2 group transition-all"
                             >
-                                <div className="w-1 h-1 bg-slate-300 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
+                                <div className="w-1 h-1 bg-slate-200 dark:bg-slate-800 group-hover:bg-primary rounded-full transition-colors shrink-0"></div>
                                 <span className="truncate">COR</span>
                             </Link>
                         </div>
@@ -159,9 +159,9 @@ export default function Footer() {
                                 <Link 
                                     key={guide.name} 
                                     href={guide.href} 
-                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-slate-200">
+                                    <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-border">
                                         <ExternalLink size={14} />
                                     </div>
                                     <span className="truncate">{guide.name}</span>
@@ -186,9 +186,9 @@ export default function Footer() {
                                 <Link 
                                     key={item.name} 
                                     href={item.href} 
-                                    className="text-[13px] text-slate-800 font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
+                                    className="text-[13px] text-text-secondary font-600 hover:text-primary transition-colors flex items-center gap-2.5 group"
                                 >
-                                    <div className="w-8 h-8 rounded-lg bg-white/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-slate-200">
+                                    <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center group-hover:bg-primary/10 transition-colors shrink-0 border border-border">
                                         <ShieldCheck size={14} />
                                     </div>
                                     <span className="truncate">{item.name}</span>
@@ -196,23 +196,23 @@ export default function Footer() {
                             ))}
 
                             {/* Contact Mini-cards - perfectly aligned with Col 3 support card on desktop */}
-                            <div className="mt-4 pt-6 border-t border-slate-200 flex flex-col gap-2 lg:gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white hover:bg-primary/5 hover:border-primary/30 transition-all border border-slate-200 min-w-0 group">
+                            <div className="mt-4 pt-6 border-t border-border flex flex-col gap-2 lg:gap-3">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface hover:bg-primary/5 hover:border-primary/30 transition-all border border-border min-w-0 group">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 overflow-hidden text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-[#64748b] mb-0.5 uppercase">Email</span>
-                                        <span className="text-[12px] font-bold text-[#0f172a] tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">Email</span>
+                                        <span className="text-[12px] font-bold text-text-primary tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white border border-slate-200 min-w-0 group hover:bg-primary/5 transition-all">
+                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface border border-border min-w-0 group hover:bg-primary/5 transition-all">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
                                     <div className="flex flex-col min-w-0 text-left">
-                                        <span className="text-[9px] font-bold tracking-widest text-[#64748b] mb-0.5 uppercase">España</span>
-                                        <span className="text-[12px] font-bold text-[#0f172a] tracking-tight truncate">Servicio Nacional</span>
+                                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">España</span>
+                                        <span className="text-[12px] font-bold text-text-primary tracking-tight truncate">Servicio Nacional</span>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,7 @@ export default function Footer() {
                                     src="/Logo.png" 
                                     alt="TuMejorTarifaLuz" 
                                     fill
-                                    className="object-contain" 
+                                    className="object-contain dark:brightness-110" 
                                 />
                             </div>
                         </div>
@@ -249,7 +249,7 @@ export default function Footer() {
                         </span>
                     </div>
                     
-                    <p className="text-[11px] md:text-xs font-bold text-slate-700 max-w-2xl px-4">
+                    <p className="text-[11px] md:text-xs font-bold text-text-muted max-w-2xl px-4">
                         © 2026 TuMejorTarifaLuz – Comparador independiente de tarifas de luz en España. 
                         Analizamos el mercado diariamente para ofrecerte las mejores opciones de ahorro.
                     </p>
@@ -264,4 +264,3 @@ export default function Footer() {
         </footer>
     );
 }
-

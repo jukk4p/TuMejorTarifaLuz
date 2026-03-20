@@ -1,0 +1,939 @@
+import { BlogPost } from "./types";
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  metaDescription: string;
+  content: string;
+  date: string;
+  dateUpdated?: string;
+  author: {
+    name: string;
+    description: string;
+    avatar?: string;
+    social?: {
+      twitter?: string;
+      linkedin?: string;
+    };
+  };
+  category: string;
+  image: string;
+  imageAlt: string;
+  readTime: string;
+  tags?: string[];
+  wordCount?: number;
+  faqData?: { question: string; answer: string }[];
+}
+
+export const AUTHOR_IVAN = {
+  name: "Iván González",
+  description: "Fundador de TuMejorTarifaLuz y experto en ahorro energético con más de 10 años de experiencia analizando el mercado eléctrico español. Iván es el responsable de auditar cada comparativa de nuestra plataforma para asegurar transparencia y ahorro real.",
+  avatar: "/Logo.png",
+  social: {
+    twitter: "https://twitter.com/tumejortarifaluz",
+    linkedin: "https://tumejortarifaluz.es/sobre-nosotros"
+  }
+};
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: "guia-factura-luz-2026",
+    slug: "como-leer-entender-factura-luz-2026",
+    title: "Guía Maestra 2026: Cómo descifrar cada concepto de tu factura eléctrica",
+    excerpt: "No permitas que la jerga técnica te confunda. Desglosamos paso a paso cada término de tu recibo para que detectes errores y optimices tu gasto mensual.",
+    metaDescription: "Aprende a leer tu factura de la luz en 2026. Guía completa sobre potencia contratada, tramos horarios, impuestos y cómo ahorrar detectando errores de facturación.",
+    date: "2026-03-01",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Educación",
+    image: "/guides/bill_expert_analysis.webp",
+    imageAlt: "Análisis técnico detallado de una factura de luz moderna con desglose de conceptos",
+    readTime: "12 min de lectura",
+    wordCount: 827,
+    tags: ["Factura", "Conceptos", "CUPS", "2026"],
+    content: `
+      <p>Entender <strong>cómo leer la factura de la luz</strong> es la habilidad de ahorro más importante que puedes adquirir en 2026. Tras las últimas actualizaciones normativas del sistema eléctrico español, el recibo ha dejado de ser un simple resumen de consumo para convertirse en un documento técnico complejo donde cada sigla, como el <strong>CUPS</strong> o el término de potencia, influye directamente en lo que pagas a final de mes. En esta guía, desglosamos paso a paso la estructura de tu factura para que dejes de ser un espectador y empieces a auditar tu gasto energético con precisión quirúrgica.</p>
+      
+      <h2 id="indice">Índice de la Guía Maestra de Facturación</h2>
+      <ul>
+        <li><a href="#anatomia-factura">📍 Anatomía de tu factura: qué información aparece y dónde</a></li>
+        <li><a href="#termino-potencia">⚡ El término de potencia: el coste fijo que pagas siempre</a></li>
+        <li><a href="#termino-energia">💡 El término de energía: lo que pagas por consumir</a></li>
+        <li><a href="#impuestos-cargos">💰 Impuestos y cargos regulados: el 45% que no controlas</a></li>
+        <li><a href="#codigo-qr">📱 El código QR de la CNMC: Comparativa instantánea</a></li>
+        <li><a href="#real-estimada">❓ Factura Real vs Estimada: Por qué tu contador te engaña</a></li>
+        <li><a href="#errores-frecuentes">🔍 Errores frecuentes en la factura y cómo detectarlos</a></li>
+        <li><a href="#checklist-comprobacion">🚀 Checklist: 5 comprobaciones antes de pagar tu recibo</a></li>
+      </ul>
+
+      <h2 id="anatomia-factura">1. Anatomía de tu factura: qué información aparece y dónde</h2>
+      <p>La factura de la luz en este 2026 sigue una estructura regulada por la CNMC para garantizar que el consumidor reciba toda la información necesaria. Sin embargo, encontrar el dato clave suele requerir entrenamiento. La factura se divide fundamentalmente en tres bloques: cabecera (datos contractuales), cuerpo (desglose económico) y pie (información adicional y consumo histórico).</p>
+      
+      <p>En la <strong>cabecera</strong> encontrarás el "DNI" de tu suministro. Lo más importante aquí es el <strong>CUPS (Código Universal de Punto de Suministro)</strong>, un código alfanumérico que empieza por "ES" seguido de 20 o 22 caracteres. Es único para tu vivienda y lo necesitarás para cualquier cambio de compañía. También debe figurar el NIF del titular, la dirección exacta del suministro y, crucialmente, el <strong>Periodo de Facturación</strong>. Verifica siempre que este periodo coincide con el calendario; un error real común es facturar 33 días en lugar de 30, lo que hincha artificialmente el total mensual. Para detectar estas anomalías, puedes usar nuestro <a href="/comparador" style="color:#0f69c5;text-decoration:underline">comparador de facturas</a>.</p>
+      
+      <h2 id="termino-potencia">2. El término de potencia: el coste fijo que pagas siempre</h2>
+      <p>El término de potencia es la parte fija de la factura, el "alquiler" por poder conectar varios aparatos a la vez. En 2026, tras la consolidación de los tramos horarios, este concepto supone entre el 25% y el 35% del total del recibo para un hogar medio español. El cálculo exacto es: <strong>kW contratados × precio unitario del kW (€/kW/día) × días</strong>.</p>
+      
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Sabes si tu tarifa es la más barata?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu factura en 30 segundos</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro algoritmo cruza tu consumo real con las 24 tarifas del mercado y te dice exactamente cuánto puedes ahorrar.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Analizar mi factura gratis →</a>
+      </div>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Concepto Potencia</th>
+              <th>Punta (P1)</th>
+              <th>Valle (P2)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Precio 2026 (Ref)</td>
+              <td>0.092 €/kW/día</td>
+              <td>0.011 €/kW/día</td>
+            </tr>
+            <tr>
+              <td>Hogar Tipo (3.45 kW)</td>
+              <td>9.52 €</td>
+              <td>1.13 €</td>
+            </tr>
+            <tr>
+              <td><strong>Subtotal Mensual</strong></td>
+              <td colspan="2" style="text-align:center"><strong>10.65 € + IVA</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="termino-energia">3. El término de energía: lo que pagas por consumir</h2>
+      <p>Este es el componente variable que representa el consumo real realizado, medido en kilovatios hora (kWh). En 2026, la mayoría de contratos se rigen por tres periodos de energía: <strong>Punta (caro)</strong>, <strong>Llano (medio)</strong> y <strong>Valle (barato)</strong>. Desplazar el uso de grandes electrodomésticos hacia las horas valle supone ahorros directos. Puedes ver todos los detalles en nuestra <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">lista de tarifas actualizadas</a>.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Consumo 250 kWh/mes</th>
+              <th>Tarifa Fija (0.13€)</th>
+              <th>Tarifa 3 Periodos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Coste Energía Bruto</td>
+              <td>32.50 €</td>
+              <td>27.25 €</td>
+            </tr>
+            <tr>
+              <td><strong>Diferencia Real</strong></td>
+              <td>-</td>
+              <td><strong>-5.25 € / mes</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="impuestos-cargos">4. Impuestos y cargos regulados</h2>
+      <p>En España, los impuestos y cargos suponen hasta el 45% del importe final del recibo. En 2026 el <strong>IVA se mantiene al 21%</strong> para la mayoría de perfiles domésticos. Es crucial que revises si tu potencia está optimizada para no inflar estos impuestos de forma innecesaria.</p>
+
+      <h2 id="codigo-qr">5. El código QR de la CNMC: Comparativa instantánea</h2>
+      <p>Desde 2024, todas las facturas de luz para suministros domésticos deben incluir obligatoriamente un código QR en la primera o segunda página. Este código no es publicidad; es una herramienta técnica que contiene todos tus datos de consumo de los últimos 12 meses codificados. Al escanearlo con la aplicación oficial de la CNMC o herramientas independientes de confianza, el sistema analiza automáticamente tu perfil y te dice, euro por euro, cuánto pagarías con otras compañías del mercado regulado y libre.</p>
+      <p>Es la forma más rápida de saber si tu compañía te ha subido el precio "por la puerta de atrás" al renovar tu contrato anual. Recomendamos escanearlo al menos una vez cada tres meses para garantizar que sigues en la oferta más competitiva de 2026.</p>
+
+      <h2 id="real-estimada">6. Factura Real vs Estimada: Por qué tu contador te engaña</h2>
+      <p>A pesar de que casi el 100% de los contadores en España son inteligentes y están conectados, las facturas estimadas siguen apareciendo. Una <strong>factura real</strong> se basa en la lectura que el contador envía por telemedida. Una <strong>factura estimada</strong> se genera cuando hay un fallo en la comunicación y la compañía "supone" lo que has consumido basándose en tu histórico del año anterior.</p>
+      <p>El peligro es que las estimaciones suelen ser al alza, y si pasas varios meses con lecturas estimadas, cuando llegue la factura de regularización (un "recibo real" que ajusta lo pagado de más o de menos), podrías llevarte una sorpresa desagradable de cientos de euros. Si ves la palabra "Estimada" en tu recibo, contacta con tu distribuidora inmediatamente.</p>
+
+      <h2 id="errores-frecuentes">7. Errores frecuentes en la factura</h2>
+      <p>Aproximadamente el 15% de las facturas contienen errores. Los más comunes son: lecturas estimadas persistentes, cobro de servicios de mantenimiento no solicitados y aplicación incorrecta de la potencia. Si crees que te han cobrado de más, lee nuestra guía sobre <a href="/blog/guia-paso-a-paso-reclamar-factura-luz-excesiva-errores" style="color:#0f69c5;text-decoration:underline">cómo reclamar una factura excesiva</a>.</p>
+
+      <h2 id="checklist-comprobacion">8. Checklist de comprobación</h2>
+      <ul>
+        <li>✅ Verifica que el CUPS coincida con tu contador.</li>
+        <li>✅ Comprueba que el periodo facturado no supere los 31 días.</li>
+        <li>✅ Mira el gráfico de barras: ¿Consumiste más en punta que el mes pasado?</li>
+        <li>✅ Revisa si aparecen servicios adicionales ocultos.</li>
+        <li>✅ Escanea el QR de la CNMC para comparar tu precio actual.</li>
+      </ul>
+
+      <h2 id="conclusion">🚀 Conclusión accionable</h2>
+      <p>Auditar tu factura cada mes es la única forma de garantizar que no estás regalando dinero. Si tras esta guía detectas que tu término de energía supera los 0.15€/kWh, es el momento de cambiar. Usa nuestro comparador independiente para encontrar la oferta que mejor se adapte a tu perfil real de 2026.</p>
+    `,
+  },
+  {
+    id: "mercado-libre-vs-regulado",
+    slug: "mercado-libre-pvpc",
+    title: "Mercado Libre vs Regulado (PVPC): El Análisis Definitivo tras la Reforma",
+    excerpt: "Tras los últimos cambios legislativos de 2026, la comparativa entre tarifas indexadas y fijas ha dado un giro. ¿Cuál protege mejor tu bolsillo?",
+    metaDescription: "Comparativa 2026 entre mercado libre y regulado (PVPC). Descubre cuál es más barata tras la reforma, ventajas del bono social y cómo elegir la mejor tarifa.",
+    date: "2026-02-26",
+    dateUpdated: "2026-03-20",
+    author: AUTHOR_IVAN,
+    category: "Comparativas",
+    image: "/guides/market_comparison.webp",
+    imageAlt: "Comparativa técnica de mercados energéticos español",
+    readTime: "12 min de lectura",
+    wordCount: 1450,
+    tags: ["PVPC", "Mercado Libre", "Ahorro", "2026"],
+    content: `
+      <p>Decidir entre el <strong>mercado libre vs PVPC</strong> es la decisión más crítica para cualquier consumidor eléctrico en España en 2026. Tras la consolidación del nuevo modelo de cálculo del PVPC (Precio Voluntario para el Pequeño Consumidor), el escenario de ahorro ha mutado de forma irreversible. Lo que antes era una tarifa puramente volátil ligada al mercado diario, hoy es un sistema híbrido que protege al pequeño consumidor de los picos de precios internacionales sin renunciar a los beneficios de la generación renovable barata. En esta guía profunda, analizamos los datos reales del último año para que elijas con objetividad y encuentres la mejor <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica</a> para tu hogar.</p>
+
+      <h2 id="indice">Índice del Análisis de Mercados 2026</h2>
+      <ul>
+        <li><a href="#que-es-pvpc">📊 El Nuevo PVPC: Estabilidad mediante mercados de futuros</a></li>
+        <li><a href="#mercado-libre-tipos">🏷️ Tipos de Mercado Libre: Fijo, Indexado y Plano</a></li>
+        <li><a href="#comparativa-real">⚖️ Comparativa de Precios 2026: Datos en mano</a></li>
+        <li><a href="#bono-social">💶 El factor determinante: El Bono Social Eléctrico</a></li>
+        <li><a href="#impuestos-carbono">📉 El impacto de la fiscalidad verde en tu recibo</a></li>
+        <li><a href="#estabilidad-vs-ahorro">🛡️ Estabilidad vs Ahorro: ¿Qué perfil tienes tú?</a></li>
+        <li><a href="#como-cambiar">📝 Guía de transición: Cómo saltar de mercado sin errores</a></li>
+      </ul>
+
+      <h2 id="que-es-pvpc">1. El Nuevo PVPC: Estabilidad mediante mercados de futuros</h2>
+      <p>Desde la reforma de 2024 que culminó con su implementación total en 2026, el PVPC ya no depende exclusivamente del precio del "pool" (mercado diario) hora a hora. El precio regulado ahora se compone de una cesta de precios inteligente que incluye el mercado diario (60%) y los mercados de futuros mensuales, trimestrales y anuales (40%).</p>
+      <p>Este cambio técnico es vital: si mañana el gas natural se dispara debido a un conflicto internacional, tu factura de PVPC no subirá drásticamente de un día para otro. Los precios que la comercializadora de referencia ya "compró" en los meses anteriores amortiguan el golpe. No obstante, esto tiene una contrapartida: cuando los precios reales de la luz caen a cero por el exceso de sol y viento (algo muy común en la España de 2026), el usuario de PVPC paga un poco más que quien tiene una tarifa puramente indexada, ya que arrastra el coste de los "futuros" más caros comprados previamente.</p>
+
+      <h2 id="mercado-libre-tipos">2. Mercado Libre: La selva de las ofertas comerciales</h2>
+      <p>En el mercado libre, comercializadoras privadas fijan sus propios precios. A diferencia del PVPC, aquí puedes encontrar una variedad de estructuras de precios mucho más adaptadas a estilos de vida específicos:</p>
+      <ul>
+        <li><strong>Tarifas Fijas:</strong> Pagas lo mismo por cada kWh durante las 24 horas. Es la opción preferida por el 65% de los hogares en 2026 por su previsibilidad total.</li>
+        <li><strong>Tarifas Indexadas:</strong> Pagas el precio real de mercado más una pequeña comisión de gestión (suelen ser unos 4€ al mes). Solo recomendables si desplazas tu consumo al mediodía o madrugada.</li>
+        <li><strong>Tarifas Planas con Cuota:</strong> Compañías como Holaluz o Endesa ofrecen cuotas fijas basadas en tu histórico. Ojo: no son un "todo incluido", a final de año suelen pedir regularizaciones si te has pasado del consumo pactado.</li>
+      </ul>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas entre mercado libre o regulado?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu factura oficial en 30 segundos</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro algoritmo cruza tu consumo real con el coste del PVPC y las 24 mejores ofertas libres para darte el veredicto definitivo.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular mi ahorro gratis →</a>
+      </div>
+
+      <h2 id="comparativa-real">3. Comparativa de Precios 2026: ¿Qué es más barato hoy?</h2>
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Mercado</th>
+              <th>Precio Medial kWh 2026</th>
+              <th>Ventaja</th>
+              <th>Inconveniente</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Regulado (PVPC)</strong></td>
+              <td>0.142 €/kWh</td>
+              <td>Transparencia total y Bono Social</td>
+              <td>Menos ahorro en horas valle</td>
+            </tr>
+            <tr>
+              <td><strong>Libre (Fijo)</strong></td>
+              <td>0.125 €/kWh</td>
+              <td>Tranquilidad y estabilidad</td>
+              <td>Precio estático, no baja en primavera</td>
+            </tr>
+            <tr>
+              <td><strong>Libre (Indexado)</strong></td>
+              <td>0.108 €/kWh *</td>
+              <td>Máximo ahorro potencial</td>
+              <td>Riesgo de subidas repentinas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px; color:#64748b">* Promedio calculado solo para las mejores horas de generación renovable.</p>
+
+      <h2 id="bono-social">4. El factor imbatible: El Bono Social Eléctrico</h2>
+      <p>Es imposible recalcar esto lo suficiente: si tienes derecho al Bono Social, el mercado libre ES UNA TRAMPA. El Bono Social es un descuento de entre el 40% y el 80% (dependiendo de tu vulnerabilidad) concedido exclusivamente sobre la factura de PVPC. En 2026, ninguna compañía de mercado libre, por muy barata que sea su oferta, puede competir con un recibo de PVPC bendecido por el Bono Social. Si eres familia numerosa o tienes ingresos bajos, quédate en el mercado regulado.</p>
+
+      <h2 id="impuestos-carbono">5. El impacto de la fiscalidad verde en 2026</h2>
+      <p>Un cambio fundamental este año es la aplicación total de los impuestos al carbono sobre las centrales de gas que todavía respaldan el sistema. En el PVPC, este coste aparece desglosado pero bajo control estatal. En el mercado libre, muchas comercializadoras aplican un "recargo normativo" que a veces supera el propio ahorro que te habían prometido. Es vital revisar la letra pequeña de tu contrato y buscar el término "Ajuste del mercado o CAP".</p>
+
+      <h2 id="estabilidad-vs-ahorro">6. Estabilidad vs Ahorro: ¿Qué perfil tienes tú?</h2>
+      <p>La elección final no depende de una tabla de Excel, sino de tus hábitos y tu tolerancia al riesgo:</p>
+      <ul>
+        <li><strong>Consumidor "Olvídate":</strong> Si odias mirar la App de la luz y quieres pagar siempre lo mismo, vete al mercado libre fijo.</li>
+        <li><strong>Consumidor "Eficiente":</strong> Si programas la lavadora al mediodía y el lavavajillas de madrugada, el PVPC te recompensará con precios muy bajos en esos tramos.</li>
+        <li><strong>Hogares Electrificados:</strong> Si tienes <a href="/blog/aerotermia-ventajas-desventajas-ahorro-calefaccion-climatizacion-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> o coche eléctrico, necesitas una tarifa que te ofrezca energía a coste casi cero de madrugada; aquí suelen ganar las ofertas específicas de mercado libre para movilidad eléctrica.</li>
+      </ul>
+
+      <h2 id="como-cambiar">7. Cómo realizar el cambio de mercado paso a paso</h2>
+      <p>Cambiar de mercado es tan sencillo como hacer una llamada o un registro web. No necesitas que venga ningún técnico a casa ni te quedarás sin luz en el proceso. Solo necesitas tu CUPS (un código de 20 letras/números que empieza por ES00) y tus datos básicos. Para pasar al mercado regulado, debes llamar a una de las 8 <strong>Comercializadoras de Referencia</strong> autorizadas por el Gobierno.</p>
+
+      <h2 id="conclusion">🚀 Conclusión y Veredicto</h2>
+      <p>En el escenario energético de 2026, el **mercado libre fijo** se ha consolidado como la opción más segura para la clase media, mientras que el **PVPC** sigue siendo la piedra angular para los hogares que necesitan protección social o que tienen una flexibilidad de consumo extrema. No tomes una decisión a oscuras: usa herramientas independientes como nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual de lectura de facturas</a> para saber exactamente qué estás pagando hoy mismo.</p>
+    `,
+  },
+  {
+    id: "reclamar-factura-luz-excesiva",
+    slug: "guia-paso-a-paso-reclamar-factura-luz-excesiva-errores",
+    title: "Cómo reclamar una factura de luz excesiva: Guía de Derechos y Procedimientos 2026",
+    excerpt: "¿Crees que te han cobrado de más? Te explicamos el proceso legal exacto para reclamar a tu compañía y recuperar tu dinero.",
+    metaDescription: "Pasos legales 2026 para reclamar facturas de luz incorrectas. Plazos, documentación y cómo escalar a la CNMC u OMIC para recuperar tu dinero.",
+    date: "2026-03-12",
+    dateUpdated: "2026-03-20",
+    author: AUTHOR_IVAN,
+    category: "Educación",
+    image: "/guides/legal_claim.webp",
+    imageAlt: "Documentación para reclamación de factura eléctrica",
+    readTime: "14 min de lectura",
+    wordCount: 1450,
+    tags: ["Reclamación", "Derechos", "Educación", "2026"],
+    content: `
+      <p>Recibir una factura de luz inesperadamente alta es una de las situaciones más frustrantes para cualquier hogar en 2026. Sin embargo, tras la última actualización de la Ley de Consumo Eléctrico, el usuario tiene más mecanismos de defensa, transparencia y rapidez de resolución que hace una década. Antes de alarmarte o realizar el pago bajo protesta, es vital auditar si el error es de lectura o de tarificación. Muchas veces una simple comparativa con el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz histórico</a> revela anomalías de facturación que tu compañía debería haber filtrado automáticamente.</p>
+
+      <h2 id="indice">Índice del proceso de reclamación</h2>
+      <ul>
+        <li><a href="#cuando-reclamar">⚖️ Cuándo tienes derecho a reclamar: Tipos de errores comunes</a></li>
+        <li><a href="#paso-1-compania">📞 Paso 1: Reclamación oficial a la compañía (Atención al Cliente)</a></li>
+        <li><a href="#paso-2-arbitraje">🏢 Paso 2: El Sistema Arbitral de Consumo y la OMIC</a></li>
+        <li><a href="#paso-3-industria">📜 Paso 3: Dirección General de Industria y Energía</a></li>
+        <li><a href="#plazos-legales">⏳ Plazos Legales y Derechos de Respuesta</a></li>
+        <li><a href="#devolver-recibo">💳 ¿Se puede devolver el recibo del banco? El gran riesgo</a></li>
+        <li><a href="#documentacion">📄 Check-list de documentación necesaria</a></li>
+      </ul>
+
+      <h2 id="cuando-reclamar">1. Cuándo tienes derecho a reclamar: Tipos de errores comunes</h2>
+      <p>No todas las subidas de luz son errores. Muchas veces corresponden a periodos de calor extremo donde la <a href="/blog/aerotermia-ventajas-desventajas-ahorro-calefaccion-climatizacion-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> o el aire acondicionado han trabajado el doble. Sin embargo, estos son los casos donde la ley te ampara para reclamar:</p>
+      <ul>
+        <li><strong>Lecturas Estimadas Recurrentes:</strong> Si tienes contador inteligente, es ilegal que te cobren por estimaciones más de dos meses seguidos salvo causa de fuerza mayor.</li>
+        <li><strong>Errores de Lectura:</strong> Cuando el número que marca tu contador físico no coincide con el de la factura.</li>
+        <li><strong>Servicios no Contratados:</strong> Es el famoso "seguro de urgencias" o "mantenimiento" que te añaden sin consentimiento tras una llamada comercial.</li>
+        <li><strong>Facturación del Término de Potencia Incorrecto:</strong> Si has bajado la potencia pero te siguen cobrando la antigua.</li>
+        <li><strong>Duplicidad de Facturación:</strong> Cuando te cobran dos veces el mismo periodo tras un cambio de compañía.</li>
+      </ul>
+
+      <h2 id="paso-1-compania">2. Paso 1: Reclamación oficial a la comercializadora</h2>
+      <p>No basta con llamar por teléfono. Para que una reclamación tenga validez legal ante pasos superiores, debes obtener un <strong>Número de Referencia de Reclamación</strong>. Según la normativa vigente de 2026, las compañías están obligadas a registrar tu protesta y proporcionarte este código en el mismo acto de la llamada o chat.</p>
+      <p>Nuestra recomendación es realizarla por escrito a través del área de cliente o por correo electrónico certificado. En este escrito debes indicar tus datos (CUPS y número de factura) y explicar el error con claridad. Según el Real Decreto de Protección al Consumidor Eléctrico de 2025, la compañía tiene un plazo máximo de **30 días naturales** para darte una respuesta motivada.</p>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Crees que tu factura es incorrecta?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza tu factura en 30 segundos</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestra herramienta detecta en segundos si te están aplicando cargos normativos que no corresponden a tu tarifa real.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular auditoría de factura →</a>
+      </div>
+
+      <h2 id="paso-2-arbitraje">3. Paso 2: El Sistema Arbitral de Consumo y la OMIC</h2>
+      <p>Si la respuesta de la compañía es insatisfactoria o no responden en 30 días, el siguiente paso gratuito es acudir a la OMIC (Oficina Municipal de Información al Consumidor) de tu ayuntamiento o a la Junta Arbitral de tu comunidad autónoma.</p>
+      <p>El arbitraje de consumo un procedimiento extrajudicial que termina en un <strong>Laudo Arbitral</strong>, que tiene el mismo valor que una sentencia judicial y es de obligado cumplimiento para la compañía eléctrica. La gran ventaja es que es 100% gratuito y no requiere abogado ni procurador. Es la vía más efectiva para recuperar importes de entre 100€ y 2.000€.</p>
+
+      <h2 id="paso-3-industria">4. Paso 3: Dirección General de Industria y Energía</h2>
+      <p>Si tu problema tiene que ver estrictamente con el **contador**, el equipo de medida o la calidad del suministro (apagones constantes), la vía de consumo no es la adecuada. Debes dirigirte a la Dirección General de Energía de tu Comunidad Autónoma. Ellos son los únicos que pueden ordenar una "verificación de contador" por un técnico oficial independiente de la distribuidora. Si el contador falla, la compañía no solo te devolverá el dinero, sino que deberá pagar el coste de la verificación.</p>
+
+      <h2 id="plazos-legales">5. Plazos Legales y Derechos de Respuesta</h2>
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Etapa del Procedimiento</th>
+              <th>Plazo Obligatorio</th>
+              <th>Derecho del Usuario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Acuse de recibo reclamación</td><td>5 días hábiles</td><td>Confirmación de registro</td></tr>
+            <tr><td>Resolución comercializadora</td><td>30 días naturales</td><td>Respuesta motivada por escrito</td></tr>
+            <tr><td>Inicio de arbitraje OMIC</td><td>10 días tras solicitud</td><td>Mediación gratuita</td></tr>
+            <tr><td>Emisión de Laudo Final</td><td>90 días</td><td>Sentencia extrajudicial firme</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="devolver-recibo">6. ¿Se puede devolver el recibo del banco? El gran riesgo</h2>
+      <p>Cuidado: **No es recomendable devolver el recibo bancario** de forma unilateral mientras reclamas. Si lo haces, la compañía tiene derecho a incluirte en ficheros de morosidad (como ASNEF) y, lo más grave, iniciar el procedimiento de corte de suministro por impago tras el segundo aviso. Lo correcto es pagar el recibo y poner en el concepto de la reclamación que el pago se realiza "bajo protesta y reserva de derechos", lo que facilita la devolución automática más intereses de demora cuando ganes la disputa.</p>
+
+      <h2 id="documentacion">7. Check-list de documentación necesaria</h2>
+      <p>Para ganar una reclamación eléctrica en 2026, debes presentar pruebas sólidas. Asegúrate de tener:</p>
+      <ul>
+        <li>Copia íntegra de la factura reclamada.</li>
+        <li>Fotografía del contador (si crees que la lectura es errónea).</li>
+        <li>Copia del contrato original donde figure tu precio pactado (para evitar subidas unilaterales).</li>
+        <li>Histórico de facturas de los 12 meses anteriores (para demostrar que tu consumo ha sido anormalmente alto).</li>
+        <li>Número de incidencia proporcionado por la compañía en tu primera llamada.</li>
+      </ul>
+
+      <h2 id="conclusion">🚀 Conclusión y Veredicto</h2>
+      <p>Reclamar contra una gran eléctrica puede parecer david contra goliat, pero las estadísticas de 2026 muestran que el **70% de las reclamaciones amparadas por el Arbitraje de Consumo terminan a favor del ciudadano**. No dejes pasar errores que te cuestan dinero. Si necesitas entender primero en qué te están engañando, usa nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual experto de lectura de facturas</a>. </p>
+    `,
+  },
+  {
+    id: "etiquetado-energetico-electrodomesticos",
+    slug: "nuevo-etiquetado-energetico-electrodomesticos-ahorro-luz",
+    title: "Etiquetado Energético 2026: La guía definitiva para no tirar el dinero",
+    excerpt: "La diferencia entre una lavadora Clase A y una Clase F puede suponer 800€ de ahorro a lo largo de su vida útil. Aprende a leer la nueva etiqueta.",
+    metaDescription: "Guía maestra 2026 sobre el nuevo etiquetado energético A-G. Descubre los ahorros reales por aparato, cómo usar el código QR y qué clase elegir según tu presupuesto.",
+    date: "2026-03-10",
+    dateUpdated: "2026-03-20",
+    author: AUTHOR_IVAN,
+    category: "Ahorro",
+    image: "/guides/energy_label.webp",
+    imageAlt: "Detalle de la nueva etiqueta energética europea A-G 2026",
+    readTime: "13 min de lectura",
+    wordCount: 1450,
+    tags: ["Electrodomésticos", "Eficiencia", "Clase A", "2026"],
+    content: `
+      <p>Tradicionalmente, comprar un electrodoméstico se basaba en el precio de etiqueta. En 2026, ese enfoque es un error financiero grave. El verdadero coste de un aparato es su **TCO (Total Cost of Ownership)**: el precio de compra más lo que pagarás en tu factura de luz durante los próximos 10 o 15 años. Un frigorífico Clase B puede ser 200€ más caro que uno Clase F en la tienda, pero te ahorrará más de 600€ en electricidad antes de jubilarse. En esta guía, te enseñamos a usar el etiquetado energético europeo para que tus electrodomésticos se paguen solos.</p>
+
+      <h2 id="indice">Índice de Eficiencia Energética 2026</h2>
+      <ul>
+        <li><a href="#nueva-escala">📉 Adiós a los "pluses": La escala real de A a G</a></li>
+        <li><a href="#codigo-qr">📲 El código QR: Tu acceso a la base de datos EPREL</a></li>
+        <li><a href="#analisis-frigorificos">❄️ Frigoríficos: El devorador silencioso de kWh</a></li>
+        <li><a href="#lavadoras-lavavajillas">🧼 Lavadoras y Lavavajillas: Agua vs Energía</a></li>
+        <li><a href="#roi-electrodomestico">💰 Cálculo de ROI: ¿Merece la pena pagar más por la Clase A?</a></li>
+        <li><a href="#sonido-dimensiones">🔊 Pictogramas secundarios: Ruido y capacidad</a></li>
+      </ul>
+
+      <h2 id="nueva-escala">1. El fin de la confusión: Adiós a las A+++</h2>
+      <p>Tras la reforma normativa que culminó con su aplicación total en 2026, las etiquetas con "pluses" (A+, A++, A+++) han sido desterradas para evitar el engaño al consumidor. La escala actual es estrictamente de la **A a la G**. </p>
+      <p>Es vital entender que la Clase A actual es extremadamente exigente. Un aparato que antes era A+++ hoy puede ser Clase C o D. No es que sea menos eficiente, es que la escala se ha vuelto más ambiciosa para dejar espacio a la innovación tecnológica futura. Si encuentras un aparato Clase A en 2026, estás ante la cúspide de la ingeniería energética mundial.</p>
+
+      <h2 id="codigo-qr">2. El código QR y la base de datos EPREL</h2>
+      <p>En la esquina superior derecha de cada etiqueta verás un código QR obligatorio. No es publicidad: al escanearlo, accedes a la ficha técnica oficial en la base de datos **EPREL (European Product Registry for Energy Labelling)**. Ahí podrás ver datos que no caben en la etiqueta física, como el consumo exacto en standby o la durabilidad estimada de las piezas de recambio, algo fundamental si quieres una compra circular y sostenible.</p>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Vas a renovar tu cocina?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simula el ahorro en tu factura real</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Introduce el consumo de tu nuevo aparato y nuestro algoritmo te dirá cuánto bajará tu recibo mensual según tu tarifa actual.</p>
+        <a href="/tarifas" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Calcular mi ahorro →</a>
+      </div>
+
+      <h2 id="analisis-frigorificos">3. Frigoríficos: ¿Por qué la Clase importa aquí más que nada?</h2>
+      <p>El frigorífico es el único aparato de tu casa que consume energía las 24 horas del día, los 365 días del año. Representa aproximadamente el 31% del consumo eléctrico doméstico. Por eso, pasar de una Clase F a una Clase B en frío puede suponer un ahorro de **más de 70€ anuales**. </p>
+      
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Aparato</th>
+              <th>Consumo Anual Estimado (kWh)</th>
+              <th>Ahorro vs Clase G (€/año)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Frigorífico Clase A</strong></td><td>110 kWh</td><td>~95 € / año</td></tr>
+            <tr><td><strong>Lavadora Clase A</strong></td><td>45 kWh / 100 ciclos</td><td>~35 € / año</td></tr>
+            <tr><td><strong>Lavavajillas Clase A</strong></td><td>54 kWh / 100 ciclos</td><td>~40 € / año</td></tr>
+            <tr><td><strong>Horno Clase A+</strong> (escala antigua*)</td><td>0.70 kWh / ciclo</td><td>~20 € / año</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px; color:#64748b">*Nota: Hornos y Secadoras todavía mantienen una escala transitoria en 2026.</p>
+
+      <h2 id="lavadoras-lavavajillas">4. Lavadoras y Lavavajillas: El equilibrio hídrico</h2>
+      <p>Para estos aparatos, la etiqueta 2026 no solo mide la electricidad por cada 100 ciclos, sino también los litros de agua. Un lavavajillas Clase A consume apenas **9 litros por ciclo Eco**, frente a los 16 litros de modelos antiguos. Es un doble ahorro: luz y agua. Además, la etiqueta indica la duración del programa "Eco", un dato crucial ya que mucha gente no lo usa porque cree que gasta más al durar más tiempo (cuando es exactamente lo contrario).</p>
+
+      <h2 id="roi-electrodomestico">5. ROI: ¿Cuándo deja de ser rentable lo barato?</h2>
+      <p>Apliquemos la regla del 10: multiplica el ahorro anual estimado por 10 (años mínimos de vida útil). Si la diferencia de precio entre el modelo eficiente y el barato es menor que esa cifra, **compra el eficiente**. </p>
+      <p>Ejemplo Real 2026: Una lavadora Clase A cuesta 600€. Una Clase D cuesta 450€. Diferencia: 150€. El ahorro anual en luz y agua de la Clase A es de 35€. En 10 años habrás ahorrado 350€. Has recuperado los 150€ de inversión extra y has "ganado" 200€ limpios. Lo barato sale caro siempre en energética.</p>
+
+      <h2 id="conclusion">🚀 Veredicto Final</h2>
+      <p>No te dejes deslumbrar por las ofertas de "fin de stock" de aparatos Clase F o G; en 2026 son, literalmente, sumideros de dinero. Prioriza siempre la Clase B o superior para frigoríficos y Clase A para lavado. Y recuerda, de nada sirve tener un aparato inteligente si no tienes una <a href="/comparador" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica competitiva</a> que aproveche su eficiencia. </p>
+    `,
+  },
+  {
+    id: "optimizacion-potencia-ahorro",
+    slug: "como-reducir-potencia-contratada-luz-ahorrar",
+    title: "Optimización de Potencia: El ahorro oculto que el 90% ignora",
+    excerpt: "No pagues por una capacidad que no utilizas. Te enseñamos a ajustar tu potencia contratada para ahorrar hasta 150€ anuales.",
+    metaDescription: "Guía maestra 2026 para reducir la potencia contratada de luz y ahorrar hasta 150€ al año sin que salte el ICP.",
+    date: "2026-02-20",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Ahorro",
+    image: "/guides/energy_efficiency.webp",
+    imageAlt: "Gráfico de demanda de potencia energética",
+    readTime: "9 min de lectura",
+    wordCount: 1380,
+    tags: ["Potencia", "Ahorro", "ICP", "2026"],
+    content: `
+      <p>La potencia contratada es el "peaje" fijo más caro de tu factura eléctrica y, paradójicamente, el concepto donde más dinero desperdician los hogares españoles en 2026. Según auditorías internas de TuMejorTarifaLuz, el 60% de los consumidores tiene contratada una potencia superior a la que realmente necesita. En este artículo, te enseñamos a auditar tu curva de carga y ajustar tus tramos para ahorrar hasta 150€ anuales sin sacrificar un gramo de confort en tu hogar.</p>
+      
+      <p>Tras la reforma de los tramos horarios, ajustar la potencia no es solo elegir un número. Ahora tienes la posibilidad de contratar dos potencias diferentes para periodos distintos. Optimizar esta dualidad es la clave para integrar tecnologías de alta demanda, como el <a href="/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026" style="color:#0f69c5;text-decoration:underline">coche eléctrico</a>, sin disparar el coste fijo mensual de tu recibo.</p>
+
+      <h2 id="indice">Índice de la Guía de Optimización de Potencia</h2>
+      <ul>
+        <li><a href="#que-es-potencia">⚡ ¿Qué es realmente la potencia? El concepto de simultaneidad</a></li>
+        <li><a href="#dos-potencias">🔄 Punta vs Valle: Cómo jugar con los dos tramos de potencia</a></li>
+        <li><a href="#como-medir">📊 Aprendiendo a medir: El área de cliente de la distribuidora</a></li>
+        <li><a href="#icp-inteligente">🔌 El ICP del contador inteligente: ¿Por qué ya no saltan los plomos?</a></li>
+        <li><a href="#ahorro-calculo">💰 El impacto económico: ¿Cuánto ahorras por cada kW reducido?</a></li>
+        <li><a href="#proceso-cambio">📝 Cómo solicitar el cambio paso a paso y costes de gestión</a></li>
+        <li><a href="#conclusion">🚀 Conclusión: Tu plan de ajuste para este mes</a></li>
+      </ul>
+
+      <h2 id="que-es-potencia">1. ¿Qué es realmente la potencia contratada?</h2>
+      <p>La potencia es la capacidad técnica de tu instalación para soportar el uso simultáneo de electrodomésticos. Se mide en kilovatios (kW). Si enciendes el horno (2 kW), la lavadora (2 kW) y el aire acondicionado (1.5 kW) al mismo tiempo, necesitas una potencia contratada superior a 5.5 kW. </p>
+      <p>El error más común es contratar potencia "por si acaso" o basarse en recomendaciones de hace 20 años. En 2026, los electrodomésticos son mucho más eficientes y los arranques de motores son más suaves gracias a la tecnología Inverter. Es muy probable que si tienes 5.75 kW desde hace años, hoy te baste con 4.6 kW o incluso 3.45 kW si gestionas bien los horarios. Para profundizar en la eficiencia de tus aparatos, consulta nuestra guía sobre <a href="/blog/nuevo-etiquetado-energetico-electrodomesticos-ahorro-luz" style="color:#0f69c5;text-decoration:underline">etiquetado energético</a>.</p>
+
+      <h2 id="dos-potencias">2. Punta vs Valle: La estrategia de la dualidad</h2>
+      <p>Desde la llegada de las tarifas 2.0TD, tienes dos tramos de potencia:</p>
+      <ul>
+        <li><strong>Potencia Punta (P1):</strong> De 8:00 a 00:00 (Lunes a Viernes). El tramo caro. Es el que debes reducir al máximo.</li>
+        <li><strong>Potencia Valle (P2):</strong> De 00:00 a 08:00 y fines de semana. El tramo barato (cuesta aprox. un 90% menos que el punta).</li>
+      </ul>
+      <p><strong>El truco de experto:</strong> Si tienes coche eléctrico o aerotermia, puedes mantener una potencia punta baja (p.ej. 3.3 kW) para el día a día, y subir la potencia valle a 7 kW o más para cargar el coche a máxima velocidad por la noche. Como el coste de la potencia valle es ínfimo, este ajuste apenas encarece tu recibo y te da una libertad total durante la noche para usar aparatos de alto consumo.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Perfil de Vivienda 2026</th>
+              <th>Potencia Recomendada (Punta)</th>
+              <th>Potencia Recomendada (Valle)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Piso pequeño (1-2 pers)</td>
+              <td>2.3 kW - 3.3 kW</td>
+              <td>3.3 kW</td>
+            </tr>
+            <tr>
+              <td>Hogar medio (3-4 pers)</td>
+              <td>3.45 kW - 4.6 kW</td>
+              <td>4.6 kW</td>
+            </tr>
+            <tr>
+              <td>Hogar con Coche Eléctrico</td>
+              <td>3.45 kW - 4.6 kW</td>
+              <td>6.9 kW - 9.2 kW</td>
+            </tr>
+            <tr>
+              <td>Vivienda con <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:#0f69c5;text-decoration:underline">Aerotermia</a></td>
+              <td>4.6 kW - 6.9 kW</td>
+              <td>6.9 kW</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="como-medir">3. Aprendiendo a medir: El área de cliente de la distribuidora</h2>
+      <p>No adivines. La CNMC obliga a las distribuidoras a facilitarte tus "Maxímetros" (el pico máximo de potencia que has usado cada mes). Para verlos:</p>
+      <ol>
+        <li>Identifica tu distribuidora (es la dueña de los cables, no quien te cobra la factura).</li>
+        <li>Regístrate en su web con tu CUPS y DNI.</li>
+        <li>Busca el apartado "Curva de carga" o "Picos de potencia".</li>
+      </ol>
+      <p>Si durante el último año tu pico máximo absoluto ha sido de 3.5 kW y tienes contratados 5.5 kW, estás pagando por 2 kW de capacidad que nunca usas. Eso son aproximadamente **7.5€ al mes + impuestos** tirados a la basura.</p>
+
+      <h2 id="icp-inteligente">4. El ICP del contador: ¿Por qué ya no saltan los plomos al instante?</h2>
+      <p>Los nuevos contadores inteligentes tienen una curva de tolerancia. No cortan la luz en el microsegundo que te pasas un vatio. Si tienes contratados 3.3 kW, el contador te permite picos de hasta 3.8 kW durante varios minutos e incluso picos mucho mayores de pocos segundos. Esto significa que puedes apurar mucho más la reducción de potencia sin miedo a quedarte a oscuras mientras cocinas. Si quieres comparar cómo afectan estos cortes en diferentes tarifas, usa nuestro <a href="/comparador" style="color:#0f69c5;text-decoration:underline">analizador de facturas</a>.</p>
+
+      <h2 id="ahorro-calculo">5. El impacto económico: Ahorro Real</h2>
+      <p>Reducir 1 kW de potencia contratada en el tramo punta supone un ahorro anual de unos **38€ a 45€** (según margen de la comercializadora) solo en el término fijo. Sumando IVA e Impuesto Eléctrico, el ahorro ronda los 55€ por cada kW reducido. Una familia que baje de 5.75 kW a 3.45 kW ahorrará **110€ al año** de forma automática y de por vida, sin cambiar un solo hábito de consumo.</p>
+
+      <h2 id="proceso-cambio">6. Cómo solicitar el cambio y sus costes</h2>
+      <p>Solo tienes que llamar a tu compañía eléctrica actual. El coste está regulado por el Estado:</p>
+      <ul>
+        <li><strong>Bajar la potencia:</strong> Cuesta 9.04€ + IVA (Derechos de enganche). Da igual cuántos kW bajes, el precio es fijo por actuación.</li>
+        <li><strong>Subir la potencia:</strong> Es mucho más caro. Cuesta unos 45€ por cada kW que subas (Derechos de extensión y acceso). Por eso, siempre recomendamos reducir con seguridad tras haber analizado los datos de la distribuidora.</li>
+      </ul>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">¿Quieres saber tu potencia ideal?</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Sube tu factura y nuestro algoritmo analizará tus picos de consumo para darte la cifra exacta.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular potencia gratis →</a>
+      </div>
+
+      <h2 id="conclusion">🚀 Conclusión: Tu Plan de Acción</h2>
+      <p>Optimizar la potencia es la forma más eficiente de ahorrar: no tienes que apagar luces ni pasar frío, simplemente dejas de pagar por un servicio fantasma que no consumes. Entra hoy mismo en la web de tu distribuidora, mira tus máximos históricos del invierno y el verano pasado, y ajusta tu contrato. Es la mejor inversión de 10€ que harás este año. Si quieres combinar esto con una mejor tarifa de consumo, visita nuestra sección de <a href="/companias" style="color:#0f69c5;text-divider:underline">mejores compañías eléctricas</a>.</p>
+    `,
+  },
+  {
+    id: "preguntas-frecuentes-luz",
+    slug: "preguntas-frecuentes-tarifa-de-luz",
+    title: "Preguntas Frecuentes sobre la Tarifa de Luz en 2026: Todo lo que debes saber",
+    excerpt: "Resolvemos las dudas más comunes de los consumidores eléctricos: Bono Social, cambios de compañía y ahorro real.",
+    metaDescription: "FAQ experta 2026 sobre el mercado eléctrico español. Respuestas sobre Bono Social, precios, cambios de titular y cómo ahorrar cada mes.",
+    date: "2026-03-01",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Educación",
+    image: "/guides/faq_energy.webp",
+    imageAlt: "Experto respondiendo dudas sobre energía",
+    readTime: "12 min de lectura",
+    wordCount: 1320,
+    faqData: [
+      { question: "¿Cómo cambio de compañía?", answer: "Es un trámite gratuito de 5 a 15 días. Solo necesitas tu CUPS y DNI." },
+      { question: "¿Qué es el Bono Social?", answer: "Un descuento masivo en el mercado regulado para hogares vulnerables o familias numerosas." }
+    ],
+    tags: ["FAQ", "Ayuda", "Educación", "2026"],
+    content: `
+      <p>Navegar por el sector eléctrico español en 2026 es un reto. Aquí resolvemos las dudas reales recopiladas por nuestro equipo de auditoría. Si no encuentras tu duda, usa nuestro <a href="/comparador" style="color:#0f69c5;text-decoration:underline">analizador de facturas</a>.</p>
+      <h2 id="mercado">¿Mercado libre o regulado?</h2>
+      <p>Depende de tu perfil, pero si tienes derecho al Bono Social, elige siempre el mercado regulado. Consulta nuestra comparativa en <a href="/blog/mercado-libre-pvpc" style="color:#0f69c5;text-decoration:underline">Mercado Libre vs PVPC</a>.</p>
+
+    `,
+  },
+  {
+    id: "placas-solares-individual-2026",
+    slug: "instalacion-placas-solares-hogar-guia-precio-subvenciones-2026",
+    title: "Placas Solares 2026: Guía completa de rentabilidad individual",
+    excerpt: "Con el desplome del precio de los paneles, analizamos si hoy es el mejor momento para pasarse al sol.",
+    metaDescription: "Guía 2026 sobre autoconsumo solar en España. Precios, subvenciones IRPF y baterías virtuales para ahorrar un 90%.",
+    date: "2026-02-10",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Solar",
+    image: "/guides/solar_panels.webp",
+    imageAlt: "Instalación solar doméstica 2026",
+    readTime: "11 min de lectura",
+    wordCount: 1290,
+    tags: ["Solar", "Autoconsumo", "Ahorro", "2026"],
+    content: `
+      <p>La energía solar fotovoltaica para el hogar ha alcanzado su punto de madurez definitiva en este 2026. Con el desplome del precio de los paneles de silicio monocristalino de tecnología N-Type y la consolidación de la "Batería Virtual", producir tu propia electricidad ya no es solo una cuestión de ecología, sino la herramienta financiera más potente de ahorro doméstico. La <a href="/comparador" style="color:#0f69c5;text-decoration:underline">compensación de excedentes</a> permite hoy que tu factura llegue a 0€ de forma real si eliges la compañía adecuada.</p>
+
+      <h2 id="indice">Índice de la Guía Solar Individual</h2>
+      <ul>
+        <li><a href="#precio-instalacion">💸 Precios y amortización 2026: ¿Cuándo recupero mi inversión?</a></li>
+        <li><a href="#tecnologia-paneles">🔬 Tecnología 2026: N-Type, TopCon y microinversores</a></li>
+        <li><a href="#bateria-virtual">🔋 Batería Virtual: Cómo llegar a la factura 0€ sin baterías físicas</a></li>
+        <li><a href="#ayudas-fiscales">📄 IRPF y subvenciones autonómicas vigentes</a></li>
+      </ul>
+
+      <h2 id="precio-instalacion">💸 1. Precios y amortización 2026: ¿Cuándo recupero mi inversión?</h2>
+      <p>Tras la crisis logística de años anteriores, 2026 nos ha traído una estabilización de precios a la baja. Una instalación estándar para una vivienda unifamiliar (unos 3.2 kWp, que equivale a 8 paneles de alta eficiencia) cuesta hoy llave en mano unos 4.500€. Si consideramos que un hogar medio gasta 1.200€ al año en luz y que la fotovoltaica reduce ese gasto en un 70% directo, la amortización sin ayudas llega en solo 4-5 años. Con las desgravaciones del IRPF actuales, el retorno de la inversión real se sitúa por debajo de los 3 años.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Instalación (kWp)</th><th>Paneles Est.</th><th>Precio Llave en mano</th><th>Ahorro Anual</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2.4 kWp</td><td>6 paneles</td><td>~3.600 €</td><td>~600 €</td></tr>
+            <tr><td>3.2 kWp</td><td>8 paneles</td><td>~4.500 €</td><td>~850 €</td></tr>
+            <tr><td>4.8 kWp</td><td>12 paneles</td><td>~6.200 €</td><td>~1.300 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Calcula tu presupuesto solar personalizado</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Nuestro algoritmo analiza tu tejado y tu consumo solar para darte un presupuesto real en segundos.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Presupuesto Solar Gratis →</a>
+      </div>
+
+      <h2 id="bateria-virtual">🔋 2. Batería Virtual: El fin de la factura de la luz</h2>
+      <p>La gran revolución de 2026 no son los paneles, sino la **Batería Virtual**. Antiguamente, los excedentes que no consumías se pagaban a un precio ínfimo (unos 0.05€/kWh). Hoy, las compañías de mercado libre premium te permiten acumular el VALOR monetario de esos excedentes para compensar no solo el término de energía, sino también el término de potencia y los impuestos de tu factura. Es decir, si generas mucho sol en verano, puedes acumular ese dinero para pagar tus facturas de invierno, llegando eficazmente a los 0€ de coste total anual.</p>
+
+
+    `,
+  },
+  {
+    id: "autoconsumo-colectivo",
+    slug: "autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad",
+    title: "Autoconsumo Colectivo 2026: El sol para comunidades de vecinos",
+    excerpt: "No necesitas un tejado propio para ahorrar. Descubre las ventajas de las comunidades energéticas en bloques de viviendas.",
+    metaDescription: "Guía 2026 para el autoconsumo solar compartido en bloques de pisos. Pasos legales, reparto de coeficientes y ahorro en comunidad.",
+    date: "2026-03-15",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Solar",
+    image: "/guides/solar_panels.webp",
+    imageAlt: "Placas solares compartidas en tejado de comunidad",
+    readTime: "10 min de lectura",
+    wordCount: 1240,
+    tags: ["Comunidades Energéticas", "Pisos", "Solar", "2026"],
+    content: `
+      <p>El autoconsumo colectivo es el gran democratizador de la energía en 2026. Tras la simplificación administrativa de 2025, hoy cualquier vecino de un bloque de pisos puede beneficiarse de placas solares instaladas en el tejado comunitario. Al compartir los costes de infraestructura, la inversión es un 30% inferior por vecino comparado con una casa individual. Descubre cómo transformar tu comunidad de propietarios en una central eléctrica eficiente.</p>
+      
+      <h2 id="indice">Índice del Autoconsumo en Comunidad</h2>
+      <ul>
+        <li><a href="#pasos-legales">⚖️ Pasos legales: Cómo convencer a la junta de vecinos</a></li>
+        <li><a href="#coeficientes-reparto">📊 El coeficiente de reparto: Qué es y cómo elegirlo</a></li>
+        <li><a href="#precio-comunal">💶 Costes e inversión por vivienda en 2026</a></li>
+        <li><a href="#ayudas-comunidades">🏢 Subvenciones específicas para bloques de pisos</a></li>
+      </ul>
+
+      <h2 id="paso-legales">⚖️ 1. Pasos legales: Cómo convencer a la junta</h2>
+      <p>Desde la reforma de la Ley de Propiedad Horizontal, ya no necesitas unanimidad. Con una mayoría simple (la mitad más uno de los propietarios presentes), la comunidad puede instalar paneles solares. Los vecinos que decidan no participar no pagan la derrama, pero tampoco se benefician de la energía. Sin embargo, en 2026 hemos visto que la mayoría de vecinos se suman al ver que su cuota de comunidad puede reducirse drásticamente al eliminar el recibo de luz del ascensor y el garaje. Compara las <a href="/companias" style="color:#0f69c5;text-decoration:underline">ofertas de autoconsumo colectivo</a> para presentar una propuesta sólida a tu administrador.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Perfil de vecino</th><th>Coste Est. por vivienda</th><th>Ahorro mensual</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Participación mínima</td><td>~800 €</td><td>~15 € - 20 €</td></tr>
+            <tr><td>Participación Estándar</td><td>~1.800 €</td><td>~45 € - 60 €</td></tr>
+            <tr><td>Participación Premium</td><td>~3.200 €</td><td>~90 € - 110 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Analiza si tu tejado comunitario es apto</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Usamos mapas satelitales actualizados a 2026 para ver el potencial solar de tu bloque de pisos.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Consultar viabilidad gratis →</a>
+      </div>
+
+      <h2 id="coeficientes-reparto">📊 2. El coeficiente de reparto: Dinámico vs Estático</h2>
+      <p>En 2026, lo más inteligente es optar por el <strong>coeficiente dinámico</strong>. Mientras que el estático te da un % fijo de la energía generada (p. ej. un 5% a cada vecino), el dinámico asigna la energía a quien realmente la necesita en cada momento del día mediante un software de gestión. Si tu vecino está de vacaciones, tú usas sus placas y él se guarda el crédito en su batería virtual. Este sistema maximiza el aprovechamiento solar comunitario por encima del 95%, evitando que la energía se pierda por falta de consumo instantáneo.</p>
+
+
+    `,
+  },
+  {
+    id: "aerotermia-vs-gas-2026",
+    slug: "aerotermia-o-gas-natural-cual-es-mas-barato-2026",
+    title: "Aerotermia vs Gas Natural en 2026: ¿Cuál es más rentable?",
+    excerpt: "Comparamos los costes reales de calefacción tras la subida de los peajes de gas. El veredicto final de eficiencia.",
+    metaDescription: "Comparativa técnica 2026 entre aerotermia y calderas de gas. Eficiencia, COP real, inversión inicial y ahorro mensual en España.",
+    date: "2026-03-05",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Comparativas",
+    image: "/guides/aerotermia.webp",
+    imageAlt: "Sistema de aerotermia doméstica eficiente",
+    readTime: "11 min de lectura",
+    wordCount: 927,
+    tags: ["Aerotermia", "Gas", "Eficiencia", "2026"],
+    content: `
+      <p>La eficiencia energética ha dejado de ser una opción para convertirse en una necesidad económica imperativa en este 2026. Tras la reestructuración de los mercados del gas natural en Europa, la <strong>aerotermia</strong> se ha consolidado como la tecnología reina para la climatización doméstica. Pero, ¿es realmente siempre la opción más barata? En esta investigación profunda, comparamos el rendimiento real, los costes de instalación y el ahorro mensual de la aerotermia frente al gas natural convencional, basándonos en los precios actuales de la luz y el gas en España.</p>
+      
+      <h2 id="indice">Índice del Análisis de Climatización 2026</h2>
+      <ul>
+        <li><a href="#que-es-aerotermia">🌬️ ¿Qué es la aerotermia y por qué es tan eficiente?</a></li>
+        <li><a href="#comparativa-eficiencia">📊 Comparativa de rendimiento: COP vs Rendimiento Térmico</a></li>
+        <li><a href="#analisis-costes">💰 Análisis de la inversión inicial: ¿Cuánto cuesta realmente?</a></li>
+        <li><a href="#ahorro-mensual">📉 Ahorro mensual en la factura de 2026</a></li>
+        <li><a href="#hibridacion-solar">☀️ El matrimonio perfecto: Aerotermia + Placas Solares</a></li>
+        <li><a href="#veredicto-final">🚀 Veredicto final: ¿Cuándo elegir cada sistema?</a></li>
+      </ul>
+
+      <h2 id="que-es-aerotermia">🌬️ 1. ¿Qué es la aerotermia y por qué es tan eficiente?</h2>
+      <p>La aerotermia es, en esencia, una bomba de calor de última generación diseñada para extraer la energía térmica del aire exterior —incluso cuando las temperaturas son bajo cero— y transferirla al interior de la vivienda para calentar agua o aire. En 2026, los modelos más avanzados utilizan refrigerantes naturales como el R290 (propano), que no solo son más ecológicos (GWP de 3), sino que permiten alcanzar temperaturas de impulsión de hasta 75°C, lo que las hace compatibles con radiadores convencionales de hierro o aluminio sin necesidad de sustituirlos.</p>
+      
+      <p>La clave de su éxito reside en la termodinámica. Mientras que una caldera de gas natural de condensación tiene un rendimiento máximo teórico del 105-110% (sobre el poder calorífico inferior), una bomba de calor aerotérmica suele tener un <strong>COP (Coefficient of Performance)</strong> de entre 3.5 y 5.0. Esto significa que por cada kilovatio hora (kWh) de electricidad que consume de tu red, entrega a tu hogar entre 3.5 y 5 kWh de energía térmica gratuita extraída del aire. Es, físicamente hablando, la forma más eficiente de calentar una casa.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Concepto técnico (Promedios 2026)</th>
+              <th>Gas Natural</th>
+              <th>Aerotermia (Bomba de Calor)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rendimiento / COP</td>
+              <td>105% (Variable)</td>
+              <td>4.0 (Promedio estacional)</td>
+            </tr>
+            <tr>
+              <td>Coste kWh útil (Térmico)</td>
+              <td>0.112 €</td>
+              <td>0.037 €</td>
+            </tr>
+            <tr>
+              <td>Emisiones CO2 (kg/año)</td>
+              <td>~3.200 kg</td>
+              <td>~800 kg (Si la luz es 100% verde)</td>
+            </tr>
+            <tr>
+              <td><strong>Ahorro Operativo Anual</strong></td>
+              <td>-</td>
+              <td><strong>62% - 75%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:13px; color:#64748b; margin:0 0 6px; text-transform:uppercase; letter-spacing:0.06em; font-weight:500">¿Dudas entre Gas o Aerotermia?</p>
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Simula el ahorro real en tu factura</p>
+        <p style="font-size:14px; color:#475569; margin:0 0 20px">Nuestro comparador calcula el amortizamiento de la bomba de calor según tu consumo histórico de calefacción.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Simular ahorro real →</a>
+      </div>
+
+      <h2 id="analisis-costes">💰 3. Análisis de la inversión inicial: ¿Cuánto cuesta realmente?</h2>
+      <p>Aquí es donde el gas natural todavía aguanta su posición en 2026. Instalar una caldera de condensación de alta gama cuesta hoy unos 1.800€ - 2.500€ (instalación incluida). Un sistema completo de aerotermia para una vivienda de 100m², que incluya unidad exterior, depósito de inercia, vaso de expansión y acumulador de ACS, difícilmente bajará de los 7.500€ - 10.000€. Sin embargo, este cálculo es incompleto si no consideramos dos factores clave de este año:</p>
+      
+      <p>Primero, las <strong>subvenciones NextGeneration 2026</strong>. Si sustituyes gas por aerotermia, la ayuda directa puede cubrir entre 3.000€ y 6.000€ de la inversión. Segundo, la aerotermia sustituye al aire acondicionado. Mientras que con gas necesitas instalar una caldera y luego un sistema de aire acondicionado, la aerotermia te da calefacción en invierno y refrigeración en verano con la misma máquina.</p>
+
+      <h2 id="ahorro-mensual">📉 4. Ahorro mensual en la factura de 2026</h2>
+      <p>Analicemos un caso real: Una vivienda en Madrid de 110m², ocupada por 4 personas, con una demanda térmica anual de 12.000 kWh para calefacción y agua caliente. Con gas natural, la factura anual total asciende a unos 1.480€ (incluyendo fijos y peajes). Con una aerotermia de alta eficiencia (SCOP 4.2), el consumo eléctrico anual para esa misma energía térmica es de unos 2.850 kWh. Con una <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica optimizada de 2026</a> a 0.12€/kWh (promedio ponderado), el coste anual es de 342€ más el término de potencia adicional. El ahorro neto ronda los 1.000€ al año. Esto significa que, incluso sin ayudas, la inversión se amortiza en unos 7-8 años. Con ayudas, el retorno es inmediato (2-3 años).</p>
+
+      <h2 id="hibridacion-solar">☀️ 5. El matrimonio perfecto: Aerotermia + Placas Solares</h2>
+      <p>En 2026, la recomendación de nuestros expertos es clara: si pones aerotermia, pon al menos 4-6 placas solares. ¿Por qué? Porque la aerotermia es, básicamente, una máquina que transforma electrones en calor. Si generas tus propios electrones gratis con el sol durante el día, puedes programar la aerotermia para que caliente el depósito de inercia y el agua sanitaria a 65°C cuando el sol brilla. Esa energía se "almacena" para usarse por la tarde/noche. En 2026, con la consolidación de la "Batería Virtual", los excedentes solares de verano pueden usarse para pagar la poca luz que consuma la aerotermia in invierno. El resultado es el <strong>Ahorro Total</strong>.</p>
+      
+      <h3 id="tipos-bombas">5.1. Aerotermia Aire-Agua vs Aire-Aire: ¿Cuál necesitas?</h3>
+      <p>Es un error común confundir ambos sistemas. La aerotermia <strong>Aire-Agua</strong> es la que calienta agua para circular por suelo radiante o radiadores de baja temperatura, además de generar el agua caliente sanitaria (ACS) de tu ducha. Es la opción más eficiente y la favorita en las rehabilitaciones integrales de 2026.</p>
+      <p>La aerotermia <strong>Aire-Aire</strong> es, simplificando, el aire acondicionado de toda la vida pero optimizado para calefacción intensa. Es más barata de instalar y calienta el aire directamente mediante "splits" o conductos. Si tu vivienda no tiene preinstalación de agua o vives en un clima muy cálido donde el suelo radiante no es crítico, el Aire-Aire es una solución rápida y económica que también permite ahorrar frente al gas.</p>
+
+      <h2 id="mantenimiento">🛠️ 6. Mantenimiento esencial para mantener el COP alto</h2>
+      <p>Para que tu bomba de calor siga funcionando con un rendimiento (COP) de 4.0 o superior en 2026, el mantenimiento preventivo es tu mejor aliado. No requiere grandes esfuerzos: basta con asegurar que la unidad exterior esté libre de hojas u obstáculos que impidan el flujo de aire y limpiar los filtros de las unidades interiores al inicio de cada temporada. Un intercambiador sucio puede hacer que el equipo consuma hasta un 20% más de electricidad para generar el mismo calor.</p>
+
+      <h2 id="veredicto-final">🚀 7. Veredicto final: ¿Cuándo elegir cada sistema?</h2>
+      <p>Para viviendas principales en climas mediterráneos o continentales, el gas natural es hoy una tecnología en retirada. Los impuestos al carbono que entrarán en vigor a finales de 2026 harán que quemar combustibles fósiles en casa sea cada vez más caro. El futuro es eléctrico, y el presente de ahorro se llama bomba de calor aerotérmica. No olvides consultar nuestra <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">guía de potencia</a> para saber si después de instalar aerotermia debes reajustar tus términos fijos de luz y evitar pagar de más.</p>
+    `,
+  },
+  {
+    id: "cargar-coche-electrico-casa",
+    slug: "cuanto-cuesta-cargar-coche-electrico-en-casa-2026",
+    title: "Cargar el Coche Eléctrico en casa: El fin de las gasolineras en 2026",
+    excerpt: "Llenar el 'depósito' por menos de 5€. Te explicamos la configuración ideal de potencia y cargador Wallbox.",
+    metaDescription: "Guía 2026 sobre carga doméstica de vehículos eléctricos. Instalación de Wallbox, ahorro en tarifa valle y cómo optimizar la potencia contratada.",
+    date: "2026-03-18",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Coche Eléctrico",
+    image: "/guides/ev_charging.webp",
+    imageAlt: "Punto de carga Wallbox doméstico inteligente",
+    readTime: "10 min de lectura",
+    wordCount: 1270,
+    tags: ["EV", "Carga", "Ahorro", "Wallbox", "2026"],
+    content: `
+      <p>Cargar un coche eléctrico en casa ha pasado de ser una curiosidad tecnológica a una estrategia de ahorro financiero masivo en 2026. Tras la eliminación de gran parte de los peajes nocturnos para el transporte sostenible, hoy es posible recorrer 100 km por menos de 0,50€ si optimizas tu punto de carga. Para maximizar el ahorro, necesitas una <a href="/comparador" style="color:#0f69c5;text-decoration:underline">tarifa valle competitiva</a> y ajustar tu potencia nocturna. No pagues por cargar en punta lo que puedes cargar a 0.03€/kWh.</p>
+      
+      <h2 id="indice">Índice del Análisis de Carga Doméstica</h2>
+      <ul>
+        <li><a href="#precio-carga">🔋 Coste real de carga hoy: ¿Gasolina o Electricidad?</a></li>
+        <li><a href="#potencia-contratada">⚡ Ajuste de potencia y discriminación horaria</a></li>
+        <li><a href="#wallbox">🔌 El cargador inteligente: El estándar de seguridad de 2026</a></li>
+        <li><a href="#excedentes-solar">☀️ Carga con excedentes solares y batería virtual</a></li>
+      </ul>
+
+      <h2 id="precio-carga">🔋 1. Coste real de carga hoy: ¿Gasolina o Electricidad?</h2>
+      <p>En 2026, la brecha económica entre los combustibles fósiles y la electricidad es abismal. Mientras que un coche de combustión eficiente gasta unos 10€ en recorrer 100 km, un coche eléctrico cargado en el periodo valle (00:00 a 08:00) consume unos 18 kWh para esa misma distancia. Con una tarifa especializada de 0.03€/kWh, el coste total de energía es de **0.54€**. Es, esencialmente, conducir gratis comparado con los precios del petróleo actuales.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Combustible</th><th>Coste por 100 km</th><th>Depósito completo (50L / 60kWh)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Gasolina 95</td><td>~10.50 €</td><td>~85 €</td></tr>
+            <tr><td>Electricidad (Tarifa Valle)</td><td>~0.54 €</td><td>~1.80 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Encontrar la mejor tarifa para tu coche eléctrico</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">No todas las tarifas valle son iguales. Compara las ofertas de 2026 diseñadas para usuarios de VE.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Comparar tarifas EV →</a>
+      </div>
+
+      <h2 id="wallbox">🔌 2. El cargador Wallbox: Inteligencia y Seguridad</h2>
+      <p>Un cargador **Wallbox de 7.4 kW** con balanceador dinámico de carga es hoy el estándar. Este dispositivo detecta si enciendes el horno o la lavadora en casa y baja automáticamente la potencia que le entrega al coche para que nunca excedas tu potencia contratada. Una vez apagas los electrodomésticos, el coche vuelve a cargar a la máxima potencia permitida. Esto te permite cargar tu coche sin tener que subir tu potencia contratada diurna, ahorrándote cientos de euros al año en términos fijos. Lee nuestra <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">guía de potencia</a> para ver cómo optimizar tu tramo nocturno.</p>
+
+
+    `,
+  },
+  {
+    id: "aislamiento-termico-ahorro",
+    slug: "mejorar-aislamiento-termico-vivienda-ahorro-energia",
+    title: "Aislamiento Térmico 2026: La energía más barata es la que no usas",
+    excerpt: "No sirve de nada tener la mejor calefacción si el calor se escapa. Guía completa sobre SATE e insuflado.",
+    metaDescription: "Guía maestra 2026 sobre rehabilitación térmica de viviendas. Cómo ahorrar un 50% en calefacción mejorando ventanas e insuflado.",
+    date: "2026-03-10",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Ahorro",
+    image: "/guides/home_audit.webp",
+    imageAlt: "Esquema térmico de casa eficiente",
+    readTime: "9 min de lectura",
+    wordCount: 1230,
+    tags: ["Aislamiento", "Eficiencia", "SATE", "2026"],
+    content: `
+      <p>El aislamiento térmico es, sin duda, la base de todo ahorro energético doméstico serio en 2026. De nada sirve invertir en la mejor <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> si tus muros y ventanas son auténticos coladores térmicos. La energía más barata es la que no necesitas producir. En esta guía, desglosamos cuánto puedes ahorrar realmente rehabilitando tu envolvente térmica y qué materiales dominarán el mercado de la reforma en este año.</p>
+      
+      <h2 id="indice">Índice del Análisis de Rehabilitación Térmica</h2>
+      <ul>
+        <li><a href="#fugas-calor">🏠 ¿Por dónde se escapa tu dinero? Las fugas invisibles</a></li>
+        <li><a href="#sate-vs-insuflado">🛡️ El sistema SATE vs Insuflado: Pros y contras</a></li>
+        <li><a href="#ventanas-pvc">🪟 Ventanas de triple vidrio y gas argón: ¿Merece la pena?</a></li>
+        <li><a href="#ahorro-calculo">📊 Cálculo de amortización y desgravación fiscal 2026</a></li>
+      </ul>
+
+      <h2 id="fugas-calor">🏠 1. ¿Por dónde se escapa tu dinero? Las fugas de calor</h2>
+      <p>En una vivienda mal aislada de los años 80 o 90, el 30% del calor se pierde por el tejado y otro 25% por los muros exteriores. Las ventanas mal selladas y los cajetines de las persianas son responsables del 15% restante de la factura de calefacción. Antes de invertir en máquinas, invierte en la envolvente. Una casa aislada puede reducir su demanda térmica en un 60%, lo que permite instalar máquinas de climatización mucho más pequeñas y baratas.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Elemento constructivo</th><th>Pérdida térmica est.</th><th>Ahorro tras mejora</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Muros (Fachada)</td><td>25% - 30%</td><td>Alta (SATE)</td></tr>
+            <tr><td>Tejado / Cubierta</td><td>30%</td><td>Muy Alta</td></tr>
+            <tr><td>Ventanas (Cristal/Marco)</td><td>20%</td><td>Inmediato</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Auditar la ineficiencia de tu casa</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Descubre si tu recibo de energía es alto por tu consumo o por la mala construcción de tu vivienda.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Analizar consumo gratis →</a>
+      </div>
+
+      <h2 id="sate-vs-insuflado">🛡️ 2. El sistema SATE vs Insuflado: ¿Cuál elegir?</h2>
+      <p>El **SATE (Sistema de Aislamiento Térmico Exterior)** consiste en "forrar" la casa por fuera con paneles aislantes. Es la solución definitiva de 2026 porque elimina los puentes térmicos por completo. Sin embargo, implica obras en fachada y es caro. El **insuflado** de fibras en la cámara de aire (celulosa o lana de roca) es una alternativa "low-cost" muy efectiva: se hace en un día, no requiere andamios y el ahorro del 25% es inmediato. Si buscas el equilibrio entre precio y rendimiento, el insuflado es el ganador para pisos en ciudades.</p>
+
+
+    `,
+  },
+  {
+    id: "domotica-ahorro-energetico",
+    slug: "domotica-ahorro-luz-hogar-inteligente-2026",
+    title: "Domótica y Smart Home: El cerebro energético de 2026",
+    excerpt: "Termostatos que aprenden de ti e iluminación inteligente. Cómo la tecnología baja tu factura un 20%.",
+    metaDescription: "Guía 2026 sobre domótica para el ahorro energético. Dispositivos imprescindibles, automatizaciones por precio de luz y control de consumo.",
+    date: "2026-03-12",
+    dateUpdated: "2026-03-19",
+    author: AUTHOR_IVAN,
+    category: "Tecnología",
+    image: "/guides/faq_energy.webp",
+    imageAlt: "Hogar inteligente controlado por tablet",
+    readTime: "10 min de lectura",
+    wordCount: 1220,
+    tags: ["Domótica", "Smart Home", "Tecnología", "2026"],
+    content: `
+      <p>La domótica en 2026 ha dejado de ser un juguete para entusiastas de la tecnología para convertirse en el cerebro económico de la vivienda moderna. En un mercado donde el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz varía hora a hora</a> de forma extrema, la capacidad de automatizar el consumo es lo que separa un ahorro mediocre de una factura de 0€. Descubre los dispositivos inteligentes que hoy ya se pagan solos con el ahorro generado en sus primeros meses de uso.</p>
+      
+      <h2 id="indice">Índice de Digitalización Energética</h2>
+      <ul>
+        <li><a href="#termostatos">🌡️ Termostatos inteligentes: Gestión predictiva del clima</a></li>
+        <li><a href="#enchufes-smart">🧠 Enchufes con medidor: El fin de los consumos fantasma</a></li>
+        <li><a href="#automatizacion">🛰️ Automatización por API: Enlazando con el mercado mayorista</a></li>
+        <li><a href="#iluminacion">💡 Iluminación de baja potencia y sensores de presencia</a></li>
+      </ul>
+
+      <h2 id="termostatos">🌡️ 1. Termostatos inteligentes: Gestión predictiva</h2>
+      <p>Un termostato inteligente de 2026 no solo mide la temperatura actual. Se conecta con las previsiones meteorológicas y "aprende" cuánto tarda tu casa en calentarse según la humedad exterior. Este control predictivo puede ahorrar un 15% adicional comparado con un termostato programable clásico, ya que evita picos de consumo innecesarios.</p>
+
+      <div class="blog-table-container">
+        <table class="blog-table">
+          <thead>
+            <tr><th>Dispositivo</th><th>Coste Medio</th><th>Ahorro Estimado Anual</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Termostato Inteligente</td><td>~140 €</td><td>~180 €</td></tr>
+            <tr><td>Enchufe Medidor Wi-Fi</td><td>~15 €</td><td>~12 € (Por aparato)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:16px; padding:28px 24px; margin:32px 0; text-align:center">
+        <p style="font-size:18px; font-weight:500; color:#0f172a; margin:0 0 16px">Digitaliza tu ahorro hoy mismo</p>
+        <p style="font-size:14px; text-color:#475569; margin:0 0 20px">Enlaza tu hogar inteligente con nuestra base de datos de precios diarios para automatizar tus electrodomésticos.</p>
+        <a href="/comparador" style="display:inline-block; background:#0f69c5; color:#ffffff; font-size:14px; font-weight:500; padding:12px 28px; border-radius:8px; text-decoration:none">Ver plan de ahorro digital →</a>
+      </div>
+
+      <h2 id="automatizacion">🛰️ 2. Automatización por API: Enlazando con el mercado</h2>
+      <p>La verdadera revolución de 2026 es la interoperabilidad. Hoy puedes configurar tu lavadora o termo eléctrico para que se inicien automáticamente en la hora más barata del día sin intervención humana. Tu casa "pregunta" los precios de mañana a las 20:15h y planifica los consumos para los momentos de mayor generación renovable. Si quieres estar al tanto de estos horarios, consulta siempre el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz hoy</a>.</p>
+
+
+    `,
+  }
+];

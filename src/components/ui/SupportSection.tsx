@@ -71,14 +71,14 @@ export default function SupportSection() {
             <div className="relative w-full" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-white hover:bg-primary/5 border border-slate-200 hover:border-primary/30 transition-all group"
+                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-surface hover:bg-primary/5 border border-border hover:border-primary/30 transition-all group"
                 >
                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0 group-hover:scale-105 transition-transform">
                         <Heart size={16} className={isOpen ? 'fill-current' : ''} />
                     </div>
                     <div className="flex flex-col text-left flex-1 min-w-0">
-                        <span className="text-[9px] font-bold tracking-widest text-[#64748b] mb-0.5 uppercase">Donación</span>
-                        <span className="text-[12px] font-bold text-[#0f172a] tracking-tight">Apoyar proyecto</span>
+                        <span className="text-[9px] font-bold tracking-widest text-text-muted mb-0.5 uppercase">Donación</span>
+                        <span className="text-[12px] font-bold text-text-primary tracking-tight">Apoyar proyecto</span>
                     </div>
                     <div className={`transition-transform duration-300 pr-1 ${isOpen ? 'rotate-180' : ''}`}>
                         <ChevronDown size={14} className="text-text-muted group-hover:text-text-secondary" />
