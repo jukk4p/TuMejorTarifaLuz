@@ -10,13 +10,14 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata(): Promise<Metadata> {
     const prices = await getElectricityPrices();
     const currentPrice = prices?.current.toFixed(3) || "---";
+    const todayStr = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
     
     return {
-        title: "Precio de la Luz Hoy 2026: Horas más BARATAS y CARAS | TuMejorTarifaLuz",
-        description: `Precio de la luz ahora: ${currentPrice} €/kWh. Consulta las horas más baratas y caras del día de hoy en España. Actualizado en tiempo real desde OMIE.`,
+        title: `Precio de la Luz Hoy en España ${todayStr} — Horas Baratas y Caras | TuMejorTarifaLuz`,
+        description: `Consulta el precio del kWh hora a hora hoy, ${todayStr}, en España. Identifica las horas más baratas del PVPC y programa tus electrodomésticos para ahorrar en tu factura de luz. Precio ahora: ${currentPrice} €/kWh.`,
         openGraph: {
-            title: "Precio de la Luz Hoy 2026: Horas más BARATAS y CARAS",
-            description: `Precio de la luz ahora: ${currentPrice} €/kWh. Consulta las horas más baratas y caras en tiempo real.`,
+            title: `Precio de la Luz Hoy en España ${todayStr}: Horas más BARATAS y CARAS`,
+            description: `Consulta el precio del kWh para hoy ${todayStr}. Identifica las horas más baratas y ahorra en tu factura. Precio ahora: ${currentPrice} €/kWh.`,
             url: "https://tumejortarifaluz.es/precio-luz-hoy",
             siteName: "TuMejorTarifaLuz",
             locale: "es_ES",

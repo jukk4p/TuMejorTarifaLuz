@@ -7,7 +7,9 @@ import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import ElectricityPriceWidget from "@/components/layout/ElectricityPriceWidget";
 import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
-import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart } from "lucide-react";
+import SupportSection from "@/components/ui/SupportSection";
+import SocialProof from "@/components/ui/SocialProof";
+import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -43,90 +45,196 @@ export default async function Home() {
         }
       `}} />
       <Navbar />
-      <JsonLd data={webSiteSchema} />
+      <JsonLd data={{
+        ...webSiteSchema,
+        potentialAction: {
+          "@type": "SearchAction",
+          "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }} />
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Es seguro subir mi factura?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS). Tu factura solo se procesa para extraer datos técnicos; no almacenamos datos personales sensibles ni los vendemos a terceros."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Tengo que pagar por usar el comparador?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Las tarifas están actualizadas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras en menos de 24 horas."
+            }
+          }
+        ]
+      }} />
       <JsonLd data={organizationSchema} />
       <JsonLd data={webAppSchema} />
-      <JsonLd data={faqSchema} />
       <JsonLd data={getBreadcrumbSchema([
         { name: "Inicio", item: "/" },
         { name: "Comparador de Tarifas", item: "/comparador" }
       ])} />
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20 min-h-[70vh] flex items-center bg-gradient-to-br from-background via-primary/5 to-background">
-          {/* Subtle Glow Layer (Static CSS - Inlined for Performance) */}
+        <section className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center bg-gradient-to-br from-background via-primary/5 to-background">
           <div className="hero-glow-1"></div>
           <div className="hero-glow-2"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-white font-body text-xs font-semibold uppercase tracking-widest shadow-lg shadow-primary/20 backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2">
+            <div className="grid lg:grid-cols-[42%_58%] gap-12 lg:gap-24 items-center">
+              <div className="space-y-8 md:space-y-12 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0">
+                  <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    <span className="relative inline-flex rounded-full h-2 md:h-2.5 w-2 md:w-2.5 bg-white"></span>
                   </span>
-                  Motor de comparación 2026 - Actualizado hoy
+                  Motor de comparación 2026 – Actualizado hoy
                 </div>
-                <h1 className="font-heading text-5xl font-bold text-text-primary leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-                  Comparador de <span className="text-primary">tarifas de luz</span> gratis para ahorrar en tu factura
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-900 text-text-primary leading-[1.05] md:leading-[1.02] tracking-tight">
+                  Compara <span className="text-primary italic">tarifas de luz</span> gratis y ahorra
                 </h1>
-                <p className="font-body text-lg font-normal text-text-secondary max-w-xl leading-relaxed mt-4">
-                  Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado sin complicaciones ni llamadas.
+                <p className="font-body text-lg md:text-xl font-normal text-text-secondary max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0">
+                  Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/comparador?mode=upload" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-primary hover:bg-primary-hover text-white font-body font-semibold rounded-xl transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5 text-sm md:text-base">
-                    <CloudUpload size={20} />
-                    Subir mi factura
+                <div className="flex flex-col items-center lg:items-start gap-5 md:gap-6">
+                  <Link 
+                    href="/comparador?mode=upload" 
+                    className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl uppercase tracking-tighter"
+                  >
+                    <CloudUpload size={28} className="md:w-8 md:h-8" />
+                    Subir mi factura y ahorrar
                   </Link>
-                  <Link href="/comparador?mode=manual" className="flex items-center justify-center gap-2 px-6 md:px-8 py-4 bg-surface dark:bg-surface-2 border-2 border-border hover:border-primary/40 text-text-secondary font-body font-semibold rounded-xl transition-all text-sm md:text-base">
-                    Introducir datos manualmente
+                  <Link 
+                    href="/comparador?mode=manual" 
+                    className="text-[10px] md:text-sm font-black text-text-muted hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-2 md:gap-3 italic group"
+                  >
+                    <div className="p-1.5 md:p-2 rounded-lg md:rounded-xl bg-surface-2 group-hover:bg-primary/10 transition-colors">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-70 group-hover:opacity-100 md:w-[18px] md:h-[18px]">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                      </svg>
+                    </div>
+                    <span>o introduce los datos manualmente</span>
                   </Link>
                 </div>
-                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 pt-6 text-center sm:text-left">
-                  <div className="flex -space-x-3">
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6 pt-8 md:pt-10 border-t border-border/40">
+                  <div className="flex -space-x-3 md:-space-x-4">
                     {[
-                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&h=100&auto=format&fit=crop",
-                      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&h=100&auto=format&fit=crop",
-                      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=100&h=100&auto=format&fit=crop"
-                    ].map((src, i) => (
-                      <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-surface overflow-hidden shadow-sm relative z-10 bg-surface-2">
-                        <Image alt="" className="w-full h-full object-cover" src={src} width={40} height={40} quality={60} />
+                      { init: "JP", color: "bg-blue-600 text-white" },
+                      { init: "AM", color: "bg-emerald-600 text-white" },
+                      { init: "CL", color: "bg-amber-500 text-white" }
+                    ].map((avatar, i) => (
+                      <div key={i} className={`w-10 h-10 md:w-14 md:h-14 rounded-full border-[3px] md:border-4 border-surface flex items-center justify-center text-[9px] md:text-[13px] font-black tracking-tighter shadow-xl relative z-10 select-none ${avatar.color}`}>
+                        {avatar.init}
                       </div>
                     ))}
                   </div>
-                  <p className="text-[10px] md:text-sm text-text-secondary max-w-[250px] sm:max-w-none">
-                    Forma parte de la comunidad de <span className="font-bold text-text-primary underline decoration-border underline-offset-4">miles de familias</span> que ya han tomado el control de su gasto energético.
+                  <p className="text-xs md:text-base text-text-secondary max-w-[240px] md:max-w-none leading-tight font-bold">
+                    Únete a las <SocialProof count={3891} /> que ya han tomado el control de su ahorro este mes.
                   </p>
                 </div>
               </div>
 
-              <div className="relative lg:block hidden perspective-1000">
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-accent-bg rounded-full blur-3xl"></div>
-                <div className="relative premium-card premium-3d-card overflow-hidden !border-8 !border-surface rounded-[2.5rem]">
-                  <Image
-                    alt="Familia real ahorrando en su moderna cocina con Tu Mejor Tarifa Luz"
-                    className="w-full aspect-[4/3] object-cover scale-105"
-                    src="/family-kitchen.webp"
-                    width={800}
-                    height={600}
-                    priority={true}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                  />
-                  <div className="absolute bottom-6 left-6 right-6 p-5 bg-surface backdrop-blur-md rounded-2xl shadow-2xl border border-border">
-                    <div className="flex items-center gap-4">
-                      <div className="p-4 bg-accent/20 rounded-2xl text-accent flex items-center justify-center shrink-0">
-                        <TrendingDown size={32} className="text-primary" />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-[10px] font-bold text-text-muted tracking-[0.15em]">Ahorro medio anual</p>
-                        <p className="font-heading text-4xl font-bold text-text-primary tracking-tight flex items-baseline gap-2">
-                          312,00€ <span className="text-[12px] font-bold text-savings uppercase tracking-wider">(-38%)</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+              <div className="relative group/hero-img py-6 md:py-12">
+                {/* Visual Backdrop Glows */}
+                <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
+                <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
+                
+                <div className="relative bg-white rounded-3xl md:rounded-[3rem] shadow-2.5xl md:shadow-[0_48px_96px_-16px_rgba(0,0,0,0.12)] border border-border/40 overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto">
+                   {/* Card Header */}
+                   <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between">
+                     <div className="space-y-1 md:space-y-1.5">
+                        <p className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-[0.25em]">Tu potencial de</p>
+                        <p className="text-xs sm:text-sm md:text-[18px] font-black text-text-primary uppercase tracking-[0.12em]">Ahorro real</p>
+                     </div>
+                     <div className="px-3 md:px-4 py-1.5 md:py-2 bg-savings/10 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5">
+                        <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-savings rounded-full animate-pulse"></div>
+                        <span className="text-[9px] md:text-[11px] font-black text-savings uppercase tracking-widest">Optimizado hoy</span>
+                     </div>
+                   </div>
+
+                   <div className="w-full h-px bg-border/40"></div>
+
+                   {/* Main Comparison Area */}
+                   <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
+                     <div className="flex items-center justify-between gap-3 sm:gap-6 relative">
+                        {/* Current Tariff */}
+                        <div className="flex-1 space-y-3 md:space-y-5">
+                           <p className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-widest">Tarifa actual</p>
+                           <div className="space-y-0.5 md:space-y-1">
+                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-text-primary leading-none">Iberdrola</p>
+                              <p className="text-[10px] md:text-[13px] text-text-muted font-bold tracking-tight">Plan Estable</p>
+                           </div>
+                           <div className="flex items-baseline gap-1 md:gap-1.5">
+                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-text-primary tracking-tight">0,162</span>
+                              <span className="text-[9px] md:text-sm font-bold text-text-muted opacity-60">€/kWh*</span>
+                           </div>
+                        </div>
+
+                        {/* Arrow Divider */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-2 md:mt-5">
+                           <div className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-xl md:shadow-2xl shadow-primary/30 z-10 transition-transform hover:scale-110">
+                              <ArrowRight size={20} className="md:w-8 md:h-8 stroke-[3]" />
+                           </div>
+                        </div>
+
+                        {/* Recommended Tariff */}
+                        <div className="flex-1 space-y-3 md:space-y-5 text-right">
+                           <p className="text-[9px] md:text-[11px] font-black text-savings uppercase tracking-widest">Recomendada</p>
+                           <div className="space-y-0.5 md:space-y-1">
+                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-savings leading-none">Visalia</p>
+                              <p className="text-[10px] md:text-[13px] text-text-muted font-bold tracking-tight">Luz Fijo 24h</p>
+                           </div>
+                           <div className="flex items-baseline gap-1 md:gap-1.5 justify-end">
+                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-savings tracking-tight">0,098</span>
+                              <span className="text-[9px] md:text-sm font-bold text-text-muted opacity-60">€/kWh*</span>
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* Savings Box */}
+                     <div className="bg-savings/5 border border-savings/25 rounded-2xl md:rounded-[2.5rem] p-5 sm:p-8 md:p-10 flex items-center justify-between gap-4 md:gap-8 relative overflow-hidden group/savings">
+                        <div className="absolute inset-0 bg-gradient-to-r from-savings/5 to-transparent -translate-x-full group-hover/savings:translate-x-full transition-transform duration-1000"></div>
+                        <div className="space-y-1.5 md:space-y-2.5 relative z-10">
+                           <p className="text-[9px] md:text-[11px] font-black text-text-secondary uppercase tracking-widest leading-none">Ahorro estimado anual</p>
+                           <p className="text-2xl sm:text-4xl md:text-5xl font-900 text-savings tracking-tighter flex items-baseline gap-2 md:gap-3">
+                              339€ <span className="text-sm sm:text-xl md:text-2xl text-savings/60 font-black">/ año</span>
+                           </p>
+                        </div>
+                        <div className="px-3 md:px-6 py-2.5 md:py-5 bg-savings/15 border border-savings/30 rounded-xl md:rounded-3xl text-center flex flex-col shrink-0 min-w-[70px] md:min-w-[110px] relative z-10 shadow-lg shadow-savings/5">
+                           <span className="text-lg sm:text-2xl md:text-3xl font-900 text-savings leading-none">-45%</span>
+                           <span className="text-[8px] md:text-[11px] font-black text-savings uppercase tracking-tighter pt-1 md:pt-1.5 opacity-80">en gasto</span>
+                        </div>
+                     </div>
+                   </div>
+
+                   {/* Card Footer */}
+                   <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-border/5 border-t border-border/40 mt-auto flex items-center justify-between">
+                     <div className="flex items-center gap-2 md:gap-3">
+                        <div className="w-6 md:w-8 h-6 md:h-8 rounded-full bg-text-muted/10 flex items-center justify-center">
+                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted" />
+                        </div>
+                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">Basado en tu perfil de consumo real</p>
+                     </div>
+                     <div className="px-4 md:px-6 py-2 md:py-3 bg-text-muted/10 rounded-xl md:rounded-2xl border border-border/40 shadow-inner">
+                        <span className="text-[9px] md:text-[11px] font-black text-text-muted uppercase tracking-[0.15em] opacity-30">Ver oferta</span>
+                     </div>
+                   </div>
                 </div>
               </div>
             </div>
@@ -134,11 +242,90 @@ export default async function Home() {
         </section>
 
         {/* Electricity Price Widget */}
-        <section className="py-8 md:py-12 bg-background overflow-hidden">
+        <section className="py-8 md:py-12 bg-background overflow-hidden border-b border-border/40">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <Suspense fallback={<ElectricityPriceSkeleton />}>
               <ElectricityPriceWidget />
             </Suspense>
+          </div>
+        </section>
+
+        {/* Support & Independence Section */}
+        <section className="py-24 bg-white relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+              
+              {/* Left Side: Brand & Mission */}
+              <div className="space-y-12">
+                <div className="inline-flex items-center gap-4 p-2 bg-[#F3F9FF] rounded-2xl border border-primary/5 pr-6">
+                  <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+                    <Heart size={24} className="fill-current" />
+                  </div>
+                  <div className="space-y-0.5">
+                    <h2 className="text-lg font-900 text-primary">Misión independencia</h2>
+                    <p className="text-[10px] font-black text-primary/60 uppercase tracking-[0.2em]">Tu ahorro es nuestro compromiso</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-6">
+                  <h3 className="text-4xl md:text-5xl font-900 text-text-primary leading-[1.1] tracking-tight">
+                    Un comparador <span className="text-primary italic">libre de intereses</span> para familias reales
+                  </h3>
+                  <p className="text-lg text-text-secondary leading-relaxed font-medium">
+                    TuMejorTarifaLuz nació con un propósito claro: democratizar el acceso a la energía barata sin intereses comerciales. <strong>No pertenecemos a ninguna eléctrica</strong> — nos sostenemos únicamente con donaciones voluntarias de usuarios satisfechos como tú.
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    {["Sin comisiones", "Sin publicidad", "Sin afiliados", "100% gratuito"].map((chip) => (
+                      <div key={chip} className="inline-flex items-center gap-2 px-4 py-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-full">
+                        <div className="w-1.5 h-1.5 bg-primary/40 rounded-full"></div>
+                        <span className="text-[11px] font-bold text-text-secondary uppercase tracking-widest">{chip}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Quote & Donation */}
+              <div className="space-y-8">
+                {/* Quote Card */}
+                <div className="bg-[#F8FAFC]/50 border border-[#E2E8F0] p-8 md:p-10 rounded-[2.5rem] space-y-8">
+                  <div className="text-primary opacity-30">
+                    <HistoryIcon size={24} className="rotate-180" />
+                  </div>
+                  <p className="text-lg font-bold text-text-secondary italic leading-relaxed">
+                    Si el comparador te ha ahorrado dinero, tu donación ayuda a que más familias puedan seguir usando este servicio gratuito y sin publicidad.
+                  </p>
+                  <div className="flex items-center gap-3 pt-2">
+                    <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
+                      TM
+                    </div>
+                    <p className="text-xs font-bold text-text-muted">
+                      — Equipo TuMejorTarifaLuz
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Donation Card */}
+                <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
+                  <div className="px-8 pt-8 pb-6 border-b border-[#E2E8F0]/60">
+                    <div className="space-y-1 text-center sm:text-left">
+                      <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">Apoya el proyecto</p>
+                      <p className="text-lg font-900 text-text-primary">Si te ha ahorrado dinero, devuelve un poco</p>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <SupportSection />
+                  </div>
+                  <div className="px-8 py-5 bg-white/50 border-t border-[#E2E8F0]/40 flex justify-center text-center">
+                    <p className="text-[10px] font-bold text-text-muted/60 uppercase tracking-[0.05em]">
+                      Pago seguro · Sin suscripción · Gracias por apoyar
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
@@ -271,7 +458,7 @@ export default async function Home() {
                   <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
                   <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
-                    <Image src={post.image} alt={post.imageAlt} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
                   <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
@@ -411,7 +598,7 @@ export default async function Home() {
                 { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-110", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
-                  <div className="w-full aspect-[16/9] bg-surface rounded-2xl p-4 flex items-center justify-center premium-card !shadow-sm group-hover:!shadow-xl transition-all duration-300 border border-border group-hover:border-primary/30 group-hover:-translate-y-1">
+                  <div className="w-full aspect-[2/1] bg-white rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border border-border group-hover:border-primary/40 group-hover:-translate-y-1">
                     {brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />

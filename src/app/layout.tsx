@@ -147,6 +147,11 @@ export default function RootLayout({
                   "name": "TuMejorTarifaLuz",
                   "publisher": {
                     "@id": "https://tumejortarifaluz.es/#organization"
+                  },
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
                   }
                 }
               ]
