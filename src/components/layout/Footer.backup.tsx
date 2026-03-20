@@ -76,14 +76,14 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-surface text-text-secondary pt-20 pb-10 transition-colors duration-300 border-t border-border">
+        <footer className="bg-background text-text-secondary pt-20 pb-10 transition-colors duration-300 border-t border-border/50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Badge: Proyecto Independiente */}
                 <div className="flex justify-center md:justify-start mb-10">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/5 border-l-4 border-accent rounded-r-[6px] shadow-sm">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/5 border-[0.5px] border-accent/20 rounded-[6px] shadow-sm">
                         <Heart size={14} className="text-accent" fill="currentColor" />
                         <span className="text-[11px] font-bold text-accent tracking-tight">
-                            Proyecto 100% independiente y gratuito – ¡Apóyanos para seguir creciendo!
+                            Proyecto 100% independiente y gratuito
                         </span>
                     </div>
                 </div>
@@ -169,7 +169,7 @@ export default function Footer() {
                             ))}
 
                             {/* Integrated Support Section - Desktop only */}
-                            <div className="hidden lg:block mt-4 pt-6 border-t border-border">
+                            <div className="hidden lg:block mt-4 pt-6 border-t border-border/50">
                                 <SupportSection />
                             </div>
                         </div>
@@ -197,7 +197,7 @@ export default function Footer() {
 
                             {/* Contact Mini-cards - perfectly aligned with Col 3 support card on desktop */}
                             <div className="mt-4 pt-6 border-t border-border flex flex-col gap-2 lg:gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-background hover:bg-primary/5 hover:border-primary/30 transition-all border border-border min-w-0 group shadow-sm">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface hover:bg-primary/5 hover:border-primary/30 transition-all border border-border min-w-0 group">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
@@ -206,7 +206,7 @@ export default function Footer() {
                                         <span className="text-[12px] font-bold text-text-primary tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-background border border-border min-w-0 group hover:bg-primary/5 transition-all shadow-sm">
+                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-surface border border-border min-w-0 group hover:bg-primary/5 transition-all">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
@@ -221,9 +221,13 @@ export default function Footer() {
 
                     {/* Independent Support Section - Mobile only */}
                     <div className="lg:hidden">
-                        <div className="mt-4 border-t border-border pt-6 overflow-hidden">
+                        <FooterSection 
+                            title="APOYA EL PROYECTO" 
+                            isOpen={openSection === 'apoyo'} 
+                            onToggle={() => toggleSection('apoyo')}
+                        >
                             <SupportSection />
-                        </div>
+                        </FooterSection>
                     </div>
                 </div>
 

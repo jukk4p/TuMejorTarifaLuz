@@ -63,15 +63,10 @@ export default function SupportSection() {
         }
     ];
     return (
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full">
-            <p className="text-[13px] leading-relaxed max-w-sm mt-4 mb-7 text-text-muted italic">
-                ¡Apóyanos para seguir creciendo!
-            </p>
-
-            <div className="relative w-full" ref={dropdownRef}>
+        <div className="relative w-full" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-surface hover:bg-primary/5 border border-border hover:border-primary/30 transition-all group"
+                    className="w-full h-[56px] flex items-center gap-3 p-2.5 rounded-2xl bg-background hover:bg-primary/5 border border-border hover:border-primary/30 transition-all group shadow-sm"
                 >
                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20 shrink-0 group-hover:scale-105 transition-transform">
                         <Heart size={16} className={isOpen ? 'fill-current' : ''} />
@@ -115,6 +110,5 @@ export default function SupportSection() {
                     </div>
                 )}
             </div>
-        </div>
     );
 }

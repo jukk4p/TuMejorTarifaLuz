@@ -389,17 +389,17 @@ export default function ComparadorMain() {
         if (!isProcessing) return;
 
         if (isAiGenerated && step === "input") {
-            if (analysisProgress < 20) setAnalysisStatus("Iniciando visión avanzada...");
-            else if (analysisProgress < 40) setAnalysisStatus("Leyendo estructura de factura...");
-            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo parámetros técnicos...");
-            else if (analysisProgress < 85) setAnalysisStatus("Validando datos con modelo energético...");
-            else setAnalysisStatus("Sincronizando con mercado eléctrico...");
+            if (analysisProgress < 20) setAnalysisStatus("Activando motor de visión artificial...");
+            else if (analysisProgress < 40) setAnalysisStatus("Identificando estructura y conceptos...");
+            else if (analysisProgress < 60) setAnalysisStatus("Extrayendo potencias y consumos con IA...");
+            else if (analysisProgress < 85) setAnalysisStatus("Validando tramos con normativa vigente...");
+            else setAnalysisStatus("Construyendo tu propuesta de ahorro definitiva...");
         } else {
-            if (analysisProgress < 20) setAnalysisStatus("Mapeando parámetros eléctricos");
-            else if (analysisProgress < 40) setAnalysisStatus("Procesando potencia contratada");
-            else if (analysisProgress < 60) setAnalysisStatus("Calculando ahorro en tiempo real");
-            else if (analysisProgress < 80) setAnalysisStatus("Comparando con 25+ tarifas");
-            else setAnalysisStatus("Sincronizando con mercado mayorista");
+            if (analysisProgress < 20) setAnalysisStatus("Iniciando análisis energético experto...");
+            else if (analysisProgress < 40) setAnalysisStatus("Calculando costes fijos y variables...");
+            else if (analysisProgress < 60) setAnalysisStatus("Maximizando potencial de ahorro...");
+            else if (analysisProgress < 80) setAnalysisStatus("Escaneando mercado (25+ tarifas)...");
+            else setAnalysisStatus("Generando tu comparativa personalizada...");
         }
     }, [analysisProgress, isProcessing, isAiGenerated, step]);
 
@@ -712,6 +712,17 @@ export default function ComparadorMain() {
         <div className="min-h-screen bg-background text-text-primary font-display">
             {/* Global Print Optimization Styles */}
             <style jsx global>{`
+                /* Final Boss Spinner Removal */
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none !important;
+                    margin: 0 !important;
+                }
+                input[type=number] {
+                    -moz-appearance: textfield !important;
+                    appearance: none !important;
+                }
+
                 @media print {
                     nav, footer, .no-print, button, a[href^="tel:"], .auth-modal {
                         display: none !important;
@@ -747,24 +758,54 @@ export default function ComparadorMain() {
 
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
-                <div className="bg-surface border-b border-border py-4">
-                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-around sm:justify-center gap-1.5 sm:gap-8 overflow-x-auto no-scrollbar">
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "input" ? "text-primary" : "text-text-muted"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "input" ? "bg-primary text-white" : "bg-surface-2"}`}>1</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Carga</span>
+                <div className="bg-surface/80 backdrop-blur-xl sticky top-20 z-40 border-b border-border/50 py-5">
+                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-4 sm:gap-12 overflow-x-auto no-scrollbar">
+                        
+                        {/* Step 1: Carga */}
+                        <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "input" ? "scale-105 opacity-100" : "opacity-60"}`}>
+                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "input" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50"}`}>
+                                1
+                            </div>
+                            <div className="flex flex-col">
+                                <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "input" ? "text-text-primary" : "text-text-muted"}`}>Carga</span>
+                            </div>
                         </div>
-                        <div className="w-3 sm:w-8 h-[1px] bg-border shrink-0"></div>
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "validation" ? "text-primary" : "text-text-muted"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "validation" ? "bg-primary text-white" : "bg-surface-2"}`}>2</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">
-                                <span className="hidden sm:inline">Validación factura</span>
-                                <span className="inline sm:hidden">Validación</span>
-                            </span>
+
+                        {/* Separator 1 */}
+                        {inputMethod !== "manual" && (
+                            <div className="w-1.5 sm:w-16 h-[2px] bg-border/40 rounded-full shrink-0 relative overflow-hidden">
+                                <div className={`absolute inset-0 bg-gradient-to-r from-primary to-primary-hover transition-all duration-1000 ${step === "validation" || step === "results" ? "w-full" : "w-0"}`}></div>
+                            </div>
+                        )}
+
+                        {/* Middle Step: Only for Upload Method */}
+                        {inputMethod !== "manual" && (
+                            <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "validation" ? "scale-105 opacity-100" : "opacity-60"}`}>
+                                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "validation" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50 font-bold"}`}>
+                                    2
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "validation" ? "text-text-primary" : "text-text-muted"}`}>
+                                        <span className="hidden sm:inline">Validación</span>
+                                        <span className="inline sm:hidden">Revisión</span>
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Separator 2 */}
+                        <div className="w-1.5 sm:w-16 h-[2px] bg-border/40 rounded-full shrink-0 relative overflow-hidden">
+                            <div className={`absolute inset-0 bg-gradient-to-r from-primary to-primary-hover transition-all duration-1000 ${step === "results" ? "w-full" : "w-0"}`}></div>
                         </div>
-                        <div className="w-3 sm:w-8 h-[1px] bg-border shrink-0"></div>
-                        <div className={`flex items-center gap-1.5 sm:gap-2 shrink-0 ${step === "results" ? "text-primary" : "text-text-muted"}`}>
-                            <span className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold ${step === "results" ? "bg-primary text-white" : "bg-surface-2"}`}>3</span>
-                            <span className="text-[9.5px] sm:text-xs font-bold tracking-tight sm:tracking-wider whitespace-nowrap">Comparación</span>
+
+                        {/* Final Step: Comparación */}
+                        <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "results" ? "scale-105 opacity-100" : "opacity-60"}`}>
+                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "results" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50 font-bold"}`}>
+                                {inputMethod === "manual" ? "2" : "3"}
+                            </div>
+                            <div className="flex flex-col">
+                                <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "results" ? "text-text-primary" : "text-text-muted"}`}>Comparación</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -834,8 +875,8 @@ export default function ComparadorMain() {
 
                 {step === "input" && inputMethod && (
                     <div className="flex flex-col lg:flex-row gap-8 animate-in fade-in duration-500">
-                        <aside className="w-full lg:w-[400px] shrink-0 space-y-6">
-                            <div className="premium-card p-6">
+                        <aside className="w-full lg:w-[400px] shrink-0 flex flex-col">
+                            <div className="premium-card p-6 flex-1 h-full flex flex-col shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-primary/30">
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
@@ -887,24 +928,24 @@ export default function ComparadorMain() {
 
                                             <div className="space-y-5">
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <div className="flex-1 space-y-1">
-                                                        <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">Días</p>
+                                                    <div className="space-y-1.5 flex-1">
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Días</label>
                                                         <input
                                                             type="number"
                                                             value={input.days || ''}
                                                             onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
-                                                            className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm font-bold focus:border-primary transition-all outline-none"
-                                                            placeholder="Ej: 30"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            placeholder="30"
                                                         />
                                                     </div>
-                                                    <div className="flex-1 space-y-1">
-                                                        <p className="text-[10px] font-black uppercase tracking-widest text-text-muted">Total (€)</p>
+                                                    <div className="space-y-1.5 flex-1">
+                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Total (€)</label>
                                                         <input
                                                             type="number"
                                                             value={input.current_bill_total || ''}
                                                             onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
-                                                            className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-sm font-bold focus:border-primary transition-all outline-none"
-                                                            placeholder="Ej: 65.50"
+                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            placeholder="0.00"
                                                         />
                                                     </div>
                                                 </div>
@@ -984,9 +1025,9 @@ export default function ComparadorMain() {
                             </div>
                         </aside>
 
-                            <section className="flex-1 space-y-6">
+                            <section className="flex-1 flex flex-col space-y-6">
                             {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
-                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] group !border-none !shadow-2xl">
+                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/10 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/15 transition-colors duration-700"></div>
 
@@ -1020,7 +1061,7 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : isProcessing ? (
-                                <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[550px] !border-none !shadow-2xl bg-gradient-to-br from-surface/95 to-surface-2/95">
+                                <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] !border-none !shadow-2xl bg-gradient-to-br from-surface/95 to-surface-2/95">
                                     {/* Animated Background Grid */}
                                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
                                         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #137fec 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
@@ -1036,12 +1077,12 @@ export default function ComparadorMain() {
                                         {/* === MAIN ORB LOADER === */}
                                         <div className="relative w-44 h-44 md:w-52 md:h-52 mb-8">
                                             {/* Outer pulse rings */}
-                                            <div className={`absolute inset-0 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-10 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`}></div>
-                                            <div className={`absolute -inset-3 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-5 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`} style={{animationDelay: '0.5s'}}></div>
+                                            <div className={`absolute inset-0 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-10 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`}></div>
+                                            <div className={`absolute -inset-3 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-5 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`} style={{animationDelay: '0.5s'}}></div>
                                             
                                             {/* Spinning arc rings */}
                                             <svg className="absolute inset-0 w-full h-full animate-[spin_4s_linear_infinite]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="95" fill="none" strokeWidth="1.5" strokeDasharray="60 200" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-primary/40' : loaderStage === 1 ? 'stroke-amber-400/40' : loaderStage === 2 ? 'stroke-emerald-500/40' : 'stroke-violet-500/40'}`} />
+                                                <circle cx="100" cy="100" r="95" fill="none" strokeWidth="1.5" strokeDasharray="60 200" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage < 2 ? 'stroke-primary/40' : 'stroke-accent/40'}`} />
                                             </svg>
                                             <svg className="absolute inset-0 w-full h-full animate-[spin_3s_linear_infinite_reverse]" viewBox="0 0 200 200">
                                                 <circle cx="100" cy="100" r="85" fill="none" strokeWidth="1" strokeDasharray="40 180" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-violet-500/30' : loaderStage === 1 ? 'stroke-primary/30' : loaderStage === 2 ? 'stroke-amber-400/30' : 'stroke-emerald-500/30'}`} />
@@ -1054,16 +1095,16 @@ export default function ComparadorMain() {
                                             <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] -rotate-90" viewBox="0 0 200 200">
                                                 <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" className="stroke-surface-2" />
                                                 <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" strokeLinecap="round"
-                                                    className={`transition-all duration-500 ease-out ${loaderStage === 0 ? 'stroke-primary' : loaderStage === 1 ? 'stroke-warning' : loaderStage === 2 ? 'stroke-accent' : 'stroke-violet-500'}`}
+                                                    className={`transition-all duration-500 ease-out ${loaderStage < 2 ? 'stroke-primary' : 'stroke-accent'}`}
                                                     strokeDasharray={`${analysisProgress * 5.65} 565`}
-                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage === 0 ? 'var(--color-primary)' : loaderStage === 1 ? 'var(--color-warning)' : loaderStage === 2 ? 'var(--color-accent)' : '#8b5cf6'})`}}
+                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage < 2 ? 'var(--color-primary)' : 'var(--color-accent)'})`}}
                                                 />
                                             </svg>
 
                                             {/* Central icon hub */}
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className={`w-24 h-24 md:w-28 md:h-28 rounded-[2rem] backdrop-blur-xl flex items-center justify-center transition-all duration-700 border shadow-2xl ${loaderStage === 0 ? 'bg-primary/5 border-primary/20 shadow-primary/10' : loaderStage === 1 ? 'bg-amber-400/5 border-amber-400/20 shadow-amber-400/10' : loaderStage === 2 ? 'bg-emerald-500/5 border-emerald-500/20 shadow-emerald-500/10' : 'bg-violet-500/5 border-violet-500/20 shadow-violet-500/10'}`}>
-                                                    <div key={`icon-${loaderStage}`} className={`animate-in zoom-in-75 fade-in duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning' : loaderStage === 2 ? 'text-emerald-500' : 'text-violet-500'}`}>
+                                                <div className={`w-24 h-24 md:w-28 md:h-28 rounded-[2rem] backdrop-blur-xl flex items-center justify-center transition-all duration-700 border shadow-2xl ${loaderStage < 2 ? 'bg-primary/5 border-primary/20 shadow-primary/10' : 'bg-accent/5 border-accent/20 shadow-accent/10'}`}>
+                                                    <div key={`icon-${loaderStage}`} className={`animate-in zoom-in-75 fade-in duration-500 ${loaderStage < 2 ? 'text-primary' : 'text-accent'}`}>
                                                         {isAiGenerated && step === "input" ? (
                                                             loaderStage === 0 ? <Search className="w-10 h-10 md:w-12 md:h-12" /> :
                                                             loaderStage === 1 ? <FileText className="w-10 h-10 md:w-12 md:h-12" /> :
@@ -1081,7 +1122,7 @@ export default function ComparadorMain() {
 
                                             {/* Floating orbital dots */}
                                             {[0, 1, 2, 3, 4, 5].map((i) => (
-                                                <div key={i} className={`absolute w-1.5 h-1.5 rounded-full transition-all duration-700 ${loaderStage === 0 ? 'bg-primary' : loaderStage === 1 ? 'bg-amber-400' : loaderStage === 2 ? 'bg-emerald-500' : 'bg-violet-500'}`}
+                                                <div key={i} className={`absolute w-1.5 h-1.5 rounded-full transition-all duration-700 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`}
                                                     style={{
                                                         top: `${50 + 48 * Math.sin((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
                                                         left: `${50 + 48 * Math.cos((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
@@ -1096,7 +1137,7 @@ export default function ComparadorMain() {
                                         {/* === Percentage + Title === */}
                                         <div className="mb-6">
                                             <div className="flex items-center justify-center gap-3 mb-2">
-                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage === 0 ? 'text-primary' : loaderStage === 1 ? 'text-warning-text' : loaderStage === 2 ? 'text-savings' : 'text-violet-500'}`}>
+                                                <span className={`font-mono text-5xl font-black tracking-tighter transition-colors duration-500 ${loaderStage < 2 ? 'text-primary' : 'text-accent'}`}>
                                                     {Math.round(analysisProgress)}
                                                 </span>
                                                 <span className="text-xl font-black text-text-muted">%</span>
@@ -1114,15 +1155,15 @@ export default function ComparadorMain() {
                                         {/* === Step Indicators === */}
                                         <div className="flex items-center gap-1.5 mb-6">
                                             {[
-                                                { label: 'Mapeo', icon: <Terminal size={11} /> },
+                                                { label: 'Análisis', icon: <Terminal size={11} /> },
                                                 { label: 'Cálculo', icon: <Zap size={11} /> },
-                                                { label: 'Ahorro', icon: <TrendingDown size={11} /> },
+                                                { label: 'Optimiza', icon: <TrendingDown size={11} /> },
                                                 { label: 'Mercado', icon: <ArrowLeftRight size={11} /> },
-                                                { label: 'Sync', icon: <CheckCircle2 size={11} /> },
+                                                { label: 'Resultado', icon: <CheckCircle2 size={11} /> },
                                             ].map((s, i) => (
                                                 <div key={i} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider transition-all duration-500 ${
                                                     i < loaderStage ? 'bg-accent-bg text-accent border border-accent/20' :
-                                                    i === loaderStage ? `border shadow-sm ${loaderStage === 0 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : loaderStage === 1 ? 'bg-warning/10 text-warning-text border-warning/30 shadow-warning/10' : loaderStage === 2 ? 'bg-accent-bg text-accent-bg-text border-accent/30 shadow-accent/10' : 'bg-violet-500/10 text-violet-600 border-violet-500/30 shadow-violet-500/10'}` :
+                                                    i === loaderStage ? `border shadow-sm ${loaderStage < 2 ? 'bg-primary/10 text-primary border-primary/30 shadow-primary/10' : 'bg-accent-bg text-accent-bg-text border-accent/30 shadow-accent/10'}` :
                                                     'bg-surface-2 text-text-muted border border-border'
                                                 }`}>
                                                     {i < loaderStage ? <CheckCircle2 size={11} className="text-emerald-500" /> : s.icon}
@@ -1135,8 +1176,8 @@ export default function ComparadorMain() {
                                         <div className="w-full max-w-xs mb-4">
                                             <div className="h-1.5 bg-surface-2 rounded-full overflow-hidden">
                                                 <div
-                                                    className={`h-full rounded-full transition-all duration-300 ease-out ${loaderStage === 0 ? 'bg-gradient-to-r from-primary to-primary/70' : loaderStage === 1 ? 'bg-gradient-to-r from-primary via-warning to-warning/70' : loaderStage === 2 ? 'bg-gradient-to-r from-accent to-accent/70' : 'bg-gradient-to-r from-violet-500 via-violet-400 to-violet-300'}`}
-                                                    style={{ width: `${analysisProgress}%`, boxShadow: `0 0 12px ${loaderStage === 0 ? 'var(--color-primary)' : loaderStage === 1 ? 'var(--color-warning)' : loaderStage === 2 ? 'var(--color-accent)' : '#8b5cf644'}` }}
+                                                    className={`h-full rounded-full transition-all duration-300 ease-out ${loaderStage < 2 ? 'bg-gradient-to-r from-primary to-primary/80' : 'bg-gradient-to-r from-accent to-accent/80'}`}
+                                                    style={{ width: `${analysisProgress}%`, boxShadow: `0 0 12px ${loaderStage < 2 ? 'var(--color-primary)' : 'var(--color-accent)'}` }}
                                                 ></div>
                                             </div>
                                         </div>
@@ -1150,7 +1191,7 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center min-h-[500px] group !border-none !shadow-2xl">
+                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/5 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/10 transition-colors duration-700"></div>
 
@@ -1169,23 +1210,23 @@ export default function ComparadorMain() {
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-12 max-w-md mx-auto">
-                                            <div className="space-y-3 group/item">
+                                            <div className="space-y-3 group/item text-center">
                                                 <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
-                                                    <Activity className="w-6 h-6 text-text-muted group-hover/item:text-primary transition-colors" />
+                                                    <Activity className="w-6 h-6 text-slate-400/60 group-hover/item:text-primary transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted">Análisis</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Análisis</p>
                                             </div>
-                                            <div className="space-y-3 group/item">
+                                            <div className="space-y-3 group/item text-center">
                                                 <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-accent-bg transition-colors">
-                                                    <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover/item:text-accent transition-colors" />
+                                                    <CheckCircle2 className="w-6 h-6 text-slate-400/60 group-hover/item:text-accent transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Verificación</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Verificación</p>
                                             </div>
-                                            <div className="space-y-3 group/item">
+                                            <div className="space-y-3 group/item text-center">
                                                 <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-warning/10 transition-colors">
-                                                    <PiggyBank className="w-6 h-6 text-slate-400 group-hover/item:text-warning transition-colors" />
+                                                    <TrendingDown className="w-6 h-6 text-slate-400/60 group-hover/item:text-warning transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Ahorro</p>
+                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Ahorro</p>
                                             </div>
                                         </div>
                                     </div>
