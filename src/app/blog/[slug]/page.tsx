@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <JsonLd data={{
                     "@context": "https://schema.org",
                     "@type": "FAQPage",
-                    "mainEntity": post.faqData.map(faq => ({
+                    "mainEntity": post.faqData.map((faq: { question: string; answer: string }) => ({
                         "@type": "Question",
                         "name": faq.question,
                         "acceptedAnswer": {
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             <div>
                                 <p className="text-sm font-900 text-text-primary">{post.author.name}</p>
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                    Experto en Energía & Mercados Eléctricos
+                                    Especialista en Ahorro Energético
                                 </p>
                             </div>
                         </div>
