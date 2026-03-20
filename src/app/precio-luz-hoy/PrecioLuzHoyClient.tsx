@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import PriceClock from "./PriceClock";
-import { ElectricityPriceData } from "@/lib/electricity-prices";
+import { ElectricityPriceData } from "@/lib/energy-prices";
 
 interface BetterPriceData extends ElectricityPriceData {
     pricesArray: {
