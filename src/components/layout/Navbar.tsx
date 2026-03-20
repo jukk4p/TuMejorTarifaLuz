@@ -46,7 +46,10 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50 transition-all duration-300">
+        <nav 
+            className="sticky top-0 z-50 backdrop-blur-md border-b border-border/50 transition-all duration-300"
+            style={{ background: 'var(--color-section-white)' }}
+        >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
@@ -231,14 +234,14 @@ export default function Navbar() {
                 className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] shadow-[0_0_50px_rgba(0,0,0,0.5)] transform transition-all duration-500 ease-out border-l border-border/50 ${isDrawerOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`}
                 style={{ 
                     zIndex: 9999, 
-                    backgroundColor: theme === 'dark' ? '#0F1923' : '#ffffff',
+                    backgroundColor: 'var(--color-section-white)',
                     opacity: 1
                 }}
             >
                 <div className="flex flex-col h-full">
                     {/* Header */}
                     <div className="p-6 flex items-center justify-between border-b border-border">
-                        <span className="text-lg font-900 text-text-primary">Menú</span>
+                        <span className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Menú</span>
                         <button 
                             className="p-2 text-text-muted hover:text-text-primary transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
                             onClick={() => setIsDrawerOpen(false)}
@@ -260,8 +263,8 @@ export default function Navbar() {
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-black text-text-primary truncate">{user.displayName || user.email?.split('@')[0]}</p>
-                                    <p className="text-[10px] text-text-muted truncate">{user.email}</p>
+                                    <p className="text-sm font-black truncate" style={{ color: 'var(--color-text-heading)' }}>{user.displayName || user.email?.split('@')[0]}</p>
+                                    <p className="text-[10px] truncate" style={{ color: 'var(--color-text-muted)' }}>{user.email}</p>
                                 </div>
                                 <button 
                                     onClick={() => { setIsDrawerOpen(false); logout(); }}
@@ -297,7 +300,8 @@ export default function Navbar() {
                         )}
                         <Link 
                             href="/comparador" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            style={{ color: 'var(--color-text-body)' }}
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Comparador <ChevronRight size={18} className="text-primary" />
@@ -306,7 +310,8 @@ export default function Navbar() {
                         {/* Mobile Accordion - Companies */}
                         <div className="space-y-2">
                             <button 
-                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30 text-text-primary' : 'bg-surface-2 text-text-primary border-transparent'}`}
+                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30' : 'bg-surface-2 border-transparent'}`}
+                                style={{ color: 'var(--color-text-body)' }}
                                 onClick={() => setIsCompaniesOpen(!isCompaniesOpen)}
                             >
                                 Compañías <ChevronDown size={18} className={`text-primary transition-transform duration-300 ${isCompaniesOpen ? 'rotate-180' : ''}`} />

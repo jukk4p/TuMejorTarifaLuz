@@ -83,7 +83,8 @@ export default function TarifasClient() {
         const input = tariff.type.includes('1 Periodo') 
             ? { ...estimationInput, energy_p1: 250, energy_p2: 0, energy_p3: 0 }
             : estimationInput;
-        return calculateTariffCost(tariff, input).total;
+        const result = calculateTariffCost(tariff, input);
+        return showWithTaxes ? result.total : result.subtotal;
     };
 
     const sortedAndFilteredTariffs = useMemo(() => {
@@ -109,7 +110,7 @@ export default function TarifasClient() {
         }
 
         return result;
-    }, [tariffs, search, filterType, selectedCompany, sortBy]);
+    }, [tariffs, search, filterType, selectedCompany, sortBy, showWithTaxes]);
 
     const cheapestPerType = useMemo(() => {
         const fixed = tariffs.filter(t => t.type.includes('1 Periodo')).sort((a, b) => (a.e1_kwh ?? 0) - (b.e1_kwh ?? 0))[0];
@@ -249,8 +250,8 @@ export default function TarifasClient() {
                                     </div>
 
                                     <div className="space-y-4 mb-8 grow">
-                                        <div className="space-y-1">
-                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors">{tariff.name}</h3>
+                                        <div className="space-y-1 min-h-[60px] flex flex-col justify-start">
+                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-2">{tariff.name}</h3>
                                             <Link 
                                                 href={`/companias/${COMPANY_SLUGS[tariff.company] || tariff.company.toLowerCase().replace(/\s+/g, '-')}`} 
                                                 className="inline-block text-[11px] text-[#0f69c5] font-black uppercase tracking-widest hover:underline"
@@ -266,28 +267,34 @@ export default function TarifasClient() {
                                                     <span className="w-1 h-1 bg-primary rounded-full"></span>
                                                     ⚡ Energía
                                                 </p>
-                                                <div className="grid grid-cols-1 gap-2">
+                                                <div className="grid grid-cols-1 gap-2 min-h-[85px]">
                                                     {tariff.type.includes('1 Periodo') ? (
-                                                        <div className="bg-surface-2 p-4 rounded-2xl border border-border flex justify-between items-center">
-                                                            <span className="text-[10px] font-bold text-text-secondary uppercase">Precio único</span>
-                                                            <span className="font-800 text-text-primary text-sm">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))} €/kWh</span>
+                                                        <div className="bg-primary/5 p-5 rounded-2xl border border-primary/10 flex justify-between items-center h-full group/price transition-all hover:bg-primary/10">
+                                                            <div className="flex flex-col">
+                                                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Precio Único</span>
+                                                                <span className="text-[10px] text-text-muted font-bold font-mono">Consumo 24h</span>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <span className="font-900 text-primary text-xl leading-none">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))}</span>
+                                                                <span className="text-[10px] font-bold text-primary/60 ml-1">€/kWh</span>
+                                                            </div>
                                                         </div>
                                                     ) : (
-                                                        <div className="grid grid-cols-3 gap-2">
-                                                            <div className="bg-surface-2 p-3 rounded-2xl border border-border text-center">
-                                                                <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Punta</span>
-                                                                <span className="font-800 text-text-primary text-[11px] block">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))}</span>
-                                                                <span className="text-[7px] font-bold text-slate-400">€/kWh</span>
+                                                        <div className="grid grid-cols-3 gap-2 h-full">
+                                                            <div className="bg-orange-500/5 dark:bg-orange-500/10 p-3 rounded-2xl border border-orange-500/20 text-center flex flex-col justify-center shadow-sm">
+                                                                <span className="block text-[9px] font-black text-orange-700 dark:text-orange-400 uppercase mb-1 tracking-tighter">Punta</span>
+                                                                <span className="font-900 text-orange-800 dark:text-orange-200 text-sm block">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))}</span>
+                                                                <span className="text-[8px] font-bold text-orange-700/60 uppercase">€/kWh</span>
                                                             </div>
-                                                            <div className="bg-surface-2 p-3 rounded-2xl border border-border text-center">
-                                                                <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">Llano</span>
-                                                                <span className="font-800 text-text-primary text-[11px] block">{formatPrice(applyTaxes(tariff.e2_kwh || 0))}</span>
-                                                                <span className="text-[7px] font-bold text-slate-400">€/kWh</span>
+                                                            <div className="bg-blue-500/5 dark:bg-blue-500/10 p-3 rounded-2xl border border-blue-500/20 text-center flex flex-col justify-center shadow-sm">
+                                                                <span className="block text-[9px] font-black text-blue-700 dark:text-blue-400 uppercase mb-1 tracking-tighter">Llano</span>
+                                                                <span className="font-900 text-blue-800 dark:text-blue-200 text-sm block">{formatPrice(applyTaxes(tariff.e2_kwh || 0))}</span>
+                                                                <span className="text-[8px] font-bold text-blue-700/60 uppercase">€/kWh</span>
                                                             </div>
-                                                            <div className="bg-surface-2 p-3 rounded-2xl border border-border text-center border-primary/20 bg-primary/5">
-                                                                <span className="block text-[8px] font-bold text-primary uppercase mb-1">Valle</span>
-                                                                <span className="font-800 text-primary text-[11px] block">{formatPrice(applyTaxes(tariff.e3_kwh || 0))}</span>
-                                                                <span className="text-[7px] font-bold text-primary opacity-60">€/kWh</span>
+                                                            <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/20 text-center flex flex-col justify-center shadow-sm">
+                                                                <span className="block text-[9px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-1 tracking-tighter">Valle</span>
+                                                                <span className="font-900 text-emerald-800 dark:text-emerald-200 text-sm block">{formatPrice(applyTaxes(tariff.e3_kwh || 0))}</span>
+                                                                <span className="text-[8px] font-bold text-emerald-700/60 uppercase">€/kWh</span>
                                                             </div>
                                                         </div>
                                                     )}
@@ -300,14 +307,20 @@ export default function TarifasClient() {
                                                     <span className="w-1 h-1 bg-primary rounded-full"></span>
                                                     🔌 Potencia
                                                 </p>
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    <div className="bg-surface-2 p-4 rounded-2xl border border-border text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">P1 (Punta)</span>
-                                                        <span className="font-800 text-text-primary text-[11px]">{formatPrice(applyTaxes(tariff.p1_kw_day ?? 0))} €/kW/día</span>
+                                                <div className="grid grid-cols-2 gap-2 min-h-[70px]">
+                                                    <div className="bg-surface-2 p-4 rounded-xl border border-border text-center flex flex-col justify-center transition-all hover:border-primary/20 group/p1">
+                                                        <span className="block text-[10px] font-black text-text-primary uppercase mb-1 tracking-widest group-hover/p1:text-primary transition-colors">Punta (P1)</span>
+                                                        <div className="flex flex-col">
+                                                            <span className="font-900 text-text-primary text-[13px] leading-tight">{formatPrice(applyTaxes(tariff.p1_kw_day ?? 0))}</span>
+                                                            <span className="text-[9px] font-bold text-text-secondary uppercase">€/kW día</span>
+                                                        </div>
                                                     </div>
-                                                    <div className="bg-surface-2 p-4 rounded-2xl border border-border text-center">
-                                                        <span className="block text-[8px] font-bold text-slate-400 uppercase mb-1">P2 (Valle)</span>
-                                                        <span className="font-800 text-text-primary text-[11px]">{formatPrice(applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0))} €/kW/día</span>
+                                                    <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 text-center flex flex-col justify-center transition-all hover:bg-emerald-500/10 group/p2 shadow-sm">
+                                                        <span className="block text-[10px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-1 tracking-widest transition-colors">Valle (P2)</span>
+                                                        <div className="flex flex-col">
+                                                            <span className="font-900 text-emerald-800 dark:text-emerald-200 text-[13px] leading-tight">{formatPrice(applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0))}</span>
+                                                            <span className="text-[9px] font-bold text-emerald-700/60 uppercase">€/kW día</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -317,7 +330,7 @@ export default function TarifasClient() {
                                         <div className="pt-6 mt-2 border-t border-border border-dashed">
                                             <div 
                                                 className="flex items-center justify-between group/est cursor-help"
-                                                title="Estimación basada en 250 kWh/mes y 3.45 kW contratados, con IVA e Impuesto Eléctrico incluidos"
+                                                title={`Estimación basada en 250 kWh/mes y 3.45 kW contratados, ${showWithTaxes ? 'con IVA e Impuesto Eléctrico incluidos' : 'sin IVA ni Impuestos Eléctricos'}`}
                                             >
                                                 <span className="text-xs font-bold text-slate-500">Estimación:</span>
                                                 <span className="text-[15px] font-900 text-[#0f69c5]">

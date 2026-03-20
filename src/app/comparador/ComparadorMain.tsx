@@ -161,8 +161,11 @@ export default function ComparadorMain() {
 
     const applyTaxes = (price: number) => {
         if (!showWithTaxes) return price;
-        // + 5.11% impuesto eléctrico, then + 21% IVA
         return price * 1.0511 * 1.21;
+    };
+
+    const getDisplayTotal = (total: number, subtotal: number) => {
+        return showWithTaxes ? total : subtotal;
     };
 
     const baseResults = useMemo(() => compareAllTariffs(tariffs, input), [tariffs, input]);
@@ -209,31 +212,31 @@ export default function ComparadorMain() {
         const isPVPC = tariff.name.toLowerCase().includes('pvpc') || tariff.company.toLowerCase().includes('referencia');
 
         if (isPVPC) {
-            return <>La tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> indexa tu consumo al precio horario del mercado mayorista. Es ideal si consumes principalmente en periodos valle (noche y fin de semana), donde el precio suele ser significativamente más bajo.</>;
+            return <>La tarifa <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span> indexa tu consumo al precio horario del mercado mayorista. Es ideal si consumes principalmente en periodos valle (noche y fin de semana), donde el precio suele ser significativamente más bajo.</>;
         }
 
         if (isFixedRate && isHighSaving && energyDominates) {
-            return <>Con la tarifa <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-savings">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
+            return <>Con la tarifa <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span>, fijarás un precio de energía notablemente inferior al actual. El ahorro estimado de <strong className="text-savings">{savingPct}%</strong> proviene principalmente del término de energía, lo que significa que cuanto más consumas, más ahorrarás cada mes.{hasPermanence ? ' Ten en cuenta que esta tarifa incluye permanencia.' : ''}</>;
         }
 
         if (isFixedRate && isModerateSaving && powerDominates) {
-            return <>La tarifa fija <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-savings">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
+            return <>La tarifa fija <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span> destaca por tener cargos de potencia más competitivos. El ahorro estimado del <strong className="text-savings">{savingPct}%</strong> se concentra en el término fijo, lo que la hace especialmente ventajosa si tu potencia contratada es alta.{hasPermanence ? ' Considera que lleva permanencia asociada.' : ''}</>;
         }
 
         if (isThreePeriod && energyDominates) {
-            return <>La tarifa discriminatoria <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
+            return <>La tarifa discriminatoria <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span> ofrece tres tramos horarios de precio. Tu perfil de consumo aprovecha especialmente los periodos valle y llano, generando un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Desplazar electrodomésticos de alta potencia a las horas más baratas maximizaría aún más el beneficio.{hasPermanence ? ' Incluye permanencia.' : ''}</>;
         }
 
         if (isThreePeriod && !energyDominates) {
-            return <>Con <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-savings">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (E1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
+            return <>Con <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span>, la estructura de tres periodos encaja con tu perfil. El ahorro del <strong className="text-savings">{savingPct}%</strong> se distribuye entre energía y potencia. Recuerda que en tarifas discriminatorias, la punta (E1) es cara, por lo que reducir el consumo entre las 10h y 14h en días laborables optimizará tu factura.{hasPermanence ? ' Esta tarifa renueva con permanencia.' : ''}</>;
         }
 
         if (isHighSaving) {
-            return <>El cambio a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
+            return <>El cambio a <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span> supone uno de los mejores resultados para tu perfil, con un ahorro estimado del <strong className="text-savings">{savingPct}%</strong>. Esta tarifa tiene condiciones de precio muy competitivas frente a tu contrato actual.{hasPermanence ? ' Incluye compromiso de permanencia.' : ' Sin permanencia, puedes cambiar cuando quieras.'}</>;
         }
 
         // default
-        return <>Cambiando a <span className="text-primary font-bold not-italic">{tariff.name}</span> de <span className="text-primary font-bold not-italic">{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-savings">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
+        return <>Cambiando a <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.name}</span> de <span className={tariff.type?.includes('3 Periodos') ? 'text-primary font-bold not-italic' : 'text-orange-400 font-bold not-italic'}>{tariff.company}</span>, obtendrás un ahorro estimado del <strong className="text-savings">{savingPct}%</strong> mensual. La estructura de precios de esta tarifa se adapta bien a tu consumo actual.{hasPermanence ? ' Nota: incluye permanencia.' : ' Sin permanencia.'}</>;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedResult, input, currentBreakdown]);
 
@@ -723,6 +726,9 @@ export default function ComparadorMain() {
                     appearance: none !important;
                 }
 
+                body {
+                    overflow-x: hidden !important;
+                }
                 @media print {
                     nav, footer, .no-print, button, a[href^="tel:"], .auth-modal {
                         display: none !important;
@@ -759,7 +765,7 @@ export default function ComparadorMain() {
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
                 <div className="bg-surface/80 backdrop-blur-xl sticky top-20 z-40 border-b border-border/50 py-5">
-                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-center gap-4 sm:gap-12 overflow-x-auto no-scrollbar">
+                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-start md:justify-center gap-4 sm:gap-12 overflow-x-auto no-scrollbar">
                         
                         {/* Step 1: Carga */}
                         <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "input" ? "scale-105 opacity-100" : "opacity-60"}`}>
@@ -1027,14 +1033,14 @@ export default function ComparadorMain() {
 
                             <section className="flex-1 flex flex-col space-y-6">
                             {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
-                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
+                                <div className="premium-card p-6 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/10 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/15 transition-colors duration-700"></div>
 
-                                    <div className="relative z-10 max-w-2xl w-full">
+                                    <div className="relative z-10 max-w-full sm:max-w-2xl w-full px-4 sm:px-0">
                                         <label
                                             htmlFor="ocr-upload-main"
-                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[3rem] p-16 bg-surface-2 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
+                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[2.5rem] p-8 sm:p-16 bg-surface-2 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
                                         >
                                             <input
                                                 id="ocr-upload-main"
@@ -1191,7 +1197,7 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="premium-card p-12 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
+                                <div className="premium-card p-6 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
                                     <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/5 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/10 transition-colors duration-700"></div>
 
@@ -1911,7 +1917,7 @@ export default function ComparadorMain() {
                                 </div>
 
                                 {/* Análisis Experto Refinado */}
-                                <div className="premium-card p-8 bg-slate-900 border-none shadow-2xl relative overflow-hidden">
+                                <div className="premium-card p-8 bg-surface border border-border shadow-xl relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
                                     <div className="flex items-start gap-5 relative z-10">
                                         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20">
@@ -1934,7 +1940,7 @@ export default function ComparadorMain() {
                 {step === "results" && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
 
-                        <div className="flex flex-col lg:flex-row gap-8 perspective-1000 relative">
+                        <div className="flex flex-col lg:flex-row gap-8 relative">
                             {/* LEFT: CURRENT PROFILE SUMMARY */}
                             {/* Lateral Collapse Trigger */}
                             <button 
@@ -1949,20 +1955,17 @@ export default function ComparadorMain() {
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
                                             <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
                                             
-                                            <div className="flex justify-between items-center relative z-10">
+                                            <div className="flex justify-between items-center relative z-10 mb-8">
                                                 <div className="space-y-1">
-                                                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] leading-none">Tu suministro</h4>
+                                                    <h4 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] leading-none">TU SUMINISTRO</h4>
                                                     <p className="text-xs font-black text-text-primary uppercase tracking-tight">Perfil de Carga</p>
                                                 </div>
-                                                <div className="flex items-center gap-2">
-                                                    <button 
-                                                        onClick={() => setIsProfileCollapsed(true)}
-                                                        className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-slate-400 hover:text-primary transition-all border border-border active:scale-90"
-                                                        title="Colapsar a la cabecera"
-                                                    >
-                                                        <ChevronRight className="w-4 h-4 transition-transform duration-300" />
-                                                    </button>
-                                                </div>
+                                                <button 
+                                                    onClick={() => setIsProfileCollapsed(true)}
+                                                    className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
+                                                >
+                                                    <ChevronRight className="w-5 h-5" />
+                                                </button>
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-8 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
@@ -2034,25 +2037,17 @@ export default function ComparadorMain() {
                                             
                                             <div className="flex justify-between items-center mb-8 relative z-10">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors border border-border">
+                                                    <div className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
                                                         <Filter className="w-4 h-4" />
                                                     </div>
                                                     <h4 className="text-xs font-black text-text-primary uppercase tracking-[0.2em]">Filtros</h4>
                                                 </div>
-                                                <div className="flex items-center gap-2">
-                                                    {results.length !== baseResults.length && (
-                                                        <div className="px-3 py-1 bg-primary/10 rounded-full border border-primary/20 animate-in zoom-in duration-500">
-                                                            <span className="text-[9px] font-black text-primary uppercase tracking-widest">{results.length}</span>
-                                                        </div>
-                                                    )}
-                                                    <button 
-                                                        onClick={() => setIsFiltersCollapsed(true)}
-                                                        className="w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-text-muted hover:text-primary transition-all border border-border active:scale-90"
-                                                        title="Colapsar a la cabecera"
-                                                    >
-                                                        <ChevronRight className="w-4 h-4 transition-transform duration-300" />
-                                                    </button>
-                                                </div>
+                                                <button 
+                                                    onClick={() => setIsFiltersCollapsed(true)}
+                                                    className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
+                                                >
+                                                    <ChevronRight className="w-5 h-5" />
+                                                </button>
                                             </div>
 
                                             <div className="space-y-8 relative z-10 animate-in slide-in-from-top-2 duration-300">
@@ -2073,16 +2068,21 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Tipo de Precio</label>
-                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
+                                                    <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Tipo de Precio</label>
+                                                    <div className="flex bg-primary/5 rounded-full p-1.5 border border-primary/10">
                                                         {['all', 'fixed', 'periods'].map((t) => (
                                                             <button 
                                                                 key={t}
                                                                 onClick={() => setFilterPriceType(t as any)} 
-                                                                className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                     filterPriceType === t 
-                                                                    ? (t === 'fixed' ? 'bg-warning text-white shadow-lg shadow-amber-500/20' : t === 'periods' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-700 text-text-primary shadow-md')
-                                                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                                                                    ? (t === 'fixed' 
+                                                                        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25' 
+                                                                        : t === 'periods' 
+                                                                            ? 'bg-primary text-white shadow-lg shadow-primary/25' 
+                                                                            : 'bg-white dark:bg-slate-700 text-primary shadow-sm'
+                                                                      )
+                                                                    : 'text-primary/40 hover:text-primary/70'
                                                                 }`}
                                                             >
                                                                 {t === 'all' ? 'Todos' : t === 'fixed' ? 'Fijo' : 'Tramos'}
@@ -2092,11 +2092,11 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Ordenar por</label>
-                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
+                                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Ordenar por</label>
+                                                    <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
                                                         <button 
                                                             onClick={() => setSortBy("savings-desc")} 
-                                                            className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                 sortBy === "savings-desc" 
                                                                 ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                 : "text-slate-400 hover:text-slate-600"
@@ -2106,7 +2106,7 @@ export default function ComparadorMain() {
                                                         </button>
                                                         <button 
                                                             onClick={() => setSortBy("savings-asc")} 
-                                                            className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                 sortBy === "savings-asc" 
                                                                 ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                 : "text-slate-400 hover:text-slate-600"
@@ -2118,13 +2118,13 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-3">
-                                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Mostrar resultados</label>
-                                                    <div className="flex bg-surface-2 rounded-2xl p-1.5 border border-border">
+                                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Mostrar resultados</label>
+                                                    <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
                                                         {[3, 5, Infinity].map((val) => (
                                                             <button 
                                                                 key={val.toString()}
                                                                 onClick={() => setLimitResults(val)} 
-                                                                className={`flex-1 text-[10px] font-black py-2.5 rounded-xl uppercase tracking-widest transition-all duration-300 ${
+                                                                className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                     limitResults === val 
                                                                     ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                     : "text-slate-400 hover:text-slate-600"
@@ -2142,152 +2142,121 @@ export default function ComparadorMain() {
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
                                 {/* TOP SAVING BANNER - MOVED HERE FOR WIDTH ALIGNMENT */}
-                                <div className="premium-card p-6 flex flex-col sm:flex-row items-center justify-between !rounded-2xl gap-6 text-center sm:text-left">
-                                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                                        <div className="w-12 h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0">
-                                            <TrendingDown className="w-6 h-6" />
+                                <div className="bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between rounded-[2rem] gap-6 text-center sm:text-left shadow-sm">
+                                    <div className="flex flex-col sm:flex-row items-center gap-5">
+                                        <div className="w-14 h-14 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
+                                            <TrendingDown className="w-7 h-7" />
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-bold text-text-secondary uppercase tracking-tighter">Análisis de Resultados</p>
-                                            <h2 className="text-xl font-800">Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2) : "0.00"} € / año</span></h2>
+                                            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1">ANÁLISIS DE RESULTADOS</p>
+                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight">
+                                                Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)) * 12).toFixed(2) : "0.00"} € / año</span>
+                                            </h2>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => setStep("input")}
-                                        className="flex items-center gap-2 bg-surface-2 px-6 py-2.5 rounded-full cursor-pointer hover:bg-surface border border-transparent hover:border-border transition-colors active:scale-95 shadow-sm mx-auto sm:mx-0"
+                                        className="flex items-center gap-2 bg-surface-2 px-7 py-3 rounded-full cursor-pointer hover:bg-surface border border-border hover:shadow-md transition-all active:scale-95 shadow-sm"
                                     >
-                                        <History className="w-4 h-4 text-text-secondary" />
-                                        <span className="text-[11px] font-bold text-text-primary">Nueva Comparativa</span>
-                                    </button>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 perspective-1000">
+                                         <History className="w-4 h-4 text-text-secondary" />
+                                         <span className="text-[11px] font-black text-text-primary uppercase tracking-widest">Nueva Comparativa</span>
+                                     </button>
+                                 </div>
+                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                      {/* CARD: TOTAL MENSUAL */}
                                     <div
                                         onClick={() => {
-                                            if (!user) {
-                                                setPendingStudyMode("monthly");
-                                                setIsAuthModalOpen(true);
-                                                return;
-                                            }
-                                            if (results[0]) {
-                                                setSelectedTariffId(results[0].tariff.id!);
-                                                setStudyMode("monthly");
-                                                setStep("study");
-                                            }
+                                            if (!user) { setPendingStudyMode("monthly"); setIsAuthModalOpen(true); return; }
+                                            if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("monthly"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
-                                    >
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center">
-                                            <div className="flex justify-between items-start mb-4 w-full text-left">
-                                                <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                                    <FileText className="w-5 h-5" />
-                                                </div>
-                                                <div className="flex flex-col items-end gap-1">
-                                                    {user ? (
-                                                        <>
-                                                            {/* Label Mensual removido por redundancia */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-primary/10 text-primary rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            {/* Label Mensual con Lock removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-warning/10 text-warning rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
-                                                        </>
-                                                    )}
-                                                </div>
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 transition-transform group-hover:scale-110">
+                                                <FileText className="w-6 h-6" />
                                             </div>
-                                            <p className="text-3xl font-900 text-text-primary mb-2">{results[0] ? `${results[0].total.toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-1.5 text-accent">
-                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-accent-bg text-accent" : "bg-rose-500/10 text-warning"}`}>
-                                                    {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
-                                                </div>
-                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-accent" : "text-warning"}`}>
-                                                    {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro mensual' : 'coste adicional'}` : "Sin datos"}
+                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
+                                                {results[0] ? `${getDisplayTotal(results[0].total, results[0].subtotal).toFixed(2)} €` : "---"}
+                                            </p>
+                                            <div className="flex items-center justify-center gap-2 text-accent">
+                                                <TrendingDown className="w-4 h-4" />
+                                                <p className="text-xs font-black uppercase tracking-widest">
+                                                    {results[0] ? `${Math.abs((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)).toFixed(2)} € ahorro mensual` : "Sin datos"}
                                                 </p>
                                             </div>
                                         </div>
+
+                                        {/* Hover Overlay */}
+                                        {results[0] && (
+                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
+                                                <div className="bg-primary text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase">
+                                                    Ver detalles
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
 
+
+                                    {/* CARD: TOTAL ANUAL */}
                                     <div
                                         onClick={() => {
-                                            if (!user) {
-                                                setPendingStudyMode("annual");
-                                                setIsAuthModalOpen(true);
-                                                return;
-                                            }
-                                            if (results[0]) {
-                                                setSelectedTariffId(results[0].tariff.id!);
-                                                setStudyMode("annual");
-                                                setStep("study");
-                                            }
+                                            if (!user) { setPendingStudyMode("annual"); setIsAuthModalOpen(true); return; }
+                                            if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("annual"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center">
-                                            <div className="flex justify-between items-start mb-4 w-full text-left">
-                                                <div className="w-10 h-10 rounded-2xl bg-accent-bg flex items-center justify-center text-accent group-hover:scale-110 transition-transform">
-                                                    <Calendar className="w-5 h-5" />
-                                                </div>
-                                                <div className="flex flex-col items-end gap-1">
-                                                    {user ? (
-                                                        <>
-                                                            {/* Label Anual removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-accent-bg text-accent rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300">Ver Detalles</span>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            {/* Label Anual con Lock removido */}
-                                                            <span className="text-[10px] font-bold px-3 py-1 bg-warning/10 text-warning rounded-full uppercase tracking-widest hidden group-hover:flex items-center gap-1 animate-in slide-in-from-right-2 fade-in duration-300"><Lock className="w-3 h-3" />Regístrate gratis</span>
-                                                        </>
-                                                    )}
-                                                </div>
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                            <div className="w-12 h-12 rounded-xl bg-accent-bg flex items-center justify-center text-accent mb-6 transition-transform group-hover:scale-110">
+                                                <Calendar className="w-6 h-6" />
                                             </div>
-                                            <p className="text-3xl font-900 text-text-primary mb-2">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-1.5">
-                                                <div className={`flex items-center justify-center w-5 h-5 rounded-full ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "bg-accent-bg text-accent" : "bg-rose-500/10 text-warning"}`}>
-                                                    {((input.current_bill_total || 0) - results[0].total) >= 0 ? <TrendingDown className="w-3 h-3" /> : <TrendingUp className="w-3 h-3" />}
-                                                </div>
-                                                <p className={`text-[11px] font-bold tracking-tight ${((input.current_bill_total || 0) - results[0].total) >= 0 ? "text-accent" : "text-warning"}`}>
-                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ${((input.current_bill_total || 0) - results[0].total) >= 0 ? 'ahorro anual' : 'diferencial anual'}` : "Sin datos"}
+                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(getDisplayTotal(results[0].total, results[0].subtotal) * 12).toFixed(2)} €` : "---"}</p>
+                                            <div className="flex items-center justify-center gap-2 text-accent">
+                                                <TrendingDown className="w-4 h-4" />
+                                                <p className="text-xs font-black uppercase tracking-widest">
+                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div
-                                        onClick={() => {
-                                            if (results[0]) {
-                                                setSelectedTariffId(results[0].tariff.id!);
-                                                setStep("detail");
-                                            }
-                                        }}
-                                        className={`bg-surface border border-border p-6 rounded-[2rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:scale-[1.02] cursor-pointer' : 'opacity-50'}`}
-                                    >
-                                        <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-2xl flex-shrink-0 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10" : "bg-warning/10"}`}></div>
-                                        <div className={`absolute bottom-0 right-0 w-32 h-32 rounded-tl-[100px] transition-transform group-hover:scale-110 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/5" : "bg-warning/5"}`}></div>
-                                        <div className="relative z-10 h-full w-full flex flex-col justify-between items-center text-center">
-                                            <div className="flex justify-between items-start mb-4 w-full text-left">
-                                                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10 text-primary" : "bg-warning/10 text-warning"}`}>
-                                                    <Trophy className="w-5 h-5" />
-                                                </div>
-                                                <div className="flex flex-col items-end gap-1">
-                                                    <span className={`text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest hidden group-hover:block animate-in slide-in-from-right-2 fade-in duration-300 ${(results[0]?.tariff.type === '3 Periodos') ? "bg-primary/10 text-primary" : "bg-warning/10 text-warning"}`}>Ver Detalles</span>
+                                        {/* Hover Overlay */}
+                                        {results[0] && (
+                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
+                                                <div className="bg-accent text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase">
+                                                    Ver detalles
                                                 </div>
                                             </div>
-                                            {results[0] ? (
-                                                <div className="mt-auto">
-                                                    <div className="flex items-baseline gap-1 mb-1 justify-center">
-                                                        <p className={`text-3xl font-900 ${(results[0]?.tariff.type === '3 Periodos') ? "text-primary" : "text-warning"}`}>{results[0].tariff.e1_kwh}</p>
-                                                        <span className={`text-[10px] font-bold ${(results[0]?.tariff.type === '3 Periodos') ? "text-primary/60" : "text-warning/60"}`}>€/kWh</span>
-                                                    </div>
-                                                    <p className="text-sm text-text-primary font-bold mb-0.5">{results[0].tariff.name}</p>
-                                                    <p className="text-[9px] text-slate-400 uppercase tracking-widest leading-none block">{results[0].tariff.company}</p>
-                                                </div>
-                                            ) : (
-                                                <p className="text-sm font-bold text-slate-400">Sin recomendaciones</p>
-                                            )}
+                                        )}
+                                    </div>
+
+                                    {/* CARD: PRECIO UNITARIO */}
+                                    <div
+                                        onClick={() => {
+                                            if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStep("detail"); }
+                                        }}
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                    >
+                                        <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 text-primary' : 'bg-orange-500/10 text-orange-500'}`}>
+                                                <Trophy className="w-6 h-6" />
+                                            </div>
+                                            <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}<span className="text-sm ml-1 opacity-60">€/kWh</span></p>
+                                            <div className="flex flex-col items-center">
+                                                <p className={`text-[11px] font-black uppercase tracking-widest leading-none mb-1 ${results[0]?.tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400'}`}>{results[0] ? results[0].tariff.name : "---"}</p>
+                                                <p className="text-[9px] text-text-muted font-bold uppercase tracking-[0.2em]">{results[0] ? results[0].tariff.company : ""}</p>
+                                            </div>
                                         </div>
+
+                                        {/* Hover Overlay */}
+                                        {results[0] && (
+                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
+                                                <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary shadow-primary/20" : "bg-orange-500 shadow-orange-500/20"} text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase`}>
+                                                    Ver detalles
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -2380,7 +2349,7 @@ export default function ComparadorMain() {
                                                             <div className="flex flex-col">
                                                                 <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Cuota estimada</span>
                                                                 <div className="flex items-baseline gap-1">
-                                                                    <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{res.total.toFixed(2)}€</span>
+                                                                    <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{getDisplayTotal(res.total, res.subtotal).toFixed(2)}€</span>
                                                                     <span className="text-[10px] text-text-muted font-bold uppercase">/mes</span>
                                                                 </div>
                                                             </div>
@@ -2453,11 +2422,11 @@ export default function ComparadorMain() {
                                             <table className="w-full border-collapse relative z-10">
                                                 <thead>
                                                     <tr className="bg-surface-2 border-y border-border">
-                                                        <th className="py-3 px-8 text-left text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[25%] font-body">Compañía / Tarifa</th>
-                                                                                                                 <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[25%] font-body">Precios Energía</th>
-                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[15%] font-body">Total Mes</th>
-                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[20%] font-body">Ahorro</th>
-                                                        <th className="py-3 px-8 text-center text-[11px] font-black text-text-secondary uppercase tracking-[0.1em] w-[15%] font-body">Acciones</th>
+                                                        <th className="py-4 px-8 text-left text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[25%]">COMPAÑÍA / TARIFA</th>
+                                                        <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[25%]">PRECIOS ENERGÍA</th>
+                                                        <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[15%]">TOTAL MES</th>
+                                                        <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[20%]">AHORRO</th>
+                                                        <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[15%]">ACCIONES</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-border/60">
@@ -2476,45 +2445,40 @@ export default function ComparadorMain() {
 
                                                     {/* Baseline Reference Row */}
                                                     <tr className="bg-surface border-b border-border/40">
-                                                        <td className="py-6 px-8">
+                                                        <td className="py-5 px-8">
                                                             <div className="flex flex-col">
-                                                                <span className="text-[10px] text-text-secondary uppercase tracking-[0.1em] font-black mb-1">TU SITUACIÓN ACTUAL</span>
-                                                                <span className="font-bold text-text-secondary text-sm uppercase">REFERENCIA BASE</span>
+                                                                <span className="text-[9px] text-text-muted uppercase tracking-[0.2em] font-black mb-1">TU SITUACIÓN ACTUAL</span>
+                                                                <span className="font-black text-text-secondary text-xs uppercase tracking-tight">REFERENCIA BASE</span>
                                                             </div>
                                                         </td>
-                                                        <td className="py-6 px-8 text-center">
-                                                            <div className="inline-flex flex-col gap-1 items-center opacity-80">
+                                                        <td className="py-5 px-8 text-center">
+                                                            <div className="inline-flex flex-col gap-1 items-center opacity-70">
                                                                 {[
                                                                     { label: 'E1', val: input.current_price_p1, color: 'bg-orange-500', shadow: 'rgba(249,115,22,0.3)' },
                                                                     { label: 'E2', val: input.current_price_p2 || input.current_price_p1, color: 'bg-blue-500', shadow: 'rgba(59,130,246,0.3)' },
                                                                     { label: 'E3', val: input.current_price_p3 || input.current_price_p1, color: 'bg-emerald-500', shadow: 'rgba(16,185,129,0.3)' }
                                                                 ].filter(p => (p.val || 0) > 0).map((p, i) => (
-                                                                    <div key={i} className="flex items-center gap-2.5">
-                                                                        <div className={`w-1.5 h-1.5 rounded-full ${p.color}`} style={{ boxShadow: `0 0 8px ${p.shadow}` }}></div>
-                                                                        <span className="text-text-muted text-[10px] font-black uppercase tracking-tighter">{p.label}</span>
-                                                                        <span className="tabular-nums font-bold text-text-secondary text-[13px]">{(p.val || 0).toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
+                                                                    <div key={i} className="flex items-center gap-2">
+                                                                        <div className={`w-1 h-1 rounded-full ${p.color}`}></div>
+                                                                        <span className="text-text-muted text-[10px] tabular-nums font-bold">{(p.val || 0).toFixed(4)}<span className="text-[10px] ml-0.5 opacity-60">€</span></span>
                                                                     </div>
                                                                 ))}
-                                                                {!input.current_price_p1 && <span className="text-[10px] text-text-muted italic uppercase font-bold">Precio variable</span>}
+                                                                {!input.current_price_p1 && <span className="text-[9px] text-text-muted uppercase font-black tracking-widest">Precio variable</span>}
                                                             </div>
                                                         </td>
-                                                        <td className="py-6 px-8 text-center">
-                                                            <span className="font-heading font-black text-lg text-text-muted tabular-nums">{(input.current_bill_total || 0).toFixed(2)}€</span>
+                                                        <td className="py-5 px-8 text-center">
+                                                            <span className="font-black text-base text-text-secondary tabular-nums tracking-tight">{(input.current_bill_total || 0).toFixed(2)}€</span>
                                                         </td>
-                                                        <td className="py-6 px-8 text-center">
-                                                            <span className="text-text-muted font-black text-xs uppercase tracking-widest">—</span>
+                                                        <td className="py-5 px-8 text-center">
+                                                            <span className="text-text-muted font-black text-xs uppercase tracking-widest opacity-40">—</span>
                                                         </td>
-                                                        <td className="py-6 px-8 text-center">
+                                                        <td className="py-5 px-8 text-center">
                                                             <button
                                                                 onClick={saveBill}
                                                                 disabled={isProcessing || results.length === 0}
-                                                                className="inline-flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary hover:text-white text-[10px] font-black px-5 py-2.5 rounded-xl tracking-[0.1em] border border-primary/20 transition-all active:scale-95 disabled:opacity-50 uppercase shadow-sm"
+                                                                className="inline-flex items-center gap-2 bg-surface-2 text-text-primary hover:bg-primary/5 hover:text-primary text-[10px] font-black px-5 py-2.5 rounded-full tracking-[0.1em] border border-border transition-all active:scale-95 disabled:opacity-50 uppercase shadow-sm"
                                                             >
-                                                                {isProcessing ? (
-                                                                    <Clock className="w-4 h-4 animate-spin" />
-                                                                ) : (
-                                                                    <Database className="w-4 h-4" />
-                                                                )}
+                                                                <Database className="w-3.5 h-3.5" />
                                                                 {isProcessing ? "Guardando..." : "Guardar análisis"}
                                                             </button>
                                                         </td>
@@ -2669,18 +2633,18 @@ export default function ComparadorMain() {
                                                     </div>
                                                     <div className="space-y-1 text-center md:text-left">
                                                         <h4 className="text-lg font-bold tracking-tight text-white/90">Análisis Técnico de Facturación</h4>
-                                                        <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.25em] font-black">
-                                                            Tarifa Ganadora: <span className="text-text-muted">{results[0].tariff.company} {results[0].tariff.name}</span>
+                                                        <p className="text-[10px] text-white font-black uppercase tracking-[0.25em]">
+                                                            Tarifa Ganadora: <span className={results[0].tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400 font-bold'}>{results[0].tariff.company} {results[0].tariff.name}</span>
                                                         </p>
                                                     </div>
                                                 </div>
 
                                                 {/* TOTAL REUBICADO EN TOP RIGHT */}
                                                 <div className="text-center md:text-right">
-                                                    <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
+                                                    <p className="text-[10px] text-white/50 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
                                                     <div className="flex items-baseline justify-center md:justify-end gap-3">
                                                         <p className="text-6xl font-900 text-savings drop-shadow-[0_0_30px_rgba(34,197,94,0.15)] tracking-tighter tabular-nums leading-none">
-                                                            {results[0].total.toFixed(2)}
+                                                            {results[0] ? getDisplayTotal(results[0].total, results[0].subtotal).toFixed(2) : "0.00"}
                                                             <span className="text-3xl ml-2 opacity-80">€</span>
                                                         </p>
                                                     </div>
@@ -2689,21 +2653,21 @@ export default function ComparadorMain() {
                                         </div>
                                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-10 gap-y-12">
                                             {[
-                                                { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4 text-white" />, border: "border-primary/40" },
-                                                { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Plug className="w-4 h-4 text-white" />, border: "border-white/10" },
-                                                { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4 text-white" />, border: "border-white/10" },
-                                                { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4 text-white" />, border: "border-white/10" },
-                                                { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4 text-white" />, border: "border-white/10" },
-                                                { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4 text-white" />, border: "border-white/10" },
+                                                { label: "Energía", val: results[0].costEnergy, sub: "Mercado " + (results[0].tariff.type === '3 Periodos' ? 'Indexado' : 'Libre'), icon: <Zap className="w-4 h-4 text-white" />, border: "border-white/30" },
+                                                { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Plug className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4 text-white" />, border: "border-white/20" },
                                             ].map((item, idx) => (
                                                 <div key={idx} className="flex flex-col h-full">
-                                                    <div className="flex items-center gap-2 text-text-muted min-h-[40px] mb-4">
+                                                    <div className="flex items-center gap-2 text-white min-h-[40px] mb-4">
                                                         <div className="text-white">{item.icon}</div>
                                                         <p className="text-[10px] font-black uppercase tracking-widest leading-tight">{item.label}</p>
                                                     </div>
                                                     <div className={`pl-4 border-l-2 ${item.border} flex flex-col gap-1`}>
-                                                        <p className={`text-2xl font-900 tracking-tight ${idx === 0 ? 'text-white' : 'text-slate-200'}`}>{item.val.toFixed(2)} €</p>
-                                                        <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter opacity-70 leading-none">{item.sub}</p>
+                                                        <p className={`text-2xl font-900 tracking-tight text-white`}>{item.val.toFixed(2)} €</p>
+                                                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest leading-none">{item.sub}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -2713,8 +2677,8 @@ export default function ComparadorMain() {
                                             <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
                                                 <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
                                                     <div className="space-y-1">
-                                                        <p className="text-[10px] text-text-muted font-black uppercase tracking-widest leading-none mb-1">Nota Técnica</p>
-                                                        <p className="text-[12px] text-text-muted leading-relaxed font-medium">
+                                                        <p className="text-[10px] text-white/60 font-black uppercase tracking-widest leading-none mb-1">Nota Técnica</p>
+                                                        <p className="text-[12px] text-white/40 leading-relaxed font-medium">
                                                             Cálculos realizados en base al consumo informado y normativas eléctricas vigentes.
                                                         </p>
                                                     </div>
@@ -2906,7 +2870,7 @@ export default function ComparadorMain() {
                                 </div>
                             </div>
 
-                            <div className="grid lg:grid-cols-3 gap-8 perspective-1000">
+                            <div className="grid lg:grid-cols-3 gap-8">
                                 <div className="lg:col-span-2 space-y-6">
                                     <div className="bg-surface rounded-3xl border border-border p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 relative overflow-hidden premium-3d-card hover:translate-y-[-4px]">
                                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
@@ -2973,7 +2937,7 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+                                        <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                                             <div className="space-y-6">
                                                 <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
                                                     <span>🔌</span> Término de Potencia
@@ -2981,11 +2945,11 @@ export default function ComparadorMain() {
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} € €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} €/kW día</span>
                                                     </div>
                                                     <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Valle (P2)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} € €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} €/kW día</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3029,11 +2993,11 @@ export default function ComparadorMain() {
                                     </div>
 
                                     <div className="bg-surface rounded-3xl border border-border overflow-hidden">
-                                        <div className="px-10 py-6 border-b border-border flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-surface-2">
+                                        <div className="px-6 py-6 md:px-10 border-b border-border flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-surface-2">
                                             <FileText className="text-primary w-6 h-6" />
                                             <h4 className="font-800 text-center md:text-left">Desglose de Factura Estimada</h4>
                                         </div>
-                                        <div className="p-10 space-y-5">
+                                        <div className="p-6 md:p-10 space-y-5">
                                             {[
                                                 { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1.toFixed(2).replace(/\.00$/, '') : input.power_p1.toFixed(2).replace(/\.00$/, '') + "/" + input.power_p2.toFixed(2).replace(/\.00$/, '')) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
                                                 { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3).toFixed(2).replace(/\.00$/, '') + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
@@ -3052,7 +3016,7 @@ export default function ComparadorMain() {
                                             <div className="pt-8 border-t border-border flex justify-between items-center">
                                                 <span className="text-xl font-800">Total Factura</span>
                                                 <div className="text-right">
-                                                    <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
+                                                    <p className="text-3xl font-800 text-primary">{getDisplayTotal(selectedResult.total, selectedResult.subtotal).toFixed(2)} €</p>
                                                 </div>
                                             </div>
                                         </div>

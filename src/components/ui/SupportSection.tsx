@@ -2,13 +2,17 @@
 
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function SupportSection() {
+    const [selectedAmount, setSelectedAmount] = useState(5);
+    const AMOUNTS = [2, 5, 10, 20];
+
     const platforms = [
         {
             name: "Buy Me a Coffee",
             description: "La opción más rápida",
-            href: "https://buymeacoffee.com/tumejortarifaluz",
+            href: `https://buymeacoffee.com/tumejortarifaluz?amount=${selectedAmount}`,
             bgColor: "bg-[#FFDD00]/10",
             iconColor: "text-[#D97706]",
             recommend: true,
@@ -27,7 +31,7 @@ export default function SupportSection() {
         {
             name: "PayPal",
             description: "Donación segura",
-            href: "https://paypal.me/jukk4p",
+            href: `https://paypal.me/tumejortarifaluz/${selectedAmount}`,
             bgColor: "bg-[#003087]/10",
             iconColor: "text-[#003087]",
             icon: (
@@ -41,7 +45,7 @@ export default function SupportSection() {
         {
             name: "Ko-fi",
             description: "0% comisiones",
-            href: "https://ko-fi.com/tumejortarifaluz",
+            href: `https://ko-fi.com/tumejortarifaluz?amount=${selectedAmount}`,
             bgColor: "bg-[#FF5E5B]/10",
             iconColor: "text-[#FF5E5B]",
             icon: (
@@ -55,32 +59,56 @@ export default function SupportSection() {
     ];
 
     return (
-        <div className="flex flex-col gap-3">
-            {platforms.map((platform) => (
-                <Link
-                    key={platform.name}
-                    href={platform.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center gap-4 p-4 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] dark:bg-primary/10 border-primary/20 shadow-sm' : 'bg-surface border-border hover:border-primary/20 shadow-sm'}`}
-                >
-                    <div className="shrink-0 group-hover/item:scale-105 transition-transform duration-300">
-                        {platform.icon}
-                    </div>
-                    <div className="flex flex-col text-left min-w-0 flex-1">
-                        <span className="text-[15px] font-900 text-text-primary tracking-tight">{platform.name}</span>
-                        <span className="text-[11px] text-text-muted dark:text-text-secondary font-bold uppercase tracking-widest">{platform.description}</span>
-                    </div>
-                    {platform.recommend && (
-                        <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full hidden sm:block shrink-0">
-                            <span className="text-[10px] font-black text-primary uppercase tracking-widest">Recomendado</span>
+        <div className="flex flex-col gap-6">
+            {/* Amount Selector */}
+            <div className="space-y-3">
+                <p className="text-[11px] font-black text-text-muted dark:text-text-secondary uppercase tracking-[0.15em]">
+                    Elige el importe que consideres justo:
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                    {AMOUNTS.map((amount) => (
+                        <button
+                            key={amount}
+                            onClick={() => setSelectedAmount(amount)}
+                            className={`px-5 py-2.5 rounded-xl text-sm font-black transition-all border-2 ${
+                                selectedAmount === amount
+                                    ? "bg-primary border-primary text-white shadow-lg shadow-primary/20 scale-105"
+                                    : "bg-surface border-border text-text-muted hover:border-primary/40"
+                            }`}
+                        >
+                            {amount}€
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+                {platforms.map((platform) => (
+                    <Link
+                        key={platform.name}
+                        href={platform.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-4 p-4 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] dark:bg-primary/10 border-primary/20 shadow-sm' : 'bg-surface border-border hover:border-primary/20 shadow-sm'}`}
+                    >
+                        <div className="shrink-0 group-hover/item:scale-105 transition-transform duration-300">
+                            {platform.icon}
                         </div>
-                    )}
-                    <div className="ml-auto flex items-center justify-center w-6 h-6 rounded-full bg-border/20 group-hover/item:bg-primary/10 transition-colors">
-                        <ChevronRight size={14} className="text-text-muted dark:text-text-secondary group-hover/item:text-primary" />
-                    </div>
-                </Link>
-            ))}
+                        <div className="flex flex-col text-left min-w-0 flex-1">
+                            <span className="text-[15px] font-900 text-text-primary tracking-tight">{platform.name}</span>
+                            <span className="text-[11px] text-text-muted dark:text-text-secondary font-bold uppercase tracking-widest">{platform.description}</span>
+                        </div>
+                        {platform.recommend && (
+                            <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full hidden sm:block shrink-0">
+                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Recomendado</span>
+                            </div>
+                        )}
+                        <div className="ml-auto flex items-center justify-center w-6 h-6 rounded-full bg-border/20 group-hover/item:bg-primary/10 transition-colors">
+                            <ChevronRight size={14} className="text-text-muted dark:text-text-secondary group-hover/item:text-primary" />
+                        </div>
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 }

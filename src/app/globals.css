@@ -6,79 +6,94 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --color-bg: #ffffff;
-  --color-surface: #f8fafc;
-  --color-surface-2: #f1f5f9;
-  --color-border: #e2e8f0;
-  --color-primary: #0f69c5;
-  --color-primary-hover: #0d5aa8;
-  --color-accent: #10b981;
-  --color-accent-bg: #f0fdf4;
-  --color-accent-text: #064e3b;
-  --color-accent-bg-text: #065f46;
-  --color-warning: #f59e0b;
-  --color-warning-text: #0f172a;
-  --color-savings: #10b981;
-  --color-text-primary: #020617;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748b;
+  /* Fondos de sección — modo claro */
+  --section-white:    #FFFFFF;
+  --section-soft:     #F0F4FF;
+  --section-muted:    #EEF2F8;
+  --section-dark:     #0F1923;
+  --section-footer:   #070E18;
+
+  /* Texto — modo claro */
+  --text-heading:     #0F172A;
+  --text-body:        #334155;
+  --text-muted:       #475569;
+  --text-subtle:      #64748B;
+
+  /* Ahorro / Savings (Capture 3 style) */
+  --savings-bg:       #DCFCE7; /* Verde muy claro */
+  --savings-text:     #059669; /* Verde oscuro alta visibilidad */
+  --savings-primary:  #10B981;
+
+  /* Border — modo claro */
+  --border-adaptive:  rgba(0, 0, 0, 0.08);
+  --section-white-alpha: rgba(255, 255, 255, 0.9);
+
+  /* Brand Colors */
+  --primary: #0f69c5;
+  --primary-hover: #0d5aa8;
+  --accent: #10b981;
 }
 
 .dark {
-  --color-bg: #0b1118;
-  --color-surface: #121d2a;
-  --color-surface-2: #1a2638;
-  --color-border: #233145;
-  --color-primary: #3b82f6;
-  --color-primary-hover: #60a5fa;
-  --color-accent: #10b981;
-  --color-accent-bg: #064e3b;
-  --color-accent-text: #10b981;
-  --color-accent-bg-text: #34d399;
-  --color-warning: #fbbf24;
-  --color-warning-text: #0f172a;
-  --color-savings: #34d399;
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  /* Fondos de sección — modo oscuro */
+  --section-white:   #0F172A;
+  --section-soft:    #1E293B;
+  --section-muted:   #162032;
+
+  /* Texto — modo oscuro */
+  --text-heading:    #F1F5F9;
+  --text-body:       #CBD5E1;
+  --text-muted:      #94A3B8;
+  --text-subtle:     #64748B;
+
+  /* Ahorro / Savings — modo oscuro */
+  --savings-bg:      rgba(16, 185, 129, 0.15);
+  --savings-text:    #34D399;
+  --savings-primary: #10B981;
+
+  /* Border — modo oscuro */
+  --border-adaptive: rgba(255, 255, 255, 0.1);
+  --section-white-alpha: rgba(15, 23, 42, 0.85);
 }
 
 @theme {
-  --color-background: var(--color-bg);
-  --color-surface: var(--color-surface);
-  --color-surface-2: var(--color-surface-2);
-  --color-border: var(--color-border);
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-accent: var(--color-accent);
-  --color-accent-bg: var(--color-accent-bg);
-  --color-accent-text: var(--color-accent-text);
-  --color-accent-bg-text: var(--color-accent-bg-text);
-  --color-warning: var(--color-warning);
-  --color-warning-text: var(--color-warning-text);
-  --color-savings: var(--color-savings);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted: var(--color-text-muted);
+  /* Mapping Tailwind utility names to the CSS variables above */
+  --color-section-white:    var(--section-white);
+  --color-section-soft:     var(--section-soft);
+  --color-section-muted:    var(--section-muted);
+  --color-section-dark:     var(--section-dark);
+  --color-section-footer:   var(--section-footer);
 
-  /* Fondos de sección */
-  --color-section-white:     #FFFFFF;
-  --color-section-soft:      #F0F4FF;   /* azul muy suave — secciones de apoyo */
-  --color-section-muted:     #EEF2F8;   /* azul claro — descanso visual */
-  --color-section-dark:      #0F1923;   /* azul casi negro — énfasis */
-  --color-section-footer:    #070E18;   /* negro azulado — footer */
+  --color-text-heading:     var(--text-heading);
+  --color-text-body:        var(--text-body);
+  --color-text-muted:       var(--text-muted);
+  --color-text-subtle:      var(--text-subtle);
 
-  /* Texto sobre fondos CLAROS (secciones blancas y azules) */
-  --color-text-heading:      #0F172A;   /* títulos principales */
-  --color-text-body:         #334155;   /* cuerpo de texto — corregido de #475569 */
-  --color-text-muted-light:  #475569;   /* secundario sobre blanco puro */
-  --color-text-subtle:       #64748B;   /* hints, fechas, metadata */
+  /* Ahorro / Savings */
+  --color-savings:          var(--savings-primary);
+  --color-savings-bg:       var(--savings-bg);
+  --color-savings-text:     var(--savings-text);
 
-  /* Texto sobre fondos OSCUROS (#0F1923 y #070E18) */
-  --color-text-dark-primary:   #F1F5F9;  /* títulos y texto principal */
-  --color-text-dark-secondary: #CBD5E1;  /* links y texto normal — ratio 6.8:1 */
-  --color-text-dark-muted:     #94A3B8;  /* labels, subtítulos — ratio 4.6:1 */
-  --color-text-dark-heading:   #E2E8F0;  /* títulos de columna en footer — ratio 9.1:1 */
+  --color-border:           var(--border-adaptive);
+
+  --color-surface:          var(--section-white);
+  --color-surface-2:        var(--section-soft);
+  --color-surface-3:        var(--section-muted);
+
+  /* Legacy utility mapping for safety */
+  --color-background:       var(--section-white);
+  --color-text-primary:     var(--text-heading);
+  --color-text-secondary:   var(--text-body);
+  
+  --color-primary:          var(--primary);
+  --color-primary-hover:    var(--primary-hover);
+  --color-accent:           var(--accent);
+
+  /* Fixed text on dark tokens (UrgencyBar, Footer) */
+  --color-text-on-dark-primary:   #F1F5F9;
+  --color-text-on-dark-secondary: #CBD5E1;
+  --color-text-on-dark-muted:     #94A3B8;
+  --color-text-on-dark-heading:   #E2E8F0;
 
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
@@ -149,12 +164,34 @@
       transition: none !important;
     }
   }
+
+  /* Glassmorphism Premium Utilities */
+  .glass-card {
+    background: var(--section-white-alpha);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border-adaptive);
+  }
+
+  .premium-shadow {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  .dark .premium-shadow {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* Base styles for the theme */
 @layer base {
   body {
-    @apply antialiased min-h-screen bg-background text-text-primary font-body transition-colors duration-300;
+    background-color: var(--section-white);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Blog Custom Components */

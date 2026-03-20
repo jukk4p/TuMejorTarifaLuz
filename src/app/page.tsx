@@ -10,6 +10,7 @@ import SocialProof from "@/components/ui/SocialProof";
 import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import UrgencyBar from "@/components/ui/UrgencyBar";
+import { AvatarInitials } from "@/components/ui/AvatarInitials";
 
 export const dynamic = 'force-dynamic';
 
@@ -94,8 +95,8 @@ export default async function Home() {
       <main>
         {/* Hero Section */}
         <section 
-          className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center"
-          style={{ background: 'linear-gradient(160deg, #EEF2F8 0%, #F8FAFF 100%)' }}
+          className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center transition-colors duration-300"
+          style={{ background: 'linear-gradient(160deg, var(--color-section-muted) 0%, var(--color-section-white) 100%)' }}
         >
           <div className="hero-glow-1"></div>
           <div className="hero-glow-2"></div>
@@ -110,16 +111,22 @@ export default async function Home() {
                   </span>
                   Motor de comparación 2026 – Actualizado hoy
                 </div>
-                <h1 className="font-heading text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-900 text-text-primary leading-[1.05] md:leading-[1.02] tracking-tight">
+                <h1 
+                  className="font-heading text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-900 leading-[1.05] md:leading-[1.02] tracking-tight"
+                  style={{ color: 'var(--color-text-heading)' }}
+                >
                   Compara <span className="text-primary italic">tarifas de luz</span> gratis y ahorra
                 </h1>
-                <p className="font-body text-lg md:text-xl font-normal text-[#334155] max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0">
+                <p 
+                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0"
+                  style={{ color: 'var(--color-text-body)' }}
+                >
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
                 </p>
                 <div className="flex flex-col items-center lg:items-start gap-5 md:gap-6">
                   <Link 
                     href="/comparador?mode=upload" 
-                    className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl uppercase tracking-tighter"
+                    className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
                   >
                     <CloudUpload size={28} className="md:w-8 md:h-8" />
                     Subir mi factura y ahorrar
@@ -138,16 +145,10 @@ export default async function Home() {
                   </Link>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6 pt-8 md:pt-10 border-t border-border/40">
-                  <div className="flex -space-x-3 md:-space-x-4">
-                    {[
-                      { init: "JP", color: "bg-blue-600 text-white" },
-                      { init: "AM", color: "bg-emerald-600 text-white" },
-                      { init: "CL", color: "bg-amber-500 text-white" }
-                    ].map((avatar, i) => (
-                      <div key={i} className={`w-10 h-10 md:w-14 md:h-14 rounded-full border-[3px] md:border-4 border-surface flex items-center justify-center text-[9px] md:text-[13px] font-black tracking-tighter shadow-xl relative z-10 select-none ${avatar.color}`}>
-                        {avatar.init}
-                      </div>
-                    ))}
+                  <div className="flex items-center">
+                    <AvatarInitials initials="JP" bgColor="#3B82F6" size={48} first />
+                    <AvatarInitials initials="AM" bgColor="#8B5CF6" size={48} />
+                    <AvatarInitials initials="CL" bgColor="#F59E0B" size={48} />
                   </div>
                   <p className="text-xs md:text-base text-text-secondary max-w-[240px] md:max-w-none leading-tight font-bold">
                     Únete a las <SocialProof count={3891} /> que ya han tomado el control de su ahorro este mes.
@@ -160,16 +161,27 @@ export default async function Home() {
                 <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
                 <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
                 
-                <div className="relative bg-white dark:bg-surface-2/40 backdrop-blur-3xl rounded-3xl md:rounded-[3rem] shadow-2.5xl md:shadow-[0_48px_96px_-16px_rgba(0,0,0,0.12)] border border-border/40 dark:border-white/10 overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto">
-                   {/* Card Header */}
-                   <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between">
+                <div 
+                  className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto" style={{ backgroundColor: 'var(--section-white-alpha)' }}
+                >
+                   {/* Card Header with subtle gradient */}
+                   <div 
+                    className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between"
+                    style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}
+                   >
                      <div className="space-y-1 md:space-y-1.5">
-                        <p className="text-[9px] md:text-[11px] font-black text-text-muted dark:text-white/40 uppercase tracking-[0.25em]">Tu potencial de</p>
-                        <p className="text-xs sm:text-sm md:text-[18px] font-black text-text-primary dark:text-white uppercase tracking-[0.12em]">Ahorro real</p>
+                        <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
+                        <p className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
+                          Ahorro real
+                          <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        </p>
                      </div>
-                     <div className="px-3 md:px-4 py-1.5 md:py-2 bg-savings/10 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5">
-                        <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-savings rounded-full animate-pulse"></div>
-                        <span className="text-[9px] md:text-[11px] font-black text-savings uppercase tracking-widest">Optimizado hoy</span>
+                     <div 
+                      className="px-3 md:px-4 py-1.5 md:py-2 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5"
+                      style={{ background: 'var(--color-savings-bg)' }}
+                     >
+                        <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full animate-pulse" style={{ background: 'var(--color-savings-text)' }}></div>
+                        <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-savings-text)' }}>Optimizado hoy</span>
                      </div>
                    </div>
 
@@ -180,63 +192,71 @@ export default async function Home() {
                      <div className="flex items-center justify-between gap-3 sm:gap-6 relative">
                         {/* Current Tariff */}
                         <div className="flex-1 space-y-3 md:space-y-5">
-                           <p className="text-[9px] md:text-[11px] font-black text-text-muted dark:text-white/40 uppercase tracking-widest">Tarifa actual</p>
+                           <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
                            <div className="space-y-0.5 md:space-y-1">
-                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-text-primary dark:text-white leading-none">Iberdrola</p>
-                              <p className="text-[10px] md:text-[13px] text-text-muted dark:text-white/30 font-bold tracking-tight">Plan Estable</p>
+                              <p className="text-sm sm:text-lg md:text-2xl font-900 leading-none" style={{ color: 'var(--color-text-heading)' }}>Iberdrola</p>
+                              <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Plan Estable</p>
                            </div>
                            <div className="flex items-baseline gap-1 md:gap-1.5">
-                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-text-primary dark:text-white tracking-tight">0,162</span>
-                              <span className="text-[9px] md:text-sm font-bold text-text-muted dark:text-white/40 opacity-60">€/kWh*</span>
+                              <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
+                              <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
                            </div>
                         </div>
 
                         {/* Arrow Divider */}
-                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-2 md:mt-5">
-                           <div className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-xl md:shadow-2xl shadow-primary/30 z-10 transition-transform hover:scale-110">
-                              <ArrowRight size={20} className="md:w-8 md:h-8 stroke-[3]" />
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-2 md:mt-5 z-20">
+                           <div className="w-12 h-12 md:w-20 md:h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(var(--primary-rgb),0.4)] border-4 border-white/20 dark:border-white/10 transition-transform hover:scale-110 active:scale-95 cursor-pointer">
+                              <ArrowRight size={28} className="md:w-10 md:h-10 stroke-[3]" />
                            </div>
                         </div>
 
                         {/* Recommended Tariff */}
                         <div className="flex-1 space-y-3 md:space-y-5 text-right">
-                           <p className="text-[9px] md:text-[11px] font-black text-savings uppercase tracking-widest">Recomendada</p>
+                           <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-savings-text)' }}>Recomendada</p>
                            <div className="space-y-0.5 md:space-y-1">
-                              <p className="text-sm sm:text-lg md:text-2xl font-900 text-savings leading-none">Visalia</p>
-                              <p className="text-[10px] md:text-[13px] text-text-muted dark:text-white/30 font-bold tracking-tight">Luz Fijo 24h</p>
+                              <p className="text-sm sm:text-lg md:text-2xl font-900 leading-none" style={{ color: 'var(--color-savings-text)' }}>Visalia</p>
+                              <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Luz Fijo 24h</p>
                            </div>
                            <div className="flex items-baseline gap-1 md:gap-1.5 justify-end">
-                              <span className="text-xl sm:text-3xl md:text-4xl font-900 text-savings tracking-tight">0,098</span>
-                              <span className="text-[9px] md:text-sm font-bold text-text-muted dark:text-white/40 opacity-60">€/kWh*</span>
+                              <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-savings-text)' }}>0,098</span>
+                              <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
                            </div>
                         </div>
                      </div>
 
-                     {/* Savings Box */}
-                     {/* Savings Box - Optimized for single line */}
-                     <div className="bg-savings/5 border border-savings/25 rounded-2xl md:rounded-3xl p-4 md:p-6 flex items-center justify-between gap-4 relative overflow-hidden group/savings">
-                        <div className="absolute inset-0 bg-gradient-to-r from-savings/5 to-transparent -translate-x-full group-hover/savings:translate-x-full transition-transform duration-1000"></div>
-                        <div className="space-y-1 relative z-10">
-                           <p className="text-[9px] md:text-[10px] font-black text-text-secondary dark:text-white/60 uppercase tracking-widest leading-none">Ahorro estimado anual</p>
+                     {/* Savings Box with Glass and Elevation */}
+                     <div 
+                      className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between gap-4 relative overflow-hidden group/savings border premium-shadow transition-all duration-500 hover:border-savings/40"
+                      style={{ background: 'var(--color-savings-bg)', borderColor: 'var(--color-savings-text)' }}
+                     >
+                        <div className="absolute inset-0 bg-gradient-to-r from-savings/10 to-transparent -translate-x-full group-hover/savings:translate-x-full transition-transform duration-1000"></div>
+                        <div className="space-y-2 relative z-10">
+                           <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] leading-none" style={{ color: 'var(--color-savings-text)' }}>Ahorro estimado anual</p>
                            <div className="flex items-baseline gap-2">
-                              <span className="text-2xl md:text-4xl font-900 text-savings tracking-tighter">339,24€</span>
-                              <span className="text-xs md:text-sm text-savings/60 font-black">/ año</span>
+                              <span className="text-3xl md:text-5xl font-900 tracking-tighter drop-shadow-sm" style={{ color: 'var(--color-accent)' }}>339,24€</span>
+                              <span className="text-sm md:text-base font-black opacity-60" style={{ color: 'var(--color-accent)' }}>/ año</span>
                            </div>
                         </div>
-                        <div className="px-4 py-2.5 bg-savings/15 border border-savings/30 rounded-xl md:rounded-2xl text-center flex items-center gap-2.5 shrink-0 relative z-10 shadow-lg shadow-savings/5">
-                           <span className="text-xl md:text-2xl font-900 text-savings leading-none">-34,37%</span>
-                           <span className="text-[9px] font-black text-savings uppercase tracking-tighter opacity-80 hidden sm:block">de ahorro</span>
+                        <div 
+                          className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2.5 shrink-0 relative z-10 shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-all duration-300"
+                        >
+                           <span className="text-2xl md:text-3xl font-900 leading-none">-34,37%</span>
+                           <TrendingDown size={20} className="hidden sm:block" />
                         </div>
                      </div>
                    </div>
 
-                   <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-border/5 dark:bg-white/5 border-t border-border/40 dark:border-white/10 mt-auto flex items-center justify-between">
-                     <div className="flex items-center gap-2 md:gap-3">
-                        <div className="w-6 md:w-8 h-6 md:h-8 rounded-full bg-text-muted/10 dark:bg-white/10 flex items-center justify-center">
-                           <HistoryIcon size={12} className="md:w-[14px] md:h-[14px] text-text-muted dark:text-text-secondary" />
+                   <div 
+                    className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 border-t mt-auto flex items-center justify-between"
+                    style={{ background: 'linear-gradient(to right, var(--color-section-muted), transparent)', borderColor: 'var(--color-border)' }}
+                   >
+                     <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                           <HistoryIcon size={14} className="text-primary" />
                         </div>
-                        <p className="text-[8px] md:text-[11px] font-bold text-text-muted dark:text-text-secondary uppercase tracking-[0.08em]">Cálculo basado en un consumo de 250kWh</p>
+                        <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color: 'var(--color-text-subtle)' }}>Cálculo basado en tus datos de consumo real</p>
                      </div>
+                     <Link href="/#faq" className="text-[10px] font-black text-primary hover:underline uppercase tracking-widest">Ver metodología</Link>
                    </div>
                 </div>
                </div>
@@ -248,27 +268,33 @@ export default async function Home() {
         <UrgencyBar />
 
         {/* Support & Independence Section */}
-        <section className="py-24 bg-[#EEF2F8] relative overflow-hidden">
+        <section 
+          className="py-24 relative overflow-hidden transition-colors duration-300"
+          style={{ background: 'var(--color-section-muted)' }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
               
               {/* Left Side: Brand & Mission */}
               <div className="space-y-12">
-                <div className="inline-flex items-center gap-4 p-2 bg-[#F3F9FF] dark:bg-primary/10 rounded-2xl border border-primary/5 pr-6">
+                <div 
+                  className="inline-flex items-center gap-4 p-2 rounded-2xl border pr-6"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
                   <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                     <Heart size={24} className="fill-current" />
                   </div>
                   <div className="space-y-0.5">
                     <h2 className="text-lg font-900 text-primary">Misión independencia</h2>
-                    <p className="text-[10px] font-black text-primary/60 dark:text-primary/80 uppercase tracking-[0.2em]">Tu ahorro es nuestro compromiso</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Tu ahorro es nuestro compromiso</p>
                   </div>
                 </div>
                 
                 <div className="space-y-6">
-                  <h3 className="text-4xl md:text-5xl font-900 text-text-primary leading-[1.1] tracking-tight">
+                  <h3 className="text-4xl md:text-5xl font-900 leading-[1.1] tracking-tight" style={{ color: 'var(--color-text-heading)' }}>
                     Un comparador <span className="text-primary italic">libre de intereses</span> para familias reales
                   </h3>
-                  <p className="text-lg text-text-secondary leading-relaxed font-medium">
+                  <p className="text-lg leading-relaxed font-medium" style={{ color: 'var(--color-text-body)' }}>
                     TuMejorTarifaLuz nació con un propósito claro: democratizar el acceso a la energía barata sin intereses comerciales. <strong>No pertenecemos a ninguna eléctrica</strong> — nos sostenemos únicamente con donaciones voluntarias de usuarios satisfechos como tú.
                   </p>
                   
@@ -286,36 +312,45 @@ export default async function Home() {
               {/* Right Side: Quote & Donation */}
               <div className="space-y-8">
                 {/* Quote Card */}
-                <div className="premium-card bg-[#F8FAFC]/50 dark:bg-white/5 p-8 md:p-10 rounded-[2.5rem] space-y-8">
+                <div 
+                  className="p-8 md:p-10 rounded-[2.5rem] space-y-8 border"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
                   <div className="text-primary opacity-30">
                     <HistoryIcon size={24} className="rotate-180" />
                   </div>
-                  <p className="text-lg font-bold text-text-secondary italic leading-relaxed">
+                  <p className="text-lg font-bold italic leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                     Si el comparador te ha ahorrado dinero, tu donación ayuda a que más familias puedan seguir usando este servicio gratuito y sin publicidad.
                   </p>
                   <div className="flex items-center gap-3 pt-2">
                     <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
                       TM
                     </div>
-                    <p className="text-xs font-bold text-text-muted dark:text-text-secondary">
+                    <p className="text-xs font-bold" style={{ color: 'var(--color-text-muted)' }}>
                       — Equipo TuMejorTarifaLuz
                     </p>
                   </div>
                 </div>
                 
                 {/* Donation Card */}
-                <div className="bg-surface-2/30 dark:bg-surface-2/20 border border-border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm">
-                  <div className="px-8 pt-8 pb-6 border-b border-border/40">
+                <div 
+                  className="border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
+                  <div className="px-8 pt-8 pb-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
                     <div className="space-y-1 text-center sm:text-left">
-                      <p className="text-[10px] font-black text-text-muted dark:text-text-secondary uppercase tracking-[0.2em]">Apoya el proyecto</p>
-                      <p className="text-lg font-900 text-text-primary">Si te ha ahorrado dinero, devuelve un poco</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Apoya el proyecto</p>
+                      <p className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Si te ha ahorrado dinero, devuelve un poco</p>
                     </div>
                   </div>
                   <div className="p-8">
                     <SupportSection />
                   </div>
-                  <div className="px-8 py-5 bg-surface-2/50 dark:bg-white/5 border-t border-border/40 flex justify-center text-center">
-                    <p className="text-[10px] font-bold text-text-muted/60 dark:text-text-secondary/80 uppercase tracking-[0.05em]">
+                  <div 
+                    className="px-8 py-5 border-t flex justify-center text-center"
+                    style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-[0.05em]" style={{ color: 'var(--color-text-muted)' }}>
                       Pago seguro · Sin suscripción · Gracias por apoyar
                     </p>
                   </div>
@@ -327,7 +362,7 @@ export default async function Home() {
         </section>
 
         {/* How it Works Section */}
-        <section id="como-funciona" className="py-24 bg-white relative">
+        <section id="como-funciona" className="py-24 relative transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">¿Cómo funciona nuestro comparador?</h2>
@@ -373,7 +408,7 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-24 pt-12 bg-[#F0F4FF] scroll-mt-32">
+        <section id="faq" className="pb-24 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-soft)' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
@@ -415,14 +450,21 @@ export default async function Home() {
                   a: "¿Tienes una duda técnica o no entiendes un resultado? Escríbenos a hola@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
                 }
               ].map((faq, i) => (
-                <details key={i} className="group premium-card overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                <details 
+                  key={i} 
+                  className="group overflow-hidden [&_summary::-webkit-details-marker]:hidden rounded-2xl border transition-all duration-300"
+                  style={{ 
+                    background: 'var(--color-section-white)',
+                    borderColor: 'var(--color-border)'
+                  }}
+                >
                   <summary className="flex items-center justify-between p-6 cursor-pointer select-none list-none">
-                    <span className="font-heading text-base font-medium text-text-primary">{faq.q}</span>
+                    <span className="font-heading text-base font-medium" style={{ color: 'var(--color-text-heading)' }}>{faq.q}</span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-accent-bg text-accent-bg-text" : "bg-primary/10 text-primary"}`}>
                       <ChevronDown size={20} />
                     </div>
                   </summary>
-                  <div className="font-body text-sm font-normal px-6 pb-6 text-[#334155] leading-relaxed">
+                  <div className="font-body text-sm font-normal px-6 pb-6 leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                     {faq.a}
                   </div>
                 </details>
@@ -436,8 +478,8 @@ export default async function Home() {
               <div className="grid md:grid-cols-2 gap-12 relative z-10">
                 {/* Doubt Column */}
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-text-primary">¿Todavía tienes dudas?</h3>
-                  <p className="text-sm text-[#334155] leading-relaxed max-w-sm">
+                  <h3 className="text-xl font-bold" style={{ color: 'var(--color-text-heading)' }}>¿Todavía tienes dudas?</h3>
+                  <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'var(--color-text-body)' }}>
                     Si no has encontrado la respuesta que buscabas o tu factura es compleja, nuestro equipo te ayuda de forma personalizada.
                   </p>
                   <a 
@@ -452,8 +494,8 @@ export default async function Home() {
                 {/* Ready Column */}
                 <div className="space-y-6 flex flex-col justify-center">
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-text-primary">¿Ya tienes todo claro?</h3>
-                    <p className="text-sm text-[#334155] leading-relaxed">
+                    <h3 className="text-xl font-bold" style={{ color: 'var(--color-text-heading)' }}>¿Ya tienes todo claro?</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                       La media de ahorro es de 312€ al año. No esperes más para empezar a ahorrar hoy.
                     </p>
                   </div>
@@ -471,7 +513,7 @@ export default async function Home() {
         </section>
 
         {/* Knowledge Center Section */}
-        <section id="guias" className="py-24 bg-white">
+        <section id="guias" className="py-24 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl space-y-4">
@@ -514,7 +556,7 @@ export default async function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -mr-64 -mt-64 opacity-50"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mb-48 opacity-30"></div>
 
@@ -615,7 +657,10 @@ export default async function Home() {
         </section>
 
         {/* Brand Logos Grid Section */}
-        <section className="py-24 bg-[#F0F4FF] border-y border-border">
+        <section 
+          className="py-24 border-y border-border transition-colors duration-300" 
+          style={{ background: 'var(--color-section-soft, #F0F4FF)' }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 space-y-4">
               <h2 className="font-heading text-3xl font-semibold text-text-primary">Comparamos entre las mejores comercializadoras</h2>
@@ -639,7 +684,13 @@ export default async function Home() {
                 { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-110", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
-                  <div className="w-full aspect-[2/1] bg-white dark:bg-white/5 rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border border-border group-hover:border-primary/40 group-hover:-translate-y-1">
+                  <div 
+                    className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
+                    style={{ 
+                      background: 'var(--color-section-white)',
+                      borderColor: 'var(--color-border)'
+                    }}
+                  >
                     {brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
@@ -649,7 +700,7 @@ export default async function Home() {
                       <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
-                  <span className="font-body text-xs font-medium text-text-muted dark:text-text-secondary tracking-widest uppercase group-hover:text-primary transition-colors">{brand.name}</span>
+                  <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>
                 </Link>
               ))}
             </div>
@@ -667,7 +718,7 @@ export default async function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 bg-white">
+        <section id="final-cta" className="py-20 px-4 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-5xl mx-auto bg-[#0F1923] rounded-[2rem] p-8 md:p-16 text-center text-[#F1F5F9] relative overflow-hidden shadow-2xl shadow-primary/30">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
