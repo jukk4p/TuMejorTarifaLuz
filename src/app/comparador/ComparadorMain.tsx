@@ -1215,23 +1215,23 @@ export default function ComparadorMain() {
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-12 max-w-md mx-auto">
-                                            <div className="space-y-3 group/item text-center">
-                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-colors">
-                                                    <Activity className="w-6 h-6 text-slate-400/60 group-hover/item:text-primary transition-colors" />
+                                            <div className="space-y-4 group/item text-center">
+                                                <div className="w-14 h-14 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-primary/10 transition-all group-hover/item:scale-110 shadow-sm border border-border/20">
+                                                    <Activity className="w-6 h-6 text-text-muted group-hover/item:text-primary transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Análisis</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-text-muted transition-colors group-hover/item:text-text-primary px-2">Análisis</p>
                                             </div>
-                                            <div className="space-y-3 group/item text-center">
-                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-accent-bg transition-colors">
-                                                    <CheckCircle2 className="w-6 h-6 text-slate-400/60 group-hover/item:text-accent transition-colors" />
+                                            <div className="space-y-4 group/item text-center">
+                                                <div className="w-14 h-14 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-accent/10 transition-all group-hover/item:scale-110 shadow-sm border border-border/20">
+                                                    <CheckCircle2 className="w-6 h-6 text-text-muted group-hover/item:text-accent transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Verificación</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-text-muted transition-colors group-hover/item:text-text-primary px-2">Verificación</p>
                                             </div>
-                                            <div className="space-y-3 group/item text-center">
-                                                <div className="w-12 h-12 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-warning/10 transition-colors">
-                                                    <TrendingDown className="w-6 h-6 text-slate-400/60 group-hover/item:text-warning transition-colors" />
+                                            <div className="space-y-4 group/item text-center">
+                                                <div className="w-14 h-14 rounded-2xl bg-surface-2 flex items-center justify-center mx-auto group-hover/item:bg-warning/10 transition-all group-hover/item:scale-110 shadow-sm border border-border/20">
+                                                    <TrendingDown className="w-6 h-6 text-text-muted group-hover/item:text-warning transition-colors" />
                                                 </div>
-                                                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400/60 transition-colors group-hover/item:text-text-primary">Ahorro</p>
+                                                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-text-muted transition-colors group-hover/item:text-text-primary px-2">Ahorro</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1247,7 +1247,8 @@ export default function ComparadorMain() {
                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="flex flex-col lg:flex-row gap-8 min-h-[700px]">
                             {/* LEFT: INVOICE PREVIEW */}
-                            <div className="flex-1 premium-card overflow-hidden flex flex-col group/preview border-none shadow-2xl">
+                            <div className="flex-1 premium-card bg-dot-pattern overflow-hidden flex flex-col group/preview border-none shadow-2xl relative">
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/95 to-white/40 dark:from-surface/95 dark:to-surface/40 pointer-events-none"></div>
                                 <div className="px-8 py-5 border-b border-border flex justify-between items-center bg-surface transition-colors">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
