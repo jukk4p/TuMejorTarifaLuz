@@ -2330,29 +2330,29 @@ export default function ComparadorMain() {
                                                     )}
 
                                                     <div className="p-6 space-y-5">
-                                                        <div className="flex items-start justify-between">
-                                                            <div className="flex items-center gap-3">
-                                                                <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 border border-border bg-white p-1.5 flex items-center justify-center">
-                                                                    {logoPath ? (
-                                                                        <Image 
-                                                                            src={logoPath} 
-                                                                            alt={res.tariff.company} 
-                                                                            width={40} 
-                                                                            height={40} 
-                                                                            className="w-full h-full object-contain"
-                                                                        />
-                                                                    ) : (
-                                                                        <Building2 className="w-5 h-5 text-text-muted" />
-                                                                    )}
-                                                                </div>
-                                                                <div className="flex flex-col min-w-0">
-                                                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-wider leading-none mb-1">{res.tariff.company}</span>
-                                                                    <span className="text-sm font-bold text-text-primary tracking-tight leading-tight uppercase font-heading">{res.tariff.name}</span>
-                                                                </div>
-                                                            </div>
+                                                        <div className="flex flex-col items-center text-center space-y-3">
                                                             {isWinner && (
-                                                                <span className="bg-primary/10 text-primary text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-tighter">Mejor opción</span>
+                                                                <span className="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 animate-in fade-in slide-in-from-top-2 duration-500">
+                                                                    Mejor opción
+                                                                </span>
                                                             )}
+                                                            <div className="w-14 h-14 rounded-2xl overflow-hidden border border-border bg-white shadow-sm p-2 flex items-center justify-center">
+                                                                {logoPath ? (
+                                                                    <Image 
+                                                                        src={logoPath} 
+                                                                        alt={res.tariff.company} 
+                                                                        width={56} 
+                                                                        height={56} 
+                                                                        className="w-full h-full object-contain"
+                                                                    />
+                                                                ) : (
+                                                                    <Building2 className="w-7 h-7 text-text-muted" />
+                                                                )}
+                                                            </div>
+                                                            <div className="flex flex-col items-center max-w-[240px]">
+                                                                <span className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1.5">{res.tariff.company}</span>
+                                                                <span className="text-base font-black text-text-primary tracking-tight leading-tight uppercase font-heading">{res.tariff.name}</span>
+                                                            </div>
                                                         </div>
 
                                                         <div className="grid grid-cols-2 gap-4 border-y border-border/50 py-5">
