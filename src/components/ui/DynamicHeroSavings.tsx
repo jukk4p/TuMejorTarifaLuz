@@ -22,7 +22,7 @@ export default function DynamicHeroSavings() {
 
   return (
     <p 
-      className="text-xl md:text-2xl font-900 tracking-tight flex items-center gap-3 animate-in fade-in slide-in-from-left-4 duration-1000" 
+      className="text-xl md:text-2xl font-900 tracking-tight flex items-center justify-center lg:justify-start gap-3 animate-in fade-in slide-in-from-left-4 duration-1000" 
       style={{ color: 'var(--color-savings-text)' }}
     >
       {savingsPct !== null ? (
