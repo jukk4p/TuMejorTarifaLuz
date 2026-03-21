@@ -229,7 +229,7 @@ export default function Navbar() {
 
             {/* Mobile Drawer Panel */}
             <div 
-                className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] shadow-[0_0_50px_rgba(0,0,0,0.5)] transform transition-all duration-500 ease-out border-l border-border/50 ${isDrawerOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'}`}
+                className={`fixed top-0 right-0 h-[100dvh] w-[85%] max-w-[360px] shadow-[0_0_50px_rgba(0,0,0,0.5)] transform transition-all duration-500 ease-out border-l border-border/50 ${isDrawerOpen ? 'translate-x-0 opacity-100 visible' : 'translate-x-[110%] opacity-0 invisible pointer-events-none'}`}
                 style={{ 
                     zIndex: 9999, 
                     backgroundColor: 'var(--color-section-white)',

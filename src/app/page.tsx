@@ -94,7 +94,7 @@ export default async function Home() {
         { name: "Inicio", item: "/" },
         { name: "Comparador de Tarifas", item: "/comparador" }
       ])} />
-      <main>
+      <main className="overflow-x-hidden">
         {/* Hero Section */}
         <section 
           className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center transition-colors duration-300"
