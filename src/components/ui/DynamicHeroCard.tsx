@@ -25,7 +25,7 @@ interface ComparisonData {
 const getLogoScale = (companyName: string) => {
   const name = companyName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   if (name.includes("iberdrola")) return "scale-[1.5]";
-  if (name.includes("endesa")) return "scale-[1.4]";
+  if (name.includes("endesa")) return "scale-[0.75]";
   if (name.includes("naturgy")) return "scale-[1.4]";
   if (name.includes("repsol")) return "scale-[1.4]";
   if (name.includes("octopus")) return "scale-[1.35]";
@@ -35,6 +35,7 @@ const getLogoScale = (companyName: string) => {
   if (name.includes("vm") || name.includes("energya")) return "scale-[1.3]";
   if (name.includes("chc")) return "scale-[1.3]";
   if (name.includes("referencia") || name.includes("cor")) return "scale-[1.2]";
+  if (name.includes("visalia")) return "scale-[0.95]";
   return "scale-100";
 };
 
