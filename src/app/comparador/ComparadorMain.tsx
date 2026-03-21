@@ -830,7 +830,7 @@ export default function ComparadorMain() {
                             {/* Option 1: AI Analysis */}
                             <button 
                                 onClick={() => setInputMethod("upload")}
-                                className="premium-card group p-10 md:p-14 text-center hover:border-primary/50 transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                                className="premium-card premium-glow bg-dot-pattern group p-10 md:p-14 text-center hover:border-primary/50 transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
                                 <div className="w-24 h-24 bg-primary/10 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-primary/10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
@@ -852,7 +852,7 @@ export default function ComparadorMain() {
                             {/* Option 2: Manual Input */}
                             <button 
                                 onClick={() => setInputMethod("manual")}
-                                className="premium-card group p-10 md:p-14 text-center hover:border-border hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                                className="premium-card bg-surface-2/30 group p-10 md:p-14 text-center hover:border-border hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-surface-2 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/20 transition-colors"></div>
                                 <div className="w-24 h-24 bg-surface-2 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
@@ -876,7 +876,8 @@ export default function ComparadorMain() {
                 {step === "input" && inputMethod && (
                     <div className="flex flex-col lg:flex-row gap-8 animate-in fade-in duration-500">
                         <aside className="w-full lg:w-[400px] shrink-0 flex flex-col">
-                            <div className="premium-card p-6 flex-1 h-full flex flex-col shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-primary/30">
+                            <div className="premium-card bg-dot-pattern p-6 flex-1 h-full flex flex-col shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-primary/30 relative">
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-transparent dark:from-surface/80 dark:to-transparent pointer-events-none rounded-[1.5rem]"></div>
                                 <div className="flex items-center justify-between mb-8">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
@@ -920,10 +921,10 @@ export default function ComparadorMain() {
 
                                     {(inputMethod === "manual" || hasAnalyzed) && (
                                         <div className="space-y-6">
-                                            <div className="relative py-2 flex items-center uppercase text-[9px] font-bold text-text-muted tracking-widest">
-                                                <div className="grow border-t border-border"></div>
-                                                <span className="mx-4">Ajuste Manual</span>
-                                                <div className="grow border-t border-border"></div>
+                                            <div className="relative py-8 flex items-center">
+                                                <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+                                                <span className="mx-4 px-3 py-1 bg-surface-2 border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
+                                                <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
                                             </div>
 
                                             <div className="space-y-5">
@@ -934,7 +935,7 @@ export default function ComparadorMain() {
                                                             type="number"
                                                             value={input.days || ''}
                                                             onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
-                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                             placeholder="30"
                                                         />
                                                     </div>
@@ -944,7 +945,7 @@ export default function ComparadorMain() {
                                                             type="number"
                                                             value={input.current_bill_total || ''}
                                                             onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
-                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                             placeholder="0.00"
                                                         />
                                                     </div>
@@ -961,7 +962,7 @@ export default function ComparadorMain() {
                                                             value={displayValues.power_p1}
                                                             onChange={handleInputChange}
                                                             placeholder="0,00"
-                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                         />
                                                     </div>
                                                     <div className="space-y-1.5">
@@ -973,7 +974,7 @@ export default function ComparadorMain() {
                                                             value={displayValues.power_p2}
                                                             onChange={handleInputChange}
                                                             placeholder="0,00"
-                                                            className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                         />
                                                     </div>
                                                 </div>
@@ -994,7 +995,7 @@ export default function ComparadorMain() {
                                                                 value={displayValues[item.name as keyof typeof displayValues]}
                                                                 onChange={handleInputChange}
                                                                 placeholder="0,00"
-                                                                className="w-full bg-surface-2 border-transparent rounded-xl px-4 py-3 text-sm font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                             />
                                                         </div>
                                                     ))}
@@ -1191,9 +1192,10 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="premium-card p-6 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
-                                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>
-                                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-ai-purple/5 rounded-full blur-[80px] -ml-48 -mb-48 group-hover:bg-ai-purple/10 transition-colors duration-700"></div>
+                                <div className="premium-card bg-grid-pattern p-6 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-white via-white/80 to-primary/10 dark:from-surface dark:via-surface/80 dark:to-primary/10 pointer-events-none"></div>
+                                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -mr-64 -mt-64 group-hover:bg-primary/20 transition-colors duration-700"></div>
+                                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-ai-purple/10 rounded-full blur-[100px] -ml-48 -mb-48 group-hover:bg-ai-purple/20 transition-colors duration-700"></div>
 
                                     <div className="relative z-10 max-w-2xl w-full">
                                         <div className="w-24 h-24 bg-primary/10 rounded-[2rem] flex items-center justify-center mb-10 mx-auto">

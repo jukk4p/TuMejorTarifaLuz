@@ -180,6 +180,33 @@
   .dark .premium-shadow {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   }
+
+  /* Technical Background Patterns */
+  .bg-dot-pattern {
+    background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .premium-glow {
+    position: relative;
+  }
+
+  .premium-glow::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(to bottom right, rgba(var(--primary-rgb), 0.2), transparent 50%, rgba(var(--primary-rgb), 0.1));
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+  }
 }
 
 /* Base styles for the theme */
