@@ -2264,7 +2264,7 @@ export default function ComparadorMain() {
                                         {/* Subtle Corner Icon Hint */}
                                         {results[0] && (
                                             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
-                                                <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary/10 text-primary border-primary/20" : "bg-orange-500/10 text-orange-500 border-orange-500/20"} p-2 rounded-xl backdrop-blur-md border shadow-sm`} title="Ver detalles del estudio">
+                                                <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary/10 text-primary border-primary/20" : "bg-orange-500/10 text-orange-500 border-orange-500/20"} p-2 rounded-xl backdrop-blur-md border shadow-sm`} title="Ver detalles de esta tarifa">
                                                     <Eye className="w-4 h-4" />
                                                 </div>
                                             </div>
