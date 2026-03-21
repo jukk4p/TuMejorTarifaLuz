@@ -2356,7 +2356,8 @@ export default function ComparadorMain() {
                                                         </div>
 
                                                         <div className="grid grid-cols-2 gap-4 border-y border-border/50 py-5">
-                                                            <div className="flex flex-col">
+                                                            <div className="flex flex-col relative pr-4">
+                                                                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8 bg-border/50"></div>
                                                                 <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Cuota estimada</span>
                                                                 <div className="flex items-baseline gap-1">
                                                                     <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{res.total.toFixed(2)}€</span>
