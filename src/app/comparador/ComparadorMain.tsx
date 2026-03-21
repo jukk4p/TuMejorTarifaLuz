@@ -2487,17 +2487,7 @@ export default function ComparadorMain() {
                                                             <span className="text-text-muted font-black text-xs uppercase tracking-widest opacity-40">—</span>
                                                         </td>
                                                         <td className="py-5 px-8 text-center">
-                                                            <button
-                                                                onClick={saveBill}
-                                                                disabled={isProcessing || results.length === 0}
-                                                                className="group relative inline-flex items-center justify-center px-4 py-2 bg-primary rounded-lg text-[9.5px] font-black text-white uppercase tracking-widest shadow-md shadow-primary/20 hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all overflow-hidden disabled:opacity-40 disabled:hover:scale-100 whitespace-nowrap"
-                                                            >
-                                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
-                                                                {isProcessing && (
-                                                                    <div className="w-3 h-3 border-[1.5px] border-white/30 border-t-white rounded-full animate-spin mr-1.5"></div>
-                                                                )}
-                                                                <span className="relative z-10 leading-none">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
-                                                            </button>
+                                                            <span className="text-text-muted font-black text-xs uppercase tracking-widest opacity-40">—</span>
                                                         </td>
                                                     </tr>
 
