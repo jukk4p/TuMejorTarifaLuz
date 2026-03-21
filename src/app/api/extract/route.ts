@@ -27,8 +27,9 @@ export async function POST(request: Request) {
 
         const prompt = `Analiza esta factura de luz y extrae los siguientes datos numéricos de forma estricta. Usa punto para los decimales. Si algún dato no aparece o no estás seguro, devuélvelo como 0. 
 
-        Estructura requerida:
+        Estructura requerida (todas las propiedades deben estar presentes):
         {
+          "company_name": <Nombre de la compañía comercializadora (ej: Iberdrola, Endesa, Naturgy, etc) (string)>,
           "power_p1": <Potencia punta contratada en kW (número)>,
           "power_p2": <Potencia valle contratada en kW (número)>,
           "energy_p1": <Energía consumida en punta e1 en kWh (número)>,
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
           "current_price_p3": <PRECIO UNITARIO de la energía en valle (e3) en €/kWh (número)>
         }
         
-        Nota importante: Busca expresamente el término "€/kWh", "Eur/kWh", "precio" o fíjate en la columna de precio en la tabla de facturación para obtener "current_price_p1", p2, y p3.`;
+        Nota importante: Busca expresamente el nombre de la compañía (logo o texto) para el campo "company_name" y fíjate en el término "€/kWh", "Eur/kWh", "precio" o la columna de precio para "current_price_p1", p2, y p3.`;
 
         const imageParts = [
             {
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
                 // Retornar los datos planos que hemos pedido, aplicando fallbacks básicos de seguridad
                 // para que la UI no reciba ceros si la IA los metió en otro hueco (ej. tarifas planas o P3 por P2)
                 const extracted = {
+                    company_name: aiData.company_name || null,
                     power_p1: aiData.power_p1 || null,
                     power_p2: aiData.power_p2 || aiData.power_p3 || aiData.power_p1 || null,
                     energy_p1: aiData.energy_p1 || null,

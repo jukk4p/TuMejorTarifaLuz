@@ -142,6 +142,7 @@ export default function ComparadorMain() {
     const [hasAnalyzed, setHasAnalyzed] = useState(false);
     const [studyMode, setStudyMode] = useState<"monthly" | "annual" | null>(null);
     const [isStudySelectorOpen, setIsStudySelectorOpen] = useState(false);
+    const [detectedCompany, setDetectedCompany] = useState<string | null>(null);
     const [pendingStudyMode, setPendingStudyMode] = useState<"monthly" | "annual" | null>(null);
 
     const [isProfileCollapsed, setIsProfileCollapsed] = useState(false);
@@ -397,6 +398,8 @@ export default function ComparadorMain() {
         };
     }, [isProcessing, isAiGenerated, step]); // Removed analysisProgress from deps to avoid re-triggering logic unnecessarily
 
+
+
     // CONTEXTUAL STATUS UPDATES
     useEffect(() => {
         if (!isProcessing) return;
@@ -448,6 +451,31 @@ export default function ComparadorMain() {
 
         return filtered;
     }, [baseResults, filterSearch, filterPriceType, sortBy, limitResults]);
+
+    // PERSIST LAST COMPARISON FOR SEARCH / DYNAMIC HERO
+    useEffect(() => {
+        if (typeof window !== "undefined" && step === "results" && results.length > 0) {
+            const lastComparison = {
+                timestamp: Date.now(),
+                current: {
+                    company: detectedCompany || "Tu comercializadora",
+                    price: input.current_price_p1 || 0,
+                    logo: detectedCompany ? getLogoPath(detectedCompany) : null
+                },
+                recommended: {
+                    company: results[0].tariff.company,
+                    name: results[0].tariff.name,
+                    price: results[0].tariff.e1_kwh,
+                    savings: Math.max(0, ((input.current_bill_total || 0) - results[0].total) * 12),
+                    savingsPct: Math.round((Math.max(0, (input.current_bill_total || 0) - results[0].total) / (input.current_bill_total || 1)) * 100),
+                    logo: getLogoPath(results[0].tariff.company)
+                }
+            };
+            localStorage.setItem("tmtl_last_comparison", JSON.stringify(lastComparison));
+        }
+    }, [step, results, detectedCompany, input.current_price_p1, input.current_bill_total]);
+
+
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -599,8 +627,11 @@ export default function ComparadorMain() {
                         current_bill_total: data.current_bill_total || 142.50,
                         current_price_p1: data.current_price_p1 || 0,
                         current_price_p2: data.current_price_p2 || 0,
-                        current_price_p3: data.current_price_p3 || 0
+                        current_price_p3: data.current_price_p3 || 0,
+                        company_name: data.company_name || null
                     };
+
+                    setDetectedCompany(rawData.company_name);
 
                     setInput({
                         power_p1: roundValue(rawData.power_p1, 3),
