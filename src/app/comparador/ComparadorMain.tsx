@@ -310,7 +310,11 @@ export default function ComparadorMain() {
                             energy_p1: data.energy_p1 || input.energy_p1,
                             energy_p2: data.energy_p2 || input.energy_p2,
                             energy_p3: data.energy_p3 || input.energy_p3,
-                            current_bill_total: data.current_bill_total || input.current_bill_total
+                            current_bill_total: data.current_bill_total || input.current_bill_total,
+                            current_price_p1: data.current_price_p1 || input.current_price_p1,
+                            current_price_p2: data.current_price_p2 || input.current_price_p2,
+                            current_price_p3: data.current_price_p3 || input.current_price_p3,
+                            days: data.days || input.days
                         };
                         setInput(newInput);
                         setDisplayValues(prev => ({
@@ -320,7 +324,11 @@ export default function ComparadorMain() {
                             energy_p1: newInput.energy_p1.toString().replace(".", ","),
                             energy_p2: newInput.energy_p2.toString().replace(".", ","),
                             energy_p3: newInput.energy_p3.toString().replace(".", ","),
-                            current_bill_total: newInput.current_bill_total.toString().replace(".", ",")
+                            current_bill_total: newInput.current_bill_total.toString().replace(".", ","),
+                            current_price_p1: (newInput.current_price_p1 || 0).toString().replace(".", ","),
+                            current_price_p2: (newInput.current_price_p2 || 0).toString().replace(".", ","),
+                            current_price_p3: (newInput.current_price_p3 || 0).toString().replace(".", ","),
+                            days: newInput.days.toString()
                         }));
                     }
                 } catch (error: unknown) {
@@ -938,6 +946,7 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-5">
+                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Información Factura</h4>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="space-y-1.5 flex-1">
                                                             <label className="text-[11px] font-bold text-text-secondary uppercase">Días</label>
@@ -961,7 +970,7 @@ export default function ComparadorMain() {
                                                         </div>
                                                     </div>
 
-                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Potencias (kW)</h4>
+                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Potencias (kW)</h4>
                                                     <div className="grid grid-cols-2 gap-4">
                                                         <div className="space-y-1.5">
                                                             <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (P1)</label>
@@ -1011,6 +1020,28 @@ export default function ComparadorMain() {
                                                         ))}
                                                     </div>
 
+                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Precios Energía (€/kWh)</h4>
+                                                    <div className="space-y-4">
+                                                        {[
+                                                            { label: "Punta (P1)", name: "current_price_p1" },
+                                                            { label: "Llano (P2)", name: "current_price_p2" },
+                                                            { label: "Valle (P3)", name: "current_price_p3" },
+                                                        ].map((item, idx) => (
+                                                            <div key={idx} className="space-y-1.5">
+                                                                <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
+                                                                <input
+                                                                    type="text"
+                                                                    inputMode="decimal"
+                                                                    name={item.name}
+                                                                    value={displayValues[item.name as keyof typeof displayValues]}
+                                                                    onChange={handleInputChange}
+                                                                    placeholder="0,0000"
+                                                                    className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+  
                                                     <button 
                                                         onClick={() => startAnalysis(true)} 
                                                         disabled={isProcessing} 
@@ -1030,14 +1061,13 @@ export default function ComparadorMain() {
                                                     </button>
                                                 </div>
                                             </div>
-
                                         )}
                                     </div>
                                 </div>
                             </div>
                         </aside>
 
-                            <section className="flex-1 flex flex-col space-y-6">
+                        <section className="flex-1 flex flex-col space-y-6">
                             {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
                                 <div className="premium-card p-6 md:p-20 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] group !border-none shadow-2xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-500">
                                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-64 -mt-64 group-hover:bg-primary/10 transition-colors duration-700"></div>

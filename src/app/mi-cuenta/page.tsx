@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { db, auth } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, ChevronDown, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock, Calendar } from "lucide-react";
+import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, ChevronDown, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock, Calendar, Info } from "lucide-react";
 import { useToast } from "@/components/providers/ToastProvider";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
@@ -67,7 +67,10 @@ export default function ProfilePage() {
         energy_p2: "85",
         energy_p3: "150",
         days: "30",
-        current_bill_total: "0"
+        current_bill_total: "0",
+        current_price_p1: "0",
+        current_price_p2: "0",
+        current_price_p3: "0"
     });
 
     useEffect(() => {
@@ -89,7 +92,10 @@ export default function ProfilePage() {
                             energy_p2: (data.energy_p2 || "85").toString().replace(".", ","),
                             energy_p3: (data.energy_p3 || "150").toString().replace(".", ","),
                             days: (data.days || "30").toString(),
-                            current_bill_total: (data.current_bill_total || "0").toString().replace(".", ",")
+                            current_bill_total: (data.current_bill_total || "0").toString().replace(".", ","),
+                            current_price_p1: (data.current_price_p1 || "0").toString().replace(".", ","),
+                            current_price_p2: (data.current_price_p2 || "0").toString().replace(".", ","),
+                            current_price_p3: (data.current_price_p3 || "0").toString().replace(".", ",")
                         });
                     }
                 } catch (err) {
@@ -120,7 +126,10 @@ export default function ProfilePage() {
             energy_p2: Number(consumptionSettings.energy_p2.toString().replace(",", ".")),
             energy_p3: Number(consumptionSettings.energy_p3.toString().replace(",", ".")),
             days: Number(consumptionSettings.days),
-            current_bill_total: Number(consumptionSettings.current_bill_total.toString().replace(",", "."))
+            current_bill_total: Number(consumptionSettings.current_bill_total.toString().replace(",", ".")),
+            current_price_p1: Number(consumptionSettings.current_price_p1.toString().replace(",", ".")),
+            current_price_p2: Number(consumptionSettings.current_price_p2.toString().replace(",", ".")),
+            current_price_p3: Number(consumptionSettings.current_price_p3.toString().replace(",", "."))
         };
 
         // Validar que no haya NaNs en consumos
@@ -158,6 +167,15 @@ export default function ProfilePage() {
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    // Auto-generate initials avatar when name changes
+    useEffect(() => {
+        if (editName.trim()) {
+            const initials = editName.trim().split(/\s+/).map(n => n[0]).join('').toUpperCase().slice(0, 2);
+            const initialsUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${initials}&backgroundColor=0066ff,3b82f6,6366f1,8b5cf6,f59e0b,10b981&textColor=ffffff&fontWeight=900`;
+            setEditPhoto(initialsUrl);
+        }
+    }, [editName]);
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -703,7 +721,7 @@ export default function ProfilePage() {
                 <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-500 p-0 sm:p-6 lg:p-12"
                      onClick={() => setIsEditModalOpen(false)}>
                     <div
-                        className="bg-white dark:bg-[#080b0f] w-full max-w-4xl rounded-t-[2.5rem] sm:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-t sm:border border-border relative overflow-hidden animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-700 flex flex-col max-h-[92vh]"
+                        className="bg-white dark:bg-[#080b0f] w-full max-w-xl rounded-t-[2.5rem] sm:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-t sm:border border-border relative overflow-hidden animate-in slide-in-from-bottom-full sm:slide-in-from-bottom-8 duration-700 flex flex-col max-h-[92vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Sublime Ambient Glows - Enhanced Saturation */}
@@ -712,7 +730,7 @@ export default function ProfilePage() {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none opacity-20"></div>
 
                         {/* Minimalist Header with Subtle Color */}
-                        <div className="relative z-10 px-8 py-6 sm:px-12 sm:py-8 flex items-center justify-between border-b border-slate-100 dark:border-white/5 bg-white/50 dark:bg-[#0a0e15]/60 backdrop-blur-2xl overflow-hidden">
+                        <div className="relative z-10 px-6 py-5 sm:px-10 sm:py-6 flex items-center justify-between border-b border-slate-100 dark:border-white/5 bg-white/50 dark:bg-[#0a0e15]/60 backdrop-blur-2xl overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-emerald-500/5 pointer-events-none"></div>
                             <div className="flex items-center gap-6">
                                 <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary border border-primary/20 group transition-all hover:bg-primary hover:text-white">
@@ -720,10 +738,6 @@ export default function ProfilePage() {
                                 </div>
                                 <div className="space-y-0.5">
                                     <h3 className="text-xl font-bold text-text-primary tracking-tight">Preferencias</h3>
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></span>
-                                        <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Sincronización Perfil IA</span>
-                                    </div>
                                 </div>
                             </div>
                             <button
@@ -734,183 +748,159 @@ export default function ProfilePage() {
                             </button>
                         </div>
 
-                        {/* Modal Body */}
                         <div className="relative z-10 flex-1 overflow-y-auto custom-scrollbar">
-                            <form onSubmit={handleUpdateProfile} className="p-8 sm:p-12 space-y-12">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                                    
-                                    {/* SECCIÓN 01: IDENTIDAD */}
-                                    <div className="space-y-10">
-                                        <div className="space-y-1 flex items-center gap-3">
-                                            <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-                                            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">01. Perfil Público</h4>
+                            <form onSubmit={handleUpdateProfile} className="p-4 sm:p-8">
+                                <div className="space-y-6">
+                                    {/* IDENTITY HEADER: CENTERED STACK */}
+                                    <div className="flex flex-col items-center gap-4 py-4 border-b border-slate-100 dark:border-white/5 pb-10 text-center">
+                                        <div className="w-16 h-16 shrink-0 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden flex items-center justify-center p-0.5 ring-4 ring-slate-50 dark:ring-white/5">
+                                            {editPhoto ? (
+                                                <img src={editPhoto} alt="Preview" className="w-full h-full object-contain rounded-xl" />
+                                            ) : (
+                                                <div className="w-full h-full bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                                                    <UserIcon size={28} />
+                                                </div>
+                                            )}
                                         </div>
-
-                                        <div className="space-y-8">
-                                            {/* Name Input */}
-                                            <div className="space-y-3">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Alias del Guerrero</label>
-                                                <input
-                                                    type="text"
-                                                    value={editName}
-                                                    onChange={(e) => setEditName(e.target.value)}
-                                                    className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl px-5 text-sm font-semibold text-text-primary focus:outline-none focus:ring-1 focus:ring-primary/40 focus:border-primary/40 focus:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)] transition-all placeholder:text-slate-300 dark:placeholder:text-slate-700"
-                                                    placeholder="Tu nombre en el sistema..."
-                                                />
-                                            </div>
-
-                                            {/* Avatar Selector */}
-                                            <div className="space-y-4">
-                                                <div className="flex items-center justify-between ml-1">
-                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cámara de Avatares</label>
-                                                    <span className="text-[9px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded-full">Diseño Exclusivo</span>
-                                                </div>
-                                                <div className="grid grid-cols-5 gap-3 p-4 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-100 dark:border-white/5 max-h-[200px] overflow-y-auto custom-scrollbar-mini">
-                                                    {[
-                                                        { style: 'adventurer', seeds: ['Jasper', 'Felix', 'Aneka', 'Cloe', 'Jack'] },
-                                                        { style: 'bottts', seeds: ['Buster', 'Coco', 'Dot', 'Gizmo', 'Leo'] },
-                                                        { style: 'lorelei', seeds: ['Luna', 'Misty', 'Shadow', 'Sasha', 'Bear'] },
-                                                        { style: 'notionists', seeds: ['Patches', 'Garfield', 'Boots', 'Oliver', 'Tigger'] }
-                                                    ].flatMap(group => 
-                                                        group.seeds.map(seed => ({
-                                                            url: `https://api.dicebear.com/9.x/${group.style}/svg?seed=${seed}`,
-                                                            id: `${group.style}-${seed}`
-                                                        }))
-                                                    ).map((avatar) => (
-                                                        <button
-                                                            key={avatar.id}
-                                                            type="button"
-                                                            onClick={() => setEditPhoto(avatar.url)}
-                                                            className={`relative aspect-square rounded-xl transition-all duration-300 ${
-                                                                editPhoto === avatar.url 
-                                                                ? "ring-2 ring-primary ring-offset-2 dark:ring-offset-[#080b0f] scale-105 shadow-xl shadow-primary/10" 
-                                                                : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0"
-                                                            }`}
-                                                        >
-                                                            <div className="absolute inset-0 bg-slate-200/50 dark:bg-white/5 rounded-xl" />
-                                                            <img src={avatar.url} alt="Ava" className="relative w-full h-full object-contain p-1.5 z-10" />
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {/* Preview Card */}
-                                            <div className="flex items-center gap-6 p-5 bg-primary/[0.03] dark:bg-primary/[0.04] rounded-2xl border border-primary/10">
-                                                <div className="w-14 h-14 rounded-xl bg-surface border border-primary/20 shadow-sm flex items-center justify-center overflow-hidden">
-                                                    {editPhoto ? <img src={editPhoto} alt="Sel" className="w-full h-full object-contain" /> : <UserIcon className="text-slate-300" />}
-                                                </div>
-                                                <div>
-                                                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest leading-none mb-1">Avatar Seleccionado</p>
-                                                    <p className="text-sm font-bold text-text-primary">Identidad Confirmada</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <label htmlFor="userNameInput" className="w-full max-w-xs space-y-0 cursor-text p-2.5 px-6 bg-slate-50/50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl transition-all focus-within:border-primary/30 focus-within:bg-white dark:focus-within:bg-white/10 text-center">
+                                            <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] block mb-0.5">Nombre o Usuario</span>
+                                            <input
+                                                id="userNameInput"
+                                                type="text"
+                                                value={editName}
+                                                onChange={(e) => setEditName(e.target.value)}
+                                                className="w-full h-10 bg-transparent border-0 px-0 text-xl font-black text-slate-800 dark:text-white focus:outline-none focus:ring-0 placeholder:text-slate-300 dark:placeholder:text-white/20 text-center"
+                                                placeholder="Tu nombre o alias..."
+                                            />
+                                        </label>
                                     </div>
 
-                                    {/* SECCIÓN 02: MÉTRICAS */}
-                                    <div className="space-y-10">
-                                        <div className="space-y-1 flex items-center gap-3">
-                                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                                            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">02. Métricas de Consumo</h4>
-                                        </div>
-
-                                        <div className="space-y-8">
-                                            {/* Power Grid */}
-                                            <div className="space-y-3">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Potencia por Tramos (kW)</label>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    {['P1', 'P2'].map((p) => (
-                                                        <div key={p} className="relative group/field">
-                                                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">{p}</span>
+                                    <div className="max-w-xl mx-auto">
+                                        <div className="space-y-6">
+                                                
+                                                {/* METADATA PREVIA (DÍASS Y GASTO) */}
+                                                <div className="flex flex-col items-center space-y-4">
+                                                    <div className="flex flex-wrap justify-center gap-6">
+                                                        <div className="flex flex-col items-center space-y-1.5">
+                                                            <label className="text-[9px] font-bold text-text-secondary uppercase">Días</label>
                                                             <input
                                                                 type="text"
-                                                                name={`power_p${p === 'P1' ? '1' : '2'}`}
-                                                                value={consumptionSettings[`power_p${p === 'P1' ? '1' : '2'}` as keyof typeof consumptionSettings]}
+                                                                name="days"
+                                                                value={consumptionSettings.days}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl pl-12 pr-4 text-sm font-mono font-bold text-text-primary focus:outline-none focus:border-primary/40 transition-all text-right"
-                                                                placeholder="4.60"
+                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {/* Energy Grid */}
-                                            <div className="space-y-3">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Energía Estimada (kWh)</label>
-                                                <div className="grid grid-cols-3 gap-3">
-                                                    {['P1', 'P2', 'P3'].map((p, idx) => (
-                                                        <div key={idx} className="relative group/field">
-                                                            <span className="absolute inset-0 flex items-center justify-center text-[18px] font-black text-slate-100 dark:text-white/[0.02] pointer-events-none uppercase tracking-tighter">{p}</span>
+                                                        <div className="flex flex-col items-center space-y-1.5">
+                                                            <label className="text-[9px] font-bold text-text-secondary uppercase">Gasto (€)</label>
                                                             <input
                                                                 type="text"
-                                                                name={`energy_p${idx + 1}`}
-                                                                value={consumptionSettings[`energy_p${idx + 1}` as keyof typeof consumptionSettings]}
+                                                                name="current_bill_total"
+                                                                value={consumptionSettings.current_bill_total}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl px-2 text-center text-sm font-mono font-bold text-text-primary focus:outline-none focus:border-primary/40 relative z-10 transition-all"
-                                                                placeholder="120"
+                                                                className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
-                                                    ))}
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* Bill Totals Container */}
-                                            <div className="grid grid-cols-2 gap-4 pt-4">
-                                                <div className="space-y-3">
-                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Ciclo Mensual</label>
-                                                    <div className="relative">
-                                                        <Calendar size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                        <input
-                                                            type="text"
-                                                            name="days"
-                                                            value={consumptionSettings.days}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-slate-50 dark:bg-white/[0.02] border border-border rounded-xl pl-10 pr-12 text-sm font-bold text-text-primary focus:outline-none"
-                                                        />
-                                                        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[9px] font-bold text-slate-400 uppercase">Días</span>
+                                                {/* POTENCIAS CONTRATADAS */}
+                                                <div className="flex flex-col items-center space-y-3">
+                                                    <h4 className="text-[9px] font-bold text-text-muted uppercase tracking-widest text-center">Potencias (kW)</h4>
+                                                    <div className="flex flex-wrap justify-center gap-6">
+                                                        <div className="flex flex-col items-center space-y-1.5">
+                                                            <label className="text-[9px] font-bold text-text-secondary uppercase tracking-tight">Punta (P1)</label>
+                                                            <input
+                                                                type="text"
+                                                                name="power_p1"
+                                                                value={consumptionSettings.power_p1}
+                                                                onChange={handleConsumptionChange}
+                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                            />
+                                                        </div>
+                                                        <div className="flex flex-col items-center space-y-1.5">
+                                                            <label className="text-[9px] font-bold text-text-secondary uppercase tracking-tight">Valle (P2)</label>
+                                                            <input
+                                                                type="text"
+                                                                name="power_p2"
+                                                                value={consumptionSettings.power_p2}
+                                                                onChange={handleConsumptionChange}
+                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="space-y-3">
-                                                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Gasto de Referencia</label>
-                                                    <div className="relative">
-                                                        <input
-                                                            type="text"
-                                                            name="current_bill_total"
-                                                            value={consumptionSettings.current_bill_total}
-                                                            onChange={handleConsumptionChange}
-                                                            className="w-full h-12 bg-primary/[0.03] dark:bg-primary/[0.05] border border-primary/20 rounded-xl px-4 text-sm font-bold text-primary focus:outline-none text-right"
-                                                        />
-                                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary uppercase">€</span>
+
+                                                {/* CONSUMO DE ENERGÍA */}
+                                                <div className="flex flex-col items-center space-y-3">
+                                                    <h4 className="text-[9px] font-bold text-text-muted uppercase tracking-widest text-center">Consumo (kWh)</h4>
+                                                    <div className="flex flex-wrap justify-center gap-4">
+                                                        {[
+                                                            { label: "Punta (E1)", name: "energy_p1" },
+                                                            { label: "Llano (E2)", name: "energy_p2" },
+                                                            { label: "Valle (E3)", name: "energy_p3" },
+                                                        ].map((item, idx) => (
+                                                            <div key={idx} className="flex flex-col items-center space-y-1.5">
+                                                                <label className="text-[9px] font-bold text-text-secondary uppercase tracking-tight">{item.label}</label>
+                                                                <input
+                                                                    type="text"
+                                                                    name={item.name}
+                                                                    value={consumptionSettings[item.name as keyof typeof consumptionSettings]}
+                                                                    onChange={handleConsumptionChange}
+                                                                    className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                />
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                 </div>
+
+                                                {/* PRECIOS DE ENERGÍA (OPCIONAL) */}
+                                                <div className="flex flex-col items-center space-y-3">
+                                                    <h4 className="text-[9px] font-bold text-text-muted uppercase tracking-widest text-center">Precios Opcionales (€/kWh)</h4>
+                                                    <div className="flex flex-wrap justify-center gap-4">
+                                                        {[
+                                                            { label: "Punta (P1)", name: "current_price_p1" },
+                                                            { label: "Llano (P2)", name: "current_price_p2" },
+                                                            { label: "Valle (P3)", name: "current_price_p3" },
+                                                        ].map((item, idx) => (
+                                                            <div key={idx} className="flex flex-col items-center space-y-1.5">
+                                                                <label className="text-[9px] font-bold text-text-secondary uppercase tracking-tight">{item.label}</label>
+                                                                <input
+                                                                    type="text"
+                                                                    name={item.name}
+                                                                    value={consumptionSettings[item.name as keyof typeof consumptionSettings]}
+                                                                    onChange={handleConsumptionChange}
+                                                                    placeholder="0,0000"
+                                                                    className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Contextual Note */}
+                                                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium text-center pt-4 sm:pt-6 px-4 leading-relaxed max-w-[320px] mx-auto">
+                                                    Estos valores calibran tus comparativas cuando no subes una factura, garantizando que los cálculos de ahorro sean mucho más precisos y reales.
+                                                </p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                {/* Footer Actions */}
-                                <div className="pt-12 mt-12 border-t border-slate-100 dark:border-white/5 flex flex-col items-center gap-8">
-                                    <button
-                                        type="submit"
-                                        disabled={isUpdating}
-                                        className="relative w-full sm:w-72 h-14 bg-slate-900 dark:bg-white rounded-full flex items-center justify-center gap-4 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-2xl shadow-primary/20 group overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-primary via-emerald-500 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                        {isUpdating ? (
-                                            <div className="relative z-10 w-5 h-5 border-2 border-slate-400 border-t-white dark:border-t-slate-900 rounded-full animate-spin"></div>
-                                        ) : (
-                                            <>
-                                                <span className="relative z-10 text-white dark:text-slate-900 group-hover:text-white text-xs font-bold uppercase tracking-[0.2em] transition-colors">Guardar Cambios</span>
-                                                <ChevronRight size={18} className="relative z-10 text-white dark:text-slate-900 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                                            </>
-                                        )}
-                                    </button>
-                                    
-                                    <div className="flex items-center gap-6 opacity-30 select-none">
-                                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">End-to-End Encryption</span>
-                                        <div className="w-1 h-1 bg-slate-400 rounded-full"></div>
-                                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">v2.4.0 Final</span>
+                                    {/* Footer Actions */}
+                                    <div className="pt-8 mt-8 border-t border-slate-100 dark:border-white/5 flex flex-col items-center gap-6">
+                                        <button
+                                            type="submit"
+                                            disabled={isUpdating}
+                                            className="w-full sm:w-64 h-12 bg-primary text-white rounded-2xl flex items-center justify-center gap-2.5 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25 hover:shadow-primary/35 disabled:opacity-50 disabled:scale-100"
+                                        >
+                                            {isUpdating ? (
+                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            ) : (
+                                                <>
+                                                    <span className="text-[11px] font-black uppercase tracking-[0.15em]">Guardar Preferencias</span>
+                                                    <ChevronRight size={18} className="text-white/80" />
+                                                </>
+                                            )}
+                                        </button>
                                     </div>
                                 </div>
                             </form>
