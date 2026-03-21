@@ -694,20 +694,20 @@ export default async function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
               {[
-                { name: "Iberdrola", logo: "Iberdrola.png", scale: "scale-145", slug: "iberdrola" },
-                { name: "Endesa", logo: "Endesa.png", scale: "scale-60", slug: "endesa" },
-                { name: "Naturgy", logo: "Naturgy.png", scale: "scale-130", slug: "naturgy" },
-                { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-135", slug: "repsol" },
-                { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-120", slug: "octopus-energy" },
-                { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-110", slug: "total-energies" },
-                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", lightScale: "scale-100", darkScale: "scale-100", slug: "niba" },
-                { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-125", slug: "imagina-energia" },
-                { name: "Visalia", logo: "Visalia.png", scale: "scale-85", slug: "visalia" },
-                { name: "Energía Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", slug: "energia-nufri" },
-                { name: "Energya VM", logo: "Energiavm.png", scale: "scale-120", slug: "energia-vm" },
-                { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-125", slug: "chc-energia" },
-                { name: "Esluz", logo: "Esluz.png", scale: "scale-155", slug: "esluz" },
-                { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-110", slug: "comercializadoras-referencia" },
+                { name: "Iberdrola", logo: "Iberdrola.png", scale: "scale-150", slug: "iberdrola" },
+                { name: "Endesa", logo: "Endesa.png", scale: "scale-140", slug: "endesa" },
+                { name: "Naturgy", logo: "Naturgy.png", scale: "scale-140", slug: "naturgy" },
+                { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-140", slug: "repsol" },
+                { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-135", slug: "octopus-energy" },
+                { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-125", slug: "total-energies" },
+                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", scale: "scale-110", slug: "niba" },
+                { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-140", slug: "imagina-energia" },
+                { name: "Visalia", logo: "Visalia.png", scale: "scale-100", slug: "visalia" },
+                { name: "Energía Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", scale: "scale-120", slug: "energia-nufri" },
+                { name: "Energya VM", logo: "Energiavm.png", scale: "scale-130", slug: "energia-vm" },
+                { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-130", slug: "chc-energia" },
+                { name: "Esluz", logo: "Esluz.png", scale: "scale-85", slug: "esluz" },
+                { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-120", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div 
@@ -719,11 +719,11 @@ export default async function Home() {
                   >
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 dark:hidden ${(brand as any).lightScale || brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 hidden dark:block ${(brand as any).darkScale || brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`max-h-10 max-w-full object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>
@@ -756,10 +756,10 @@ export default async function Home() {
               Solo necesitas 30 segundos para subir tu factura. Nuestro motor analiza el mercado en tiempo real y encuentra tu tarifa ideal sin que tengas que hacer nada.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-primary text-white font-body font-semibold rounded-xl hover:bg-primary-hover transition-colors shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200 uppercase tracking-widest text-[11px]">
+              <Link href="/comparador?mode=upload" className="px-10 py-5 bg-primary text-white font-body font-bold rounded-xl hover:bg-primary-hover transition-all shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200 text-[15px]">
                 Comenzar análisis gratuito
               </Link>
-              <Link href="/tarifas" className="px-10 py-5 bg-white/10 border border-white/20 text-[#CBD5E1] font-body font-semibold rounded-xl hover:bg-white/20 transition-colors duration-200">
+              <Link href="/tarifas" className="px-10 py-5 bg-white/10 border border-white/20 text-[#CBD5E1] font-body font-bold rounded-xl hover:bg-white/20 transition-all text-[15px]">
                 Ver tarifas actuales
               </Link>
             </div>

@@ -131,81 +131,83 @@ export default function Navbar() {
                             <NotificationBell />
                         </div>
 
-                        {user ? (
-                            <div className="relative">
-                                <button 
-                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                    className="hidden lg:flex w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all"
-                                    aria-label="Menú de usuario"
-                                    aria-haspopup="true"
-                                    aria-expanded={isUserMenuOpen}
-                                >
-                                    {user.photoURL ? (
-                                        <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <User size={18} className="text-primary" />
-                                    )}
-                                </button>
-                                {isUserMenuOpen && (
-                                    <>
-                                        <div 
-                                            className="fixed inset-0 z-40" 
-                                            onClick={() => setIsUserMenuOpen(false)}
-                                        ></div>
-                                        <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
-                                            <div className="px-4 py-2 border-b border-border mb-1">
-                                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">Usuario</p>
-                                                <p className="text-xs font-bold text-text-primary truncate">{user.displayName || user.email?.split('@')[0]}</p>
-                                            </div>
-                                            <Link 
-                                                href="/mi-cuenta" 
-                                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-text-secondary hover:text-text-primary hover:bg-primary/10 transition-colors"
-                                                onClick={() => setIsUserMenuOpen(false)}
-                                            >
-                                                <Layout size={14} className="text-primary" />
-                                                Mi Cuenta
-                                            </Link>
-                                            <button 
-                                                onClick={() => { logout(); setIsUserMenuOpen(false); }}
-                                                className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm font-bold text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
-                                            >
-                                                <LogOut size={14} />
-                                                Cerrar Sesión
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        ) : (
-                            <Link 
-                                href="/?auth=login" 
-                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-[14px] font-500 text-text-secondary hover:text-primary transition-all"
-                            >
-                                Entrar
-                            </Link>
-                        )}
-
-                        {/* Separator before CTA */}
-                        <div className="hidden sm:block h-8 w-px bg-border mx-2"></div>
-
-                        {/* CTA Button - Hidden on mobile, shown from sm up */}
+                        {/* Primary CTA - Now first in hierarchy */}
                         <Link 
                             href="/comparador?mode=upload" 
-                            className="hidden sm:flex bg-primary text-white text-[14px] font-600 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
+                            className="hidden sm:flex bg-primary text-white text-[14px] font-600 px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2.5 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap group"
                         >
-                            <FileUp size={14} className="hidden md:block" />
+                            <FileUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
                             Subir factura
                         </Link>
 
-                        {/* Theme Toggle (Optional but nice) */}
-                        <div className="hidden sm:block h-8 w-px bg-border mx-2"></div>
-                        <button
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface-2 transition-all lg:flex hidden"
-                            aria-label="Toggle theme"
-                        >
-                            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-                        </button>
+                        {/* Separator before Personal/System Utilities */}
+                        <div className="hidden lg:block h-8 w-px bg-border mx-2"></div>
+
+                        {/* Personal & System Utility Group */}
+                        <div className="hidden lg:flex items-center gap-1.5 px-1.5 py-1 bg-surface-2/50 border border-border/40 rounded-xl">
+                            {user ? (
+                                <div className="relative">
+                                    <button 
+                                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                        className="w-9 h-9 rounded-lg bg-surface flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all border border-border/40"
+                                        aria-label="Menú de usuario"
+                                        aria-haspopup="true"
+                                        aria-expanded={isUserMenuOpen}
+                                    >
+                                        {user.photoURL ? (
+                                            <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <User size={18} className="text-primary" />
+                                        )}
+                                    </button>
+                                    {isUserMenuOpen && (
+                                        <>
+                                            <div 
+                                                className="fixed inset-0 z-40" 
+                                                onClick={() => setIsUserMenuOpen(false)}
+                                            ></div>
+                                            <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+                                                <div className="px-4 py-2 border-b border-border mb-1">
+                                                    <p className="text-[10px] font-black text-text-muted uppercase tracking-widest leading-none mb-1">Usuario</p>
+                                                    <p className="text-xs font-bold text-text-primary truncate">{user.displayName || user.email?.split('@')[0]}</p>
+                                                </div>
+                                                <Link 
+                                                    href="/mi-cuenta" 
+                                                    className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-text-secondary hover:text-text-primary hover:bg-primary/10 transition-colors"
+                                                    onClick={() => setIsUserMenuOpen(false)}
+                                                >
+                                                    <Layout size={14} className="text-primary" />
+                                                    Mi Cuenta
+                                                </Link>
+                                                <button 
+                                                    onClick={() => { logout(); setIsUserMenuOpen(false); }}
+                                                    className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm font-bold text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors"
+                                                >
+                                                    <LogOut size={14} />
+                                                    Cerrar Sesión
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            ) : (
+                                <Link 
+                                    href="/?auth=login" 
+                                    className="flex items-center gap-2 px-3 py-1.5 text-[13px] font-bold text-text-secondary hover:text-primary transition-all active:scale-95 group"
+                                >
+                                    <User size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+                                    Entrar
+                                </Link>
+                            )}
+                            
+                            <button
+                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                                className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface transition-all"
+                                aria-label="Toggle theme"
+                            >
+                                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                            </button>
+                        </div>
 
                         {/* Mobile Menu Button */}
                         <button 
