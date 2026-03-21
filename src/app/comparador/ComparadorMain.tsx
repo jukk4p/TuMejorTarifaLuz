@@ -878,150 +878,153 @@ export default function ComparadorMain() {
                         <aside className="w-full lg:w-[400px] shrink-0 flex flex-col">
                             <div className="premium-card bg-dot-pattern p-6 flex-1 h-full flex flex-col shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-primary/30 relative">
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-transparent dark:from-surface/80 dark:to-transparent pointer-events-none rounded-[1.5rem]"></div>
-                                <div className="flex items-center justify-between mb-8">
-                                    <div className="flex items-center gap-3">
-                                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                                            <Terminal className="text-primary w-5 h-5" />
+                                
+                                <div className="relative z-10 flex-1 flex flex-col">
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                                                <Terminal className="text-primary w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <h2 className="text-lg font-bold text-text-primary">Entrada de Datos</h2>
+                                                <p className="text-[10px] text-text-muted font-mono tracking-tighter">Parámetros de análisis</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h2 className="text-lg font-bold">Entrada de Datos</h2>
-                                            <p className="text-[10px] text-text-muted font-mono tracking-tighter">Parámetros de análisis</p>
-                                        </div>
-                                    </div>
-                                    <button 
-                                        onClick={() => setInputMethod(prev => prev === "manual" ? "upload" : "manual")}
-                                        className="p-2 hover:bg-surface-2 rounded-xl transition-colors text-text-muted hover:text-primary"
-                                        title="Cambiar método"
-                                    >
-                                        <History size={18} />
-                                    </button>
-                                </div>
-
-                                <div className="space-y-6">
-                                    {inputMethod === "upload" && (
-                                        <label
-                                            htmlFor="ocr-upload-sidebar"
-                                            className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-surface-2 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
+                                        <button 
+                                            onClick={() => setInputMethod(prev => prev === "manual" ? "upload" : "manual")}
+                                            className="p-2 hover:bg-surface-2 rounded-xl transition-colors text-text-muted hover:text-primary"
+                                            title="Cambiar método"
                                         >
-                                            <input
-                                                id="ocr-upload-sidebar"
-                                                type="file"
-                                                accept=".pdf,image/png,image/jpeg"
-                                                className="hidden"
-                                                onChange={handleFileUpload}
-                                                disabled={isProcessing}
-                                            />
-                                            <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
-                                            <div className="text-center">
-                                                <p className="text-sm font-bold">Cambiar factura</p>
-                                                <p className="text-[11px] text-text-muted">PDF o Imagen</p>
-                                            </div>
-                                        </label>
-                                    )}
+                                            <History size={18} />
+                                        </button>
+                                    </div>
 
-                                    {(inputMethod === "manual" || hasAnalyzed) && (
-                                        <div className="space-y-6">
-                                            <div className="relative py-8 flex items-center">
-                                                <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-                                                <span className="mx-4 px-3 py-1 bg-surface-2 border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
-                                                <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-                                            </div>
+                                    <div className="space-y-6">
+                                        {inputMethod === "upload" && (
+                                            <label
+                                                htmlFor="ocr-upload-sidebar"
+                                                className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-surface-2 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
+                                            >
+                                                <input
+                                                    id="ocr-upload-sidebar"
+                                                    type="file"
+                                                    accept=".pdf,image/png,image/jpeg"
+                                                    className="hidden"
+                                                    onChange={handleFileUpload}
+                                                    disabled={isProcessing}
+                                                />
+                                                <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
+                                                <div className="text-center">
+                                                    <p className="text-sm font-bold">Cambiar factura</p>
+                                                    <p className="text-[11px] text-text-muted">PDF o Imagen</p>
+                                                </div>
+                                            </label>
+                                        )}
 
-                                            <div className="space-y-5">
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="space-y-1.5 flex-1">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Días</label>
-                                                        <input
-                                                            type="number"
-                                                            value={input.days || ''}
-                                                            onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
-                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                            placeholder="30"
-                                                        />
-                                                    </div>
-                                                    <div className="space-y-1.5 flex-1">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Total (€)</label>
-                                                        <input
-                                                            type="number"
-                                                            value={input.current_bill_total || ''}
-                                                            onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
-                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                            placeholder="0.00"
-                                                        />
-                                                    </div>
+                                        {(inputMethod === "manual" || hasAnalyzed) && (
+                                            <div className="space-y-6">
+                                                <div className="relative py-8 flex items-center">
+                                                    <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+                                                    <span className="mx-4 px-3 py-1 bg-surface-2 border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
+                                                    <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
                                                 </div>
 
-                                                <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Potencias (kW)</h4>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (P1)</label>
-                                                        <input
-                                                            type="text"
-                                                            inputMode="decimal"
-                                                            name="power_p1"
-                                                            value={displayValues.power_p1}
-                                                            onChange={handleInputChange}
-                                                            placeholder="0,00"
-                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                        />
+                                                <div className="space-y-5">
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                        <div className="space-y-1.5 flex-1">
+                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Días</label>
+                                                            <input
+                                                                type="number"
+                                                                value={input.days || ''}
+                                                                onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
+                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                placeholder="30"
+                                                            />
+                                                        </div>
+                                                        <div className="space-y-1.5 flex-1">
+                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Total (€)</label>
+                                                            <input
+                                                                type="number"
+                                                                value={input.current_bill_total || ''}
+                                                                onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
+                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                placeholder="0.00"
+                                                            />
+                                                        </div>
                                                     </div>
-                                                    <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (P2)</label>
-                                                        <input
-                                                            type="text"
-                                                            inputMode="decimal"
-                                                            name="power_p2"
-                                                            value={displayValues.power_p2}
-                                                            onChange={handleInputChange}
-                                                            placeholder="0,00"
-                                                            className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                        />
-                                                    </div>
-                                                </div>
 
-                                                <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
-                                                <div className="space-y-4">
-                                                    {[
-                                                        { label: "Punta (E1)", name: "energy_p1" },
-                                                        { label: "Llano (E2)", name: "energy_p2" },
-                                                        { label: "Valle (E3)", name: "energy_p3" },
-                                                    ].map((item, idx) => (
-                                                        <div key={idx} className="space-y-1.5">
-                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
+                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Potencias (kW)</h4>
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                        <div className="space-y-1.5">
+                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (P1)</label>
                                                             <input
                                                                 type="text"
                                                                 inputMode="decimal"
-                                                                name={item.name}
-                                                                value={displayValues[item.name as keyof typeof displayValues]}
+                                                                name="power_p1"
+                                                                value={displayValues.power_p1}
                                                                 onChange={handleInputChange}
                                                                 placeholder="0,00"
                                                                 className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                             />
                                                         </div>
-                                                    ))}
+                                                        <div className="space-y-1.5">
+                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (P2)</label>
+                                                            <input
+                                                                type="text"
+                                                                inputMode="decimal"
+                                                                name="power_p2"
+                                                                value={displayValues.power_p2}
+                                                                onChange={handleInputChange}
+                                                                placeholder="0,00"
+                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
+                                                    <div className="space-y-4">
+                                                        {[
+                                                            { label: "Punta (E1)", name: "energy_p1" },
+                                                            { label: "Llano (E2)", name: "energy_p2" },
+                                                            { label: "Valle (E3)", name: "energy_p3" },
+                                                        ].map((item, idx) => (
+                                                            <div key={idx} className="space-y-1.5">
+                                                                <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
+                                                                <input
+                                                                    type="text"
+                                                                    inputMode="decimal"
+                                                                    name={item.name}
+                                                                    value={displayValues[item.name as keyof typeof displayValues]}
+                                                                    onChange={handleInputChange}
+                                                                    placeholder="0,00"
+                                                                    className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+
+                                                    <button 
+                                                        onClick={() => startAnalysis(true)} 
+                                                        disabled={isProcessing} 
+                                                        className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                                    >
+                                                        {isProcessing ? (
+                                                            <>
+                                                                <Clock className="w-5 h-5 animate-spin" />
+                                                                Procesando...
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <TrendingDown className="w-5 h-5" />
+                                                                Calcular ahorro
+                                                            </>
+                                                        )}
+                                                    </button>
                                                 </div>
-
-                                                <button 
-                                                    onClick={() => startAnalysis(true)} 
-                                                    disabled={isProcessing} 
-                                                    className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
-                                                >
-                                                    {isProcessing ? (
-                                                        <>
-                                                            <Clock className="w-5 h-5 animate-spin" />
-                                                            Procesando...
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <TrendingDown className="w-5 h-5" />
-                                                            Calcular ahorro
-                                                        </>
-                                                    )}
-                                                </button>
                                             </div>
-                                        </div>
 
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </aside>
