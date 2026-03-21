@@ -2142,8 +2142,8 @@ export default function ComparadorMain() {
                                         </div>
                                         <div className="flex flex-col justify-end h-full">
                                             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1">ANÁLISIS DE RESULTADOS</p>
-                                             <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1">
-                                                Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"} € / año</span>
+                                             <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1 whitespace-nowrap">
+                                                Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-sm ml-1 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
                                             </h2>
                                         </div>
                                     </div>
