@@ -33,6 +33,13 @@ export default function DynamicHeroCard() {
         const parsed = JSON.parse(saved);
         // Expiration check: 24h
         if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+          // If logo is missing but name exists, try to find it now (robustness)
+          if (!parsed.current.logo && parsed.current.company) {
+            parsed.current.logo = getLogoPath(parsed.current.company);
+          }
+          if (!parsed.recommended.logo && parsed.recommended.company) {
+            parsed.recommended.logo = getLogoPath(parsed.recommended.company);
+          }
           setData(parsed);
         }
       } catch (e) {
@@ -44,7 +51,7 @@ export default function DynamicHeroCard() {
 
   if (loading) return (
     <div className="relative group/hero-img py-6 md:py-12 animate-pulse">
-        <div className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto h-[480px] bg-white/5 shadow-2xl"></div>
+        <div className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto h-[480px] bg-white/5 shadow-2xl transform-gpu"></div>
     </div>
   );
 
@@ -169,11 +176,11 @@ export default function DynamicHeroCard() {
   }
 
   return (
-    <div className="relative group/hero-img py-6 md:py-12 animate-in fade-in zoom-in duration-700 text-left">
-      <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
+    <div className="relative group/hero-img py-6 md:py-12 animate-in fade-in zoom-in duration-700 text-left overflow-hidden transform-gpu will-change-transform">
+      <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[80px] md:blur-[140px] md:animate-pulse"></div>
       
       <div 
-        className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto border border-white/20 dark:border-white/5 shadow-2xl shadow-primary/5" 
+        className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto border border-white/20 dark:border-white/5 shadow-2xl shadow-primary/5 transform-gpu will-change-transform" 
         style={{ backgroundColor: 'var(--section-white-alpha)' }}
       >
          <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}>
@@ -181,11 +188,11 @@ export default function DynamicHeroCard() {
               <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu ahorro personalizado</p>
               <p className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2 text-primary">
                 Análisis completado
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-primary md:animate-pulse"></span>
               </p>
            </div>
            <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
-              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500 md:animate-pulse"></div>
               <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Datos reales</span>
            </div>
          </div>
@@ -196,11 +203,11 @@ export default function DynamicHeroCard() {
            <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
               <div className="flex-1 space-y-3 md:space-y-5 text-center">
                  <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Situación Actual</p>
-                 <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm bg-white dark:bg-white/5">
+                 <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-sm bg-white dark:bg-white/5">
                     {data.current.logo ? (
-                      <Image src={data.current.logo} alt={data.current.company} width={120} height={40} className="object-contain max-h-full" unoptimized />
+                      <Image src={data.current.logo} alt={data.current.company} width={100} height={28} className="object-contain max-h-full" unoptimized />
                     ) : (
-                      <span className="text-xs font-black uppercase text-text-muted">{data.current.company}</span>
+                      <span className="text-[10px] font-black uppercase text-text-muted">{data.current.company}</span>
                     )}
                  </div>
                  <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
@@ -209,19 +216,19 @@ export default function DynamicHeroCard() {
                  </div>
               </div>
 
-              <div className="absolute left-1/2 top-[47px] md:top-[68px] -translate-x-1/2 -translate-y-1/2 z-20">
-                 <div className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg transform transition-transform">
-                    <ArrowRight size={20} className="md:w-8 md:h-8 stroke-[3]" />
+              <div className="absolute left-1/2 top-[43px] md:top-[68px] -translate-x-1/2 -translate-y-1/2 z-20">
+                 <div className="w-8 h-8 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg transform transition-transform">
+                    <ArrowRight size={16} className="md:w-8 md:h-8 stroke-[3]" />
                  </div>
               </div>
 
               <div className="flex-1 space-y-3 md:space-y-5 text-center">
                  <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Top Recomendada</p>
-                 <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-white dark:bg-white/5 border border-primary/20 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-md bg-white dark:bg-white/5">
+                 <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-white dark:bg-white/5 border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md bg-white dark:bg-white/5">
                     {data.recommended.logo ? (
-                      <Image src={data.recommended.logo} alt={data.recommended.company} width={100} height={40} className="object-contain max-h-full" unoptimized />
+                      <Image src={data.recommended.logo} alt={data.recommended.company} width={90} height={28} className="object-contain max-h-full" unoptimized />
                     ) : (
-                      <span className="text-xs font-black uppercase text-primary">{data.recommended.company}</span>
+                      <span className="text-[10px] font-black uppercase text-primary">{data.recommended.company}</span>
                     )}
                  </div>
                  <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
@@ -251,7 +258,7 @@ export default function DynamicHeroCard() {
            </div>
          </div>
 
-         <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-surface-2 border-t mt-auto flex items-center justify-between" style={{ borderColor: 'var(--color-border)' }}>
+         <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-surface-2 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
             <div className="flex items-center gap-3">
                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                   <History size={14} className="text-primary" />
@@ -260,7 +267,7 @@ export default function DynamicHeroCard() {
             </div>
             <button 
               onClick={() => { localStorage.removeItem('tmtl_last_comparison'); window.location.reload(); }}
-              className="text-[10px] font-black text-primary hover:underline uppercase tracking-widest"
+              className="text-[9px] sm:text-[10px] font-black text-primary hover:underline uppercase tracking-widest whitespace-nowrap"
             >
               Recalcular →
             </button>

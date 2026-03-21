@@ -13,39 +13,47 @@ export interface Tariff {
     id?: string;
 }
 export const getLogoPath = (companyName: string, isDark: boolean = false) => {
-    // Normalize: lowercase, trim, and remove accents
     const normalize = (str: string) =>
         (str || "").trim().toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
 
     const name = normalize(companyName);
+    if (!name) return null;
 
-    if (isDark) {
-        switch (name) {
-            case "niba": return "/logos/Niba.png";
-            case "energia nufri": return "/logos/Energianufriv1.png";
-            case "repsol": return "/logos/Repsolv1.png";
-            case "octopus": return "/logos/Octopusv1.png";
+    // Mapping normalized names/aliases to paths
+    const logos: Record<string, { light: string, dark?: string, aliases?: string[] }> = {
+        "imagina": { light: "/logos/Imaginaenergia.png", aliases: ["imagina energia"] },
+        "visalia": { light: "/logos/Visalia.png", aliases: ["domestica", "domestica - visalia"] },
+        "energia nufri": { light: "/logos/Energianufri.png", dark: "/logos/Energianufriv1.png", aliases: ["nufri"] },
+        "energya vm": { light: "/logos/Energiavm.png", aliases: ["vm", "energya"] },
+        "total energies": { light: "/logos/TotalEnergies.png", aliases: ["totalenergies", "total"] },
+        "chc energia": { light: "/logos/Chcenergia.png", aliases: ["chc"] },
+        "niba": { light: "/logos/Nibav1.png", dark: "/logos/Niba.png" },
+        "octopus": { light: "/logos/Octopus.png", dark: "/logos/Octopusv1.png", aliases: ["octopus energy"] },
+        "repsol": { light: "/logos/Repsol.png", dark: "/logos/Repsolv1.png" },
+        "iberdrola": { light: "/logos/Iberdrola.png" },
+        "endesa": { light: "/logos/Endesa.png" },
+        "naturgy": { light: "/logos/Naturgy.png" },
+        "esluz": { light: "/logos/Esluz.png" },
+        "cor": { light: "/logos/Comercializadoras-de-referencia.png", aliases: ["comercializadoras de referencia", "referencia"] }
+    };
+
+    // 1. Direct match or alias match
+    for (const [key, data] of Object.entries(logos)) {
+        if (name === key || data.aliases?.some(alias => name.includes(alias) || alias.includes(name))) {
+            return isDark && data.dark ? data.dark : data.light;
         }
     }
-    switch (name) {
-        case "imagina": return "/logos/Imaginaenergia.png";
-        case "domestica - visalia": return "/logos/Visalia.png";
-        case "energia nufri": return "/logos/Energianufri.png";
-        case "energya vm": return "/logos/Energiavm.png";
-        case "total energies": return "/logos/TotalEnergies.png";
-        case "chc energia": return "/logos/Chcenergia.png";
-        case "niba": return "/logos/Nibav1.png";
-        case "octopus": return "/logos/Octopus.png";
-        case "repsol": return "/logos/Repsol.png";
-        case "iberdrola": return "/logos/Iberdrola.png";
-        case "endesa": return "/logos/Endesa.png";
-        case "naturgy": return "/logos/Naturgy.png";
-        case "esluz": return "/logos/Esluz.png";
-        case "comercializadoras de referencia": return "/logos/Comercializadoras-de-referencia.png";
-        default: return null;
+
+    // 2. Fuzzy match (if extracted name contains the brand name)
+    for (const [key, data] of Object.entries(logos)) {
+        if (name.includes(key) || key.includes(name)) {
+            return isDark && data.dark ? data.dark : data.light;
+        }
     }
+
+    return null;
 };
 
 import tariffsData from './data.json';

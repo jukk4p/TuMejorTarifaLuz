@@ -32,7 +32,7 @@ export default function DynamicHeroSavings() {
       ) : (
         <>y ahorra hasta un 34%</>
       )}
-      <TrendingDown className="text-savings animate-bounce" size={24} />
+      <TrendingDown className="text-savings hidden md:block md:animate-bounce" size={24} />
     </p>
   );
 }
