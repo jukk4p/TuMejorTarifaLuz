@@ -353,39 +353,41 @@ export default function ComparadorMain() {
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (isProcessing) {
-            setAnalysisProgress(0);
+            // Reset progress ONLY once at the start of processing
+            setAnalysisProgress(prev => (prev >= 98 ? 0 : prev));
+
             interval = setInterval(() => {
                 setAnalysisProgress(prev => {
-                    // Smooth approach to 100 but never reaching it while processing
-                    if (prev >= 98 && isProcessing) return prev + 0.1 > 99.9 ? 99.9 : prev + 0.1;
-
-                    // Progression speed based on mode
+                    if (prev >= 99.5) return 99.5;
+                    
                     let increment = 0;
                     if (isAiGenerated && step === "input") {
-                        if (prev < 30) increment = Math.random() * 8;
-                        else if (prev < 60) increment = Math.random() * 3;
-                        else if (prev < 85) increment = Math.random() * 0.8;
-                        else increment = 0.25;
+                        // AI mode expects roughly 4-8s (backend fetch + 1s delay)
+                        if (prev < 50) increment = 4.5; 
+                        else if (prev < 85) increment = 2.2;
+                        else if (prev < 98) increment = 0.8;
+                        else increment = 0.1;
                     } else {
-                        // Manual analysis is faster
-                        increment = Math.random() * 15 + 8;
+                        // Manual mode expects 1s - 2.8s
+                        // To reach 100% in ~2s with 200ms intervals, we need ~10% per step
+                        increment = 8.5;
                     }
 
                     const next = prev + increment;
-                    return next > 99.9 ? (isProcessing ? 99.9 : 100) : next;
+                    return next > 99.5 ? 99.5 : next;
                 });
-            }, 150);
-        } else {
-            // When processing ends, jump to 100
+            }, 200);
+        } else if (analysisProgress > 0) {
             setAnalysisProgress(100);
-            // Delay slightly before resetting
             const timer = setTimeout(() => {
                 setAnalysisProgress(0);
             }, 800);
             return () => clearTimeout(timer);
         }
-        return () => clearInterval(interval);
-    }, [isProcessing, isAiGenerated, step]);
+        return () => {
+            if (interval) clearInterval(interval);
+        };
+    }, [isProcessing, isAiGenerated, step]); // Removed analysisProgress from deps to avoid re-triggering logic unnecessarily
 
     // CONTEXTUAL STATUS UPDATES
     useEffect(() => {
@@ -764,55 +766,47 @@ export default function ComparadorMain() {
 
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
-                <div className="bg-surface/80 backdrop-blur-xl sticky top-20 z-40 border-b border-border/50 py-5">
-                    <div className="max-w-7xl mx-auto px-4 flex items-center justify-start md:justify-center gap-4 sm:gap-12 overflow-x-auto no-scrollbar">
+                <div className="bg-surface/90 border-b border-border/50 py-4 sm:py-5 w-full">
+                    <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-center gap-1 sm:gap-4 w-full">
                         
                         {/* Step 1: Carga */}
-                        <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "input" ? "scale-105 opacity-100" : "opacity-60"}`}>
-                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "input" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50"}`}>
+                        <div className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 rounded-full transition-all duration-500 ease-out ${step === "input" ? "bg-primary text-white shadow-md shadow-primary/20 scale-100" : "bg-transparent text-text-muted hover:bg-surface-2 scale-95 opacity-80"}`}>
+                            <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black transition-colors duration-500 ${step === "input" ? "bg-white text-primary shadow-sm" : "bg-surface-2 border border-border"}`}>
                                 1
                             </div>
-                            <div className="flex flex-col">
-                                <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "input" ? "text-text-primary" : "text-text-muted"}`}>Carga</span>
-                            </div>
+                            <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-widest ${step === "input" ? "inline" : "hidden sm:inline"}`}>Carga</span>
                         </div>
 
                         {/* Separator 1 */}
                         {inputMethod !== "manual" && (
-                            <div className="w-1.5 sm:w-16 h-[2px] bg-border/40 rounded-full shrink-0 relative overflow-hidden">
-                                <div className={`absolute inset-0 bg-gradient-to-r from-primary to-primary-hover transition-all duration-1000 ${step === "validation" || step === "results" ? "w-full" : "w-0"}`}></div>
+                            <div className="w-4 sm:w-16 h-1 rounded-full overflow-hidden bg-border/40 shrink-0">
+                                <div className={`h-full bg-primary transition-all duration-1000 ease-in-out ${step === "validation" || step === "results" ? "w-full" : "w-0"}`}></div>
                             </div>
                         )}
 
                         {/* Middle Step: Only for Upload Method */}
                         {inputMethod !== "manual" && (
-                            <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "validation" ? "scale-105 opacity-100" : "opacity-60"}`}>
-                                <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "validation" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50 font-bold"}`}>
+                            <div className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 rounded-full transition-all duration-500 ease-out ${step === "validation" ? "bg-primary text-white shadow-md shadow-primary/20 scale-100" : "bg-transparent text-text-muted hover:bg-surface-2 scale-95 opacity-80"}`}>
+                                <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black transition-colors duration-500 ${step === "validation" ? "bg-white text-primary shadow-sm" : "bg-surface-2 border border-border"}`}>
                                     2
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "validation" ? "text-text-primary" : "text-text-muted"}`}>
-                                        <span className="hidden sm:inline">Validación</span>
-                                        <span className="inline sm:hidden">Revisión</span>
-                                    </span>
-                                </div>
+                                <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-widest ${step === "validation" ? "inline" : "hidden sm:inline"}`}>Validación</span>
                             </div>
                         )}
 
                         {/* Separator 2 */}
-                        <div className="w-1.5 sm:w-16 h-[2px] bg-border/40 rounded-full shrink-0 relative overflow-hidden">
-                            <div className={`absolute inset-0 bg-gradient-to-r from-primary to-primary-hover transition-all duration-1000 ${step === "results" ? "w-full" : "w-0"}`}></div>
+                        <div className="w-4 sm:w-16 h-1 rounded-full overflow-hidden bg-border/40 shrink-0">
+                            <div className={`h-full bg-primary transition-all duration-1000 ease-in-out ${step === "results" ? "w-full" : "w-0"}`}></div>
                         </div>
 
-                        {/* Final Step: Comparación */}
-                        <div className={`flex items-center gap-3 shrink-0 transition-all duration-500 ${step === "results" ? "scale-105 opacity-100" : "opacity-60"}`}>
-                            <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black shadow-lg shadow-primary/20 transition-all duration-500 ${step === "results" ? "bg-gradient-to-br from-primary to-primary-hover text-white rotate-3" : "bg-surface-2 text-text-muted border border-border/50 font-bold"}`}>
+                        {/* Final Step: Resultados */}
+                        <div className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 rounded-full transition-all duration-500 ease-out ${step === "results" ? "bg-primary text-white shadow-md shadow-primary/20 scale-100" : "bg-transparent text-text-muted hover:bg-surface-2 scale-95 opacity-80"}`}>
+                            <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-black transition-colors duration-500 ${step === "results" ? "bg-white text-primary shadow-sm" : "bg-surface-2 border border-border"}`}>
                                 {inputMethod === "manual" ? "2" : "3"}
                             </div>
-                            <div className="flex flex-col">
-                                <span className={`text-sm font-800 tracking-tight whitespace-nowrap ${step === "results" ? "text-text-primary" : "text-text-muted"}`}>Comparación</span>
-                            </div>
+                            <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-widest ${step === "results" ? "inline" : "hidden sm:inline"}`}>Comparación</span>
                         </div>
+
                     </div>
                 </div>
             )}
@@ -1256,15 +1250,7 @@ export default function ComparadorMain() {
                                         </div>
                                         <span className="text-xs font-800 uppercase tracking-[0.2em] text-text-secondary">Vista Previa de Factura</span>
                                     </div>
-                                    <div className="flex items-center gap-2 bg-surface-2 p-1 rounded-xl">
-                                        <button className="p-2 hover:bg-surface border border-transparent hover:border-border hover:shadow-sm rounded-lg transition-all text-text-muted hover:text-primary active:scale-90">
-                                            <ZoomIn className="w-5 h-5" />
-                                        </button>
-                                        <div className="w-px h-4 bg-border mx-1"></div>
-                                        <button className="p-2 hover:bg-surface border border-transparent hover:border-border hover:shadow-sm rounded-lg transition-all text-text-muted hover:text-primary active:scale-90">
-                                            <ZoomOut className="w-5 h-5" />
-                                        </button>
-                                    </div>
+                                    
                                 </div>
                                 <div className="flex-1 p-6 sm:p-12 overflow-y-auto bg-background flex items-center justify-center relative">
                                     {/* Subtly animated background pattern */}
@@ -1274,11 +1260,18 @@ export default function ComparadorMain() {
                                         <div className="w-full h-full max-w-4xl flex items-center justify-center animate-in zoom-in-95 fade-in duration-700">
                                             {uploadedFileType === 'application/pdf' ? (
                                                 <div className="relative w-full h-full min-h-[650px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden ring-1 ring-white/10">
-                                                    <iframe
-                                                        src={`${uploadedFileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                                                        className="w-full h-full absolute inset-0 border-none bg-white"
-                                                        title="Factura PDF"
-                                                    />
+                                                    {isProcessing ? (
+                                                        <div className="w-full h-full absolute inset-0 bg-slate-50 dark:bg-slate-900/50 flex flex-col items-center justify-center gap-4 animate-pulse">
+                                                            <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                                                            <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Digitalizando contenido...</p>
+                                                        </div>
+                                                    ) : (
+                                                        <iframe
+                                                            src={`${uploadedFileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                                                            className="w-full h-full absolute inset-0 border-none bg-white transition-opacity duration-500"
+                                                            title="Factura PDF"
+                                                        />
+                                                    )}
                                                 </div>
                                             ) : (
                                                 <div className="relative group/doc">
@@ -2085,7 +2078,7 @@ export default function ComparadorMain() {
                                                                     : 'text-primary/40 hover:text-primary/70'
                                                                 }`}
                                                             >
-                                                                {t === 'all' ? 'Todos' : t === 'fixed' ? 'Fijo' : 'Tramos'}
+                                                                {t === 'all' ? 'Todas' : t === 'fixed' ? 'Fijo' : 'Tramos'}
                                                             </button>
                                                         ))}
                                                     </div>
@@ -2120,7 +2113,7 @@ export default function ComparadorMain() {
                                                 <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Mostrar resultados</label>
                                                     <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
-                                                        {[3, 5, Infinity].map((val) => (
+                                                        {[Infinity, 3, 5].map((val) => (
                                                             <button 
                                                                 key={val.toString()}
                                                                 onClick={() => setLimitResults(val)} 
@@ -2142,15 +2135,15 @@ export default function ComparadorMain() {
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
                                 {/* TOP SAVING BANNER - MOVED HERE FOR WIDTH ALIGNMENT */}
-                                <div className="bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between rounded-[2rem] gap-6 text-center sm:text-left shadow-sm">
-                                    <div className="flex flex-col sm:flex-row items-center gap-5">
+                                <div className="bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center sm:items-end justify-between rounded-[2rem] gap-6 text-center sm:text-left shadow-sm">
+                                    <div className="flex flex-col sm:flex-row items-center sm:items-end gap-5">
                                         <div className="w-14 h-14 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
                                             <TrendingDown className="w-7 h-7" />
                                         </div>
-                                        <div>
+                                        <div className="flex flex-col justify-end h-full">
                                             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1">ANÁLISIS DE RESULTADOS</p>
-                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight">
-                                                Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)) * 12).toFixed(2) : "0.00"} € / año</span>
+                                             <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1">
+                                                Ahorro Estimado: <span className="text-accent">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"} € / año</span>
                                             </h2>
                                         </div>
                                     </div>
@@ -2159,7 +2152,7 @@ export default function ComparadorMain() {
                                         className="flex items-center gap-2 bg-surface-2 px-7 py-3 rounded-full cursor-pointer hover:bg-surface border border-border hover:shadow-md transition-all active:scale-95 shadow-sm"
                                     >
                                          <History className="w-4 h-4 text-text-secondary" />
-                                         <span className="text-[11px] font-black text-text-primary uppercase tracking-widest">Nueva Comparativa</span>
+                                         <span className="text-[11px] font-black text-text-primary uppercase tracking-widest leading-none">Nueva Comparativa</span>
                                      </button>
                                  </div>
                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -2169,7 +2162,7 @@ export default function ComparadorMain() {
                                             if (!user) { setPendingStudyMode("monthly"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("monthly"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                      >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
@@ -2177,12 +2170,12 @@ export default function ComparadorMain() {
                                                 <FileText className="w-6 h-6" />
                                             </div>
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
-                                                {results[0] ? `${getDisplayTotal(results[0].total, results[0].subtotal).toFixed(2)} €` : "---"}
+                                                {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
                                             </p>
                                             <div className="flex items-center justify-center gap-2 text-accent">
                                                 <TrendingDown className="w-4 h-4" />
                                                 <p className="text-xs font-black uppercase tracking-widest">
-                                                    {results[0] ? `${Math.abs((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)).toFixed(2)} € ahorro mensual` : "Sin datos"}
+                                                    {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}
                                                 </p>
                                             </div>
                                         </div>
@@ -2204,18 +2197,18 @@ export default function ComparadorMain() {
                                             if (!user) { setPendingStudyMode("annual"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("annual"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
                                             <div className="w-12 h-12 rounded-xl bg-accent-bg flex items-center justify-center text-accent mb-6 transition-transform group-hover:scale-110">
                                                 <Calendar className="w-6 h-6" />
                                             </div>
-                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(getDisplayTotal(results[0].total, results[0].subtotal) * 12).toFixed(2)} €` : "---"}</p>
+                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-2 text-accent">
                                                 <TrendingDown className="w-4 h-4" />
                                                 <p className="text-xs font-black uppercase tracking-widest">
-                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - getDisplayTotal(results[0].total, results[0].subtotal)) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
+                                                    {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
                                                 </p>
                                             </div>
                                         </div>
@@ -2235,7 +2228,7 @@ export default function ComparadorMain() {
                                         onClick={() => {
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStep("detail"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
@@ -2349,7 +2342,7 @@ export default function ComparadorMain() {
                                                             <div className="flex flex-col">
                                                                 <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Cuota estimada</span>
                                                                 <div className="flex items-baseline gap-1">
-                                                                    <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{getDisplayTotal(res.total, res.subtotal).toFixed(2)}€</span>
+                                                                    <span className="text-2xl font-black text-text-primary tracking-tighter font-heading">{res.total.toFixed(2)}€</span>
                                                                     <span className="text-[10px] text-text-muted font-bold uppercase">/mes</span>
                                                                 </div>
                                                             </div>
@@ -2476,10 +2469,13 @@ export default function ComparadorMain() {
                                                             <button
                                                                 onClick={saveBill}
                                                                 disabled={isProcessing || results.length === 0}
-                                                                className="inline-flex items-center gap-2 bg-surface-2 text-text-primary hover:bg-primary/5 hover:text-primary text-[10px] font-black px-5 py-2.5 rounded-full tracking-[0.1em] border border-border transition-all active:scale-95 disabled:opacity-50 uppercase shadow-sm"
+                                                                className="group relative inline-flex items-center justify-center px-4 py-2 bg-primary rounded-lg text-[9.5px] font-black text-white uppercase tracking-widest shadow-md shadow-primary/20 hover:shadow-primary/30 hover:scale-105 active:scale-95 transition-all overflow-hidden disabled:opacity-40 disabled:hover:scale-100 whitespace-nowrap"
                                                             >
-                                                                <Database className="w-3.5 h-3.5" />
-                                                                {isProcessing ? "Guardando..." : "Guardar análisis"}
+                                                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+                                                                {isProcessing && (
+                                                                    <div className="w-3 h-3 border-[1.5px] border-white/30 border-t-white rounded-full animate-spin mr-1.5"></div>
+                                                                )}
+                                                                <span className="relative z-10 leading-none">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -2495,7 +2491,7 @@ export default function ComparadorMain() {
                                                                 key={idx} 
                                                                 className="transition-all duration-150 hover:bg-surface-2 group/row bg-surface"
                                                             >
-                                                                <td className={`py-6 px-8 relative ${isWinner ? 'border-l-4 border-primary' : ''}`}>
+                                                                <td className={`py-6 px-8 relative ${isWinner ? (isThreePeriod ? 'border-l-4 border-blue-500' : 'border-l-4 border-orange-500 shadow-[inset_4px_0_0_0_#f97316]') : ''}`}>
                                                                     <div className="flex items-center gap-4">
                                                                         <div className="flex flex-col min-w-0">
                                                                             <span className="font-heading font-black text-sm text-text-primary tracking-tight truncate uppercase leading-none mb-1 group-hover/row:text-primary transition-colors">{res.tariff.name}</span>
@@ -2644,7 +2640,7 @@ export default function ComparadorMain() {
                                                     <p className="text-[10px] text-white/50 font-black uppercase tracking-[0.25em] mb-3">Total Estimado Mensual</p>
                                                     <div className="flex items-baseline justify-center md:justify-end gap-3">
                                                         <p className="text-6xl font-900 text-savings drop-shadow-[0_0_30px_rgba(34,197,94,0.15)] tracking-tighter tabular-nums leading-none">
-                                                            {results[0] ? getDisplayTotal(results[0].total, results[0].subtotal).toFixed(2) : "0.00"}
+                                                            {results[0] ? results[0].total.toFixed(2) : "0.00"}
                                                             <span className="text-3xl ml-2 opacity-80">€</span>
                                                         </p>
                                                     </div>
@@ -3016,7 +3012,7 @@ export default function ComparadorMain() {
                                             <div className="pt-8 border-t border-border flex justify-between items-center">
                                                 <span className="text-xl font-800">Total Factura</span>
                                                 <div className="text-right">
-                                                    <p className="text-3xl font-800 text-primary">{getDisplayTotal(selectedResult.total, selectedResult.subtotal).toFixed(2)} €</p>
+                                                    <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
                                                 </div>
                                             </div>
                                         </div>

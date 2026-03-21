@@ -16,6 +16,7 @@ const TOOLS = [
     { name: "Comparador de tarifas", href: "/comparador" },
     { name: "Precio de la luz hoy", href: "/precio-luz-hoy" },
     { name: "Todas las tarifas", href: "/tarifas" },
+    { name: "Compañías", href: "/companias" },
     { name: "Mi cuenta", href: "/mi-cuenta" },
 ];
 
