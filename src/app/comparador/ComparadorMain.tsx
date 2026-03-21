@@ -2147,13 +2147,30 @@ export default function ComparadorMain() {
                                             </h2>
                                         </div>
                                     </div>
-                                    <button
-                                        onClick={() => setStep("input")}
-                                        className="flex items-center gap-2 bg-surface-2 px-7 py-3 rounded-full cursor-pointer hover:bg-surface border border-border hover:shadow-md transition-all active:scale-95 shadow-sm"
-                                    >
-                                         <History className="w-4 h-4 text-text-secondary" />
-                                         <span className="text-[11px] font-black text-text-primary uppercase tracking-widest leading-none">Nueva Comparativa</span>
-                                     </button>
+                                    <div className="flex flex-row gap-2 w-full sm:w-auto">
+                                        <button
+                                            onClick={saveBill}
+                                            disabled={isProcessing || results.length === 0}
+                                            className="flex-1 sm:flex-none group relative flex items-center justify-center gap-2 bg-primary text-white px-3 sm:px-7 py-3 rounded-full cursor-pointer hover:scale-105 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 overflow-hidden whitespace-nowrap"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+                                            {isProcessing ? (
+                                                <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin relative z-10"></div>
+                                            ) : (
+                                                <Save className="w-3.5 h-3.5 relative z-10" />
+                                            )}
+                                            <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-widest leading-none relative z-10">
+                                                {isProcessing ? "Guardando..." : "Guardar Análisis"}
+                                            </span>
+                                        </button>
+                                        <button
+                                            onClick={() => setStep("input")}
+                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-surface-2 px-3 sm:px-7 py-3 rounded-full cursor-pointer hover:bg-surface border border-border hover:shadow-md transition-all active:scale-95 shadow-sm whitespace-nowrap"
+                                        >
+                                             <History className="w-3.5 h-3.5 text-text-secondary" />
+                                             <span className="text-[9px] sm:text-[11px] font-black text-text-primary uppercase tracking-widest leading-none">Nueva Comparativa</span>
+                                         </button>
+                                    </div>
                                  </div>
                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                       {/* CARD: TOTAL MENSUAL */}
@@ -2347,7 +2364,7 @@ export default function ComparadorMain() {
                                                                 </div>
                                                             </div>
                                                             <div className="text-right flex flex-col items-end">
-                                                                <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1.5">Dif. Mensual</span>
+                                                                <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1.5">Ahorro mensual</span>
                                                                 <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-heading font-black text-sm tracking-tight ${
                                                                     saving > 0.01 
                                                                         ? "bg-accent/10 text-accent shadow-sm shadow-accent/5" 
@@ -2372,13 +2389,13 @@ export default function ComparadorMain() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex items-center gap-3 pt-1">
+                                                        <div className="flex items-center gap-2 pt-1">
                                                             <button
                                                                 onClick={() => {
                                                                     setSelectedTariffId(res.tariff.id!);
                                                                     setStep("detail");
                                                                 }}
-                                                                className="flex-1 bg-primary text-white py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.15em] shadow-lg shadow-primary/20 transition-all active:scale-95"
+                                                                className="flex-[1.4] flex items-center justify-center bg-primary text-white h-[52px] rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md shadow-primary/20 transition-all active:scale-95 whitespace-nowrap"
                                                             >
                                                                 Ver detalles →
                                                             </button>
@@ -2391,12 +2408,15 @@ export default function ComparadorMain() {
                                                                     }
                                                                     if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                                 }}
-                                                                className={`w-14 h-14 flex items-center justify-center rounded-2xl border transition-all active:scale-90 ${res.tariff.id && favorites.includes(res.tariff.id)
-                                                                    ? "bg-red-50 border-red-100 text-red-500"
-                                                                    : "bg-surface-2 border-border text-text-muted"
+                                                                className={`flex-1 flex items-center justify-center gap-2 px-3 h-[52px] rounded-2xl border transition-all active:scale-95 ${res.tariff.id && favorites.includes(res.tariff.id)
+                                                                    ? "bg-rose-50 border-rose-100 text-rose-500 shadow-md shadow-rose-500/10"
+                                                                    : "bg-surface border-border text-text-muted shadow-sm shadow-black/[0.02]"
                                                                     }`}
                                                             >
-                                                                <Heart className={`w-6 h-6 ${res.tariff.id && favorites.includes(res.tariff.id) ? "fill-current" : ""}`} />
+                                                                <Heart className={`w-3.5 h-3.5 ${res.tariff.id && favorites.includes(res.tariff.id) ? "fill-current" : ""}`} />
+                                                                <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">
+                                                                    {res.tariff.id && favorites.includes(res.tariff.id) ? "Guardado" : "Guardar"}
+                                                                </span>
                                                             </button>
                                                         </div>
                                                     </div>
