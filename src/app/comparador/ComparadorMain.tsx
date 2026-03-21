@@ -2184,7 +2184,7 @@ export default function ComparadorMain() {
                                         className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                      >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:scale-[0.98]">
                                             <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 transition-transform group-hover:scale-110">
                                                 <FileText className="w-6 h-6" />
                                             </div>
@@ -2199,11 +2199,11 @@ export default function ComparadorMain() {
                                             </div>
                                         </div>
 
-                                        {/* Hover Overlay */}
+                                        {/* Subtle Tooltip Label */}
                                         {results[0] && (
-                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
-                                                <div className="bg-primary text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase">
-                                                    Ver detalles
+                                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-20">
+                                                <div className="bg-primary/90 backdrop-blur-md text-white text-[8px] font-black px-3 py-1 rounded-full shadow-xl tracking-widest uppercase whitespace-nowrap border border-white/20">
+                                                    Haz clic para ampliar estudio
                                                 </div>
                                             </div>
                                         )}
@@ -2219,7 +2219,7 @@ export default function ComparadorMain() {
                                         className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:scale-[0.98]">
                                             <div className="w-12 h-12 rounded-xl bg-accent-bg flex items-center justify-center text-accent mb-6 transition-transform group-hover:scale-110">
                                                 <Calendar className="w-6 h-6" />
                                             </div>
@@ -2232,11 +2232,11 @@ export default function ComparadorMain() {
                                             </div>
                                         </div>
 
-                                        {/* Hover Overlay */}
+                                        {/* Subtle Tooltip Label */}
                                         {results[0] && (
-                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
-                                                <div className="bg-accent text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase">
-                                                    Ver detalles
+                                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-20">
+                                                <div className="bg-accent/90 backdrop-blur-md text-white text-[8px] font-black px-3 py-1 rounded-full shadow-xl tracking-widest uppercase whitespace-nowrap border border-white/20">
+                                                    Haz clic para ampliar estudio
                                                 </div>
                                             </div>
                                         )}
@@ -2250,7 +2250,7 @@ export default function ComparadorMain() {
                                         className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:blur-[1px] group-hover:scale-[0.98] group-hover:opacity-30">
+                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300 group-hover:scale-[0.98]">
                                             <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 text-primary' : 'bg-orange-500/10 text-orange-500'}`}>
                                                 <Trophy className="w-6 h-6" />
                                             </div>
@@ -2261,11 +2261,11 @@ export default function ComparadorMain() {
                                             </div>
                                         </div>
 
-                                        {/* Hover Overlay */}
+                                        {/* Subtle Tooltip Label */}
                                         {results[0] && (
-                                            <div className="absolute inset-0 bg-surface/40 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-start justify-end p-5 z-20">
-                                                <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary shadow-primary/20" : "bg-orange-500 shadow-orange-500/20"} text-white text-[9px] font-black px-4 py-1.5 rounded-full shadow-lg transform translate-y-[-4px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 tracking-widest uppercase`}>
-                                                    Ver detalles
+                                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 z-20">
+                                                <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary/90" : "bg-orange-500/90"} backdrop-blur-md text-white text-[8px] font-black px-3 py-1 rounded-full shadow-xl tracking-widest uppercase whitespace-nowrap border border-white/20`}>
+                                                    Haz clic para ver detalles
                                                 </div>
                                             </div>
                                         )}
