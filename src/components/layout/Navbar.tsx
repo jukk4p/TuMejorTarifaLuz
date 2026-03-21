@@ -54,8 +54,8 @@ export default function Navbar() {
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="w-14 h-14 active:scale-95 transition-all flex items-center justify-center p-0.5">
-                            <div className="relative w-full h-full">
+                        <div className="h-6 w-auto active:scale-95 transition-all flex items-center justify-center">
+                            <div className="relative h-6 w-6">
                                 <Image 
                                     src="/Logo.png" 
                                     alt="TuMejorTarifaLuz" 
@@ -65,7 +65,7 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <span className="text-2xl font-800 tracking-tight text-text-primary hidden sm:inline group-hover:text-primary transition-colors">
+                        <span className="text-[16px] font-700 tracking-tight text-text-primary hidden sm:inline group-hover:text-primary transition-colors">
                             TuMejorTarifa<span className="text-primary group-hover:text-primary-dark">Luz</span>
                         </span>
                     </Link>
@@ -126,21 +126,11 @@ export default function Navbar() {
 
                     {/* Right Side Actions */}
                     <div className="flex items-center gap-3 sm:gap-4">
-                        {/* Theme Toggle (Optional but nice) */}
-                        <button
-                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface-2 transition-all lg:flex hidden"
-                            aria-label="Toggle theme"
-                        >
-                            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-                        </button>
-
                         {/* Notifications - Hidden on very small screens */}
                         <div className="hidden sm:flex items-center">
                             <NotificationBell />
                         </div>
 
-                        {/* User Profile Action */}
                         {user ? (
                             <div className="relative">
                                 <button 
@@ -156,8 +146,6 @@ export default function Navbar() {
                                         <User size={18} className="text-primary" />
                                     )}
                                 </button>
-
-                                {/* Desktop User Dropdown */}
                                 {isUserMenuOpen && (
                                     <>
                                         <div 
@@ -191,9 +179,9 @@ export default function Navbar() {
                         ) : (
                             <Link 
                                 href="/?auth=login" 
-                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-text-secondary hover:text-primary transition-all"
+                                className="hidden sm:flex items-center gap-2 px-4 py-2.5 text-[14px] font-500 text-text-secondary hover:text-primary transition-all"
                             >
-                                <User size={18} /> Entrar
+                                Entrar
                             </Link>
                         )}
 
@@ -208,6 +196,16 @@ export default function Navbar() {
                             <FileUp size={14} className="hidden md:block" />
                             Subir factura
                         </Link>
+
+                        {/* Theme Toggle (Optional but nice) */}
+                        <div className="hidden sm:block h-8 w-px bg-border mx-2"></div>
+                        <button
+                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                            className="w-9 h-9 rounded-lg flex items-center justify-center text-text-muted hover:text-primary hover:bg-surface-2 transition-all lg:flex hidden"
+                            aria-label="Toggle theme"
+                        >
+                            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                        </button>
 
                         {/* Mobile Menu Button */}
                         <button 
