@@ -2189,9 +2189,9 @@ export default function ComparadorMain() {
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
                                                 {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
                                             </p>
-                                            <div className="flex items-center justify-center gap-2 text-accent">
-                                                <TrendingDown className="w-4 h-4" />
-                                                <p className="text-xs font-black uppercase tracking-widest">
+                                            <div className="flex items-center justify-center gap-2.5 text-accent">
+                                                <TrendingDown className="w-5 h-5" />
+                                                <p className="text-sm font-black uppercase tracking-widest">
                                                     {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}
                                                 </p>
                                             </div>
@@ -2220,9 +2220,9 @@ export default function ComparadorMain() {
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
                                             <Calendar className="w-8 h-8 text-accent mb-6 transition-transform group-hover:scale-110" />
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-2 text-accent">
-                                                <TrendingDown className="w-4 h-4" />
-                                                <p className="text-xs font-black uppercase tracking-widest">
+                                            <div className="flex items-center justify-center gap-2.5 text-accent">
+                                                <TrendingDown className="w-5 h-5" />
+                                                <p className="text-sm font-black uppercase tracking-widest">
                                                     {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
                                                 </p>
                                             </div>
@@ -2250,8 +2250,8 @@ export default function ComparadorMain() {
                                             <Trophy className={`w-8 h-8 mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}<span className="text-sm ml-1 opacity-60">€/kWh</span></p>
                                             <div className="flex flex-col items-center">
-                                                <p className={`text-[11px] font-black uppercase tracking-widest leading-none mb-1 ${results[0]?.tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400'}`}>{results[0] ? results[0].tariff.name : "---"}</p>
-                                                <p className="text-[9px] text-text-muted font-bold uppercase tracking-[0.2em]">{results[0] ? results[0].tariff.company : ""}</p>
+                                                <p className={`text-[13px] font-black uppercase tracking-widest leading-none mb-1.5 ${results[0]?.tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400'}`}>{results[0] ? results[0].tariff.name : "---"}</p>
+                                                <p className="text-[10px] text-text-muted font-bold uppercase tracking-[0.2em]">{results[0] ? results[0].tariff.company : ""}</p>
                                             </div>
                                         </div>
 
