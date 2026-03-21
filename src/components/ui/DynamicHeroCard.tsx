@@ -22,6 +22,22 @@ interface ComparisonData {
   };
 }
 
+const getLogoScale = (companyName: string) => {
+  const name = companyName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (name.includes("iberdrola")) return "scale-[1.5]";
+  if (name.includes("endesa")) return "scale-[1.4]";
+  if (name.includes("naturgy")) return "scale-[1.4]";
+  if (name.includes("repsol")) return "scale-[1.4]";
+  if (name.includes("octopus")) return "scale-[1.35]";
+  if (name.includes("totalenerg")) return "scale-[1.25]";
+  if (name.includes("imagina")) return "scale-[1.4]";
+  if (name.includes("nufri")) return "scale-[1.2]";
+  if (name.includes("vm") || name.includes("energya")) return "scale-[1.3]";
+  if (name.includes("chc")) return "scale-[1.3]";
+  if (name.includes("referencia") || name.includes("cor")) return "scale-[1.2]";
+  return "scale-100";
+};
+
 export default function DynamicHeroCard() {
   const [data, setData] = useState<ComparisonData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -205,7 +221,14 @@ export default function DynamicHeroCard() {
                  <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Situación Actual</p>
                  <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-sm bg-white dark:bg-white/5">
                     {data.current.logo ? (
-                      <Image src={data.current.logo} alt={data.current.company} width={100} height={28} className="object-contain max-h-full" unoptimized />
+                      <Image 
+                         src={data.current.logo} 
+                         alt={data.current.company} 
+                         width={100} 
+                         height={28} 
+                         className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.current.company)}`} 
+                         unoptimized 
+                       />
                     ) : (
                       <span className="text-[10px] font-black uppercase text-text-muted">{data.current.company}</span>
                     )}
@@ -226,7 +249,14 @@ export default function DynamicHeroCard() {
                  <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Top Recomendada</p>
                  <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-white dark:bg-white/5 border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md bg-white dark:bg-white/5">
                     {data.recommended.logo ? (
-                      <Image src={data.recommended.logo} alt={data.recommended.company} width={90} height={28} className="object-contain max-h-full" unoptimized />
+                      <Image 
+                         src={data.recommended.logo} 
+                         alt={data.recommended.company} 
+                         width={90} 
+                         height={28} 
+                         className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.recommended.company)}`} 
+                         unoptimized 
+                       />
                     ) : (
                       <span className="text-[10px] font-black uppercase text-primary">{data.recommended.company}</span>
                     )}
