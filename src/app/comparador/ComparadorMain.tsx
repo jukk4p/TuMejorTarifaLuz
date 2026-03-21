@@ -2185,9 +2185,7 @@ export default function ComparadorMain() {
                                      >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
-                                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 transition-transform group-hover:scale-110">
-                                                <FileText className="w-6 h-6" />
-                                            </div>
+                                            <FileText className="w-8 h-8 text-primary mb-6 transition-transform group-hover:scale-110" />
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
                                                 {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
                                             </p>
@@ -2220,9 +2218,7 @@ export default function ComparadorMain() {
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
-                                            <div className="w-12 h-12 rounded-xl bg-accent-bg flex items-center justify-center text-accent mb-6 transition-transform group-hover:scale-110">
-                                                <Calendar className="w-6 h-6" />
-                                            </div>
+                                            <Calendar className="w-8 h-8 text-accent mb-6 transition-transform group-hover:scale-110" />
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-2 text-accent">
                                                 <TrendingDown className="w-4 h-4" />
@@ -2251,9 +2247,7 @@ export default function ComparadorMain() {
                                     >
                                         <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
                                         <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
-                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 text-primary' : 'bg-orange-500/10 text-orange-500'}`}>
-                                                <Trophy className="w-6 h-6" />
-                                            </div>
+                                            <Trophy className={`w-8 h-8 mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}<span className="text-sm ml-1 opacity-60">€/kWh</span></p>
                                             <div className="flex flex-col items-center">
                                                 <p className={`text-[11px] font-black uppercase tracking-widest leading-none mb-1 ${results[0]?.tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400'}`}>{results[0] ? results[0].tariff.name : "---"}</p>
