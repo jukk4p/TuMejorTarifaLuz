@@ -2134,44 +2134,46 @@ export default function ComparadorMain() {
                                 </aside>
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
-                                {/* TOP SAVING BANNER - MOVED HERE FOR WIDTH ALIGNMENT */}
-                                <div className="bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center sm:items-end justify-between rounded-[2rem] gap-6 text-center sm:text-left shadow-sm">
-                                    <div className="flex flex-col sm:flex-row items-center sm:items-end gap-5">
-                                        <div className="w-14 h-14 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
+                                {/* TOP RESULTS & ACTIONS AREA - MODULAR SPLIT */}
+                                <div className="flex flex-col xl:flex-row gap-4">
+                                    {/* RESULTS CARD */}
+                                    <div className="flex-1 bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center sm:items-end gap-5 rounded-[2.5rem] shadow-sm relative overflow-hidden group">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-3xl transition-all group-hover:bg-accent/10"></div>
+                                        <div className="w-14 h-14 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10 relative z-10">
                                             <TrendingDown className="w-7 h-7" />
                                         </div>
-                                        <div className="flex flex-col justify-end h-full">
+                                        <div className="flex flex-col justify-end h-full relative z-10">
                                             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1">ANÁLISIS DE RESULTADOS</p>
-                                             <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1 whitespace-nowrap">
+                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1 whitespace-nowrap">
                                                 Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-sm ml-1 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
                                             </h2>
                                         </div>
                                     </div>
-                                    <div className="flex flex-row gap-2 w-full sm:w-auto">
+
+                                    {/* ACTIONS CARD */}
+                                    <div className="xl:w-auto bg-surface border border-border p-6 sm:p-7 flex flex-row items-center gap-3 rounded-[2.5rem] shadow-sm">
                                         <button
                                             onClick={saveBill}
                                             disabled={isProcessing || results.length === 0}
-                                            className="flex-1 sm:flex-none group relative flex items-center justify-center gap-2 bg-primary text-white px-3 sm:px-7 py-3 rounded-full cursor-pointer hover:scale-105 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 overflow-hidden whitespace-nowrap"
+                                            className="flex-1 xl:flex-none group relative flex items-center justify-center gap-2 bg-primary text-white px-5 sm:px-7 py-3 rounded-full cursor-pointer hover:scale-105 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 overflow-hidden whitespace-nowrap"
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
                                             {isProcessing ? (
                                                 <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin relative z-10"></div>
                                             ) : (
-                                                <Save className="w-3.5 h-3.5 relative z-10" />
+                                                <Save className="w-4 h-4 relative z-10" />
                                             )}
-                                            <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-widest leading-none relative z-10">
-                                                {isProcessing ? "Guardando..." : "Guardar Análisis"}
-                                            </span>
+                                            <span className="text-[11px] font-black uppercase tracking-widest relative z-10">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
                                         </button>
                                         <button
                                             onClick={() => setStep("input")}
-                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-surface-2 px-3 sm:px-7 py-3 rounded-full cursor-pointer hover:bg-surface border border-border hover:shadow-md transition-all active:scale-95 shadow-sm whitespace-nowrap"
+                                            className="flex-1 xl:flex-none flex items-center justify-center gap-2 bg-text-primary/5 text-text-primary px-5 sm:px-7 py-3 rounded-full cursor-pointer hover:bg-text-primary/10 transition-all active:scale-95 shadow-sm border border-border/50 text-[11px] font-black uppercase tracking-widest whitespace-nowrap"
                                         >
-                                             <History className="w-3.5 h-3.5 text-text-secondary" />
-                                             <span className="text-[9px] sm:text-[11px] font-black text-text-primary uppercase tracking-widest leading-none">Nueva Comparativa</span>
-                                         </button>
+                                            <History className="w-4 h-4" />
+                                            <span>Nueva comparativa</span>
+                                        </button>
                                     </div>
-                                 </div>
+                                </div>
                                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                       {/* CARD: TOTAL MENSUAL */}
                                     <div
