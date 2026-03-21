@@ -126,12 +126,7 @@ export default function Navbar() {
 
                     {/* Right Side Actions */}
                     <div className="flex items-center gap-3 sm:gap-4">
-                        {/* Notifications - Hidden on very small screens */}
-                        <div className="hidden sm:flex items-center">
-                            <NotificationBell />
-                        </div>
-
-                        {/* Primary CTA - Now first in hierarchy */}
+                        {/* Primary CTA - Now isolated as the hero of the right side */}
                         <Link 
                             href="/comparador?mode=upload" 
                             className="hidden sm:flex bg-primary text-white text-[14px] font-600 px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2.5 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap group"
@@ -140,11 +135,14 @@ export default function Navbar() {
                             Subir factura
                         </Link>
 
-                        {/* Separator before Personal/System Utilities */}
+                        {/* Separator before System Utility Cluster */}
                         <div className="hidden lg:block h-8 w-px bg-border mx-2"></div>
 
-                        {/* Personal & System Utility Group */}
-                        <div className="hidden lg:flex items-center gap-1.5 px-1.5 py-1 bg-surface-2/50 border border-border/40 rounded-xl">
+                        {/* System Utility Cluster: Notifications, Account & Theme */}
+                        <div className="hidden lg:flex items-center gap-1.5 px-2 py-1 bg-surface-2/50 border border-border/40 rounded-xl">
+                            {/* Notifications - Now integrated into the cluster */}
+                            <NotificationBell />
+                            
                             {user ? (
                                 <div className="relative">
                                     <button 
@@ -193,7 +191,7 @@ export default function Navbar() {
                             ) : (
                                 <Link 
                                     href="/?auth=login" 
-                                    className="flex items-center gap-2 px-3 py-1.5 text-[13px] font-bold text-text-secondary hover:text-primary transition-all active:scale-95 group"
+                                    className="flex items-center gap-2 px-3 py-1.5 text-[13px] font-bold text-text-secondary hover:text-primary hover:bg-surface rounded-lg transition-all active:scale-95 group"
                                 >
                                     <User size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
                                     Entrar
