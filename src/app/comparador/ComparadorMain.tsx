@@ -714,9 +714,17 @@ export default function ComparadorMain() {
     if (!mounted) return null;
 
     return (
-        <div className="min-h-screen bg-background text-text-primary font-display">
-            {/* Global Print Optimization Styles */}
-            <style jsx global>{`
+        <div className="min-h-screen relative overflow-hidden bg-mesh font-display selection:bg-primary/20">
+            {/* Background Decorators */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[120px] animate-pulse"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-primary/3 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+            </div>
+
+            <div className="relative z-10 w-full">
+                {/* Global Print Optimization Styles */}
+                <style jsx global>{`
                 /* Final Boss Spinner Removal */
                 input::-webkit-outer-spin-button,
                 input::-webkit-inner-spin-button {
@@ -811,7 +819,7 @@ export default function ComparadorMain() {
                 </div>
             )}
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
                 {/* STEP 1: INPUT/DATA ENTRY */}
                 {/* STEP 1: INPUT/DATA ENTRY */}
@@ -3150,6 +3158,7 @@ export default function ComparadorMain() {
 
             <Footer />
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+        </div>
         </div>
     );
 }

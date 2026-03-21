@@ -101,8 +101,8 @@ export default async function Home() {
           <div className="hero-glow-1"></div>
           <div className="hero-glow-2"></div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div className="grid lg:grid-cols-[42%_58%] gap-12 lg:gap-24 items-center">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div className="grid lg:grid-cols-[45%_55%] gap-12 lg:gap-32 items-center">
               <div className="space-y-8 md:space-y-12 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0">
                   <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
@@ -111,19 +111,27 @@ export default async function Home() {
                   </span>
                   Motor de comparación 2026 – Actualizado hoy
                 </div>
-                <h1 
-                  className="font-heading text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-900 leading-[1.05] md:leading-[1.02] tracking-tight"
-                  style={{ color: 'var(--color-text-heading)' }}
-                >
-                  Compara <span className="text-primary italic">tarifas de luz</span> gratis y ahorra
-                </h1>
+                <div className="space-y-4 md:space-y-6">
+                  <h1 
+                    className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
+                    style={{ color: 'var(--color-text-heading)' }}
+                  >
+                    Compara <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent italic pr-1">tarifas de luz</span> gratis
+                  </h1>
+                  <p className="text-xl md:text-2xl font-900 tracking-tight flex items-center gap-3" style={{ color: 'var(--color-savings-text)' }}>
+                    {/* Tick icon maybe? No, let's keep it simple as requested */}
+                    y ahorra hasta un 34%
+                    <TrendingDown className="text-savings animate-bounce" size={24} />
+                  </p>
+                </div>
+
                 <p 
-                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0"
-                  style={{ color: 'var(--color-text-body)' }}
+                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70"
+                  style={{ color: 'var(--color-text-muted)' }}
                 >
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
                 </p>
-                <div className="flex flex-col items-center lg:items-start gap-5 md:gap-6">
+                <div className="flex flex-col items-center lg:items-start gap-5 md:gap-7">
                   <Link 
                     href="/comparador?mode=upload" 
                     className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
@@ -133,7 +141,7 @@ export default async function Home() {
                   </Link>
                   <Link 
                     href="/comparador?mode=manual" 
-                    className="text-[10px] md:text-sm font-black text-text-muted hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-2 md:gap-3 italic group"
+                    className="text-[12px] md:text-[13px] font-black text-text-secondary hover:text-primary transition-colors uppercase tracking-[0.2em] flex items-center gap-2 md:gap-3 italic group"
                   >
                     <div className="p-1.5 md:p-2 rounded-lg md:rounded-xl bg-surface-2 group-hover:bg-primary/10 transition-colors">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="opacity-70 group-hover:opacity-100 md:w-[18px] md:h-[18px]">
@@ -162,7 +170,7 @@ export default async function Home() {
                 <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
                 
                 <div 
-                  className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[580px] mx-auto lg:ml-auto" style={{ backgroundColor: 'var(--section-white-alpha)' }}
+                  className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto" style={{ backgroundColor: 'var(--section-white-alpha)' }}
                 >
                    {/* Card Header with subtle gradient */}
                    <div 
@@ -189,35 +197,53 @@ export default async function Home() {
 
                    {/* Main Comparison Area */}
                    <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
-                     <div className="flex items-center justify-between gap-3 sm:gap-6 relative">
+                     <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
                         {/* Current Tariff */}
-                        <div className="flex-1 space-y-3 md:space-y-5">
+                        <div className="flex-1 space-y-3 md:space-y-5 text-center">
                            <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
-                           <div className="space-y-0.5 md:space-y-1">
-                              <p className="text-sm sm:text-lg md:text-2xl font-900 leading-none" style={{ color: 'var(--color-text-heading)' }}>Iberdrola</p>
+                           <div className="space-y-3 md:space-y-4">
+                              <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                 <Image 
+                                   src="/logos/Iberdrola.png" 
+                                   alt="Iberdrola" 
+                                   width={120} 
+                                   height={40} 
+                                   className="object-contain max-h-full scale-[1.6]"
+                                   unoptimized
+                                 />
+                              </div>
                               <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Plan Estable</p>
                            </div>
-                           <div className="flex items-baseline gap-1 md:gap-1.5">
+                           <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
                               <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
                               <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
                            </div>
                         </div>
 
                         {/* Arrow Divider */}
-                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-2 md:mt-5 z-20">
-                           <div className="w-12 h-12 md:w-20 md:h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(var(--primary-rgb),0.4)] border-4 border-white/20 dark:border-white/10 transition-transform hover:scale-110 active:scale-95 cursor-pointer">
-                              <ArrowRight size={28} className="md:w-10 md:h-10 stroke-[3]" />
+                        <div className="absolute left-1/2 top-[52px] md:top-[75px] -translate-x-1/2 -translate-y-1/2 z-20">
+                           <div className="w-12 h-12 md:w-24 md:h-24 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(var(--primary-rgb),0.4)] border-4 border-white/20 dark:border-white/10 transition-transform hover:scale-110 active:scale-95 cursor-pointer">
+                              <ArrowRight size={32} className="md:w-12 md:h-12 stroke-[3]" />
                            </div>
                         </div>
 
                         {/* Recommended Tariff */}
-                        <div className="flex-1 space-y-3 md:space-y-5 text-right">
+                        <div className="flex-1 space-y-3 md:space-y-5 text-center">
                            <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-savings-text)' }}>Recomendada</p>
-                           <div className="space-y-0.5 md:space-y-1">
-                              <p className="text-sm sm:text-lg md:text-2xl font-900 leading-none" style={{ color: 'var(--color-savings-text)' }}>Visalia</p>
+                           <div className="space-y-3 md:space-y-4">
+                              <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-white dark:bg-white/5 border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                 <Image 
+                                   src="/logos/Visalia.png" 
+                                   alt="Visalia" 
+                                   width={100} 
+                                   height={40} 
+                                   className="object-contain max-h-full scale-110"
+                                   unoptimized
+                                 />
+                              </div>
                               <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Luz Fijo 24h</p>
                            </div>
-                           <div className="flex items-baseline gap-1 md:gap-1.5 justify-end">
+                           <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
                               <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-savings-text)' }}>0,098</span>
                               <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
                            </div>

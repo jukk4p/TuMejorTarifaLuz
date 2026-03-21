@@ -207,12 +207,29 @@
     z-index: -1;
     pointer-events: none;
   }
+
+  /* Decorative Background Blobs */
+  .bg-mesh {
+    background-color: var(--section-white);
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(210, 100%, 96%, 1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(220, 100%, 97%, 1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, hsla(230, 100%, 96%, 1) 0, transparent 50%);
+  }
+
+  .dark .bg-mesh {
+    background-color: var(--section-white);
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(220, 40%, 15%, 1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(220, 30%, 10%, 1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, hsla(220, 20%, 5%, 1) 0, transparent 50%);
+  }
 }
 
 /* Base styles for the theme */
 @layer base {
   body {
-    background-color: var(--section-white);
+    background-color: var(--section-soft);
     color: var(--text-body);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;

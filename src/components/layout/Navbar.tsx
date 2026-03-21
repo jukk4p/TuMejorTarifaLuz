@@ -72,13 +72,13 @@ export default function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-8">
-                        <Link href="/comparador" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Comparador</Link>
-                        <Link href="/tarifas" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Tarifas</Link>
+                        <Link href="/comparador" className="text-[14px] font-500 text-text-secondary hover:text-primary transition-colors">Comparador</Link>
+                        <Link href="/tarifas" className="text-[14px] font-500 text-text-secondary hover:text-primary transition-colors">Tarifas</Link>
                         
                         {/* Companies Dropdown */}
                         <div className="relative group">
                             <button 
-                                className="flex items-center gap-1.5 text-sm font-bold text-text-secondary group-hover:text-primary transition-colors h-20"
+                                className="flex items-center gap-1.5 text-[14px] font-500 text-text-secondary group-hover:text-primary transition-colors h-20"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
@@ -119,9 +119,9 @@ export default function Navbar() {
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent/40 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                             </span>
-                            <span className="text-xs font-bold text-accent-bg-text tracking-tight uppercase">Precio hoy</span>
+                            <span className="text-[11px] font-500 text-accent-bg-text tracking-[0.06em] uppercase">Precio hoy</span>
                         </Link>
-                        <Link href="/blog" className="text-sm font-bold text-text-secondary hover:text-primary transition-colors">Blog</Link>
+                        <Link href="/blog" className="text-[14px] font-500 text-text-secondary hover:text-primary transition-colors">Blog</Link>
                     </div>
 
                     {/* Right Side Actions */}
@@ -203,7 +203,7 @@ export default function Navbar() {
                         {/* CTA Button - Hidden on mobile, shown from sm up */}
                         <Link 
                             href="/comparador?mode=upload" 
-                            className="hidden sm:flex bg-primary text-white text-[10px] sm:text-xs font-900 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
+                            className="hidden sm:flex bg-primary text-white text-[14px] font-600 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full tracking-wide items-center gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/35 hover:scale-105 active:scale-95 transition-all outline-none focus:ring-2 focus:ring-primary/50 whitespace-nowrap"
                         >
                             <FileUp size={14} className="hidden md:block" />
                             Subir factura
@@ -300,8 +300,8 @@ export default function Navbar() {
                         )}
                         <Link 
                             href="/comparador" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
-                            style={{ color: 'var(--color-text-body)' }}
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            style={{ color: 'var(--color-text-body)', fontSize: '14px' }}
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Comparador <ChevronRight size={18} className="text-primary" />
@@ -310,8 +310,8 @@ export default function Navbar() {
                         {/* Mobile Accordion - Companies */}
                         <div className="space-y-2">
                             <button 
-                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-bold transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30' : 'bg-surface-2 border-transparent'}`}
-                                style={{ color: 'var(--color-text-body)' }}
+                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-500 transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30' : 'bg-surface-2 border-transparent'}`}
+                                style={{ color: 'var(--color-text-body)', fontSize: '14px' }}
                                 onClick={() => setIsCompaniesOpen(!isCompaniesOpen)}
                             >
                                 Compañías <ChevronDown size={18} className={`text-primary transition-transform duration-300 ${isCompaniesOpen ? 'rotate-180' : ''}`} />
@@ -346,7 +346,7 @@ export default function Navbar() {
 
                         <Link 
                             href="/tarifas" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Tarifas <ChevronRight size={18} className="text-primary" />
@@ -354,12 +354,12 @@ export default function Navbar() {
 
                         <Link 
                             href="/precio-luz-hoy" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             <span className="flex items-center gap-2">
                                 Precio Hoy
-                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent/10 text-[9px] font-black text-accent-bg-text border border-accent/30">
+                                <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent/10 text-[11px] font-500 text-accent-bg-text border border-accent/30 tracking-[0.06em] uppercase">
                                     <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
                                     En vivo
                                 </span>
@@ -369,7 +369,7 @@ export default function Navbar() {
 
                         <Link 
                             href="/blog" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary font-bold hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Blog <ChevronRight size={18} className="text-primary" />
