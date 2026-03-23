@@ -136,8 +136,10 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 />
                             </div>
                             <div className="flex-grow text-center md:text-left space-y-4">
-                                <h1 className="text-4xl md:text-5xl font-900 text-text-primary tracking-tight">Tarifas {provider.name} 2026: Precios y análisis completo</h1>
-                                <p className="text-lg text-text-secondary leading-relaxed font-medium">{provider.description}</p>
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-900 text-text-primary tracking-tight leading-[1.1]">
+                                    Tarifas {provider.name} 2026: Precios y Análisis
+                                </h1>
+                                <p className="text-base md:text-lg text-text-secondary leading-relaxed font-medium">{provider.description}</p>
                                 
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
                                     <span className="text-[12px] font-bold text-slate-500 flex items-center gap-2">
