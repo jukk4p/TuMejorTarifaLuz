@@ -586,7 +586,7 @@ export default async function Home() {
                 { name: "Energya VM", logo: "Energiavm.png", scale: "scale-130", slug: "energia-vm" },
                 { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-130", slug: "chc-energia" },
                 { name: "Esluz", logo: "Esluz.png", scale: "scale-85", slug: "esluz" },
-                { name: "COR", logo: "COR.png", scale: "scale-140", slug: "comercializadoras-referencia" },
+                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div 
@@ -596,12 +596,7 @@ export default async function Home() {
                       borderColor: 'var(--color-border)'
                     }}
                   >
-                    {brand.name === "COR" ? (
-                      <div className="flex flex-col items-center justify-center text-center px-1">
-                        <span className="text-[9px] sm:text-[10px] font-black leading-tight text-primary uppercase tracking-tighter">Comercializadoras</span>
-                        <span className="text-[9px] sm:text-[10px] font-black leading-tight text-primary uppercase tracking-tighter">de Referencia</span>
-                      </div>
-                    ) : brand.darkLogo ? (
+                    {brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
                         <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />

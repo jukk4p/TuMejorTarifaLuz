@@ -266,7 +266,7 @@ export const providers: Provider[] = [
     {
         id: "cor",
         name: "COR",
-        logo: "/logos/COR.png",
+        logo: "/logos/COR.svg",
         rating: 4.5,
         description: "Comercializadoras de Referencia autorizadas por el Gobierno para ofrecer la tarifa regulada PVPC y gestionar el Bono Social Eléctrico.",
         pros: ["Precio regulado", "Acceso Bono Social", "Transparencia", "Sin permanencia"],
