@@ -8,7 +8,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim } from "lucide-react";
+import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim, Scale, X, Building2 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 const COMPANIES = [
@@ -55,6 +55,8 @@ export default function TarifasClient() {
     const [selectedCompany, setSelectedCompany] = useState("all");
     const [sortBy, setSortBy] = useState("price-asc");
     const [showWithTaxes, setShowWithTaxes] = useState(false);
+    const [selectedCompareIds, setSelectedCompareIds] = useState<string[]>([]);
+    const [isComparisonOpen, setIsComparisonOpen] = useState(false);
 
     const applyTaxes = (price: number, priceWithTaxes?: number) => {
         if (!showWithTaxes) return price;
@@ -124,6 +126,18 @@ export default function TarifasClient() {
         const sorted = [...tariffs].sort((a, b) => calculateMonthlyEstimation(a) - calculateMonthlyEstimation(b));
         return sorted[0]?.id;
     }, [tariffs, showWithTaxes]);
+
+    const toggleCompare = (id: string) => {
+        setSelectedCompareIds(prev => {
+            if (prev.includes(id)) return prev.filter(i => i !== id);
+            if (prev.length >= 3) return prev;
+            return [...prev, id];
+        });
+    };
+
+    const selectedCompareTariffs = useMemo(() => {
+        return tariffs.filter(t => selectedCompareIds.includes(t.id || ''));
+    }, [tariffs, selectedCompareIds]);
 
     return (
         <>
@@ -261,10 +275,22 @@ export default function TarifasClient() {
                             return (
                                 <div key={tariff.id} className="group bg-surface rounded-[2.5rem] p-8 border border-border hover:shadow-2xl hover:border-primary/20 transition-all duration-500 relative flex flex-col min-h-[560px] md:min-h-[580px] h-full overflow-hidden">
                                     {isCheapest && (
-                                        <div className="absolute top-4 right-4 bg-[#0f69c5] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg z-10 shadow-lg uppercase tracking-wider">
+                                        <div className="absolute top-4 left-4 bg-[#0f69c5] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg z-10 shadow-lg uppercase tracking-wider">
                                             Mejor precio
                                         </div>
                                     )}
+
+                                    <button 
+                                        onClick={() => toggleCompare(tariff.id || '')}
+                                        className={`absolute top-4 right-4 z-10 p-2 rounded-xl transition-all border ${
+                                            selectedCompareIds.includes(tariff.id || '') 
+                                            ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' 
+                                            : 'bg-surface/80 backdrop-blur-sm text-slate-400 border-border hover:border-primary/40 hover:text-primary'
+                                        }`}
+                                        title={selectedCompareIds.includes(tariff.id || '') ? "Quitar de la comparativa" : "Añadir a la comparativa"}
+                                    >
+                                        <Scale size={18} className={selectedCompareIds.includes(tariff.id || '') ? "animate-pulse" : ""} />
+                                    </button>
 
                                     <div className="flex flex-col grow pt-4">
                                         <div className="space-y-1 mb-6 min-h-[72px] flex flex-col justify-center">
@@ -437,6 +463,214 @@ export default function TarifasClient() {
                     </div>
                 </div>
             </main>
+
+            {/* Floating Compare Bar */}
+            {selectedCompareIds.length > 0 && (
+                <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-500">
+                    <div className="bg-[#0f172a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-6">
+                        <div className="flex items-center gap-4 grow">
+                            <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/20 text-primary shrink-0 border border-primary/20">
+                                <Scale size={24} />
+                            </div>
+                            <div className="flex -space-x-4 overflow-hidden">
+                                {selectedCompareTariffs.map(t => (
+                                    <div key={t.id} className="w-10 h-10 rounded-full bg-white border-2 border-[#0f172a] flex items-center justify-center p-1.5 shadow-xl relative group">
+                                        {getLogoPath(t.company || '') ? (
+                                            <img src={getLogoPath(t.company || '')!} alt={t.company} className="w-full h-full object-contain" />
+                                        ) : (
+                                            <Building2 size={16} className="text-slate-400" />
+                                        )}
+                                        <button 
+                                            onClick={() => toggleCompare(t.id || '')}
+                                            className="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        >
+                                            <X size={10} strokeWidth={4} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-white font-black text-xs uppercase tracking-widest">{selectedCompareIds.length} {selectedCompareIds.length === 1 ? 'Tarifa seleccionada' : 'Tarifas seleccionadas'}</span>
+                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-tighter hidden sm:block">Compara condiciones cara a cara</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <button 
+                                onClick={() => setSelectedCompareIds([])}
+                                className="text-slate-400 hover:text-white transition-colors p-2"
+                            >
+                                <X size={20} />
+                            </button>
+                            <button 
+                                onClick={() => setIsComparisonOpen(true)}
+                                className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-2xl font-black text-[11px] uppercase tracking-[0.15em] shadow-xl shadow-primary/20 transition-all hover:scale-105 active:scale-95"
+                            >
+                                COMPARAR AHORA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Comparison Modal */}
+            {isComparisonOpen && (
+                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8 bg-[#020617]/40 backdrop-blur-md animate-in fade-in duration-300">
+                    <div className="bg-surface w-full max-w-5xl max-h-[90vh] rounded-[3rem] shadow-2xl border border-border overflow-hidden flex flex-col relative animate-in zoom-in-95 duration-300">
+                        {/* Header */}
+                        <div className="p-8 border-b border-border flex items-center justify-between bg-surface-2">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
+                                    <Scale size={24} />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-900 text-text-primary tracking-tight">Comparativa Side-by-Side</h2>
+                                    <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Análisis detallado de {selectedCompareIds.length} tarifas</p>
+                                </div>
+                            </div>
+                            <button 
+                                onClick={() => setIsComparisonOpen(false)}
+                                className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-text-primary flex items-center justify-center transition-all hover:bg-slate-200 dark:hover:bg-slate-700 shadow-sm"
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="overflow-auto grow custom-scrollbar">
+                            <table className="w-full border-collapse">
+                                <thead className="sticky top-0 z-10">
+                                    <tr className="bg-white dark:bg-slate-900 border-b border-border shadow-sm">
+                                        <th className="p-8 text-left bg-surface-2 min-w-[200px] border-r border-border">
+                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Condiciones</span>
+                                        </th>
+                                        {selectedCompareTariffs.map(t => (
+                                            <th key={t.id} className="p-8 text-center bg-white dark:bg-slate-800 border-r border-border last:border-r-0 min-w-[280px]">
+                                                <div className="flex flex-col items-center gap-6">
+                                                    <div className="w-24 h-12 relative flex items-center justify-center">
+                                                        {getLogoPath(t.company || '') ? (
+                                                            <img src={getLogoPath(t.company || '')!} alt={t.company} className="max-h-full max-w-full object-contain" />
+                                                        ) : (
+                                                            <div className="text-primary font-black uppercase text-xs text-center leading-tight">
+                                                                {t.company}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-900 text-text-primary leading-tight text-center">{t.name}</h4>
+                                                        <span className="text-[10px] font-black uppercase text-primary tracking-widest mt-1 block">{t.type}</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Coste Mensual Est.</td>
+                                        {selectedCompareTariffs.map(t => {
+                                            const cost = calculateMonthlyEstimation(t);
+                                            return (
+                                                <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
+                                                    <span className="text-2xl font-900 text-primary">≈ {cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}€</span>
+                                                    <span className="text-[10px] font-bold text-slate-400 block uppercase mt-1">Hogar promedio</span>
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Energía (E1)</td>
+                                        {selectedCompareTariffs.map(t => (
+                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center font-bold text-text-primary">
+                                                {formatPrice(applyTaxes(t.e1_kwh ?? 0, t.e1_kwh_with_taxes))} <span className="text-[10px] font-black text-slate-400">€/kWh</span>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Discriminación</td>
+                                        {selectedCompareTariffs.map(t => {
+                                            const isFixed = t.type.includes('1 Periodo');
+                                            return (
+                                                <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
+                                                    {isFixed ? (
+                                                        <span className="text-[10px] font-black bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full uppercase tracking-widest">No (Tarifa Plana)</span>
+                                                    ) : (
+                                                        <div className="space-y-1">
+                                                            <div className="text-xs font-bold text-text-primary flex justify-center items-center gap-2">
+                                                                <span className="text-[9px] text-orange-500 uppercase">Llano:</span> {formatPrice(applyTaxes(t.e2_kwh || 0, t.e2_kwh_with_taxes))}
+                                                            </div>
+                                                            <div className="text-xs font-bold text-text-primary flex justify-center items-center gap-2">
+                                                                <span className="text-[9px] text-emerald-500 uppercase">Valle:</span> {formatPrice(applyTaxes(t.e3_kwh || 0, t.e3_kwh_with_taxes))}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Potencia Punta</td>
+                                        {selectedCompareTariffs.map(t => (
+                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center text-sm font-bold text-text-primary">
+                                                {formatPrice(applyTaxes(t.p1_kw_day ?? 0, t.p1_kw_day_with_taxes))} <span className="text-[10px] font-black text-slate-400">€/kW día</span>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Excedentes Solar</td>
+                                        {selectedCompareTariffs.map(t => (
+                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
+                                                {t.surplus_kwh ? (
+                                                    <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                                        {t.surplus_kwh.toFixed(2)} €/kWh
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-slate-300">-</span>
+                                                )}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                    <tr>
+                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Permanencia</td>
+                                        {selectedCompareTariffs.map(t => (
+                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
+                                                {!t.permanence ? (
+                                                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center justify-center gap-1">
+                                                        <Check size={14} strokeWidth={4} /> Sin compromiso
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Con permanencia</span>
+                                                )}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-8 border-t border-border flex flex-col sm:flex-row items-center justify-between bg-surface-2 gap-6">
+                            <p className="text-xs font-bold text-text-muted uppercase tracking-widest max-w-sm text-center sm:text-left">
+                                Los precios mostrados incluyen {showWithTaxes ? 'todos los impuestos vigentes' : 'la base imponible sin impuestos'}.
+                            </p>
+                            <div className="flex gap-4">
+                                <button 
+                                    onClick={() => setSelectedCompareIds([])}
+                                    className="px-8 py-4 border border-border text-text-primary rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+                                >
+                                    Limpiar Todo
+                                </button>
+                                <button 
+                                    onClick={() => setIsComparisonOpen(false)}
+                                    className="px-12 py-4 bg-primary text-white rounded-2xl font-black text-[11px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
+                                >
+                                    Volver al catálogo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <Footer />
         </>
     );
