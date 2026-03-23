@@ -158,11 +158,18 @@ export default function CompaniasClient() {
                             >
                                 <div className="flex justify-between items-start mb-8">
                                     <div className="w-24 h-12 relative flex items-center justify-center transition-all duration-500">
-                                        <img
-                                            src={mounted && resolvedTheme === 'dark' && provider.logo_dark ? provider.logo_dark : provider.logo}
-                                            alt={provider.name}
-                                            className="max-h-full max-w-full object-contain"
-                                        />
+                                        {provider.id === 'cor' ? (
+                                            <div className="flex flex-col items-center justify-center text-center p-1">
+                                                <span className="text-[9px] font-black leading-tight text-primary uppercase tracking-tighter">Comercializadoras</span>
+                                                <span className="text-[9px] font-black leading-tight text-primary uppercase tracking-tighter">de Referencia</span>
+                                            </div>
+                                        ) : (
+                                            <img
+                                                src={mounted && resolvedTheme === 'dark' && provider.logo_dark ? provider.logo_dark : provider.logo}
+                                                alt={provider.name}
+                                                className="max-h-full max-w-full object-contain"
+                                            />
+                                        )}
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <div className="flex items-center gap-1.5 mb-1">

@@ -596,7 +596,12 @@ export default async function Home() {
                       borderColor: 'var(--color-border)'
                     }}
                   >
-                    {brand.darkLogo ? (
+                    {brand.name === "COR" ? (
+                      <div className="flex flex-col items-center justify-center text-center px-1">
+                        <span className="text-[9px] sm:text-[10px] font-black leading-tight text-primary uppercase tracking-tighter">Comercializadoras</span>
+                        <span className="text-[9px] sm:text-[10px] font-black leading-tight text-primary uppercase tracking-tighter">de Referencia</span>
+                      </div>
+                    ) : brand.darkLogo ? (
                       <>
                         <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
                         <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />

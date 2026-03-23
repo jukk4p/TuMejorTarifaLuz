@@ -2727,11 +2727,18 @@ export default function ComparadorMain() {
                                             <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/5 pb-10">
                                                 <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
                                                     <div className="w-24 h-24 rounded-[2rem] bg-white/5 backdrop-blur-md flex items-center justify-center p-4 border border-white/10 shadow-2xl overflow-hidden">
-                                                        <img 
-                                                            src={getLogoPath(results[0].tariff.company, mounted && resolvedTheme === 'dark')!} 
-                                                            alt={results[0].tariff.company}
-                                                            className="w-full h-full object-contain" 
-                                                        />
+                                                        {results[0].tariff.company.includes("Referencia") || results[0].tariff.company === "COR" ? (
+                                                            <div className="flex flex-col items-center justify-center text-center px-1">
+                                                                <span className="text-[9px] font-black leading-tight text-white uppercase tracking-tighter">Comercializadoras</span>
+                                                                <span className="text-[9px] font-black leading-tight text-white uppercase tracking-tighter">de Referencia</span>
+                                                            </div>
+                                                        ) : (
+                                                            <img 
+                                                                src={getLogoPath(results[0].tariff.company, mounted && resolvedTheme === 'dark')!} 
+                                                                alt={results[0].tariff.company}
+                                                                className="w-full h-full object-contain" 
+                                                            />
+                                                        )}
                                                     </div>
                                                     <div className="space-y-1 text-center md:text-left">
                                                         <h4 className="text-lg font-bold tracking-tight text-white/90">Análisis Técnico de Facturación</h4>
@@ -2989,6 +2996,11 @@ export default function ComparadorMain() {
                                                     alt={selectedResult.tariff.company}
                                                     className="w-full h-full object-contain relative z-10"
                                                 />
+                                            ) : selectedResult.tariff.company.includes("Referencia") || selectedResult.tariff.company === "COR" ? (
+                                                <div className="flex flex-col items-center justify-center text-center p-1">
+                                                    <span className="text-[11px] font-black leading-tight text-primary uppercase tracking-tighter">Comercializadoras</span>
+                                                    <span className="text-[11px] font-black leading-tight text-primary uppercase tracking-tighter">de Referencia</span>
+                                                </div>
                                             ) : (
                                                 <div className="relative flex items-center justify-center">
                                                     <div className="w-full aspect-square bg-surface-2 rounded blur-sm"></div>
