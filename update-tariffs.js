@@ -53,25 +53,34 @@ async function main() {
             console.warn("No se pudo abrir la URL automáticamente.");
         }
         
+        let changed = false;
+        
         const p1 = await ask(`  Potencia Punta P1  [${tariff.p1_kw_day}]: `);
-        if (p1.trim()) tariff.p1_kw_day = parseFloat(p1.replace(',', '.'));
+        if (p1.trim()) { tariff.p1_kw_day = parseFloat(p1.replace(',', '.')); changed = true; }
 
         const p2 = await ask(`  Potencia Valle P2  [${tariff.p2_kw_day}]: `);
-        if (p2.trim()) tariff.p2_kw_day = parseFloat(p2.replace(',', '.'));
+        if (p2.trim()) { tariff.p2_kw_day = parseFloat(p2.replace(',', '.')); changed = true; }
 
         const e1 = await ask(`  Energía Punta   E1 [${tariff.e1_kwh}]: `);
-        if (e1.trim()) tariff.e1_kwh = parseFloat(e1.replace(',', '.'));
+        if (e1.trim()) { tariff.e1_kwh = parseFloat(e1.replace(',', '.')); changed = true; }
 
         const e2 = await ask(`  Energía Llano   E2 [${tariff.e2_kwh}]: `);
-        if (e2.trim()) tariff.e2_kwh = parseFloat(e2.replace(',', '.'));
+        if (e2.trim()) { tariff.e2_kwh = parseFloat(e2.replace(',', '.')); changed = true; }
 
         const e3 = await ask(`  Energía Valle   E3 [${tariff.e3_kwh}]: `);
-        if (e3.trim()) tariff.e3_kwh = parseFloat(e3.replace(',', '.'));
+        if (e3.trim()) { tariff.e3_kwh = parseFloat(e3.replace(',', '.')); changed = true; }
+
+        const surplus = await ask(`  Excedentes      EX [${tariff.surplus_kwh || 0}]: `);
+        if (surplus.trim()) { tariff.surplus_kwh = parseFloat(surplus.replace(',', '.')); changed = true; }
+
+        if (changed) {
+            tariff.updatedAt = new Date().toISOString().split('T')[0];
+        }
 
         // Guardar progreso tras cada tarifa por seguridad
         try {
             fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
-            console.log("  \x1b[32m✓ Progreso guardado\x1b[0m");
+            console.log("  \x1b[32m✓ Progreso guardado" + (changed ? " (Fecha act.)" : "") + "\x1b[0m");
         } catch (e) {
             console.error("  \x1b[31m✗ Error al guardar:\x1b[0m", e.message);
         }

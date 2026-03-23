@@ -65,7 +65,8 @@ export default function DashboardPage() {
                     { key: 'e2_kwh', label: 'Energía Llano (E2)' },
                     { key: 'e3_kwh', label: 'Energía Valle (E3)' },
                     { key: 'p1_kw_day', label: 'Potencia Punta (P1)' },
-                    { key: 'p2_kw_day', label: 'Potencia Valle (P2)' }
+                    { key: 'p2_kw_day', label: 'Potencia Valle (P2)' },
+                    { key: 'surplus_kwh', label: 'Excedentes (€/kWh)' }
                 ];
 
                 fields.forEach(f => {

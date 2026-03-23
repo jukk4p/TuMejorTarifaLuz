@@ -9,7 +9,9 @@
     "e2_kwh": 0.118,
     "e3_kwh": 0.118,
     "permanence": false,
-    "url": "https://niba.es/luz-y-gas"
+    "url": "https://niba.es/luz-y-gas",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Niba",
@@ -21,7 +23,9 @@
     "e2_kwh": 0.116,
     "e3_kwh": 0.079,
     "permanence": false,
-    "url": "https://niba.es/luz-y-gas"
+    "url": "https://niba.es/luz-y-gas",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Octopus",
@@ -33,7 +37,9 @@
     "e2_kwh": 0.129,
     "e3_kwh": 0.129,
     "permanence": false,
-    "url": "https://octopusenergy.es/precios"
+    "url": "https://octopusenergy.es/precios",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Imagina",
@@ -45,7 +51,9 @@
     "e2_kwh": 0.105,
     "e3_kwh": 0.105,
     "permanence": false,
-    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/"
+    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Imagina",
@@ -57,7 +65,9 @@
     "e2_kwh": 0.103,
     "e3_kwh": 0.069,
     "permanence": false,
-    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/"
+    "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Doméstica - Visalia",
@@ -69,7 +79,9 @@
     "e2_kwh": 0.097999,
     "e3_kwh": 0.097999,
     "permanence": false,
-    "url": "https://visalia.es/luz/fijo24horas/"
+    "url": "https://visalia.es/luz/fijo24horas/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Repsol",
@@ -81,7 +93,9 @@
     "e2_kwh": 0.1199,
     "e3_kwh": 0.1199,
     "permanence": false,
-    "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/"
+    "url": "https://www.repsol.es/particulares/hogar/luz-y-gas/tarifas/tarifa-ahorro-plus/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Repsol",
@@ -93,7 +107,9 @@
     "e2_kwh": 0.1299,
     "e3_kwh": 0.1299,
     "permanence": false,
-    "url": "https://www.repsol.es/particulares/hogar/energia-solar/tarifas/tarifa-solar-bateria-virtual/"
+    "url": "https://www.repsol.es/particulares/hogar/energia-solar/tarifas/tarifa-solar-bateria-virtual/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energía Nufri",
@@ -105,7 +121,9 @@
     "e2_kwh": 0.128326,
     "e3_kwh": 0.093757,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/tarifas-luz"
+    "url": "https://www.energianufri.com/es/tarifas-luz",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energía Nufri",
@@ -117,7 +135,9 @@
     "e2_kwh": 0.138271,
     "e3_kwh": 0.138271,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/tarifas-luz"
+    "url": "https://www.energianufri.com/es/tarifas-luz",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energía Nufri",
@@ -129,7 +149,9 @@
     "e2_kwh": 0.115288,
     "e3_kwh": 0.080719,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas"
+    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energía Nufri",
@@ -141,7 +163,9 @@
     "e2_kwh": 0.125233,
     "e3_kwh": 0.125233,
     "permanence": false,
-    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas"
+    "url": "https://www.energianufri.com/es/landing/mas-tarifas-luz-gas",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Iberdrola",
@@ -153,7 +177,9 @@
     "e2_kwh": 0.136,
     "e3_kwh": 0.09999,
     "permanence": false,
-    "url": "https://www.iberdrola.es/luz/plan-online-tres-periodos"
+    "url": "https://www.iberdrola.es/luz/plan-online-tres-periodos",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Iberdrola",
@@ -165,7 +191,9 @@
     "e2_kwh": 0.1099,
     "e3_kwh": 0.1099,
     "permanence": false,
-    "url": "https://www.iberdrola.es/luz/plan-online"
+    "url": "https://www.iberdrola.es/luz/plan-online",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Endesa",
@@ -177,7 +205,9 @@
     "e2_kwh": 0.119999,
     "e3_kwh": 0.119999,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/conecta-de-endesa"
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/conecta-de-endesa",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Endesa",
@@ -189,7 +219,9 @@
     "e2_kwh": 0.099999,
     "e3_kwh": 0.099999,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz"
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Endesa",
@@ -201,7 +233,9 @@
     "e2_kwh": 0.0972,
     "e3_kwh": 0.0738,
     "permanence": false,
-    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz-3periodos"
+    "url": "https://www.endesa.com/es/luz-y-gas/luz/one/tarifa-one-luz-3periodos",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Naturgy",
@@ -213,7 +247,9 @@
     "e2_kwh": 0.1072,
     "e3_kwh": 0.0718,
     "permanence": false,
-    "url": "https://www.naturgy.es/hogar/luz/tarifa_noche"
+    "url": "https://www.naturgy.es/hogar/luz/tarifa_noche",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energya VM",
@@ -225,7 +261,9 @@
     "e2_kwh": 0.13515,
     "e3_kwh": 0.10115,
     "permanence": false,
-    "url": "https://www.energyavm.es/luz/formula-fija-3-periodos-luz/"
+    "url": "https://www.energyavm.es/luz/formula-fija-3-periodos-luz/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Energya VM",
@@ -237,7 +275,9 @@
     "e2_kwh": 0.12519,
     "e3_kwh": 0.12519,
     "permanence": false,
-    "url": "https://www.energyavm.es/luz/formula-fija-24-horas-luz/"
+    "url": "https://www.energyavm.es/luz/formula-fija-24-horas-luz/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Total Energies",
@@ -249,7 +289,9 @@
     "e2_kwh": 0.10393,
     "e3_kwh": 0.076176,
     "permanence": false,
-    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-programa-tu-ahorro"
+    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-programa-tu-ahorro",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Total Energies",
@@ -261,7 +303,9 @@
     "e2_kwh": 0.1099,
     "e3_kwh": 0.1099,
     "permanence": false,
-    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-siempre"
+    "url": "https://www.totalenergies.es/es/hogares/tarifas-luz/a-tu-aire-siempre",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "CHC Energía",
@@ -273,7 +317,9 @@
     "e2_kwh": 0.224003,
     "e3_kwh": 0.059339,
     "permanence": false,
-    "url": "https://chcenergia.es/tarifa-luz/vehiculo-electrico/"
+    "url": "https://chcenergia.es/tarifa-luz/vehiculo-electrico/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Esluz",
@@ -285,7 +331,9 @@
     "e2_kwh": 0.135066,
     "e3_kwh": 0.085298,
     "permanence": false,
-    "url": "https://esluz.es/tarifa-solar-2-0/"
+    "url": "https://esluz.es/tarifa-solar-2-0/",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   },
   {
     "company": "Comercializadoras de Referencia",
@@ -297,6 +345,8 @@
     "e2_kwh": 0.1227,
     "e3_kwh": 0.1047,
     "permanence": false,
-    "url": "https://sede.cnmc.gob.es/listado/censo/10"
+    "url": "https://sede.cnmc.gob.es/listado/censo/10",
+    "surplus_kwh": 0,
+    "updatedAt": "2026-03-23"
   }
 ]

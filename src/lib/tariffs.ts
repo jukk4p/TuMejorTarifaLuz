@@ -7,6 +7,8 @@ export interface Tariff {
     e1_kwh: number; // Precio Energía Punta €/kWh
     e2_kwh: number; // Precio Energía Llano €/kWh
     e3_kwh: number; // Precio Energía Valle €/kWh
+    surplus_kwh?: number; // Precio Excedentes €/kWh
+    updatedAt?: string; // Fecha de última actualización (YYYY-MM-DD)
     permanence: boolean;
     url: string;
     logo_url?: string;
