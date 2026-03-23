@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { ShieldCheck, Info, CheckCircle2, Building2, HelpCircle, ArrowRight, ExternalLink } from "lucide-react";
+import { ShieldCheck, Info, CheckCircle2, Building2, HelpCircle, ArrowRight, ExternalLink, Zap, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -17,36 +17,43 @@ const COR_COMPANIES = [
         name: "Energía XXI",
         group: "Grupo Endesa",
         website: "https://www.energiaxxi.com",
-        description: "Es la comercializadora de referencia de Endesa, la principal en Cataluña, Aragón, Andalucía, Extremadura y Baleares.",
-        logo: "/logos/Endesa.png",
+        description: "Perteneciente al Grupo Endesa, es la comercializadora de referencia líder en Cataluña, Aragón, Andalucía, Extremadura y Baleares. Destaca por su extensísima red de oficinas de atención presencial y su agilidad en la tramitación del Bono Social para familias vulnerables.",
+        logo: "/logos/EnergiaXXI.svg",
     },
     {
         name: "Curenergía",
         group: "Grupo Iberdrola",
         website: "https://www.curenergia.es",
-        description: "Comercializadora de referencia del grupo Iberdrola. Líder en la zona de Levante, Madrid, Castilla y León y País Vasco.",
-        logo: "/logos/Iberdrola.png",
+        description: "Es la filial del Grupo Iberdrola designada para el mercado regulado. Con una posición dominante en Madrid, la Comunidad Valenciana, Castilla y León y el País Vasco, ofrece herramientas digitales avanzadas para que sus clientes puedan monitorizar su consumo horario en la tarifa PVPC.",
+        logo: "/logos/Cultimorecurso.svg",
     },
     {
         name: "Comercializadora Regulada",
         group: "Grupo Naturgy (Gas & Power)",
         website: "https://www.comercializadoraregulada.es",
-        description: "La rama regulada de Naturgy, con gran presencia nacional y especialistas en gestión del bono social.",
-        logo: "/logos/Naturgy.png",
+        description: "La marca del Grupo Naturgy especializada en tarifas reguladas (PVPC y TUR). Tiene una presencia histórica en todo el territorio nacional y se caracteriza por una comunicación transparente y un fuerte enfoque en la gestión de colectivos con derecho al Bono Social Térmico.",
+        logo: "/logos/Corgruporepsol.svg",
     },
     {
         name: "Baser Comercializadora",
         group: "Grupo TotalEnergies / EDP",
         website: "https://www.basercor.es",
-        description: "Antigua comercializadora de EDP, ahora bajo el paraguas de TotalEnergies. Principal referencia en Asturias y Cantabria.",
-        logo: "/logos/TotalEnergies.png",
+        description: "Anteriormente parte de EDP y ahora bajo el Grupo TotalEnergies, mantiene su liderazgo indiscutible como comercializadora de referencia en Asturias y Cantabria. Se diferencia por su arraigo local y un servicio de atención al cliente muy valorado por el consumidor doméstico tradicional.",
+        logo: "/logos/Baser.svg",
     },
     {
         name: "Régsiti",
         group: "Grupo Repsol",
         website: "https://www.regsiti.com",
-        description: "Nueva denominación de la comercializadora de referencia de Repsol (antigua Viesgo).",
-        logo: "/logos/Repsol.png",
+        description: "Es la comercializadora regulada del Grupo Repsol, consolidada tras la integración de Viesgo. Ha renovado sus sistemas para ofrecer una de las gestiones más rápidas del mercado en cambios de tarifa y solicitudes del Bono Social, aprovechando la infraestructura tecnológica del grupo.",
+        logo: "/logos/Regsiti.png",
+    },
+    {
+        name: "Cor Energía",
+        group: "CHC Energía",
+        website: "https://www.corenergetico.es/",
+        description: "La entidad del grupo CHC para operar en el mercado regulado. Es especialmente relevante en zonas rurales y municipios medianos, donde su modelo de proximidad permite a los consumidores una gestión directa y cercana, alejada de la impersonalidad de las grandes corporaciones.",
+        logo: "/logos/Corenergia.png",
     }
 ];
 
@@ -115,6 +122,86 @@ export default function ComercializadorasReferenciaPage() {
                         </div>
                     </div>
 
+                    {/* Tariff Format Section */}
+                    <div className="max-w-4xl mx-auto mb-32">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                            <div className="space-y-2">
+                                <h2 className="text-3xl font-900 text-text-primary tracking-tight">Tarifa Oficial PVPC</h2>
+                                <p className="text-text-secondary font-medium italic">Referencia del mercado regulado</p>
+                            </div>
+                        </div>
+
+                        <div className="group relative">
+                            <div className="absolute -top-3 right-8 z-10 bg-primary px-3 py-1 rounded-md text-[11px] font-black text-white uppercase tracking-widest shadow-lg">
+                                Regulada
+                            </div>
+                            <div className="relative premium-card !p-0 overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-xl hover:shadow-2xl transition-all duration-500">
+                                <div className="px-8 py-5 border-b border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-800/30">
+                                    <div className="flex items-center gap-4">
+                                        <h4 className="text-xl font-900 text-text-primary tracking-tight">PVPC - Mercado Regulado</h4>
+                                    </div>
+                                    <div className="flex items-center gap-4">
+                                        <span className="text-[13px] font-700 text-primary">Media marzo 2026</span>
+                                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
+                                            3 Periodos
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="p-8 grid lg:grid-cols-[1fr_auto] gap-10 items-center">
+                                    <div className="grid sm:grid-cols-2 gap-10 lg:gap-16">
+                                        <div className="space-y-6">
+                                            <div className="flex items-center gap-2.5">
+                                                <span className="text-xl">⚡</span>
+                                                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Energía (€/kWh)</span>
+                                            </div>
+                                            
+                                            <div className="grid grid-cols-3 gap-6">
+                                                {[
+                                                    { l: "Punta", v: 0.1709, c: "text-rose-500" },
+                                                    { l: "Llano", v: 0.1019, c: "text-warning" },
+                                                    { l: "Valle", v: 0.0839, c: "text-emerald-500" }
+                                                ].map((item, idx) => (
+                                                    <div key={idx} className="space-y-1">
+                                                        <span className="block text-[9px] font-black text-slate-400 uppercase">{item.l}</span>
+                                                        <span className={`text-xl font-900 ${item.c}`}>{item.v.toFixed(4)}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-6 lg:border-l lg:border-border lg:pl-16">
+                                            <div className="flex items-center gap-2.5">
+                                                <span className="text-xl">🔌</span>
+                                                <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Potencia (€/kW/día)</span>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="space-y-1">
+                                                    <span className="block text-[9px] font-black text-slate-400 uppercase">Punta</span>
+                                                    <span className="text-xl font-900 text-text-primary">0.0844</span>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <span className="block text-[9px] font-black text-slate-400 uppercase">Valle</span>
+                                                    <span className="text-xl font-900 text-text-primary">0.0020</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col gap-3">
+                                        <Link
+                                            href="/comparador"
+                                            className="px-10 py-5 bg-slate-900 dark:bg-primary text-white font-black rounded-2xl md:min-w-[200px] text-center shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+                                        >
+                                            Optimizar mi ahorro
+                                        </Link>
+                                        <p className="text-[10px] text-center text-slate-400 font-bold uppercase">Sin permanencia · Variable</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* List of Companies */}
                     <div className="mb-32">
                         <div className="text-center mb-16">
@@ -123,10 +210,14 @@ export default function ComercializadorasReferenciaPage() {
                         </div>
                         <div className="grid md:grid-cols-2 gap-8">
                             {COR_COMPANIES.map((company) => (
-                                <div key={company.name} className="group premium-card bg-surface p-8 border border-border hover:border-primary/30 transition-all duration-300">
+                                <div key={company.name} className="group premium-card bg-surface p-8 border border-border hover:border-primary/30 transition-all duration-300 flex flex-col">
                                     <div className="flex justify-between items-start mb-6">
-                                        <div className="p-3 bg-surface-2 rounded-2xl border border-border">
-                                            <Building2 className="w-8 h-8 text-primary" />
+                                        <div className="w-20 h-10 bg-white dark:bg-slate-800 rounded-xl border border-border flex items-center justify-center p-2 overflow-hidden shadow-inner group-hover:scale-105 transition-transform duration-300">
+                                            <img 
+                                                src={company.logo} 
+                                                alt={company.name} 
+                                                className="max-h-full max-w-full object-contain"
+                                            />
                                         </div>
                                         <a href={company.website} target="_blank" rel="noopener noreferrer" className="p-2 text-slate-400 hover:text-primary transition-colors">
                                             <ExternalLink className="w-5 h-5" />
@@ -136,7 +227,7 @@ export default function ComercializadorasReferenciaPage() {
                                         {company.name}
                                     </h3>
                                     <p className="text-sm font-bold text-primary/80 mb-4 uppercase tracking-widest">{company.group}</p>
-                                    <p className="text-text-secondary leading-relaxed text-sm">
+                                    <p className="text-text-secondary leading-relaxed text-sm flex-grow">
                                         {company.description}
                                     </p>
                                     <div className="mt-8 pt-6 border-t border-border flex justify-between items-center">

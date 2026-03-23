@@ -586,7 +586,7 @@ export default async function Home() {
                 { name: "Energya VM", logo: "Energiavm.png", scale: "scale-130", slug: "energia-vm" },
                 { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-130", slug: "chc-energia" },
                 { name: "Esluz", logo: "Esluz.png", scale: "scale-85", slug: "esluz" },
-                { name: "COR", logo: "Comercializadoras-de-referencia.png", scale: "scale-120", slug: "comercializadoras-referencia" },
+                { name: "COR", logo: "COR.png", scale: "scale-140", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div 

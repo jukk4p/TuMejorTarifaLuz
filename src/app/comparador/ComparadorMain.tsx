@@ -3045,13 +3045,19 @@ export default function ComparadorMain() {
                                                     <span>🔌</span> Término de Potencia
                                                 </h5>
                                                 <div className="space-y-3">
-                                                    <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
-                                                        <span className="text-xs font-bold">Punta (P1)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0, selectedResult.tariff?.p1_kw_day_with_taxes).toFixed(5)} €/kW día</span>
+                                                    <div className="flex justify-between items-center bg-violet-50/50 dark:bg-violet-900/10 p-4 rounded-xl border border-violet-100 dark:border-violet-900/50">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="w-2 h-2 rounded bg-violet-500"></span>
+                                                            <span className="text-xs font-bold text-text-primary">Punta (P1)</span>
+                                                        </div>
+                                                        <span className="font-mono text-sm font-bold text-violet-600 dark:text-violet-400">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0, selectedResult.tariff?.p1_kw_day_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kW día</span></span>
                                                     </div>
-                                                    <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
-                                                        <span className="text-xs font-bold">Valle (P2)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0, selectedResult.tariff?.p2_kw_day_with_taxes).toFixed(5)} €/kW día</span>
+                                                    <div className="flex justify-between items-center bg-indigo-50/50 dark:bg-indigo-900/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-900/50">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="w-2 h-2 rounded bg-indigo-500"></span>
+                                                            <span className="text-xs font-bold text-text-primary">Valle (P2)</span>
+                                                        </div>
+                                                        <span className="font-mono text-sm font-bold text-indigo-600 dark:text-indigo-400">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0, selectedResult.tariff?.p2_kw_day_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kW día</span></span>
                                                     </div>
                                                 </div>
                                             </div>
