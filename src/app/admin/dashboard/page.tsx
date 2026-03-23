@@ -11,13 +11,24 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Tariff } from "@/lib/tariffs";
 import { notifySystemUpdate } from "@/lib/notifications";
 
+interface PriceChange {
+    label: string;
+    oldValue: number;
+    newValue: number;
+}
+
+interface TariffChange {
+    tariff: Tariff;
+    changes: PriceChange[];
+}
+
 export default function DashboardPage() {
     const router = useRouter();
     const { tariffs: TARIFF_DATABASE } = useTariffs();
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const [snapshot, setSnapshot] = useState<Tariff[] | null>(null);
-    const [changes, setChanges] = useState<{tariff: Tariff, previousPrice: number, currentPrice: number, type: 'up' | 'down'}[]>([]);
+    const [changes, setChanges] = useState<TariffChange[]>([]);
     const [isSyncing, setIsSyncing] = useState(false);
 
     useEffect(() => {
@@ -44,16 +55,38 @@ export default function DashboardPage() {
     };
 
     const compareTariffs = (snap: Tariff[]) => {
-        const detectedChanges: any[] = [];
+        const detectedChanges: TariffChange[] = [];
         TARIFF_DATABASE.forEach(current => {
             const prev = snap.find(s => s.name === current.name && s.company === current.company);
-            if (prev && prev.e1_kwh !== current.e1_kwh) {
-                detectedChanges.push({
-                    tariff: current,
-                    previousPrice: prev.e1_kwh,
-                    currentPrice: current.e1_kwh,
-                    type: current.e1_kwh < prev.e1_kwh ? 'down' : 'up'
+            if (prev) {
+                const diffs: PriceChange[] = [];
+                const fields: { key: keyof Tariff, label: string }[] = [
+                    { key: 'e1_kwh', label: 'Energía Punta (E1)' },
+                    { key: 'e2_kwh', label: 'Energía Llano (E2)' },
+                    { key: 'e3_kwh', label: 'Energía Valle (E3)' },
+                    { key: 'p1_kw_day', label: 'Potencia Punta (P1)' },
+                    { key: 'p2_kw_day', label: 'Potencia Valle (P2)' }
+                ];
+
+                fields.forEach(f => {
+                    const oldVal = prev[f.key] !== undefined ? Number(prev[f.key]) : undefined;
+                    const newVal = current[f.key] !== undefined ? Number(current[f.key]) : undefined;
+                    
+                    if (oldVal !== undefined && newVal !== undefined && oldVal !== newVal) {
+                        diffs.push({
+                            label: f.label,
+                            oldValue: oldVal,
+                            newValue: newVal
+                        });
+                    }
                 });
+
+                if (diffs.length > 0) {
+                    detectedChanges.push({
+                        tariff: current,
+                        changes: diffs
+                    });
+                }
             }
         });
         setChanges(detectedChanges);
@@ -64,15 +97,18 @@ export default function DashboardPage() {
         setIsSyncing(true);
         try {
             // 1. Send Notification
-            const changeMessages = changes.map(c => 
-                `${c.tariff.company} (${c.tariff.name}): de ${c.previousPrice.toFixed(4)}€ a ${c.currentPrice.toFixed(4)}€`
-            ).join('\n');
+            const changeMessages = changes.map(c => {
+                const details = c.changes.map(d => 
+                    `  - se ha actualizado los precios de ${d.label} de ${d.oldValue.toFixed(4)}€ a ${d.newValue.toFixed(4)}€`
+                ).join('\n');
+                return `- La tarifa "${c.tariff.name}" de la compañía ${c.tariff.company} ha cambiado sus precios:\n${details}`;
+            }).join('\n\n');
             
             const title = changes.length === 1 
-                ? `Cambio de precio en ${changes[0].tariff.company}` 
+                ? `Cambio de precios en ${changes[0].tariff.company}` 
                 : "Actualización múltiple de precios";
             
-            await notifySystemUpdate(title, `Hemos actualizado las tarifas con los nuevos precios del mercado:\n${changeMessages}`);
+            await notifySystemUpdate(title, `Se han actualizado las siguientes tarifas:\n\n${changeMessages}`);
 
             // 2. Update Snapshot
             const docRef = doc(db, "system_state", "tariffs_snapshot");
@@ -202,16 +238,23 @@ export default function DashboardPage() {
 
                             <div className="space-y-3">
                                 {changes.map((change, i) => (
-                                    <div key={i} className="flex items-center justify-between bg-surface p-4 rounded-xl border border-amber-200/50 dark:border-amber-900/30">
-                                        <div className="flex items-center gap-3">
-                                            {change.type === 'down' ? <TrendingDown size={14} className="text-emerald-500" /> : <TrendingUp size={14} className="text-warning" />}
-                                            <span className="text-xs font-bold dark:text-white uppercase truncate max-w-[120px]">{change.tariff.company}</span>
+                                    <div key={i} className="flex flex-col bg-surface p-4 rounded-xl border border-amber-200/50 dark:border-amber-900/30 gap-2">
+                                        <div className="flex items-center gap-3 border-b border-border dark:border-white/5 pb-2 mb-1">
+                                            <TrendingUp size={14} className="text-warning" />
+                                            <span className="text-[10px] font-black dark:text-white uppercase truncate">{change.tariff.company} - {change.tariff.name}</span>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-[10px] font-mono text-slate-400 line-through">{change.previousPrice.toFixed(4)}€</span>
-                                            <span className={`text-[11px] font-mono font-black ${change.type === 'down' ? 'text-emerald-500' : 'text-warning'}`}>
-                                                {change.currentPrice.toFixed(4)}€
-                                            </span>
+                                        <div className="space-y-1.5">
+                                            {change.changes.map((diff, j) => (
+                                                <div key={j} className="flex items-center justify-between text-[10px]">
+                                                    <span className="text-slate-400 font-bold uppercase tracking-tight">{diff.label}</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-slate-400 line-through opacity-50">{diff.oldValue.toFixed(4)}</span>
+                                                        <span className={`font-mono font-black ${diff.newValue < diff.oldValue ? 'text-emerald-500' : 'text-warning'}`}>
+                                                            {diff.newValue.toFixed(4)}€
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 ))}

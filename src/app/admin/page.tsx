@@ -167,14 +167,13 @@ export default function AdminLogin() {
 
                 {/* Footer Info */}
                 <div className="mt-12 text-center space-y-6">
-                    <p className="text-[10px] text-text-muted leading-relaxed max-w-[300px] flex items-center gap-2 justify-center">
-                        <ShieldAlert className="w-4 h-4" />
-                        Uso exclusivo para administradores autorizados. El acceso no autorizado será monitoreado y reportado.
-                    </p>
-                    <div className="flex items-center justify-center gap-4 text-[10px] font-black text-text-muted uppercase tracking-widest">
-                        <span>ESPAÑOL</span>
-                        <div className="w-1.5 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
-                        <Link href="#" className="hover:text-primary transition-colors">SOPORTE TÉCNICO</Link>
+                    <div className="flex items-center gap-3 px-6 py-4 bg-slate-500/5 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl max-w-[400px] backdrop-blur-sm shadow-sm transition-all hover:bg-slate-500/10 dark:hover:bg-white/10">
+                        <div className="shrink-0 w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
+                            <ShieldAlert className="w-4 h-4" />
+                        </div>
+                        <p className="text-[10px] text-text-muted leading-snug font-bold uppercase tracking-wider text-left">
+                            <span className="text-red-500">Uso restringido:</span> Acceso exclusivo para administradores autorizados. El acceso no autorizado será monitoreado y reportado.
+                        </p>
                     </div>
                 </div>
             </div>

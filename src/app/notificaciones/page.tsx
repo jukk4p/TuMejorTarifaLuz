@@ -214,7 +214,7 @@ export default function NotificationsPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-text-secondary leading-relaxed max-w-2xl font-medium">
+                                        <p className="text-text-secondary leading-relaxed max-w-2xl font-medium whitespace-pre-line">
                                             {n.message}
                                         </p>
 

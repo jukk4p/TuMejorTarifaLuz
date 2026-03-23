@@ -12,7 +12,7 @@ import { useTheme } from "next-themes";
 import { db, auth } from "@/lib/firebase";
 import { collection, onSnapshot, query, orderBy, Timestamp, deleteDoc, doc, getDoc, setDoc, Firestore } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, ChevronDown, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock, Calendar, Info } from "lucide-react";
+import { User as UserIcon, LogOut, FileText, Layout, Star, ChevronRight, ChevronDown, Settings, Trash2, X, User, Link as LinkIcon, Zap, Plus, BarChart3, ZoomIn, Clock, Calendar, Info, ShieldAlert } from "lucide-react";
 import { useToast } from "@/components/providers/ToastProvider";
 
 type Tab = "facturas" | "comparativas" | "favoritos";
@@ -38,7 +38,7 @@ interface SavedBill {
 }
 
 export default function ProfilePage() {
-    const { user, loading: authLoading } = useAuth();
+    const { user, isAdmin, loading: authLoading } = useAuth();
     const router = useRouter();
     const [activeTab, setActiveTab] = useState<Tab>("facturas");
     const { tariffs, loading: tariffsLoading } = useTariffs();
@@ -337,8 +337,20 @@ export default function ProfilePage() {
                             </div>
                         </div>
 
-                        {/* Botón Acción Lateral - Compacto */}
-                        <div className="shrink-0 relative z-10 w-full lg:w-auto">
+                        {/* Botones Acción Lateral - Compacto */}
+                        <div className="shrink-0 relative z-10 w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+                            {isAdmin && (
+                                <button
+                                    onClick={() => router.push("/admin/dashboard")}
+                                    className="w-full lg:w-auto overflow-hidden relative group/admin h-12 px-7 rounded-xl bg-primary text-white text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20"
+                                >
+                                    <span className="relative z-10 flex items-center justify-center gap-2.5">
+                                        <ShieldAlert size={16} />
+                                        Panel Admin
+                                    </span>
+                                    <div className="absolute inset-0 bg-slate-900 translate-y-full group-hover/admin:translate-y-0 transition-transform duration-300"></div>
+                                </button>
+                            )}
                             <button
                                 onClick={() => setIsEditModalOpen(true)}
                                 className="w-full lg:w-auto overflow-hidden relative group/btn h-12 px-7 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none"

@@ -5,29 +5,43 @@ import {
     onAuthStateChanged,
     User,
     signOut as firebaseSignOut,
-    Auth
 } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 interface AuthContextType {
     user: User | null;
+    isAdmin: boolean;
     loading: boolean;
     logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
+    isAdmin: false,
     loading: true,
     logout: async () => { },
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser);
+            if (currentUser) {
+                try {
+                    const adminDoc = await getDoc(doc(db, "roles_admin", currentUser.uid));
+                    setIsAdmin(adminDoc.exists());
+                } catch (error) {
+                    console.error("Error checking admin role:", error);
+                    setIsAdmin(false);
+                }
+            } else {
+                setIsAdmin(false);
+            }
             setLoading(false);
         });
 
@@ -43,7 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, logout }}>
+        <AuthContext.Provider value={{ user, isAdmin, loading, logout }}>
             {children}
         </AuthContext.Provider>
     );
