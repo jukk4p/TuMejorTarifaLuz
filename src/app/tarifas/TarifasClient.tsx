@@ -282,7 +282,7 @@ export default function TarifasClient() {
 
                                     <button 
                                         onClick={() => toggleCompare(tariff.id || '')}
-                                        className={`absolute top-4 right-4 z-10 p-2 rounded-xl transition-all border ${
+                                        className={`hidden md:flex absolute top-4 right-4 z-10 p-2 rounded-xl transition-all border ${
                                             selectedCompareIds.includes(tariff.id || '') 
                                             ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' 
                                             : 'bg-surface/80 backdrop-blur-sm text-slate-400 border-border hover:border-primary/40 hover:text-primary'
@@ -464,9 +464,9 @@ export default function TarifasClient() {
                 </div>
             </main>
 
-            {/* Floating Compare Bar */}
+            {/* Floating Compare Bar - HIDDEN ON MOBILE */}
             {selectedCompareIds.length > 0 && (
-                <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-500">
+                <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl animate-in fade-in slide-in-from-bottom-8 duration-500">
                     <div className="bg-[#0f172a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-6">
                         <div className="flex items-center gap-4 grow">
                             <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/20 text-primary shrink-0 border border-primary/20">
@@ -536,70 +536,111 @@ export default function TarifasClient() {
                         </div>
 
                         {/* Content */}
-                        <div className="overflow-auto grow custom-scrollbar">
+                        <div className="overflow-auto grow custom-scrollbar bg-slate-50/30 dark:bg-slate-900/10">
                             <table className="w-full border-collapse">
-                                <thead className="sticky top-0 z-10">
-                                    <tr className="bg-white dark:bg-slate-900 border-b border-border shadow-sm">
-                                        <th className="p-8 text-left bg-surface-2 min-w-[200px] border-r border-border">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Condiciones</span>
-                                        </th>
-                                        {selectedCompareTariffs.map(t => (
-                                            <th key={t.id} className="p-8 text-center bg-white dark:bg-slate-800 border-r border-border last:border-r-0 min-w-[280px]">
-                                                <div className="flex flex-col items-center gap-6">
-                                                    <div className="w-24 h-12 relative flex items-center justify-center">
-                                                        {getLogoPath(t.company || '') ? (
-                                                            <img src={getLogoPath(t.company || '')!} alt={t.company} className="max-h-full max-w-full object-contain" />
-                                                        ) : (
-                                                            <div className="text-primary font-black uppercase text-xs text-center leading-tight">
-                                                                {t.company}
-                                                            </div>
-                                                        )}
+                                <thead className="sticky top-0 z-30">
+                                    <tr className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-border shadow-sm">
+                                        {selectedCompareTariffs.map((t, idx) => {
+                                            const monthlyCost = calculateMonthlyEstimation(t);
+                                            const allCosts = selectedCompareTariffs.map(st => calculateMonthlyEstimation(st));
+                                            const isCheapestOverall = monthlyCost === Math.min(...allCosts);
+
+                                            return (
+                                                <th key={t.id} className={`p-8 text-center border-r border-border last:border-r-0 min-w-[240px] transition-colors relative ${isCheapestOverall ? 'bg-primary/[0.02] dark:bg-primary/[0.05]' : 'bg-white dark:bg-slate-900'}`}>
+                                                    {isCheapestOverall && (
+                                                        <div className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-amber-400 text-[#0f172a] text-[8px] font-black uppercase tracking-widest rounded-b-lg shadow-lg">
+                                                            Tarifa Recomendada
+                                                        </div>
+                                                    )}
+                                                    <div className="flex flex-col items-center gap-4">
+                                                        <div className="w-20 h-10 relative flex items-center justify-center bg-white rounded-lg p-1.5 shadow-sm border border-border/50">
+                                                            {getLogoPath(t.company || '') ? (
+                                                                <img src={getLogoPath(t.company || '')!} alt={t.company} className="max-h-full max-w-full object-contain" />
+                                                            ) : (
+                                                                <div className="text-primary font-black uppercase text-xs text-center leading-tight">
+                                                                    {t.company}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        <div className="space-y-1">
+                                                            <h4 className="text-sm font-900 text-text-primary leading-[1.2] text-center max-w-[180px] mx-auto tracking-tight uppercase">{t.name}</h4>
+                                                            <span className="text-[8px] font-black uppercase text-primary tracking-widest block opacity-60">
+                                                                {t.type}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <h4 className="font-900 text-text-primary leading-tight text-center">{t.name}</h4>
-                                                        <span className="text-[10px] font-black uppercase text-primary tracking-widest mt-1 block">{t.type}</span>
-                                                    </div>
-                                                </div>
-                                            </th>
-                                        ))}
+                                                </th>
+                                            );
+                                        })}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Coste Mensual Est.</td>
+                                    <tr className="bg-slate-100/30 dark:bg-slate-800/30">
+                                        <td colSpan={selectedCompareTariffs.length} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center border-b border-border">
+                                            Coste Mensual
+                                        </td>
+                                    </tr>
+                                    <tr className="group/row hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors border-b border-border">
                                         {selectedCompareTariffs.map(t => {
                                             const cost = calculateMonthlyEstimation(t);
+                                            const allCosts = selectedCompareTariffs.map(st => calculateMonthlyEstimation(st));
+                                            const isCheapest = cost === Math.min(...allCosts);
                                             return (
-                                                <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
-                                                    <span className="text-2xl font-900 text-primary">≈ {cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}€</span>
-                                                    <span className="text-[10px] font-bold text-slate-400 block uppercase mt-1">Hogar promedio</span>
+                                                <td key={t.id} className={`p-6 border-r last:border-r-0 text-center transition-all ${isCheapest ? 'bg-emerald-50/20 dark:bg-emerald-500/10' : ''}`}>
+                                                    <div className="flex flex-col items-center">
+                                                        <span className={`text-3xl font-900 tracking-tighter ${isCheapest ? 'text-emerald-500 dark:text-emerald-400' : 'text-primary'}`}>
+                                                            {cost.toLocaleString('es-ES', { minimumFractionDigits: 2 })}<small className="text-base ml-0.5">€</small>
+                                                        </span>
+                                                    </div>
                                                 </td>
                                             );
                                         })}
                                     </tr>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Energía (E1)</td>
+
+                                    <tr className="bg-slate-100/30 dark:bg-slate-800/30">
+                                        <td colSpan={selectedCompareTariffs.length} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center border-b border-border">
+                                            Potencias (P1 / P2)
+                                        </td>
+                                    </tr>
+                                    <tr className="group/row hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors border-b border-border">
                                         {selectedCompareTariffs.map(t => (
-                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center font-bold text-text-primary">
-                                                {formatPrice(applyTaxes(t.e1_kwh ?? 0, t.e1_kwh_with_taxes))} <span className="text-[10px] font-black text-slate-400">€/kWh</span>
+                                            <td key={t.id} className="p-6 border-r last:border-r-0 text-center">
+                                                <div className="flex flex-col gap-1.5 max-w-[140px] mx-auto">
+                                                    <div className="bg-slate-100/50 dark:bg-slate-800/50 py-1.5 rounded-lg border border-border/50">
+                                                        <span className="text-sm font-900 text-text-primary">{formatPrice(applyTaxes(t.p1_kw_day ?? 0, t.p1_kw_day_with_taxes))}</span>
+                                                    </div>
+                                                    <div className="bg-emerald-100/30 dark:bg-emerald-900/10 py-1.5 rounded-lg border border-emerald-500/10">
+                                                        <span className="text-sm font-900 text-text-primary">{formatPrice(applyTaxes(t.p2_kw_day || t.p1_kw_day || 0, t.p2_kw_day_with_taxes))}</span>
+                                                    </div>
+                                                </div>
                                             </td>
                                         ))}
                                     </tr>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Discriminación</td>
+
+                                    <tr className="bg-slate-100/30 dark:bg-slate-800/30">
+                                        <td colSpan={selectedCompareTariffs.length} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center border-b border-border">
+                                            Energía (E1 / E2 / E3)
+                                        </td>
+                                    </tr>
+                                    <tr className="group/row hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors border-b border-border">
                                         {selectedCompareTariffs.map(t => {
                                             const isFixed = t.type.includes('1 Periodo');
                                             return (
-                                                <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
+                                                <td key={t.id} className="p-6 border-r last:border-r-0 text-center">
                                                     {isFixed ? (
-                                                        <span className="text-[10px] font-black bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full uppercase tracking-widest">No (Tarifa Plana)</span>
+                                                        <div className="bg-primary/5 py-2 px-4 rounded-xl border border-primary/20">
+                                                            <span className="text-lg font-900 text-primary">{formatPrice(applyTaxes(t.e1_kwh ?? 0, t.e1_kwh_with_taxes))}</span>
+                                                        </div>
                                                     ) : (
-                                                        <div className="space-y-1">
-                                                            <div className="text-xs font-bold text-text-primary flex justify-center items-center gap-2">
-                                                                <span className="text-[9px] text-orange-500 uppercase">Llano:</span> {formatPrice(applyTaxes(t.e2_kwh || 0, t.e2_kwh_with_taxes))}
+                                                        <div className="flex flex-col gap-1 max-w-[140px] mx-auto">
+                                                            <div className="bg-orange-500/5 py-1 rounded-lg border border-orange-500/10">
+                                                                <span className="text-sm font-900 text-text-primary">{formatPrice(applyTaxes(t.e1_kwh ?? 0, t.e1_kwh_with_taxes))}</span>
                                                             </div>
-                                                            <div className="text-xs font-bold text-text-primary flex justify-center items-center gap-2">
-                                                                <span className="text-[9px] text-emerald-500 uppercase">Valle:</span> {formatPrice(applyTaxes(t.e3_kwh || 0, t.e3_kwh_with_taxes))}
+                                                            <div className="bg-blue-500/5 py-1 rounded-lg border border-blue-500/10">
+                                                                <span className="text-sm font-900 text-text-primary">{formatPrice(applyTaxes(t.e2_kwh || 0, t.e2_kwh_with_taxes))}</span>
+                                                            </div>
+                                                            <div className="bg-emerald-500/5 py-1 rounded-lg border border-emerald-500/10">
+                                                                <span className="text-sm font-900 text-text-primary">{formatPrice(applyTaxes(t.e3_kwh || 0, t.e3_kwh_with_taxes))}</span>
                                                             </div>
                                                         </div>
                                                     )}
@@ -607,39 +648,34 @@ export default function TarifasClient() {
                                             );
                                         })}
                                     </tr>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Potencia Punta</td>
-                                        {selectedCompareTariffs.map(t => (
-                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center text-sm font-bold text-text-primary">
-                                                {formatPrice(applyTaxes(t.p1_kw_day ?? 0, t.p1_kw_day_with_taxes))} <span className="text-[10px] font-black text-slate-400">€/kW día</span>
-                                            </td>
-                                        ))}
+
+                                    <tr className="bg-slate-100/30 dark:bg-slate-800/30">
+                                        <td colSpan={selectedCompareTariffs.length} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center border-b border-border">
+                                            Solar & Permanencia
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Excedentes Solar</td>
+                                    <tr className="group/row hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                                         {selectedCompareTariffs.map(t => (
-                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
-                                                {t.surplus_kwh ? (
-                                                    <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-[10px] font-black uppercase tracking-widest">
-                                                        {t.surplus_kwh.toFixed(2)} €/kWh
-                                                    </span>
-                                                ) : (
-                                                    <span className="text-slate-300">-</span>
-                                                )}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                    <tr>
-                                        <td className="p-6 border-b border-border border-r bg-surface-2 font-black text-[11px] text-text-muted uppercase tracking-widest">Permanencia</td>
-                                        {selectedCompareTariffs.map(t => (
-                                            <td key={t.id} className="p-6 border-b border-border border-r last:border-r-0 text-center">
-                                                {!t.permanence ? (
-                                                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center justify-center gap-1">
-                                                        <Check size={14} strokeWidth={4} /> Sin compromiso
-                                                    </span>
-                                                ) : (
-                                                    <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest">Con permanencia</span>
-                                                )}
+                                            <td key={t.id} className="p-6 border-r last:border-r-0 text-center">
+                                                <div className="flex flex-col gap-3 items-center">
+                                                    {t.surplus_kwh ? (
+                                                        <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-3 py-1 bg-emerald-500/5 rounded-lg">
+                                                            {t.surplus_kwh.toFixed(2)} € Solar
+                                                        </span>
+                                                    ) : (
+                                                        <span className="text-[10px] font-black text-slate-300">Sin Solar</span>
+                                                    )}
+                                                    
+                                                    {!t.permanence ? (
+                                                        <span className="text-[9px] font-black text-indigo-500 uppercase tracking-widest border border-indigo-500/20 px-3 py-1 bg-indigo-500/5 rounded-lg">
+                                                            Sin Permanencia
+                                                        </span>
+                                                    ) : (
+                                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest border border-slate-500/10 px-3 py-1 bg-slate-500/5 rounded-lg">
+                                                            Permanencia
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </td>
                                         ))}
                                     </tr>
