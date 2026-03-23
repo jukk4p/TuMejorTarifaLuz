@@ -34,7 +34,7 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
     // Mapping normalized names/aliases to paths
     const logos: Record<string, { light: string, dark?: string, aliases?: string[] }> = {
         "imagina": { light: "/logos/Imaginaenergia.png", aliases: ["imagina energia"] },
-        "visalia": { light: "/logos/Visalia.png", aliases: ["domestica", "domestica - visalia"] },
+        "visalia": { light: "/logos/Visalia.png" },
         "energia nufri": { light: "/logos/Energianufri.png", dark: "/logos/Energianufriv1.png", aliases: ["nufri"] },
         "energya vm": { light: "/logos/Energiavm.png", aliases: ["vm", "energya"] },
         "total energies": { light: "/logos/TotalEnergies.png", aliases: ["totalenergies", "total"] },

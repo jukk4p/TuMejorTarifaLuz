@@ -62,7 +62,7 @@ export const INITIAL_TARIFFS: Tariff[] = [
         "url": "https://ofertas.imaginaenergia.com/plan-online-imagina/"
     },
     {
-        "company": "Doméstica - Visalia",
+        "company": "Visalia",
         "name": "Luz Fijo 24h",
         "type": "Fijo (1 Periodo)",
         "p1_kw_day": 0.060274,
