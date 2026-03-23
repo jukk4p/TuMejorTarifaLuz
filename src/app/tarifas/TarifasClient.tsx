@@ -119,11 +119,11 @@ export default function TarifasClient() {
         return result;
     }, [tariffs, search, filterType, surplusFilter, selectedCompany, sortBy, showWithTaxes]);
 
-    const cheapestPerType = useMemo(() => {
-        const fixed = tariffs.filter(t => t.type.includes('1 Periodo')).sort((a, b) => (a.e1_kwh ?? 0) - (b.e1_kwh ?? 0))[0];
-        const threePeriod = tariffs.filter(t => t.type.includes('3 Periodos')).sort((a, b) => (a.e3_kwh ?? 0) - (b.e3_kwh ?? 0))[0];
-        return { fixedId: fixed?.id, threeId: threePeriod?.id };
-    }, [tariffs]);
+    const absoluteCheapestId = useMemo(() => {
+        if (tariffs.length === 0) return null;
+        const sorted = [...tariffs].sort((a, b) => calculateMonthlyEstimation(a) - calculateMonthlyEstimation(b));
+        return sorted[0]?.id;
+    }, [tariffs, showWithTaxes]);
 
     return (
         <>
@@ -255,8 +255,7 @@ export default function TarifasClient() {
                     {/* Tariffs Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {sortedAndFilteredTariffs.map((tariff) => {
-                            const isCheapest = (tariff.type.includes('1 Periodo') && tariff.id === cheapestPerType.fixedId) || 
-                                             (tariff.type.includes('3 Periodos') && tariff.id === cheapestPerType.threeId);
+                            const isCheapest = tariff.id === absoluteCheapestId;
                             const monthlyEstimation = calculateMonthlyEstimation(tariff);
 
                             return (
