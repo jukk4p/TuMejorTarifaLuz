@@ -2352,7 +2352,7 @@ export default function ComparadorMain() {
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}</p>
                                             <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap overflow-hidden ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5 border-primary/10 text-primary' : 'bg-orange-500/5 border-orange-500/10 text-orange-500'}`}>
                                                 <span className="text-[10px] font-black uppercase tracking-widest leading-none">
-                                                    {results[0] ? results[0].tariff.name : "Sin datos"}
+                                                    {results[0] ? `${results[0].tariff.company} · ${results[0].tariff.name}` : "Sin datos"}
                                                 </span>
                                             </div>
                                         </div>
@@ -2427,7 +2427,7 @@ export default function ComparadorMain() {
                                                     <div className="p-6 space-y-5">
                                                         <div className="flex flex-col items-center text-center space-y-3">
                                                             {isWinner && (
-                                                                <span className="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 animate-in fade-in slide-in-from-top-2 duration-500">
+                                                                <span className={`${res.tariff.type === '3 Periodos' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-orange-500/10 text-orange-600 border-orange-500/20'} border text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 animate-in fade-in slide-in-from-top-2 duration-500`}>
                                                                     Mejor opción
                                                                 </span>
                                                             )}
@@ -2531,7 +2531,7 @@ export default function ComparadorMain() {
                                             <table className="w-full border-collapse relative z-10">
                                                 <thead>
                                                     <tr className="bg-surface-2 border-y border-border">
-                                                        <th className="py-4 px-8 text-left text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[25%]">COMPAÑÍA / TARIFA</th>
+                                                        <th className="py-4 px-8 text-left text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[25%]">TARIFA / COMPAÑÍA</th>
                                                         <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[25%]">PRECIOS ENERGÍA</th>
                                                         <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[15%]">TOTAL MES</th>
                                                         <th className="py-4 px-8 text-center text-[10px] font-black text-text-muted uppercase tracking-[0.2em] w-[20%]">AHORRO</th>
@@ -2604,7 +2604,7 @@ export default function ComparadorMain() {
                                                                             <span className="font-body text-[10px] font-black text-text-muted uppercase tracking-[0.1em] truncate">{res.tariff.company}</span>
                                                                             {isWinner && (
                                                                                 <div className="mt-1.5">
-                                                                                    <span className="bg-primary/10 border border-primary/20 text-primary text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm shadow-primary/5">Mejor opción</span>
+                                                                                    <span className={`${isThreePeriod ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-orange-500/10 border-orange-500/20 text-orange-600'} border text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm`}>Mejor opción</span>
                                                                                 </div>
                                                                             )}
                                                                         </div>
