@@ -8,7 +8,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check } from "lucide-react";
+import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 const COMPANIES = [
@@ -51,12 +51,14 @@ export default function TarifasClient() {
     const [mounted, setMounted] = useState(false);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState<string>("all");
+    const [surplusFilter, setSurplusFilter] = useState<'all' | 'with' | 'without'>('all');
     const [selectedCompany, setSelectedCompany] = useState("all");
     const [sortBy, setSortBy] = useState("price-asc");
     const [showWithTaxes, setShowWithTaxes] = useState(false);
 
-    const applyTaxes = (price: number) => {
+    const applyTaxes = (price: number, priceWithTaxes?: number) => {
         if (!showWithTaxes) return price;
+        if (priceWithTaxes && priceWithTaxes > 0) return priceWithTaxes;
         return price * 1.0511 * 1.21;
     };
 
@@ -97,7 +99,12 @@ export default function TarifasClient() {
                 (filterType === "three" && tariffType.includes("3 Periodos"));
             const matchesCompany = selectedCompany === "all" || tariff.company === selectedCompany;
             
-            return matchesSearch && matchesType && matchesCompany;
+            const hasSurplus = (tariff.surplus_kwh ?? 0) > 0;
+            const matchesSurplus = surplusFilter === "all" || 
+                (surplusFilter === "with" && hasSurplus) || 
+                (surplusFilter === "without" && !hasSurplus);
+            
+            return matchesSearch && matchesType && matchesCompany && matchesSurplus;
         });
 
         // Sort by estimation (Total Monthly Cost)
@@ -110,7 +117,7 @@ export default function TarifasClient() {
         }
 
         return result;
-    }, [tariffs, search, filterType, selectedCompany, sortBy, showWithTaxes]);
+    }, [tariffs, search, filterType, surplusFilter, selectedCompany, sortBy, showWithTaxes]);
 
     const cheapestPerType = useMemo(() => {
         const fixed = tariffs.filter(t => t.type.includes('1 Periodo')).sort((a, b) => (a.e1_kwh ?? 0) - (b.e1_kwh ?? 0))[0];
@@ -144,7 +151,7 @@ export default function TarifasClient() {
                     </div>
 
                     {/* Filters & Search */}
-                    <div className="bg-surface p-6 rounded-[2rem] border border-border mb-12 shadow-sm space-y-6">
+                    <div className="bg-surface p-6 rounded-[2rem] border border-border mb-12 shadow-sm space-y-6 max-w-5xl mx-auto">
                         <div className="flex flex-col lg:flex-row gap-4 items-center">
                             <div className="relative flex-grow w-full">
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -200,6 +207,29 @@ export default function TarifasClient() {
                                 </button>
                             </div>
 
+                            <div className="flex gap-2 p-1 bg-surface-2 rounded-2xl border border-border w-full sm:w-auto">
+                                <button
+                                    onClick={() => setSurplusFilter("all")}
+                                    className={`px-6 py-2.5 rounded-xl text-[10px] uppercase font-black tracking-widest transition-all ${surplusFilter === 'all' ? 'bg-primary text-white shadow-lg' : 'text-text-secondary hover:bg-surface'}`}
+                                >
+                                    Todas
+                                </button>
+                                <button
+                                    onClick={() => setSurplusFilter("with")}
+                                    className={`px-6 py-2.5 rounded-xl text-[10px] uppercase font-black tracking-widest transition-all flex items-center justify-center gap-1.5 ${surplusFilter === 'with' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-emerald-500/50 hover:text-emerald-600'}`}
+                                >
+                                    <Sun size={12} />
+                                    Con
+                                </button>
+                                <button
+                                    onClick={() => setSurplusFilter("without")}
+                                    className={`px-6 py-2.5 rounded-xl text-[10px] uppercase font-black tracking-widest transition-all flex items-center justify-center gap-1.5 ${surplusFilter === 'without' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/25' : 'text-slate-500/50 hover:text-slate-600'}`}
+                                >
+                                    <SunDim size={12} />
+                                    Sin
+                                </button>
+                            </div>
+
                             <div className="flex items-center gap-4 bg-surface-2 border border-border rounded-2xl py-2 px-5">
                                 <div className="flex items-center gap-2 group relative">
                                     <span className="text-[10px] font-black text-text-secondary uppercase tracking-widest cursor-default select-none">
@@ -230,28 +260,16 @@ export default function TarifasClient() {
                             const monthlyEstimation = calculateMonthlyEstimation(tariff);
 
                             return (
-                                <div key={tariff.id} className="group bg-surface rounded-[2.5rem] p-8 border border-border hover:shadow-2xl hover:border-primary/20 transition-all duration-500 relative flex flex-col h-full overflow-hidden">
+                                <div key={tariff.id} className="group bg-surface rounded-[2.5rem] p-8 border border-border hover:shadow-2xl hover:border-primary/20 transition-all duration-500 relative flex flex-col min-h-[560px] md:min-h-[580px] h-full overflow-hidden">
                                     {isCheapest && (
                                         <div className="absolute top-4 right-4 bg-[#0f69c5] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg z-10 shadow-lg uppercase tracking-wider">
                                             Mejor precio
                                         </div>
                                     )}
 
-                                    <div className="flex justify-between items-start mb-8 relative z-10 pt-2">
-                                        <div className="w-28 h-12 flex items-center justify-center shrink-0">
-                                            {tariff.logo_url ? (
-                                                <Image src={tariff.logo_url} alt={tariff.company} width={96} height={48} className="w-full h-full object-contain" />
-                                            ) : getLogoPath(tariff.company, mounted && resolvedTheme === 'dark') ? (
-                                                <Image src={getLogoPath(tariff.company, mounted && resolvedTheme === 'dark')!} alt={tariff.company} width={96} height={48} className="w-full h-full object-contain transition-all group-hover:scale-105" />
-                                            ) : (
-                                                <span className="text-xl font-900 text-text-muted">{(tariff.company || "?").charAt(0)}</span>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-4 mb-8 grow">
-                                        <div className="space-y-1 min-h-[60px] flex flex-col justify-start">
-                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-2">{tariff.name}</h3>
+                                    <div className="flex flex-col grow pt-4">
+                                        <div className="space-y-1 mb-6 min-h-[72px] flex flex-col justify-center">
+                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-3">{tariff.name}</h3>
                                             <Link 
                                                 href={`/companias/${COMPANY_SLUGS[tariff.company] || tariff.company.toLowerCase().replace(/\s+/g, '-')}`} 
                                                 className="inline-block text-[11px] text-[#0f69c5] font-black uppercase tracking-widest hover:underline"
@@ -260,41 +278,38 @@ export default function TarifasClient() {
                                             </Link>
                                         </div>
 
-                                        <div className="pt-6 space-y-6">
+                                        <div className="space-y-6">
                                             {/* Energía */}
                                             <div className="space-y-3">
                                                 <p className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">
                                                     <span className="w-1 h-1 bg-primary rounded-full"></span>
                                                     ⚡ Energía
                                                 </p>
-                                                <div className="grid grid-cols-1 gap-2 min-h-[85px]">
+                                                <div className="grid grid-cols-1 gap-2 min-h-[86px]">
                                                     {tariff.type.includes('1 Periodo') ? (
-                                                        <div className="bg-primary/5 p-5 rounded-2xl border border-primary/10 flex justify-between items-center h-full group/price transition-all hover:bg-primary/10">
+                                                        <div className="bg-primary/5 p-4 rounded-xl border border-primary/10 flex justify-between items-center group/price transition-all hover:bg-primary/10">
                                                             <div className="flex flex-col">
-                                                                <span className="text-[10px] font-black text-primary uppercase tracking-widest">Precio Único</span>
-                                                                <span className="text-[10px] text-text-muted font-bold font-mono">Consumo 24h</span>
+                                                                <span className="text-[9px] font-black text-primary uppercase tracking-widest">Precio Único</span>
+                                                                <span className="text-[9px] text-text-muted font-bold">24h</span>
                                                             </div>
                                                             <div className="text-right">
-                                                                <span className="font-900 text-primary text-xl leading-none">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))}</span>
+                                                                <span className="font-900 text-primary text-lg leading-none">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0, tariff.e1_kwh_with_taxes))}</span>
                                                                 <span className="text-[10px] font-bold text-primary/60 ml-1">€/kWh</span>
                                                             </div>
                                                         </div>
                                                     ) : (
-                                                        <div className="grid grid-cols-3 gap-2 h-full">
-                                                            <div className="bg-orange-500/5 dark:bg-orange-500/10 p-3 rounded-2xl border border-orange-500/20 text-center flex flex-col justify-center shadow-sm">
-                                                                <span className="block text-[9px] font-black text-orange-700 dark:text-orange-400 uppercase mb-1 tracking-tighter">Punta</span>
-                                                                <span className="font-900 text-orange-800 dark:text-orange-200 text-sm block">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0))}</span>
-                                                                <span className="text-[8px] font-bold text-orange-700/60 uppercase">€/kWh</span>
+                                                        <div className="grid grid-cols-3 gap-2">
+                                                            <div className="bg-orange-500/5 dark:bg-orange-500/10 p-2.5 rounded-xl border border-orange-500/20 text-center flex flex-col justify-center transition-all hover:bg-orange-500/15">
+                                                                <span className="block text-[8px] font-black text-orange-700 dark:text-orange-400 uppercase mb-0.5 tracking-tighter">Punta</span>
+                                                                <span className="font-900 text-orange-800 dark:text-orange-200 text-[13px] block">{formatPrice(applyTaxes(tariff.e1_kwh ?? 0, tariff.e1_kwh_with_taxes))}</span>
                                                             </div>
-                                                            <div className="bg-blue-500/5 dark:bg-blue-500/10 p-3 rounded-2xl border border-blue-500/20 text-center flex flex-col justify-center shadow-sm">
-                                                                <span className="block text-[9px] font-black text-blue-700 dark:text-blue-400 uppercase mb-1 tracking-tighter">Llano</span>
-                                                                <span className="font-900 text-blue-800 dark:text-blue-200 text-sm block">{formatPrice(applyTaxes(tariff.e2_kwh || 0))}</span>
-                                                                <span className="text-[8px] font-bold text-blue-700/60 uppercase">€/kWh</span>
+                                                            <div className="bg-blue-500/5 dark:bg-blue-500/10 p-2.5 rounded-xl border border-blue-500/20 text-center flex flex-col justify-center transition-all hover:bg-blue-500/15">
+                                                                <span className="block text-[8px] font-black text-blue-700 dark:text-blue-400 uppercase mb-0.5 tracking-tighter">Llano</span>
+                                                                <span className="font-900 text-blue-800 dark:text-blue-200 text-[13px] block">{formatPrice(applyTaxes(tariff.e2_kwh || 0, tariff.e2_kwh_with_taxes))}</span>
                                                             </div>
-                                                            <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-3 rounded-2xl border border-emerald-500/20 text-center flex flex-col justify-center shadow-sm">
-                                                                <span className="block text-[9px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-1 tracking-tighter">Valle</span>
-                                                                <span className="font-900 text-emerald-800 dark:text-emerald-200 text-sm block">{formatPrice(applyTaxes(tariff.e3_kwh || 0))}</span>
-                                                                <span className="text-[8px] font-bold text-emerald-700/60 uppercase">€/kWh</span>
+                                                            <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/20 text-center flex flex-col justify-center transition-all hover:bg-emerald-500/15">
+                                                                <span className="block text-[8px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-0.5 tracking-tighter">Valle</span>
+                                                                <span className="font-900 text-emerald-800 dark:text-emerald-200 text-[13px] block">{formatPrice(applyTaxes(tariff.e3_kwh || 0, tariff.e3_kwh_with_taxes))}</span>
                                                             </div>
                                                         </div>
                                                     )}
@@ -307,40 +322,59 @@ export default function TarifasClient() {
                                                     <span className="w-1 h-1 bg-primary rounded-full"></span>
                                                     🔌 Potencia
                                                 </p>
-                                                <div className="grid grid-cols-2 gap-2 min-h-[70px]">
-                                                    <div className="bg-surface-2 p-4 rounded-xl border border-border text-center flex flex-col justify-center transition-all hover:border-primary/20 group/p1">
-                                                        <span className="block text-[10px] font-black text-text-primary uppercase mb-1 tracking-widest group-hover/p1:text-primary transition-colors">Punta (P1)</span>
-                                                        <div className="flex flex-col">
-                                                            <span className="font-900 text-text-primary text-[13px] leading-tight">{formatPrice(applyTaxes(tariff.p1_kw_day ?? 0))}</span>
-                                                            <span className="text-[9px] font-bold text-text-secondary uppercase">€/kW día</span>
-                                                        </div>
+                                                <div className="grid grid-cols-2 gap-2 min-h-[66px]">
+                                                    <div className="bg-surface-2 p-3 rounded-xl border border-border text-center flex flex-col justify-center transition-all hover:border-primary/20">
+                                                        <span className="block text-[9px] font-black text-text-primary uppercase mb-0.5 tracking-widest">Punta (P1)</span>
+                                                        <span className="font-900 text-text-primary text-[12px]">{formatPrice(applyTaxes(tariff.p1_kw_day ?? 0, tariff.p1_kw_day_with_taxes))}</span>
                                                     </div>
-                                                    <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-4 rounded-xl border border-emerald-500/20 text-center flex flex-col justify-center transition-all hover:bg-emerald-500/10 group/p2 shadow-sm">
-                                                        <span className="block text-[10px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-1 tracking-widest transition-colors">Valle (P2)</span>
-                                                        <div className="flex flex-col">
-                                                            <span className="font-900 text-emerald-800 dark:text-emerald-200 text-[13px] leading-tight">{formatPrice(applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0))}</span>
-                                                            <span className="text-[9px] font-bold text-emerald-700/60 uppercase">€/kW día</span>
-                                                        </div>
+                                                    <div className="bg-emerald-500/5 dark:bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20 text-center flex flex-col justify-center transition-all hover:bg-emerald-500/10">
+                                                        <span className="block text-[9px] font-black text-emerald-700 dark:text-emerald-400 uppercase mb-0.5 tracking-widest">Valle (P2)</span>
+                                                        <span className="font-900 text-emerald-800 dark:text-emerald-200 text-[12px]">{formatPrice(applyTaxes(tariff.p2_kw_day || tariff.p1_kw_day || 0, tariff.p2_kw_day_with_taxes))}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {/* Estimation */}
-                                        <div className="pt-6 mt-2 border-t border-border border-dashed">
-                                            <div 
-                                                className="flex items-center justify-between group/est cursor-help"
-                                                title={`Estimación basada en 250 kWh/mes y 3.45 kW contratados, ${showWithTaxes ? 'con IVA e Impuesto Eléctrico incluidos' : 'sin IVA ni Impuestos Eléctricos'}`}
-                                            >
-                                                <span className="text-xs font-bold text-slate-500">Estimación:</span>
-                                                <span className="text-[15px] font-900 text-[#0f69c5]">
-                                                    ≈ {monthlyEstimation.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€/mes
-                                                </span>
+                                            {/* Excedentes */}
+                                            <div className="space-y-3">
+                                                <p className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">
+                                                    <Sun className="w-3 h-3 text-emerald-500" />
+                                                    Excedentes
+                                                </p>
+                                                <div className="min-h-[66px]">
+                                                    {tariff.surplus_kwh && tariff.surplus_kwh > 0 ? (
+                                                        <div className="bg-emerald-500/5 dark:bg-emerald-500/10 h-full p-4 rounded-xl border border-emerald-500/20 flex justify-between items-center transition-all hover:bg-emerald-500/10 shadow-sm relative group/surplus">
+                                                            <div className="flex flex-col">
+                                                                <span className="text-[10px] font-black text-emerald-700 dark:text-emerald-400 uppercase tracking-widest leading-none">Compensación</span>
+                                                                <span className="text-[9px] text-text-muted font-bold mt-1 uppercase">Solar</span>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <span className="font-900 text-emerald-600 dark:text-emerald-400 text-xl leading-none">{tariff.surplus_kwh.toFixed(2)}</span>
+                                                                <span className="text-[10px] font-bold text-emerald-600/60 ml-1 uppercase">€/kWh</span>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="h-full p-4 rounded-xl border border-dashed border-border flex justify-between items-center bg-slate-50/10 opacity-40">
+                                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Sin Excedentes</span>
+                                                            <span className="text-xl font-900 text-slate-300">-</span>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="pt-8 flex flex-col items-stretch">
+                                    {/* Footer Section - Aligned to bottom */}
+                                    <div className="mt-8 pt-6 border-t border-border border-dashed space-y-4">
+                                        <div 
+                                            className="flex items-center justify-between group/est cursor-help"
+                                            title={`Estimación basada en 250 kWh/mes y 3.45 kW contratados, ${showWithTaxes ? 'con IVA e Impuesto Eléctrico incluidos' : 'sin IVA ni Impuestos Eléctricos'}`}
+                                        >
+                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Estimación</span>
+                                            <span className="text-lg font-900 text-[#0f69c5]">
+                                                ≈ {monthlyEstimation.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€/mes
+                                            </span>
+                                        </div>
+
                                         <Link 
                                             href={tariff.url} 
                                             target="_blank" 
@@ -351,7 +385,7 @@ export default function TarifasClient() {
                                         </Link>
                                     </div>
                                 </div>
-                            )
+                            );
                         })}
                     </div>
 

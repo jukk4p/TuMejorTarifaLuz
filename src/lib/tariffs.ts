@@ -8,6 +8,14 @@ export interface Tariff {
     e2_kwh: number; // Precio Energía Llano €/kWh
     e3_kwh: number; // Precio Energía Valle €/kWh
     surplus_kwh?: number; // Precio Excedentes €/kWh
+    
+    // Precios con impuestos (opcionales)
+    p1_kw_day_with_taxes?: number;
+    p2_kw_day_with_taxes?: number;
+    e1_kwh_with_taxes?: number;
+    e2_kwh_with_taxes?: number;
+    e3_kwh_with_taxes?: number;
+
     updatedAt?: string; // Fecha de última actualización (YYYY-MM-DD)
     permanence: boolean;
     url: string;
@@ -95,15 +103,31 @@ const CONSTANTS = {
 };
 
 export function calculateTariffCost(tariff: Tariff, input: CalculationInput): CalculationResult {
+    // Helper to use manually provided with-taxes price if available
+    const getEffectivePrice = (base: number, withTaxes?: number) => {
+        if (withTaxes && withTaxes > 0) {
+            // We reverse-calculate the base price so that when the tax logic is applied, 
+            // the result matches the manually provided price.
+            return withTaxes / (1.0511 * 1.21);
+        }
+        return base;
+    };
+
+    const p1Price = getEffectivePrice(tariff.p1_kw_day, tariff.p1_kw_day_with_taxes);
+    const p2Price = getEffectivePrice(tariff.p2_kw_day, tariff.p2_kw_day_with_taxes);
+    const e1Price = getEffectivePrice(tariff.e1_kwh, tariff.e1_kwh_with_taxes);
+    const e2Price = getEffectivePrice(tariff.e2_kwh, tariff.e2_kwh_with_taxes);
+    const e3Price = getEffectivePrice(tariff.e3_kwh, tariff.e3_kwh_with_taxes);
+
     // 1. Término de Potencia
-    const costPowerP1 = input.power_p1 * (tariff.p1_kw_day ?? 0) * input.days;
-    const costPowerP2 = input.power_p2 * (tariff.p2_kw_day ?? 0) * input.days;
+    const costPowerP1 = input.power_p1 * p1Price * input.days;
+    const costPowerP2 = input.power_p2 * p2Price * input.days;
     const costPower = costPowerP1 + costPowerP2;
 
     // 2. Término de Energía
-    const costEnergyP1 = input.energy_p1 * (tariff.e1_kwh ?? 0);
-    const costEnergyP2 = input.energy_p2 * (tariff.e2_kwh ?? 0);
-    const costEnergyP3 = input.energy_p3 * (tariff.e3_kwh ?? 0);
+    const costEnergyP1 = input.energy_p1 * e1Price;
+    const costEnergyP2 = input.energy_p2 * e2Price;
+    const costEnergyP3 = input.energy_p3 * e3Price;
     const costEnergy = costEnergyP1 + costEnergyP2 + costEnergyP3;
 
     // Subtotal

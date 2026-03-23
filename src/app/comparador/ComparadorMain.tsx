@@ -75,7 +75,9 @@ import {
     ChevronDown,
     ArrowDownRight,
     ArrowUpRight,
-    Plug
+    Plug,
+    Sun,
+    SunDim
 } from "lucide-react";
 
 import { useToast } from "@/components/providers/ToastProvider";
@@ -128,6 +130,7 @@ export default function ComparadorMain() {
     const [isAiGenerated, setIsAiGenerated] = useState(false);
     const [filterSearch, setFilterSearch] = useState("");
     const [filterPriceType, setFilterPriceType] = useState<"all" | "fixed" | "periods">("all");
+    const [filterSurplus, setFilterSurplus] = useState<"all" | "with" | "without">("all");
     const [sortBy, setSortBy] = useState<"savings-desc" | "savings-asc">("savings-desc");
     const [limitResults, setLimitResults] = useState<number>(Infinity);
 
@@ -160,8 +163,9 @@ export default function ComparadorMain() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, pendingStudyMode]);
 
-    const applyTaxes = (price: number) => {
+    const applyTaxes = (price: number, priceWithTaxes?: number) => {
         if (!showWithTaxes) return price;
+        if (priceWithTaxes && priceWithTaxes > 0) return priceWithTaxes;
         return price * 1.0511 * 1.21;
     };
 
@@ -434,7 +438,12 @@ export default function ComparadorMain() {
             if (filterPriceType === "fixed") matchesPrice = res.tariff?.type === "Fijo (1 Periodo)";
             if (filterPriceType === "periods") matchesPrice = res.tariff?.type === "3 Periodos";
 
-            return matchesSearch && matchesPrice;
+            let matchesSurplus = true;
+            const hasSurplus = (res.tariff?.surplus_kwh ?? 0) > 0;
+            if (filterSurplus === "with") matchesSurplus = hasSurplus;
+            if (filterSurplus === "without") matchesSurplus = !hasSurplus;
+
+            return matchesSearch && matchesPrice && matchesSurplus;
         });
 
         // Apply Sorting
@@ -450,7 +459,7 @@ export default function ComparadorMain() {
         }
 
         return filtered;
-    }, [baseResults, filterSearch, filterPriceType, sortBy, limitResults]);
+    }, [baseResults, filterSearch, filterPriceType, filterSurplus, sortBy, limitResults]);
 
     // PERSIST LAST COMPARISON FOR SEARCH / DYNAMIC HERO
     useEffect(() => {
@@ -2160,6 +2169,32 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-3">
+                                                    <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Excedentes</label>
+                                                    <div className="flex bg-primary/5 rounded-full p-1.5 border border-primary/10">
+                                                        <button 
+                                                            onClick={() => setFilterSurplus("all")} 
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${filterSurplus === 'all' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-primary/40 hover:text-primary/70'}`}
+                                                        >
+                                                            Todas
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => setFilterSurplus("with")} 
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'with' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-emerald-500/50 hover:text-emerald-600'}`}
+                                                        >
+                                                            <Sun size={12} />
+                                                            Con
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => setFilterSurplus("without")} 
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'without' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/25' : 'text-slate-500/50 hover:text-slate-600'}`}
+                                                        >
+                                                            <SunDim size={12} />
+                                                            Sin
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Ordenar por</label>
                                                     <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
                                                         <button 
@@ -2201,80 +2236,74 @@ export default function ComparadorMain() {
                                                                 {val === Infinity ? 'Todas' : `Top ${val}`}
                                                             </button>
                                                         ))}
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
-                                </aside>
+                                    </div>
+                                )}
+                            </aside>
+
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
-                                {/* TOP RESULTS & ACTIONS AREA - MODULAR SPLIT */}
-                                <div className="flex flex-col xl:flex-row gap-4">
-                                    {/* RESULTS CARD */}
-                                    <div className="flex-1 bg-surface border border-border p-6 sm:p-7 flex flex-col sm:flex-row items-center sm:items-end gap-5 rounded-[2.5rem] shadow-sm relative overflow-hidden group">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-3xl transition-all group-hover:bg-accent/10"></div>
-                                        <div className="w-14 h-14 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10 relative z-10">
-                                            <TrendingDown className="w-7 h-7" />
+                                {/* TOP RESULTS & ACTIONS AREA - UNIFIED BAR */}
+                                <div className="bg-surface border border-border p-5 h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden group flex items-center justify-between px-8">
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl transition-all group-hover:bg-accent/10"></div>
+                                    
+                                    <div className="flex items-center gap-6 relative z-10">
+                                        <div className="w-12 h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
+                                            <TrendingDown className="w-6 h-6" />
                                         </div>
-                                        <div className="flex flex-col justify-end h-full relative z-10">
-                                            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] mb-1">ANÁLISIS DE RESULTADOS</p>
-                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none mb-1 whitespace-nowrap">
-                                                Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-sm ml-1 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
+                                        <div className="flex flex-col justify-center">
+                                            <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">ANÁLISIS DE RESULTADOS</p>
+                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none whitespace-nowrap">
+                                                Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-xs ml-2 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
                                             </h2>
                                         </div>
                                     </div>
 
-                                    {/* ACTIONS CARD */}
-                                    <div className="xl:w-auto bg-surface border border-border p-6 sm:p-7 flex flex-row items-center gap-3 rounded-[2.5rem] shadow-sm">
+                                    <div className="flex items-center gap-1.5 relative z-10 translate-y-[8px]">
                                         <button
                                             onClick={saveBill}
                                             disabled={isProcessing || results.length === 0}
-                                            className="flex-1 xl:flex-none group relative flex items-center justify-center gap-2 bg-primary text-white px-5 sm:px-7 py-3 rounded-full cursor-pointer hover:scale-105 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 overflow-hidden whitespace-nowrap"
+                                            className="group relative flex items-center justify-center gap-1.5 bg-primary/5 text-primary/60 px-2.5 h-6 rounded-md cursor-pointer hover:bg-primary/10 hover:text-primary transition-all active:scale-95 disabled:opacity-50 overflow-hidden border border-primary/10"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
-                                            {isProcessing ? (
-                                                <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin relative z-10"></div>
-                                            ) : (
-                                                <Save className="w-4 h-4 relative z-10" />
-                                            )}
-                                            <span className="text-[11px] font-black uppercase tracking-widest relative z-10">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
+                                            <Save className="w-2.5 h-2.5" />
+                                            <span className="text-[8px] font-black uppercase tracking-wider">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
                                         </button>
                                         <button
                                             onClick={() => setStep("input")}
-                                            className="flex-1 xl:flex-none flex items-center justify-center gap-2 bg-text-primary/5 text-text-primary px-5 sm:px-7 py-3 rounded-full cursor-pointer hover:bg-text-primary/10 transition-all active:scale-95 shadow-sm border border-border/50 text-[11px] font-black uppercase tracking-widest whitespace-nowrap"
+                                            className="flex items-center justify-center gap-1.5 bg-text-primary/5 text-text-muted px-2.5 h-6 rounded-md cursor-pointer hover:bg-text-primary/10 hover:text-text-primary transition-all active:scale-95 border border-border/10 text-[8px] font-black uppercase tracking-wider whitespace-nowrap"
                                         >
-                                            <History className="w-4 h-4" />
+                                            <History className="w-2.5 h-2.5" />
                                             <span>Nueva comparativa</span>
                                         </button>
                                     </div>
                                 </div>
-                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                                      {/* CARD: TOTAL MENSUAL */}
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {/* CARD: TOTAL MENSUAL */}
                                     <div
                                         onClick={() => {
                                             if (!user) { setPendingStudyMode("monthly"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("monthly"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
-                                     >
+                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                    >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
+                                        <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
                                             <FileText className="w-8 h-8 text-primary mb-6 transition-transform group-hover:scale-110" />
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
                                                 {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
                                             </p>
-                                            <div className="flex items-center justify-center gap-2.5 text-accent">
-                                                <TrendingDown className="w-5 h-5" />
-                                                <p className="text-sm font-black uppercase tracking-widest">
+                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap">
+                                                <TrendingDown className="w-4 h-4 shrink-0" />
+                                                <span className="text-[10px] font-black uppercase tracking-widest leading-none">
                                                     {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}
-                                                </p>
+                                                </span>
                                             </div>
                                         </div>
-
-                                        {/* Subtle Corner Icon Hint */}
                                         {results[0] && (
-                                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
+                                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
                                                 <div className="bg-primary/10 text-primary p-2 rounded-xl backdrop-blur-md border border-primary/20 shadow-sm" title="Haz clic para ampliar estudio">
                                                     <Eye className="w-4 h-4" />
                                                 </div>
@@ -2282,30 +2311,27 @@ export default function ComparadorMain() {
                                         )}
                                     </div>
 
-
                                     {/* CARD: TOTAL ANUAL */}
                                     <div
                                         onClick={() => {
                                             if (!user) { setPendingStudyMode("annual"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("annual"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
+                                        <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
                                             <Calendar className="w-8 h-8 text-accent mb-6 transition-transform group-hover:scale-110" />
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-2.5 text-accent">
-                                                <TrendingDown className="w-5 h-5" />
-                                                <p className="text-sm font-black uppercase tracking-widest">
+                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap">
+                                                <TrendingDown className="w-4 h-4 shrink-0" />
+                                                <span className="text-[10px] font-black uppercase tracking-widest leading-none">
                                                     {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
-                                                </p>
+                                                </span>
                                             </div>
                                         </div>
-
-                                        {/* Subtle Corner Icon Hint */}
                                         {results[0] && (
-                                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
+                                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
                                                 <div className="bg-accent/10 text-accent p-2 rounded-xl backdrop-blur-md border border-accent/20 shadow-sm" title="Haz clic para ampliar estudio">
                                                     <Eye className="w-4 h-4" />
                                                 </div>
@@ -2318,21 +2344,20 @@ export default function ComparadorMain() {
                                         onClick={() => {
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStep("detail"); }
                                         }}
-                                        className={`bg-surface border border-border p-6 md:p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-full ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
                                     >
                                         <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
-                                        <div className="relative z-10 flex flex-col items-center text-center transition-all duration-300">
+                                        <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
                                             <Trophy className={`w-8 h-8 mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
-                                            <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}<span className="text-sm ml-1 opacity-60">€/kWh</span></p>
-                                            <div className="flex flex-col items-center">
-                                                <p className={`text-[13px] font-black uppercase tracking-widest leading-none mb-1.5 ${results[0]?.tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400'}`}>{results[0] ? results[0].tariff.name : "---"}</p>
-                                                <p className="text-[10px] text-text-muted font-bold uppercase tracking-[0.2em]">{results[0] ? results[0].tariff.company : ""}</p>
+                                            <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}</p>
+                                            <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap overflow-hidden ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5 border-primary/10 text-primary' : 'bg-orange-500/5 border-orange-500/10 text-orange-500'}`}>
+                                                <span className="text-[10px] font-black uppercase tracking-widest leading-none">
+                                                    {results[0] ? results[0].tariff.name : "Sin datos"}
+                                                </span>
                                             </div>
                                         </div>
-
-                                        {/* Subtle Corner Icon Hint */}
                                         {results[0] && (
-                                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
+                                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
                                                 <div className={`${results[0]?.tariff.type === "3 Periodos" ? "bg-primary/10 text-primary border-primary/20" : "bg-orange-500/10 text-orange-500 border-orange-500/20"} p-2 rounded-xl backdrop-blur-md border shadow-sm`} title="Ver detalles de esta tarifa">
                                                     <Eye className="w-4 h-4" />
                                                 </div>
@@ -2380,7 +2405,6 @@ export default function ComparadorMain() {
                                             </div>
                                         )}
 
-                                    {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
                                     {/* MOBILE VIEW: VERTICAL CARDS (md:hidden) */}
                                     <div className="md:hidden px-4 space-y-6 pb-10">
                                         {results.map((res, idx) => {
@@ -2642,13 +2666,13 @@ export default function ComparadorMain() {
                                                                     </div>
                                                                 </td>
                                                                 <td className="py-6 px-8">
-                                                                    <div className="flex flex-col gap-2 max-w-[140px] ml-auto">
+                                                                    <div className="flex flex-col gap-2 items-center ml-auto">
                                                                         <button 
                                                                             onClick={() => {
                                                                                 setSelectedTariffId(res.tariff.id!);
                                                                                 setStep("detail");
                                                                             }}
-                                                                            className="bg-surface border border-primary text-primary text-[10px] font-black px-4 py-2 rounded-xl hover:bg-primary hover:text-white transition-all w-full uppercase tracking-widest shadow-sm active:scale-95"
+                                                                            className="bg-surface border border-primary text-primary text-[10px] font-black px-6 py-2.5 rounded-xl hover:bg-primary hover:text-white transition-all whitespace-nowrap uppercase tracking-widest shadow-sm active:scale-95"
                                                                         >
                                                                             Ver detalles
                                                                         </button>
@@ -2661,7 +2685,7 @@ export default function ComparadorMain() {
                                                                                 }
                                                                                 if (res.tariff.id) toggleFavorite(res.tariff.id);
                                                                             }}
-                                                                            className={`text-[10px] font-black px-4 py-2 rounded-xl transition-all w-full flex items-center justify-center gap-2 uppercase tracking-widest active:scale-95 ${
+                                                                            className={`text-[10px] font-black px-4 py-2 rounded-xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest active:scale-95 whitespace-nowrap ${
                                                                                 res.tariff.id && favorites.includes(res.tariff.id)
                                                                                 ? "bg-red-50 text-red-500 border border-red-100"
                                                                                 : "text-text-muted hover:bg-surface-2 border border-transparent"
@@ -2933,15 +2957,15 @@ export default function ComparadorMain() {
                 {
                     step === "detail" && selectedResult && (
                         <div className="max-w-5xl mx-auto space-y-8 animate-in zoom-in-95 duration-500">
-                            <div className="flex justify-between items-center mb-10">
-                                <button onClick={() => setStep("results")} className="text-xs font-bold text-primary flex items-center gap-2 hover:opacity-70 transition-opacity">
-                                    <ArrowLeftIcon className="w-4 h-4" />
+                            <div className="flex justify-between items-center mb-8 sm:mb-10 gap-2">
+                                <button onClick={() => setStep("results")} className="text-[10px] sm:text-xs font-bold text-primary flex items-center gap-1.5 hover:opacity-70 transition-opacity whitespace-nowrap shrink-0">
+                                    <ArrowLeftIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                     Volver a la Comparativa
                                 </button>
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => window.open(selectedResult.tariff.url, '_blank')}
-                                        className="bg-primary text-white font-bold py-3 px-10 rounded-xl text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
+                                        className="bg-primary text-white font-bold py-3 px-5 sm:px-10 rounded-xl text-[10px] sm:text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.03] active:scale-95 transition-all whitespace-nowrap"
                                     >
                                         Contratar Ahora
                                     </button>
@@ -3015,7 +3039,7 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+                                        <div className={`p-6 md:p-10 grid grid-cols-1 ${selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-12`}>
                                             <div className="space-y-6">
                                                 <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
                                                     <span>🔌</span> Término de Potencia
@@ -3023,11 +3047,11 @@ export default function ComparadorMain() {
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Punta (P1)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0).toFixed(5)} €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p1_kw_day ?? 0, selectedResult.tariff?.p1_kw_day_with_taxes).toFixed(5)} €/kW día</span>
                                                     </div>
                                                     <div className="flex justify-between items-center bg-surface-2 p-4 rounded-xl border border-border">
                                                         <span className="text-xs font-bold">Valle (P2)</span>
-                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0).toFixed(5)} €/kW día</span>
+                                                        <span className="font-mono text-xs font-bold">{applyTaxes(selectedResult.tariff?.p2_kw_day ?? 0, selectedResult.tariff?.p2_kw_day_with_taxes).toFixed(5)} €/kW día</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3042,31 +3066,43 @@ export default function ComparadorMain() {
                                                                 <span className="w-2 h-2 rounded bg-orange-500"></span>
                                                                 <span className="text-xs font-bold text-text-primary">Punta (E1)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-blue-500"></span>
                                                                 <span className="text-xs font-bold text-text-primary">Llano (E2)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0, selectedResult.tariff?.e2_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                         <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="w-2 h-2 rounded bg-green-500"></span>
                                                                 <span className="text-xs font-bold text-text-primary">Valle (E3)</span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
+                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0, selectedResult.tariff?.e3_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
                                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio Único (24h)</div>
-                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
+                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
                                                         <p className="text-[10px] text-text-secondary italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
                                                     </div>
                                                 )}
                                             </div>
+                                            {selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? (
+                                                <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-700">
+                                                    <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+                                                        <span>☀️</span> Compensación de Excedentes
+                                                    </h5>
+                                                    <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
+                                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-emerald-500/20">Precio Excedente</div>
+                                                        <p className="text-3xl font-800 text-emerald-600 dark:text-emerald-400">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
+                                                        <p className="text-[10px] text-text-secondary italic leading-relaxed">Esta tarifa compensa tu energía sobrante a un precio fijo.</p>
+                                                    </div>
+                                                </div>
+                                            ) : null}
                                         </div>
                                     </div>
 

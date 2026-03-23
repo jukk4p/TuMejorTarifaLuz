@@ -53,9 +53,9 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="h-6 w-auto active:scale-95 transition-all flex items-center justify-center">
-                            <div className="relative h-6 w-6">
+                    <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                        <div className="h-8 w-8 sm:h-9 sm:w-9 active:scale-95 transition-all flex items-center justify-center">
+                            <div className="relative h-full w-full">
                                 <Image 
                                     src="/Logo.png" 
                                     alt="TuMejorTarifaLuz" 
@@ -65,7 +65,7 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <span className="text-[16px] font-700 tracking-tight text-text-primary hidden sm:inline group-hover:text-primary transition-colors">
+                        <span className="text-[15px] sm:text-[16px] font-900 tracking-tighter text-text-primary group-hover:text-primary transition-colors whitespace-nowrap">
                             TuMejorTarifa<span className="text-primary group-hover:text-primary-dark">Luz</span>
                         </span>
                     </Link>
@@ -239,7 +239,7 @@ export default function Navbar() {
                 <div className="flex flex-col h-full">
                     {/* Header */}
                     <div className="p-6 flex items-center justify-between border-b border-border">
-                        <span className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Menú</span>
+                        <span className="text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-text-heading)' }}>Navegación</span>
                         <button 
                             className="p-2 text-text-muted hover:text-text-primary transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
                             onClick={() => setIsDrawerOpen(false)}

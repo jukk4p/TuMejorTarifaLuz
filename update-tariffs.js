@@ -55,6 +55,7 @@ async function main() {
         
         let changed = false;
         
+        console.log(`\n  --- BLOQUE 1: PRECIOS BASE (SIN IVA) ---`);
         const p1 = await ask(`  Potencia Punta P1  [${tariff.p1_kw_day}]: `);
         if (p1.trim()) { tariff.p1_kw_day = parseFloat(p1.replace(',', '.')); changed = true; }
 
@@ -72,6 +73,22 @@ async function main() {
 
         const surplus = await ask(`  Excedentes      EX [${tariff.surplus_kwh || 0}]: `);
         if (surplus.trim()) { tariff.surplus_kwh = parseFloat(surplus.replace(',', '.')); changed = true; }
+
+        console.log(`\n  --- BLOQUE 2: PRECIOS FINALES (CON IVA) ---`);
+        const p1_tax = await ask(`  Potencia P1 IVA    [${tariff.p1_kw_day_with_taxes || 0}]: `);
+        if (p1_tax.trim()) { tariff.p1_kw_day_with_taxes = parseFloat(p1_tax.replace(',', '.')); changed = true; }
+
+        const p2_tax = await ask(`  Potencia P2 IVA    [${tariff.p2_kw_day_with_taxes || 0}]: `);
+        if (p2_tax.trim()) { tariff.p2_kw_day_with_taxes = parseFloat(p2_tax.replace(',', '.')); changed = true; }
+
+        const e1_tax = await ask(`  Energía  E1 IVA    [${tariff.e1_kwh_with_taxes || 0}]: `);
+        if (e1_tax.trim()) { tariff.e1_kwh_with_taxes = parseFloat(e1_tax.replace(',', '.')); changed = true; }
+
+        const e2_tax = await ask(`  Energía  E2 IVA    [${tariff.e2_kwh_with_taxes || 0}]: `);
+        if (e2_tax.trim()) { tariff.e2_kwh_with_taxes = parseFloat(e2_tax.replace(',', '.')); changed = true; }
+
+        const e3_tax = await ask(`  Energía  E3 IVA    [${tariff.e3_kwh_with_taxes || 0}]: `);
+        if (e3_tax.trim()) { tariff.e3_kwh_with_taxes = parseFloat(e3_tax.replace(',', '.')); changed = true; }
 
         if (changed) {
             tariff.updatedAt = new Date().toISOString().split('T')[0];
