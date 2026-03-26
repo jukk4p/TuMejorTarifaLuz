@@ -95,9 +95,9 @@ export interface CalculationResult {
     total: number;
 }
 
-const CONSTANTS = {
-    IEE: 0.0511, // 5.11%
-    IVA: 0.21, // 21%
+export const CONSTANTS = {
+    IEE: 0.005, // 0.5%
+    IVA: 0.10, // 10%
     BONO_SOCIAL_PER_DAY: 0.01912,
     METER_RENT_PER_MONTH: 0.81
 };
@@ -108,7 +108,7 @@ export function calculateTariffCost(tariff: Tariff, input: CalculationInput): Ca
         if (withTaxes && withTaxes > 0) {
             // We reverse-calculate the base price so that when the tax logic is applied, 
             // the result matches the manually provided price.
-            return withTaxes / (1.0511 * 1.21);
+            return withTaxes / ((1 + CONSTANTS.IEE) * (1 + CONSTANTS.IVA));
         }
         return base;
     };
