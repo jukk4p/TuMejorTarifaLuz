@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { compareAllTariffs, CalculationInput, CalculationResult, getLogoPath } from "@/lib/tariffs";
+import { compareAllTariffs, CalculationInput, CalculationResult, getLogoPath, CONSTANTS } from "@/lib/tariffs";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
@@ -166,7 +166,7 @@ export default function ComparadorMain() {
     const applyTaxes = (price: number, priceWithTaxes?: number) => {
         if (!showWithTaxes) return price;
         if (priceWithTaxes && priceWithTaxes > 0) return priceWithTaxes;
-        return price * 1.0511 * 1.21;
+        return price * (1 + CONSTANTS.IEE) * (1 + CONSTANTS.IVA);
     };
 
     const getDisplayTotal = (total: number, subtotal: number) => {
@@ -1878,7 +1878,7 @@ export default function ComparadorMain() {
                                                             })}
                                                             <div className="border-t border-border pt-2 mt-1 space-y-1">
                                                                 <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
-                                                                    <span className="uppercase tracking-wide">IEE (5.11%)</span>
+                                                                    <span className="uppercase tracking-wide">IEE ({CONSTANTS.IEE * 100}%)</span>
                                                                     <span className="font-mono">{(selectedResult.taxIee * m).toFixed(2)}€</span>
                                                                 </div>
                                                                 <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
@@ -1890,7 +1890,7 @@ export default function ComparadorMain() {
                                                                     <span className="font-mono">{(selectedResult.costMeter * m).toFixed(2)}€</span>
                                                                 </div>
                                                                 <div className="flex items-center justify-between text-[9px] font-bold text-slate-400">
-                                                                    <span className="uppercase tracking-wide">IVA (21%)</span>
+                                                                    <span className="uppercase tracking-wide">IVA ({CONSTANTS.IVA * 100}%)</span>
                                                                     <span className="font-mono">{(selectedResult.taxIva * m).toFixed(2)}€</span>
                                                                 </div>
                                                             </div>
@@ -2094,11 +2094,11 @@ export default function ComparadorMain() {
                                                     <div className="grid grid-cols-2 gap-3">
                                                         <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
-                                                            <p className="text-sm font-black text-primary">5.11%</p>
+                                                            <p className="text-sm font-black text-primary">{CONSTANTS.IEE * 100}%</p>
                                                         </div>
                                                         <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
-                                                            <p className="text-sm font-black text-primary">21%</p>
+                                                            <p className="text-sm font-black text-primary">{CONSTANTS.IVA * 100}%</p>
                                                         </div>
                                                     </div>
                                                 </div>
