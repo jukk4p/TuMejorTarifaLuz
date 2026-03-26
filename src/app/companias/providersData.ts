@@ -280,5 +280,23 @@ export const providers: Provider[] = [
         hasPermanence: false,
         popularTariffName: "PVPC - Mercado Regulado",
         scores: { price: 5.0, support: 3.5, app: 3.0, transparency: 4.8, onboarding: 3.5 }
+    },
+    {
+        id: "neolux",
+        name: "Neolux Energy",
+        logo: "/logos/NeoluxEnergy.webp",
+        rating: 4.3,
+        description: "Comercializadora de energía renovable especializada en soluciones sostenibles y tarifas competitivas para vehículos eléctricos y hogares eficientes.",
+        pros: ["Energía 100% renovable", "Tarifas VE competitivas", "Atención digital ágil", "Sin permanencia"],
+        prosDetail: ["Certificación verde", "Ideal para movilidad", "Gestión vía App", "Transparencia total"],
+        cons: ["Marca joven", "Menos oficinas físicas"],
+        consDetail: ["En proceso de expansión", "Atención 100% online"],
+        slug: "neolux-energy",
+        color: "#ffffff",
+        minPrice: 0.039,
+        category: 'independent',
+        hasPermanence: false,
+        popularTariffName: "Vehículo Eléctrico",
+        scores: { price: 4.7, support: 4.0, app: 4.2, transparency: 4.5, onboarding: 4.3 }
     }
 ];
