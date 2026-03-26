@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown, Mail, ShieldCheck, MapPin, Heart, ArrowRight } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Octopus", 
@@ -70,6 +71,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
 
 export default function Footer() {
     const [openSection, setOpenSection] = useState<string | null>(null);
+    const { user } = useAuth();
 
     const toggleSection = (section: string) => {
         setOpenSection(openSection === section ? null : section);
@@ -93,7 +95,7 @@ export default function Footer() {
                             {TOOLS.map((tool) => (
                                 <li key={tool.name}>
                                     <Link 
-                                        href={tool.href}
+                                        href={tool.name === "Mi cuenta" && !user ? "/login" : tool.href}
                                         className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center gap-3 group"
                                     >
                                         <div className="w-1.5 h-1.5 bg-white/10 group-hover:bg-primary rounded-full transition-colors"></div>

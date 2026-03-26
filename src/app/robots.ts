@@ -9,6 +9,8 @@ export default function robots(): MetadataRoute.Robots {
         '/api/',
         '/_next/',
         '/static/',
+        '/mi-cuenta/',
+        '/admin/',
       ],
     },
     sitemap: 'https://tumejortarifaluz.es/sitemap.xml',

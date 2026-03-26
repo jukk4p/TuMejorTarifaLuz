@@ -179,7 +179,7 @@ export default function ProfilePage() {
 
     useEffect(() => {
         if (!authLoading && !user) {
-            router.push("/");
+            router.push("/login");
         }
     }, [user, authLoading, router]);
 

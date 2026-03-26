@@ -189,13 +189,15 @@ export default function Navbar() {
                                     )}
                                 </div>
                             ) : (
-                                <Link 
-                                    href="/?auth=login" 
-                                    className="flex items-center gap-2 px-3 py-1.5 text-[13px] font-bold text-text-secondary hover:text-primary hover:bg-surface rounded-lg transition-all active:scale-95 group"
-                                >
-                                    <User size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
-                                    Entrar
-                                </Link>
+                                <div className="flex items-center">
+                                    <Link 
+                                        href="/login" 
+                                        className="flex items-center gap-2 px-3 py-1.5 text-[13px] font-bold text-text-secondary hover:text-primary hover:bg-surface rounded-lg transition-all active:scale-95 group"
+                                    >
+                                        <User size={14} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+                                        Entrar
+                                    </Link>
+                                </div>
                             )}
                             
                             <button
@@ -273,7 +275,7 @@ export default function Navbar() {
                             </div>
                         ) : (
                             <Link 
-                                href="/?auth=login" 
+                                href="/login" 
                                 onClick={() => setIsDrawerOpen(false)}
                                 className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-xs font-900 tracking-widest shadow-lg shadow-primary/20"
                             >
