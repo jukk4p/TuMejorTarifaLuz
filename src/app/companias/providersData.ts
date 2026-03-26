@@ -227,6 +227,7 @@ export const providers: Provider[] = [
         popularTariffName: "Formula 24h",
         scores: { price: 4.4, support: 4.0, app: 3.8, transparency: 4.0, onboarding: 4.2 }
     },
+    /*
     {
         id: "chc-energia",
         name: "CHC Energía",
@@ -245,6 +246,7 @@ export const providers: Provider[] = [
         popularTariffName: "Plan Vehículo Eléctrico",
         scores: { price: 3.9, support: 4.6, app: 3.3, transparency: 4.1, onboarding: 3.9 }
     },
+    */
     {
         id: "esluz",
         name: "Esluz",

@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Octopus", 
     "Niba", "Imagina", "Visalia", "Energía Nufri", "Energya VM", 
-    "CHC Energía", "Esluz"
+    "Neolux Energy", "Esluz"
 ];
 
 const TOOLS = [
@@ -122,7 +122,7 @@ export default function Footer() {
                                         company === "Imagina" ? "imagina-energia" :
                                         company === "Energía Nufri" ? "energia-nufri" :
                                         company === "Energya VM" ? "energia-vm" :
-                                        company === "CHC Energía" ? "chc-energia" :
+                                        company === "Neolux Energy" ? "neolux-energy" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
                                     className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors block truncate"

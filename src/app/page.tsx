@@ -584,17 +584,10 @@ export default async function Home() {
                 { name: "Visalia", logo: "Visalia.png", scale: "scale-95", slug: "visalia" },
                 { name: "Energía Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", scale: "scale-120", slug: "energia-nufri" },
                 { name: "Energya VM", logo: "Energiavm.png", scale: "scale-130", slug: "energia-vm" },
-                { name: "CHC Energía", logo: "Chcenergia.png", scale: "scale-130", slug: "chc-energia" },
+                { name: "Neolux Energy", logo: "NeoluxEnergy.webp", scale: "scale-140", slug: "neolux-energy" },
                 { name: "Esluz", logo: "Esluz.png", scale: "scale-85", slug: "esluz" },
                 { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
-                { name: "spacer", logo: "", slug: "", isSpacer: true },
-                { name: "spacer", logo: "", slug: "", isSpacer: true },
-                { name: "spacer", logo: "", slug: "", isSpacer: true },
-                { name: "Neolux Energy", logo: "NeoluxEnergy.webp", scale: "scale-140", slug: "neolux-energy" },
               ].map((brand, i) => (
-                brand.isSpacer ? (
-                  <div key={i} className="hidden lg:block" aria-hidden="true" />
-                ) : (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div 
                     className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
@@ -614,7 +607,6 @@ export default async function Home() {
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>
                 </Link>
-                )
               ))}
             </div>
 

@@ -437,25 +437,6 @@
     "e3_kwh_with_taxes": 0.139774
   },
   {
-    "company": "CHC Energía",
-    "name": "Plan Vehículo Eléctrico",
-    "type": "3 Periodos",
-    "p1_kw_day": 0.088956,
-    "p2_kw_day": 0.088382,
-    "e1_kwh": 0.224003,
-    "e2_kwh": 0.224003,
-    "e3_kwh": 0.059339,
-    "permanence": false,
-    "url": "https://chcenergia.es/tarifa-luz/vehiculo-electrico/",
-    "surplus_kwh": 0,
-    "updatedAt": "2026-03-26",
-    "p1_kw_day_with_taxes": 0.11314,
-    "p2_kw_day_with_taxes": 0.11241,
-    "e1_kwh_with_taxes": 0.284901,
-    "e2_kwh_with_taxes": 0.284901,
-    "e3_kwh_with_taxes": 0.075471
-  },
-  {
     "company": "Esluz",
     "name": "Tarifa Solar 2.0",
     "type": "3 Periodos",

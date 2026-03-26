@@ -24,7 +24,7 @@ const COMPANIES = [
     { label: "Naturgy", value: "Naturgy" },
     { label: "Energya VM", value: "Energya VM" },
     { label: "TotalEnergies", value: "Total Energies" },
-    { label: "CHC Energía", value: "CHC Energía" },
+    { label: "Neolux Energy", value: "Neolux Energy" },
     { label: "Esluz", value: "Esluz" },
     { label: "COR", value: "Comercializadoras de Referencia" },
 ];
@@ -41,7 +41,7 @@ const COMPANY_SLUGS: Record<string, string> = {
     "Naturgy": "naturgy",
     "Energya VM": "energia-vm",
     "Total Energies": "total-energies",
-    "CHC Energía": "chc-energia",
+    "Neolux Energy": "neolux-energy",
     "Esluz": "esluz",
     "Comercializadoras de Referencia": "comercializadoras-referencia"
 };
