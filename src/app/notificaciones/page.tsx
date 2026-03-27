@@ -16,7 +16,8 @@ import {
     arrayUnion,
     arrayRemove,
     deleteDoc,
-    getDoc
+    getDoc,
+    where
 } from "firebase/firestore";
 import { useAuth } from "@/hooks/useAuth";
 import { Notification } from "@/lib/notifications";
@@ -187,9 +188,8 @@ export default function NotificationsPage() {
         if (!user) return;
 
         const q = query(
-            collection(db, "notifications")
-            // Temporarily removing orderBy to troubleshoot index issues
-            // orderBy("createdAt", "desc")
+            collection(db, "notifications"),
+            where("isGlobal", "==", true)
         );
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
