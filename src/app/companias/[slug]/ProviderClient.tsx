@@ -429,14 +429,11 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 </div>
                                 <ArrowRight className="ml-auto text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" size={20} />
                             </Link>
-                        </div>
-                    </div>
-
-                    {/* Final CTA Section */}
-                    <div className="p-12 rounded-[3.5rem] bg-[#eff6ff] dark:bg-blue-900/10 text-center space-y-10 border border-blue-100 dark:border-blue-900/20 shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-200/20 dark:bg-blue-500/10 blur-[100px] -mr-32 -mt-32 rounded-full"></div>
-                        <h3 className="text-3xl md:text-5xl font-900 text-[#0f172a] dark:text-white tracking-tight leading-tight">¿Es {provider.name} la mejor <br/>opción para ahorrar hoy?</h3>
-                        <p className="text-[#334155] dark:text-slate-300 text-lg font-medium max-w-2xl mx-auto">Nuestro algoritmo analiza tu consumo real para confirmarte si esta es tu tarifa ganadora o si existe una opción más barata.</p>
+                               {/* Final CTA Section */}
+                    <div className="p-12 rounded-[3.5rem] bg-surface-3 dark:bg-slate-800/20 text-center space-y-10 border border-primary/10 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -mr-32 -mt-32 rounded-full"></div>
+                        <h3 className="text-3xl md:text-5xl font-900 text-text-primary tracking-tight leading-tight">¿Es {provider.name} la mejor <br/>opción para ahorrar hoy?</h3>
+                        <p className="text-text-secondary text-lg font-medium max-w-2xl mx-auto">Nuestro algoritmo analiza tu consumo real para confirmarte si esta es tu tarifa ganadora o si existe una opción más barata.</p>
                         
                         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 max-w-xl mx-auto py-2">
                              {[
@@ -444,7 +441,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 "Resultado en menos de 30 segundos",
                                 "Comparamos entre 24 tarifas del mercado"
                              ].map((b, i) => (
-                                 <div key={i} className="flex items-center gap-2.5 text-sm font-700 text-slate-700 dark:text-slate-400">
+                                 <div key={i} className="flex items-center gap-2.5 text-sm font-700 text-text-secondary">
                                      <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20">
                                          <CheckCircle2 size={12} />
                                      </div>
@@ -452,16 +449,17 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                  </div>
                              ))}
                         </div>
-
+ 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 relative z-10">
-                            <Link href="/comparador" className="px-12 py-5 bg-[#0f69c5] text-white rounded-[2.5rem] font-900 text-lg hover:shadow-2xl shadow-[#0f69c5]/20 hover:-translate-y-1 transition-all">
+                            <Link href="/comparador" className="px-12 py-5 bg-primary text-white rounded-[2.5rem] font-900 text-lg hover:shadow-2xl shadow-primary/20 hover:-translate-y-1 transition-all">
                                 Calcular Ahorro Ahora
                             </Link>
-                            <Link href="/blog/como-leer-entender-factura-luz-2026" className="px-12 py-5 bg-white dark:bg-slate-800 border border-[#0f69c5] text-[#0f69c5] rounded-[2.5rem] font-900 text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+                            <Link href="/blog/como-leer-entender-factura-luz-2026" className="px-12 py-5 bg-white dark:bg-slate-800 border border-primary text-primary rounded-[2.5rem] font-900 text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
                                 <Info className="w-5 h-5" />
                                 Guía de conceptos
                             </Link>
                         </div>
+                    </div>                    </div>
                     </div>
                 </div>
             </main>

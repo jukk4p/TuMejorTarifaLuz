@@ -30,7 +30,7 @@ export default async function Home() {
             left: 25%;
             width: 500px;
             height: 500px;
-            background: rgba(19, 127, 236, 0.1);
+            background: rgba(var(--primary-rgb), 0.1);
             border-radius: 9999px;
             filter: blur(120px);
             transform: translateY(-50%);
@@ -119,7 +119,7 @@ export default async function Home() {
                     className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
                     style={{ color: 'var(--color-text-heading)' }}
                   >
-                    Compara <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent italic pr-1">tarifas de luz</span> gratis
+                    Compara <span className="bg-gradient-to-r from-primary to-emerald-600 bg-clip-text text-transparent italic pr-1">tarifas de luz</span> gratis
                   </h1>
                   <DynamicHeroSavings />
                 </div>
@@ -565,7 +565,7 @@ export default async function Home() {
         {/* Brand Logos Grid Section */}
         <section 
           className="py-24 border-y border-border transition-colors duration-300" 
-          style={{ background: 'var(--color-section-soft, #F0F4FF)' }}
+          style={{ background: 'var(--section-muted)' }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 space-y-4">

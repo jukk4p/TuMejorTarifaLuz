@@ -134,9 +134,13 @@ export default function BlogClient() {
                     )}
 
                     {/* Search and Category Navigation */}
-                    <div className="max-w-4xl mx-auto mb-16 space-y-8">
+                    <div className="max-w-4xl mx-auto mb-16 space-y-8 relative">
+                        <div className="absolute inset-0 z-0">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"></div>
+                            <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] dark:opacity-[0.05]" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary) 1px, transparent 0)`, backgroundSize: '40px 40px' }}></div>
+                        </div>
                         {/* Search Bar */}
-                        <div className="relative group">
+                        <div className="relative group z-10">
                             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={20} />
                             <input
                                 type="text"
@@ -158,15 +162,15 @@ export default function BlogClient() {
                         {/* Category Navigation */}
                         <div className="flex flex-wrap items-center justify-center gap-3">
                             {categories.map((cat, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => setSelectedCategory(cat.name)}
-                                    className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest transition-all duration-300 border
-                                        ${selectedCategory === cat.name
-                                            ? "bg-[#0f69c5] text-white border-[#0f69c5] shadow-xl shadow-[#0f69c5]/20 scale-105"
-                                            : "bg-[#f1f5f9] text-[#334155] border-transparent hover:bg-[#e2e8f0]"
-                                        }`}
-                                >
+                                    <button
+                                        key={i}
+                                        onClick={() => setSelectedCategory(cat.name)}
+                                        className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest transition-all duration-300 border
+                                            ${selectedCategory === cat.name
+                                                ? "bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-105"
+                                                : "bg-surface-2 text-text-secondary border-transparent hover:bg-surface-3"
+                                            }`}
+                                    >
                                     {cat.icon && <cat.icon size={14} />}
                                     {cat.name} ({categoryCounts[cat.name] || 0})
                                 </button>
@@ -213,8 +217,8 @@ export default function BlogClient() {
                                         {/* Tags */}
                                         {post.tags && (
                                             <div className="flex flex-wrap gap-2 mb-8">
-                                                {post.tags.map((tag, idx) => (
-                                                    <span key={idx} className="bg-[#f1f5f9] text-[#334155] dark:bg-slate-700 dark:text-slate-200 text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-tighter">
+                                                {post.tags.map((tag: string, idx: number) => (
+                                                    <span key={idx} className="bg-surface-2 text-text-secondary dark:bg-slate-700 dark:text-slate-200 text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-tighter">
                                                         {tag}
                                                     </span>
                                                 ))}
@@ -248,7 +252,7 @@ export default function BlogClient() {
                     )}
 
                     {/* Newsletter / CTA */}
-                    <div className="mt-32 bg-[#eff6ff] dark:bg-slate-800/50 rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden border border-blue-100 dark:border-slate-700">
+                    <div className="mt-32 bg-surface-3 dark:bg-slate-800/50 rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden border border-primary/10 dark:border-slate-700">
                         <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full -mr-40 -mt-40 blur-3xl"></div>
                         <div className="relative z-10 max-w-2xl mx-auto">
                             <h2 className="text-3xl md:text-4xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">¿Quieres más consejos de ahorro?</h2>

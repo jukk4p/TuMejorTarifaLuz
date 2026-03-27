@@ -251,7 +251,7 @@ export default function TarifasClient() {
                                     </span>
                                     <Info size={14} className="text-slate-400 cursor-help" />
                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 bg-[#0f172a] text-white text-[10px] p-3 rounded-lg shadow-2xl z-20 leading-relaxed text-center pointer-events-none after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-[#0f172a]">
-                                        Sin impuestos: se muestra el precio base sin IVA (21%) ni Impuesto Eléctrico (5.11%)
+                                        Sin impuestos: se muestra el precio base sin IVA (10%) ni Impuesto Eléctrico (0.5%)
                                     </div>
                                 </div>
                                 <button
@@ -275,7 +275,7 @@ export default function TarifasClient() {
                             return (
                                 <div key={tariff.id} className="group bg-surface rounded-[2.5rem] p-8 border border-border hover:shadow-2xl hover:border-primary/20 transition-all duration-500 relative flex flex-col min-h-[560px] md:min-h-[580px] h-full overflow-hidden">
                                     {isCheapest && (
-                                        <div className="absolute top-4 left-4 bg-[#0f69c5] text-white text-[10px] font-bold px-3 py-1.5 rounded-lg z-10 shadow-lg uppercase tracking-wider">
+                                        <div className="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-3 py-1.5 rounded-lg z-10 shadow-lg uppercase tracking-wider">
                                             Mejor precio
                                         </div>
                                     )}
@@ -308,7 +308,7 @@ export default function TarifasClient() {
                                             <div className="text-right">
                                                 <div className="flex items-center gap-1.5 justify-end">
                                                     <CheckCircle2 size={14} className="text-emerald-500" />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-[#0f69c5]">Oficial</span>
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">Oficial</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +317,7 @@ export default function TarifasClient() {
                                             <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-2">{tariff.name}</h3>
                                             <Link 
                                                 href={`/companias/${COMPANY_SLUGS[tariff.company] || tariff.company.toLowerCase().replace(/\s+/g, '-')}`} 
-                                                className="inline-block text-[11px] text-[#0f69c5] font-black uppercase tracking-widest hover:underline"
+                                                className="inline-block text-[11px] text-primary font-black uppercase tracking-widest hover:underline"
                                             >
                                                 {tariff.company}
                                             </Link>
@@ -415,7 +415,7 @@ export default function TarifasClient() {
                                             title={`Estimación basada en 250 kWh/mes y 3.45 kW contratados, ${showWithTaxes ? 'con IVA e Impuesto Eléctrico incluidos' : 'sin IVA ni Impuestos Eléctricos'}`}
                                         >
                                             <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Estimación</span>
-                                            <span className="text-lg font-900 text-[#0f69c5]">
+                                            <span className="text-lg font-900 text-primary">
                                                 ≈ {monthlyEstimation.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€/mes
                                             </span>
                                         </div>

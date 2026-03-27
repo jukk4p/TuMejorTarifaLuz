@@ -9,7 +9,7 @@
   /* Fondos de sección — modo claro */
   --section-white:    #FFFFFF;
   --section-soft:     #F0F4FF;
-  --section-muted:    #EEF2F8;
+  --section-muted:    #F0FDFA;
   --section-dark:     #0F1923;
   --section-footer:   #070E18;
 
@@ -29,17 +29,18 @@
   --section-white-alpha: rgba(255, 255, 255, 0.9);
 
   /* Brand Colors */
-  --primary: #0f69c5;
-  --primary-hover: #0d5aa8;
-  --accent: #10b981;
-  --warning: #f59e0b; /* Amber 500 */
+  --primary: #0D9488;
+  --primary-hover: #0b7a70;
+  --primary-rgb: 13, 148, 136;
+  --accent: #f2994a;
+  --warning: #f2c94c; /* Amber 500 */
 }
 
 .dark {
   /* Fondos de sección — modo oscuro */
   --section-white:   #0F172A;
   --section-soft:    #1E293B;
-  --section-muted:   #162032;
+  --section-muted:   #0D2420;
 
   /* Texto — modo oscuro */
   --text-heading:    #F1F5F9;
@@ -55,6 +56,11 @@
   /* Border — modo oscuro */
   --border-adaptive: rgba(255, 255, 255, 0.1);
   --section-white-alpha: rgba(15, 23, 42, 0.85);
+
+  /* Brand Colors — DARK */
+  --primary: #14B8A6;
+  --primary-hover: #0d9488;
+  --primary-rgb: 20, 184, 166;
 }
 
 @theme {
@@ -102,7 +108,7 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 
   /* Custom Animations Assets */
-  --primary-rgb: 19, 127, 236; /* #137FEC */
+  --primary-rgb: var(--primary-rgb);
 
   @keyframes scan {
     0% { transform: translateY(0); opacity: 0; }
@@ -165,7 +171,7 @@
   }
 
   .dark .premium-3d-card:hover {
-    box-shadow: -15px 25px 50px -15px rgba(19, 127, 236, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    box-shadow: -15px 25px 50px -15px rgba(var(--primary-rgb), 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   }
 
   @media (prefers-reduced-motion: reduce) {

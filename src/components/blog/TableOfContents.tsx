@@ -47,8 +47,8 @@ export default function TableOfContents({ content }: { content: string }) {
   if (toc.length === 0) return null;
 
   return (
-    <div className="bg-[#f8fafc] dark:bg-slate-900/50 rounded-lg p-[16px_20px] mb-12 border-l-[3px] border-[#0f69c5] shadow-sm">
-      <div className="flex items-center gap-2 mb-4 text-[#0f69c5]">
+    <div className="bg-surface-3 dark:bg-slate-900/50 rounded-lg p-[16px_20px] mb-12 border-l-[3px] border-primary shadow-sm">
+      <div className="flex items-center gap-2 mb-4 text-primary">
         <h2 className="text-[14px] font-bold uppercase tracking-widest">En este artículo:</h2>
       </div>
       <nav>
@@ -57,7 +57,7 @@ export default function TableOfContents({ content }: { content: string }) {
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className={`text-[14px] font-medium transition-colors hover:text-[#0f69c5]/80 text-[#0f69c5] flex items-center gap-2`}
+                className={`text-[14px] font-medium transition-colors hover:text-primary/80 text-primary flex items-center gap-2`}
                 onClick={(e) => {
                   e.preventDefault();
                   const target = document.getElementById(item.id);
@@ -72,7 +72,7 @@ export default function TableOfContents({ content }: { content: string }) {
                   }
                 }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0f69c5]/20 shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-primary/20 shrink-0" />
                 {item.text}
               </a>
             </li>

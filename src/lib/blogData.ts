@@ -75,7 +75,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Bloque de Consumo y Gráficos:</strong> La mayoría de usuarios lo ignora, pero el gráfico de histórico de los últimos 13 meses es fundamental. Si ves un pico repentino en un mes donde no has cambiado de hábitos, podrías tener un problema de derivación en tu red doméstica o un contador con la telemedida descalibrada.</p>
 
       <h2 id="cups-dni">2. El CUPS: Tu identificador universal</h2>
-      <p>El Código Universal de Punto de Suministro (CUPS) es el dato técnica más importante de tu contrato. No cambia aunque cambies de compañía. Empieza por **ES00** y tiene 20 o 22 dígitos. Tener este código a mano te permite consultar tus <a href="/comparador" style="color:#0f69c5;text-decoration:underline">curvas de carga reales</a> en la web de la distribuidora, algo vital para saber si realmente te favorece una tarifa PVPC o mercado libre.</p>
+      <p>El Código Universal de Punto de Suministro (CUPS) es el dato técnica más importante de tu contrato. No cambia aunque cambies de compañía. Empieza por **ES00** y tiene 20 o 22 dígitos. Tener este código a mano te permite consultar tus <a href="/comparador" style="color:var(--primary);text-decoration:underline">curvas de carga reales</a> en la web de la distribuidora, algo vital para saber si realmente te favorece una tarifa PVPC o mercado libre.</p>
 
       <div class="blog-cta-card">
         <span class="cta-label">¿Dudas de si te están cobrando bien?</span>
@@ -86,7 +86,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="termino-potencia">3. El término de potencia: ¿Por qué pagas aunque no estés en casa?</h2>
       <p>El término de potencia es la capacidad de electricidad que puedes demandar simultáneamente. Es un coste por disponibilidad. En 2026, el precio se divide en dos tramos obligatorios: Punta (más caro, días laborables de 08:00 a 00:00) y Valle (muy barato, fines de semana y noches). </p>
-      <p>Si tienes contratados 4.6 kW y tus picos máximos nunca han superado los 3.4 kW, estás "regalando" el coste de 1.2 kW mensuales a la compañía. Bajar esa potencia te puede ahorrar unos 55€ al año de forma automática. Consulta nuestra guía sobre <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">ajuste de potencia 2026</a> para no quedarte a oscuras.</p>
+      <p>Si tienes contratados 4.6 kW y tus picos máximos nunca han superado los 3.4 kW, estás "regalando" el coste de 1.2 kW mensuales a la compañía. Bajar esa potencia te puede ahorrar unos 55€ al año de forma automática. Consulta nuestra guía sobre <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:var(--primary);text-decoration:underline">ajuste de potencia 2026</a> para no quedarte a oscuras.</p>
 
       <h2 id="termino-energia">4. El término de energía: El corazón de tu consumo</h2>
       <p>Aquí es donde pagas por cada kilovatio hora (kWh) consumido. En 2026 casi no existen las tarifas sin discriminación horaria real. Los periodos son:</p>
@@ -103,8 +103,8 @@ export const blogPosts: BlogPost[] = [
       <h2 id="impuestos-cargos">6. Impuestos y Cargos: ¿Qué financiamos con el recibo?</h2>
       <p>Aproximadamente el 45% de lo que pagas no es energía, sino impuestos y decisiones políticas (cargos):</p>
       <ol>
-        <li><strong>Impuesto Eléctrico:</strong> Un impuesto especial que en 2026 se sitúa en torno al 5.11%.</li>
-        <li><strong>IVA:</strong> Se aplica el 21% de forma generalizada. Solo los hogares vulnerables con Bono Social mantienen tipos reducidos este año.</li>
+        <li><strong>Impuesto Eléctrico:</strong> Un impuesto especial que en 2026 se sitúa en torno al 0.5%.</li>
+        <li><strong>IVA:</strong> Se aplica el 10% de forma generalizada tras las últimas medidas de ahorro. Solo en casos excepcionales de mercado muy bajo podría revertir al 21%.</li>
         <li><strong>Alquiler del Contador:</strong> Unos 0.81€ al mes. Si tienes uno en propiedad (raro pero posible en 2026), este concepto debe ser cero.</li>
         <li><strong>Cargos del Sistema:</strong> Destinados a pagar las primas a las renovables antiguas y el déficit de tarifa de hace décadas.</li>
       </ol>
@@ -125,7 +125,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2 id="conclusion">🚀 Reflexión Final para el Consumidor de 2026</h2>
-      <p>Tu factura de la luz es el informe financiero más importante de tu hogar. No la trates como un simple cargo bancario. Dedicar 10 minutos al mes a auditar estos conceptos, especialmente tras las subidas estacionales de invierno y verano, es lo que diferencia a un hogar eficiente de uno que pierde competitividad económica. Recuerda que si el precio que pagas supera los **0.14€/kWh** (impuestos incluidos) en promedio, estás en una tarifa desfasada para el mercado de 2026. Es hora de <a href="/companias" style="color:#0f69c5;text-decoration:underline">comparar y ahorrar</a>.</p>
+      <p>Tu factura de la luz es el informe financiero más importante de tu hogar. No la trates como un simple cargo bancario. Dedicar 10 minutos al mes a auditar estos conceptos, especialmente tras las subidas estacionales de invierno y verano, es lo que diferencia a un hogar eficiente de uno que pierde competitividad económica. Recuerda que si el precio que pagas supera los **0.14€/kWh** (impuestos incluidos) en promedio, estás en una tarifa desfasada para el mercado de 2026. Es hora de <a href="/companias" style="color:var(--primary);text-decoration:underline">comparar y ahorrar</a>.</p>
     `,
   },
   {
@@ -144,7 +144,7 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1450,
     tags: ["PVPC", "Mercado Libre", "Ahorro", "2026"],
     content: `
-      <p>Decidir entre el <strong>mercado libre vs PVPC</strong> es la decisión más crítica para cualquier consumidor eléctrico en España en 2026. Tras la consolidación del nuevo modelo de cálculo del PVPC (Precio Voluntario para el Pequeño Consumidor), el escenario de ahorro ha mutado de forma irreversible. Lo que antes era una tarifa puramente volátil ligada al mercado diario, hoy es un sistema híbrido que protege al pequeño consumidor de los picos de precios internacionales sin renunciar a los beneficios de la generación renovable barata. En esta guía profunda, analizamos los datos reales del último año para que elijas con objetividad y encuentres la mejor <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica</a> para tu hogar.</p>
+      <p>Decidir entre el <strong>mercado libre vs PVPC</strong> es la decisión más crítica para cualquier consumidor eléctrico en España en 2026. Tras la consolidación del nuevo modelo de cálculo del PVPC (Precio Voluntario para el Pequeño Consumidor), el escenario de ahorro ha mutado de forma irreversible. Lo que antes era una tarifa puramente volátil ligada al mercado diario, hoy es un sistema híbrido que protege al pequeño consumidor de los picos de precios internacionales sin renunciar a los beneficios de la generación renovable barata. En esta guía profunda, analizamos los datos reales del último año para que elijas con objetividad y encuentres la mejor <a href="/tarifas" style="color:var(--primary);text-decoration:underline">tarifa eléctrica</a> para tu hogar.</p>
 
       <h2 id="indice">Índice del Análisis de Mercados 2026</h2>
       <ul>
@@ -222,14 +222,14 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li><strong>Consumidor "Olvídate":</strong> Si odias mirar la App de la luz y quieres pagar siempre lo mismo, vete al mercado libre fijo.</li>
         <li><strong>Consumidor "Eficiente":</strong> Si programas la lavadora al mediodía y el lavavajillas de madrugada, el PVPC te recompensará con precios muy bajos en esos tramos.</li>
-        <li><strong>Hogares Electrificados:</strong> Si tienes <a href="/blog/aerotermia-ventajas-desventajas-ahorro-calefaccion-climatizacion-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> o coche eléctrico, necesitas una tarifa que te ofrezca energía a coste casi cero de madrugada; aquí suelen ganar las ofertas específicas de mercado libre para movilidad eléctrica.</li>
+        <li><strong>Hogares Electrificados:</strong> Si tienes <a href="/blog/aerotermia-ventajas-desventajas-ahorro-calefaccion-climatizacion-2026" style="color:var(--primary);text-decoration:underline">aerotermia</a> o coche eléctrico, necesitas una tarifa que te ofrezca energía a coste casi cero de madrugada; aquí suelen ganar las ofertas específicas de mercado libre para movilidad eléctrica.</li>
       </ul>
 
       <h2 id="como-cambiar">7. Cómo realizar el cambio de mercado paso a paso</h2>
       <p>Cambiar de mercado es tan sencillo como hacer una llamada o un registro web. No necesitas que venga ningún técnico a casa ni te quedarás sin luz en el proceso. Solo necesitas tu CUPS (un código de 20 letras/números que empieza por ES00) y tus datos básicos. Para pasar al mercado regulado, debes llamar a una de las 8 <strong>Comercializadoras de Referencia</strong> autorizadas por el Gobierno.</p>
 
       <h2 id="conclusion">🚀 Conclusión y Veredicto</h2>
-      <p>En el escenario energético de 2026, el **mercado libre fijo** se ha consolidado como la opción más segura para la clase media, mientras que el **PVPC** sigue siendo la piedra angular para los hogares que necesitan protección social o que tienen una flexibilidad de consumo extrema. No tomes una decisión a oscuras: usa herramientas independientes como nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual de lectura de facturas</a> para saber exactamente qué estás pagando hoy mismo.</p>
+      <p>En el escenario energético de 2026, el **mercado libre fijo** se ha consolidado como la opción más segura para la clase media, mientras que el **PVPC** sigue siendo la piedra angular para los hogares que necesitan protección social o que tienen una flexibilidad de consumo extrema. No tomes una decisión a oscuras: usa herramientas independientes como nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:var(--primary);text-decoration:underline">manual de lectura de facturas</a> para saber exactamente qué estás pagando hoy mismo.</p>
     `,
   },
   {
@@ -248,7 +248,7 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1620,
     tags: ["Reclamación", "Derechos", "Educación", "2026"],
     content: `
-      <p>Recibir una factura de luz inesperadamente alta es una de las situaciones más frustrantes para cualquier hogar en 2026. Sin embargo, tras la última actualización de la Ley de Consumo Eléctrico de 2025, el usuario tiene más mecanismos de defensa, transparencia y rapidez de resolución que hace una década. Antes de alarmarte o realizar el pago bajo protesta, es vital auditar si el error es de lectura o de tarificación. Muchas veces una simple comparativa con el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz histórico</a> revela anomalías de facturación que tu compañía debería haber detectado automáticamente con sus algoritmos de validación de lectura.</p>
+      <p>Recibir una factura de luz inesperadamente alta es una de las situaciones más frustrantes para cualquier hogar en 2026. Sin embargo, tras la última actualización de la Ley de Consumo Eléctrico de 2025, el usuario tiene más mecanismos de defensa, transparencia y rapidez de resolución que hace una década. Antes de alarmarte o realizar el pago bajo protesta, es vital auditar si el error es de lectura o de tarificación. Muchas veces una simple comparativa con el <a href="/precio-luz-hoy" style="color:var(--primary);text-decoration:underline">precio de la luz histórico</a> revela anomalías de facturación que tu compañía debería haber detectado automáticamente con sus algoritmos de validación de lectura.</p>
 
       <p>En el presente año 2026, nos enfrentamos a un sistema eléctrico altamente digitalizado pero no exento de fallos. Con la total implementación de la telemedida, las facturas estimadas deberían ser algo del pasado, pero errores en los transformadores de zona o cortes en la red de comunicaciones de la distribuidora siguen provocando "sustos" en forma de recibos inflados. En esta guía profunda, desglosamos punto por punto el procedimiento legal que debes seguir para ganar la batalla a la comercializadora y recuperar tu dinero con intereses.</p>
 
@@ -266,7 +266,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2 id="cuando-reclamar">1. Casos Ganables: Cuándo la ley te da la razón</h2>
-      <p>Antes de invertir tiempo en una reclamación, es fundamental saber si el incremento de tu recibo se debe a un mayor uso de la <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:#0f69c5;text-decoration:underline">aerotermia</a> o a un fallo real. En 2026, los casos con mayor tasa de éxito son:</p>
+      <p>Antes de invertir tiempo en una reclamación, es fundamental saber si el incremento de tu recibo se debe a un mayor uso de la <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" style="color:var(--primary);text-decoration:underline">aerotermia</a> o a un fallo real. En 2026, los casos con mayor tasa de éxito son:</p>
       <ul>
         <li><strong>Estimaciones continuadas:</strong> Si tu contador es inteligente, es ilegal que te facturen por estimación más de dos meses seguidos (Art. 52 Ley Sector Eléctrico).</li>
         <li><strong>Errores de Concepto:</strong> Aplicación de tarifas caducadas o "servicios de mantenimiento" añadidos sin firma digital expresa del usuario.</li>
@@ -309,7 +309,7 @@ export const blogPosts: BlogPost[] = [
       <p>Si el importe que te deben es inferior a **2.000 euros**, puedes presentar una demanda de Juicio Verbal. ¿La gran ventaja? **No necesitas ni abogado ni procurador**. Solo tienes que rellenar un impreso normalizado en el Juzgado de Primera Instancia de tu localidad. Adjuntas las facturas y el Número de Reclamación previo. En 2026 los juicios por energía son rápidos y el juez suele castigar con dureza las prácticas de "mala fe" de las eléctricas.</p>
 
       <h2 id="bono-social-recl">8. Reclamar el Bono Social con carácter retroactivo</h2>
-      <p>Si cumples los requisitos de vulnerabilidad y la compañía no te aplicó el <a href="/blog/mercado-libre-pvpc" style="color:#0f69c5;text-decoration:underline">Bono Social</a> desde que lo solicitaste, puedes reclamar la devolución de la diferencia con carácter retroactivo. La ley de 2026 es muy clara: si la solicitud estaba completa, el retraso de la compañía es sancionable y el cliente debe ser compensado económicamente por cada mes de demora injustificada.</p>
+      <p>Si cumples los requisitos de vulnerabilidad y la compañía no te aplicó el <a href="/blog/mercado-libre-pvpc" style="color:var(--primary);text-decoration:underline">Bono Social</a> desde que lo solicitaste, puedes reclamar la devolución de la diferencia con carácter retroactivo. La ley de 2026 es muy clara: si la solicitud estaba completa, el retraso de la compañía es sancionable y el cliente debe ser compensado económicamente por cada mes de demora injustificada.</p>
 
       <h2 id="documentacion">9. Check-list de documentación legal necesaria</h2>
       <p>Para garantizar el éxito de tu reclamación contra la eléctrica en 2026, prepara este expediente digital:</p>
@@ -323,7 +323,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2 id="conclusion">🚀 Conclusión: La perseverancia es ahorro</h2>
-      <p>Las eléctricas apuestan por el "cansancio del cliente": respuestas automáticas, laberintos telefónicos y términos técnicos incomprensibles. Pero en 2026, el consumidor que escala su queja a Arbitraje o al Defensor del Cliente gana en el 70% de los casos. No regales tu dinero por un error de gestión o de red. Mantén el orden en tus documentos y haz valer tus derechos. Si aún no tienes claro si tu factura es realmente alta o simplemente ineficiente, revisa nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual de lectura de facturas</a> y toma el control total de tu energía.</p>
+      <p>Las eléctricas apuestan por el "cansancio del cliente": respuestas automáticas, laberintos telefónicos y términos técnicos incomprensibles. Pero en 2026, el consumidor que escala su queja a Arbitraje o al Defensor del Cliente gana en el 70% de los casos. No regales tu dinero por un error de gestión o de red. Mantén el orden en tus documentos y haz valer tus derechos. Si aún no tienes claro si tu factura es realmente alta o simplemente ineficiente, revisa nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:var(--primary);text-decoration:underline">manual de lectura de facturas</a> y toma el control total de tu energía.</p>
     `,
   },
   {
@@ -392,7 +392,7 @@ export const blogPosts: BlogPost[] = [
       <p>Es posible que en 2026 veas hornos marcados como A+. No es que sean mejores que el resto, es que su regulación europea es distinta y todavía no se han adaptado a la nueva escala A-G. Un horno A+ de la escala antigua equivale aproximadamente a una Clase C o D de la escala nueva. En secadoras, prioriza siempre las de **Bomba de Calor** (Clase A++ o superior antigua), que consumen un 60% menos que las de condensación convencionales.</p>
 
       <h2 id="ruido-db">8. Emisiones de Ruido: La Clase de Decibelios</h2>
-      <p>Si tienes la cocina abierta al salón o haces la colada de noche para aprovechar la <a href="/comparador" style="color:#0f69c5;text-decoration:underline">tarifa valle</a>, el ruido es vital. La etiqueta clasifica el ruido de la A a la D. Busca siempre una **Clase A de ruido (inferior a 39 dB en frigos y 70 dB en centrifugado de lavadoras)** para garantizar la paz en tu hogar.</p>
+      <p>Si tienes la cocina abierta al salón o haces la colada de noche para aprovechar la <a href="/comparador" style="color:var(--primary);text-decoration:underline">tarifa valle</a>, el ruido es vital. La etiqueta clasifica el ruido de la A a la D. Busca siempre una **Clase A de ruido (inferior a 39 dB en frigos y 70 dB en centrifugado de lavadoras)** para garantizar la paz en tu hogar.</p>
 
       <div class="blog-table-container">
         <table class="blog-table">
@@ -417,7 +417,7 @@ export const blogPosts: BlogPost[] = [
       <p>Ejemplo Real: Una lavadora Clase A cuesta 580€. Una Clase D cuesta 420€. Diferencia: 160€. El ahorro anual en luz y agua de la Clase A es de unos 40€. En 10 años habrás ahorrado 400€. Recuperas esos 160€ en apenas 4 años y el resto del tiempo el aparato te "gana" dinero. Además, al tener un mayor índice de reparabilidad, es probable que te dure 15 años en lugar de 10.</p>
 
       <h2 id="conclusion">🚀 Veredicto y Veredicto de Compra</h2>
-      <p>En 2026 no existen los electrodomésticos baratos, solo electrodomésticos que te cobran el resto en la factura de la luz. Prioriza siempre la **Clase B o superior para frigoríficos** y **Clase A para lavado** si haces más de 4 coladas por semana. No te dejes engañar por las ofertas de liquidación de aparatos Clase F; son auténticos "parásitos" energéticos que acabarán costándote el triple a largo plazo. Si quieres optimizar aún más el coste de funcionamiento de tus nuevos aparatos, no olvides revisar si tienes la <a href="/companias" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica más competitiva</a> del momento. </p>
+      <p>En 2026 no existen los electrodomésticos baratos, solo electrodomésticos que te cobran el resto en la factura de la luz. Prioriza siempre la **Clase B o superior para frigoríficos** y **Clase A para lavado** si haces más de 4 coladas por semana. No te dejes engañar por las ofertas de liquidación de aparatos Clase F; son auténticos "parásitos" energéticos que acabarán costándote el triple a largo plazo. Si quieres optimizar aún más el coste de funcionamiento de tus nuevos aparatos, no olvides revisar si tienes la <a href="/companias" style="color:var(--primary);text-decoration:underline">tarifa eléctrica más competitiva</a> del momento. </p>
     `,
   },
   {
@@ -436,9 +436,9 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1680,
     tags: ["Potencia", "Ahorro", "ICP", "2026", "Distribución"],
     content: `
-      <p>La potencia contratada es el "peaje" fijo más caro de tu factura eléctrica y, paradójicamente, el concepto donde más dinero desperdician los hogares españoles en 2026. Según auditorías internas de TuMejorTarifaLuz, el 60% de los consumidores tiene contratada una potencia superior a la que realmente necesita. En este artículo, te enseñamos a auditar tu curva de carga y ajustar tus tramos para ahorrar hasta 150€ anuales sin sacrificar un gramo de confort en tu hogar. Optimizar la potencia es, junto con elegir la <a href="/companias" style="color:#0f69c5;text-decoration:underline">mejor tarifa de luz</a>, la acción con mayor impacto directo en tu cuenta bancaria.</p>
+      <p>La potencia contratada es el "peaje" fijo más caro de tu factura eléctrica y, paradójicamente, el concepto donde más dinero desperdician los hogares españoles en 2026. Según auditorías internas de TuMejorTarifaLuz, el 60% de los consumidores tiene contratada una potencia superior a la que realmente necesita. En este artículo, te enseñamos a auditar tu curva de carga y ajustar tus tramos para ahorrar hasta 150€ anuales sin sacrificar un gramo de confort en tu hogar. Optimizar la potencia es, junto con elegir la <a href="/companias" style="color:var(--primary);text-decoration:underline">mejor tarifa de luz</a>, la acción con mayor impacto directo en tu cuenta bancaria.</p>
       
-      <p>Tras la reforma de los tramos horarios, ajustar la potencia no es solo elegir un número. En la España de 2026, tenemos la posibilidad legal de contratar dos potencias diferentes para periodos distintos. Optimizar esta dualidad es la clave para integrar tecnologías de alta demanda, como el <a href="/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026" style="color:#0f69c5;text-decoration:underline">coche eléctrico</a> o la aerotermia, sin que el coste fijo de la factura se convierta en una hipoteca adicional.</p>
+      <p>Tras la reforma de los tramos horarios, ajustar la potencia no es solo elegir un número. En la España de 2026, tenemos la posibilidad legal de contratar dos potencias diferentes para periodos distintos. Optimizar esta dualidad es la clave para integrar tecnologías de alta demanda, como el <a href="/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026" style="color:var(--primary);text-decoration:underline">coche eléctrico</a> o la aerotermia, sin que el coste fijo de la factura se convierta en una hipoteca adicional.</p>
 
       <h2 id="indice">Índice de la Guía de Optimización de Potencia 2026</h2>
       <ul>
@@ -455,7 +455,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="que-es-potencia">1. ¿Qué es realmente la potencia contratada?</h2>
       <p>La potencia es la capacidad técnica de tu instalación para soportar el uso simultáneo de electrodomésticos. Se mide en kilovatios (kW). Si enciendes el horno (2 kW), la lavadora (2 kW) y el aire acondicionado (1.5 kW) al mismo tiempo, necesitas una potencia contratada superior a 5.5 kW para que no se interrumpa el suministro.</p>
-      <p>El error más común es contratar potencia "por si acaso" o basarse en recomendaciones de constructores de hace décadas. En 2026, los electrodomésticos son mucho más eficientes y los arranques de motores son más suaves gracias a la tecnología Inverter. Es muy probable que si tienes 5.75 kW desde hace años, hoy te baste con 4.6 kW o incluso 3.45 kW si gestionas adecuadamente los horarios de tus aparatos. Para profundizar en la eficiencia de tus aparatos, consulta nuestra guía sobre <a href="/blog/nuevo-etiquetado-energetico-electrodomesticos-ahorro-luz" style="color:#0f69c5;text-decoration:underline">etiquetado energético 2026</a>.</p>
+      <p>El error más común es contratar potencia "por si acaso" o basarse en recomendaciones de constructores de hace décadas. En 2026, los electrodomésticos son mucho más eficientes y los arranques de motores son más suaves gracias a la tecnología Inverter. Es muy probable que si tienes 5.75 kW desde hace años, hoy te baste con 4.6 kW o incluso 3.45 kW si gestionas adecuadamente los horarios de tus aparatos. Para profundizar en la eficiencia de tus aparatos, consulta nuestra guía sobre <a href="/blog/nuevo-etiquetado-energetico-electrodomesticos-ahorro-luz" style="color:var(--primary);text-decoration:underline">etiquetado energético 2026</a>.</p>
 
       <h2 id="dos-potencias">2. Punta vs Valle: La estrategia de la dualidad</h2>
       <p>Desde la llegada de las tarifas 2.0TD, tienes dos tramos de potencia independientes disponibles en tu contador. Esto es una mina de oro de ahorro que pocos aprovechan correctamente:</p>
@@ -537,7 +537,7 @@ export const blogPosts: BlogPost[] = [
       </ol>
 
       <h2 id="conclusion">🚀 Conclusión: Tu plan de ahorro fijo para 2026</h2>
-      <p>Optimizar la potencia es la inversión más rentable que puedes hacer en energía hoy mismo. Por apenas el coste de una cena barata, puedes liberar más de 100€ de "dinero muerto" en tu presupuesto anual. No dejes para mañana lo que puedes ahorrar hoy: audita tu contador, confía en la tolerancia del ICP digital y ajusta tu factura al siglo XXI. Si quieres ver cómo afecta esto a tu factura total combinada con el precio del kWh, usa nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual experto de lectura de facturas</a>. </p>
+      <p>Optimizar la potencia es la inversión más rentable que puedes hacer en energía hoy mismo. Por apenas el coste de una cena barata, puedes liberar más de 100€ de "dinero muerto" en tu presupuesto anual. No dejes para mañana lo que puedes ahorrar hoy: audita tu contador, confía en la tolerancia del ICP digital y ajusta tu factura al siglo XXI. Si quieres ver cómo afecta esto a tu factura total combinada con el precio del kWh, usa nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:var(--primary);text-decoration:underline">manual experto de lectura de facturas</a>. </p>
     `,
   },
   {
@@ -618,11 +618,11 @@ export const blogPosts: BlogPost[] = [
     ],
     tags: ["FAQ", "Ayuda", "Educación", "2026", "Ahorro"],
     content: `
-      <p>Navegar por el sector eléctrico español en 2026 es un reto constante. Entre cambios normativos, fluctuaciones del mercado mayorista y la irrupción de nuevas tecnologías como las baterías virtuales, el consumidor medio se siente a menudo perdido. En TuMejorTarifaLuz hemos recopilado las dudas reales de miles de auditorías para crear esta enciclopedia de consulta rápida. Si no encuentras tu duda específica, recuerda que nuestra herramienta de <a href="/comparador" style="color:#0f69c5;text-decoration:underline">análisis de facturas</a> puede darte una respuesta personalizada analizando tus propios datos.</p>
+      <p>Navegar por el sector eléctrico español en 2026 es un reto constante. Entre cambios normativos, fluctuaciones del mercado mayorista y la irrupción de nuevas tecnologías como las baterías virtuales, el consumidor medio se siente a menudo perdido. En TuMejorTarifaLuz hemos recopilado las dudas reales de miles de auditorías para crear esta enciclopedia de consulta rápida. Si no encuentras tu duda específica, recuerda que nuestra herramienta de <a href="/comparador" style="color:var(--primary);text-decoration:underline">análisis de facturas</a> puede darte una respuesta personalizada analizando tus propios datos.</p>
 
       <h2 id="mercado-comparativa">1. ¿Mercado Libre o Mercado Regulado (PVPC) en 2026?</h2>
       <p>Esta es la pregunta del millón. En 2026, la respuesta es más clara que nunca: depende de tu capacidad de ahorro y protección social. El <strong>Mercado Regulado (PVPC)</strong> es obligatorio si quieres beneficiarte del Bono Social. Su precio varía cada hora según la subasta del mercado mayorista. Por contra, el <strong>Mercado Libre</strong> te ofrece estabilidad con precios fijos anuales, lo que evita sustos si hay crisis energéticas internacionales.</p>
-      <p>Nuestra recomendación: si el mercado está estable, el PVPC suele ser un 5-10% más barato en el cómputo anual, pero requiere que seas un "consumidor activo" que mira los precios antes de poner la lavadora. Si prefieres tranquilidad, busca una tarifa de mercado libre sin permanencia. Para un análisis detallado, lee nuestra comparativa <a href="/blog/mercado-libre-pvpc" style="color:#0f69c5;text-decoration:underline">Mercado Libre vs PVPC 2026</a>.</p>
+      <p>Nuestra recomendación: si el mercado está estable, el PVPC suele ser un 5-10% más barato en el cómputo anual, pero requiere que seas un "consumidor activo" que mira los precios antes de poner la lavadora. Si prefieres tranquilidad, busca una tarifa de mercado libre sin permanencia. Para un análisis detallado, lee nuestra comparativa <a href="/blog/mercado-libre-pvpc" style="color:var(--primary);text-decoration:underline">Mercado Libre vs PVPC 2026</a>.</p>
 
       <h2 id="bono-social-profundidad">2. El Bono Social en 2026: ¿Quién se queda fuera?</h2>
       <p>Tras la reforma de 2025, el Bono Social se ha vuelto más estricto en la verificación de rentas pero más generoso en los descuentos. Hoy, una familia numerosa tiene derecho automático, pero los consumidores prefieren la categoría de "Vulnerable Severo" por sus descuentos del 80%. Recuerda que para solicitarlo debes estar sí o sí en una **comercializadora de referencia** y tener una potencia contratada inferior a 10 kW. Si tu compañía actual no te ofrece el bono, es porque estás en el mercado libre y debes tramitar el cambio al regulado.</p>
@@ -635,7 +635,7 @@ export const blogPosts: BlogPost[] = [
       </div>
 
       <h2 id="factura-0">3. ¿Es real la factura de 0 euros con placas solares?</h2>
-      <p>En 2026, sí. Gracias a la <strong>Batería Virtual</strong>, puedes compensar el coste de la energía que consumes con el valor de la energía que tus placas inyectan a la red cuando no estás en casa. A diferencia de la compensación de excedentes clásica (que solo restaba el consumo), la batería virtual acumula el saldo restante para pagar el término de potencia, los impuestos y el alquiler del contador. Tenemos usuarios que pagan literamente 0,00€ de marzo a octubre. Consulta nuestra <a href="/blog/instalacion-placas-solares-hogar-guia-precio-subvenciones-2026" style="color:#0f69c5;text-decoration:underline">guía solar definitiva</a> para ver cómo configurarlo.</p>
+      <p>En 2026, sí. Gracias a la <strong>Batería Virtual</strong>, puedes compensar el coste de la energía que consumes con el valor de la energía que tus placas inyectan a la red cuando no estás en casa. A diferencia de la compensación de excedentes clásica (que solo restaba el consumo), la batería virtual acumula el saldo restante para pagar el término de potencia, los impuestos y el alquiler del contador. Tenemos usuarios que pagan literamente 0,00€ de marzo a octubre. Consulta nuestra <a href="/blog/instalacion-placas-solares-hogar-guia-precio-subvenciones-2026" style="color:var(--primary);text-decoration:underline">guía solar definitiva</a> para ver cómo configurarlo.</p>
 
       <h2 id="cambio-compania-seguridad">4. Seguridad en el cambio: Mitos y estafas</h2>
       <p>Muchos usuarios temen quedarse sin luz durante el proceso de cambio de compañía. Es un mito: el cambio es puramente administrativo. Los cables y el contador siguen siendo de la distribuidora, solo cambia quién emite la factura del papel. Si alguien te llama por teléfono diciendo que "tu tarifa va a caducar" o que "hay un error en tu zona", desconfía. Son técnicas de <i>slamming</i> telefónico. Las compañías serias siempre envían notificaciones por correo certificado o a través de su canal oficial antes de cualquier cambio real.</p>
@@ -653,8 +653,8 @@ export const blogPosts: BlogPost[] = [
       <p>Ojo: algunas empresas intentan cobrarte un "Estudio de Solvencia" o forzarte a contratar un seguro de mantenimiento. Tienes derecho a rechazarlo. El único coste asociado legalmente sería si el boletín eléctrico (CIE) tiene más de 20 años y la distribuidora exige una revisión de seguridad, pero es un trámite técnico razonable para garantizar que tu casa no se incendie por un cortocircuito.</p>
 
       <h2 id="impuestos-2026">💶 8. Los Impuestos de la luz en 2026: El IVA variable</h2>
-      <p>La fiscalidad eléctrica en 2026 es dinámica. El **IVA de la luz** se mantiene en el 10% reducido siempre que el precio medio del mercado mayorista (pool) del mes anterior haya superado los 45€/MWh. Si el precio de la energía cae por debajo de esa cifra (muy común en meses de lluvia y viento), el IVA puede volver al tipo general del 21% por imperativo europeo de reducción de déficit energético.</p>
-      <p>Además del IVA, en tu factura verás el **IEE (Impuesto Especial sobre la Electricidad)**, que en 2026 se sitúa en su tipo normal del 5.11%. Estos impuestos se aplican sobre la suma del término de potencia y el término de energía. Es fundamental entender que, si logras bajar tu potencia contratada mediante nuestra <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:#0f69c5;text-decoration:underline">guía de optimización de potencia</a>, también pagarás menos impuestos en términos absolutos cada mes.</p>
+      <p>La fiscalidad eléctrica en 2026 es dinámica. El **IVA de la luz** se mantiene en el 10% reducido en la mayoría de escenarios actuales. No obstante, por normativa europea, si el precio medio del mercado mayorista (pool) del mes anterior cae por debajo de los 45€/MWh, el IVA puede volver temporalmente al tipo general del 21% para ajuste de ingresos del sistema.</p>
+      <p>Además del IVA, en tu factura verás el **IEE (Impuesto Especial sobre la Electricidad)**, que en 2026 se sitúa en su tipo reducido del 0.5% para aliviar la carga de los hogares. Estos impuestos se aplican sobre la suma del término de potencia y el término de energía. Es fundamental entender que, si logras bajar tu potencia contratada mediante nuestra <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:var(--primary);text-decoration:underline">guía de optimización de potencia</a>, también pagarás menos impuestos en términos absolutos cada mes.</p>
 
       <h2 id="propiedad-contador">🎛️ 9. Alquiler vs Propiedad del contador</h2>
       <p>¿Vale la pena comprar el contador inteligente? En 2026, el alquiler del equipo cuesta aproximadamente 0.81€ al mes (unos 9.72€ al año). Un contador homologado nuevo cuesta entre 120€ y 180€ más la instalación por un electricista autorizado. </p>
@@ -662,7 +662,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="conclusion-final">🚀 Conclusión y Veredicto 2026</h2>
       <p>La información es poder, y en el mercado eléctrico, la información es dinero real en tu cuenta bancaria. El 90% de los errores en las facturas de 2026 se deben a falta de actualización de datos del cliente o mala elección de tarifa por puro desconocimiento de las alternativas. Mantenerse informado y revisar el contrato al menos una vez al año (o cuando cambie tu situación familiar) es la mejor estrategia de ahorro a largo plazo.</p>
-      <p>No tomes una decisión a oscuras: usa herramientas independientes, huye de los comerciales de puerta a puerta y domina el lenguaje de tu recibo. Si quieres dar el primer paso hoy mismo y dejar de ser una víctima de las eléctricas, te recomendamos leer nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual experto de lectura de facturas</a> para dominar cada céntimo que pagas y detectar cualquier anomalía antes de que sea demasiado tarde.</p>
+      <p>No tomes una decisión a oscuras: usa herramientas independientes, huye de los comerciales de puerta a puerta y domina el lenguaje de tu recibo. Si quieres dar el primer paso hoy mismo y dejar de ser una víctima de las eléctricas, te recomendamos leer nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:var(--primary);text-decoration:underline">manual experto de lectura de facturas</a> para dominar cada céntimo que pagas y detectar cualquier anomalía antes de que sea demasiado tarde.</p>
     `,
   },
   {
@@ -681,7 +681,7 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1710,
     tags: ["Solar", "Autoconsumo", "Ahorro", "2026", "Energía Verde"],
     content: `
-      <p>La energía solar fotovoltaica para el hogar ha alcanzado su punto de madurez definitiva en este 2026. Con el desplome del precio de los paneles de silicio monocristalino de tecnología N-Type (TopCon) y la consolidación de la "Batería Virtual", producir tu propia electricidad ya no es solo una cuestión de ecología, sino la herramienta financiera más potente de ahorro doméstico disponible para cualquier familia con un tejado. La <a href="/comparador" style="color:#0f69c5;text-decoration:underline">compensación de excedentes</a> permite hoy que tu factura llegue a los 0€ de forma real si eliges la compañía adecuada.</p>
+      <p>La energía solar fotovoltaica para el hogar ha alcanzado su punto de madurez definitiva en este 2026. Con el desplome del precio de los paneles de silicio monocristalino de tecnología N-Type (TopCon) y la consolidación de la "Batería Virtual", producir tu propia electricidad ya no es solo una cuestión de ecología, sino la herramienta financiera más potente de ahorro doméstico disponible para cualquier familia con un tejado. La <a href="/comparador" style="color:var(--primary);text-decoration:underline">compensación de excedentes</a> permite hoy que tu factura llegue a los 0€ de forma real si eliges la compañía adecuada.</p>
 
       <h2 id="indice">Índice de la Guía Solar Individual 2026</h2>
       <ul>
@@ -736,7 +736,7 @@ export const blogPosts: BlogPost[] = [
       <p>Un panel sucio puede producir hasta un 15% menos. En 2026 recomendamos una limpieza semestral sencilla con agua y una esponja suave (nunca productos abrasivos). También es vital revisar la monitorización por App al menos una vez al mes. Si ves que una placa produce significativamente menos que las demás, podrías tener un problema de puntos calientes (hot spots) o un conector flojo. La mayoría de instaladores premium ya incluyen mantenimiento preventivo remoto mediante inteligencia artificial que te avisa al móvil si detecta anomalías.</p>
 
       <h2 id="conclusion-solar">🚀 Veredicto Final: ¿Instalo ya o espero?</h2>
-      <p>Nuestra opinión experta es clara: 2026 es el año ideal. El precio del hardware ha tocado fondo y las ayudas fiscales están en su punto álgido. Esperar más tiempo solo significa seguir regalando dinero a la compañía eléctrica mes a mes. Si tienes un tejado con buena orientación (Sur, Este u Oeste), las placas solares son hoy la mejor inversión financiera familiar por delante de depósitos bancarios o bolsa. Si quieres saber exactamente cuántas placas necesitas, consulta nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:#0f69c5;text-decoration:underline">manual de lectura de facturas</a> para conocer tu consumo exacto.</p>
+      <p>Nuestra opinión experta es clara: 2026 es el año ideal. El precio del hardware ha tocado fondo y las ayudas fiscales están en su punto álgido. Esperar más tiempo solo significa seguir regalando dinero a la compañía eléctrica mes a mes. Si tienes un tejado con buena orientación (Sur, Este u Oeste), las placas solares son hoy la mejor inversión financiera familiar por delante de depósitos bancarios o bolsa. Si quieres saber exactamente cuántas placas necesitas, consulta nuestro <a href="/blog/como-leer-entender-factura-luz-2026" style="color:var(--primary);text-decoration:underline">manual de lectura de facturas</a> para conocer tu consumo exacto.</p>
     `,
   },
   {
@@ -769,7 +769,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="pasos-legales">⚖️ 1. Pasos legales: La mayoría simple es la clave</h2>
       <p>Desde la última reforma de la Ley de Propiedad Horizontal (LPH), las trabas para poner placas en los pisos han desaparecido. Ya no hace falta unanimidad ni mayorías cualificadas complejas. En 2026, bastará con una <strong>mayoría simple</strong> (la mitad más uno de los propietarios presentes que representen la mayoría de cuotas de participación) para aprobar la instalación en zonas comunes.</p>
-      <p>Es importante distinguir: si la comunidad decide pagar la obra entre todos, todos disfrutan del ahorro. Si solo un grupo de vecinos quiere participar, el resto de la comunidad no está obligado a pagar, pero los participantes tienen derecho legítimo a usar el tejado común para su beneficio privado. Esta flexibilidad está permitiendo que miles de comunidades se sumen al autoconsumo cada mes. Compara las <a href="/companias" style="color:#0f69c5;text-decoration:underline">compañías expertas en colectivos</a> para presentar un proyecto solvente.</p>
+      <p>Es importante distinguir: si la comunidad decide pagar la obra entre todos, todos disfrutan del ahorro. Si solo un grupo de vecinos quiere participar, el resto de la comunidad no está obligado a pagar, pero los participantes tienen derecho legítimo a usar el tejado común para su beneficio privado. Esta flexibilidad está permitiendo que miles de comunidades se sumen al autoconsumo cada mes. Compara las <a href="/companias" style="color:var(--primary);text-decoration:underline">compañías expertas en colectivos</a> para presentar un proyecto solvente.</p>
 
       <div class="blog-table-container">
         <table class="blog-table">
@@ -813,7 +813,7 @@ export const blogPosts: BlogPost[] = [
       <p>En el autoconsumo compartido, el mantenimiento suele externalizarse a una empresa de gestión energética. Esta empresa se encarga de que los paneles estén limpios, el inversor funcione y, sobre todo, de que el reparto de la energía (los famosos coeficientes) se comunique correctamente a la distribuidora mes a mes. El coste de este servicio es mínimo comparado con el ahorro generado y suele estar incluido en la cuota mensual de mantenimiento de la instalación.</p>
 
       <h2 id="conclusion-colectivo">🚀 Conclusión: El fin de la factura individual aislada</h2>
-      <p>En el futuro energético cercano (hacia 2030), nadie consumirá energía de forma aislada. El autoconsumo colectivo es el primer paso hacia una red eléctrica colaborativa, resiliente y mucho más barata. Empezar hoy en tu comunidad de vecinos te protege contra las fluctuaciones del mercado mayorista y revaloriza tu vivienda entre un 5% y un 10% de forma inmediata. Si quieres ver una propuesta detallada para tu próxima junta, usa nuestro <a href="/blog/como-reclamar-factura-luz-excesiva" style="color:#0f69c5;text-decoration:underline">analizador de costes</a> y lleva datos reales para convencer a tus vecinos.</p>
+      <p>En el futuro energético cercano (hacia 2030), nadie consumirá energía de forma aislada. El autoconsumo colectivo es el primer paso hacia una red eléctrica colaborativa, resiliente y mucho más barata. Empezar hoy en tu comunidad de vecinos te protege contra las fluctuaciones del mercado mayorista y revaloriza tu vivienda entre un 5% y un 10% de forma inmediata. Si quieres ver una propuesta detallada para tu próxima junta, usa nuestro <a href="/blog/como-reclamar-factura-luz-excesiva" style="color:var(--primary);text-decoration:underline">analizador de costes</a> y lleva datos reales para convencer a tus vecinos.</p>
     `,
   },
   {
@@ -897,7 +897,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="ahorro-mensual">📉 5. Ahorro mensual en la factura: Casos de éxito 2026</h2>
       <p>Analicemos un caso estándar: Una vivienda en la zona centro de España de 110m², ocupada por 4 personas, con una demanda térmica anual de 12.000 kWh para calefacción y agua caliente (ACS). Con gas natural, la factura anual total en 2026 asciende a unos **1.640€** (incluyendo el término fijo de gas y los peajes repercutidos tras la nueva normativa de emisiones fósiles).</p>
-      <p>Con una aerotermia de alta eficiencia basada en propano R290 (un SCOP real de 4.7), el consumo eléctrico anual para esa misma energía térmica es de solo 2.553 kWh. Con una <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa eléctrica optimizada de 2026</a> a 0.11€/kWh (promedio ponderado en valle), el coste anual operativo es de apenas 281€ más los términos fijos. El ahorro neto es superior a los **1.250€ al año**, lo que convierte a la aerotermia en la tecnología imbatible hoy día.</p>
+      <p>Con una aerotermia de alta eficiencia basada en propano R290 (un SCOP real de 4.7), el consumo eléctrico anual para esa misma energía térmica es de solo 2.553 kWh. Con una <a href="/tarifas" style="color:var(--primary);text-decoration:underline">tarifa eléctrica optimizada de 2026</a> a 0.11€/kWh (promedio ponderado en valle), el coste anual operativo es de apenas 281€ más los términos fijos. El ahorro neto es superior a los **1.250€ al año**, lo que convierte a la aerotermia en la tecnología imbatible hoy día.</p>
 
       <h2 id="hibridacion-solar">☀️ 6. El matrimonio perfecto: Aerotermia + Placas Solares</h2>
       <p>En el escenario energético de 2026, la recomendación de nuestros ingenieros es absoluta: si instalas aerotermia, añade el kit de 6 placas solares. La bomba de calor es la aliada perfecta del autoconsumo porque permite almacenar energía en forma de calor. Puedes calentar el depósito de agua sanitaria (ACS) y la inercia del suelo radiante a 65ºC durante las horas de máxima producción solar, reduciendo la dependencia de la red durante la noche al mínimo técnico.</p>
@@ -913,7 +913,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="conclusion-climatizacion">🚀 Conclusión 2026: ¿Cuándo elegir cada sistema?</h2>
       <p>Para viviendas principales en climas continentales o mediterráneos, la aerotermia es hoy la inversión ganadora indiscutible. La "tasa al carbono" que entrará en vigor a finales de 2026 hará que quemar gas sea un lujo insostenible. El futuro es eléctrico, renovable y eficiente. </p>
-      <p>Si tu presupuesto es muy ajustado y tu caldera actual funciona, puedes esperar un año más, pero si necesitas cambiar de equipo hoy, la bomba de calor es la única opción que protege tu bolsillo a largo plazo. No olvides usar nuestro <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:#0f69c5;text-decoration:underline">ajustador de potencia</a> una vez instalada la aerotermia, ya que podrías necesitar optimizar tus términos fijos para no regalar dinero a la eléctrica.</p>
+      <p>Si tu presupuesto es muy ajustado y tu caldera actual funciona, puedes esperar un año más, pero si necesitas cambiar de equipo hoy, la bomba de calor es la única opción que protege tu bolsillo a largo plazo. No olvides usar nuestro <a href="/blog/como-reducir-potencia-contratada-luz-ahorrar" style="color:var(--primary);text-decoration:underline">ajustador de potencia</a> una vez instalada la aerotermia, ya que podrías necesitar optimizar tus términos fijos para no regalar dinero a la eléctrica.</p>
     `,
   },
   {
@@ -945,7 +945,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="comparativa-costes">💹 1. Comparativa 2026: Gasolina vs Electricidad</h2>
       <p>Para entender la magnitud del ahorro en 2026, debemos mirar el coste por cada 100 km. Un coche de combustión eficiente consume hoy un promedio de 6.2 litros a los 100 km, lo que a precios actuales de 2,15€/litro (incluyendo el nuevo impuesto al carbono y las ecotasas europeas) supone un gasto de **13,33€**. </p>
-      <p>Un vehículo equivalente cien por cien eléctrico consume una media de 17.5 kWh para recorrer esa misma distancia. Si utilizas una <a href="/tarifas" style="color:#0f69c5;text-decoration:underline">tarifa nocturna optimizada de 2026</a> (con un precio valle de 0,031€/kWh), recorrer esos 100 km te cuesta exactamente **0,54€**. En un año de uso estándar (20.000 km), el gasto en combustible pasa de 2.666€ a solo 108€. El ahorro neto anual supera los 2.500€, amortizando la diferencia de precio del vehículo en menos de tres años.</p>
+      <p>Un vehículo equivalente cien por cien eléctrico consume una media de 17.5 kWh para recorrer esa misma distancia. Si utilizas una <a href="/tarifas" style="color:var(--primary);text-decoration:underline">tarifa nocturna optimizada de 2026</a> (con un precio valle de 0,031€/kWh), recorrer esos 100 km te cuesta exactamente **0,54€**. En un año de uso estándar (20.000 km), el gasto en combustible pasa de 2.666€ a solo 108€. El ahorro neto anual supera los 2.500€, amortizando la diferencia de precio del vehículo en menos de tres años.</p>
 
       <div class="blog-table-container">
         <table class="blog-table">
@@ -970,7 +970,7 @@ export const blogPosts: BlogPost[] = [
       <p>Además, estos equipos incorporan protecciones eléctricas integradas (protección contra fugas de corriente continua y sobretensiones), lo que simplifica la instalación y garantiza la seguridad de la batería del coche y de la instalación eléctrica de tu comunidad de vecinos. Nunca cargues un coche de forma habitual en un enchufe Schuko convencional de pared, ya que no están diseñados para soportar 10 o 12 horas de carga continuada a máxima intensidad.</p>
       <h2 id="carga-solar">☀️ 4. Integración Fotovoltaica: El coche como batería inteligente (V2H)</h2>
       <p>La gran revolución de 2026 es el **Vehicle-to-Home (V2H)**. Ya no se trata solo de cargar el coche con el sol, sino de usar la inmensa batería de tu vehículo (normalmente entre 50 y 85 kWh) para alimentar tu casa cuando no hay sol o el precio de la luz es prohibitivo. Un hogar medio consume unos 10 kWh al día; la batería de un coche eléctrico cargado al 80% podría alimentar tu vivienda durante casi una semana completa en caso de necesidad.</p>
-      <p>Si dispones de una instalación de autoconsumo solar, hoy es posible priorizar que los excedentes vayan al coche en lugar de verterlos a la red por una compensación ínfima. El cargador inteligente se comunica con el <a href="/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026" style="color:#0f69c5;text-decoration:underline">inversor de las placas</a> y ajusta la carga segundo a segundo para que sea **100% gratuita y verde**.</p>
+      <p>Si dispones de una instalación de autoconsumo solar, hoy es posible priorizar que los excedentes vayan al coche en lugar de verterlos a la red por una compensación ínfima. El cargador inteligente se comunica con el <a href="/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026" style="color:var(--primary);text-decoration:underline">inversor de las placas</a> y ajusta la carga segundo a segundo para que sea **100% gratuita y verde**.</p>
 
       <h2 id="subvenciones-itv">📄 5. Ayudas 2026 y Beneficios Fiscales en España</h2>
       <p>El apoyo institucional a la movilidad eléctrica ha alcanzado su pico en 2026. Además de las subvenciones directas a la compra y a la instalación del Wallbox (que cubren hasta un 70% del coste de instalación), existen importantes ventajas fiscales que muchos usuarios olvidan:</p>
@@ -981,7 +981,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2 id="veredicto-movilidad">🚀 Conclusión: La rentabilidad ya no es una opinión</h2>
-      <p>En 2026, la movilidad eléctrica ha dejado de ser una apuesta de futuro para convertirse en la decisión económica más inteligente de cualquier hogar. El ahorro en combustible paga la inversión en pocos años, y la libertad de no depender de gasolineras ni de sus precios variables es un beneficio intangible pero de un valor incalculable. Si tienes plaza de garaje, tienes el control de tu energía. No esperes más para comparar las <a href="/comparador" style="color:#0f69c5;text-decoration:underline">mejores tarifas para vehículo eléctrico</a> y empieza a conducir por menos de 4€ el depósito completo.</p>
+      <p>En 2026, la movilidad eléctrica ha dejado de ser una apuesta de futuro para convertirse en la decisión económica más inteligente de cualquier hogar. El ahorro en combustible paga la inversión en pocos años, y la libertad de no depender de gasolineras ni de sus precios variables es un beneficio intangible pero de un valor incalculable. Si tienes plaza de garaje, tienes el control de tu energía. No esperes más para comparar las <a href="/comparador" style="color:var(--primary);text-decoration:underline">mejores tarifas para vehículo eléctrico</a> y empieza a conducir por menos de 4€ el depósito completo.</p>
     `,
   },
   {
@@ -1000,7 +1000,7 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1720,
     tags: ["Aislamiento", "Eficiencia", "SATE", "Ahorro Pasivo", "2026"],
     content: `
-      <p>El aislamiento térmico se ha consolidado en 2026 como la inversión con mayor retorno real en cualquier hogar español. Con la implantación obligatoria del "Pasaporte Energético" en muchas comunidades autónomas, rehabilitar la envolvente de tu vivienda ya no es solo una cuestión de confort, sino una necesidad para mantener el valor de mercado del inmueble. No tiene sentido invertir en la mejor <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026-rentabilidad-ahorro" style="color:#0f69c5;text-decoration:underline">aerotermia</a> si tus muros y ventanas son auténticos sumideros térmicos por donde se escapa gran parte de tu dinero cada mes.</p>
+      <p>El aislamiento térmico se ha consolidado en 2026 como la inversión con mayor retorno real en cualquier hogar español. Con la implantación obligatoria del "Pasaporte Energético" en muchas comunidades autónomas, rehabilitar la envolvente de tu vivienda ya no es solo una cuestión de confort, sino una necesidad para mantener el valor de mercado del inmueble. No tiene sentido invertir en la mejor <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026-rentabilidad-ahorro" style="color:var(--primary);text-decoration:underline">aerotermia</a> si tus muros y ventanas son auténticos sumideros térmicos por donde se escapa gran parte de tu dinero cada mes.</p>
       
       <h2 id="indice">Ahorro Pasivo: Índice de la Rehabilitación Energética 2026</h2>
       <ul>
@@ -1013,7 +1013,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="envolvente-termica">🏘️ 1. La Envolvente Térmica: ¿Por dónde se escapa tu dinero?</h2>
       <p>En 2026, los auditores energéticos ya no miran solo la caldera, sino la "estanqueidad" de la vivienda. En una casa estándar mal aislada de los años 90, hasta el **35% del calor se pierde por los muros** y un **25% por el tejado**. Los puentes térmicos en ventanas y cajetines de persiana son responsables de otro 20% de la fuga de energía.</p>
-      <p>Invertir en aislamiento es realizar un "ahorro preventivo". Cada euro invertido en la envolvente reduce la potencia necesaria de tu futura <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026-rentabilidad-ahorro" style="color:#0f69c5;text-decoration:underline">aerotermia</a>, permitiéndote instalar equipos más económicos y consumiendo, literalmente, la mitad de electricidad para mantener los mismos 22ºC en invierno.</p>
+      <p>Invertir en aislamiento es realizar un "ahorro preventivo". Cada euro invertido en la envolvente reduce la potencia necesaria de tu futura <a href="/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026-rentabilidad-ahorro" style="color:var(--primary);text-decoration:underline">aerotermia</a>, permitiéndote instalar equipos más económicos y consumiendo, literalmente, la mitad de electricidad para mantener los mismos 22ºC en invierno.</p>
 
 
       <div class="blog-table-container">
@@ -1055,7 +1055,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2 id="conclusion-aislamiento">🚀 Conclusión: La mejor inversión energética de 2026</h2>
-      <p>Si tienes un presupuesto limitado, no lo dudes: aísla antes de climatizar. Un buen aislamiento es para siempre, no tiene averías y te protege tanto del frío invernal como de las olas de calor veraniegas. En 2026, una casa eficiente es una casa con futuro y mayor valor de mercado. Si quieres saber cómo afecta la mejora del aislamiento a tu consumo real, prueba nuestro <a href="/comparador" style="color:#0f69c5;text-decoration:underline">analizador de facturas</a> y descubre cuánto podrías ahorrar ajustando también tu tarifa eléctrica actual.</p>
+      <p>Si tienes un presupuesto limitado, no lo dudes: aísla antes de climatizar. Un buen aislamiento es para siempre, no tiene averías y te protege tanto del frío invernal como de las olas de calor veraniegas. En 2026, una casa eficiente es una casa con futuro y mayor valor de mercado. Si quieres saber cómo afecta la mejora del aislamiento a tu consumo real, prueba nuestro <a href="/comparador" style="color:var(--primary);text-decoration:underline">analizador de facturas</a> y descubre cuánto podrías ahorrar ajustando también tu tarifa eléctrica actual.</p>
     `,
   },
   {
@@ -1074,7 +1074,7 @@ export const blogPosts: BlogPost[] = [
     wordCount: 1680,
     tags: ["Domótica", "Smart Home", "Tecnología", "2026"],
     content: `
-      <p>La domótica en 2026 ha dejado de ser un juguete para entusiastas de la tecnología para convertirse en el cerebro económico de la vivienda moderna. En un mercado donde el <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz varía hora a hora</a> de forma extrema, la capacidad de automatizar el consumo es lo que separa un ahorro mediocre de una factura de 0€. Descubre los dispositivos inteligentes que hoy ya se pagan solos con el ahorro generado en sus primeros meses de uso.</p>
+      <p>La domótica en 2026 ha dejado de ser un juguete para entusiastas de la tecnología para convertirse en el cerebro económico de la vivienda moderna. En un mercado donde el <a href="/precio-luz-hoy" style="color:var(--primary);text-decoration:underline">precio de la luz varía hora a hora</a> de forma extrema, la capacidad de automatizar el consumo es lo que separa un ahorro mediocre de una factura de 0€. Descubre los dispositivos inteligentes que hoy ya se pagan solos con el ahorro generado en sus primeros meses de uso.</p>
       
       <h2 id="indice">Índice de Digitalización Energética</h2>
       <ul>
@@ -1107,7 +1107,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="automatizacion">🛰️ 2. Automatización por API: Enlazando con el mercado mayorista</h2>
       <p>La verdadera revolución de la eficiencia energética en 2026 no es solo el hardware, sino la **algoritmia**. Hoy en día, gracias a la apertura de las APIs de las principales comercializadoras y de Red Eléctrica Española (REE), tu casa es capaz de realizar una "previsión de precios" diaria. Los electrodomésticos inteligentes ya no se programan a una hora fija (por ejemplo, a las 2 AM), sino que consultan dinámicamente el pool eléctrico a las 20:15h del día anterior y ajustan su encendido al nanosegundo más barato.</p>
-      <p>Este sistema, conocido como **Dynamic Scheduling**, permite que dispositivos de alto consumo como el termo eléctrico o la lavadora aprovechen los tramos de máxima generación eólica o solar, donde el precio puede llegar a ser de 0€/MWh. Si quieres configurar tu propio sistema, no olvides visitar nuestra sección diaria del <a href="/precio-luz-hoy" style="color:#0f69c5;text-decoration:underline">precio de la luz hoy</a> para saber cuándo tu casa debe entrar en modo ultra-ahorro.</p>
+      <p>Este sistema, conocido como **Dynamic Scheduling**, permite que dispositivos de alto consumo como el termo eléctrico o la lavadora aprovechen los tramos de máxima generación eólica o solar, donde el precio puede llegar a ser de 0€/MWh. Si quieres configurar tu propio sistema, no olvides visitar nuestra sección diaria del <a href="/precio-luz-hoy" style="color:var(--primary);text-decoration:underline">precio de la luz hoy</a> para saber cuándo tu casa debe entrar en modo ultra-ahorro.</p>
 
       <h2 id="protocolos">🔌 3. Matter y Thread: El fin de las incompatibilidades en 2026</h2>
       <p>Históricamente, el ahorro domótico se veía frenado por la fragmentación: si tenías una bombilla de una marca y un termostato de otra, rara vez hablaban entre sí. En 2026, esto es historia gracias a **Matter**. Este estándar universal permite que cualquier dispositivo de ahorro se comunique con el resto sin necesidad de puentes (hubs) propietarios costosos.</p>
@@ -1115,15 +1115,15 @@ export const blogPosts: BlogPost[] = [
 
       <h2 id="enfoches-smart">🧠 4. Enchufes con medidor y el fin del Standby</h2>
       <p>Aunque parezca mentira, el consumo fantasma (standby) de los hogares españoles sigue representando en 2026 cerca del 10% de la factura eléctrica anual. Los enchufes inteligentes actuales realizan una monitorización activa de la carga. Si detectan que tu televisor o tu equipo de audio llevan más de 20 minutos consumiendo solo unos vatios residuales, cortan la corriente por completo.</p>
-      <p>Además, al integrarse con nuestro <a href="/comparador" style="color:#0f69c5;text-decoration:underline">comparador de tarifas</a>, estos enchufes pueden priorizar la carga de dispositivos portátiles (tablets, robots aspiradores) solo cuando el precio de la red está por debajo de un umbral que tú mismo defines. Ya no eres tú el que vigila el reloj; es tu casa la que vigila el mercado.</p>
+      <p>Además, al integrarse con nuestro <a href="/comparador" style="color:var(--primary);text-decoration:underline">comparador de tarifas</a>, estos enchufes pueden priorizar la carga de dispositivos portátiles (tablets, robots aspiradores) solo cuando el precio de la red está por debajo de un umbral que tú mismo defines. Ya no eres tú el que vigila el reloj; es tu casa la que vigila el mercado.</p>
 
       <h2 id="excedentes">☀️ 5. Gestión Dinámica de Excedentes: El cerebro solar</h2>
-      <p>Para quienes ya disfrutan de una instalación de <a href="/blog/como-instalar-placas-solares-en-casa-guia-paso-a-paso-2026-rentabilidad" style="color:#0f69c5;text-decoration:underline">placas solares</a>, la domótica es absolutamente obligatoria. El "Cerebro Solar" es un software domótico que monitoriza la generación en tiempo real. En lugar de verter los excedentes a la red por una miseria (la típica compensación de excedentes), la casa activa de forma inteligente el aire acondicionado o la carga del vehículo eléctrico para aprovechar cada fotón gratuito.</p>
+      <p>Para quienes ya disfrutan de una instalación de <a href="/blog/como-instalar-placas-solares-en-casa-guia-paso-a-paso-2026-rentabilidad" style="color:var(--primary);text-decoration:underline">placas solares</a>, la domótica es absolutamente obligatoria. El "Cerebro Solar" es un software domótico que monitoriza la generación en tiempo real. En lugar de verter los excedentes a la red por una miseria (la típica compensación de excedentes), la casa activa de forma inteligente el aire acondicionado o la carga del vehículo eléctrico para aprovechar cada fotón gratuito.</p>
       <p>En 2026, estos sistemas son tan sofisticados que incluso pueden "vender" energía a la red cuando el precio de mercado es altísimo (picos de demanda tarde-noche) usando la batería del hogar o del coche, maximizando la rentabilidad de tu inversión solar de forma automática.</p>
 
       <h2 id="veredicto-digital">🚀 Veredicto 2026: ¿Vale la pena la inversión?</h2>
       <p>La digitalización energética en 2026 no es un gasto, es una de las inversiones con el periodo de amortización más corto. Un kit básico de domótica para ahorro (termostato, 4 enchufes inteligentes y sensores de iluminación) tiene un coste aproximado de 300€ y es capaz de generar ahorros de hasta 450€ en su primer año de funcionamiento en una vivienda familiar media.</p>
-      <p>El ahorro domótico es el paso final lógico tras haber optimizado tu <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:#0f69c5;text-decoration:underline">potencia contratada</a>. Si ya no puedes bajar más tus términos fijos, el siguiente nivel es controlar tu consumo variable hora a hora de forma inteligente. El futuro no es solo eléctrico; el futuro es Smart.</p>
+      <p>El ahorro domótico es el paso final lógico tras haber optimizado tu <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:var(--primary);text-decoration:underline">potencia contratada</a>. Si ya no puedes bajar más tus términos fijos, el siguiente nivel es controlar tu consumo variable hora a hora de forma inteligente. El futuro no es solo eléctrico; el futuro es Smart.</p>
     `,
   }
 ];

@@ -191,7 +191,7 @@ export default function CompaniasClient() {
                                 </div>
 
                                 <div className="mb-8">
-                                    <span className="text-[12px] font-600 text-[#0f69c5] bg-[#0f69c5]/5 px-3 py-1 rounded-full">
+                                    <span className="text-[12px] font-600 text-primary bg-primary/5 px-3 py-1 rounded-full">
                                         Desde {provider.minPrice.toFixed(3)} €/kWh
                                     </span>
                                 </div>
