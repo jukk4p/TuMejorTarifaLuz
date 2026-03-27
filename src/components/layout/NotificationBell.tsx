@@ -158,9 +158,11 @@ export default function NotificationBell() {
                                                         {n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}
                                                     </span>
                                                 </div>
-                                                <p className="text-[11px] text-text-secondary leading-relaxed">
-                                                    {n.message}
-                                                </p>
+                                                <div className="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border/50 overflow-x-auto shadow-inner">
+                                                    <p className="text-[10px] font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
+                                                        {n.message}
+                                                    </p>
+                                                </div>
                                                 {n.link && (
                                                     <Link 
                                                         href={n.link} 
@@ -234,9 +236,11 @@ export default function NotificationBell() {
                                                 <p className={`text-xs font-black truncate ${!n.readBy?.includes(user?.uid || '') ? 'text-text-primary' : 'text-slate-500'}`}>{n.title}</p>
                                                 <span className="shrink-0 text-[10px] font-bold text-slate-400">{n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}</span>
                                             </div>
-                                            <p className="text-xs text-text-secondary leading-tight">
-                                                {n.message}
-                                            </p>
+                                            <div className="p-3 bg-surface border border-border/50 rounded-xl shadow-inner overflow-x-auto">
+                                                <p className="text-[10px] font-mono leading-tight whitespace-pre text-text-primary max-w-none">
+                                                    {n.message}
+                                                </p>
+                                            </div>
                                             <div className="flex items-center gap-4 pt-2">
                                                 {n.link && <Link href={n.link} onClick={() => {setIsOpen(false); markAsRead(n.id!)}} className="text-[10px] font-black text-primary">Ver detalles</Link>}
                                                 <button onClick={() => hideNotification(n.id!)} className="text-[10px] font-black text-red-500">Eliminar</button>

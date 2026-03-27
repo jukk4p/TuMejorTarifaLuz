@@ -99,17 +99,19 @@ export default function DashboardPage() {
         try {
             // 1. Send Notification
             const changeMessages = changes.map(c => {
-                const details = c.changes.map(d => 
-                    `  - se ha actualizado los precios de ${d.label} de ${d.oldValue.toFixed(4)}€ a ${d.newValue.toFixed(4)}€`
-                ).join('\n');
-                return `- La tarifa "${c.tariff.name}" de la compañía ${c.tariff.company} ha cambiado sus precios:\n${details}`;
+                const header = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${c.tariff.company.toUpperCase()} · ${c.tariff.name.toUpperCase()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+                const details = c.changes.map(d => {
+                    const icon = d.label.includes('Energía') ? '⚡' : d.label.includes('Potencia') ? '🔌' : '☀️';
+                    return `${icon} ${d.label.padEnd(20)}: ${d.oldValue.toFixed(4)}€  →  ${d.newValue.toFixed(4)}€`;
+                }).join('\n');
+                return `${header}\n${details}`;
             }).join('\n\n');
             
             const title = changes.length === 1 
                 ? `Cambio de precios en ${changes[0].tariff.company}` 
                 : "Actualización múltiple de precios";
             
-            await notifySystemUpdate(title, `Se han actualizado las siguientes tarifas:\n\n${changeMessages}`);
+            await notifySystemUpdate(title, changeMessages);
 
             // 2. Update Snapshot
             const docRef = doc(db, "system_state", "tariffs_snapshot");

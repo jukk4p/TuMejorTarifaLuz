@@ -214,9 +214,11 @@ export default function NotificationsPage() {
                                             </div>
                                         </div>
 
-                                        <p className="text-text-secondary leading-relaxed max-w-2xl font-medium whitespace-pre-line">
-                                            {n.message}
-                                        </p>
+                                        <div className={`p-5 md:p-6 rounded-2xl border ${!n.readBy?.includes(user?.uid || '') ? 'bg-white dark:bg-slate-900 border-primary/10' : 'bg-slate-50 dark:bg-slate-800/40 border-border'} shadow-inner overflow-x-auto`}>
+                                            <p className="text-[10px] md:text-xs font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
+                                                {n.message}
+                                            </p>
+                                        </div>
 
                                         <div className="flex items-center gap-4 pt-2">
                                             {n.link && (
