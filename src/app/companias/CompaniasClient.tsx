@@ -157,7 +157,7 @@ export default function CompaniasClient() {
                                 className="group premium-card p-10 flex flex-col hover:shadow-2xl transition-all duration-500 border border-border bg-surface relative"
                             >
                                 <div className="flex justify-between items-start mb-8">
-                                    <div className="w-24 h-12 relative flex items-center justify-center transition-all duration-500">
+                                    <div className="w-32 h-16 relative flex items-center justify-center transition-all duration-500">
                                         <img
                                             src={mounted && resolvedTheme === 'dark' && provider.logo_dark ? provider.logo_dark : provider.logo}
                                             alt={provider.name}
