@@ -416,11 +416,11 @@ export default function ComparadorMain() {
             else if (analysisProgress < 85) setAnalysisStatus("Validando tramos con normativa vigente...");
             else setAnalysisStatus("Construyendo tu propuesta de ahorro definitiva...");
         } else {
-            if (analysisProgress < 20) setAnalysisStatus("Iniciando análisis energético experto...");
-            else if (analysisProgress < 40) setAnalysisStatus("Calculando costes fijos y variables...");
-            else if (analysisProgress < 60) setAnalysisStatus("Maximizando potencial de ahorro...");
-            else if (analysisProgress < 80) setAnalysisStatus("Escaneando mercado (25+ tarifas)...");
-            else setAnalysisStatus("Generando tu comparativa personalizada...");
+            if (analysisProgress < 20) setAnalysisStatus("Leyendo los datos de tu factura...");
+            else if (analysisProgress < 40) setAnalysisStatus("Aplicando impuestos y peajes vigentes...");
+            else if (analysisProgress < 60) setAnalysisStatus("Comparando con 25+ tarifas del mercado...");
+            else if (analysisProgress < 80) setAnalysisStatus("Identificando la tarifa más barata para ti...");
+            else setAnalysisStatus("Preparando tu informe de ahorro...");
         }
     }, [analysisProgress, isProcessing, isAiGenerated, step]);
 
@@ -932,7 +932,8 @@ export default function ComparadorMain() {
 
                 {step === "input" && inputMethod && (
                     <div className="flex flex-col lg:flex-row gap-8 animate-in fade-in duration-500">
-                        <aside className="w-full lg:w-[400px] shrink-0 flex flex-col">
+                        {!isProcessing && (
+                            <aside className="w-full lg:w-[400px] shrink-0 flex flex-col">
                             <div className="premium-card bg-dot-pattern p-6 flex-1 h-full flex flex-col shadow-2xl shadow-primary/20 transition-all duration-500 hover:shadow-primary/30 relative">
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-transparent dark:from-surface/80 dark:to-transparent pointer-events-none rounded-[1.5rem]"></div>
                                 
@@ -1106,7 +1107,8 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             </div>
-                        </aside>
+                            </aside>
+                        )}
 
                         <section className="flex-1 flex flex-col space-y-6">
                             {(inputMethod === "upload" && !hasAnalyzed && !isProcessing) ? (
@@ -1145,42 +1147,54 @@ export default function ComparadorMain() {
                                 </div>
                             ) : isProcessing ? (
                                 <div className="premium-card p-8 md:p-12 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[550px] !border-none !shadow-2xl bg-gradient-to-br from-surface/95 to-surface-2/95">
-                                    {/* Animated Background Grid */}
+                                    {/* === PRO CYBER BACKGROUND === */}
                                     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                                        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, #137fec 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-                                        {/* Scanning line */}
-                                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-[scan_3s_ease-in-out_infinite]"></div>
-                                        {/* Gradient orbs */}
-                                        <div className={`absolute w-[600px] h-[600px] rounded-full blur-[120px] -top-48 -right-48 transition-all duration-1000 ${loaderStage === 0 ? 'bg-primary/10' : loaderStage === 1 ? 'bg-amber-400/10' : loaderStage === 2 ? 'bg-emerald-400/10' : 'bg-violet-500/10'}`}></div>
-                                        <div className={`absolute w-[400px] h-[400px] rounded-full blur-[100px] -bottom-32 -left-32 transition-all duration-1000 ${loaderStage === 0 ? 'bg-violet-500/8' : loaderStage === 1 ? 'bg-primary/8' : loaderStage === 2 ? 'bg-amber-400/8' : 'bg-emerald-400/8'}`}></div>
+                                        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(circle, #137fec 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+                                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(var(--color-surface),0.8)_100%)]"></div>
+                                        
+                                        {/* Scanning lines - dual beam */}
+                                        <div className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent animate-[scan_4s_linear_infinite] shadow-[0_0_15px_rgba(19,127,236,0.3)]"></div>
+                                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent animate-[scan_6s_linear_infinite_reverse] shadow-[0_0_10px_rgba(242,153,74,0.2)]"></div>
+                                        
+                                        {/* Dynamic Gradient Orbs - More intense */}
+                                        <div className={`absolute w-[800px] h-[800px] rounded-full blur-[140px] -top-64 -right-64 transition-all duration-1500 opacity-60 ${loaderStage === 0 ? 'bg-primary/20' : loaderStage === 1 ? 'bg-amber-400/20' : loaderStage === 2 ? 'bg-emerald-400/20' : 'bg-violet-500/20'}`}></div>
+                                        <div className={`absolute w-[600px] h-[600px] rounded-full blur-[120px] -bottom-48 -left-48 transition-all duration-1500 opacity-40 ${loaderStage === 0 ? 'bg-violet-500/15' : loaderStage === 1 ? 'bg-primary/15' : loaderStage === 2 ? 'bg-amber-400/15' : 'bg-emerald-400/15'}`}></div>
+                                        
+                                        {/* Corner Accents */}
+                                        <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-primary/20 rounded-tl-3xl m-8"></div>
+                                        <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-primary/20 rounded-br-3xl m-8"></div>
                                     </div>
 
                                     <div className="relative z-10 w-full flex flex-col items-center">
+                                        <div className="mb-2">
+                                            <span className="text-[10px] font-black tracking-[0.4em] text-primary/60 uppercase">Comparador Inteligente de Tarifas</span>
+                                        </div>
 
                                         {/* === MAIN ORB LOADER === */}
                                         <div className="relative w-44 h-44 md:w-52 md:h-52 mb-8">
                                             {/* Outer pulse rings */}
                                             <div className={`absolute inset-0 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-10 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`}></div>
-                                            <div className={`absolute -inset-3 rounded-full transition-all duration-700 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-5 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`} style={{animationDelay: '0.5s'}}></div>
-                                            
-                                            {/* Spinning arc rings */}
+                                            {/* Spinning arc rings - Multi-layered tech stack */}
+                                            <svg className="absolute inset-[-10px] w-[calc(100%+20px)] h-[calc(100%+20px)] animate-[spin_8s_linear_infinite] opacity-30" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 10" className="text-primary" />
+                                            </svg>
                                             <svg className="absolute inset-0 w-full h-full animate-[spin_4s_linear_infinite]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="95" fill="none" strokeWidth="1.5" strokeDasharray="60 200" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage < 2 ? 'stroke-primary/40' : 'stroke-accent/40'}`} />
+                                                <circle cx="100" cy="100" r="95" fill="none" strokeWidth="2" strokeDasharray="60 200" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage < 2 ? 'stroke-primary/50' : 'stroke-accent/50'}`} />
                                             </svg>
-                                            <svg className="absolute inset-0 w-full h-full animate-[spin_3s_linear_infinite_reverse]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="85" fill="none" strokeWidth="1" strokeDasharray="40 180" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-violet-500/30' : loaderStage === 1 ? 'stroke-primary/30' : loaderStage === 2 ? 'stroke-amber-400/30' : 'stroke-emerald-500/30'}`} />
+                                            <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] animate-[spin_3s_linear_infinite_reverse]" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="85" fill="none" strokeWidth="1.5" strokeDasharray="40 180" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-violet-500/40' : loaderStage === 1 ? 'stroke-primary/40' : loaderStage === 2 ? 'stroke-amber-400/40' : 'stroke-emerald-500/40'}`} />
                                             </svg>
-                                            <svg className="absolute inset-0 w-full h-full animate-[spin_6s_linear_infinite]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="75" fill="none" strokeWidth="2" strokeDasharray="30 120" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-emerald-500/25' : loaderStage === 1 ? 'stroke-violet-500/25' : loaderStage === 2 ? 'stroke-primary/25' : 'stroke-amber-400/25'}`} />
+                                            <svg className="absolute inset-4 w-[calc(100%-32px)] h-[calc(100%-32px)] animate-[spin_6s_linear_infinite]" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="75" fill="none" strokeWidth="3" strokeDasharray="10 100" strokeLinecap="round" className={`transition-all duration-700 ${loaderStage === 0 ? 'stroke-emerald-500/30' : loaderStage === 1 ? 'stroke-violet-500/30' : loaderStage === 2 ? 'stroke-primary/30' : loaderStage === 3 ? 'stroke-amber-400/30' : 'stroke-accent/30'}`} />
                                             </svg>
 
-                                            {/* Progress arc (SVG) */}
-                                            <svg className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] -rotate-90" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" className="stroke-surface-2" />
-                                                <circle cx="100" cy="100" r="90" fill="none" strokeWidth="3" strokeLinecap="round"
-                                                    className={`transition-all duration-500 ease-out ${loaderStage < 2 ? 'stroke-primary' : 'stroke-accent'}`}
-                                                    strokeDasharray={`${analysisProgress * 5.65} 565`}
-                                                    style={{filter: `drop-shadow(0 0 6px ${loaderStage < 2 ? 'var(--color-primary)' : 'var(--color-accent)'})`}}
+                                            {/* Progress arc (SVG) - Thick & Glowing */}
+                                            <svg className="absolute inset-[-5px] w-[calc(100%+10px)] h-[calc(100%+10px)] -rotate-90 drop-shadow-2xl" viewBox="0 0 200 200">
+                                                <circle cx="100" cy="100" r="92" fill="none" strokeWidth="5" className="stroke-surface-2 opacity-50" />
+                                                <circle cx="100" cy="100" r="92" fill="none" strokeWidth="5" strokeLinecap="round"
+                                                    className={`transition-all duration-1000 ease-in-out ${loaderStage < 2 ? 'stroke-primary' : 'stroke-accent'}`}
+                                                    strokeDasharray={`${analysisProgress * 5.78} 578`}
+                                                    style={{filter: `drop-shadow(0 0 12px ${loaderStage < 2 ? 'rgba(19, 127, 236, 0.6)' : 'rgba(242, 153, 74, 0.6)'})`}}
                                                 />
                                             </svg>
 
@@ -1203,15 +1217,16 @@ export default function ComparadorMain() {
                                                 </div>
                                             </div>
 
-                                            {/* Floating orbital dots */}
-                                            {[0, 1, 2, 3, 4, 5].map((i) => (
-                                                <div key={i} className={`absolute w-1.5 h-1.5 rounded-full transition-all duration-700 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`}
+                                            {/* Floating orbital dots - More organic & high-tech */}
+                                            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                                                <div key={i} className={`absolute w-1.5 h-1.5 rounded-full transition-all duration-1000 ${loaderStage < 2 ? 'bg-primary' : 'bg-accent'}`}
                                                     style={{
-                                                        top: `${50 + 48 * Math.sin((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
-                                                        left: `${50 + 48 * Math.cos((i * 60 + Date.now() / 20) * Math.PI / 180)}%`,
-                                                        opacity: 0.3 + (i % 3) * 0.2,
-                                                        animation: `ping ${1.5 + i * 0.3}s cubic-bezier(0, 0, 0.2, 1) infinite`,
-                                                        animationDelay: `${i * 0.2}s`
+                                                        top: `${50 + 52 * Math.sin((i * 45 + Date.now() / 15) * Math.PI / 180)}%`,
+                                                        left: `${50 + 52 * Math.cos((i * 45 + Date.now() / 15) * Math.PI / 180)}%`,
+                                                        opacity: 0.15 + (i % 4) * 0.2,
+                                                        boxShadow: `0 0 8px ${loaderStage < 2 ? 'rgba(19, 127, 236, 0.8)' : 'rgba(242, 153, 74, 0.8)'}`,
+                                                        animation: `float ${3 + i * 0.5}s ease-in-out infinite`,
+                                                        animationDelay: `${i * 0.3}s`
                                                     }}
                                                 />
                                             ))}
@@ -1226,23 +1241,23 @@ export default function ComparadorMain() {
                                                 <span className="text-xl font-black text-text-muted">%</span>
                                             </div>
                                             <h3 key={`title-${loaderStage}`} className="text-lg md:text-xl font-800 tracking-tight text-text-secondary animate-in fade-in duration-500">
-                                                {isAiGenerated && step === "input" ? "Procesando análisis..." :
-                                                    loaderStage === 0 ? "Iniciando análisis..." :
-                                                        loaderStage === 1 ? "Calculando costes..." :
-                                                            loaderStage === 2 ? "Optimizando tarifas..." :
-                                                                loaderStage === 3 ? "Comparando mercado..." :
-                                                                    "Finalizando..."}
+                                                {isAiGenerated && step === "input" ? "Procesando tu factura..." :
+                                                    loaderStage === 0 ? "Analizando tu consumo..." :
+                                                        loaderStage === 1 ? "Calculando tu factura..." :
+                                                            loaderStage === 2 ? "Buscando tarifas más baratas..." :
+                                                                loaderStage === 3 ? "Comparando ofertas..." :
+                                                                    "Generando resultados..."}
                                             </h3>
                                         </div>
 
                                         {/* === Step Indicators === */}
                                         <div className="flex items-center gap-1.5 mb-6">
                                             {[
-                                                { label: 'Análisis', icon: <Terminal size={11} /> },
-                                                { label: 'Cálculo', icon: <Zap size={11} /> },
-                                                { label: 'Optimiza', icon: <TrendingDown size={11} /> },
-                                                { label: 'Mercado', icon: <ArrowLeftRight size={11} /> },
-                                                { label: 'Resultado', icon: <CheckCircle2 size={11} /> },
+                                                { label: 'Consumo', icon: <Gauge size={11} /> },
+                                                { label: 'Factura', icon: <CreditCard size={11} /> },
+                                                { label: 'Tarifas', icon: <Search size={11} /> },
+                                                { label: 'Ahorro', icon: <TrendingDown size={11} /> },
+                                                { label: 'Resultado', icon: <Trophy size={11} /> },
                                             ].map((s, i) => (
                                                 <div key={i} className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider transition-all duration-500 ${
                                                     i < loaderStage ? 'bg-accent-bg text-accent border border-accent/20' :
@@ -3040,9 +3055,9 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className={`p-6 md:p-10 grid grid-cols-1 ${selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-12`}>
+                                        <div className="p-6 md:p-10 flex flex-col gap-10 max-w-3xl mx-auto w-full">
                                             <div className="flex flex-col">
-                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
+                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6 whitespace-nowrap">
                                                     <span className="text-sm">🔌</span> Término de Potencia
                                                 </h5>
                                                 <div className="space-y-3 mt-6 flex-1">
@@ -3063,7 +3078,7 @@ export default function ComparadorMain() {
                                                 </div>
                                             </div>
                                             <div className="flex flex-col">
-                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
+                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6 whitespace-nowrap">
                                                     <span className="text-sm">⚡</span> Término de Energía
                                                 </h5>
                                                 <div className="mt-6 flex-1">
@@ -3102,8 +3117,8 @@ export default function ComparadorMain() {
                                             </div>
                                             {selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? (
                                                 <div className="flex flex-col animate-in fade-in slide-in-from-right-4 duration-700">
-                                                    <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
-                                                        <span className="text-sm">☀️</span> Compensación de Excedentes
+                                                    <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6 whitespace-nowrap">
+                                                        <span className="text-sm">☀️</span> Excedentes
                                                     </h5>
                                                     <div className="mt-6 flex-1">
                                                         <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
