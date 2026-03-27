@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import { Bell, Zap, Megaphone, Info, Check, Trash2, ChevronRight, Clock, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Building2, Activity } from "lucide-react";
 import { getLogoPath } from "@/lib/tariffs";
 import { db } from "@/lib/firebase";
@@ -22,7 +23,7 @@ import { Notification } from "@/lib/notifications";
 import Link from "next/link";
 
 // Subcomponent for modern tariff update view
-function TariffUpdateDetail({ data }: { data: any[] }) {
+function TariffUpdateDetail({ data, isDark }: { data: any[], isDark: boolean }) {
     if (!data || !Array.isArray(data)) return null;
 
     // Calculate Global Stats
@@ -75,8 +76,11 @@ function TariffUpdateDetail({ data }: { data: any[] }) {
                         <div className="px-8 py-5 border-b border-border flex items-center justify-between bg-slate-50 dark:bg-slate-800/30">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 border border-border shadow-inner">
-                                   {/* Fallback to initials if getLogoPath returns none or logo not matched */}
-                                   <div className="text-[10px] font-black text-primary uppercase">{(item.tariff?.company || "C").substring(0, 3)}</div>
+                                   {getLogoPath(item.tariff.company, isDark) ? (
+                                       <img src={getLogoPath(item.tariff.company, isDark)!} alt={item.tariff.company} className="w-full h-full object-contain" />
+                                   ) : (
+                                       <div className="text-[10px] font-black text-primary uppercase">{(item.tariff?.company || "C").substring(0, 3)}</div>
+                                   )}
                                 </div>
                                 <div>
                                     <h4 className="font-900 text-text-primary uppercase tracking-tight leading-none mb-1">{item.tariff.company}</h4>
@@ -174,6 +178,7 @@ function TariffUpdateDetail({ data }: { data: any[] }) {
 
 export default function NotificationsPage() {
     const { user } = useAuth();
+    const { theme } = useTheme();
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState<'all' | 'unread'>('all');
@@ -182,8 +187,9 @@ export default function NotificationsPage() {
         if (!user) return;
 
         const q = query(
-            collection(db, "notifications"),
-            orderBy("createdAt", "desc")
+            collection(db, "notifications")
+            // Temporarily removing orderBy to troubleshoot index issues
+            // orderBy("createdAt", "desc")
         );
 
         const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -192,7 +198,15 @@ export default function NotificationsPage() {
                 ...doc.data()
             } as Notification));
             
-            setNotifications(notifs);
+            // Re-order manually since we disabled it in the query
+            const sortedNotifs = notifs.sort((a, b) => {
+                const dateA = a.createdAt?.toDate?.() || 0;
+                const dateB = b.createdAt?.toDate?.() || 0;
+                return dateB - dateA;
+            });
+
+            console.log("Notificaciones detectadas:", sortedNotifs.length);
+            setNotifications(sortedNotifs);
             setLoading(false);
         });
 
@@ -367,7 +381,7 @@ export default function NotificationsPage() {
                                         </div>
 
                                         {n.data ? (
-                                            <TariffUpdateDetail data={n.data} />
+                                            <TariffUpdateDetail data={n.data} isDark={theme === 'dark'} />
                                         ) : (
                                             <div className={`p-5 md:p-6 rounded-2xl border ${!n.readBy?.includes(user?.uid || '') ? 'bg-white dark:bg-slate-900 border-primary/10' : 'bg-slate-50 dark:bg-slate-800/40 border-border'} shadow-inner overflow-x-auto`}>
                                                 <p className="text-[10px] md:text-xs font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
