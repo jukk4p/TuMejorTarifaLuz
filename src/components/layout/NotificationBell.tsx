@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bell, X, Info, Zap, Megaphone, Trash2, Check } from "lucide-react";
+import { Bell, X, Info, Zap, Megaphone, Trash2, Check, TrendingDown, TrendingUp } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { 
     collection, 
@@ -158,11 +158,31 @@ export default function NotificationBell() {
                                                         {n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}
                                                     </span>
                                                 </div>
-                                                <div className="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border/50 overflow-x-auto shadow-inner">
-                                                    <p className="text-[10px] font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
-                                                        {n.message}
-                                                    </p>
-                                                </div>
+                                                {n.data ? (
+                                                    <div className="flex items-center gap-2 py-1">
+                                                        <span className="text-[10px] font-black bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase tracking-tighter">
+                                                            {new Set(n.data.map((d: any) => d.tariff.company)).size} {new Set(n.data.map((d: any) => d.tariff.company)).size === 1 ? 'compañía' : 'compañías'}
+                                                        </span>
+                                                        <span className="text-[10px] font-bold text-slate-400">·</span>
+                                                        <span className="text-[10px] font-bold text-slate-500">
+                                                            {n.data.reduce((acc: number, d: any) => acc + d.changes.length, 0)} cambios
+                                                        </span>
+                                                        <span className="text-[10px] font-bold text-slate-400">·</span>
+                                                        <div className="flex items-center gap-1">
+                                                            {(() => {
+                                                                let ups = 0; let downs = 0;
+                                                                n.data.forEach((d: any) => d.changes.forEach((c: any) => { if (c.newValue > c.oldValue) ups++; else downs++; }));
+                                                                return ups > downs ? <TrendingUp size={10} className="text-rose-500" /> : <TrendingDown size={10} className="text-emerald-500" />;
+                                                            })()}
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border/50 overflow-x-auto shadow-inner">
+                                                        <p className="text-[10px] font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
+                                                            {n.message}
+                                                        </p>
+                                                    </div>
+                                                )}
                                                 {n.link && (
                                                     <Link 
                                                         href={n.link} 
@@ -236,11 +256,29 @@ export default function NotificationBell() {
                                                 <p className={`text-xs font-black truncate ${!n.readBy?.includes(user?.uid || '') ? 'text-text-primary' : 'text-slate-500'}`}>{n.title}</p>
                                                 <span className="shrink-0 text-[10px] font-bold text-slate-400">{n.createdAt?.toDate ? new Date(n.createdAt.toDate()).toLocaleDateString() : 'Reciente'}</span>
                                             </div>
-                                            <div className="p-3 bg-surface border border-border/50 rounded-xl shadow-inner overflow-x-auto">
-                                                <p className="text-[10px] font-mono leading-tight whitespace-pre text-text-primary max-w-none">
-                                                    {n.message}
-                                                </p>
-                                            </div>
+                                            {n.data ? (
+                                                <div className="flex items-center gap-2 py-1 overflow-x-auto no-scrollbar">
+                                                    <span className="shrink-0 text-[9px] font-black bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase">
+                                                        {new Set(n.data.map((d: any) => d.tariff.company)).size} Cías
+                                                    </span>
+                                                    <span className="shrink-0 text-[10px] font-bold text-slate-500">
+                                                        {n.data.reduce((acc: number, d: any) => acc + d.changes.length, 0)} cambios
+                                                    </span>
+                                                    <div className="shrink-0">
+                                                        {(() => {
+                                                            let ups = 0; let downs = 0;
+                                                            n.data.forEach((d: any) => d.changes.forEach((c: any) => { if (c.newValue > c.oldValue) ups++; else downs++; }));
+                                                            return ups > downs ? <TrendingUp size={10} className="text-rose-500" /> : <TrendingDown size={10} className="text-emerald-500" />;
+                                                        })()}
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="p-3 bg-surface border border-border/50 rounded-xl shadow-inner overflow-x-auto">
+                                                    <p className="text-[10px] font-mono leading-tight whitespace-pre text-text-primary max-w-none">
+                                                        {n.message}
+                                                    </p>
+                                                </div>
+                                            )}
                                             <div className="flex items-center gap-4 pt-2">
                                                 {n.link && <Link href={n.link} onClick={() => {setIsOpen(false); markAsRead(n.id!)}} className="text-[10px] font-black text-primary">Ver detalles</Link>}
                                                 <button onClick={() => hideNotification(n.id!)} className="text-[10px] font-black text-red-500">Eliminar</button>

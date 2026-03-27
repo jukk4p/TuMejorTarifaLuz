@@ -26,6 +26,7 @@ export interface Notification {
     targetUser?: string; // UID if it's personal
     readBy?: string[]; // Array of UIDs who read it
     hiddenBy?: string[]; // Array of UIDs who dismissed it
+    data?: any; // For structured metadata (e.g., price changes)
 }
 
 export const createNotification = async (data: Omit<Notification, 'createdAt' | 'readBy'>) => {
@@ -59,12 +60,13 @@ export const notifyTariffUpdate = async (tariffName: string, company: string, ch
 /**
  * Notifica una actualización general del sistema
  */
-export const notifySystemUpdate = async (title: string, message: string) => {
+export const notifySystemUpdate = async (title: string, message: string, data?: any) => {
     await createNotification({
         title: title,
         message: message,
         type: 'system_update',
-        isGlobal: true
+        isGlobal: true,
+        data: data
     });
 };
 

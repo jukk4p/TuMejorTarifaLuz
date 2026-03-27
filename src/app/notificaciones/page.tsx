@@ -2,7 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bell, Zap, Megaphone, Info, Check, Trash2, ChevronRight, Clock } from "lucide-react";
+import { Bell, Zap, Megaphone, Info, Check, Trash2, ChevronRight, Clock, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Building2, Activity } from "lucide-react";
+import { getLogoPath } from "@/lib/tariffs";
 import { db } from "@/lib/firebase";
 import { 
     collection, 
@@ -19,6 +20,157 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { Notification } from "@/lib/notifications";
 import Link from "next/link";
+
+// Subcomponent for modern tariff update view
+function TariffUpdateDetail({ data }: { data: any[] }) {
+    if (!data || !Array.isArray(data)) return null;
+
+    // Calculate Global Stats
+    const totalCompanies = new Set(data.map(d => d.tariff.company)).size;
+    const totalConcepts = data.reduce((acc, d) => acc + d.changes.length, 0);
+    
+    let ups = 0;
+    let downs = 0;
+    data.forEach(d => {
+        d.changes.forEach((c: any) => {
+            if (c.newValue > c.oldValue) ups++;
+            else if (c.newValue < c.oldValue) downs++;
+        });
+    });
+
+    const mainTrend = ups > downs ? 'Subida' : downs > ups ? 'Bajada' : 'Estable';
+    const trendIcon = mainTrend === 'Bajada' ? <TrendingDown className="w-5 h-5 text-emerald-500" /> : <TrendingUp className="w-5 h-5 text-rose-500" />;
+
+    return (
+        <div className="space-y-8 animate-in fade-in duration-700">
+            {/* Executive Summary */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 bg-slate-900 dark:bg-black p-6 rounded-[2rem] border border-white/5 shadow-2xl">
+                <div className="space-y-1">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Compañías afectadas</p>
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl font-900 text-white">{totalCompanies}</span>
+                        <Building2 className="w-4 h-4 text-primary/60" />
+                    </div>
+                </div>
+                <div className="space-y-1">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Conceptos modificados</p>
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl font-900 text-white">{totalConcepts}</span>
+                        <Activity className="w-4 h-4 text-primary/60" />
+                    </div>
+                </div>
+                <div className="space-y-1 col-span-2 md:col-span-1">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Tendencia mayoritaria</p>
+                    <div className="flex items-center gap-2">
+                        <span className={`text-2xl font-900 ${mainTrend === 'Bajada' ? 'text-emerald-500' : 'text-rose-500'}`}>{mainTrend}</span>
+                        {trendIcon}
+                    </div>
+                </div>
+            </div>
+
+            {/* Detailed Cards */}
+            <div className="space-y-6">
+                {data.map((item, idx) => (
+                    <div key={idx} className="bg-white dark:bg-slate-900 border border-border rounded-[2.5rem] overflow-hidden shadow-sm group hover:shadow-xl transition-all duration-500">
+                        <div className="px-8 py-5 border-b border-border flex items-center justify-between bg-slate-50 dark:bg-slate-800/30">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 border border-border shadow-inner">
+                                   {/* Fallback to initials if getLogoPath returns none or logo not matched */}
+                                   <div className="text-[10px] font-black text-primary uppercase">{(item.tariff?.company || "C").substring(0, 3)}</div>
+                                </div>
+                                <div>
+                                    <h4 className="font-900 text-text-primary uppercase tracking-tight leading-none mb-1">{item.tariff.company}</h4>
+                                    <p className="text-[11px] text-text-secondary font-medium tracking-tight">Tarifa "{item.tariff.name}"</p>
+                                </div>
+                            </div>
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sistema Auto</span>
+                        </div>
+
+                        <div className="p-8 space-y-8">
+                            {/* Energy Section */}
+                            {item.changes.some((c: any) => c.label.includes('Energía')) && (
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                                        <Zap className="w-3.5 h-3.5" /> ENERGÍA
+                                    </div>
+                                    <div className="space-y-3">
+                                        {item.changes.filter((c: any) => c.label.includes('Energía')).map((change: any, cIdx: number) => {
+                                            const isDown = change.newValue < change.oldValue;
+                                            const diffPercent = ((change.newValue - change.oldValue) / change.oldValue) * 100;
+                                            const periodLabel = change.label.match(/\(([^)]+)\)/)?.[1] || change.label;
+                                            
+                                            return (
+                                                <div key={cIdx} className="flex items-center justify-between group/row p-2 -mx-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-8 h-6 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center text-[10px] font-black text-slate-500 dark:text-slate-400 border border-border">
+                                                            {periodLabel}
+                                                        </div>
+                                                        <span className="text-xs font-bold text-text-secondary">{change.label.split(' (')[0]}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-6">
+                                                        <span className="text-[11px] text-slate-400 line-through opacity-60 font-mono italic">{change.oldValue.toFixed(4)}€</span>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className={`flex items-center gap-1 font-mono font-900 text-sm ${isDown ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                                                {isDown ? <ArrowDownRight className="w-4 h-4" /> : <ArrowUpRight className="w-4 h-4" />}
+                                                                {change.newValue.toFixed(4)}€
+                                                            </div>
+                                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${isDown ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'}`}>
+                                                                {diffPercent > 0 ? '+' : ''}{diffPercent.toFixed(1)}%
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Power Section */}
+                            {item.changes.some((c: any) => c.label.includes('Potencia')) && (
+                                <div className="space-y-4 pt-4 border-t border-border/50">
+                                    <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                                        <TrendingDown className="w-3.5 h-3.5" /> POTENCIA
+                                    </div>
+                                    <div className="space-y-3">
+                                        {item.changes.filter((c: any) => c.label.includes('Potencia')).map((change: any, cIdx: number) => {
+                                            const isDown = change.newValue < change.oldValue;
+                                            const diffPercent = ((change.newValue - change.oldValue) / change.oldValue) * 100;
+                                            const periodLabel = change.label.match(/\(([^)]+)\)/)?.[1] || change.label;
+
+                                            return (
+                                                <div key={cIdx} className="flex items-center justify-between group/row p-2 -mx-2 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-8 h-6 bg-amber-500/10 text-warning rounded-lg flex items-center justify-center text-[10px] font-black border border-warning/20">
+                                                            {periodLabel}
+                                                        </div>
+                                                        <span className="text-xs font-bold text-text-secondary">{change.label.split(' (')[0]}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-6">
+                                                        <span className="text-[11px] text-slate-400 line-through opacity-60 font-mono italic">{change.oldValue.toFixed(4)}€</span>
+                                                        <div className="flex items-center gap-3">
+                                                            <div className={`flex items-center gap-1 font-mono font-900 text-sm ${isDown ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                                                {isDown ? <ArrowDownRight className="w-4 h-4" /> : <ArrowUpRight className="w-4 h-4" />}
+                                                                {change.newValue.toFixed(4)}€
+                                                            </div>
+                                                            <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${isDown ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'}`}>
+                                                                {diffPercent > 0 ? '+' : ''}{diffPercent.toFixed(1)}%
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default function NotificationsPage() {
     const { user } = useAuth();
@@ -214,11 +366,15 @@ export default function NotificationsPage() {
                                             </div>
                                         </div>
 
-                                        <div className={`p-5 md:p-6 rounded-2xl border ${!n.readBy?.includes(user?.uid || '') ? 'bg-white dark:bg-slate-900 border-primary/10' : 'bg-slate-50 dark:bg-slate-800/40 border-border'} shadow-inner overflow-x-auto`}>
-                                            <p className="text-[10px] md:text-xs font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
-                                                {n.message}
-                                            </p>
-                                        </div>
+                                        {n.data ? (
+                                            <TariffUpdateDetail data={n.data} />
+                                        ) : (
+                                            <div className={`p-5 md:p-6 rounded-2xl border ${!n.readBy?.includes(user?.uid || '') ? 'bg-white dark:bg-slate-900 border-primary/10' : 'bg-slate-50 dark:bg-slate-800/40 border-border'} shadow-inner overflow-x-auto`}>
+                                                <p className="text-[10px] md:text-xs font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
+                                                    {n.message}
+                                                </p>
+                                            </div>
+                                        )}
 
                                         <div className="flex items-center gap-4 pt-2">
                                             {n.link && (

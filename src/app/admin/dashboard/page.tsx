@@ -111,7 +111,7 @@ export default function DashboardPage() {
                 ? `Cambio de precios en ${changes[0].tariff.company}` 
                 : "Actualización múltiple de precios";
             
-            await notifySystemUpdate(title, changeMessages);
+            await notifySystemUpdate(title, changeMessages, changes);
 
             // 2. Update Snapshot
             const docRef = doc(db, "system_state", "tariffs_snapshot");
