@@ -18,8 +18,8 @@ export const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "TuMejorTarifaLuz",
-    "url": "https://tumejortarifaluz.es",
-    "logo": "https://tumejortarifaluz.es/Logo.png",
+    "url": "https://www.tumejortarifaluz.es",
+    "logo": "https://www.tumejortarifaluz.es/Logo.png",
     "description": "Comparador independiente de tarifas de luz en España. Ahorra analizando tu factura real.",
     "contactPoint": {
         "@type": "ContactPoint",
@@ -36,12 +36,12 @@ export const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "TuMejorTarifaLuz",
-    "url": "https://tumejortarifaluz.es",
+    "url": "https://www.tumejortarifaluz.es",
     "potentialAction": {
         "@type": "SearchAction",
         "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://tumejortarifaluz.es/blog?q={search_term_string}"
+            "urlTemplate": "https://www.tumejortarifaluz.es/blog?q={search_term_string}"
         },
         "query-input": "required name=search_term_string"
     }
@@ -51,7 +51,7 @@ export const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Comparador de Tarifas de Luz TuMejorTarifaLuz",
-    "url": "https://tumejortarifaluz.es/comparador",
+    "url": "https://www.tumejortarifaluz.es/comparador",
     "applicationCategory": "UtilityApplication",
     "description": "Herramienta gratuita para comparar tarifas de luz en España subiendo tu factura PDF o introduciendo datos manualmente.",
     "offers": {
@@ -114,7 +114,7 @@ export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => 
         "@type": "ListItem",
         "position": index + 1,
         "name": item.name,
-        "item": `https://tumejortarifaluz.es${item.item}`
+        "item": `https://www.tumejortarifaluz.es${item.item}`
     }))
 });
 
@@ -122,7 +122,7 @@ export const getArticleSchema = (post: any) => ({
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": post.title,
-    "image": `https://tumejortarifaluz.es${post.image}`,
+    "image": `https://www.tumejortarifaluz.es${post.image}`,
     "author": {
         "@type": "Person",
         "name": post.author.name
@@ -132,7 +132,7 @@ export const getArticleSchema = (post: any) => ({
         "name": "TuMejorTarifaLuz",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://tumejortarifaluz.es/Logo.png"
+            "url": "https://www.tumejortarifaluz.es/Logo.png"
         }
     },
     "datePublished": post.date,
@@ -146,7 +146,7 @@ export const getBlogPostingSchema = (posts: any[]) => ({
         "@type": "BlogPosting",
         "headline": post.title,
         "description": post.excerpt,
-        "image": `https://tumejortarifaluz.es${post.image}`,
+        "image": `https://www.tumejortarifaluz.es${post.image}`,
         "datePublished": post.date,
         "dateModified": post.dateUpdated || post.date,
         "author": {
@@ -158,12 +158,12 @@ export const getBlogPostingSchema = (posts: any[]) => ({
           "name": "TuMejorTarifaLuz",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://tumejortarifaluz.es/Logo.png"
+            "url": "https://www.tumejortarifaluz.es/Logo.png"
           }
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://tumejortarifaluz.es/blog/${post.slug}`
+            "@id": `https://www.tumejortarifaluz.es/blog/${post.slug}`
         }
     }))
 });

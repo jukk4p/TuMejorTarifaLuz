@@ -23,7 +23,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tumejortarifaluz.es'),
+  metadataBase: new URL('https://www.tumejortarifaluz.es'),
   title: {
     default: 'TuMejorTarifaLuz | Comparador de Tarifas de Luz Gratis',
     template: '%s | TuMejorTarifaLuz'
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://tumejortarifaluz.es",
+    url: "https://www.tumejortarifaluz.es",
     siteName: "Tu Mejor Tarifa Luz",
     title: "Comparador de Tarifas de Luz Gratis 2026 | Sube tu Factura y Ahorra",
     description: "Analizamos tu consumo real en segundos para encontrarte la mejor tarifa de luz del mercado español.",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://tumejortarifaluz.es"
+    canonical: "https://www.tumejortarifaluz.es"
   }
 };
 
@@ -90,10 +90,10 @@ export default function RootLayout({
                 "@graph": [
                   {
                     "@type": "Organization",
-                    "@id": "https://tumejortarifaluz.es/#organization",
+                    "@id": "https://www.tumejortarifaluz.es/#organization",
                     "name": "TuMejorTarifaLuz",
-                    "url": "https://tumejortarifaluz.es",
-                    "logo": "https://tumejortarifaluz.es/Logo.png",
+                    "url": "https://www.tumejortarifaluz.es",
+                    "logo": "https://www.tumejortarifaluz.es/Logo.png",
                     "sameAs": [
                       "https://x.com/tumejortarifaluz",
                       "https://facebook.com/tumejortarifaluz"
@@ -101,10 +101,10 @@ export default function RootLayout({
                   },
                   {
                     "@type": "WebSite",
-                    "@id": "https://tumejortarifaluz.es/#website",
-                    "url": "https://tumejortarifaluz.es",
+                    "@id": "https://www.tumejortarifaluz.es/#website",
+                    "url": "https://www.tumejortarifaluz.es",
                     "name": "TuMejorTarifaLuz",
-                    "publisher": { "@id": "https://tumejortarifaluz.es/#organization" }
+                    "publisher": { "@id": "https://www.tumejortarifaluz.es/#organization" }
                   }
                 ]
               }} />
@@ -136,14 +136,14 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://tumejortarifaluz.es/#organization",
+                  "@id": "https://www.tumejortarifaluz.es/#organization",
                   "name": "TuMejorTarifaLuz",
-                  "url": "https://tumejortarifaluz.es",
+                  "url": "https://www.tumejortarifaluz.es",
                   "foundingDate": "2025",
                   "founder": { "@type": "Person", "name": "Iván González" },
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://tumejortarifaluz.es/Logo.png"
+                    "url": "https://www.tumejortarifaluz.es/Logo.png"
                   },
                   "contactPoint": {
                     "@type": "ContactPoint",
@@ -154,15 +154,15 @@ export default function RootLayout({
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://tumejortarifaluz.es/#website",
-                  "url": "https://tumejortarifaluz.es",
+                  "@id": "https://www.tumejortarifaluz.es/#website",
+                  "url": "https://www.tumejortarifaluz.es",
                   "name": "TuMejorTarifaLuz",
                   "publisher": {
-                    "@id": "https://tumejortarifaluz.es/#organization"
+                    "@id": "https://www.tumejortarifaluz.es/#organization"
                   },
                   "potentialAction": {
                     "@type": "SearchAction",
-                    "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
+                    "target": "https://www.tumejortarifaluz.es/tarifas?q={search_term_string}",
                     "query-input": "required name=search_term_string"
                   }
                 }

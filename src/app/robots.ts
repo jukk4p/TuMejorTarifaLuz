@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
         '/admin/',
       ],
     },
-    sitemap: 'https://tumejortarifaluz.es/sitemap.xml',
+    sitemap: 'https://www.tumejortarifaluz.es/sitemap.xml',
   };
 }

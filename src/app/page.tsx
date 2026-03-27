@@ -21,80 +21,81 @@ export default async function Home() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `
-        .hero-glow-1 {
-          position: absolute;
-          top: 0;
-          left: 25%;
-          width: 500px;
-          height: 500px;
-          background: rgba(19, 127, 236, 0.1);
-          border-radius: 9999px;
-          filter: blur(120px);
-          transform: translateY(-50%);
-          opacity: 0.6;
-          z-index: 0;
-        }
-        .hero-glow-2 {
-          position: absolute;
-          bottom: 0;
-          right: 25%;
-          width: 384px;
-          height: 384px;
-          background: rgba(16, 185, 129, 0.05);
-          border-radius: 9999px;
-          filter: blur(100px);
-          transform: translateY(50%);
-          opacity: 0.3;
-          z-index: 0;
-        }
-      `}} />
       <Navbar />
-      <JsonLd data={{
-        ...webSiteSchema,
-        potentialAction: {
-          "@type": "SearchAction",
-          "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }} />
-      <JsonLd data={{
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "¿Es seguro subir mi factura?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS). Tu factura solo se procesa para extraer datos técnicos; no almacenamos datos personales sensibles ni los vendemos a terceros."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Tengo que pagar por usar el comparador?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "¿Las tarifas están actualizadas?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras en menos de 24 horas."
-            }
-          }
-        ]
-      }} />
-      <JsonLd data={organizationSchema} />
-      <JsonLd data={webAppSchema} />
-      <JsonLd data={getBreadcrumbSchema([
-        { name: "Inicio", item: "/" },
-        { name: "Comparador de Tarifas", item: "/comparador" }
-      ])} />
       <main className="overflow-x-hidden">
+        <style dangerouslySetInnerHTML={{ __html: `
+          .hero-glow-1 {
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 500px;
+            height: 500px;
+            background: rgba(19, 127, 236, 0.1);
+            border-radius: 9999px;
+            filter: blur(120px);
+            transform: translateY(-50%);
+            opacity: 0.6;
+            z-index: 0;
+          }
+          .hero-glow-2 {
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 384px;
+            height: 384px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 9999px;
+            filter: blur(100px);
+            transform: translateY(50%);
+            opacity: 0.3;
+            z-index: 0;
+          }
+        `}} />
+        <JsonLd data={{
+          ...webSiteSchema,
+          potentialAction: {
+            "@type": "SearchAction",
+            "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }} />
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Es seguro subir mi factura?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS). Tu factura solo se procesa para extraer datos técnicos; no almacenamos datos personales sensibles ni los vendemos a terceros."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Tengo que pagar por usar el comparador?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Las tarifas están actualizadas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras en menos de 24 horas."
+              }
+            }
+          ]
+        }} />
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={webAppSchema} />
+        <JsonLd data={getBreadcrumbSchema([
+          { name: "Inicio", item: "/" },
+          { name: "Comparador de Tarifas", item: "/comparador" }
+        ])} />
+        
         {/* Hero Section */}
         <section 
           className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center transition-colors duration-300"
@@ -432,7 +433,7 @@ export default async function Home() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(0, 3).map((post, i) => (
+              {blogPosts.slice(0, 6).map((post, i) => (
                 <Link key={i} href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
                   <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
                   <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>

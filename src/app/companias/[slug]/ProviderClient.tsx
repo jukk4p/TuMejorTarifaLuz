@@ -11,6 +11,7 @@ import {
     ArrowLeft, Star, StarHalf, ThumbsUp, ThumbsDown, Info, 
     CheckCircle2, AlertCircle, ChevronRight, BarChart3, 
     ShieldCheck, Zap, AppWindow, Users, ShieldAlert,
+    Newspaper, ArrowRight
 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
@@ -398,6 +399,36 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                     </div>
                                 </Link>
                             ))}
+                        </div>
+                    </div>
+
+                    {/* Blog Cross-linking */}
+                    <div className="mb-24">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h3 className="text-2xl font-900 text-text-primary tracking-tight">Guías y Recursos</h3>
+                            <div className="h-px flex-grow bg-slate-200"></div>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <Link href="/blog/como-leer-entender-factura-luz-2026" className="premium-card p-6 border border-border flex items-center gap-6 group hover:border-primary/50 transition-all bg-white dark:bg-slate-900">
+                                <div className="w-16 h-16 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                    <Newspaper size={24} />
+                                </div>
+                                <div className="space-y-1">
+                                    <h4 className="font-800 text-text-primary group-hover:text-primary transition-colors">Manual: Cómo leer tu factura</h4>
+                                    <p className="text-[12px] text-text-secondary leading-tight">Aprende a identificar cada concepto y evitar cobros indebidos.</p>
+                                </div>
+                                <ArrowRight className="ml-auto text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" size={20} />
+                            </Link>
+                            <Link href="/blog/mercado-libre-pvpc" className="premium-card p-6 border border-border flex items-center gap-6 group hover:border-primary/50 transition-all bg-white dark:bg-slate-900">
+                                <div className="w-16 h-16 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                    <Zap size={24} />
+                                </div>
+                                <div className="space-y-1">
+                                    <h4 className="font-800 text-text-primary group-hover:text-primary transition-colors">Mercado Libre vs PVPC</h4>
+                                    <p className="text-[12px] text-text-secondary leading-tight">Descubre qué mercado te protege mejor en 2026 tras la reforma.</p>
+                                </div>
+                                <ArrowRight className="ml-auto text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" size={20} />
+                            </Link>
                         </div>
                     </div>
 

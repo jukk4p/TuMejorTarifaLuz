@@ -23,9 +23,9 @@ const TOOLS = [
 const GUIDES = [
     { name: "Cómo entender tu factura", href: "/blog/como-leer-entender-factura-luz-2026" },
     { name: "Mercado libre vs PVPC", href: "/blog/mercado-libre-pvpc" },
-    { name: "Cómo ajustar tu potencia", href: "/blog/como-reducir-potencia-contratada-luz-ahorrar" },
-    { name: "Horas punta y valle", href: "/blog/horas-baratas-luz-horarios-valle-llano-punta" },
-    { name: "Preguntas frecuentes", href: "/#faq" },
+    { name: "Guía Carga Coche Eléctrico", href: "/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro" },
+    { name: "Aerotermia vs Gas Natural", href: "/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026" },
+    { name: "Aislamiento y Ahorro Pasivo", href: "/blog/mejorar-aislamiento-termico-vivienda-ahorro-energia-2026-rentabilidad" },
     { name: "Ver todo el blog", href: "/blog" },
 ];
 

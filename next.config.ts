@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'tumejortarifaluz.es' }],
+        destination: 'https://www.tumejortarifaluz.es/:path*',
+        permanent: true,
+      },
+      {
         source: '/blog/guia-factura-luz-2026',
         destination: '/blog/como-leer-entender-factura-luz-2026',
         permanent: true,
@@ -71,6 +77,41 @@ const nextConfig: NextConfig = {
       {
         source: '/blog/que-es-el-pvpc-y-como-funciona-la-nueva-tarifa-regulada',
         destination: '/blog/que-es-el-pvpc-nueva-tarifa-regulada-2026-ahorro',
+        permanent: true,
+      },
+      {
+        source: '/companias/chc-energia',
+        destination: '/companias',
+        permanent: true,
+      },
+      {
+        source: '/quienes-somos',
+        destination: '/sobre-nosotros',
+        permanent: true,
+      },
+      {
+        source: '/nosotros',
+        destination: '/sobre-nosotros',
+        permanent: true,
+      },
+      {
+        source: '/companias/energía-nufri',
+        destination: '/companias/energia-nufri',
+        permanent: true,
+      },
+      {
+        source: '/companias/imagina',
+        destination: '/companias/imagina-energia',
+        permanent: true,
+      },
+      {
+        source: '/5',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/faq',
+        destination: '/#faq',
         permanent: true,
       },
     ];

@@ -12,12 +12,17 @@ export async function generateMetadata(
   if (!company) {
     return { title: 'Compañía no encontrada' }
   }
+
+  const categoryLabel = company.category === 'big' ? 'una de las Grandes Eléctricas' : 
+                        company.category === 'regulated' ? 'del Mercado Regulado' : 
+                        'una Comercializadora Independiente';
+  const prosSummary = company.pros.slice(0, 2).join(', ');
   
   return {
-    title: `Tarifas ${company.name} 2026: Precios y Análisis Completo`,
-    description: `Análisis completo de ${company.name} en España 2026. Tarifa ${company.popularTariffName || 'destacada'} desde ${company.minPrice.toFixed(3)} €/kWh. Opiniones, puntuación ${company.rating}/5 y comparativa detallada.`,
+    title: `Tarifas ${company.name} 2026: Precios, Opiniones y Análisis`,
+    description: `Análisis de ${company.name} (${categoryLabel}) en 2026. Destaca por ${prosSummary}. Precio mínimo de ${company.minPrice.toFixed(3)} €/kWh en su plan ${company.popularTariffName || 'destacado'} y puntuación de ${company.rating}/5.`,
     alternates: {
-      canonical: `https://tumejortarifaluz.es/companias/${slug}`
+      canonical: `https://www.tumejortarifaluz.es/companias/${slug}`
     }
   }
 }
