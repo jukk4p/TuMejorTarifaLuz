@@ -457,7 +457,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                             <Link href="/comparador" className="px-12 py-5 bg-[#0f69c5] text-white rounded-[2.5rem] font-900 text-lg hover:shadow-2xl shadow-[#0f69c5]/20 hover:-translate-y-1 transition-all">
                                 Calcular Ahorro Ahora
                             </Link>
-                            <Link href="/guias" className="px-12 py-5 bg-white dark:bg-slate-800 border border-[#0f69c5] text-[#0f69c5] rounded-[2.5rem] font-900 text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
+                            <Link href="/blog/como-leer-entender-factura-luz-2026" className="px-12 py-5 bg-white dark:bg-slate-800 border border-[#0f69c5] text-[#0f69c5] rounded-[2.5rem] font-900 text-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-2">
                                 <Info className="w-5 h-5" />
                                 Guía de conceptos
                             </Link>

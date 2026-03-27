@@ -110,9 +110,39 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/faq',
-        destination: '/#faq',
+        source: '/guias/guia-factura-luz-2026',
+        destination: '/blog/como-leer-entender-factura-luz-2026',
         permanent: true,
+      },
+      {
+        source: '/guias/mercado-libre-vs-regulado',
+        destination: '/blog/mercado-libre-pvpc',
+        permanent: true,
+      },
+      {
+        source: '/guias/optimizacion-potencia-ahorro',
+        destination: '/blog/optimizacion-potencia-luz-2026-ahorro-fijo-icp-maximetro',
+        permanent: true,
+      },
+      {
+        source: '/guias/discriminacion-horaria-estrategias',
+        destination: '/blog/discriminacion-horaria-horas-valle-llano-punta-como-ahorrar',
+        permanent: true,
+      },
+      {
+        source: '/guias/autoconsumo-solar-pisos',
+        destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026',
+        permanent: true,
+      },
+      {
+        source: '/guias/guia-carga-coche-electrico',
+        destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
+        permanent: true,
+      },
+      {
+        source: '/guias',
+        destination: '/blog',
+        permanent: false,
       },
     ];
   },
