@@ -151,6 +151,7 @@ export default function ComparadorMain() {
     const [isProfileCollapsed, setIsProfileCollapsed] = useState(false);
     const [isFiltersCollapsed, setIsFiltersCollapsed] = useState(false);
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
 
     // Auto-open Study view after login if user had a pending mode
     useEffect(() => {
@@ -2246,35 +2247,35 @@ export default function ComparadorMain() {
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
                                 {/* TOP RESULTS & ACTIONS AREA - UNIFIED BAR */}
-                                <div className="bg-surface border border-border p-5 h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden group flex items-center justify-between px-8">
+                                <div className="bg-surface border border-border p-5 md:h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden group flex flex-col md:flex-row items-center justify-between px-5 md:px-8 gap-4 md:gap-0">
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl transition-all group-hover:bg-accent/10"></div>
                                     
-                                    <div className="flex items-center gap-6 relative z-10">
-                                        <div className="w-12 h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
-                                            <TrendingDown className="w-6 h-6" />
+                                    <div className="flex items-center gap-4 md:gap-6 relative z-10 w-full md:w-auto">
+                                        <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
+                                            <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
                                         </div>
-                                        <div className="flex flex-col justify-center">
+                                        <div className="flex flex-col justify-center min-w-0">
                                             <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">ANÁLISIS DE RESULTADOS</p>
-                                            <h2 className="text-xl sm:text-2xl font-black text-text-primary tracking-tight leading-none whitespace-nowrap">
-                                                Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-xs ml-2 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
+                                            <h2 className="text-lg sm:text-2xl font-black text-text-primary tracking-tight leading-none truncate md:whitespace-nowrap">
+                                                Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-[10px] md:text-xs ml-2 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
                                             </h2>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-1.5 relative z-10 translate-y-[8px]">
+                                    <div className="flex items-center gap-2 relative z-10 w-full md:w-auto justify-end md:translate-y-[8px]">
                                         <button
                                             onClick={saveBill}
                                             disabled={isProcessing || results.length === 0}
-                                            className="group relative flex items-center justify-center gap-1.5 bg-primary/5 text-primary/60 px-2.5 h-6 rounded-md cursor-pointer hover:bg-primary/10 hover:text-primary transition-all active:scale-95 disabled:opacity-50 overflow-hidden border border-primary/10"
+                                            className="group relative flex items-center justify-center gap-1.5 bg-primary/5 text-primary/60 px-3 md:px-2.5 h-8 md:h-6 rounded-lg md:rounded-md cursor-pointer hover:bg-primary/10 hover:text-primary transition-all active:scale-95 disabled:opacity-50 overflow-hidden border border-primary/10 flex-1 md:flex-none"
                                         >
-                                            <Save className="w-2.5 h-2.5" />
-                                            <span className="text-[8px] font-black uppercase tracking-wider">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
+                                            <Save className="w-3 h-3 md:w-2.5 md:h-2.5" />
+                                            <span className="text-[9px] md:text-[8px] font-black uppercase tracking-wider">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
                                         </button>
                                         <button
                                             onClick={() => setStep("input")}
-                                            className="flex items-center justify-center gap-1.5 bg-text-primary/5 text-text-muted px-2.5 h-6 rounded-md cursor-pointer hover:bg-text-primary/10 hover:text-text-primary transition-all active:scale-95 border border-border/10 text-[8px] font-black uppercase tracking-wider whitespace-nowrap"
+                                            className="flex items-center justify-center gap-1.5 bg-text-primary/5 text-text-muted px-3 md:px-2.5 h-8 md:h-6 rounded-lg md:rounded-md cursor-pointer hover:bg-text-primary/10 hover:text-text-primary transition-all active:scale-95 border border-border/10 text-[9px] md:text-[8px] font-black uppercase tracking-wider whitespace-nowrap flex-1 md:flex-none"
                                         >
-                                            <History className="w-2.5 h-2.5" />
+                                            <History className="w-3 h-3 md:w-2.5 md:h-2.5" />
                                             <span>Nueva comparativa</span>
                                         </button>
                                     </div>
@@ -2957,24 +2958,27 @@ export default function ComparadorMain() {
                 {
                     step === "detail" && selectedResult && (
                         <div className="max-w-5xl mx-auto space-y-8 animate-in zoom-in-95 duration-500">
-                            <div className="flex justify-between items-center mb-8 sm:mb-10 gap-2">
-                                <button onClick={() => setStep("results")} className="text-[10px] sm:text-xs font-bold text-primary flex items-center gap-1.5 hover:opacity-70 transition-opacity whitespace-nowrap shrink-0">
-                                    <ArrowLeftIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                    Volver a la Comparativa
+                            <div className="flex justify-between items-center mb-6 sm:mb-10 gap-3">
+                                <button 
+                                    onClick={() => setStep("results")} 
+                                    className="bg-surface border border-border text-text-primary font-black py-3 px-6 rounded-xl text-[10px] sm:text-xs uppercase tracking-widest shadow-sm hover:bg-surface-2 transition-all flex items-center gap-2 active:scale-95"
+                                >
+                                    <ArrowLeftIcon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+                                    <span>Volver <span className="hidden sm:inline">a la Comparativa</span></span>
                                 </button>
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => window.open(selectedResult.tariff.url, '_blank')}
-                                        className="bg-primary text-white font-bold py-3 px-5 sm:px-10 rounded-xl text-[10px] sm:text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.03] active:scale-95 transition-all whitespace-nowrap"
+                                        className="bg-primary text-white font-black py-3 px-6 sm:px-10 rounded-xl text-[10px] sm:text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.03] active:scale-95 transition-all whitespace-nowrap"
                                     >
-                                        Contratar Ahora
+                                        Contratar <span className="hidden sm:inline">Ahora</span>
                                     </button>
                                 </div>
                             </div>
 
                             <div className="grid lg:grid-cols-3 gap-8">
                                 <div className="lg:col-span-2 space-y-6">
-                                    <div className="bg-surface rounded-3xl border border-border p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 relative overflow-hidden premium-3d-card hover:translate-y-[-4px]">
+                                    <div className="bg-surface rounded-3xl border border-border p-6 md:p-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6 md:gap-8 relative overflow-hidden premium-3d-card hover:translate-y-[-4px]">
                                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
                                         <div className="w-32 h-32 md:w-32 md:h-32 rounded-2xl bg-surface border border-border flex items-center justify-center p-4 md:p-6 shrink-0 shadow-sm relative z-10 mx-auto md:mx-0">
                                             {selectedResult.tariff.logo_url ? (
@@ -3012,7 +3016,7 @@ export default function ComparadorMain() {
                                         <div className="w-full md:w-auto text-center md:text-right shrink-0 mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-border">
                                             <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-1">Coste Mensual Estimado</p>
                                             <p className="text-5xl md:text-6xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
-                                            <p className="text-[10px] text-text-muted font-medium italic mt-2">impuestos incluidos (IVA 21%)</p>
+                                            <p className="text-[10px] text-text-muted font-medium italic mt-2">impuestos incluidos (IVA 10%)</p>
                                         </div>
                                     </div>
 
@@ -3037,11 +3041,11 @@ export default function ComparadorMain() {
                                             </div>
                                         </div>
                                         <div className={`p-6 md:p-10 grid grid-cols-1 ${selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-12`}>
-                                            <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
-                                                    <span>🔌</span> Término de Potencia
+                                            <div className="flex flex-col">
+                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
+                                                    <span className="text-sm">🔌</span> Término de Potencia
                                                 </h5>
-                                                <div className="space-y-3">
+                                                <div className="space-y-3 mt-6 flex-1">
                                                     <div className="flex justify-between items-center bg-violet-50/50 dark:bg-violet-900/10 p-4 rounded-xl border border-violet-100 dark:border-violet-900/50">
                                                         <div className="flex items-center gap-2">
                                                             <span className="w-2 h-2 rounded bg-violet-500"></span>
@@ -3058,51 +3062,55 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="space-y-6">
-                                                <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
-                                                    <span>⚡</span> Término de Energía
+                                            <div className="flex flex-col">
+                                                <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
+                                                    <span className="text-sm">⚡</span> Término de Energía
                                                 </h5>
-                                                {(selectedResult.tariff?.type || "").includes('3 Periodos') ? (
-                                                    <div className="space-y-3">
-                                                        <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="w-2 h-2 rounded bg-orange-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Punta (E1)</span>
+                                                <div className="mt-6 flex-1">
+                                                    {(selectedResult.tariff?.type || "").includes('3 Periodos') ? (
+                                                        <div className="space-y-3">
+                                                            <div className="flex justify-between items-center bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-xl border border-orange-100 dark:border-orange-900/50">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="w-2 h-2 rounded bg-orange-500"></span>
+                                                                    <span className="text-xs font-bold text-text-primary">Punta (E1)</span>
+                                                                </div>
+                                                                <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-orange-600 dark:text-orange-400">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
-                                                        </div>
-                                                        <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="w-2 h-2 rounded bg-blue-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Llano (E2)</span>
+                                                            <div className="flex justify-between items-center bg-blue-50/50 dark:bg-blue-900/10 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="w-2 h-2 rounded bg-blue-500"></span>
+                                                                    <span className="text-xs font-bold text-text-primary">Llano (E2)</span>
+                                                                </div>
+                                                                <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0, selectedResult.tariff?.e2_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400">{applyTaxes(selectedResult.tariff?.e2_kwh ?? 0, selectedResult.tariff?.e2_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
-                                                        </div>
-                                                        <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="w-2 h-2 rounded bg-green-500"></span>
-                                                                <span className="text-xs font-bold text-text-primary">Valle (E3)</span>
+                                                            <div className="flex justify-between items-center bg-green-50/50 dark:bg-green-900/10 p-4 rounded-xl border border-green-100 dark:border-green-900/50">
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="w-2 h-2 rounded bg-green-500"></span>
+                                                                    <span className="text-xs font-bold text-text-primary">Valle (E3)</span>
+                                                                </div>
+                                                                <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0, selectedResult.tariff?.e3_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                             </div>
-                                                            <span className="font-mono text-sm font-bold text-green-600 dark:text-green-400">{applyTaxes(selectedResult.tariff?.e3_kwh ?? 0, selectedResult.tariff?.e3_kwh_with_taxes).toFixed(5)} € <span className="text-[10px] font-normal opacity-70 text-text-secondary">€/kWh</span></span>
                                                         </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
-                                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20">Precio Único (24h)</div>
-                                                        <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
-                                                        <p className="text-[10px] text-text-secondary italic leading-relaxed">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
-                                                    </div>
-                                                )}
+                                                    ) : (
+                                                        <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
+                                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20 whitespace-nowrap">Precio Único (24h)</div>
+                                                            <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
+                                                            <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                             {selectedResult.tariff?.surplus_kwh && selectedResult.tariff.surplus_kwh > 0 ? (
-                                                <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-700">
-                                                    <h5 className="text-[11px] font-bold text-text-secondary uppercase tracking-tighter text-center md:text-left flex items-center justify-center md:justify-start gap-2">
-                                                        <span>☀️</span> Compensación de Excedentes
+                                                <div className="flex flex-col animate-in fade-in slide-in-from-right-4 duration-700">
+                                                    <h5 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center md:text-left flex items-center justify-center md:justify-start gap-2 h-6">
+                                                        <span className="text-sm">☀️</span> Compensación de Excedentes
                                                     </h5>
-                                                    <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center space-y-4 relative group mt-4">
-                                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-emerald-500/20">Precio Excedente</div>
-                                                        <p className="text-3xl font-800 text-emerald-600 dark:text-emerald-400">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
-                                                        <p className="text-[10px] text-text-secondary italic leading-relaxed">Esta tarifa compensa tu energía sobrante a un precio fijo.</p>
+                                                    <div className="mt-6 flex-1">
+                                                        <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
+                                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-emerald-500/20 whitespace-nowrap">Precio Excedente</div>
+                                                            <p className="text-3xl font-800 text-emerald-600 dark:text-emerald-400">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
+                                                            <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">Esta tarifa compensa tu energía sobrante a un precio fijo.</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ) : null}
@@ -3110,30 +3118,83 @@ export default function ComparadorMain() {
                                     </div>
 
                                     <div className="bg-surface rounded-3xl border border-border overflow-hidden">
-                                        <div className="px-6 py-6 md:px-10 border-b border-border flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 bg-surface-2">
-                                            <FileText className="text-primary w-6 h-6" />
-                                            <h4 className="font-800 text-center md:text-left">Desglose de Factura Estimada</h4>
+                                        <div className="px-6 py-6 md:px-10 border-b border-border flex flex-col md:flex-row items-center justify-between gap-3 bg-surface-2">
+                                            <div className="flex items-center gap-3">
+                                                <FileText className="text-primary w-6 h-6" />
+                                                <h4 className="font-800 text-center md:text-left">Desglose de Factura Estimada</h4>
+                                            </div>
+                                            <button 
+                                                onClick={() => setIsBreakdownOpen(!isBreakdownOpen)}
+                                                className="text-[10px] font-black uppercase tracking-[0.2em] text-primary hover:text-primary-hover flex items-center gap-2 bg-primary/5 px-4 py-2 rounded-full transition-all"
+                                            >
+                                                {isBreakdownOpen ? (
+                                                    <>Ocultar Desglose <ChevronDown className="w-4 h-4 rotate-180" /></>
+                                                ) : (
+                                                    <>Ver Desglose Detallado <ChevronDown className="w-4 h-4" /></>
+                                                )}
+                                            </button>
                                         </div>
                                         <div className="p-6 md:p-10 space-y-5">
-                                            {[
-                                                { l: "Término de Potencia (" + (input.power_p1 === input.power_p2 ? input.power_p1.toFixed(2).replace(/\.00$/, '') : input.power_p1.toFixed(2).replace(/\.00$/, '') + "/" + input.power_p2.toFixed(2).replace(/\.00$/, '')) + " kW)", v: selectedResult.costPower.toFixed(2) + " €" },
-                                                { l: "Término de Energía (" + (input.energy_p1 + input.energy_p2 + input.energy_p3).toFixed(2).replace(/\.00$/, '') + " kWh)", v: selectedResult.costEnergy.toFixed(2) + " €" },
-                                            ].map((l, i) => (
-                                                <div key={i} className="flex justify-between text-sm py-1 border-b border-border pb-3">
-                                                    <span className="font-medium text-text-secondary">{l.l}</span>
-                                                    <span className="font-bold">{l.v}</span>
+                                            {/* Top Level Summary Cards */}
+                                            <div className="space-y-4">
+                                                <div className="flex justify-between items-center py-2 border-b border-border">
+                                                    <span className="font-700 text-text-secondary">Término de Potencia ({ (input.power_p1 === input.power_p2 ? input.power_p1.toFixed(2).replace(/\.00$/, '') : input.power_p1.toFixed(2).replace(/\.00$/, '') + "/" + input.power_p2.toFixed(2).replace(/\.00$/, '')) } kW)</span>
+                                                    <span className="font-800 text-lg">{selectedResult.costPower.toFixed(2)} €</span>
                                                 </div>
-                                            ))}
-                                            <div className="space-y-3 pt-4 text-xs">
-                                                <div className="flex justify-between text-text-secondary"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
+
+                                                {isBreakdownOpen && (
+                                                    <div className="ml-4 space-y-2 pb-2 animate-in slide-in-from-top-2 duration-300">
+                                                        <div className="flex justify-between text-xs text-text-muted">
+                                                            <span>Punta (P1) · {input.power_p1.toFixed(2)} kW × {input.days} d × {applyTaxes(selectedResult.tariff.p1_kw_day, selectedResult.tariff.p1_kw_day_with_taxes).toFixed(5)} €</span>
+                                                            <span className="font-mono">{selectedResult.costPowerP1.toFixed(2)} €</span>
+                                                        </div>
+                                                        <div className="flex justify-between text-xs text-text-muted">
+                                                            <span>Valle (P2) · {input.power_p2.toFixed(2)} kW × {input.days} d × {applyTaxes(selectedResult.tariff.p2_kw_day, selectedResult.tariff.p2_kw_day_with_taxes).toFixed(5)} €</span>
+                                                            <span className="font-mono">{selectedResult.costPowerP2.toFixed(2)} €</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <div className="flex justify-between items-center py-2 border-b border-border">
+                                                    <span className="font-700 text-text-secondary">Término de Energía ({ (input.energy_p1 + input.energy_p2 + input.energy_p3).toFixed(2).replace(/\.00$/, '') } kWh)</span>
+                                                    <span className="font-800 text-lg">{selectedResult.costEnergy.toFixed(2)} €</span>
+                                                </div>
+
+                                                {isBreakdownOpen && (
+                                                    <div className="ml-4 space-y-2 pb-2 animate-in slide-in-from-top-2 duration-300">
+                                                        {selectedResult.costEnergyP1 > 0 && (
+                                                            <div className="flex justify-between text-xs text-text-muted">
+                                                                <span>Punta (E1) · {input.energy_p1.toFixed(2)} kWh × {applyTaxes(selectedResult.tariff.e1_kwh, selectedResult.tariff.e1_kwh_with_taxes).toFixed(5)} €</span>
+                                                                <span className="font-mono">{selectedResult.costEnergyP1.toFixed(2)} €</span>
+                                                            </div>
+                                                        )}
+                                                        {selectedResult.costEnergyP2 > 0 && (
+                                                            <div className="flex justify-between text-xs text-text-muted">
+                                                                <span>Llano (E2) · {input.energy_p2.toFixed(2)} kWh × {applyTaxes(selectedResult.tariff.e2_kwh, selectedResult.tariff.e2_kwh_with_taxes).toFixed(5)} €</span>
+                                                                <span className="font-mono">{selectedResult.costEnergyP2.toFixed(2)} €</span>
+                                                            </div>
+                                                        )}
+                                                        {selectedResult.costEnergyP3 > 0 && (
+                                                            <div className="flex justify-between text-xs text-text-muted">
+                                                                <span>Valle (E3) · {input.energy_p3.toFixed(2)} kWh × {applyTaxes(selectedResult.tariff.e3_kwh, selectedResult.tariff.e3_kwh_with_taxes).toFixed(5)} €</span>
+                                                                <span className="font-mono">{selectedResult.costEnergyP3.toFixed(2)} €</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            <div className="space-y-3 pt-6 text-xs bg-surface-2 p-6 rounded-2xl border border-border/40">
+                                                <div className="flex justify-between text-text-secondary"><span>Impuesto Electricidad (IEE 0.5%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
                                                 <div className="flex justify-between text-text-secondary"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} €</span></div>
                                                 <div className="flex justify-between text-text-secondary"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} €</span></div>
-                                                <div className="flex justify-between text-text-secondary"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary font-bold text-text-primary pt-2 border-t border-border/20"><span>IVA (General 10%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
                                             </div>
-                                            <div className="pt-8 border-t border-border flex justify-between items-center">
-                                                <span className="text-xl font-800">Total Factura</span>
+
+                                            <div className="pt-8 flex justify-between items-center px-2">
+                                                <span className="text-2xl font-900 tracking-tight">Total Factura</span>
                                                 <div className="text-right">
-                                                    <p className="text-3xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
+                                                    <p className="text-4xl font-900 text-primary">{selectedResult.total.toFixed(2)} €</p>
                                                 </div>
                                             </div>
                                         </div>

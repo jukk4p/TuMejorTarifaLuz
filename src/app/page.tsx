@@ -574,19 +574,19 @@ export default async function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
               {[
-                { name: "Iberdrola", logo: "Iberdrola.png", scale: "scale-150", slug: "iberdrola" },
-                { name: "Endesa", logo: "Endesa.png", scale: "scale-75", slug: "endesa" },
-                { name: "Naturgy", logo: "Naturgy.png", scale: "scale-140", slug: "naturgy" },
-                { name: "Repsol", logo: "Repsol.png", darkLogo: "Repsolv1.png", scale: "scale-140", slug: "repsol" },
-                { name: "Octopus", logo: "Octopus.png", darkLogo: "Octopusv1.png", scale: "scale-135", slug: "octopus-energy" },
-                { name: "TotalEnergies", logo: "TotalEnergies.png", scale: "scale-125", slug: "total-energies" },
-                { name: "Niba", logo: "Nibav1.png", darkLogo: "Niba.png", scale: "scale-110", slug: "niba" },
-                { name: "Imagina", logo: "Imaginaenergia.png", scale: "scale-140", slug: "imagina-energia" },
-                { name: "Visalia", logo: "Visalia.png", scale: "scale-95", slug: "visalia" },
-                { name: "Energía Nufri", logo: "Energianufri.png", darkLogo: "Energianufriv1.png", scale: "scale-120", slug: "energia-nufri" },
-                { name: "Energya VM", logo: "Energiavm.png", scale: "scale-130", slug: "energia-vm" },
-                { name: "Neolux Energy", logo: "NeoluxEnergy.webp", scale: "scale-140", slug: "neolux-energy" },
-                { name: "Esluz", logo: "Esluz.png", scale: "scale-85", slug: "esluz" },
+                { name: "Iberdrola", logo: "logo_iberdrola.png", scale: "scale-150", slug: "iberdrola" },
+                { name: "Endesa", logo: "logo_endesa.png", scale: "scale-75", slug: "endesa" },
+                { name: "Naturgy", logo: "logo_naturgy.png", scale: "scale-140", slug: "naturgy" },
+                { name: "Repsol", logo: "logo_repsol_base.png", darkLogo: "logo_repsol_dark.png", scale: "scale-140", slug: "repsol" },
+                { name: "Octopus", logo: "logo_octopus_base.png", darkLogo: "logo_octopus_dark.png", scale: "scale-135", slug: "octopus-energy" },
+                { name: "TotalEnergies", logo: "logo_total_energies.png", scale: "scale-125", slug: "total-energies" },
+                { name: "Niba", logo: "logo_niba_base.png", darkLogo: "logo_niba_dark.png", scale: "scale-110", slug: "niba" },
+                { name: "Imagina", logo: "logo_imaginaenergia.png", scale: "scale-140", slug: "imagina-energia" },
+                { name: "Visalia", logo: "logo_visalia.png", scale: "scale-95", slug: "visalia" },
+                { name: "Energía Nufri", logo: "logo_energianufri_base.png", darkLogo: "logo_energianufri_dark.png", scale: "scale-120", slug: "energia-nufri" },
+                { name: "Energya VM", logo: "logo_energiavm.png", scale: "scale-130", slug: "energia-vm" },
+                { name: "Neolux Energy", logo: "logo_neoluxenergy_base.webp", darkLogo: "logo_neoluxenergy_dark.png", scale: "scale-140", slug: "neolux-energy" },
+                { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
                 { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">

@@ -293,8 +293,28 @@ export default function TarifasClient() {
                                     </button>
 
                                     <div className="flex flex-col grow pt-4">
-                                        <div className="space-y-1 mb-6 min-h-[72px] flex flex-col justify-center">
-                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-3">{tariff.name}</h3>
+                                        <div className="flex justify-between items-start mb-6">
+                                            <div className="w-24 h-12 relative flex items-center justify-center bg-white dark:bg-white/5 rounded-xl border border-border p-3 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                                {getLogoPath(tariff.company) ? (
+                                                    <img 
+                                                        src={getLogoPath(tariff.company)!} 
+                                                        alt={tariff.company} 
+                                                        className="max-h-full max-w-full object-contain"
+                                                    />
+                                                ) : (
+                                                    <Building2 size={20} className="text-slate-400" />
+                                                )}
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="flex items-center gap-1.5 justify-end">
+                                                    <CheckCircle2 size={14} className="text-emerald-500" />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-[#0f69c5]">Oficial</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-1 mb-6 min-h-[52px] flex flex-col justify-center">
+                                            <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-2">{tariff.name}</h3>
                                             <Link 
                                                 href={`/companias/${COMPANY_SLUGS[tariff.company] || tariff.company.toLowerCase().replace(/\s+/g, '-')}`} 
                                                 className="inline-block text-[11px] text-[#0f69c5] font-black uppercase tracking-widest hover:underline"

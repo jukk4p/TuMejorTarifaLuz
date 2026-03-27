@@ -28,8 +28,8 @@ export const providers: Provider[] = [
     {
         id: "octopus",
         name: "Octopus Energy",
-        logo: "/logos/Octopus.png",
-        logo_dark: "/logos/Octopusv1.png",
+        logo: "/logos/logo_octopus_base.png",
+        logo_dark: "/logos/logo_octopus_dark.png",
         rating: 4.9,
         description: "Líder mundial en tecnología energética con un enfoque obsesivo en el cliente y energía 100% renovable. Conocida por su tarifa Octopus Relax y su excelente servicio técnico.",
         pros: ["Atención al cliente premiada", "Tecnología Kraken de última generación", "Energía 100% verde certificada", "Transparencia total en facturación"],
@@ -47,8 +47,8 @@ export const providers: Provider[] = [
     {
         id: "niba",
         name: "Niba",
-        logo: "/logos/Nibav1.png",
-        logo_dark: "/logos/Niba.png",
+        logo: "/logos/logo_niba_base.png",
+        logo_dark: "/logos/logo_niba_dark.png",
         rating: 4.7,
         description: "Una comercializadora digital que simplifica la energía para el consumidor moderno. Ofrece tarifas claras y una experiencia de usuario optimizada a través de su App.",
         pros: ["Experiencia 100% digital", "Tarifas competitivas", "Sin trámites farragosos", "Energía eficiente"],
@@ -66,8 +66,8 @@ export const providers: Provider[] = [
     {
         id: "repsol",
         name: "Repsol",
-        logo: "/logos/Repsol.png",
-        logo_dark: "/logos/Repsolv1.png",
+        logo: "/logos/logo_repsol_base.png",
+        logo_dark: "/logos/logo_repsol_dark.png",
         rating: 4.5,
         description: "Gigante multi-energía que ofrece ahorros integrados a través de Waylet. Ideal para quienes buscan unificar suministros de luz, gas y carburante.",
         pros: ["Descuentos en carburante", "Solidez y confianza", "Servicios adicionales", "Fuerte en autoconsumo"],
@@ -85,8 +85,8 @@ export const providers: Provider[] = [
     {
         id: "energianufri",
         name: "Energía Nufri",
-        logo: "/logos/Energianufri.png",
-        logo_dark: "/logos/Energianufriv1.png",
+        logo: "/logos/logo_energianufri_base.png",
+        logo_dark: "/logos/logo_energianufri_dark.png",
         rating: 4.3,
         description: "Comercializadora con tarifas competitivas y un enfoque claro en el ahorro doméstico y de pequeñas empresas.",
         pros: ["Precios competitivos", "Claridad en facturas", "Atención personalizada"],
@@ -104,7 +104,7 @@ export const providers: Provider[] = [
     {
         id: "iberdrola",
         name: "Iberdrola",
-        logo: "/logos/Iberdrola.png",
+        logo: "/logos/logo_iberdrola.png",
         rating: 4.2,
         description: "La mayor eléctrica de España y líder mundial en eólica. Ofrece una infraestructura robusta y planes personalizados como el Plan Online.",
         pros: ["Líder renovables", "Infraestructura propia", "App muy completa", "Atención presencial"],
@@ -122,7 +122,7 @@ export const providers: Provider[] = [
     {
         id: "endesa",
         name: "Endesa",
-        logo: "/logos/Endesa.png",
+        logo: "/logos/logo_endesa.png",
         rating: 4.1,
         description: "Una de las 'Big Three' en España, destaca por su digitalización agresiva y tarifas como Conecta Endesa que suelen liderar los rankings de precio.",
         pros: ["Tarifas online baratas", "Gran red de servicio", "Digitalización avanzada", "Promociones frecuentes"],
@@ -140,7 +140,7 @@ export const providers: Provider[] = [
     {
         id: "naturgy",
         name: "Naturgy",
-        logo: "/logos/Naturgy.png",
+        logo: "/logos/logo_naturgy.png",
         rating: 4.0,
         description: "Histórica gasista reconvertida en gigante multi-energía. Ofrece estabilidad y un servicio al cliente muy cercano a la tradición familiar.",
         pros: ["Atención telefónica", "Tarifas de noche", "Estabilidad de marca", "Especialista en gas"],
@@ -158,7 +158,7 @@ export const providers: Provider[] = [
     {
         id: "totalenergies",
         name: "TotalEnergies",
-        logo: "/logos/TotalEnergies.png",
+        logo: "/logos/logo_total_energies.png",
         rating: 4.2,
         description: "Multinacional francesa con gran presencia en España tras adquirir la cartera de EDP. Ofrece programas de fidelización atractivos.",
         pros: ["Puntos y regalos", "Energía limpia", "Tarifas estables", "Servicio Facilita"],
@@ -176,7 +176,7 @@ export const providers: Provider[] = [
     {
         id: "imagina",
         name: "Imagina Energía",
-        logo: "/logos/Imaginaenergia.png",
+        logo: "/logos/logo_imaginaenergia.png",
         rating: 4.4,
         description: "Energía 100% solar sin necesidad de instalar paneles en tu tejado. Especialistas en energía local y sostenible.",
         pros: ["Energía 100% solar", "Sin permanencia", "Producción local", "Sencillez radical"],
@@ -194,7 +194,7 @@ export const providers: Provider[] = [
     {
         id: "visalia",
         name: "Visalia",
-        logo: "/logos/Visalia.png",
+        logo: "/logos/logo_visalia.png",
         rating: 4.1,
         description: "Grupo energético independiente que ofrece soluciones personalizadas para hogares y empresas, destacando por su proximidad y flexibilidad.",
         pros: ["Atención cercana", "Flexibilidad", "Energía verde"],
@@ -212,7 +212,7 @@ export const providers: Provider[] = [
     {
         id: "energia-vm",
         name: "Energya VM",
-        logo: "/logos/Energiavm.png",
+        logo: "/logos/logo_energiavm.png",
         rating: 4.2,
         description: "Parte del Grupo Villar Mir, ofrece estabilidad y experiencia en el mercado energético con tarifas competitivas y energía 100% renovable.",
         pros: ["Respaldo de gran grupo", "Tarifas competitivas", "Experiencia en mercado"],
@@ -250,7 +250,7 @@ export const providers: Provider[] = [
     {
         id: "esluz",
         name: "Esluz",
-        logo: "/logos/Esluz.png",
+        logo: "/logos/logo_esluz.png",
         rating: 4.1,
         description: "Comercializadora ágil y dinámica que busca simplificar el ahorro energético para el cliente doméstico con tarifas directas.",
         pros: ["Simplicidad", "Trato ágil", "Tarifas claras"],
@@ -286,7 +286,8 @@ export const providers: Provider[] = [
     {
         id: "neolux",
         name: "Neolux Energy",
-        logo: "/logos/NeoluxEnergy.webp",
+        logo: "/logos/logo_neoluxenergy_base.webp",
+        logo_dark: "/logos/logo_neoluxenergy_dark.png",
         rating: 4.3,
         description: "Comercializadora de energía renovable especializada en soluciones sostenibles y tarifas competitivas para vehículos eléctricos y hogares eficientes.",
         pros: ["Energía 100% renovable", "Tarifas VE competitivas", "Atención digital ágil", "Sin permanencia"],

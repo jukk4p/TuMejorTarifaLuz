@@ -33,21 +33,21 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
 
     // Mapping normalized names/aliases to paths
     const logos: Record<string, { light: string, dark?: string, aliases?: string[] }> = {
-        "imagina": { light: "/logos/Imaginaenergia.png", aliases: ["imagina energia"] },
-        "visalia": { light: "/logos/Visalia.png" },
-        "energia nufri": { light: "/logos/Energianufri.png", dark: "/logos/Energianufriv1.png", aliases: ["nufri"] },
-        "energya vm": { light: "/logos/Energiavm.png", aliases: ["vm", "energya"] },
-        "total energies": { light: "/logos/TotalEnergies.png", aliases: ["totalenergies", "total"] },
-        "chc energia": { light: "/logos/Chcenergia.png", aliases: ["chc"] },
-        "niba": { light: "/logos/Nibav1.png", dark: "/logos/Niba.png" },
-        "octopus": { light: "/logos/Octopus.png", dark: "/logos/Octopusv1.png", aliases: ["octopus energy"] },
-        "repsol": { light: "/logos/Repsol.png", dark: "/logos/Repsolv1.png" },
-        "iberdrola": { light: "/logos/Iberdrola.png" },
-        "endesa": { light: "/logos/Endesa.png" },
-        "naturgy": { light: "/logos/Naturgy.png" },
-        "esluz": { light: "/logos/Esluz.png" },
+        "imagina": { light: "/logos/logo_imaginaenergia.png", aliases: ["imagina energia"] },
+        "visalia": { light: "/logos/logo_visalia.png" },
+        "energia nufri": { light: "/logos/logo_energianufri_base.png", dark: "/logos/logo_energianufri_dark.png", aliases: ["nufri"] },
+        "energya vm": { light: "/logos/logo_energiavm.png", aliases: ["vm", "energya"] },
+        "total energies": { light: "/logos/logo_total_energies.png", aliases: ["totalenergies", "total"] },
+        "chc energia": { light: "/logos/logo_chcenergia.png", aliases: ["chc"] },
+        "niba": { light: "/logos/logo_niba_base.png", dark: "/logos/logo_niba_dark.png" },
+        "octopus": { light: "/logos/logo_octopus_base.png", dark: "/logos/logo_octopus_dark.png", aliases: ["octopus energy"] },
+        "repsol": { light: "/logos/logo_repsol_base.png", dark: "/logos/logo_repsol_dark.png" },
+        "iberdrola": { light: "/logos/logo_iberdrola.png" },
+        "endesa": { light: "/logos/logo_endesa.png" },
+        "naturgy": { light: "/logos/logo_naturgy.png" },
+        "esluz": { light: "/logos/logo_esluz.png" },
         "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] },
-        "neolux energy": { light: "/logos/NeoluxEnergy.webp", aliases: ["neolux"] }
+        "neolux energy": { light: "/logos/logo_neoluxenergy_base.webp", dark: "/logos/logo_neoluxenergy_dark.png", aliases: ["neolux"] }
     };
 
     // 1. Direct match or alias match
@@ -86,7 +86,12 @@ export interface CalculationInput {
 export interface CalculationResult {
     tariff: Tariff;
     costPower: number;
+    costPowerP1: number;
+    costPowerP2: number;
     costEnergy: number;
+    costEnergyP1: number;
+    costEnergyP2: number;
+    costEnergyP3: number;
     subtotal: number;
     taxIee: number;
     costBonoSocial: number;
@@ -153,7 +158,12 @@ export function calculateTariffCost(tariff: Tariff, input: CalculationInput): Ca
     return {
         tariff,
         costPower,
+        costPowerP1,
+        costPowerP2,
         costEnergy,
+        costEnergyP1,
+        costEnergyP2,
+        costEnergyP3,
         subtotal,
         taxIee,
         costBonoSocial,
