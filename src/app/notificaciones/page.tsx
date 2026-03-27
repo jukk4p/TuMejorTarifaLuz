@@ -198,16 +198,18 @@ export default function NotificationsPage() {
                 ...doc.data()
             } as Notification));
             
-            // Re-order manually since we disabled it in the query
+            // Re-order manually since we disabled it in the query for safety
             const sortedNotifs = notifs.sort((a, b) => {
                 const dateA = a.createdAt?.toDate?.() || 0;
                 const dateB = b.createdAt?.toDate?.() || 0;
                 return dateB - dateA;
             });
 
-            console.log("Notificaciones detectadas:", sortedNotifs.length);
             setNotifications(sortedNotifs);
             setLoading(false);
+        }, (error) => {
+            console.error("Error loading notifications:", error);
+            setLoading(false); // Critical: Stop loading skeleton even on error
         });
 
         return () => unsubscribe();
