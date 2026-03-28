@@ -668,7 +668,7 @@ export default function ProfilePage() {
 
                                                 <div className="mb-6">
                                                     <div className="flex items-center gap-2 mb-2">
-                                                        <span className="px-2.5 py-1 bg-surface-2 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-border">{tariff.type}</span>
+                                                        <span className="px-2.5 py-1 bg-slate-50/50 dark:bg-slate-800/40 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-border">{tariff.type}</span>
                                                         {tariff.id?.includes('recomendado') && <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/10">Recomendado</span>}
                                                     </div>
                                                     <h4 className="text-lg font-900 dark:text-white leading-tight group-hover:text-primary transition-colors mb-0.5 line-clamp-1">{tariff.name}</h4>
@@ -677,14 +677,14 @@ export default function ProfilePage() {
 
                                                 {/* Precios Express */}
                                                 <div className="grid grid-cols-1 gap-2 mb-8">
-                                                    <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
+                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-base">⚡</span>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Energía P1</span>
                                                         </div>
                                                         <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kWh</span></span>
                                                     </div>
-                                                    <div className="flex items-center justify-between p-3.5 bg-surface-2 rounded-2xl border border-border">
+                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-border">
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-base">🔌</span>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Potencia P1</span>
@@ -706,7 +706,7 @@ export default function ProfilePage() {
                                     ))
                             ) : (
                                 <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed md:col-span-2 lg:col-span-3">
-                                    <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <div className="w-16 h-16 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                         <Star className="text-primary/20 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Tu lista de guardados está vacía</h3>
@@ -715,7 +715,7 @@ export default function ProfilePage() {
                                     </p>
                                     <button
                                         onClick={() => router.push("/tarifas")}
-                                        className="inline-flex items-center gap-2 px-8 py-4 bg-surface-2 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                                        className="inline-flex items-center gap-2 px-8 py-4 bg-slate-50/50 dark:bg-slate-800/40 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
                                     >
                                         Explorar Tarifas
                                     </button>
