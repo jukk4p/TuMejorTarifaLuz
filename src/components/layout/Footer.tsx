@@ -233,8 +233,8 @@ export default function Footer() {
 
                 <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 w-full">
                     {/* Logo Section */}
-                    <div className="flex items-center gap-3 group shrink-0">
-                        <div className="w-10 h-10 transition-all flex items-center justify-center p-1">
+                    <div className="flex items-center gap-3.5 group shrink-0">
+                        <div className="w-12 h-12 transition-all flex items-center justify-center p-1">
                             <div className="relative w-full h-full">
                                 <Image 
                                     src="/Logo.png" 
@@ -245,7 +245,7 @@ export default function Footer() {
                                 />
                             </div>
                         </div>
-                        <span className="text-xl font-900 tracking-tight text-[#F1F5F9] group-hover:text-primary transition-colors">
+                        <span className="text-2xl font-900 tracking-tight text-[#F1F5F9] group-hover:text-primary transition-colors">
                             TuMejorTarifa<span className="text-primary">Luz</span>
                         </span>
                     </div>
