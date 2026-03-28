@@ -50,7 +50,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
         <div className="border-b lg:border-none border-border/50 last:border-none">
             <button 
                 onClick={onToggle}
-                className="w-full flex items-center justify-between py-4 sm:py-5 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none"
+                className="w-full flex items-center justify-center lg:justify-between py-5 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none relative"
                 aria-expanded={isOpen}
             >
                 <h4 className="text-[#E2E8F0] uppercase font-600 text-[11px] tracking-[0.08em] relative lg:inline-block">
@@ -58,8 +58,8 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
                 </h4>
                 <ChevronDown 
-                    size={20} 
-                    className={`text-primary transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
+                    size={18} 
+                    className={`text-primary absolute right-0 transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
                 />
             </button>
             <div className={`${isOpen ? 'max-h-[1000px] opacity-100 pb-6 overflow-visible' : 'max-h-0 opacity-0 overflow-hidden'} lg:max-h-none lg:opacity-100 lg:block lg:overflow-visible transition-all duration-500 lg:transition-none`}>
@@ -91,14 +91,14 @@ export default function Footer() {
                         isOpen={openSection === 'herramientas'} 
                         onToggle={() => toggleSection('herramientas')}
                     >
-                        <ul className="flex flex-col gap-2 lg:gap-4">
+                        <ul className="flex flex-col gap-3 lg:gap-4 items-center lg:items-start text-center lg:text-left">
                             {TOOLS.map((tool) => (
                                 <li key={tool.name}>
                                     <Link 
                                         href={tool.name === "Mi cuenta" && !user ? "/login" : tool.href}
-                                        className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center gap-3 group"
+                                        className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-3 group"
                                     >
-                                        <div className="w-1.5 h-1.5 bg-white/10 group-hover:bg-primary rounded-full transition-colors"></div>
+                                        <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors hidden lg:block"></div>
                                         {tool.name}
                                     </Link>
                                 </li>
@@ -112,7 +112,7 @@ export default function Footer() {
                         isOpen={openSection === 'compañías'} 
                         onToggle={() => toggleSection('compañías')}
                     >
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-2 lg:gap-y-3">
+                        <div className="grid grid-cols-2 lg:grid-cols-2 gap-x-4 gap-y-3 items-start justify-items-center lg:justify-items-start text-center lg:text-left">
                             {COMPANIES.map((company) => (
                                 <Link 
                                     key={company} 
@@ -145,14 +145,14 @@ export default function Footer() {
                         isOpen={openSection === 'guías'} 
                         onToggle={() => toggleSection('guías')}
                     >
-                        <div className="flex flex-col gap-2 lg:gap-3">
+                        <div className="flex flex-col gap-3 lg:gap-3 items-center lg:items-start text-center lg:text-left">
                             {GUIDES.map((guide) => (
                                 <Link 
                                     key={guide.name} 
                                     href={guide.href} 
-                                    className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center gap-2 group"
+                                    className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-2 group"
                                 >
-                                    <ArrowRight size={14} className="text-white/20 group-hover:text-primary transition-colors pr-1 shrink-0" />
+                                    <ArrowRight size={14} className="text-white/20 group-hover:text-primary transition-colors pr-1 shrink-0 hidden lg:block" />
                                     <span className="truncate">{guide.name}</span>
                                 </Link>
                             ))}
@@ -165,21 +165,21 @@ export default function Footer() {
                         isOpen={openSection === 'sobre'} 
                         onToggle={() => toggleSection('sobre')}
                     >
-                        <div className="flex flex-col gap-2 lg:gap-3">
+                        <div className="flex flex-col gap-3 lg:gap-3 items-center lg:items-start text-center lg:text-left">
                             {ABOUT.map((item) => (
                                 <Link 
                                     key={item.name} 
                                     href={item.href} 
-                                    className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center gap-3 group"
+                                    className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-3 group"
                                 >
-                                    <div className="w-1.5 h-1.5 bg-white/10 group-hover:bg-primary rounded-full transition-colors"></div>
+                                    <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors hidden lg:block"></div>
                                     <span className="truncate">{item.name}</span>
                                 </Link>
                             ))}
 
                             {/* Contact Mini-cards */}
-                            <div className="mt-4 pt-6 border-t border-white/10 flex flex-col gap-2 lg:gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 min-w-0 group shadow-sm">
+                            <div className="mt-4 pt-6 border-t border-white/10 flex flex-col items-center lg:items-start gap-3 lg:gap-3">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center justify-center lg:justify-start gap-3 p-2.5 h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
@@ -188,7 +188,7 @@ export default function Footer() {
                                         <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center gap-3 p-2.5 h-[56px] rounded-2xl bg-white/5 border border-white/10 min-w-0 group hover:bg-primary/10 transition-all shadow-sm">
+                                <div className="flex items-center justify-center lg:justify-start gap-3 p-2.5 h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
@@ -200,9 +200,9 @@ export default function Footer() {
                             </div>
 
                             {/* Social Media Links */}
-                            <div className="mt-8 pt-6 border-t border-white/10">
+                            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col items-center lg:items-start text-center lg:text-left">
                                 <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase mb-5">Síguenos</p>
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center justify-center lg:justify-start gap-4">
                                     <a 
                                         href="https://x.com/TMejorTarifaLuz" 
                                         target="_blank" 
