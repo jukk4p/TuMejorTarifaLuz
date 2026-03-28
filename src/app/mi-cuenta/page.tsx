@@ -342,7 +342,7 @@ export default function ProfilePage() {
                             {isAdmin && (
                                 <button
                                     onClick={() => router.push("/admin/dashboard")}
-                                    className="w-full lg:w-auto overflow-hidden relative group/admin h-12 px-7 rounded-xl bg-primary text-white text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20"
+                                    className="w-full lg:w-auto overflow-hidden relative group/admin h-12 px-7 rounded-[1.25rem] bg-primary text-white text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-primary/20"
                                 >
                                     <span className="relative z-10 flex items-center justify-center gap-2.5">
                                         <ShieldAlert size={16} />
@@ -353,13 +353,12 @@ export default function ProfilePage() {
                             )}
                             <button
                                 onClick={() => setIsEditModalOpen(true)}
-                                className="w-full lg:w-auto overflow-hidden relative group/btn h-12 px-7 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none"
+                                className="w-full lg:w-auto h-12 px-7 rounded-[1.25rem] bg-white/60 dark:bg-slate-900/40 backdrop-blur-md border border-slate-200/60 dark:border-white/5 text-slate-900 dark:text-white text-[10px] font-900 uppercase tracking-[0.2em] transition-all hover:bg-white dark:hover:bg-slate-800 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 active:scale-95 group/btn"
                             >
-                                <span className="relative z-10 flex items-center justify-center gap-2.5">
-                                    <Settings size={16} />
+                                <span className="flex items-center justify-center gap-2.5">
+                                    <Settings size={16} className="text-primary group-hover/btn:rotate-90 transition-transform duration-500" />
                                     Mi Configuración
                                 </span>
-                                <div className="absolute inset-0 bg-primary translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
                             </button>
                         </div>
                     </div>
@@ -651,16 +650,17 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {favoriteTariffs.length > 0 ? (
                                 favoriteTariffs.map((tariff) => (
-                                        <div key={tariff.id} className="group relative bg-surface rounded-[2.5rem] p-7 sm:p-8 shadow-xl shadow-slate-200/50 dark:shadow-none border border-border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full">
-                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
+                                        <div key={tariff.id} className="group relative bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2.25rem] p-7 shadow-xl shadow-primary/5 border border-slate-200/60 dark:border-white/5 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 overflow-hidden flex flex-col h-full">
+                                            {/* Glow decorativo */}
+                                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors"></div>
                                             
                                             <div className="relative z-10 flex flex-col h-full">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 shadow-inner border border-border">
+                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-3 shadow-sm border border-slate-100 dark:border-slate-700">
                                                         <img
                                                             src={getLogoPath(tariff.company || '') || ''}
                                                             alt={tariff.company || 'Tarifa'}
-                                                            className="w-full h-full object-contain filter dark:brightness-110"
+                                                            className="w-full h-full object-contain"
                                                         />
                                                     </div>
                                                     <button
@@ -668,45 +668,50 @@ export default function ProfilePage() {
                                                             e.stopPropagation();
                                                             if (tariff.id) toggleFavorite(tariff.id);
                                                         }}
-                                                        className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm active:scale-90"
+                                                        className="w-11 h-11 rounded-xl bg-primary/[0.03] text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all active:scale-90 border border-primary/5"
                                                     >
-                                                        <Star size={20} className="fill-current" />
+                                                        <Star size={18} className="fill-current" />
                                                     </button>
                                                 </div>
-
+ 
                                                 <div className="mb-6">
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <span className="px-2.5 py-1 bg-slate-50/50 dark:bg-slate-800/40 text-slate-400 text-[8px] font-black uppercase tracking-widest rounded-lg border border-border">{tariff.type}</span>
-                                                        {tariff.id?.includes('recomendado') && <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-widest rounded-lg border border-emerald-500/10">Recomendado</span>}
+                                                    <div className="flex items-center gap-2 mb-2.5">
+                                                        <span className="px-2.5 py-0.5 bg-slate-100/50 dark:bg-slate-800/60 text-slate-400 text-[8px] font-black uppercase tracking-[0.15em] rounded-full border border-slate-200/40 dark:border-white/5">{tariff.type}</span>
+                                                        {tariff.id?.includes('recomendado') && (
+                                                            <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-600 text-[8px] font-black uppercase tracking-[0.15em] rounded-full border border-emerald-100 flex items-center gap-1">
+                                                                <Zap size={8} className="fill-current" /> Recomendado
+                                                            </span>
+                                                        )}
                                                     </div>
                                                     <h4 className="text-lg font-900 dark:text-white leading-tight group-hover:text-primary transition-colors mb-0.5 line-clamp-1">{tariff.name}</h4>
-                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{tariff.company}</p>
+                                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">{tariff.company}</p>
                                                 </div>
-
-                                                {/* Precios Express */}
+ 
+                                                {/* Precios Express - Refinado */}
                                                 <div className="grid grid-cols-1 gap-2 mb-8">
-                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-border">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-base">⚡</span>
+                                                    <div className="flex items-center justify-between p-4 bg-white/40 dark:bg-slate-800/20 rounded-2xl border border-slate-100 dark:border-white/5 shadow-sm">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-8 h-8 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center text-xs">⚡</div>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Energía P1</span>
                                                         </div>
-                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kWh</span></span>
+                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.e1_kwh || 0).toFixed(4)} <span className="text-[9px] text-slate-400 font-bold italic ml-0.5">€/kWh</span></span>
                                                     </div>
-                                                    <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-border">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-base">🔌</span>
+                                                    <div className="flex items-center justify-between p-4 bg-white/40 dark:bg-slate-800/20 rounded-2xl border border-slate-100 dark:border-white/5 shadow-sm">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center text-xs">🔌</div>
                                                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Potencia P1</span>
                                                         </div>
-                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.p1_kw_day || 0).toFixed(4)} <span className="text-[9px] text-slate-500">€/kW</span></span>
+                                                        <span className="text-sm font-mono font-black dark:text-white">{(tariff.p1_kw_day || 0).toFixed(4)} <span className="text-[9px] text-slate-400 font-bold italic ml-0.5">€/kW</span></span>
                                                     </div>
                                                 </div>
-
-                                                <div className="mt-auto pt-6">
+ 
+                                                <div className="mt-auto pt-4">
                                                     <button
                                                         onClick={() => router.push(`/comparador?tariff=${tariff.id}`)}
-                                                        className="w-full h-12 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-[10px] font-900 uppercase tracking-[0.2em] shadow-xl hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all active:scale-95"
+                                                        className="w-full h-12 bg-primary hover:bg-primary-hover text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 group/btn"
                                                     >
-                                                        Ver Detalles Completos
+                                                        Ver Detalles
+                                                        <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                                                     </button>
                                                 </div>
                                             </div>

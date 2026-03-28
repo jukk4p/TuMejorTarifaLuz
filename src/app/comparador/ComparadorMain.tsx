@@ -961,7 +961,7 @@ export default function ComparadorMain() {
                                         {inputMethod === "upload" && (
                                             <label
                                                 htmlFor="ocr-upload-sidebar"
-                                                className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-surface-2 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-colors group relative overflow-hidden"
+                                                className="border-2 border-dashed border-primary/20 rounded-[1.25rem] p-8 bg-white dark:bg-slate-900/20 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-all group relative overflow-hidden"
                                             >
                                                 <input
                                                     id="ocr-upload-sidebar"
@@ -971,123 +971,132 @@ export default function ComparadorMain() {
                                                     onChange={handleFileUpload}
                                                     disabled={isProcessing}
                                                 />
-                                                <FileUp className="w-[36px] h-[36px] text-primary/60 group-hover:scale-110 transition-transform" />
+                                                <FileUp className="w-[36px] h-[36px] text-primary/40 group-hover:scale-110 transition-transform" />
                                                 <div className="text-center">
-                                                    <p className="text-sm font-bold">Cambiar factura</p>
-                                                    <p className="text-[11px] text-text-muted">PDF o Imagen</p>
+                                                    <p className="text-sm font-bold text-text-primary">Cambiar factura</p>
+                                                    <p className="text-[11px] text-text-muted font-medium">PDF o Imagen</p>
                                                 </div>
                                             </label>
                                         )}
 
                                         {(inputMethod === "manual" || hasAnalyzed) && (
-                                            <div className="space-y-6">
-                                                <div className="relative py-8 flex items-center">
-                                                    <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-                                                    <span className="mx-4 px-3 py-1 bg-white border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
-                                                    <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+                                            <div className="space-y-4">
+                                                <div className="flex justify-center py-2">
+                                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/[0.03] border border-primary/10 rounded-full">
+                                                        <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                        <span className="text-[8px] font-900 uppercase tracking-[0.2em] text-primary">Ajuste técnico manual</span>
+                                                    </div>
                                                 </div>
 
-                                                <div className="space-y-5">
-                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-2">Información Factura</h4>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="space-y-1.5 flex-1">
-                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Días</label>
-                                                            <input
-                                                                type="number"
-                                                                value={input.days || ''}
-                                                                onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
-                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                                placeholder="30"
-                                                            />
-                                                        </div>
-                                                        <div className="space-y-1.5 flex-1">
-                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Total (€)</label>
-                                                            <input
-                                                                type="number"
-                                                                value={input.current_bill_total || ''}
-                                                                onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
-                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                                placeholder="0.00"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Potencias (kW)</h4>
-                                                    <div className="grid grid-cols-2 gap-4">
-                                                        <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Punta (P1)</label>
-                                                            <input
-                                                                type="text"
-                                                                inputMode="decimal"
-                                                                name="power_p1"
-                                                                value={displayValues.power_p1}
-                                                                onChange={handleInputChange}
-                                                                placeholder="0,00"
-                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                            />
-                                                        </div>
-                                                        <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-bold text-text-secondary uppercase">Valle (P2)</label>
-                                                            <input
-                                                                type="text"
-                                                                inputMode="decimal"
-                                                                name="power_p2"
-                                                                value={displayValues.power_p2}
-                                                                onChange={handleInputChange}
-                                                                placeholder="0,00"
-                                                                className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
-                                                            />
+                                                <div className="space-y-4">
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest px-1">Información Factura</h4>
+                                                        <div className="grid grid-cols-2 gap-3">
+                                                            <div className="space-y-1">
+                                                                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">Días</label>
+                                                                <input
+                                                                    type="number"
+                                                                    value={input.days || ''}
+                                                                    onChange={(e) => setInput({ ...input, days: parseInt(e.target.value) || 0 })}
+                                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-4 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
+                                                                    placeholder="30"
+                                                                />
+                                                            </div>
+                                                            <div className="space-y-1">
+                                                                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">Total (€)</label>
+                                                                <input
+                                                                    type="number"
+                                                                    value={input.current_bill_total || ''}
+                                                                    onChange={(e) => setInput({ ...input, current_bill_total: parseFloat(e.target.value) || 0 })}
+                                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-4 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
+                                                                    placeholder="0.00"
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
 
-                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Consumo Energía (kWh)</h4>
-                                                    <div className="space-y-4">
-                                                        {[
-                                                            { label: "Punta (E1)", name: "energy_p1" },
-                                                            { label: "Llano (E2)", name: "energy_p2" },
-                                                            { label: "Valle (E3)", name: "energy_p3" },
-                                                        ].map((item, idx) => (
-                                                            <div key={idx} className="space-y-1.5">
-                                                                <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest px-1">Potencias (kW)</h4>
+                                                        <div className="grid grid-cols-2 gap-3">
+                                                            <div className="space-y-1">
+                                                                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">Punta (P1)</label>
                                                                 <input
                                                                     type="text"
                                                                     inputMode="decimal"
-                                                                    name={item.name}
-                                                                    value={displayValues[item.name as keyof typeof displayValues]}
+                                                                    name="power_p1"
+                                                                    value={displayValues.power_p1}
                                                                     onChange={handleInputChange}
                                                                     placeholder="0,00"
-                                                                    className="w-full bg-white border border-slate-200 shadow-sm rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-4 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
                                                                 />
                                                             </div>
-                                                        ))}
-                                                    </div>
-
-                                                    <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest pt-4">Precios Energía (€/kWh)</h4>
-                                                    <div className="space-y-4">
-                                                        {[
-                                                            { label: "Punta (P1)", name: "current_price_p1" },
-                                                            { label: "Llano (P2)", name: "current_price_p2" },
-                                                            { label: "Valle (P3)", name: "current_price_p3" },
-                                                        ].map((item, idx) => (
-                                                            <div key={idx} className="space-y-1.5">
-                                                                <label className="text-[11px] font-bold text-text-secondary uppercase">{item.label}</label>
+                                                            <div className="space-y-1">
+                                                                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">Valle (P2)</label>
                                                                 <input
                                                                     type="text"
                                                                     inputMode="decimal"
-                                                                    name={item.name}
-                                                                    value={displayValues[item.name as keyof typeof displayValues]}
+                                                                    name="power_p2"
+                                                                    value={displayValues.power_p2}
                                                                     onChange={handleInputChange}
-                                                                    placeholder="0,0000"
-                                                                    className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                    placeholder="0,00"
+                                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-4 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
                                                                 />
                                                             </div>
-                                                        ))}
+                                                        </div>
                                                     </div>
-  
+
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest px-1">Consumo Energía (kWh)</h4>
+                                                        <div className="grid grid-cols-3 gap-3">
+                                                            {[
+                                                                { label: "Punta (E1)", name: "energy_p1" },
+                                                                { label: "Llano (E2)", name: "energy_p2" },
+                                                                { label: "Valle (E3)", name: "energy_p3" },
+                                                            ].map((item, idx) => (
+                                                                <div key={idx} className="space-y-1">
+                                                                    <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">{item.label}</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        inputMode="decimal"
+                                                                        name={item.name}
+                                                                        value={displayValues[item.name as keyof typeof displayValues]}
+                                                                        onChange={handleInputChange}
+                                                                        placeholder="0,00"
+                                                                        className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-3 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
+                                                                    />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-[10px] font-bold text-text-muted uppercase tracking-widest px-1">Precios Energía (€/kWh)</h4>
+                                                        <div className="grid grid-cols-3 gap-3">
+                                                            {[
+                                                                { label: "Punta (P1)", name: "current_price_p1" },
+                                                                { label: "Llano (P2)", name: "current_price_p2" },
+                                                                { label: "Valle (P3)", name: "current_price_p3" },
+                                                            ].map((item, idx) => (
+                                                                <div key={idx} className="space-y-1">
+                                                                    <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider ml-1">{item.label}</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        inputMode="decimal"
+                                                                        name={item.name}
+                                                                        value={displayValues[item.name as keyof typeof displayValues]}
+                                                                        onChange={handleInputChange}
+                                                                        placeholder="0,00"
+                                                                        className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-xl px-3 py-2 text-xs font-mono focus:border-primary transition-all outline-none"
+                                                                    />
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+
                                                     <button 
                                                         onClick={() => startAnalysis(true)} 
                                                         disabled={isProcessing} 
-                                                        className="w-full bg-primary hover:bg-primary-hover text-white font-bold py-5 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                                        className="w-full bg-primary hover:bg-emerald-600 text-white font-black text-xs uppercase tracking-widest h-14 rounded-[1.25rem] shadow-xl shadow-primary/20 flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50"
                                                     >
                                                         {isProcessing ? (
                                                             <>
@@ -1416,13 +1425,13 @@ export default function ComparadorMain() {
 
                             {/* RIGHT: MAPPING PANEL */}
                             <div className="w-full lg:w-[450px] space-y-6">
-                                <div className="bg-green-500/5 border border-green-500/20 p-6 rounded-2xl flex items-start gap-4">
-                                    <div className="bg-green-500 p-1.5 rounded-lg text-white">
-                                        <CheckCircle2 className="w-4 h-4 font-bold" />
+                                <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-500/20 p-6 rounded-[1.25rem] flex items-start gap-4 backdrop-blur-sm">
+                                    <div className="bg-emerald-500 p-2 rounded-xl text-white shadow-lg shadow-emerald-500/20">
+                                        <CheckCircle2 className="w-4 h-4" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-text-primary uppercase mb-1">VALIDACIÓN TÉCNICA DE DATOS</p>
-                                        <p className="text-[11px] text-text-secondary leading-relaxed">Verifique los datos extraídos automáticamente de su factura para asegurar la máxima precisión en el cálculo.</p>
+                                        <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] mb-1">VALIDACIÓN TÉCNICA DE DATOS</p>
+                                        <p className="text-[11px] text-text-secondary font-medium leading-relaxed">Verifique los datos extraídos automáticamente para asegurar la máxima precisión en el cálculo.</p>
                                     </div>
                                 </div>
 
@@ -1441,7 +1450,7 @@ export default function ComparadorMain() {
                                                     name="current_bill_total"
                                                     value={displayValues.current_bill_total}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1455,7 +1464,7 @@ export default function ComparadorMain() {
                                                     name="days"
                                                     value={input.days.toString()}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                         </div>
@@ -1475,7 +1484,7 @@ export default function ComparadorMain() {
                                                     name="power_p1"
                                                     value={displayValues.power_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1489,7 +1498,7 @@ export default function ComparadorMain() {
                                                     name="power_p2"
                                                     value={displayValues.power_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                         </div>
@@ -1509,7 +1518,7 @@ export default function ComparadorMain() {
                                                     name="energy_p1"
                                                     value={displayValues.energy_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1523,7 +1532,7 @@ export default function ComparadorMain() {
                                                     name="energy_p2"
                                                     value={displayValues.energy_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1537,7 +1546,7 @@ export default function ComparadorMain() {
                                                     name="energy_p3"
                                                     value={displayValues.energy_p3}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                         </div>
@@ -1557,7 +1566,7 @@ export default function ComparadorMain() {
                                                     name="current_price_p1"
                                                     value={displayValues.current_price_p1}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1571,7 +1580,7 @@ export default function ComparadorMain() {
                                                     name="current_price_p2"
                                                     value={displayValues.current_price_p2}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                             <div className="space-y-1.5">
@@ -1585,15 +1594,15 @@ export default function ComparadorMain() {
                                                     name="current_price_p3"
                                                     value={displayValues.current_price_p3}
                                                     onChange={handleInputChange}
-                                                    className="w-full bg-white dark:bg-slate-800 border-border rounded-xl px-4 py-3 text-sm font-mono"
+                                                    className="w-full bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/5 rounded-2xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none shadow-sm shadow-slate-200/20"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="flex gap-4 pt-10">
-                                        <button onClick={() => setStep("input")} className="flex-1 bg-surface border border-border py-4 font-bold rounded-2xl text-xs tracking-widest hover:bg-surface-2 transition-colors">Editar Datos</button>
-                                        <button onClick={confirmData} className="flex-[2] bg-accent hover:bg-accent/90 text-accent-text py-4 font-bold rounded-2xl text-xs tracking-widest shadow-xl shadow-accent/20 flex items-center justify-center gap-2 transition-all group active:scale-95">
+                                        <button onClick={() => setStep("input")} className="flex-1 h-14 bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-white/10 rounded-[1.25rem] font-black text-[10px] uppercase tracking-widest text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 shadow-sm">Editar Datos</button>
+                                        <button onClick={confirmData} className="flex-[2] h-14 bg-accent hover:bg-emerald-600 text-white font-black text-[10px] uppercase tracking-widest rounded-[1.25rem] shadow-xl shadow-accent/20 flex items-center justify-center gap-3 transition-all group active:scale-95">
                                             Confirmar y Comparar
                                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                         </button>
