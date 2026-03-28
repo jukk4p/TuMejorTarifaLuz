@@ -31,8 +31,8 @@ export async function submitContactForm(formData: ContactFormData) {
                     'Authorization': `Bearer ${RESEND_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    from: 'TuMejorTarifaLuz <onboarding@resend.dev>',
-                    to: ['jukk4p@gmail.com'],
+                    from: 'TuMejorTarifaLuz <notificaciones@tumejortarifaluz.es>',
+                    to: ['contacto@tumejortarifaluz.es'],
                     subject: `Nuevo mensaje de contacto: ${formData.subject}`,
                     html: `
                         <h2>Nuevo mensaje desde la web</h2>
