@@ -179,20 +179,20 @@ export default function Footer() {
 
                             {/* Contact Mini-cards */}
                             <div className="mt-4 pt-6 border-t border-white/10 flex flex-col items-center lg:items-start gap-3 lg:gap-3">
-                                <a href="mailto:hola@tumejortarifaluz.es" className="flex items-center justify-center lg:justify-start gap-3 p-2.5 h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
+                                <a href="mailto:hola@tumejortarifaluz.es" className="flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start gap-3 p-3 lg:p-2.5 h-auto lg:h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
                                     </div>
-                                    <div className="flex flex-col min-w-0 overflow-hidden text-left">
+                                    <div className="flex flex-col min-w-0 overflow-hidden text-center lg:text-left">
                                         <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">Email</span>
-                                        <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight whitespace-nowrap">hola@tumejortarifaluz.es</span>
+                                        <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight">hola@tumejortarifaluz.es</span>
                                     </div>
                                 </a>
-                                <div className="flex items-center justify-center lg:justify-start gap-3 p-2.5 h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
+                                <div className="flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start gap-3 p-3 lg:p-2.5 h-auto lg:h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <MapPin size={16} />
                                     </div>
-                                    <div className="flex flex-col min-w-0 text-left">
+                                    <div className="flex flex-col min-w-0 text-center lg:text-left">
                                         <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">España</span>
                                         <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight truncate">Servicio Nacional</span>
                                     </div>
