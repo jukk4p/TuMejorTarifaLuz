@@ -294,7 +294,7 @@ export default function TarifasClient() {
 
                                     <div className="flex flex-col grow pt-4">
                                         <div className="flex justify-between items-start mb-6">
-                                            <div className="w-24 h-12 relative flex items-center justify-center bg-white dark:bg-white/5 rounded-xl border border-border p-3 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                            <div className={`${tariff.company.toLowerCase().includes('endesa') ? 'w-24 h-12 p-3' : 'w-32 h-16 p-2'} relative flex items-center justify-center bg-white dark:bg-white/5 rounded-xl border border-border shadow-sm group-hover:shadow-md transition-all duration-300`}>
                                                 {getLogoPath(tariff.company) ? (
                                                     <img 
                                                         src={getLogoPath(tariff.company)!} 
