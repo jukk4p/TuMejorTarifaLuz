@@ -289,7 +289,7 @@ export default function DynamicHeroCard() {
            </div>
          </div>
 
-         <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-surface-2 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
+         <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-white dark:bg-slate-800/40 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
             <div className="flex items-center gap-3">
                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                   <History size={14} className="text-primary" />
