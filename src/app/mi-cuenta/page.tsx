@@ -168,12 +168,12 @@ export default function ProfilePage() {
         setMounted(true);
     }, []);
 
-    // Auto-generate initials avatar when name changes
+    // Auto-generate PRO avatar when name changes
     useEffect(() => {
         if (editName.trim()) {
-            const initials = editName.trim().split(/\s+/).map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            const initialsUrl = `https://api.dicebear.com/9.x/initials/svg?seed=${initials}&backgroundColor=0066ff,3b82f6,6366f1,8b5cf6,f59e0b,10b981&textColor=ffffff&fontWeight=900`;
-            setEditPhoto(initialsUrl);
+            // Usamos Lorelei (estilo ilustración premium) con una paleta de fondos pastel vibrantes
+            const proAvatarUrl = `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(editName.trim())}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundType=gradientLinear,solid`;
+            setEditPhoto(proAvatarUrl);
         }
     }, [editName]);
 
