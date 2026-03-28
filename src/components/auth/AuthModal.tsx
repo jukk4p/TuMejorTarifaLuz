@@ -122,7 +122,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
             <div className="relative w-full max-w-md bg-surface rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-border">
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-surface-2 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
+                    className="absolute top-6 right-6 p-2 rounded-full bg-slate-50/50 dark:bg-slate-800/40 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10 border border-white/50 dark:border-white/5"
                 >
                     <X size={20} />
                 </button>
@@ -163,7 +163,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full h-14 bg-surface-2 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
+                                className="w-full h-14 bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-white/5 rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
                                 placeholder="tu@email.com"
                             />
                         </div>
@@ -186,7 +186,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full h-14 bg-surface-2 border-transparent rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
+                                className="w-full h-14 bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-white/5 rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -222,7 +222,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                     </div>
                 </div>
 
-                <div className="bg-surface-2 p-6 border-t border-border flex items-center justify-center gap-4">
+                <div className="bg-slate-50/50 dark:bg-slate-900/40 p-6 border-t border-border flex items-center justify-center gap-4">
                     <div className="flex -space-x-2">
                         {[1, 2, 3].map(i => (
                             <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 overflow-hidden shadow-sm">

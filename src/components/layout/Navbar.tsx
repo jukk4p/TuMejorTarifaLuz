@@ -252,7 +252,7 @@ export default function Navbar() {
                     </div>
 
                     {/* User Profile for Mobile */}
-                    <div className="p-6 border-b border-border bg-surface-2">
+                    <div className="p-6 border-b border-border bg-slate-50/50 dark:bg-slate-900/50">
                         {user ? (
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
@@ -300,7 +300,7 @@ export default function Navbar() {
                         )}
                         <Link 
                             href="/comparador" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 font-500 hover:bg-primary/10 transition-all border border-border/10 hover:border-primary/30"
                             style={{ color: 'var(--color-text-body)', fontSize: '14px' }}
                             onClick={() => setIsDrawerOpen(false)}
                         >
@@ -310,7 +310,7 @@ export default function Navbar() {
                         {/* Mobile Accordion - Companies */}
                         <div className="space-y-2">
                             <button 
-                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-500 transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30' : 'bg-surface-2 border-transparent'}`}
+                                className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl font-500 transition-all border ${isCompaniesOpen ? 'bg-primary/10 border-primary/30' : 'bg-slate-50/50 dark:bg-slate-800/40 border-border/10'}`}
                                 style={{ color: 'var(--color-text-body)', fontSize: '14px' }}
                                 onClick={() => setIsCompaniesOpen(!isCompaniesOpen)}
                             >
@@ -346,7 +346,7 @@ export default function Navbar() {
 
                         <Link 
                             href="/tarifas" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-border/10 hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Tarifas <ChevronRight size={18} className="text-primary" />
@@ -354,7 +354,7 @@ export default function Navbar() {
 
                         <Link 
                             href="/precio-luz-hoy" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-border/10 hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             <span className="flex items-center gap-2">
@@ -369,7 +369,7 @@ export default function Navbar() {
 
                         <Link 
                             href="/blog" 
-                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-surface-2 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-transparent hover:border-primary/30"
+                            className="flex items-center justify-between px-4 py-4 rounded-2xl bg-slate-50/50 dark:bg-slate-800/40 text-text-primary text-[14px] font-500 hover:bg-primary/10 transition-all border border-border/10 hover:border-primary/30"
                             onClick={() => setIsDrawerOpen(false)}
                         >
                             Blog <ChevronRight size={18} className="text-primary" />
@@ -377,7 +377,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Footer / Copyright */}
-                    <div className="p-8 border-t border-border text-center bg-surface-2/30">
+                    <div className="p-8 border-t border-border text-center bg-slate-50/30 dark:bg-slate-900/30">
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                             className="w-full py-4 rounded-2xl bg-surface text-text-secondary font-bold mb-8 flex items-center justify-center gap-3 border border-border shadow-sm active:scale-[0.98] transition-all"

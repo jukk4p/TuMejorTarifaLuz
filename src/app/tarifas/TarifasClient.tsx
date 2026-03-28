@@ -535,7 +535,7 @@ export default function TarifasClient() {
                 <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8 bg-[#020617]/40 backdrop-blur-md animate-in fade-in duration-300">
                     <div className="bg-surface w-full max-w-5xl max-h-[90vh] rounded-[3rem] shadow-2xl border border-border overflow-hidden flex flex-col relative animate-in zoom-in-95 duration-300">
                         {/* Header */}
-                        <div className="p-8 border-b border-border flex items-center justify-between bg-surface-2">
+                        <div className="p-8 border-b border-border flex items-center justify-between bg-white dark:bg-slate-900/60">
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
                                     <Scale size={24} />
@@ -702,7 +702,7 @@ export default function TarifasClient() {
                         </div>
 
                         {/* Footer */}
-                        <div className="p-8 border-t border-border flex flex-col sm:flex-row items-center justify-between bg-surface-2 gap-6">
+                        <div className="p-8 border-t border-border flex flex-col sm:flex-row items-center justify-between bg-white dark:bg-slate-900/60 gap-6">
                             <p className="text-xs font-bold text-text-muted uppercase tracking-widest max-w-sm text-center sm:text-left">
                                 Los precios mostrados incluyen {showWithTaxes ? 'todos los impuestos vigentes' : 'la base imponible sin impuestos'}.
                             </p>

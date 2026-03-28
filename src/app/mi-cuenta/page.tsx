@@ -367,9 +367,10 @@ export default function ProfilePage() {
 
                 {/* Tabs de Navegación Responsive - Compactas */}
                 <div className="mb-8 lg:mb-10">
-                    {/* Vista Desktop: Tabs Horizontales */}
-                    <div className="hidden lg:block">
-                        <div className="flex bg-surface p-1.5 rounded-[1.75rem] shadow-xl shadow-slate-200/50 dark:shadow-none border border-border w-fit mx-auto lg:mx-0">
+                    {/* Vista Desktop: Tabs Horizontales - Subtle Pro Edition */}
+                    <div className="hidden lg:block relative">
+                        <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full opacity-50 pointer-events-none"></div>
+                        <div className="relative flex bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl p-1.5 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 dark:border-white/5 w-fit mx-auto lg:mx-0">
                             {(["facturas", "comparativas", "favoritos"] as Tab[]).map((tab) => {
                                 const Icon = tab === "facturas" ? FileText : tab === "comparativas" ? Layout : Star;
                                 const isActive = activeTab === tab;
@@ -377,13 +378,20 @@ export default function ProfilePage() {
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
-                                        className={`flex items-center gap-2.5 px-7 py-2.5 rounded-[1.25rem] text-[11px] font-800 uppercase tracking-[0.15em] transition-all duration-500 ${isActive
-                                            ? "bg-primary text-white shadow-lg shadow-primary/30 scale-[1.03]"
-                                            : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                        className={`group relative flex items-center gap-2.5 px-8 py-3 rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 overflow-hidden ${isActive
+                                            ? "text-white scale-[1.02]"
+                                            : "text-slate-400 hover:text-primary"
                                             }`}
                                     >
-                                        <Icon size={16} className={`${isActive ? "animate-bounce" : "opacity-50"}`} />
-                                        {tab}
+                                        {/* Background hover/active logic */}
+                                        {isActive && (
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-primary to-emerald-500 shadow-[0_4px_15px_rgba(var(--primary),0.3)] animate-in fade-in zoom-in-95 duration-500"></div>
+                                        )}
+                                        
+                                        <div className="relative z-10 flex items-center gap-2.5 mt-0.5">
+                                            <Icon size={16} className={`transition-all duration-500 ${isActive ? "opacity-100 scale-110" : "opacity-40 group-hover:opacity-100"}`} />
+                                            {tab}
+                                        </div>
                                     </button>
                                 );
                             })}
