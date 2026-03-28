@@ -241,10 +241,11 @@ export default function Footer() {
                                     alt="TuMejorTarifaLuz" 
                                     fill
                                     className="object-contain brightness-110" 
+                                    priority
                                 />
                             </div>
                         </div>
-                        <span className="text-xl font-800 tracking-tight text-[#F1F5F9] group-hover:text-primary transition-colors">
+                        <span className="text-xl font-900 tracking-tight text-[#F1F5F9] group-hover:text-primary transition-colors">
                             TuMejorTarifa<span className="text-primary">Luz</span>
                         </span>
                     </div>

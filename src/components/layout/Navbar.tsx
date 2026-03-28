@@ -53,8 +53,8 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-                        <div className="h-8 w-8 sm:h-9 sm:w-9 active:scale-95 transition-all flex items-center justify-center">
+                    <Link href="/" className="flex items-center gap-3 group shrink-0">
+                        <div className="h-9 w-9 sm:h-11 sm:w-11 active:scale-95 transition-all flex items-center justify-center">
                             <div className="relative h-full w-full">
                                 <Image 
                                     src="/Logo.png" 
@@ -65,7 +65,7 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <span className="text-[15px] sm:text-[16px] font-900 tracking-tighter text-text-primary group-hover:text-primary transition-colors whitespace-nowrap">
+                        <span className="text-[18px] sm:text-[20px] font-900 tracking-tight text-text-primary group-hover:text-primary transition-colors whitespace-nowrap">
                             TuMejorTarifa<span className="text-primary group-hover:text-primary-dark">Luz</span>
                         </span>
                     </Link>
