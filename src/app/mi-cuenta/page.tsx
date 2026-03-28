@@ -171,8 +171,8 @@ export default function ProfilePage() {
     // Auto-generate PRO avatar when name changes
     useEffect(() => {
         if (editName.trim()) {
-            // Usamos Boring Avatars (estilo Beam) para una identidad visual 100% neutra y premium
-            const proAvatarUrl = `https://source.boringavatars.com/beam/120/${encodeURIComponent(editName.trim())}?colors=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+            // Usamos DiceBear Shapes para una identidad visual 100% neutra, robusta y premium
+            const proAvatarUrl = `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(editName.trim())}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
             setEditPhoto(proAvatarUrl);
         }
     }, [editName]);

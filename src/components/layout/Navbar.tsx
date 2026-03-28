@@ -153,7 +153,7 @@ export default function Navbar() {
                                         aria-expanded={isUserMenuOpen}
                                     >
                                         <img 
-                                            src={user.photoURL || `https://source.boringavatars.com/beam/120/${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}?colors=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
+                                            src={user.photoURL || `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
                                             alt={user.displayName || "User"} 
                                             className="w-full h-full object-cover" 
                                         />
@@ -257,7 +257,7 @@ export default function Navbar() {
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
                                     <img 
-                                        src={user.photoURL || `https://source.boringavatars.com/beam/120/${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}?colors=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
+                                        src={user.photoURL || `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
                                         alt={user.displayName || "User"} 
                                         className="w-full h-full object-cover" 
                                     />
