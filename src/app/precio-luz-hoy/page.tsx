@@ -63,6 +63,12 @@ export default async function PrecioLuzHoyPage() {
             "name": "TuMejorTarifaLuz",
             "url": "https://tumejortarifaluz.es"
         },
+        "creator": {
+            "@type": "Organization",
+            "name": "Red Eléctrica de España (ESIOS)",
+            "url": "https://www.esios.ree.es"
+        },
+        "isBasedOn": "https://www.esios.ree.es",
         "temporalCoverage": new Date().toISOString().split('T')[0],
         "variableMeasured": "Precio de la energía eléctrica (€/kWh)"
     };

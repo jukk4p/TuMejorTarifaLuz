@@ -2047,11 +2047,11 @@ export default function ComparadorMain() {
                             </button>
                             <aside className={`transition-all duration-500 ease-in-out shrink-0 overflow-hidden relative ${ (isSidebarCollapsed || (isProfileCollapsed && isFiltersCollapsed)) ? "w-0 lg:w-0 opacity-0 invisible" : "w-full lg:w-[325px] opacity-100 visible"}`}>
                                     {!isProfileCollapsed && (
-                                        <div className="bg-surface border border-border p-5 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-6 group transition-all duration-500">
+                                        <div className="bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm space-y-8 group transition-all duration-500">
                                             <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.07] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
                                             <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
                                             
-                                            <div className="flex justify-between items-center relative z-10 mb-4">
+                                            <div className="flex justify-between items-center relative z-10 mb-8">
                                                 <div className="space-y-1">
                                                     <h4 className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] leading-none">TU SUMINISTRO</h4>
                                                     <p className="text-xs font-black text-text-primary uppercase tracking-tight">Perfil de Carga</p>
@@ -2064,19 +2064,19 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
 
-                                            <div className="grid grid-cols-1 gap-4 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
-                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-3xl border border-border">
+                                            <div className="grid grid-cols-1 gap-8 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
+                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-warning rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">Potencia Contratada</p>
                                                     </div>
                                                     {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
-                                                        <div className="space-y-2">
-                                                            <div className="flex justify-between items-center text-[11px] font-black">
+                                                        <div className="space-y-3">
+                                                            <div className="flex justify-between items-center text-xs font-black">
                                                                 <span className="text-text-muted uppercase tracking-tighter">P1 · Punta</span>
                                                                 <span className="text-warning">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
                                                             </div>
-                                                            <div className="flex justify-between items-center text-[11px] font-black pt-2 border-t border-border">
+                                                            <div className="flex justify-between items-center text-xs font-black pt-2 border-t border-border">
                                                                 <span className="text-text-muted uppercase tracking-tighter">P2 · Valle</span>
                                                                 <span className="text-warning">{input.power_p2.toLocaleString('es-ES', { maximumFractionDigits: 2 })} kW</span>
                                                             </div>
@@ -2090,11 +2090,11 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-5 rounded-3xl border border-border">
-                                                    <div className="flex items-center gap-2 mb-3">
+                                                    <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-primary rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">ENERGÍA CONSUMIDA</p>
                                                     </div>
-                                                    <div className="space-y-2">
+                                                    <div className="space-y-3">
                                                         {[
                                                             { label: 'E1 · Punta', val: input.energy_p1, color: 'text-orange-500' },
                                                             { label: 'E2 · Llano', val: input.energy_p2, color: 'text-blue-500' },
@@ -2108,8 +2108,8 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
 
-                                                <div className="relative pt-4 mt-1 border-t border-border z-10">
-                                                    <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center mb-3">Impuestos Aplicados</p>
+                                                <div className="relative pt-8 mt-2 border-t border-border z-10">
+                                                    <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
                                                     <div className="grid grid-cols-2 gap-3">
                                                         <div className="group/tax relative bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
@@ -2127,10 +2127,11 @@ export default function ComparadorMain() {
 
                                     {/* FILTERS SECTION */}
                                     {!isFiltersCollapsed && (
-                                        <div className="bg-surface border border-border p-5 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+                                        <div className="bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+                                            {/* Deco Background Grid */}
                                             <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                                             
-                                            <div className="flex justify-between items-center mb-4 relative z-10">
+                                            <div className="flex justify-between items-center mb-8 relative z-10">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-10 h-10 rounded-full bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
                                                         <Filter className="w-4 h-4" />
@@ -2145,31 +2146,31 @@ export default function ComparadorMain() {
                                                 </button>
                                             </div>
 
-                                            <div className="space-y-4 relative z-10 animate-in slide-in-from-top-2 duration-300">
+                                            <div className="space-y-8 relative z-10 animate-in slide-in-from-top-2 duration-300">
                                                 {/* Filter: Search Company */}
-                                                <div className="space-y-2">
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-text-muted uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
                                                     <div className="relative group/input">
                                                         <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
-                                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-3.5 h-3.5 transition-colors group-focus-within/input:text-primary" />
+                                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4 transition-colors group-focus-within/input:text-primary" />
                                                         <input
                                                             type="text"
                                                             value={filterSearch}
                                                             onChange={e => setFilterSearch(e.target.value)}
                                                             placeholder="Ej. Endesa, Iberdrola..."
-                                                            className="relative w-full bg-white dark:bg-slate-800/40 border border-border rounded-2xl pl-10 pr-4 py-2 text-sm outline-none focus:border-primary focus:bg-white transition-all text-text-primary placeholder:text-text-muted/70"
+                                                            className="relative w-full bg-white dark:bg-slate-800/40 border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white transition-all text-text-primary placeholder:text-text-muted/70"
                                                         />
                                                     </div>
                                                 </div>
 
-                                                <div className="space-y-2">
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Tipo de Precio</label>
-                                                    <div className="flex bg-primary/5 rounded-full p-1 border border-primary/10">
+                                                    <div className="flex bg-primary/5 rounded-full p-1.5 border border-primary/10">
                                                         {['all', 'fixed', 'periods'].map((t) => (
                                                             <button 
                                                                 key={t}
                                                                 onClick={() => setFilterPriceType(t as any)} 
-                                                                className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 ${
+                                                                className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                     filterPriceType === t 
                                                                     ? (t === 'fixed' 
                                                                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25' 
@@ -2186,25 +2187,25 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
 
-                                                <div className="space-y-2">
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Excedentes</label>
-                                                    <div className="flex bg-primary/5 rounded-full p-1 border border-primary/10">
+                                                    <div className="flex bg-primary/5 rounded-full p-1.5 border border-primary/10">
                                                         <button 
                                                             onClick={() => setFilterSurplus("all")} 
-                                                            className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 ${filterSurplus === 'all' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-primary/40 hover:text-primary/70'}`}
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${filterSurplus === 'all' ? 'bg-white dark:bg-slate-700 text-primary shadow-sm' : 'text-primary/40 hover:text-primary/70'}`}
                                                         >
                                                             Todas
                                                         </button>
                                                         <button 
                                                             onClick={() => setFilterSurplus("with")} 
-                                                            className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'with' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-emerald-500/50 hover:text-emerald-600'}`}
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'with' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25' : 'text-emerald-500/50 hover:text-emerald-600'}`}
                                                         >
                                                             <Sun size={12} />
                                                             Con
                                                         </button>
                                                         <button 
                                                             onClick={() => setFilterSurplus("without")} 
-                                                            className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'without' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/25' : 'text-slate-500/50 hover:text-slate-600'}`}
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-1.5 ${filterSurplus === 'without' ? 'bg-slate-500 text-white shadow-lg shadow-slate-500/25' : 'text-slate-500/50 hover:text-slate-600'}`}
                                                         >
                                                             <SunDim size={12} />
                                                             Sin
@@ -2212,12 +2213,12 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
 
-                                                <div className="space-y-2">
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Ordenar por</label>
-                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1 border border-border">
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1.5 border border-border">
                                                         <button 
                                                             onClick={() => setSortBy("savings-desc")} 
-                                                            className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 ${
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                 sortBy === "savings-desc" 
                                                                 ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                 : "text-slate-400 hover:text-slate-600"
@@ -2227,7 +2228,7 @@ export default function ComparadorMain() {
                                                         </button>
                                                         <button 
                                                             onClick={() => setSortBy("savings-asc")} 
-                                                            className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 ${
+                                                            className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                 sortBy === "savings-asc" 
                                                                 ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                 : "text-slate-400 hover:text-slate-600"
@@ -2238,14 +2239,14 @@ export default function ComparadorMain() {
                                                     </div>
                                                 </div>
 
-                                                <div className="space-y-2">
+                                                <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Mostrar resultados</label>
-                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1 border border-border">
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1.5 border border-border">
                                                         {[Infinity, 3, 5].map((val) => (
                                                             <button 
                                                                 key={val.toString()}
                                                                 onClick={() => setLimitResults(val)} 
-                                                                className={`flex-1 text-[10px] font-black py-1.5 rounded-full uppercase tracking-widest transition-all duration-300 ${
+                                                                className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
                                                                     limitResults === val 
                                                                     ? "bg-white dark:bg-slate-700 text-primary shadow-md" 
                                                                     : "text-slate-400 hover:text-slate-600"
@@ -2439,13 +2440,13 @@ export default function ComparadorMain() {
                                                         }`}
                                                 >
                                                     {isWinner && (
-                                                        <div className={`absolute left-0 top-0 bottom-0 w-1.5 z-10 ${res.tariff.type === '3 Periodos' ? 'bg-emerald-500' : 'bg-orange-500'}`}></div>
+                                                        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary z-10"></div>
                                                     )}
 
                                                     <div className="p-6 space-y-5">
                                                         <div className="flex flex-col items-center text-center space-y-3">
                                                             {isWinner && (
-                                                                <span className={`${res.tariff.type === '3 Periodos' ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' : 'bg-orange-500/10 text-orange-600 border-orange-500/20'} border text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 animate-in fade-in slide-in-from-top-2 duration-500`}>
+                                                                <span className={`${res.tariff.type === '3 Periodos' ? 'bg-primary/10 text-primary border-primary/20' : 'bg-orange-500/10 text-orange-600 border-orange-500/20'} border text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-1 animate-in fade-in slide-in-from-top-2 duration-500`}>
                                                                     Mejor opción
                                                                 </span>
                                                             )}
@@ -2615,14 +2616,14 @@ export default function ComparadorMain() {
                                                                 key={idx} 
                                                                 className="transition-all duration-150 hover:bg-surface-2 group/row bg-surface"
                                                             >
-                                                                <td className={`py-6 px-8 relative ${isWinner ? (isThreePeriod ? 'border-l-4 border-emerald-500' : 'border-l-4 border-orange-500 shadow-[inset_4px_0_0_0_#f97316]') : ''}`}>
+                                                                <td className={`py-6 px-8 relative ${isWinner ? (isThreePeriod ? 'border-l-4 border-blue-500' : 'border-l-4 border-orange-500 shadow-[inset_4px_0_0_0_#f97316]') : ''}`}>
                                                                     <div className="flex items-center gap-4">
                                                                         <div className="flex flex-col min-w-0">
                                                                             <span className="font-heading font-black text-sm text-text-primary tracking-tight truncate uppercase leading-none mb-1 group-hover/row:text-primary transition-colors">{res.tariff.name}</span>
                                                                             <span className="font-body text-[10px] font-black text-text-muted uppercase tracking-[0.1em] truncate">{res.tariff.company}</span>
                                                                             {isWinner && (
                                                                                 <div className="mt-1.5">
-                                                                                    <span className={`${isThreePeriod ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' : 'bg-orange-500/10 border-orange-500/20 text-orange-600'} border text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm`}>Mejor opción</span>
+                                                                                    <span className={`${isThreePeriod ? 'bg-primary/10 border-primary/20 text-primary' : 'bg-orange-500/10 border-orange-500/20 text-orange-600'} border text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm`}>Mejor opción</span>
                                                                                 </div>
                                                                             )}
                                                                         </div>
@@ -2754,7 +2755,7 @@ export default function ComparadorMain() {
                                                     <div className="space-y-1 text-center md:text-left">
                                                         <h4 className="text-lg font-bold tracking-tight text-white/90">Análisis Técnico de Facturación</h4>
                                                         <p className="text-[10px] text-white font-black uppercase tracking-[0.25em]">
-                                                            Tarifa Ganadora: <span className={results[0].tariff.type?.includes('3 Periodos') ? 'text-emerald-400 font-black' : 'text-orange-400 font-bold'}>{results[0].tariff.company} {results[0].tariff.name}</span>
+                                                            Tarifa Ganadora: <span className={results[0].tariff.type?.includes('3 Periodos') ? 'text-primary' : 'text-orange-400 font-bold'}>{results[0].tariff.company} {results[0].tariff.name}</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -3109,9 +3110,9 @@ export default function ComparadorMain() {
                                                             </div>
                                                         </div>
                                                     ) : (
-                                                        <div className="bg-orange-500/5 border border-orange-500/20 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
-                                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-orange-500/20 whitespace-nowrap">Precio Único (24h)</div>
-                                                            <p className="text-3xl font-800 text-orange-600 dark:text-orange-500">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
+                                                        <div className="bg-primary/5 border border-primary/20 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
+                                                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-primary/20 whitespace-nowrap">Precio Único (24h)</div>
+                                                            <p className="text-3xl font-800 text-primary">{applyTaxes(selectedResult.tariff?.e1_kwh ?? 0, selectedResult.tariff?.e1_kwh_with_taxes).toFixed(5)} € <span className="text-sm font-normal opacity-60">€/kWh</span></p>
                                                             <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">Esta tarifa no discrimina por horarios, pagas lo mismo siempre.</p>
                                                         </div>
                                                     )}
