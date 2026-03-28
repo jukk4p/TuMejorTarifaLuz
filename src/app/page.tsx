@@ -378,8 +378,8 @@ export default async function Home() {
             </div>
 
             {/* Post-FAQ Action Block */}
-            <div className="mt-16 bg-surface-2 dark:bg-white/5 border border-border rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div className="mt-16 bg-white dark:bg-surface-2/10 border border-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
               
               <div className="grid md:grid-cols-2 gap-12 relative z-10">
                 {/* Doubt Column */}

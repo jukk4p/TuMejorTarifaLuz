@@ -909,21 +909,21 @@ export default function ComparadorMain() {
                             {/* Option 2: Manual Input */}
                             <button 
                                 onClick={() => setInputMethod("manual")}
-                                className="premium-card bg-surface-2/30 group p-10 md:p-14 text-center hover:border-border hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                                className="premium-card bg-white group p-10 md:p-14 text-center hover:border-primary/30 hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
                             >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-surface-2 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/20 transition-colors"></div>
-                                <div className="w-24 h-24 bg-surface-2 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
-                                    <Sliders className="w-12 h-12 text-text-muted" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 dark:bg-slate-800/20 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/5 transition-colors"></div>
+                                <div className="w-24 h-24 bg-slate-50 dark:bg-slate-800/50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
+                                    <Sliders className="w-12 h-12 text-text-muted transition-colors group-hover:text-primary" />
                                 </div>
-                                <h3 className="text-2xl font-800 text-text-primary mb-4">Entrada Manual</h3>
+                                <h3 className="text-2xl font-800 text-text-primary mb-4 text-center">Entrada Manual</h3>
                                 <p className="text-text-secondary text-base mb-10 leading-relaxed flex-grow">
                                     Si ya tienes tus datos a mano o quieres simular un consumo específico, utiliza nuestro formulario técnico simplificado.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
-                                    <span className="w-fit px-10 bg-surface dark:bg-surface-2 text-text-primary font-bold py-4 rounded-2xl shadow-xl border border-border dark:border-border/50 group-hover:bg-surface-2 dark:group-hover:bg-surface-3 transition-all flex items-center justify-center mx-auto">
+                                    <span className="w-fit px-10 bg-white dark:bg-surface-2 text-text-primary font-bold py-4 rounded-2xl shadow-lg border border-slate-200 dark:border-border/50 group-hover:bg-slate-50 dark:group-hover:bg-surface-3 transition-all flex items-center justify-center mx-auto">
                                         Introducir datos a mano
                                     </span>
-                                    <p className="text-[10px] font-bold text-text-muted tracking-widest bg-surface-2 dark:bg-slate-800/40 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
+                                    <p className="text-[10px] font-bold text-text-muted tracking-widest bg-slate-100 dark:bg-slate-800/40 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
                                 </div>
                             </button>
                         </div>
@@ -950,7 +950,7 @@ export default function ComparadorMain() {
                                         </div>
                                         <button 
                                             onClick={() => setInputMethod(prev => prev === "manual" ? "upload" : "manual")}
-                                            className="p-2 hover:bg-surface-2 rounded-xl transition-colors text-text-muted hover:text-primary"
+                                            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors text-text-muted hover:text-primary"
                                             title="Cambiar método"
                                         >
                                             <History size={18} />
@@ -983,7 +983,7 @@ export default function ComparadorMain() {
                                             <div className="space-y-6">
                                                 <div className="relative py-8 flex items-center">
                                                     <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-                                                    <span className="mx-4 px-3 py-1 bg-surface-2 border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
+                                                    <span className="mx-4 px-3 py-1 bg-white border border-border rounded-full text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Ajuste técnico manual</span>
                                                     <div className="grow h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
                                                 </div>
 
@@ -1056,7 +1056,7 @@ export default function ComparadorMain() {
                                                                     value={displayValues[item.name as keyof typeof displayValues]}
                                                                     onChange={handleInputChange}
                                                                     placeholder="0,00"
-                                                                    className="w-full bg-surface-2/50 border border-border/40 rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
+                                                                    className="w-full bg-white border border-slate-200 shadow-sm rounded-xl px-4 py-3 text-sm font-mono focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all outline-none"
                                                                 />
                                                             </div>
                                                         ))}
@@ -1119,7 +1119,7 @@ export default function ComparadorMain() {
                                     <div className="relative z-10 max-w-full sm:max-w-2xl w-full px-4 sm:px-0">
                                         <label
                                             htmlFor="ocr-upload-main"
-                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[2.5rem] p-8 sm:p-16 bg-surface-2 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
+                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[2.5rem] p-8 sm:p-16 bg-white/60 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
                                         >
                                             <input
                                                 id="ocr-upload-main"
@@ -1343,7 +1343,7 @@ export default function ComparadorMain() {
                             {/* LEFT: INVOICE PREVIEW */}
                             <div className="flex-1 premium-card bg-dot-pattern overflow-hidden flex flex-col group/preview border-none shadow-2xl relative">
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/95 to-white/40 dark:from-surface/95 dark:to-surface/40 pointer-events-none"></div>
-                                <div className="px-8 py-5 border-b border-border flex justify-between items-center bg-surface transition-colors">
+                                <div className="px-8 py-5 border-b border-border flex justify-between items-center bg-white transition-colors">
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                                             <Eye className="text-primary w-4 h-4" />
@@ -1361,7 +1361,7 @@ export default function ComparadorMain() {
                                             {uploadedFileType === 'application/pdf' ? (
                                                 <div className="relative w-full h-full min-h-[650px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] dark:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] rounded-2xl overflow-hidden ring-1 ring-white/10">
                                                     {isProcessing ? (
-                                                        <div className="w-full h-full absolute inset-0 bg-slate-50 dark:bg-slate-900/50 flex flex-col items-center justify-center gap-4 animate-pulse">
+                                                        <div className="w-full h-full absolute inset-0 bg-white flex flex-col items-center justify-center gap-4 animate-pulse">
                                                             <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
                                                             <p className="text-[10px] font-black uppercase tracking-widest text-primary/60">Digitalizando contenido...</p>
                                                         </div>
@@ -1615,7 +1615,7 @@ export default function ComparadorMain() {
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-primary transition-colors">Volver al comparador</span>
                             </button>
 
-                            <div className="flex bg-surface-2 p-1.5 rounded-[2rem] border border-border relative">
+                            <div className="flex bg-slate-100/50 dark:bg-slate-800/40 p-1.5 rounded-[2rem] border border-border relative">
                                 <button 
                                     onClick={() => setStudyMode("monthly")}
                                     className={`relative z-10 px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] transition-all duration-300 ${studyMode === 'monthly' ? 'text-white' : 'text-text-muted hover:text-text-primary'}`}
@@ -1961,7 +1961,7 @@ export default function ComparadorMain() {
                                             <span className="text-3xl font-black text-text-primary">{(studyMode === 'monthly' ? (input.current_bill_total || 0) : (input.current_bill_total || 0) * 12).toFixed(2)}</span>
                                             <span className="text-lg font-bold text-text-muted">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
                                         </div>
-                                        <div className="mt-4 w-full h-1.5 bg-surface-2 rounded-full overflow-hidden">
+                                        <div className="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                             <div className="h-full bg-slate-300 dark:bg-slate-600 w-full opacity-50"></div>
                                         </div>
                                     </div>
@@ -2055,14 +2055,14 @@ export default function ComparadorMain() {
                                                 </div>
                                                 <button 
                                                     onClick={() => setIsProfileCollapsed(true)}
-                                                    className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
+                                                    className="w-10 h-10 rounded-full bg-white dark:bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
                                                 >
                                                     <ChevronRight className="w-5 h-5" />
                                                 </button>
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-8 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
-                                                <div className="flex flex-col bg-surface-2 p-5 rounded-3xl border border-border">
+                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-warning rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">Potencia Contratada</p>
@@ -2086,7 +2086,7 @@ export default function ComparadorMain() {
                                                     )}
                                                 </div>
 
-                                                <div className="flex flex-col bg-surface-2 p-5 rounded-3xl border border-border">
+                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-primary rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">ENERGÍA CONSUMIDA</p>
@@ -2108,11 +2108,11 @@ export default function ComparadorMain() {
                                                 <div className="relative pt-8 mt-2 border-t border-border z-10">
                                                     <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center mb-5">Impuestos Aplicados</p>
                                                     <div className="grid grid-cols-2 gap-3">
-                                                        <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                        <div className="group/tax relative bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
                                                             <p className="text-sm font-black text-primary">{CONSTANTS.IEE * 100}%</p>
                                                         </div>
-                                                        <div className="group/tax relative bg-surface-2 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                        <div className="group/tax relative bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
                                                             <p className="text-sm font-black text-primary">{CONSTANTS.IVA * 100}%</p>
                                                         </div>
@@ -2130,14 +2130,14 @@ export default function ComparadorMain() {
                                             
                                             <div className="flex justify-between items-center mb-8 relative z-10">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
+                                                    <div className="w-10 h-10 rounded-full bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
                                                         <Filter className="w-4 h-4" />
                                                     </div>
                                                     <h4 className="text-xs font-black text-text-primary uppercase tracking-[0.2em]">Filtros</h4>
                                                 </div>
                                                 <button 
                                                     onClick={() => setIsFiltersCollapsed(true)}
-                                                    className="w-10 h-10 rounded-full bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
+                                                    className="w-10 h-10 rounded-full bg-white dark:bg-surface-2 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm active:scale-95"
                                                 >
                                                     <ChevronRight className="w-5 h-5" />
                                                 </button>
@@ -2155,7 +2155,7 @@ export default function ComparadorMain() {
                                                             value={filterSearch}
                                                             onChange={e => setFilterSearch(e.target.value)}
                                                             placeholder="Ej. Endesa, Iberdrola..."
-                                                            className="relative w-full bg-surface-2 border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-surface transition-all text-text-primary placeholder:text-text-muted/70"
+                                                            className="relative w-full bg-white dark:bg-slate-800/40 border border-border rounded-2xl pl-11 pr-4 py-3 text-sm outline-none focus:border-primary focus:bg-white transition-all text-text-primary placeholder:text-text-muted/70"
                                                         />
                                                     </div>
                                                 </div>
@@ -2212,7 +2212,7 @@ export default function ComparadorMain() {
 
                                                 <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Ordenar por</label>
-                                                    <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1.5 border border-border">
                                                         <button 
                                                             onClick={() => setSortBy("savings-desc")} 
                                                             className={`flex-1 text-[10px] font-black py-2 rounded-full uppercase tracking-widest transition-all duration-300 ${
@@ -2238,7 +2238,7 @@ export default function ComparadorMain() {
 
                                                 <div className="space-y-3">
                                                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Mostrar resultados</label>
-                                                    <div className="flex bg-surface-2 rounded-full p-1.5 border border-border">
+                                                    <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1.5 border border-border">
                                                         {[Infinity, 3, 5].map((val) => (
                                                             <button 
                                                                 key={val.toString()}
