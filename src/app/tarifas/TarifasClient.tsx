@@ -305,15 +305,13 @@ export default function TarifasClient() {
                                                     <Building2 size={20} className="text-slate-400" />
                                                 )}
                                             </div>
-                                            <div className="text-right">
-                                                <div className="flex items-center gap-1.5 justify-end">
-                                                    <CheckCircle2 size={14} className="text-emerald-500" />
-                                                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">Oficial</span>
-                                                </div>
-                                            </div>
                                         </div>
 
                                         <div className="space-y-1 mb-6 min-h-[52px] flex flex-col justify-center">
+                                            <div className="flex items-center gap-1.5 mb-1 animate-in fade-in slide-in-from-left-2 duration-700">
+                                                <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />
+                                                <span className="text-[9px] font-black uppercase tracking-widest text-primary/70">Catálogo Oficial</span>
+                                            </div>
                                             <h3 className="text-xl font-900 text-text-primary leading-tight group-hover:text-primary transition-colors line-clamp-2">{tariff.name}</h3>
                                             <Link 
                                                 href={`/companias/${COMPANY_SLUGS[tariff.company] || tariff.company.toLowerCase().replace(/\s+/g, '-')}`} 
