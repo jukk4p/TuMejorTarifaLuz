@@ -171,8 +171,8 @@ export default function ProfilePage() {
     // Auto-generate PRO avatar when name changes
     useEffect(() => {
         if (editName.trim()) {
-            // Usamos Lorelei (estilo ilustración premium) con una paleta de fondos pastel vibrantes
-            const proAvatarUrl = `https://api.dicebear.com/9.x/lorelei/svg?seed=${encodeURIComponent(editName.trim())}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&backgroundType=gradientLinear,solid`;
+            // Usamos Boring Avatars (estilo Beam) para una identidad visual 100% neutra y premium
+            const proAvatarUrl = `https://source.boringavatars.com/beam/120/${encodeURIComponent(editName.trim())}?colors=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
             setEditPhoto(proAvatarUrl);
         }
     }, [editName]);
