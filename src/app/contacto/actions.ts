@@ -63,7 +63,7 @@ export async function submitContactForm(formData: ContactFormData) {
         });
         return { 
             success: false, 
-            error: `Error técnico: ${errorMsg}. Reintenta en unos momentos.` 
+            error: "Ocurrió un error al enviar el mensaje. Reintenta en unos momentos." 
         };
     }
 }
