@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Send, Mail, Phone, MapPin, MessageCircle, Clock, CheckCircle2 } from "lucide-react";
+import { Mail, Clock, CheckCircle2 } from "lucide-react";
+import ContactForm from "./ContactForm";
 
 export default function ContactoPage() {
     return (
@@ -43,7 +44,7 @@ export default function ContactoPage() {
                                         </div>
                                         <div>
                                             <p className="text-xs font-black text-text-muted uppercase tracking-widest mb-1">Escríbenos</p>
-                                            <p className="text-lg font-bold text-text-primary">hola@tumejortarifaluz.es</p>
+                                            <p className="text-lg font-bold text-text-primary">contacto@tumejortarifaluz.es</p>
                                             <p className="text-sm text-text-secondary mt-1">Respondemos en menos de 24h laborables.</p>
                                         </div>
                                     </div>
@@ -81,86 +82,7 @@ export default function ContactoPage() {
 
                         {/* Form Column */}
                         <div className="lg:col-span-7">
-                            <div className="glass-card premium-card p-8 md:p-12 shadow-2xl relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-2 h-full bg-primary/50"></div>
-                                
-                                <form className="relative z-10 space-y-8">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div className="space-y-3">
-                                            <label htmlFor="name" className="text-xs font-black text-text-primary uppercase tracking-widest">Nombre Completo</label>
-                                            <input
-                                                type="text"
-                                                id="name"
-                                                name="name"
-                                                required
-                                                placeholder="Ej. Laura García"
-                                                className="w-full bg-surface-2 border border-border focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl px-6 py-4 transition-all placeholder:text-text-subtle font-medium outline-none"
-                                            />
-                                        </div>
-                                        <div className="space-y-3">
-                                            <label htmlFor="email" className="text-xs font-black text-text-primary uppercase tracking-widest">Email Corporativo</label>
-                                            <input
-                                                type="email"
-                                                id="email"
-                                                name="email"
-                                                required
-                                                placeholder="laura@ejemplo.com"
-                                                className="w-full bg-surface-2 border border-border focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl px-6 py-4 transition-all placeholder:text-text-subtle font-medium outline-none"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <label htmlFor="subject" className="text-xs font-black text-text-primary uppercase tracking-widest">Motivo de la consulta</label>
-                                        <div className="relative">
-                                            <select
-                                                id="subject"
-                                                name="subject"
-                                                className="w-full bg-surface-2 border border-border focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl px-6 py-4 transition-all text-text-primary font-medium appearance-none outline-none"
-                                            >
-                                                <option value="duda_factura">Analizar mi factura actual (Gratis)</option>
-                                                <option value="duda_comparador">Problema con el comparador</option>
-                                                <option value="sugerencia">Sugerencia de mejora</option>
-                                                <option value="otro">Otro motivo</option>
-                                            </select>
-                                            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <label htmlFor="message" className="text-xs font-black text-text-primary uppercase tracking-widest">Mensaje o Comentarios</label>
-                                        <textarea
-                                            id="message"
-                                            name="message"
-                                            rows={5}
-                                            required
-                                            placeholder="Cuéntanos brevemente en qué podemos ayudarte..."
-                                            className="w-full bg-surface-2 border border-border focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl px-6 py-4 transition-all resize-none placeholder:text-text-subtle font-medium outline-none"
-                                        ></textarea>
-                                    </div>
-
-                                    <div className="space-y-6 pt-4">
-                                        <button
-                                            type="submit"
-                                            className="w-full flex justify-center items-center gap-3 bg-primary hover:bg-primary-hover text-white font-black py-5 rounded-2xl shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 active:scale-[0.98] transition-all duration-300"
-                                        >
-                                            <Send className="w-5 h-5" />
-                                            Enviar mensaje ahora
-                                        </button>
-                                        
-                                        <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border">
-                                            <div className="w-5 h-5 shrink-0 text-accent mt-0.5">
-                                                <svg fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path></svg>
-                                            </div>
-                                            <p className="text-[11px] text-text-muted leading-relaxed">
-                                                Tus datos están protegidos por cifrado SSL de 256 bits. Al enviar el formulario, confirmas que has leído y aceptas nuestra <a href="/legal/privacidad" className="text-primary font-bold hover:underline">Política de Privacidad</a>.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <ContactForm />
                         </div>
                     </div>
                 </div>
@@ -170,3 +92,4 @@ export default function ContactoPage() {
         </div>
     );
 }
+
