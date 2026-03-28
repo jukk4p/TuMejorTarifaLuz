@@ -353,7 +353,7 @@ export default async function Home() {
                 },
                 {
                   q: "¿Cómo puedo contactar con vosotros?",
-                  a: "¿Tienes una duda técnica o no entiendes un resultado? Escríbenos a hola@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
+                  a: "¿Tienes una duda técnica o no entiendes un resultado? Escrílenos a contacto@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
                 }
               ].map((faq, i) => (
                 <details 
@@ -389,10 +389,10 @@ export default async function Home() {
                     Si no has encontrado la respuesta que buscabas o tu factura es compleja, nuestro equipo te ayuda de forma personalizada.
                   </p>
                   <a 
-                    href="mailto:hola@tumejortarifaluz.es" 
+                    href="mailto:contacto@tumejortarifaluz.es" 
                     className="inline-flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[11px] hover:gap-4 transition-all"
                   >
-                    Escríbenos a hola@tumejortarifaluz.es
+                    Escríbenos a contacto@tumejortarifaluz.es
                     <ArrowRight size={14} />
                   </a>
                 </div>

@@ -147,7 +147,7 @@ export default function RootLayout({
                   },
                   "contactPoint": {
                     "@type": "ContactPoint",
-                    "email": "hola@tumejortarifaluz.es",
+                    "email": "contacto@tumejortarifaluz.es",
                     "contactType": "customer support",
                     "availableLanguage": "Spanish"
                   }

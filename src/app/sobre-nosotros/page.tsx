@@ -57,7 +57,7 @@ const aboutSchema = {
             "logo": "https://tumejortarifaluz.es/Logo.png",
             "contactPoint": {
                 "@type": "ContactPoint",
-                "email": "hola@tumejortarifaluz.es",
+                "email": "contacto@tumejortarifaluz.es",
                 "contactType": "customer support"
             }
         }

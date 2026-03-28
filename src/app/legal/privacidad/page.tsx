@@ -42,7 +42,7 @@ export default function Privacidad() {
 
                             <h2 className="text-xl font-bold mb-4">4. Derechos de los Usuarios</h2>
                             <p className="mb-8">
-                                De acuerdo con el RGPD, tienes derecho de acceso, rectificación, supresión, limitación del tratamiento, portabilidad y oposición. Puedes ejercer estos derechos enviando un correo a hola@tumejortarifaluz.es adjuntando una copia de tu documento de identidad.
+                                De acuerdo con el RGPD, tienes derecho de acceso, rectificación, supresión, limitación del tratamiento, portabilidad y oposición. Puedes ejercer estos derechos enviando un correo a contacto@tumejortarifaluz.es adjuntando una copia de tu documento de identidad.
                             </p>
 
                             <h2 className="text-xl font-bold mb-4">5. Seguridad de la Información</h2>
