@@ -111,7 +111,7 @@ export default function DynamicHeroCard() {
                    <div className="space-y-3 md:space-y-4">
                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                          <Image 
-                           src="/logos/Iberdrola.png" 
+                           src="/logos/logo_iberdrola.png" 
                            alt="Iberdrola" 
                            width={120} 
                            height={40} 
@@ -138,7 +138,7 @@ export default function DynamicHeroCard() {
                    <div className="space-y-3 md:space-y-4">
                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-white dark:bg-white/5 border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
                          <Image 
-                           src="/logos/Visalia.png" 
+                           src="/logos/logo_visalia.png" 
                            alt="Visalia" 
                            width={100} 
                            height={40} 
