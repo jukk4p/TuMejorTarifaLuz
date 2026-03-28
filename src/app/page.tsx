@@ -314,7 +314,7 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-24 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-soft)' }}>
+        <section id="faq" className="pb-24 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
@@ -565,7 +565,7 @@ export default async function Home() {
         {/* Brand Logos Grid Section */}
         <section 
           className="py-24 border-y border-border transition-colors duration-300" 
-          style={{ background: 'var(--section-muted)' }}
+          style={{ background: 'var(--color-section-muted)' }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 space-y-4">

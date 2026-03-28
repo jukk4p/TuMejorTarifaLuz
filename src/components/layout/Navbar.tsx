@@ -377,14 +377,43 @@ export default function Navbar() {
                     </div>
 
                     {/* Footer / Copyright */}
-                    <div className="p-8 border-t border-border text-center">
+                    <div className="p-8 border-t border-border text-center bg-surface-2/30">
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="w-full py-4 rounded-2xl bg-surface text-text-secondary font-bold mb-6 flex items-center justify-center gap-3 border border-border"
+                            className="w-full py-4 rounded-2xl bg-surface text-text-secondary font-bold mb-8 flex items-center justify-center gap-3 border border-border shadow-sm active:scale-[0.98] transition-all"
                         >
-                            {theme === "dark" ? <><Sun size={20} /> Cambiar Modo Claro</> : <><Moon size={20} /> Cambiar Modo Oscuro</>}
+                            {theme === "dark" ? <><Sun size={18} /> Modo Claro</> : <><Moon size={18} /> Modo Oscuro</>}
                         </button>
-                        <p className="text-[10px] text-text-muted font-bold uppercase tracking-widest">tumejortarifaluz eS</p>
+
+                        <div className="flex flex-col items-center gap-4 mb-8">
+                            <p className="text-[10px] font-500 tracking-[0.06em] text-text-muted uppercase mb-1">Síguenos</p>
+                            <div className="flex items-center justify-center gap-4">
+                                <a 
+                                    href="https://x.com/TMejorTarifaLuz" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="w-12 h-12 rounded-xl bg-surface border border-border flex items-center justify-center text-text-primary hover:text-primary hover:border-primary/50 transition-all shadow-sm active:scale-95"
+                                    aria-label="X"
+                                >
+                                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
+                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                    </svg>
+                                </a>
+                                <a 
+                                    href="https://www.facebook.com/profile.php?id=61575378954923" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="w-12 h-12 rounded-xl bg-surface border border-border flex items-center justify-center text-text-primary hover:text-primary hover:border-primary/50 transition-all shadow-sm active:scale-95"
+                                    aria-label="Facebook"
+                                >
+                                    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current" aria-hidden="true">
+                                        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.2em]">tumejortarifaluz eS</p>
                     </div>
                 </div>
             </div>

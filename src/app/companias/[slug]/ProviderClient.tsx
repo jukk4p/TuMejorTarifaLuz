@@ -128,8 +128,8 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
 
                     {/* Brand Profile Section */}
                     <div className="premium-card p-12 mb-12 relative overflow-hidden bg-white dark:bg-slate-900 border border-border shadow-2xl">
-                        <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
-                            <div className="w-48 h-24 bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 flex items-center justify-center shadow-inner border border-border">
+                        <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center md:items-start">
+                            <div className="w-64 h-32 bg-slate-50 dark:bg-slate-800 rounded-3xl p-4 flex items-center justify-center shadow-inner border border-border group-hover:shadow-xl transition-all duration-500">
                                 <img
                                     src={mounted && resolvedTheme === 'dark' && provider.logo_dark ? provider.logo_dark : provider.logo}
                                     alt={provider.name}
@@ -378,7 +378,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                     href={`/companias/${sim.slug}`}
                                     className="bg-white dark:bg-slate-900 border border-border p-8 rounded-2xl hover:shadow-xl transition-all group"
                                 >
-                                    <div className="h-10 w-24 mb-6 flex items-center">
+                                    <div className="h-16 w-32 mb-6 flex items-center">
                                         <img 
                                             src={mounted && resolvedTheme === 'dark' && sim.logo_dark ? sim.logo_dark : sim.logo} 
                                             alt={sim.name} 
