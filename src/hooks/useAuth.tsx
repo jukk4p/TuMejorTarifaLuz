@@ -29,23 +29,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser);
-            if (currentUser) {
-                try {
-                    const adminDoc = await getDoc(doc(db, "roles_admin", currentUser.uid));
-                    setIsAdmin(adminDoc.exists());
-                } catch (error) {
-                    console.error("Error checking admin role:", error);
+        // Delay auth check to prioritize LCP and main thread for rendering
+        const timeoutId = setTimeout(() => {
+            const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+                setUser(currentUser);
+                if (currentUser) {
+                    try {
+                        const adminDoc = await getDoc(doc(db, "roles_admin", currentUser.uid));
+                        setIsAdmin(adminDoc.exists());
+                    } catch (error) {
+                        console.error("Error checking admin role:", error);
+                        setIsAdmin(false);
+                    }
+                } else {
                     setIsAdmin(false);
                 }
-            } else {
-                setIsAdmin(false);
-            }
-            setLoading(false);
-        });
+                setLoading(false);
+            });
 
-        return () => unsubscribe();
+            return () => unsubscribe();
+        }, 2500); // 2.5s delay is safe for landing page performance
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     const logout = async () => {
