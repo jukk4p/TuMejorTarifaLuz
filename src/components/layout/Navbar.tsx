@@ -62,6 +62,7 @@ export default function Navbar() {
                                     fill
                                     className="object-contain" 
                                     priority 
+                                    sizes="(max-width: 640px) 36px, 44px"
                                 />
                             </div>
                         </div>
@@ -79,8 +80,8 @@ export default function Navbar() {
                         <div className="relative group">
                             <button 
                                 className="flex items-center gap-1.5 text-[14px] font-500 text-text-secondary group-hover:text-primary transition-colors h-20"
-                                aria-haspopup="true"
-                                aria-expanded="false"
+                                aria-haspopup="menu"
+                                aria-expanded={isCompaniesOpen}
                             >
                                 Compañías <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
                             </button>
@@ -148,13 +149,13 @@ export default function Navbar() {
                                     <button 
                                         onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                                         className="w-9 h-9 rounded-lg bg-surface flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 transition-all border border-border/40"
-                                        aria-label="Menú de usuario"
-                                        aria-haspopup="true"
+                                        aria-label="Abrir menú de usuario"
+                                        aria-haspopup="menu"
                                         aria-expanded={isUserMenuOpen}
                                     >
                                         <img 
                                             src={user.photoURL || `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
-                                            alt={user.displayName || "User"} 
+                                            alt={user.displayName || "Usuario"} 
                                             className="w-full h-full object-cover" 
                                         />
                                     </button>

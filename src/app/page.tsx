@@ -610,11 +610,11 @@ export default async function Home() {
                   >
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} unoptimized className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>
