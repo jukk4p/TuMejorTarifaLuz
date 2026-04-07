@@ -65,9 +65,10 @@ const getLogoScale = (companyName: string) => {
 
 export default function DynamicHeroCard() {
   const [data, setData] = useState<ComparisonData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
+    setIsBrowser(true);
     const saved = localStorage.getItem("tmtl_last_comparison");
     if (saved) {
       try {
@@ -85,21 +86,12 @@ export default function DynamicHeroCard() {
         console.error("Error parsing hero data:", e);
       }
     }
-    setLoading(false);
   }, []);
 
   return (
     <div className="relative group/hero-img py-6 md:py-12 overflow-visible">
       <AnimatePresence mode="wait">
-        {loading ? (
-          <motion.div
-            key="loading"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto h-[480px] bg-white/5 shadow-2xl animate-pulse"
-          />
-        ) : !data ? (
+        {!isBrowser || !data ? (
           <motion.div
             key="static"
             initial={{ opacity: 0, scale: 0.95 }}

@@ -165,7 +165,7 @@ export default async function Home() {
                 </div>
               </FadeIn>
 
-              <FadeIn direction="none" delay={0.4} className="order-1 lg:order-2 relative">
+              <FadeIn direction="none" className="order-1 lg:order-2 relative">
                 <DynamicHeroCard />
               </FadeIn>
             </div>
