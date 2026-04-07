@@ -59,9 +59,16 @@ export const viewport: Viewport = {
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AuthProvider } from "@/hooks/useAuth";
-import { ToastProvider } from "@/components/providers/ToastProvider";
-import AuthModalHandler from "@/components/auth/AuthModalHandler";
 import JsonLd, { organizationSchema } from "@/components/seo/JsonLd";
+import dynamic from "next/dynamic";
+
+const AuthModalHandler = dynamic(() => import("@/components/auth/AuthModalHandler"), {
+  ssr: false,
+});
+
+const ToastProvider = dynamic(() => import("@/components/providers/ToastProvider").then(mod => mod.ToastProvider), {
+  ssr: false,
+});
 
 export default function RootLayout({
   children,

@@ -1,15 +1,18 @@
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
-import SupportSection from "@/components/ui/SupportSection";
-import SocialProof from "@/components/ui/SocialProof";
+import next_dynamic from "next/dynamic";
+
+const Footer = next_dynamic(() => import("@/components/layout/Footer"), { ssr: true });
+const SupportSection = next_dynamic(() => import("@/components/ui/SupportSection"), { ssr: false });
+const UrgencyBar = next_dynamic(() => import("@/components/ui/UrgencyBar"), { ssr: false });
+
 import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
-import UrgencyBar from "@/components/ui/UrgencyBar";
+import SocialProof from "@/components/ui/SocialProof";
 import { AvatarInitials } from "@/components/ui/AvatarInitials";
 import DynamicHeroCard from "@/components/ui/DynamicHeroCard";
 import DynamicHeroSavings from "@/components/ui/DynamicHeroSavings";
