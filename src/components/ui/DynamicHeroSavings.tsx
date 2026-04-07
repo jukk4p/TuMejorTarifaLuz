@@ -1,7 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TrendingDown } from "lucide-react";
+import { motion, animate } from "framer-motion";
+
+function AnimatedNumber({ value }: { value: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const controls = animate(0, value, {
+      duration: 1.5,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(value) {
+        if (ref.current) {
+          ref.current.textContent = Math.round(value).toString();
+        }
+      }
+    });
+    return () => controls.stop();
+  }, [value]);
+
+  return <span ref={ref}>0</span>;
+}
 
 export default function DynamicHeroSavings() {
   const [savingsPct, setSavingsPct] = useState<number | null>(null);
@@ -21,18 +41,26 @@ export default function DynamicHeroSavings() {
   }, []);
 
   return (
-    <p 
-      className="text-xl md:text-2xl font-900 tracking-tight flex items-center justify-center lg:justify-start gap-3 animate-in fade-in slide-in-from-left-4 duration-1000" 
+    <motion.div 
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, delay: 0.2 }}
+      className="text-xl md:text-2xl font-900 tracking-tight flex items-center justify-center lg:justify-start gap-2" 
       style={{ color: 'var(--color-savings-text)' }}
     >
       {savingsPct !== null ? (
         <>
-          y ahorra un <span className="text-primary italic px-1">{savingsPct}%</span> real
+          y ahorra un <span className="text-primary italic px-1 md:-ml-1"><AnimatedNumber value={savingsPct} />%</span> real
         </>
       ) : (
-        <>y ahorra hasta un 34%</>
+        <>y ahorra hasta un <span className="text-primary italic px-1"><AnimatedNumber value={34} />%</span> anual</>
       )}
-      <TrendingDown className="text-savings hidden md:block md:animate-bounce" size={24} />
-    </p>
+      <motion.div
+        animate={{ y: [0, -5, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <TrendingDown className="text-savings hidden md:block" size={24} />
+      </motion.div>
+    </motion.div>
   );
 }

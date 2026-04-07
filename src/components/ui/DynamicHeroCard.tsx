@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { ArrowRight, TrendingDown, History } from "lucide-react";
+import { ArrowRight, TrendingDown, History, Info, RefreshCw } from "lucide-react";
+import { motion, AnimatePresence, useSpring, useTransform, animate } from "framer-motion";
 import { getLogoPath } from "@/lib/tariffs";
 
 interface ComparisonData {
@@ -20,6 +21,29 @@ interface ComparisonData {
     savingsPct: number;
     logo: string | null;
   };
+}
+
+// Componente para contadores animados (Efecto 'WOW')
+function AnimatedNumber({ value, precision = 2, suffix = "" }: { value: number, precision?: number, suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const controls = animate(0, value, {
+      duration: 2,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate(value) {
+        if (ref.current) {
+          ref.current.textContent = value.toLocaleString('es-ES', { 
+            minimumFractionDigits: precision, 
+            maximumFractionDigits: precision 
+          }) + suffix;
+        }
+      }
+    });
+    return () => controls.stop();
+  }, [value, precision, suffix]);
+
+  return <span ref={ref}>0</span>;
 }
 
 const getLogoScale = (companyName: string) => {
@@ -48,9 +72,7 @@ export default function DynamicHeroCard() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Expiration check: 24h
         if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
-          // If logo is missing but name exists, try to find it now (robustness)
           if (!parsed.current.logo && parsed.current.company) {
             parsed.current.logo = getLogoPath(parsed.current.company);
           }
@@ -66,244 +88,264 @@ export default function DynamicHeroCard() {
     setLoading(false);
   }, []);
 
-  if (loading) return (
-    <div className="relative group/hero-img py-6 md:py-12 animate-pulse">
-        <div className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto h-[480px] bg-white/5 shadow-2xl transform-gpu"></div>
-    </div>
-  );
-
-  // If no data, show original static preview
-  if (!data) {
-    return (
-      <div className="relative group/hero-img py-6 md:py-12 text-left">
-        <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
-        <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
-        
-        <div 
-          className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto" style={{ backgroundColor: 'var(--section-white-alpha)' }}
-        >
-           <div 
-            className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between"
-            style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}
-           >
-             <div className="space-y-1 md:space-y-1.5">
-                <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
-                <p className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
-                  Ahorro real
-                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                </p>
-             </div>
-             <div 
-              className="px-3 md:px-4 py-1.5 md:py-2 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5"
-              style={{ background: 'var(--color-savings-bg)' }}
-             >
-                <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full animate-pulse" style={{ background: 'var(--color-savings-text)' }}></div>
-                <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-savings-text)' }}>Optimizado hoy</span>
-             </div>
-           </div>
-
-           <div className="w-full h-px bg-border/40 dark:bg-white/10"></div>
-
-           <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
-             <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
-                <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                   <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
-                   <div className="space-y-3 md:space-y-4">
-                      <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
-                         <Image 
-                           src="/logos/logo_iberdrola.png" 
-                           alt="Iberdrola" 
-                           width={120} 
-                           height={40} 
-                           className="object-contain max-h-full scale-[1.6]"
-                           unoptimized
-                         />
-                      </div>
-                      <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Plan Estable</p>
-                   </div>
-                   <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                      <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
-                      <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
-                   </div>
-                </div>
-
-                <div className="absolute left-1/2 top-[52px] md:top-[75px] -translate-x-1/2 -translate-y-1/2 z-20">
-                   <div className="w-12 h-12 md:w-24 md:h-24 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(var(--primary-rgb),0.4)] border-4 border-white/20 dark:border-white/10 transition-transform hover:scale-110 active:scale-95 cursor-pointer">
-                      <ArrowRight size={32} className="md:w-12 md:h-12 stroke-[3]" />
-                   </div>
-                </div>
-
-                <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                   <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-savings-text)' }}>Recomendada</p>
-                   <div className="space-y-3 md:space-y-4">
-                      <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-white dark:bg-white/5 border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm group-hover:shadow-md transition-all duration-300">
-                         <Image 
-                           src="/logos/logo_visalia.png" 
-                           alt="Visalia" 
-                           width={100} 
-                           height={40} 
-                           className="object-contain max-h-full scale-110"
-                           unoptimized
-                         />
-                      </div>
-                      <p className="text-[10px] md:text-[13px] font-bold tracking-tight" style={{ color: 'var(--color-text-muted)' }}>Luz Fijo 24h</p>
-                   </div>
-                   <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                      <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-savings-text)' }}>0,098</span>
-                      <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
-                   </div>
-                </div>
-             </div>
-
-             <div 
-              className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between gap-4 relative overflow-hidden group/savings border premium-shadow transition-all duration-500 hover:border-savings/40"
-              style={{ background: 'var(--color-savings-bg)', borderColor: 'var(--color-savings-text)' }}
-             >
-                <div className="absolute inset-0 bg-gradient-to-r from-savings/10 to-transparent -translate-x-full group-hover/savings:translate-x-full transition-transform duration-1000"></div>
-                <div className="space-y-2 relative z-10 text-left">
-                   <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] leading-none" style={{ color: 'var(--color-savings-text)' }}>Ahorro estimado anual</p>
-                   <div className="flex items-baseline gap-2">
-                      <span className="text-3xl md:text-5xl font-900 tracking-tighter drop-shadow-sm" style={{ color: 'var(--color-accent)' }}>339,24€</span>
-                      <span className="text-sm md:text-base font-black opacity-60" style={{ color: 'var(--color-accent)' }}>/ año</span>
-                   </div>
-                </div>
-                <div 
-                  className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2.5 shrink-0 relative z-10 shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-all duration-300"
-                >
-                   <span className="text-2xl md:text-3xl font-900 leading-none">-34,37%</span>
-                   <TrendingDown size={20} className="hidden sm:block" />
-                </div>
-             </div>
-           </div>
-
-           <div 
-            className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 border-t mt-auto flex items-center justify-between"
-            style={{ background: 'linear-gradient(to right, var(--color-section-muted), transparent)', borderColor: 'var(--color-border)' }}
-           >
-             <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                   <History size={14} className="text-primary" />
-                </div>
-                <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color: 'var(--color-text-subtle)' }}>Cálculo basado en tus datos de consumo real</p>
-             </div>
-           </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="relative group/hero-img py-6 md:py-12 animate-in fade-in zoom-in duration-700 text-left overflow-hidden transform-gpu will-change-transform">
-      <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[80px] md:blur-[140px] md:animate-pulse"></div>
-      
-      <div 
-        className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto border border-white/20 dark:border-white/5 shadow-2xl shadow-primary/5 transform-gpu will-change-transform" 
-        style={{ backgroundColor: 'var(--section-white-alpha)' }}
-      >
-         <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}>
-           <div className="space-y-1 md:space-y-1.5 text-left">
-              <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu ahorro personalizado</p>
-              <p className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2 text-primary">
-                Análisis completado
-                <span className="w-2 h-2 rounded-full bg-primary md:animate-pulse"></span>
-              </p>
-           </div>
-           <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
-              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500 md:animate-pulse"></div>
-              <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Datos reales</span>
-           </div>
-         </div>
-
-         <div className="w-full h-px bg-border/40"></div>
-
-         <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
-           <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
-              <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                 <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Situación Actual</p>
-                 <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-sm bg-white dark:bg-white/5">
-                    {data.current.logo ? (
-                      <Image 
-                         src={data.current.logo} 
-                         alt={data.current.company} 
-                         width={100} 
-                         height={28} 
-                         className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.current.company)}`} 
-                         unoptimized 
-                       />
-                    ) : (
-                      <span className="text-[10px] font-black uppercase text-text-muted">{data.current.company}</span>
-                    )}
-                 </div>
-                 <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                    <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight" style={{ color: 'var(--color-text-heading)' }}>{data.current.price.toFixed(3)}</span>
-                    <span className="text-[9px] md:text-xs font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh</span>
-                 </div>
-              </div>
-
-              <div className="absolute left-1/2 top-[43px] md:top-[68px] -translate-x-1/2 -translate-y-1/2 z-20">
-                 <div className="w-8 h-8 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg transform transition-transform">
-                    <ArrowRight size={16} className="md:w-8 md:h-8 stroke-[3]" />
-                 </div>
-              </div>
-
-              <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                 <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Top Recomendada</p>
-                 <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-white dark:bg-white/5 border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md bg-white dark:bg-white/5">
-                    {data.recommended.logo ? (
-                      <Image 
-                         src={data.recommended.logo} 
-                         alt={data.recommended.company} 
-                         width={90} 
-                         height={28} 
-                         className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.recommended.company)}`} 
-                         unoptimized 
-                       />
-                    ) : (
-                      <span className="text-[10px] font-black uppercase text-primary">{data.recommended.company}</span>
-                    )}
-                 </div>
-                 <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                    <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-primary">{data.recommended.price.toFixed(3)}</span>
-                    <span className="text-[9px] md:text-xs font-bold opacity-60 text-primary/60">€/kWh</span>
-                 </div>
-              </div>
-           </div>
-
-           <div 
-            className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between gap-4 relative overflow-hidden group/savings border border-emerald-500/30 shadow-2xl transition-all duration-500 hover:scale-[1.02] text-left"
-            style={{ background: 'linear-gradient(135deg, #10b98115, #10b98130)' }}
-           >
-              <div className="space-y-2 relative z-10">
-                 <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] leading-none text-emerald-600 dark:text-emerald-400">Ahorro anual calculado</p>
-                 <div className="flex items-baseline gap-2">
-                    <span className="text-3xl md:text-5xl font-900 tracking-tighter text-emerald-600 dark:text-emerald-400">
-                      {data.recommended.savings.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}€
-                    </span>
-                    <span className="text-sm md:text-base font-black opacity-60 text-emerald-600/60 leading-none">/ año</span>
-                 </div>
-              </div>
-              <div className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2.5 shadow-lg shadow-emerald-500/40">
-                 <span className="text-2xl md:text-3xl font-900 leading-none">-{data.recommended.savingsPct}%</span>
-                 <TrendingDown size={20} className="hidden sm:block" />
-              </div>
-           </div>
-         </div>
-
-         <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-white dark:bg-slate-800/40 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
-            <div className="flex items-center gap-3">
-               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                  <History size={14} className="text-primary" />
-               </div>
-               <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em] text-text-muted">Personalizado hace {Math.round((Date.now() - data.timestamp) / 1000 / 60)} min</p>
-            </div>
-            <button 
-              onClick={() => { localStorage.removeItem('tmtl_last_comparison'); window.location.reload(); }}
-              className="text-[9px] sm:text-[10px] font-black text-primary hover:underline uppercase tracking-widest whitespace-nowrap"
+    <div className="relative group/hero-img py-6 md:py-12 overflow-visible">
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto h-[480px] bg-white/5 shadow-2xl animate-pulse"
+          />
+        ) : !data ? (
+          <motion.div
+            key="static"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative"
+          >
+            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
+            <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
+            
+            <div 
+              className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto transition-all duration-500 hover:shadow-primary/5" 
+              style={{ backgroundColor: 'var(--section-white-alpha)' }}
             >
-              Recalcular →
-            </button>
-         </div>
-      </div>
+               {/* Header Preview */}
+               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}>
+                 <div className="space-y-1 md:space-y-1.5">
+                    <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
+                     <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
+                      Ahorro real
+                      <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    </div>
+                 </div>
+                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-savings/10">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-savings animate-pulse"></div>
+                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Optimizado hoy</span>
+                 </div>
+               </div>
+
+               <div className="w-full h-px bg-border/40"></div>
+
+               <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
+                 <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
+                    <div className="flex-1 space-y-3 md:space-y-5 text-center">
+                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
+                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm">
+                          <Image src="/logos/logo_iberdrola.png" alt="Iberdrola" width={120} height={40} className="object-contain max-h-full scale-[1.6]" unoptimized />
+                       </div>
+                       <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
+                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
+                          <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
+                       </div>
+                    </div>
+
+                    <div className="absolute left-1/2 top-[52px] md:top-[75px] -translate-x-1/2 -translate-y-1/2 z-20">
+                       <motion.div 
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 md:w-20 md:h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-slate-900"
+                       >
+                          <ArrowRight size={24} className="md:w-10 md:h-10 stroke-[3]" />
+                       </motion.div>
+                    </div>
+
+                    <div className="flex-1 space-y-3 md:space-y-5 text-center">
+                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Recomendada</p>
+                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-md">
+                          <Image src="/logos/logo_visalia.png" alt="Visalia" width={100} height={40} className="object-contain max-h-full scale-110" unoptimized />
+                       </div>
+                       <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
+                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight text-savings-text">0,098</span>
+                          <span className="text-[9px] md:text-sm font-bold opacity-60 text-savings-text/60">€/kWh*</span>
+                       </div>
+                    </div>
+                 </div>
+
+                 <motion.div 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between bg-savings-bg border border-savings/30 shadow-lg"
+                 >
+                    <div className="space-y-1">
+                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-savings-text">Ahorro anual estimado</p>
+                       <div className="flex items-baseline gap-2">
+                          <span className="text-3xl md:text-5xl font-900 tracking-tighter text-accent">339,24€</span>
+                       </div>
+                    </div>
+                    <div className="px-5 py-3 bg-savings text-white rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-savings/40">
+                       <span className="text-2xl md:text-3xl font-900 leading-none">-34%</span>
+                       <TrendingDown size={20} className="hidden sm:block" />
+                    </div>
+                 </motion.div>
+               </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="dashboard"
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="relative"
+          >
+            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/25 rounded-full blur-[100px] md:blur-[140px]"></div>
+            
+            <div 
+              className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto border border-white/20 shadow-2xl" 
+              style={{ backgroundColor: 'var(--section-white-alpha)' }}
+            >
+               {/* Active Header */}
+               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.08), transparent)' }}>
+                 <div className="space-y-1">
+                    <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Análisis personalizado</p>
+                     <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2 text-primary">
+                      Comparativa Completada
+                      <motion.span 
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="w-2 h-2 rounded-full bg-primary"
+                      />
+                    </div>
+                 </div>
+                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500"></div>
+                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Datos Reales</span>
+                 </div>
+               </div>
+
+               <div className="w-full h-px bg-border/40"></div>
+
+               <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
+                 <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
+                    {/* Current Company */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="flex-1 space-y-3 md:space-y-5 text-center"
+                    >
+                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Situación Actual</p>
+                       <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-sm">
+                          {data.current.logo ? (
+                            <Image 
+                               src={data.current.logo} 
+                               alt={data.current.company} 
+                               width={100} 
+                               height={28} 
+                               className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.current.company)}`} 
+                               unoptimized 
+                             />
+                          ) : (
+                            <span className="text-[10px] font-black uppercase">{data.current.company}</span>
+                          )}
+                       </div>
+                       <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
+                          <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight"><AnimatedNumber value={data.current.price} precision={3} /></span>
+                          <span className="text-[9px] md:text-xs font-bold opacity-60">€/kWh</span>
+                       </div>
+                    </motion.div>
+
+                    <div className="absolute left-1/2 top-[43px] md:top-[68px] -translate-x-1/2 -translate-y-1/2 z-20">
+                       <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", delay: 0.5 }}
+                        className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-slate-800"
+                       >
+                          <ArrowRight size={20} className="md:w-8 md:h-8 stroke-[3]" />
+                       </motion.div>
+                    </div>
+
+                    {/* Recommended Company */}
+                    <motion.div 
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="flex-1 space-y-3 md:space-y-5 text-center"
+                    >
+                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Top Recomendada</p>
+                       <motion.div 
+                        whileHover={{ y: -5 }}
+                        className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md"
+                       >
+                          {data.recommended.logo ? (
+                            <Image 
+                               src={data.recommended.logo} 
+                               alt={data.recommended.company} 
+                               width={90} 
+                               height={28} 
+                               className={`object-contain max-h-full transition-transform duration-500 ${getLogoScale(data.recommended.company)}`} 
+                               unoptimized 
+                             />
+                          ) : (
+                            <span className="text-[10px] font-black uppercase text-primary">{data.recommended.company}</span>
+                          )}
+                       </motion.div>
+                       <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
+                          <span className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-primary"><AnimatedNumber value={data.recommended.price} precision={3} /></span>
+                          <span className="text-[9px] md:text-xs font-bold opacity-60 text-primary/60">€/kWh</span>
+                       </div>
+                    </motion.div>
+                 </div>
+
+                 {/* Savings Badge */}
+                 <motion.div 
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.7, type: "spring" }}
+                  whileHover={{ scale: 1.02 }}
+                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between text-left relative overflow-hidden group/savings border border-emerald-500/30 shadow-xl"
+                  style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2))' }}
+                 >
+                    <div className="space-y-1 relative z-10">
+                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">Ahorro anual calculado</p>
+                       <div className="flex items-baseline gap-2 text-emerald-600 dark:text-emerald-400">
+                          <span className="text-3xl md:text-6xl font-900 tracking-tighter">
+                            <AnimatedNumber value={data.recommended.savings} suffix="€" />
+                          </span>
+                          <span className="text-sm md:text-base font-black opacity-60">/ año</span>
+                       </div>
+                    </div>
+                    <motion.div 
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-emerald-500/30"
+                    >
+                       <span className="text-2xl md:text-4xl font-900 leading-none">
+                         -<AnimatedNumber value={data.recommended.savingsPct} precision={0} suffix="%" />
+                       </span>
+                       <TrendingDown size={24} className="hidden sm:block" />
+                    </motion.div>
+                 </motion.div>
+               </div>
+
+               {/* Footer Info */}
+               <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-white dark:bg-slate-800/40 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
+                  <div className="flex items-center gap-3">
+                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <History size={14} className="text-primary" />
+                     </div>
+                     <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em] text-text-muted">Personalizado hace {Math.round((Date.now() - data.timestamp) / 1000 / 60)} min</p>
+                  </div>
+                  <motion.button 
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => { localStorage.removeItem('tmtl_last_comparison'); window.location.reload(); }}
+                    className="flex items-center gap-2 text-[9px] sm:text-[10px] font-black text-primary hover:text-primary-hover uppercase tracking-widest"
+                  >
+                    <RefreshCw size={12} />
+                    Recalcular Comparativa
+                  </motion.button>
+               </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

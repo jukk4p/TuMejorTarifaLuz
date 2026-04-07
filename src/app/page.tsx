@@ -13,6 +13,8 @@ import UrgencyBar from "@/components/ui/UrgencyBar";
 import { AvatarInitials } from "@/components/ui/AvatarInitials";
 import DynamicHeroCard from "@/components/ui/DynamicHeroCard";
 import DynamicHeroSavings from "@/components/ui/DynamicHeroSavings";
+import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
+import PremiumTiltCard from "@/components/ui/PremiumTiltCard";
 
 export const dynamic = 'force-dynamic';
 
@@ -106,7 +108,7 @@ export default async function Home() {
 
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-[45%_55%] gap-12 lg:gap-32 items-center">
-              <div className="space-y-8 md:space-y-12 text-center lg:text-left">
+              <FadeIn className="space-y-8 md:space-y-12 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0">
                   <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -157,15 +159,15 @@ export default async function Home() {
                     <AvatarInitials initials="AM" bgColor="#8B5CF6" size={48} />
                     <AvatarInitials initials="CL" bgColor="#F59E0B" size={48} />
                   </div>
-                  <p className="text-xs md:text-base text-text-secondary max-w-[240px] md:max-w-none leading-tight font-bold">
+                  <div className="text-xs md:text-base text-text-secondary max-w-[240px] md:max-w-none leading-tight font-bold">
                     Únete a las <SocialProof count={3891} /> que ya han tomado el control de su ahorro este mes.
-                  </p>
+                  </div>
                 </div>
-              </div>
+              </FadeIn>
 
-              <div className="order-1 lg:order-2 relative">
+              <FadeIn direction="none" delay={0.4} className="order-1 lg:order-2 relative">
                 <DynamicHeroCard />
-              </div>
+              </FadeIn>
             </div>
           </div>
         </section>
@@ -182,7 +184,7 @@ export default async function Home() {
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
               
               {/* Left Side: Brand & Mission */}
-              <div className="space-y-12">
+              <FadeIn direction="left" className="space-y-12">
                 <div 
                   className="inline-flex items-center gap-4 p-2 rounded-2xl border pr-6"
                   style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
@@ -213,10 +215,10 @@ export default async function Home() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </FadeIn>
 
               {/* Right Side: Quote & Donation */}
-              <div className="space-y-8">
+              <FadeIn direction="right" className="space-y-8">
                 {/* Quote Card */}
                 <div 
                   className="p-8 md:p-10 rounded-[2.5rem] space-y-8 border"
@@ -261,7 +263,7 @@ export default async function Home() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </FadeIn>
 
             </div>
           </div>
@@ -270,14 +272,14 @@ export default async function Home() {
         {/* How it Works Section */}
         <section id="como-funciona" className="py-24 relative transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
+            <FadeIn className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">¿Cómo funciona nuestro comparador?</h2>
               <p className="text-lg text-text-secondary">Nuestro proceso inteligente elimina la complejidad de las facturas de luz en tres pasos sencillos.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-12 relative">
+            </FadeIn>
+            <FadeInStagger className="grid md:grid-cols-3 gap-12 relative">
               <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-surface-2 -z-0"></div>
 
-              <div className="relative z-10 text-center group">
+              <FadeIn className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-surface border-2 border-border rounded-full flex items-center justify-center mb-6 group-hover:border-primary group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                     <FileText size={20} />
@@ -286,9 +288,9 @@ export default async function Home() {
                 </div>
                 <h3 className="font-heading text-xl font-medium text-text-primary mb-3">Sube tu factura</h3>
                 <p className="font-body text-sm font-normal text-text-secondary">Arrastra tu PDF. Analizamos potencias contratadas, consumos por tramos y servicios adicionales.</p>
-              </div>
+              </FadeIn>
 
-              <div className="relative z-10 text-center group">
+              <FadeIn className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-surface border-2 border-border rounded-full flex items-center justify-center mb-6 group-hover:border-primary group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                     <Brain size={20} />
@@ -297,9 +299,9 @@ export default async function Home() {
                 </div>
                 <h3 className="font-heading text-xl font-medium text-text-primary mb-3">Análisis Matemático</h3>
                 <p className="font-body text-sm font-normal text-text-secondary">Nuestro algoritmo avanzado cruza tu perfil de consumo real con el mercado actual en tiempo real.</p>
-              </div>
+              </FadeIn>
 
-              <div className="relative z-10 text-center group">
+              <FadeIn className="relative z-10 text-center group">
                 <div className="w-12 h-12 mx-auto bg-surface border-2 border-border rounded-full flex items-center justify-center mb-6 group-hover:border-accent group-hover:shadow-xl transition-all duration-300">
                   <div className="w-8 h-8 bg-accent-bg rounded-full flex items-center justify-center text-accent-bg-text group-hover:scale-110 transition-transform">
                     <PiggyBank size={20} />
@@ -308,19 +310,19 @@ export default async function Home() {
                 </div>
                 <h3 className="font-heading text-xl font-medium text-text-primary mb-3">Descubre tu ahorro</h3>
                 <p className="font-body text-sm font-normal text-text-secondary">Recibe una recomendación personalizada con la tarifa que realmente te hará ahorrar cada mes.</p>
-              </div>
-            </div>
+              </FadeIn>
+            </FadeInStagger>
           </div>
         </section>
 
         {/* FAQ Section */}
         <section id="faq" className="pb-24 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <FadeIn className="text-center mb-16">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
               <p className="text-lg text-text-secondary">Todo lo que necesitas saber sobre nuestro motor de comparación.</p>
-            </div>
-            <div className="space-y-4">
+            </FadeIn>
+            <FadeInStagger className="space-y-4">
               {[
                 {
                   q: "¿Es seguro subir mi factura?",
@@ -356,29 +358,30 @@ export default async function Home() {
                   a: "¿Tienes una duda técnica o no entiendes un resultado? Escrílenos a contacto@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
                 }
               ].map((faq, i) => (
-                <details 
-                  key={i} 
-                  className="group overflow-hidden [&_summary::-webkit-details-marker]:hidden rounded-2xl border transition-all duration-300"
-                  style={{ 
-                    background: 'var(--color-section-white)',
-                    borderColor: 'var(--color-border)'
-                  }}
-                >
-                  <summary className="flex items-center justify-between p-6 cursor-pointer select-none list-none">
-                    <span className="font-heading text-base font-medium" style={{ color: 'var(--color-text-heading)' }}>{faq.q}</span>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-accent-bg text-accent-bg-text" : "bg-primary/10 text-primary"}`}>
-                      <ChevronDown size={20} />
+                <FadeIn key={i} direction="none">
+                  <details 
+                    className="group overflow-hidden [&_summary::-webkit-details-marker]:hidden rounded-2xl border transition-all duration-300"
+                    style={{ 
+                      background: 'var(--color-section-white)',
+                      borderColor: 'var(--color-border)'
+                    }}
+                  >
+                    <summary className="flex items-center justify-between p-6 cursor-pointer select-none list-none">
+                      <span className="font-heading text-base font-medium" style={{ color: 'var(--color-text-heading)' }}>{faq.q}</span>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 group-open:rotate-180 ${faq.success ? "bg-accent-bg text-accent-bg-text" : "bg-primary/10 text-primary"}`}>
+                        <ChevronDown size={20} />
+                      </div>
+                    </summary>
+                    <div className="font-body text-sm font-normal px-6 pb-6 leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
+                      {faq.a}
                     </div>
-                  </summary>
-                  <div className="font-body text-sm font-normal px-6 pb-6 leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
-                    {faq.a}
-                  </div>
-                </details>
+                  </details>
+                </FadeIn>
               ))}
-            </div>
+            </FadeInStagger>
 
             {/* Post-FAQ Action Block */}
-            <div className="mt-16 bg-white dark:bg-surface-2/10 border border-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
+            <FadeIn className="mt-16 bg-white dark:bg-surface-2/10 border border-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
               
               <div className="grid md:grid-cols-2 gap-12 relative z-10">
@@ -414,14 +417,14 @@ export default async function Home() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           </div>
         </section>
 
         {/* Knowledge Center Section */}
         <section id="guias" className="py-24 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
               <div className="max-w-2xl space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
                   <Newspaper size={14} />
@@ -430,26 +433,30 @@ export default async function Home() {
                 <h2 className="font-heading text-3xl font-semibold text-text-primary tracking-tight">Consejos para ahorrar en tu recibo</h2>
                 <p className="text-lg text-text-secondary leading-relaxed">Aprende a navegar el mercado eléctrico con la información de nuestros expertos.</p>
               </div>
-            </div>
+            </FadeIn>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <FadeInStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.slice(0, 6).map((post, i) => (
-                <Link key={i} href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
-                  <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
-                  <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
-                  <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
-                    <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
-                  <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
-                    <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
-                    <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
-                  </div>
-                </Link>
+                <FadeIn key={i}>
+                  <PremiumTiltCard className="h-full">
+                    <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
+                      <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
+                      <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
+                      <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
+                        <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
+                      <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
+                        <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
+                        <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
+                      </div>
+                    </Link>
+                  </PremiumTiltCard>
+                </FadeIn>
               ))}
-            </div>
+            </FadeInStagger>
 
-            <div className="mt-16 text-center">
+            <FadeIn className="mt-16 text-center">
               <Link
                 href="/blog"
                 className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-surface border border-border text-text-secondary font-bold hover:shadow-xl transition-all group hover:border-primary/30"
@@ -457,7 +464,7 @@ export default async function Home() {
                 Ver todos los artículos
                 <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} />
               </Link>
-            </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -468,7 +475,7 @@ export default async function Home() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
+              <FadeIn direction="left" className="space-y-8">
                 <div className="space-y-4">
                   <h2 className="font-heading text-3xl md:text-4xl font-900 text-text-primary tracking-tight leading-tight">
                     ¿Quieres ahorrar de verdad o <br />
@@ -479,27 +486,31 @@ export default async function Home() {
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-6">
+                 <FadeInStagger className="grid sm:grid-cols-2 gap-6">
                   {[
                     { icon: "analytics", title: "Estudio de Ahorro Pro", desc: "No te quedes en la superficie. Accede al desglose técnico de potencia y energía para entender exactamente dónde se va tu dinero cada mes." },
                     { icon: "brain", title: "Tu Consultor IA 24/7", desc: "Nuestro motor analiza la letra pequeña y te avisa de permanencias ocultas o costes fantasma antes de que los pagues." },
                     { icon: "heart", title: "Radar de Oportunidades", desc: "Guarda tus tarifas favoritas y recibe un aviso instantáneo si bajan de precio o si aparece una oferta superior para tu perfil." },
                     { icon: "bell", title: "Alertas Anti-Subidas", desc: "Te avisamos de inmediato si detectamos una oportunidad de ahorro masivo o si tu contrato actual deja de ser competitivo." }
                   ].map((benefit, i) => (
-                    <div key={i} className="flex gap-4 group">
-                      <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-surface transition-all duration-300">
-                        {benefit.icon === 'analytics' && <BarChart3 size={24} />}
-                        {benefit.icon === 'brain' && <Brain size={24} />}
-                        {benefit.icon === 'heart' && <Heart size={24} />}
-                        {benefit.icon === 'bell' && <Bell size={24} />}
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="font-heading text-base font-black text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h4>
-                        <p className="font-body text-sm font-normal text-text-secondary leading-relaxed">{benefit.desc}</p>
-                      </div>
-                    </div>
+                    <FadeIn key={i} direction="none" className="flex">
+                      <PremiumTiltCard className="w-full flex">
+                        <div className="flex gap-4 group p-4 rounded-3xl hover:bg-surface transition-colors w-full h-full">
+                          <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-surface transition-all duration-300">
+                            {benefit.icon === 'analytics' && <BarChart3 size={24} />}
+                            {benefit.icon === 'brain' && <Brain size={24} />}
+                            {benefit.icon === 'heart' && <Heart size={24} />}
+                            {benefit.icon === 'bell' && <Bell size={24} />}
+                          </div>
+                          <div className="space-y-1">
+                            <h4 className="font-heading text-base font-black text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h4>
+                            <p className="font-body text-sm font-normal text-text-secondary leading-relaxed">{benefit.desc}</p>
+                          </div>
+                        </div>
+                      </PremiumTiltCard>
+                    </FadeIn>
                   ))}
-                </div>
+                </FadeInStagger>
 
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-6">
                   <Link href="/registro" className="inline-flex items-center justify-center px-8 py-4 bg-primary text-white font-body font-semibold rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
@@ -513,9 +524,9 @@ export default async function Home() {
                     O usa el comparador sin registro
                   </Link>
                 </div>
-              </div>
+              </FadeIn>
 
-              <div className="hidden lg:block relative">
+              <FadeIn direction="right" className="hidden lg:block relative">
                 {/* Visual Backdrop Glows */}
                 <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
                 <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px] animate-pulse delay-700"></div>
@@ -557,7 +568,7 @@ export default async function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </FadeIn>
             </div>
           </div>
         </section>
