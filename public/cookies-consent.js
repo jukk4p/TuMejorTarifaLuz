@@ -34,28 +34,30 @@
         style.id = 'cookie-consent-styles';
         style.textContent = `
             :root {
-                --cc-bg: rgba(255, 255, 255, 0.9);
-                --cc-text: #0F172A;
+                --cc-bg: rgba(255, 255, 255, 0.95);
+                --cc-text: #070E18;
                 --cc-subtext: #475569;
-                --cc-accent: #137fec;
-                --cc-accent-hover: #0c66c2;
+                --cc-accent: #10b981;
+                --cc-accent-hover: #059669;
                 --cc-accent-text: #ffffff;
                 --cc-border: rgba(0, 0, 0, 0.08);
                 --cc-toggle-bg: #E2E8F0;
-                --cc-toggle-active: #10B981;
+                --cc-toggle-active: #10b981;
                 --cc-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
                 --cc-radius: 1.5rem;
                 --cc-font: var(--font-body, 'Manrope', -apple-system, sans-serif);
-                --cc-blur: 12px;
+                --cc-blur: 15px;
             }
 
             html.dark :root,
             .dark {
-                --cc-bg: rgba(15, 25, 35, 0.85);
+                --cc-bg: rgba(7, 14, 24, 0.9);
                 --cc-text: #F1F5F9;
                 --cc-subtext: #94A3B8;
-                --cc-border: rgba(255, 255, 255, 0.08);
+                --cc-border: rgba(255, 255, 255, 0.1);
                 --cc-toggle-bg: #1E293B;
+                --cc-accent: #10b981;
+                --cc-accent-hover: #34d399;
             }
 
             #cc-banner {
@@ -144,13 +146,13 @@
             .cc-btn-accept {
                 background: var(--cc-accent);
                 color: var(--cc-accent-text);
-                box-shadow: 0 4px 12px rgba(19, 127, 236, 0.25);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
             }
 
             .cc-btn-accept:hover {
                 background: var(--cc-accent-hover);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(19, 127, 236, 0.35);
+                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
             }
 
             .cc-btn-secondary {
