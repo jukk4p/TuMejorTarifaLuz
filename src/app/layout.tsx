@@ -60,15 +60,7 @@ export const viewport: Viewport = {
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AuthProvider } from "@/hooks/useAuth";
 import JsonLd, { organizationSchema } from "@/components/seo/JsonLd";
-import dynamic from "next/dynamic";
-
-const AuthModalHandler = dynamic(() => import("@/components/auth/AuthModalHandler"), {
-  ssr: false,
-});
-
-const ToastProvider = dynamic(() => import("@/components/providers/ToastProvider").then(mod => mod.ToastProvider), {
-  ssr: false,
-});
+import { ClientOnlyProviders } from "@/components/providers/ClientOnlyProviders";
 
 export default function RootLayout({
   children,
@@ -89,35 +81,34 @@ export default function RootLayout({
 
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-            <AuthModalHandler />
-            <ToastProvider>
+            <ClientOnlyProviders>
               <JsonLd data={{
                 "@context": "https://schema.org",
                 "@graph": [
                   {
-                    "@type": "Organization",
                     "@id": "https://www.tumejortarifaluz.es/#organization",
-                    "name": "TuMejorTarifaLuz",
-                    "url": "https://www.tumejortarifaluz.es",
+                    "@type": "Organization",
                     "logo": "https://www.tumejortarifaluz.es/Logo.png",
+                    "name": "TuMejorTarifaLuz",
                     "sameAs": [
                       "https://x.com/tumejortarifaluz",
                       "https://facebook.com/tumejortarifaluz"
-                    ]
+                    ],
+                    "url": "https://www.tumejortarifaluz.es"
                   },
                   {
-                    "@type": "WebSite",
                     "@id": "https://www.tumejortarifaluz.es/#website",
-                    "url": "https://www.tumejortarifaluz.es",
+                    "@type": "WebSite",
                     "name": "TuMejorTarifaLuz",
-                    "publisher": { "@id": "https://www.tumejortarifaluz.es/#organization" }
+                    "publisher": { "@id": "https://www.tumejortarifaluz.es/#organization" },
+                    "url": "https://www.tumejortarifaluz.es"
                   }
                 ]
               }} />
               <div className="relative w-full overflow-x-hidden">
                 {children}
               </div>
-            </ToastProvider>
+            </ClientOnlyProviders>
           </ThemeProvider>
         </AuthProvider>
 

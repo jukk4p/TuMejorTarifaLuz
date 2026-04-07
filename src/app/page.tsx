@@ -5,10 +5,9 @@ import { Suspense } from "react";
 import { blogPosts } from "@/lib/blogData";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
 import next_dynamic from "next/dynamic";
-
 const Footer = next_dynamic(() => import("@/components/layout/Footer"), { ssr: true });
-const SupportSection = next_dynamic(() => import("@/components/ui/SupportSection"), { ssr: false });
-const UrgencyBar = next_dynamic(() => import("@/components/ui/UrgencyBar"), { ssr: false });
+
+import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
 
 import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
@@ -176,7 +175,7 @@ export default async function Home() {
         </section>
 
         {/* Urgency Bar */}
-        <UrgencyBar />
+        <DeferredUrgencyBar />
 
         {/* Support & Independence Section */}
         <section 
@@ -255,7 +254,7 @@ export default async function Home() {
                     </div>
                   </div>
                   <div className="p-8">
-                    <SupportSection />
+                    <DeferredSupportSection />
                   </div>
                   <div 
                     className="px-8 py-5 border-t flex justify-center text-center"
