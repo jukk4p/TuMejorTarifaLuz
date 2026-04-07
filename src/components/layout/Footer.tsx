@@ -81,8 +81,6 @@ export default function Footer() {
     return (
         <footer className="bg-[#070E18] text-[#CBD5E1] pt-12 md:pt-20 pb-10 border-t border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
                 {/* 4-Column Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-20 items-start">
                     
@@ -174,7 +172,7 @@ export default function Footer() {
                                     className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-3 group"
                                 >
                                     <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors hidden lg:block"></div>
-                                    <span className="truncate">{item.name}</span>
+                                    {item.name}
                                 </Link>
                             ))}
 
@@ -257,7 +255,7 @@ export default function Footer() {
                     </p>
 
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full shrink-0">
-                        <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                        <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
                         <span className="text-[11px] font-500 text-accent tracking-widest">Actualizado hoy</span>
                     </div>
                 </div>

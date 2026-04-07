@@ -91,8 +91,8 @@ export default async function UrgencyBar() {
 
   return (
     <div className="bg-[#0F1923] border-y border-white/5 py-5 relative overflow-hidden group">
-      {/* Subtle moving background effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 opacity-30 animate-pulse pointer-events-none"></div>
+      {/* Subtle background effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 opacity-20 pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-10 px-2 lg:px-4">
@@ -101,7 +101,7 @@ export default async function UrgencyBar() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/20">
-                <Zap size={24} className="text-primary animate-pulse" />
+                <Zap size={24} className="text-primary opacity-90" />
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] font-black text-[#94A3B8] uppercase tracking-widest leading-none mb-2">Precio ahora</span>

@@ -98,8 +98,8 @@ export default function DynamicHeroCard() {
             animate={{ opacity: 1, scale: 1 }}
             className="relative"
           >
-            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/20 rounded-full blur-[100px] md:blur-[140px] animate-pulse"></div>
-            <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/15 rounded-full blur-[80px] md:blur-[100px] animate-pulse delay-700"></div>
+            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/10 rounded-full blur-[100px] md:blur-[140px]"></div>
+            <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/10 rounded-full blur-[80px] md:blur-[100px]"></div>
             
             <div 
               className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto transition-all duration-500 hover:shadow-primary/5" 
@@ -111,11 +111,11 @@ export default function DynamicHeroCard() {
                     <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
                      <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
                       Ahorro real
-                      <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                      <span className="w-2 h-2 rounded-full bg-primary opacity-80 transition-opacity"></span>
                     </div>
                  </div>
                  <div className="px-3 md:px-4 py-1.5 md:py-2 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-savings/10">
-                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-savings animate-pulse"></div>
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-savings opacity-80 transition-opacity"></div>
                     <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Optimizado hoy</span>
                  </div>
                </div>
@@ -197,11 +197,7 @@ export default function DynamicHeroCard() {
                     <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Análisis personalizado</p>
                      <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2 text-primary">
                       Comparativa Completada
-                      <motion.span 
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-2 h-2 rounded-full bg-primary"
-                      />
+                      <span className="w-2 h-2 rounded-full bg-primary opacity-80" />
                     </div>
                  </div>
                  <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
@@ -305,16 +301,12 @@ export default function DynamicHeroCard() {
                           <span className="text-sm md:text-base font-black opacity-60">/ año</span>
                        </div>
                     </div>
-                    <motion.div 
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-emerald-500/30"
-                    >
+                    <div className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-emerald-500/30">
                        <span className="text-2xl md:text-4xl font-900 leading-none">
                          -<AnimatedNumber value={data.recommended.savingsPct} precision={0} suffix="%" />
                        </span>
                        <TrendingDown size={24} className="hidden sm:block" />
-                    </motion.div>
+                    </div>
                  </motion.div>
                </div>
 
