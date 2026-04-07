@@ -34,43 +34,28 @@
         style.id = 'cookie-consent-styles';
         style.textContent = `
             :root {
-                --cc-bg: #ffffff;
-                --cc-text: #1e293b;
-                --cc-subtext: #64748b;
+                --cc-bg: rgba(255, 255, 255, 0.9);
+                --cc-text: #0F172A;
+                --cc-subtext: #475569;
                 --cc-accent: #137fec;
+                --cc-accent-hover: #0c66c2;
                 --cc-accent-text: #ffffff;
-                --cc-border: #e2e8f0;
-                --cc-toggle-bg: #cbd5e1;
-                --cc-toggle-active: #10b981;
-                --cc-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-                --cc-radius: 1.25rem;
-                --cc-font: var(--font-display, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+                --cc-border: rgba(0, 0, 0, 0.08);
+                --cc-toggle-bg: #E2E8F0;
+                --cc-toggle-active: #10B981;
+                --cc-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                --cc-radius: 1.5rem;
+                --cc-font: var(--font-body, 'Manrope', -apple-system, sans-serif);
+                --cc-blur: 12px;
             }
 
-            /* Handle dark mode via CSS class (Next-themes) */
             html.dark :root,
             .dark {
-                --cc-bg: #101922;
-                --cc-text: #f8fafc;
-                --cc-subtext: #94a3b8;
-                --cc-accent: #137fec;
-                --cc-accent-text: #ffffff;
-                --cc-border: #1e293b;
-                --cc-toggle-bg: #1a2632;
-                --cc-toggle-active: #10b981;
-            }
-
-            /* Fallback for system preference if no class is present */
-            @media (prefers-color-scheme: dark) {
-                :root:not(.light) {
-                    --cc-bg: #101922;
-                    --cc-text: #f8fafc;
-                    --cc-subtext: #94a3b8;
-                    --cc-accent: #137fec;
-                    --cc-accent-text: #ffffff;
-                    --cc-border: #1e293b;
-                    --cc-toggle-bg: #1a2632;
-                }
+                --cc-bg: rgba(15, 25, 35, 0.85);
+                --cc-text: #F1F5F9;
+                --cc-subtext: #94A3B8;
+                --cc-border: rgba(255, 255, 255, 0.08);
+                --cc-toggle-bg: #1E293B;
             }
 
             #cc-banner {
@@ -78,20 +63,22 @@
                 bottom: 1.5rem;
                 left: 1.5rem;
                 width: calc(100% - 3rem);
-                max-width: 420px;
+                max-width: 440px;
                 background: var(--cc-bg);
+                backdrop-filter: blur(var(--cc-blur));
+                -webkit-backdrop-filter: blur(var(--cc-blur));
                 color: var(--cc-text);
-                padding: 1.75rem;
+                padding: 2rem;
                 border-radius: var(--cc-radius);
                 border: 1px solid var(--cc-border);
                 box-shadow: var(--cc-shadow);
                 z-index: 2147483640;
                 font-family: var(--cc-font);
-                font-size: 0.9rem;
-                line-height: 1.5;
+                font-size: 0.95rem;
+                line-height: 1.6;
                 opacity: 0;
                 transform: translateY(2rem);
-                transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
                 pointer-events: none;
                 display: none;
             }
@@ -104,73 +91,89 @@
             }
 
             #cc-banner h3 {
-                margin: 0 0 0.5rem 0;
-                font-size: 1.1rem;
-                font-weight: 700;
+                margin: 0 0 0.75rem 0;
+                font-size: 1.25rem;
+                font-weight: 800;
+                letter-spacing: -0.02em;
                 color: var(--cc-text);
             }
 
             #cc-banner p {
-                margin: 0 0 1.5rem 0;
+                margin: 0 0 1.75rem 0;
                 color: var(--cc-subtext);
-                font-size: 0.85rem;
+                font-size: 0.875rem;
+                font-medium;
             }
 
             #cc-banner a {
                 color: var(--cc-accent);
-                text-decoration: underline;
-                font-weight: 500;
+                text-decoration: none;
+                font-weight: 700;
+                border-bottom: 2px solid transparent;
+                transition: border-color 0.2s;
+            }
+
+            #cc-banner a:hover {
+                border-bottom-color: var(--cc-accent);
             }
 
             .cc-btn-group {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: 0.75rem;
+            }
+            
+            #cc-open-settings {
+                grid-column: span 2;
+                margin-top: 0.25rem;
             }
 
             .cc-btn {
                 cursor: pointer;
-                padding: 0.65rem 1.25rem;
+                padding: 0.85rem 1.25rem;
                 border: 1px solid transparent;
-                border-radius: 0.75rem;
-                font-size: 0.8rem;
-                font-weight: 600;
-                transition: all 0.2s ease;
-                flex: 1 1 auto;
+                border-radius: 1rem;
+                font-size: 0.875rem;
+                font-weight: 700;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 text-align: center;
                 white-space: nowrap;
+                user-select: none;
             }
 
             .cc-btn-accept {
                 background: var(--cc-accent);
                 color: var(--cc-accent-text);
+                box-shadow: 0 4px 12px rgba(19, 127, 236, 0.25);
             }
 
             .cc-btn-accept:hover {
-                filter: brightness(1.1);
-                transform: translateY(-1px);
+                background: var(--cc-accent-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(19, 127, 236, 0.35);
             }
 
             .cc-btn-secondary {
-                background: transparent;
+                background: rgba(255, 255, 255, 0.05);
                 border: 1px solid var(--cc-border);
                 color: var(--cc-text);
             }
 
             .cc-btn-secondary:hover {
                 background: var(--cc-border);
+                transform: translateY(-2px);
             }
 
             /* Settings Panel Overlay */
             #cc-modal-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0,0,0,0.7);
-                backdrop-filter: blur(8px);
+                background: rgba(7, 14, 24, 0.6);
+                backdrop-filter: blur(4px);
                 z-index: 2147483645;
                 display: none;
                 opacity: 0;
-                transition: opacity 0.3s ease;
+                transition: opacity 0.4s ease;
             }
 
             #cc-modal {
@@ -178,18 +181,22 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -45%);
-                width: calc(100% - 2rem);
-                max-width: 500px;
+                width: calc(100% - 2.5rem);
+                max-width: 520px;
                 background: var(--cc-bg);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
                 border-radius: var(--cc-radius);
-                padding: 2rem;
+                border: 1px solid var(--cc-border);
+                padding: 2.5rem;
                 z-index: 2147483647;
                 font-family: var(--cc-font);
                 display: none;
                 opacity: 0;
-                transition: transform 0.4s ease, opacity 0.4s ease;
-                max-height: 90vh;
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+                max-height: 85vh;
                 overflow-y: auto;
+                box-shadow: 0 30px 60px -12px rgba(0,0,0,0.45);
             }
 
             #cc-modal.show {
@@ -200,14 +207,17 @@
 
             #cc-modal h3 {
                 color: var(--cc-text);
-                font-weight: 700;
+                font-size: 1.5rem;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+                margin-top: 0;
             }
 
             .cc-setting-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 1rem 0;
+                padding: 1.25rem 0;
                 border-bottom: 1px solid var(--cc-border);
             }
 
@@ -217,22 +227,24 @@
 
             .cc-setting-info h4 {
                 margin: 0;
-                font-size: 0.9rem;
-                font-weight: 600;
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--cc-text);
             }
 
             .cc-setting-info p {
-                margin: 0.25rem 0 0 0;
-                font-size: 0.75rem;
+                margin: 0.35rem 0 0 0;
+                font-size: 0.8rem;
                 color: var(--cc-subtext);
+                max-width: 280px;
             }
 
             /* Switches */
             .cc-switch {
                 position: relative;
                 display: inline-block;
-                width: 40px;
-                height: 22px;
+                width: 48px;
+                height: 26px;
             }
 
             .cc-switch input {
@@ -246,32 +258,35 @@
                 cursor: pointer;
                 inset: 0;
                 background-color: var(--cc-toggle-bg);
-                transition: .3s;
-                border-radius: 22px;
+                transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+                border-radius: 26px;
+                border: 1px solid var(--cc-border);
             }
 
             .cc-slider:before {
                 position: absolute;
                 content: "";
-                height: 16px;
-                width: 16px;
+                height: 20px;
+                width: 20px;
                 left: 3px;
-                bottom: 3px;
+                bottom: 2px;
                 background-color: white;
-                transition: .3s;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
                 border-radius: 50%;
             }
 
             input:checked + .cc-slider {
                 background-color: var(--cc-toggle-active);
+                border-color: transparent;
             }
 
             input:checked + .cc-slider:before {
-                transform: translateX(18px);
+                transform: translateX(21px);
             }
 
             input:disabled + .cc-slider {
-                opacity: 0.5;
+                opacity: 0.4;
                 cursor: not-allowed;
             }
 
@@ -287,13 +302,17 @@
                     left: 0 !important;
                     width: 100% !important;
                     max-width: none !important;
-                    border-radius: 1.5rem 1.5rem 0 0 !important;
-                    padding-bottom: calc(1.75rem + env(safe-area-inset-bottom)) !important;
+                    border-radius: 2rem 2rem 0 0 !important;
+                    padding: 2rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom)) !important;
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: none;
                 }
-                .cc-btn { flex: 1 1 100%; }
+                .cc-btn-group { grid-template-columns: 1fr; }
+                #cc-open-settings { grid-column: span 1; }
                 #cc-modal {
-                    padding: 1.5rem;
-                    width: calc(100% - 1rem);
+                    padding: 2rem 1.5rem;
+                    width: calc(100% - 1.5rem);
                 }
             }
         `;
@@ -305,12 +324,17 @@
         const banner = document.createElement('div');
         banner.id = 'cc-banner';
         banner.innerHTML = `
-            <h3>Valoramos tu privacidad</h3>
-            <p>Utilizamos cookies propias y de terceros para analizar nuestros servicios y mostrarte publicidad relacionada con tus preferencias. Lee nuestra <a href="${LINK_POLITICA}">Política de Cookies</a>.</p>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                <div style="background: var(--cc-accent); color: white; padding: 0.4rem; border-radius: 0.6rem; display: flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <h3 style="margin: 0">Privacidad</h3>
+            </div>
+            <p>Utilizamos cookies para optimizar tu experiencia y analizar el tráfico. Consulta nuestra <a href="${LINK_POLITICA}">Política de Cookies</a>.</p>
             <div class="cc-btn-group">
                 <button class="cc-btn cc-btn-accept" id="cc-accept-all">Aceptar todo</button>
                 <button class="cc-btn cc-btn-secondary" id="cc-reject-all">Solo esenciales</button>
-                <button class="cc-btn cc-btn-secondary" id="cc-open-settings">Personalizar</button>
+                <button class="cc-btn cc-btn-secondary" id="cc-open-settings">Configurar</button>
             </div>
         `;
         document.body.appendChild(banner);
@@ -322,45 +346,50 @@
         const modal = document.createElement('div');
         modal.id = 'cc-modal';
         modal.innerHTML = `
-            <div style="margin-bottom: 2rem">
-                <h3 style="margin-top:0">Configuración de Cookies</h3>
-                <p style="font-size: 0.8rem; color: var(--cc-subtext)">Selecciona qué tipo de cookies deseas permitir. Las necesarias no se pueden desactivar ya que el sitio las requiere para funcionar.</p>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <div style="background: var(--cc-accent); color: white; padding: 0.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <h3 style="margin: 0">Ajustes de Privacidad</h3>
             </div>
+            <p style="font-size: 0.875rem; color: var(--cc-subtext); margin-bottom: 2rem; line-height: 1.6;">
+                Nos tomamos en serio tu privacidad. Selecciona qué tipo de cookies deseas permitir. Las cookies técnicas son obligatorias para el funcionamiento del sitio.
+            </p>
             
             <div class="cc-setting-item">
                 <div class="cc-setting-info">
-                    <h4>Técnicas / Necesarias</h4>
-                    <p>Necesarias para el funcionamiento base del sitio.</p>
+                    <h4>Técnicas</h4>
+                    <p>Necesarias para seguridad y funciones core.</p>
                 </div>
                 <label class="cc-switch"><input type="checkbox" checked disabled><span class="cc-slider"></span></label>
             </div>
 
             <div class="cc-setting-item">
                 <div class="cc-setting-info">
-                    <h4>Analíticas</h4>
-                    <p>Nos ayudan a entender cómo usas la web para mejorarla.</p>
+                    <h4>Análisis</h4>
+                    <p>Para mejorar nuestros servicios mediante el uso estadístico.</p>
                 </div>
                 <label class="cc-switch"><input type="checkbox" id="cc-opt-analytics"><span class="cc-slider"></span></label>
             </div>
 
             <div class="cc-setting-item">
                 <div class="cc-setting-info">
-                    <h4>Publicitarias / Marketing</h4>
-                    <p>Permiten mostrarte anuncios personalizados en otros sitios.</p>
-                </div>
-                <label class="cc-switch"><input type="checkbox" id="cc-opt-marketing"><span class="cc-slider"></span></label>
-            </div>
-
-            <div class="cc-setting-item">
-                <div class="cc-setting-info">
-                    <h4>Preferencias</h4>
-                    <p>Permiten recordar tus ajustes como el idioma o tema.</p>
+                    <h4>Personalización</h4>
+                    <p>Recuerdan tus preferencias y mejoran la interfaz.</p>
                 </div>
                 <label class="cc-switch"><input type="checkbox" id="cc-opt-preferences"><span class="cc-slider"></span></label>
             </div>
 
-            <div class="cc-btn-group" style="margin-top: 2rem">
-                <button class="cc-btn cc-btn-accept" id="cc-save-settings">Guardar selección</button>
+            <div class="cc-setting-item">
+                <div class="cc-setting-info">
+                    <h4>Publicidad</h4>
+                    <p>Permiten ofrecerte contenido y ofertas más relevantes.</p>
+                </div>
+                <label class="cc-switch"><input type="checkbox" id="cc-opt-marketing"><span class="cc-slider"></span></label>
+            </div>
+
+            <div style="margin-top: 2.5rem;">
+                <button class="cc-btn cc-btn-accept" id="cc-save-settings" style="width: 100%">Guardar mi selección</button>
             </div>
         `;
         document.body.appendChild(modal);
