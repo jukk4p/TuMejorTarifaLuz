@@ -18,7 +18,7 @@ import DynamicHeroSavings from "@/components/ui/DynamicHeroSavings";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 import PremiumTiltCard from "@/components/ui/PremiumTiltCard";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60; // Cache for 1 minute to enable BFCache and CDN caching
 
 export default async function Home() {
   const prices = await getElectricityPrices();
