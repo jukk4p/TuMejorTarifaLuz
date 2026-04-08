@@ -449,7 +449,7 @@ export default async function Home() {
             </FadeIn>
 
              <FadeInStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(0, 6).map((post, i) => (
+              {blogPosts.slice(0, 3).map((post, i) => (
                 <FadeIn key={i}>
                   <PremiumTiltCard className="h-full">
                     <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
