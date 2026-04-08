@@ -110,43 +110,47 @@ export default async function Home() {
 
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-[45%_55%] gap-12 lg:gap-32 items-center">
-                <div className="space-y-8 md:space-y-12 text-center lg:text-left">
-                  <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-                    <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75" style={{ animation: 'custom-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
-                      <style dangerouslySetInnerHTML={{ __html: `
-                        @keyframes custom-ping {
-                          75%, 100% { transform: scale(3.5); opacity: 0; }
-                        }
-                      `}} />
-                      <span className="relative inline-flex rounded-full h-2 md:h-2.5 w-2 md:w-2.5 bg-white"></span>
-                    </span>
-                    Motor de comparación 2026 – Actualizado hoy
-                  </div>
-                  <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150 fill-mode-both">
-                    <h1 
-                      className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
-                      style={{ color: 'var(--color-text-heading)' }}
-                    >
-                      Compara <span className="bg-gradient-to-r from-primary to-emerald-600 bg-clip-text text-transparent italic pr-1">tarifas de luz</span> gratis
-                    </h1>
-                    <DynamicHeroSavings />
-                  </div>
+              {/* Text Content */}
+              <div className="space-y-8 md:space-y-12 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                  <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75" style={{ animation: 'custom-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
+                    <style dangerouslySetInnerHTML={{ __html: `
+                      @keyframes custom-ping {
+                        75%, 100% { transform: scale(3.5); opacity: 0; }
+                      }
+                    `}} />
+                    <span className="relative inline-flex rounded-full h-2 md:h-2.5 w-2 md:w-2.5 bg-white"></span>
+                  </span>
+                  Motor de comparación 2026 – Actualizado hoy
+                </div>
 
-                  <p 
-                    className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both"
-                    style={{ color: 'var(--color-text-muted)' }}
+                <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150 fill-mode-both">
+                  <h1 
+                    className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
+                    style={{ color: 'var(--color-text-heading)' }}
                   >
-                    Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
-                  </p>
-                  <div className="flex flex-col items-center lg:items-start gap-5 md:gap-7 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
-                    <Link 
-                      href="/comparador?mode=upload" 
-                      className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
-                    >
-                      <CloudUpload size={28} className="md:w-8 md:h-8" />
-                      Subir mi factura y ahorrar
-                    </Link>
+                    Compara <span className="bg-gradient-to-r from-primary to-emerald-600 bg-clip-text text-transparent italic pr-1">tarifas de luz</span> gratis
+                  </h1>
+                  <DynamicHeroSavings />
+                </div>
+
+                <p 
+                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both"
+                  style={{ color: 'var(--color-text-muted)' }}
+                >
+                  Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
+                </p>
+
+                <div className="flex flex-col items-center lg:items-start gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+                  <Link 
+                    href="/comparador?mode=upload" 
+                    className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
+                  >
+                    <CloudUpload size={28} className="md:w-8 md:h-8" />
+                    Subir mi factura y ahorrar
+                  </Link>
+                  
                   <Link 
                     href="/comparador?mode=manual" 
                     className="text-[12px] md:text-[13px] font-black text-text-secondary hover:text-primary transition-colors uppercase tracking-[0.2em] flex items-center gap-2 md:gap-3 italic group"
@@ -160,6 +164,7 @@ export default async function Home() {
                     <span>o introduce los datos manualmente</span>
                   </Link>
                 </div>
+
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6 pt-8 md:pt-10 border-t border-border/40 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
                   <div className="flex items-center">
                     <AvatarInitials initials="JP" bgColor="#3B82F6" size={48} first />
@@ -172,9 +177,10 @@ export default async function Home() {
                 </div>
               </div>
 
-              <FadeIn direction="none" className="order-1 lg:order-2 relative">
+              {/* Visual Content */}
+              <div className="order-1 lg:order-2 relative">
                 <DynamicHeroCard />
-              </FadeIn>
+              </div>
             </div>
           </div>
         </section>
