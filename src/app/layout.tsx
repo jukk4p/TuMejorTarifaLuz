@@ -112,14 +112,13 @@ export default function RootLayout({
           </ThemeProvider>
         </AuthProvider>
 
-        {/* Pre-initialize DataLayer for GTM */}
-        <Script id="gtm-init" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];`}
-        </Script>
-
-        {/* Google Tag Manager (GTM) */}
-        <Script id="gtm-loader" strategy="lazyOnload">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KMVCF4NV');`}
+        {/* Deferred Analytics & GTM - Manual 5s delay to save main thread for LCP */}
+        <Script id="gtm-delayed-loader" strategy="afterInteractive">
+          {`
+            setTimeout(() => {
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KMVCF4NV');
+            }, 5000);
+          `}
         </Script>
 
         {/* Cookie Consent System */}
@@ -132,36 +131,36 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@graph": [
                 {
-                  "@type": "Organization",
                   "@id": "https://www.tumejortarifaluz.es/#organization",
-                  "name": "TuMejorTarifaLuz",
-                  "url": "https://www.tumejortarifaluz.es",
-                  "foundingDate": "2025",
+                  "@type": "Organization",
+                  "contactPoint": {
+                    "@type": "ContactPoint",
+                    "availableLanguage": "Spanish",
+                    "contactType": "customer support",
+                    "email": "contacto@tumejortarifaluz.es"
+                  },
                   "founder": { "@type": "Person", "name": "Iván González" },
+                  "foundingDate": "2025",
                   "logo": {
                     "@type": "ImageObject",
                     "url": "https://www.tumejortarifaluz.es/Logo.png"
                   },
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "email": "contacto@tumejortarifaluz.es",
-                    "contactType": "customer support",
-                    "availableLanguage": "Spanish"
-                  }
+                  "name": "TuMejorTarifaLuz",
+                  "url": "https://www.tumejortarifaluz.es"
                 },
                 {
-                  "@type": "WebSite",
                   "@id": "https://www.tumejortarifaluz.es/#website",
-                  "url": "https://www.tumejortarifaluz.es",
+                  "@type": "WebSite",
                   "name": "TuMejorTarifaLuz",
+                  "potentialAction": {
+                    "@type": "SearchAction",
+                    "query-input": "required name=search_term_string",
+                    "target": "https://www.tumejortarifaluz.es/tarifas?q={search_term_string}"
+                  },
                   "publisher": {
                     "@id": "https://www.tumejortarifaluz.es/#organization"
                   },
-                  "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://www.tumejortarifaluz.es/tarifas?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                  }
+                  "url": "https://www.tumejortarifaluz.es"
                 }
               ]
             })

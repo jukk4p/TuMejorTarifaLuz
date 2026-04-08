@@ -113,7 +113,12 @@ export default async function Home() {
                 <div className="space-y-8 md:space-y-12 text-center lg:text-left">
                   <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                     <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75" style={{ animation: 'custom-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
+                      <style dangerouslySetInnerHTML={{ __html: `
+                        @keyframes custom-ping {
+                          75%, 100% { transform: scale(3.5); opacity: 0; }
+                        }
+                      `}} />
                       <span className="relative inline-flex rounded-full h-2 md:h-2.5 w-2 md:w-2.5 bg-white"></span>
                     </span>
                     Motor de comparación 2026 – Actualizado hoy
@@ -530,8 +535,8 @@ export default async function Home() {
 
               <FadeIn direction="right" className="hidden lg:block relative">
                 {/* Visual Backdrop Glows */}
-                <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
-                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px] animate-pulse delay-700"></div>
+                <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px]"></div>
+                <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px]"></div>
 
                 <div className="bg-surface/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-border shadow-3xl relative overflow-hidden group/skeleton">
                   {/* Glassmorphism Shine */}
