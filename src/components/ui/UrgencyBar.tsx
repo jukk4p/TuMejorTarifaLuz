@@ -1,6 +1,10 @@
+"use client";
+
 import { Zap, ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
-import { getElectricityPrices, ApiPriceData } from "@/lib/energy-prices";
+import { useEffect, useState } from "react";
+import { ElectricityPriceData, ApiPriceData } from "@/lib/energy-prices";
+import ElectricityPriceSkeleton from "@/components/layout/ElectricityPriceSkeleton";
 
 // Mejora 1: Lógica para determinar la etiqueta de zona horaria
 function getPriceZoneLabel(currentPrice: number, avgPrice: number, peakPrice: number): {
@@ -79,8 +83,27 @@ function MiniChart({
   )
 }
 
-export default async function UrgencyBar() {
-  const prices = await getElectricityPrices();
+export default function UrgencyBar() {
+  const [prices, setPrices] = useState<ElectricityPriceData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPrices() {
+      try {
+        const res = await fetch('/api/electricity-prices');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        setPrices(data);
+      } catch (err) {
+        console.warn("UrgencyBar: No se pudieron cargar los precios (posible token faltante en local)");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchPrices();
+  }, []);
+
+  if (loading) return <ElectricityPriceSkeleton />;
   if (!prices || !prices.allHours) return null;
 
   const currentHour = parseInt(prices.time.split(":")[0]) || 0;
