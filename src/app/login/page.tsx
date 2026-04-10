@@ -44,8 +44,11 @@ export default function LoginPage() {
             await initializeUserProfile(result.user);
             router.push("/mi-cuenta");
         } catch (err: any) {
-            setError("Error al conectar con Google. Inténtalo de nuevo.");
-            console.error(err);
+            const errorMessage = err.code === 'auth/unauthorized-domain' 
+                ? "Dominio no autorizado. Añade 'tumejortarifaluz.es' en Firebase Console."
+                : `Error (${err.code}): Inténtalo de nuevo.`;
+            setError(errorMessage);
+            console.error("Firebase Auth Error:", err.code, err.message);
         } finally {
             setLoading(false);
         }
