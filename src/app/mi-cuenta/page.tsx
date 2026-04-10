@@ -279,7 +279,7 @@ export default function ProfilePage() {
                         {/* Avatar con Efecto Glow - Reducido */}
                         <div className="relative shrink-0">
                             <div className="absolute inset-0 bg-primary/20 rounded-[1.75rem] sm:rounded-[2rem] blur-xl animate-pulse"></div>
-                            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-[1.75rem] sm:rounded-[2rem] bg-white dark:bg-slate-800 border-4 border-white dark:border-slate-800 shadow-2xl overflow-hidden z-10 transition-transform hover:scale-105 duration-500">
+                            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-[1.75rem] sm:rounded-[2rem] bg-surface-2 border-4 border-white dark:border-slate-800 shadow-2xl overflow-hidden z-10 transition-transform hover:scale-105 duration-500">
                                 {user.photoURL ? (
                                     <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
                                 ) : (
@@ -513,11 +513,11 @@ export default function ProfilePage() {
                                                 <div className="grid grid-cols-2 gap-3 px-1">
                                                     <div className="flex flex-col gap-1">
                                                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.15em]">Suministro</span>
-                                                        <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300 truncate">Vivienda</span>
+                                                        <span className="text-[11px] font-extrabold text-text-body truncate">Vivienda</span>
                                                     </div>
                                                     <div className="flex flex-col gap-1 items-end text-right">
                                                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.15em]">Consumo</span>
-                                                        <span className="text-[11px] font-extrabold text-slate-600 dark:text-slate-300">
+                                                        <span className="text-[11px] font-extrabold text-text-body">
                                                             {((bill.energy_p1 || 0) + (bill.energy_p2 || 0) + (bill.energy_p3 || 0)).toFixed(0)} kWh
                                                         </span>
                                                     </div>
@@ -656,7 +656,7 @@ export default function ProfilePage() {
                                             
                                             <div className="relative z-10 flex flex-col h-full">
                                                 <div className="flex justify-between items-start mb-6">
-                                                    <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-3 shadow-sm border border-slate-100 dark:border-slate-700">
+                                                    <div className="w-16 h-16 bg-surface-2 rounded-2xl flex items-center justify-center p-3 shadow-sm border border-slate-100 dark:border-slate-700">
                                                         <img
                                                             src={getLogoPath(tariff.company || '') || ''}
                                                             alt={tariff.company || 'Tarifa'}
@@ -719,7 +719,7 @@ export default function ProfilePage() {
                                     ))
                             ) : (
                                 <div className="bg-surface rounded-[2rem] p-12 text-center border border-border border-dashed md:col-span-2 lg:col-span-3">
-                                    <div className="w-16 h-16 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <div className="w-16 h-16 bg-surface-2/40 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                         <Star className="text-primary/20 w-8 h-8" />
                                     </div>
                                     <h3 className="text-lg font-800 dark:text-white mb-2">Tu lista de guardados está vacía</h3>
@@ -728,7 +728,7 @@ export default function ProfilePage() {
                                     </p>
                                     <button
                                         onClick={() => router.push("/tarifas")}
-                                        className="inline-flex items-center gap-2 px-8 py-4 bg-slate-50/50 dark:bg-slate-800/40 text-slate-600 dark:text-slate-300 rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
+                                        className="inline-flex items-center gap-2 px-8 py-4 bg-surface-2/40 text-text-body rounded-2xl text-xs font-900 uppercase tracking-widest hover:scale-105 active:scale-95 transition-all"
                                     >
                                         Explorar Tarifas
                                     </button>
@@ -778,7 +778,7 @@ export default function ProfilePage() {
                                 <div className="space-y-6">
                                     {/* IDENTITY HEADER: CENTERED STACK */}
                                     <div className="flex flex-col items-center gap-4 py-4 border-b border-slate-100 dark:border-white/5 pb-10 text-center">
-                                        <div className="w-16 h-16 shrink-0 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden flex items-center justify-center p-0.5 ring-4 ring-slate-50 dark:ring-white/5">
+                                        <div className="w-16 h-16 shrink-0 rounded-2xl bg-surface-2 border-2 border-slate-200 dark:border-white/10 shadow-2xl shadow-slate-200/50 dark:shadow-none overflow-hidden flex items-center justify-center p-0.5 ring-4 ring-slate-50 dark:ring-white/5">
                                             {editPhoto ? (
                                                 <img src={editPhoto} alt="Preview" className="w-full h-full object-contain rounded-xl" />
                                             ) : (
@@ -813,7 +813,7 @@ export default function ProfilePage() {
                                                                 name="days"
                                                                 value={consumptionSettings.days}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-20 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
                                                         <div className="flex flex-col items-center space-y-1.5">
@@ -823,7 +823,7 @@ export default function ProfilePage() {
                                                                 name="current_bill_total"
                                                                 value={consumptionSettings.current_bill_total}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-24 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
                                                     </div>
@@ -840,7 +840,7 @@ export default function ProfilePage() {
                                                                 name="power_p1"
                                                                 value={consumptionSettings.power_p1}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-20 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
                                                         <div className="flex flex-col items-center space-y-1.5">
@@ -850,7 +850,7 @@ export default function ProfilePage() {
                                                                 name="power_p2"
                                                                 value={consumptionSettings.power_p2}
                                                                 onChange={handleConsumptionChange}
-                                                                className="w-20 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                className="w-20 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                             />
                                                         </div>
                                                     </div>
@@ -872,7 +872,7 @@ export default function ProfilePage() {
                                                                     name={item.name}
                                                                     value={consumptionSettings[item.name as keyof typeof consumptionSettings]}
                                                                     onChange={handleConsumptionChange}
-                                                                    className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                    className="w-24 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                                 />
                                                             </div>
                                                         ))}
@@ -896,7 +896,7 @@ export default function ProfilePage() {
                                                                     value={consumptionSettings[item.name as keyof typeof consumptionSettings]}
                                                                     onChange={handleConsumptionChange}
                                                                     placeholder="0,0000"
-                                                                    className="w-24 text-center bg-white dark:bg-slate-800 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
+                                                                    className="w-24 text-center bg-surface-2 border-border rounded-xl px-2 py-1.5 text-[13px] font-mono focus:border-primary transition-all outline-none"
                                                                 />
                                                             </div>
                                                         ))}
@@ -1098,7 +1098,7 @@ export default function ProfilePage() {
                                                     <div className="relative w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 shrink-0 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-transform hover:scale-105" 
                                                          style={{ background: `conic-gradient(${gradientStops})` }}>
                                                         {/* Inner hollow circle to make it a donut */}
-                                                        <div className="w-[70%] h-[70%] bg-slate-50 dark:bg-slate-900 rounded-full shadow-inner flex flex-col items-center justify-center z-10 border border-white/50 dark:border-slate-800/50 backdrop-blur-sm">
+                                                        <div className="w-[70%] h-[70%] bg-surface rounded-full shadow-inner flex flex-col items-center justify-center z-10 border border-white/50 dark:border-slate-800/50 backdrop-blur-sm">
                                                             <Clock className="w-3 h-3 sm:w-4 sm:h-4 lg:w-4.5 lg:h-4.5 text-text-muted mb-0.5" />
                                                             <span className="text-[10px] sm:text-xs lg:text-sm font-black text-text-primary leading-none">{total.toFixed(0)}</span>
                                                             <span className="text-[6px] sm:text-[7px] uppercase font-bold text-slate-400 tracking-widest mt-0.5">kWh Total</span>

@@ -212,7 +212,7 @@ export default function ComercializadorasReferenciaPage() {
                             {COR_COMPANIES.map((company) => (
                                 <div key={company.name} className="group premium-card bg-surface p-8 border border-border hover:border-primary/30 transition-all duration-300 flex flex-col">
                                     <div className="flex justify-between items-start mb-6">
-                                        <div className="w-36 h-16 bg-white dark:bg-slate-800 rounded-xl border border-border flex items-center justify-center p-3 overflow-hidden shadow-inner group-hover:scale-105 transition-transform duration-300">
+                                        <div className="w-36 h-16 bg-surface-2 rounded-xl border border-border flex items-center justify-center p-3 overflow-hidden shadow-inner group-hover:scale-105 transition-transform duration-300">
                                             <img 
                                                 src={company.logo} 
                                                 alt={company.name} 

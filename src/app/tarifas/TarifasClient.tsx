@@ -391,7 +391,7 @@ export default function TarifasClient() {
                                                                 <span className="text-[9px] text-text-muted font-bold mt-1 uppercase">Solar</span>
                                                             </div>
                                                             <div className="text-right">
-                                                                <span className="font-900 text-emerald-600 dark:text-emerald-400 text-xl leading-none">{tariff.surplus_kwh.toFixed(2)}</span>
+                                                                <span className="font-900 text-savings-text text-xl leading-none">{tariff.surplus_kwh.toFixed(2)}</span>
                                                                 <span className="text-[10px] font-bold text-emerald-600/60 ml-1 uppercase">€/kWh</span>
                                                             </div>
                                                         </div>
@@ -677,7 +677,7 @@ export default function TarifasClient() {
                                             <td key={t.id} className="p-6 border-r last:border-r-0 text-center">
                                                 <div className="flex flex-col gap-3 items-center">
                                                     {t.surplus_kwh ? (
-                                                        <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-3 py-1 bg-emerald-500/5 rounded-lg">
+                                                        <span className="text-[10px] font-black text-savings-text border border-emerald-500/20 px-3 py-1 bg-emerald-500/5 rounded-lg">
                                                             {t.surplus_kwh.toFixed(2)} € Solar
                                                         </span>
                                                     ) : (

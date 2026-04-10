@@ -158,7 +158,7 @@ export default function TarifasAdminPage() {
                                 <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-all group">
                                     <td className="px-8 py-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-white dark:bg-slate-800 font-bold text-[10px] text-slate-400 border border-border overflow-hidden p-1 shadow-sm shrink-0">
+                                            <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-surface-2 font-bold text-[10px] text-slate-400 border border-border overflow-hidden p-1 shadow-sm shrink-0">
                                                 {tariff.logo_url ? (
                                                     <Image src={tariff.logo_url} alt={tariff.company} width={80} height={40} className="w-full h-full object-contain" />
                                                 ) : getLogoPath(tariff.company) ? (
@@ -179,7 +179,7 @@ export default function TarifasAdminPage() {
                                         </span>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <span className="font-mono text-xs font-bold text-slate-600 dark:text-slate-300">{(tariff.e1_kwh ?? 0).toFixed(4)} €</span>
+                                        <span className="font-mono text-xs font-bold text-text-body">{(tariff.e1_kwh ?? 0).toFixed(4)} €</span>
                                     </td>
                                     <td className="px-8 py-6">
                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[10px] font-bold uppercase tracking-tighter">
@@ -498,7 +498,7 @@ export default function TarifasAdminPage() {
                         <div className="p-8 border-t border-border bg-[#fcfdfe] dark:bg-slate-900/50 grid grid-cols-2 gap-4">
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="w-full bg-white dark:bg-slate-800 border border-border text-slate-600 dark:text-slate-300 font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
+                                className="w-full bg-surface-2 border border-border text-text-body font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
                             >
                                 Cancelar
                             </button>

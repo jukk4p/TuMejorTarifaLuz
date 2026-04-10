@@ -222,7 +222,7 @@ export default function DashboardPage() {
                                         <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer group">
                                             <td className="px-8 py-5">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center border border-border overflow-hidden p-1 shadow-sm">
+                                                    <div className="w-10 h-10 rounded-lg bg-surface-2 flex items-center justify-center border border-border overflow-hidden p-1 shadow-sm">
                                                         {getLogoPath(tariff.company, mounted && resolvedTheme === 'dark') ? (
                                                             <img
                                                                 src={getLogoPath(tariff.company, mounted && resolvedTheme === 'dark')!}

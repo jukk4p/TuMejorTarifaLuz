@@ -1440,7 +1440,7 @@ export default function ComparadorMain() {
                                         <CheckCircle2 className="w-4 h-4" />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-[0.2em] mb-1">VALIDACIÓN TÉCNICA DE DATOS</p>
+                                        <p className="text-[10px] font-black text-savings-text uppercase tracking-[0.2em] mb-1">VALIDACIÓN TÉCNICA DE DATOS</p>
                                         <p className="text-[11px] text-text-secondary font-medium leading-relaxed">Verifique los datos extraídos automáticamente para asegurar la máxima precisión en el cálculo.</p>
                                     </div>
                                 </div>
@@ -1864,7 +1864,7 @@ export default function ComparadorMain() {
                                                         <div className="grid grid-cols-2 gap-4">
                                                             <div className="space-y-1.5">
                                                                 <div className="flex justify-between text-[9px] font-black uppercase text-slate-400 px-0.5">
-                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-slate-600 dark:text-slate-300">{(currentBreakdown.powerPlusOthers * m).toFixed(2)}€</span>
+                                                                    <span>{isAnnual ? 'Actual Anual' : 'Actual'}</span><span className="font-mono text-text-body">{(currentBreakdown.powerPlusOthers * m).toFixed(2)}€</span>
                                                                 </div>
                                                                 <div className="h-2 bg-surface-2 rounded-full"><div className="h-full bg-border rounded-full w-full opacity-60"></div></div>
                                                             </div>
@@ -2065,7 +2065,7 @@ export default function ComparadorMain() {
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-4 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
-                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-3xl border border-border">
+                                                <div className="flex flex-col bg-surface-2/40 p-4 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-warning rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">Potencia Contratada</p>
@@ -2089,7 +2089,7 @@ export default function ComparadorMain() {
                                                     )}
                                                 </div>
 
-                                                <div className="flex flex-col bg-slate-50/50 dark:bg-slate-800/40 p-5 rounded-3xl border border-border">
+                                                <div className="flex flex-col bg-surface-2/40 p-5 rounded-3xl border border-border">
                                                     <div className="flex items-center gap-2 mb-3">
                                                         <div className="w-1.5 h-3 bg-primary rounded-full"></div>
                                                         <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">ENERGÍA CONSUMIDA</p>
@@ -2111,11 +2111,11 @@ export default function ComparadorMain() {
                                                 <div className="relative pt-4 mt-1 border-t border-border z-10">
                                                     <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em] text-center mb-3">Impuestos Aplicados</p>
                                                     <div className="grid grid-cols-2 gap-3">
-                                                        <div className="group/tax relative bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                        <div className="group/tax relative bg-surface-2/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IEE</p>
                                                             <p className="text-sm font-black text-primary">{CONSTANTS.IEE * 100}%</p>
                                                         </div>
-                                                        <div className="group/tax relative bg-slate-50/50 dark:bg-slate-800/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
+                                                        <div className="group/tax relative bg-surface-2/40 p-4 rounded-2xl text-center border border-border shadow-sm transition-all">
                                                             <p className="text-[8px] font-black text-text-muted uppercase tracking-widest mb-1.5 opacity-70">IVA</p>
                                                             <p className="text-sm font-black text-primary">{CONSTANTS.IVA * 100}%</p>
                                                         </div>
@@ -2132,7 +2132,7 @@ export default function ComparadorMain() {
                                             
                                             <div className="flex justify-between items-center mb-4 relative z-10">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
+                                                    <div className="w-10 h-10 rounded-full bg-surface-2/40 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
                                                         <Filter className="w-4 h-4" />
                                                     </div>
                                                     <h4 className="text-xs font-black text-text-primary uppercase tracking-[0.2em]">Filtros</h4>
@@ -2157,7 +2157,7 @@ export default function ComparadorMain() {
                                                             value={filterSearch}
                                                             onChange={e => setFilterSearch(e.target.value)}
                                                             placeholder="Ej. Endesa, Iberdrola..."
-                                                            className="relative w-full bg-white dark:bg-slate-800/40 border border-border rounded-2xl pl-10 pr-4 py-2 text-sm outline-none focus:border-primary focus:bg-white transition-all text-text-primary placeholder:text-text-muted/70"
+                                                            className="relative w-full bg-surface-2/40 border border-border rounded-2xl pl-10 pr-4 py-2 text-sm outline-none focus:border-primary focus:bg-white transition-all text-text-primary placeholder:text-text-muted/70"
                                                         />
                                                     </div>
                                                 </div>
@@ -3125,7 +3125,7 @@ export default function ComparadorMain() {
                                                     <div className="mt-6 flex-1">
                                                         <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
                                                             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-emerald-500/20 whitespace-nowrap">Precio Excedente</div>
-                                                            <p className="text-3xl font-800 text-emerald-600 dark:text-emerald-400">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
+                                                            <p className="text-3xl font-800 text-savings-text">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
                                                             <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">Esta tarifa compensa tu energía sobrante a un precio fijo.</p>
                                                         </div>
                                                     </div>

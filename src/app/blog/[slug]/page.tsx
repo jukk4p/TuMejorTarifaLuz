@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     />
 
                     {/* Author Bio Section */}
-                    <div className="mt-20 p-10 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-border flex flex-col md:flex-row items-center gap-8 text-center md:text-left shadow-sm">
+                    <div className="mt-20 p-10 bg-surface/50 rounded-[2.5rem] border border-border flex flex-col md:flex-row items-center gap-8 text-center md:text-left shadow-sm">
                         <div className="w-24 h-24 rounded-3xl bg-primary/20 flex items-center justify-center text-primary font-bold overflow-hidden shadow-2xl shrink-0">
                             {post.author.avatar ? (
                                 <Image src={post.author.avatar} alt={post.author.name} width={96} height={96} className="object-cover" />

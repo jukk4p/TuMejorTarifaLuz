@@ -90,7 +90,7 @@ export default function BlogClient() {
                     {/* Featured Article - Only shown in "Todos" and no search */}
                     {!searchQuery && selectedCategory === "Todos" && (
                         <div className="mb-16">
-                            <article className="relative bg-white dark:bg-slate-800 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-700 shadow-xl group">
+                            <article className="relative bg-surface-2 rounded-[2rem] overflow-hidden border border-border shadow-xl group">
                                 <div className="flex flex-col lg:flex-row">
                                     <div className="lg:w-[60%] relative aspect-video lg:aspect-auto min-h-[300px]">
                                         <Image
@@ -115,7 +115,7 @@ export default function BlogClient() {
                                                 {featuredPost.title}
                                             </Link>
                                         </h2>
-                                        <p className="text-slate-600 dark:text-slate-400 mb-8 line-clamp-3 leading-relaxed">
+                                        <p className="text-text-muted mb-8 line-clamp-3 leading-relaxed">
                                             {featuredPost.excerpt}
                                         </p>
                                         <div className="flex items-center justify-between mt-auto pt-8 border-t border-slate-100 dark:border-slate-700">
@@ -147,7 +147,7 @@ export default function BlogClient() {
                                 placeholder="Busca guías de ahorro, tarifas, autoconsumo..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-white dark:bg-slate-800 border-2 border-border rounded-[2rem] py-5 pl-16 pr-8 outline-none focus:border-primary/50 focus:shadow-2xl focus:shadow-primary/5 transition-all text-sm font-medium dark:text-white"
+                                className="w-full bg-surface-2 border-2 border-border rounded-[2rem] py-5 pl-16 pr-8 outline-none focus:border-primary/50 focus:shadow-2xl focus:shadow-primary/5 transition-all text-sm font-medium dark:text-white"
                             />
                             {searchQuery && (
                                 <button 
@@ -184,7 +184,7 @@ export default function BlogClient() {
                             {gridPosts.map((post) => (
                                 <article
                                     key={post.id}
-                                    className="premium-card group bg-white dark:bg-slate-800 overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 rounded-3xl"
+                                    className="premium-card group bg-surface-2 overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 rounded-3xl"
                                 >
                                     <Link href={`/blog/${post.slug}`} className="relative block aspect-video overflow-hidden">
                                         <Image
@@ -210,7 +210,7 @@ export default function BlogClient() {
                                                 {post.title}
                                             </Link>
                                         </h2>
-                                        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 line-clamp-3 min-h-[4rem]">
+                                        <p className="text-sm text-text-muted leading-relaxed mb-6 line-clamp-3 min-h-[4rem]">
                                             {post.excerpt}
                                         </p>
                                         
@@ -236,7 +236,7 @@ export default function BlogClient() {
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-white dark:bg-slate-800/50 rounded-[2rem] p-16 text-center border-2 border-dashed border-border">
+                        <div className="bg-surface-2/50 rounded-[2rem] p-16 text-center border-2 border-dashed border-border">
                             <div className="w-20 h-20 bg-surface-2 rounded-full flex items-center justify-center mx-auto mb-6">
                                 <Search className="text-slate-400" size={32} />
                             </div>
@@ -256,7 +256,7 @@ export default function BlogClient() {
                         <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full -mr-40 -mt-40 blur-3xl"></div>
                         <div className="relative z-10 max-w-2xl mx-auto">
                             <h2 className="text-3xl md:text-4xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">¿Quieres más consejos de ahorro?</h2>
-                            <p className="text-lg text-slate-600 dark:text-slate-400 mb-12 font-medium">Únete a nuestra newsletter y recibe una selección quincenal de las mejores tarifas y trucos energéticos.</p>
+                            <p className="text-lg text-text-muted mb-12 font-medium">Únete a nuestra newsletter y recibe una selección quincenal de las mejores tarifas y trucos energéticos.</p>
                             
                             <ul className="grid sm:grid-cols-3 gap-6 mb-12 text-left">
                                 {[
@@ -277,7 +277,7 @@ export default function BlogClient() {
                                 <input
                                     type="email"
                                     placeholder="Tu correo electrónico"
-                                    className="flex-grow bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-2xl px-8 py-5 outline-none focus:border-primary/30 transition-all text-sm font-bold"
+                                    className="flex-grow bg-surface-2 border-2 border-slate-100 dark:border-slate-700 rounded-2xl px-8 py-5 outline-none focus:border-primary/30 transition-all text-sm font-bold"
                                 />
                                 <button className="bg-primary hover:bg-primary-hover text-white font-black px-10 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 hover:scale-105 flex items-center justify-center gap-3">
                                     Suscribirme

@@ -202,7 +202,7 @@ export default function DynamicHeroCard() {
                  </div>
                  <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
                     <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500"></div>
-                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Datos Reales</span>
+                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Datos Reales</span>
                  </div>
                </div>
 
@@ -257,7 +257,7 @@ export default function DynamicHeroCard() {
                       transition={{ delay: 0.4 }}
                       className="flex-1 space-y-3 md:space-y-5 text-center"
                     >
-                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Top Recomendada</p>
+                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Top Recomendada</p>
                        <motion.div 
                         whileHover={{ y: -5 }}
                         className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md"
@@ -293,8 +293,8 @@ export default function DynamicHeroCard() {
                   style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2))' }}
                  >
                     <div className="space-y-1 relative z-10">
-                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">Ahorro anual calculado</p>
-                       <div className="flex items-baseline gap-2 text-emerald-600 dark:text-emerald-400">
+                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-savings-text">Ahorro anual calculado</p>
+                       <div className="flex items-baseline gap-2 text-savings-text">
                           <span className="text-3xl md:text-6xl font-900 tracking-tighter">
                             <AnimatedNumber value={data.recommended.savings} suffix="€" />
                           </span>
@@ -311,7 +311,7 @@ export default function DynamicHeroCard() {
                </div>
 
                {/* Footer Info */}
-               <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-white dark:bg-slate-800/40 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
+               <div className="px-5 sm:px-8 md:px-10 py-5 sm:py-6 md:py-8 bg-surface-2/40 border-t mt-auto flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--color-border)' }}>
                   <div className="flex items-center gap-3">
                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                         <History size={14} className="text-primary" />

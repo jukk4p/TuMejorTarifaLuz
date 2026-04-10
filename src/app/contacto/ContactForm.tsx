@@ -141,7 +141,7 @@ export default function ContactForm() {
                         )}
                     </button>
                     
-                    <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border">
+                    <div className="flex items-start gap-3 p-4 bg-surface/50 rounded-xl border border-border">
                         <div className="w-5 h-5 shrink-0 text-accent mt-0.5">
                             <svg fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"></path></svg>
                         </div>

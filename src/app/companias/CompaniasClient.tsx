@@ -115,7 +115,7 @@ export default function CompaniasClient() {
                                 placeholder="Buscar compañía..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-primary/20 outline-none text-sm"
+                                className="w-full pl-12 pr-4 py-3 rounded-xl border border-border bg-surface focus:ring-2 focus:ring-primary/20 outline-none text-sm"
                             />
                         </div>
                         <div className="flex flex-wrap md:flex-nowrap gap-4 w-full md:w-auto">
@@ -123,7 +123,7 @@ export default function CompaniasClient() {
                                 <select 
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
+                                    className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-border bg-surface text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
                                 >
                                     <option value="rating">Ordenar por valoración</option>
                                     <option value="name">Ordenar A-Z</option>
@@ -135,7 +135,7 @@ export default function CompaniasClient() {
                                 <select 
                                     value={filterType}
                                     onChange={(e) => setFilterType(e.target.value)}
-                                    className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-border bg-slate-50 dark:bg-slate-900 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
+                                    className="w-full appearance-none pl-4 pr-10 py-3 rounded-xl border border-border bg-surface text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
                                 >
                                     <option value="all">Tipo de compañía: Todas</option>
                                     <option value="big">Grandes compañías</option>
@@ -223,7 +223,7 @@ export default function CompaniasClient() {
                                 { t: "Precio Competitivo", d: "Comparamos mensualmente las tarifas de cada compañía con la media del mercado y el pool eléctrico.", icon: <span className="text-primary">⚡</span> }
                             ].map((item, i) => (
                                 <div key={i} className="bg-white dark:bg-surface border border-border p-8 rounded-3xl group hover:shadow-xl transition-all">
-                                    <div className="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <div className="w-12 h-12 rounded-2xl bg-surface flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                         {item.icon}
                                     </div>
                                     <h4 className="text-lg font-800 text-text-primary mb-3">{item.t}</h4>

@@ -138,7 +138,7 @@ export default function PriceClock({ pricesArray, currentHour, selectedHour, onH
                                     <div className={`w-full h-full rounded-full flex items-center justify-center text-[10px] font-black transition-all border-2
                                         ${isSelected 
                                             ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-primary shadow-[0_0_20px_rgba(14,165,233,0.3)]' 
-                                            : 'bg-white dark:bg-slate-800 text-slate-400 border-border'
+                                            : 'bg-surface-2 text-slate-400 border-border'
                                         }
                                         ${isCurrent && !isSelected ? 'ring-2 ring-primary ring-offset-2 dark:ring-offset-slate-900' : ''}
                                     `}>

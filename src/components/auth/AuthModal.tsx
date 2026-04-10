@@ -122,7 +122,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
             <div className="relative w-full max-w-md bg-surface rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-border">
                 <button
                     onClick={onClose}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-slate-50/50 dark:bg-slate-800/40 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10 border border-white/50 dark:border-white/5"
+                    className="absolute top-6 right-6 p-2 rounded-full bg-surface-2/40 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10 border border-white/50 dark:border-white/5"
                 >
                     <X size={20} />
                 </button>
@@ -140,7 +140,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                     <button
                         onClick={handleGoogleLogin}
                         disabled={loading}
-                        className="w-full h-14 flex items-center justify-center gap-3 px-6 bg-white dark:bg-slate-800 border border-border rounded-2xl font-bold text-sm text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm active:scale-95 disabled:opacity-50"
+                        className="w-full h-14 flex items-center justify-center gap-3 px-6 bg-surface-2 border border-border rounded-2xl font-bold text-sm text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm active:scale-95 disabled:opacity-50"
                     >
                         <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
                         <span>Continuar con Google</span>

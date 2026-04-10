@@ -109,7 +109,7 @@ export default function NotificationBell() {
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
             >
-                <Bell size={18} className="text-slate-600 dark:text-slate-300 group-hover:text-primary transition-colors" />
+                <Bell size={18} className="text-text-body group-hover:text-primary transition-colors" />
                 {unreadCount > 0 && (
                     <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900 animate-pulse">
                         {unreadCount}
@@ -177,7 +177,7 @@ export default function NotificationBell() {
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-border/50 overflow-x-auto shadow-inner">
+                                                    <div className="p-3 bg-surface/50 rounded-xl border border-border/50 overflow-x-auto shadow-inner">
                                                         <p className="text-[10px] font-mono font-medium leading-relaxed whitespace-pre text-text-primary max-w-none">
                                                             {n.message}
                                                         </p>
@@ -237,7 +237,7 @@ export default function NotificationBell() {
 
                     {/* Versión Móvil: Centrada y con overlay diferente */}
                     <div className="fixed inset-x-4 top-[72px] bg-surface border border-border rounded-3xl shadow-2xl z-[101] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300 sm:hidden flex flex-col max-h-[70vh]">
-                        <div className="p-5 border-b border-border flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                        <div className="p-5 border-b border-border flex justify-between items-center bg-surface/50">
                             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-primary"> Notificaciones </h3>
                             <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
                                 <X size={20} className="text-slate-400" />
@@ -293,7 +293,7 @@ export default function NotificationBell() {
                                 ))
                             ) : (
                                 <div className="p-16 text-center space-y-4">
-                                    <div className="w-16 h-16 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto text-slate-200">
+                                    <div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center mx-auto text-slate-200">
                                         <Bell size={32} />
                                     </div>
                                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sin notificaciones</p>
@@ -301,7 +301,7 @@ export default function NotificationBell() {
                             )}
                         </div>
 
-                        <div className="p-4 bg-slate-50 dark:bg-slate-900/50 border-t border-border">
+                        <div className="p-4 bg-surface/50 border-t border-border">
                             <Link href="/notificaciones" onClick={() => setIsOpen(false)} className="block w-full py-4 bg-primary text-white text-[10px] font-black text-center tracking-[0.2em] rounded-2xl shadow-lg shadow-primary/20">
                                 Ver todas las alertas
                             </Link>

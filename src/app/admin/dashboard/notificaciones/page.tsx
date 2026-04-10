@@ -103,7 +103,7 @@ export default function NotificationsManagementPage() {
                 <div className="flex items-center gap-4">
                     <button 
                         onClick={() => router.back()}
-                        className="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-border flex items-center justify-center hover:bg-slate-50 transition-colors"
+                        className="w-10 h-10 rounded-xl bg-surface-2 border border-border flex items-center justify-center hover:bg-slate-50 transition-colors"
                     >
                         <ChevronLeft size={20} className="text-text-secondary" />
                     </button>

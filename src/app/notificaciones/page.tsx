@@ -76,7 +76,7 @@ function TariffUpdateDetail({ data, isDark }: { data: any[], isDark: boolean }) 
                     <div key={idx} className="bg-white dark:bg-slate-900 border border-border rounded-[2.5rem] overflow-hidden shadow-sm group hover:shadow-xl transition-all duration-500">
                         <div className="px-8 py-5 border-b border-border flex items-center justify-between bg-slate-50 dark:bg-slate-800/30">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center p-2 border border-border shadow-inner">
+                                <div className="w-12 h-12 bg-surface-2 rounded-2xl flex items-center justify-center p-2 border border-border shadow-inner">
                                    {getLogoPath(item.tariff.company, isDark) ? (
                                        <img src={getLogoPath(item.tariff.company, isDark)!} alt={item.tariff.company} className="w-full h-full object-contain" />
                                    ) : (

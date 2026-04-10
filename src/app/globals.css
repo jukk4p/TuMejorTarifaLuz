@@ -6,101 +6,112 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Fondos de sección — modo claro */
-  --section-white: #FFFFFF;
-  --section-soft: #F0F4FF;
-  --section-muted: #F0FDFA;
-  --section-dark: #0F1923;
-  --section-footer: #070E18;
-
-  /* Texto — modo claro */
-  --text-heading: #0F172A;
-  --text-body: #334155;
-  --text-muted: #475569;
-  --text-subtle: #64748B;
-
-  /* Ahorro / Savings (Capture 3 style) */
-  --savings-bg: #DCFCE7;
-  /* Verde muy claro */
-  --savings-text: #059669;
-  /* Verde oscuro alta visibilidad */
-  --savings-primary: #10B981;
-
-  /* Border — modo claro */
-  --border-adaptive: rgba(0, 0, 0, 0.08);
-  --section-white-alpha: rgba(255, 255, 255, 0.9);
-
-  /* Brand Colors */
-  --primary: #0D9488;
-  --primary-hover: #0b7a70;
-  --primary-rgb: 13, 148, 136;
-  --accent: #f2994a;
-  --warning: #f2c94c;
-  /* Amber 500 */
+  color-scheme: light dark;
 }
 
+/* Conecta el toggle manual de next-themes con light-dark() CSS puro */
 .dark {
-  /* Fondos de sección — modo oscuro (Escala Slate Unificada) */
-  --section-white: #0F172A;
-  /* Slate 900: Base principal */
-  --section-soft: #1E293B;
-  /* Slate 800: Tarjetas y componentes */
-  --section-muted: #020617;
-  /* Slate 950: Secciones oscuras alternadas */
-  --section-dark: #020617;
-  /* Unificado con muted para evitar verdes */
+  color-scheme: dark;
+}
 
-  /* Texto — modo oscuro */
-  --text-heading: #F1F5F9;
-  --text-body: #CBD5E1;
-  --text-muted: #94A3B8;
-  --text-subtle: #64748B;
+.light {
+  color-scheme: light;
+}
 
-  /* Ahorro / Savings — modo oscuro */
-  --savings-bg: rgba(16, 185, 129, 0.15);
-  --savings-text: #34D399;
-  --savings-primary: #10B981;
+:root {
 
-  /* Border — modo oscuro */
-  --border-adaptive: rgba(255, 255, 255, 0.1);
-  --section-white-alpha: rgba(15, 23, 42, 0.85);
+  /* === FONDOS DE SECCIÓN === */
+  /* Fondo base general. FAFFFF para suavizar el contraste (MEJORA 4) */
+  --section-white: light-dark(#FAFBFF, #0F172A);
+  /* Tarjetas y componentes. Diferenciado del fondo base */
+  --section-soft: light-dark(#F0F4FF, #1E293B);
+  /* Secciones oscuras o de contraste mutado */
+  --section-muted: light-dark(#F0FDFA, #020617);
+  /* Fondos profundos */
+  --section-dark: light-dark(#0F1923, #020617);
+  /* Pie de página (Mantiene contraste sólido) */
+  --section-footer: light-dark(#070E18, #070E18);
 
-  /* Brand Colors — DARK */
-  --primary: #14B8A6;
-  --primary-hover: #0d9488;
-  --primary-rgb: 20, 184, 166;
+  /* === SUPERFICIES ELEVADAS === */
+  /* Dropdowns, tooltips y modales que flotan (ADVERTENCIA 4) */
+  --surface-overlay: light-dark(#FFFFFF, #334155);
+
+  /* === TEXTOS === */
+  /* Titulares y texto principal de alto contraste */
+  --text-heading: light-dark(#0F172A, #F1F5F9);
+  /* Cuerpo de texto estándar */
+  --text-body: light-dark(#334155, #CBD5E1);
+  /* Texto secundario/muted con contraste AA (CRÍTICO 1) */
+  --text-muted: light-dark(#64748B, #94A3B8);
+  /* Descripciones sutiles y placeholders */
+  --text-subtle: light-dark(#94A3B8, #64748B);
+
+  /* === PATRÓN DE AHORRO (SAVINGS) === */
+  /* Fondo semántico para bloques de ahorro (CRÍTICO 2 & MEJORA 2) */
+  --savings-bg: light-dark(#DCFCE7, oklch(from #10B981 l c h / 15%));
+  /* Texto de ahorro con visibilidad óptima, verde oscuro a brillante (CRÍTICO 2) */
+  --savings-text: light-dark(#065F46, #6EE7B7);
+  /* Emerald base primary color para acentos gráficos de ahorro */
+  --savings-primary: light-dark(#10B981, #10B981);
+  /* Patrón completo: Icono de ahorro (ADVERTENCIA 5) */
+  --savings-icon: light-dark(#047857, #34D399);
+  /* Patrón completo: Borde de componente de ahorro (ADVERTENCIA 5) */
+  --savings-border: light-dark(#A7F3D0, oklch(from #10B981 l c h / 30%));
+
+  /* === BORDES Y UTILIDADES === */
+  /* Border sutil adaptado al modo */
+  --border-adaptive: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.1));
+  /* Fondo semi-transparente para glassmorphism */
+  --section-white-alpha: light-dark(rgba(255, 255, 255, 0.9), rgba(15, 23, 42, 0.85));
+
+  /* === BRAND COLORS === */
+  /* Primary brand color Teal */
+  --primary: light-dark(#0D9488, #14B8A6);
+  /* Token alternativo de Teal para texto pequeño en Dark (ADVERTENCIA 3) */
+  --primary-text: light-dark(#0D9488, #2DD4BF);
+  /* Primary hover state */
+  --primary-hover: light-dark(#0b7a70, #0d9488);
+  /* Brand accents para alertas / urgencia */
+  --accent: light-dark(#f2994a, #f2994a);
+  --warning: light-dark(#f2c94c, #f2c94c);
 }
 
 @theme {
-  /* Mapping Tailwind utility names to the CSS variables above */
+  /* Mapping Tailwind utility names to the grouped CSS variables */
   --color-section-white: var(--section-white);
   --color-section-soft: var(--section-soft);
   --color-section-muted: var(--section-muted);
   --color-section-dark: var(--section-dark);
   --color-section-footer: var(--section-footer);
 
+  /* Mapping text variants */
   --color-text-heading: var(--text-heading);
   --color-text-body: var(--text-body);
   --color-text-muted: var(--text-muted);
   --color-text-subtle: var(--text-subtle);
 
-  /* Ahorro / Savings */
+  /* Ahorro / Savings System mappings */
   --color-savings: var(--savings-primary);
   --color-savings-bg: var(--savings-bg);
   --color-savings-text: var(--savings-text);
+  --color-savings-border: var(--savings-border);
+  --color-savings-icon: var(--savings-icon);
 
+  /* Borders & Surfaces */
   --color-border: var(--border-adaptive);
-
   --color-surface: var(--section-white);
   --color-surface-2: var(--section-soft);
   --color-surface-3: var(--section-muted);
+  --color-surface-overlay: var(--surface-overlay);
 
   /* Legacy utility mapping for safety */
   --color-background: var(--section-white);
   --color-text-primary: var(--text-heading);
   --color-text-secondary: var(--text-body);
 
+  /* Brand Colors Setup */
   --color-primary: var(--primary);
+  --color-primary-text: var(--primary-text);
   --color-primary-hover: var(--primary-hover);
   --color-accent: var(--accent);
   --color-warning: var(--warning);
@@ -111,13 +122,12 @@
   --color-text-on-dark-muted: #94A3B8;
   --color-text-on-dark-heading: #E2E8F0;
 
+  /* Typography Fallbacks */
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 
   /* Custom Animations Assets */
-  --primary-rgb: var(--primary-rgb);
-
   @keyframes scan {
     0% {
       transform: translateY(0);
@@ -139,21 +149,19 @@
   }
 
   @keyframes pulse {
-
     0%,
     100% {
       transform: scale(1);
-      box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
+      box-shadow: 0 0 20px oklch(from var(--primary) l c h / 20%);
     }
 
     50% {
       transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(var(--primary-rgb), 0.5);
+      box-shadow: 0 0 40px oklch(from var(--primary) l c h / 50%);
     }
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0) scale(1);
@@ -165,14 +173,13 @@
   }
 
   @keyframes glow {
-
     0%,
     100% {
-      filter: drop-shadow(0 0 5px rgba(var(--primary-rgb), 0.5));
+      filter: drop-shadow(0 0 5px oklch(from var(--primary) l c h / 50%));
     }
 
     50% {
-      filter: drop-shadow(0 0 15px rgba(var(--primary-rgb), 0.8));
+      filter: drop-shadow(0 0 15px oklch(from var(--primary) l c h / 80%));
     }
   }
 }
@@ -215,7 +222,7 @@
   }
 
   .dark .premium-3d-card:hover {
-    box-shadow: -15px 25px 50px -15px rgba(var(--primary-rgb), 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    box-shadow: -15px 25px 50px -15px oklch(from var(--color-primary) l c h / 30%), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -264,7 +271,7 @@
     content: "";
     position: absolute;
     inset: -1px;
-    background: linear-gradient(to bottom right, rgba(var(--primary-rgb), 0.2), transparent 50%, rgba(var(--primary-rgb), 0.1));
+    background: linear-gradient(to bottom right, oklch(from var(--color-primary) l c h / 20%), transparent 50%, oklch(from var(--color-primary) l c h / 10%));
     border-radius: inherit;
     z-index: -1;
     pointer-events: none;

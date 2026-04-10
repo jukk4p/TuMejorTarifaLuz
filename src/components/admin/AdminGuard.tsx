@@ -56,7 +56,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+            <div className="min-h-screen flex items-center justify-center bg-surface">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
             </div>
         );
@@ -64,8 +64,8 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
     if (!user || !isAdmin) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 p-4">
-                <div className="premium-card max-w-md w-full p-8 bg-white dark:bg-slate-800 shadow-2xl space-y-8">
+            <div className="min-h-screen flex items-center justify-center bg-surface p-4">
+                <div className="premium-card max-w-md w-full p-8 bg-surface-2 shadow-2xl space-y-8">
                     <div className="text-center space-y-2">
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto text-primary mb-4">
                             <Lock className="w-8 h-8 font-bold" />
@@ -81,7 +81,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-900 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                className="w-full bg-surface border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                 placeholder="tu@email.com"
                                 required
                             />
@@ -93,7 +93,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-slate-50 dark:bg-slate-900 border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                    className="w-full bg-surface border-transparent rounded-xl px-5 py-4 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                                     placeholder="••••••••"
                                     required
                                 />
