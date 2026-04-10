@@ -30,6 +30,8 @@ export default function DashboardPage() {
     const [snapshot, setSnapshot] = useState<Tariff[] | null>(null);
     const [changes, setChanges] = useState<TariffChange[]>([]);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [postToSocial, setPostToSocial] = useState(false);
+    const [socialStatus, setSocialStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
     useEffect(() => {
         setMounted(true);
@@ -116,10 +118,39 @@ export default function DashboardPage() {
             // 2. Update Snapshot
             const docRef = doc(db, "system_state", "tariffs_snapshot");
             await setDoc(docRef, { tariffs: TARIFF_DATABASE });
-            
+
+            // 3. Social Media Dispatch (Optional)
+            if (postToSocial) {
+                setSocialStatus('sending');
+                try {
+                    const socialRes = await fetch('/api/admin/social', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            title,
+                            message: changeMessages,
+                            count: changes.length
+                        })
+                    });
+                    if (socialRes.ok) {
+                        setSocialStatus('success');
+                    } else {
+                        setSocialStatus('error');
+                    }
+                } catch (err) {
+                    console.error("Social post failed:", err);
+                    setSocialStatus('error');
+                }
+            }
+
             setSnapshot(TARIFF_DATABASE);
             setChanges([]);
-            alert("¡Sincronización completada y notificaciones enviadas!");
+            
+            const successMsg = postToSocial && socialStatus !== 'error'
+                ? "¡Sincronización completada, notificaciones enviadas y redes sociales actualizadas!"
+                : "¡Sincronización completada y notificaciones enviadas!";
+            
+            alert(successMsg);
         } catch (error) {
             alert("Error al sincronizar: " + (error as any).message);
         } finally {
@@ -261,6 +292,24 @@ export default function DashboardPage() {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+
+                            <div className="flex flex-col gap-4">
+                                <label className="flex items-center gap-3 p-4 bg-white/50 dark:bg-black/20 rounded-xl cursor-pointer hover:bg-white/80 dark:hover:bg-black/40 transition-colors border border-amber-200/30 dark:border-amber-900/20">
+                                    <input 
+                                        type="checkbox" 
+                                        checked={postToSocial}
+                                        onChange={(e) => setPostToSocial(e.target.checked)}
+                                        className="w-5 h-5 rounded border-amber-400 text-warning focus:ring-warning"
+                                    />
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-amber-900 dark:text-warning">Publicar en Facebook y X</span>
+                                        <span className="text-[8px] font-medium text-amber-800/60 dark:text-warning/60 italic">Genera un post automático con los cambios</span>
+                                    </div>
+                                    <div className="ml-auto flex gap-2">
+                                        <div className={`w-2 h-2 rounded-full ${socialStatus === 'success' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : socialStatus === 'error' ? 'bg-red-500' : 'bg-slate-300'}`}></div>
+                                    </div>
+                                </label>
                             </div>
 
                             <button
