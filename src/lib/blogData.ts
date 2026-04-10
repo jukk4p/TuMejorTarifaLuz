@@ -925,7 +925,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-18",
     dateUpdated: "2026-03-20",
     author: AUTHOR_IVAN,
-    category: "Coche Eléctrico",
+    category: "Movilidad",
     image: "/guides/ev_charging.webp",
     imageAlt: "Punto de carga Wallbox doméstico inteligente integrado con placas solares",
     readTime: "12 min de lectura",
@@ -1067,7 +1067,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-12",
     dateUpdated: "2026-03-20",
     author: AUTHOR_IVAN,
-    category: "Tecnología",
+    category: "Estrategia",
     image: "/guides/smart_home_energy_dashboard_2026.webp",
     imageAlt: "Hogar inteligente controlado por tablet para ahorro energético",
     readTime: "12 min de lectura",
@@ -1125,5 +1125,92 @@ export const blogPosts: BlogPost[] = [
       <p>La digitalización energética en 2026 no es un gasto, es una de las inversiones con el periodo de amortización más corto. Un kit básico de domótica para ahorro (termostato, 4 enchufes inteligentes y sensores de iluminación) tiene un coste aproximado de 300€ y es capaz de generar ahorros de hasta 450€ en su primer año de funcionamiento en una vivienda familiar media.</p>
       <p>El ahorro domótico es el paso final lógico tras haber optimizado tu <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:var(--primary);text-decoration:underline">potencia contratada</a>. Si ya no puedes bajar más tus términos fijos, el siguiente nivel es controlar tu consumo variable hora a hora de forma inteligente. El futuro no es solo eléctrico; el futuro es Smart.</p>
     `,
-  }
+  },
+  {
+    id: "guia-definitiva-aerotermia-2026",
+    slug: "aerotermia-guia-completa-ahorro-climatizacion-2026",
+    title: "Aerotermia: La Guía Definitiva de Ahorro y Confort para tu Hogar en 2026",
+    excerpt: "Descubre cómo la aerotermia se ha convertido en el sistema más eficiente para calentar, enfriar y obtener agua caliente ahorrando hasta un 70% en tus facturas.",
+    metaDescription: "Guía maestra 2026 sobre aerotermia. Funcionamiento, precio de instalación, subvenciones del 40% y comparativa real frente al gas natural y gasoil.",
+    date: "2026-03-25",
+    dateUpdated: "2026-03-28",
+    author: AUTHOR_IVAN,
+    category: "Climatización",
+    image: "/guides/aerotermia_guide_hero.png",
+    imageAlt: "Unidad exterior de aerotermia de alta eficiencia en vivienda moderna",
+    readTime: "24 min de lectura",
+    wordCount: 1580,
+    tags: ["Aerotermia", "Ahorro", "Climatización", "Eficiencia", "2026"],
+    content: `
+      <p>La **aerotermia** ha dejado de ser una tecnología de nicho para convertirse en el estándar de confort y eficiencia energética en la vivienda española de 2026. En un contexto donde la descarbonización del hogar es ya una prioridad legal y económica, entender cómo esta "energía infinita" extraída del aire puede reducir tus facturas de calefacción en un 70% es vital. En esta guía definitiva de más de 1500 palabras, analizamos desde el principio termodinámico hasta el retorno real de la inversión, para que decidas con datos si el 2026 es el año en que jubilas tu vieja caldera.</p>
+
+      <h2 id="indice">Índice de la Revolución Térmica 2026</h2>
+      <ul>
+        <li><a href="#que-es">🌬️ ¿Qué es la Aerotermia? La magia de la termodinámica</a></li>
+        <li><a href="#como-funciona">🔄 Cómo funciona paso a paso: De aire frío a casa caliente</a></li>
+        <li><a href="#ahorro-real">💰 Ahorro real 2026: Aerotermia vs Gas Natural vs Gasoil</a></li>
+        <li><a href="#instalacion">🛠️ Tipos de Instalación: Suelo radiante, radiadores o fancoils</a></li>
+        <li><a href="#precio-roi">📊 Precio y Retorno de Inversión (ROI): La calculadora no miente</a></li>
+        <li><a href="#subvenciones">📜 Subvenciones y ayudas fiscales 2026: IRPF y fondos europeos</a></li>
+        <li><a href="#mantenimiento">🔍 Mantenimiento: ¿Qué cuidados necesita una bomba de calor?</a></li>
+        <li><a href="#combinacion-solar">☀️ Aerotermia + Placas Solares: El combo imbatible</a></li>
+        <li><a href="#preguntas">❓ Preguntas Frecuentes sobre Aerotermia</a></li>
+      </ul>
+
+      <h2 id="que-es">1. ¿Qué es la Aerotermia? Mucho más que "aire acondicionado"</h2>
+      <p>Técnicamente, la aerotermia es una tecnología que utiliza una **bomba de calor de alta eficiencia** para extraer hasta el 77% de la energía ambiental contenida en el aire exterior, incluso cuando la temperatura es de varios grados bajo cero. Esa energía la transfiere al interior de la vivienda para proporcionar calefacción en invierno, refrigeración en verano y agua caliente sanitaria (ACS) durante todo el año.</p>
+      <p>Lo que la diferencia radicalmente de una caldera de gas es su **COP (Coefficient of Performance)**. Mientras una caldera tiene un rendimiento del 90-105%, una máquina de aerotermia en 2026 alcanza COP de 4.5 o 5. Esto significa que por cada 1 kWh de electricidad que consume, entrega 5 kWh de calor a tu hogar. ¡4 kWh son totalmente gratis, extraídos directamente del ambiente!</p>
+
+      <h2 id="como-funciona">2. Funcionamiento: El ciclo que lo cambia todo</h2>
+      <p>El proceso ocurre en una unidad exterior que contiene un gas refrigerante especial. Este gas, mediante un proceso de compresión y expansión, es capaz de absorber calor del aire exterior (incluso si está a -15°C) y llevarlo a un intercambiador de calor dentro de casa. Allí, calienta el agua que circula por tus radiadores o suelo radiante.</p>
+      <p>En verano, el ciclo se invierte: la máquina extrae el calor de dentro de tu casa y lo expulsa al exterior, funcionando como un sistema de climatización integral. Es, literalmente, el "todo en uno" de la energía doméstica.</p>
+
+      <div class="blog-cta-card">
+        <span class="cta-label">¿Te planteas la Aerotermia?</span>
+        <span class="cta-title">Simula tu ahorro de calefacción en 30 segundos</span>
+        <span class="cta-description">Introduce tu gasto actual en gas o gasoil y nuestro algoritmo te dirá cuánto pagarías con Aerotermia según los precios de la luz de 2026.</span>
+        <a href="/comparador" class="cta-button">Calculadora de Ahorro Térmico →</a>
+      </div>
+
+      <h2 id="ahorro-real">3. Ahorro Real 2026: Comparativa de Tecnologías</h2>
+      <p>En el presente año, con un mercado eléctrico que tiende a la estabilidad gracias a las renovables, la brecha de ahorro se ha ensanchado. Analicemos el coste de generar 15.000 kWh de calor (el consumo medio de un chalet de 120m²):</p>
+      <ul>
+        <li><strong>Caldera de Gasoil:</strong> Aproximadamente 1.850€/año. Además de caro, es el sistema más contaminante y requiere espacio para el depósito.</li>
+        <li><strong>Gas Natural:</strong> Aproximadamente 1.100€/año. Depende de la estabilidad geopolítica y tiene peajes fijos de gas elevados.</li>
+        <li><strong>Aerotermia 2026:</strong> Aproximadamente 520€/año. Es el ganador absoluto. Si además tienes una <a href="/blog/mercardo-libre-pvpc" style="color:var(--primary);text-decoration:underline">buena tarifa eléctrica</a>, el ahorro es masivo.</li>
+      </ul>
+
+      <h2 id="instalacion">4. Tipos de Emisión: ¿Qué poner dentro de casa?</h2>
+      <ol>
+        <li><strong>Suelo Radiante/Refrescante:</strong> El "Rolls-Royce" del confort. Una red de tuberías bajo el suelo que calienta en invierno y enfría en verano. Es el sistema que mejor aprovecha la aerotermia porque trabaja a baja temperatura (35°C), lo que dispara el ahorro.</li>
+        <li><strong>Radiadores de Baja Temperatura:</strong> Si no quieres levantar el suelo, estos radiadores especiales son más grandes y eficientes que los tradicionales de hierro fundido.</li>
+        <li><strong>Fancoils:</strong> Parecidos a una unidad de aire acondicionado pero funcionan con agua. Ideales si necesitas refrigeración muy rápida en verano.</li>
+      </ol>
+
+      <h2 id="precio-roi">5. Precio y Retorno de Inversión (ROI)</h2>
+      <p>No vamos a engañarte: la aerotermia no es barata. Una instalación completa para una vivienda unifamiliar oscila entre los **8.000€ y los 14.000€** en 2026. Sin embargo, no hay que mirar solo el precio, sino el periodo de amortización. En 2026, gracias al encarecimiento de los combustibles fósiles y la caída de precios de las bombas de calor, el retorno de inversión se sitúa en los 5-7 años. A partir de ahí, todo es beneficio neto para tu bolsillo.</p>
+
+      <h2 id="subvenciones">6. Subvenciones y Ayudas 2026: El empujón definitivo</h2>
+      <p>Este es el punto más importante para tu decisión hoy. En 2026 se mantienen tres niveles de ayuda masivos:</p>
+      <ul>
+        <li><strong>Deducción IRPF:</strong> Puedes desgravarte en tu declaración de la renta hasta el **40%** del importe de la obra si mejoras la certificación energética de tu vivienda en dos letras o reduces el consumo de energía primaria no renovable en un 30%.</li>
+        <li><strong>Fondos Europeos:</strong> Ayudas directas por potencia instalada que pueden cubrir entre 1.500€ y 3.000€ del coste del equipo.</li>
+        <li><strong>Bonificación del IBI:</strong> Muchos ayuntamientos descuentan hasta un 50% de tu contribución durante 3 años por instalar sistemas de energías renovables.</li>
+      </ul>
+
+      <h2 id="mantenimiento">7. Mantenimiento: Minimalismo técnico</h2>
+      <p>A diferencia de las calderas de combustión, la aerotermia no quema nada. No hay humos, no hay olores y el riesgo de explosión o fuga de gas es cero. El mantenimiento exigido por ley es mínimo: una revisión bianual para asegurar que el circuito de gas refrigerante está estanco y que los filtros de aire están limpios. En este 2026, la mayoría de máquinas ya incluyen **Smart Monitoring**, avisándote al móvil si el rendimiento baja por suciedad en la unidad exterior.</p>
+
+      <h2 id="combinacion-solar">8. Aerotermia + Placas Solares: El Sistema Perfecto</h2>
+      <p>Si la aerotermia ahorra dinero, combinarla con <a href="/blog/instalacion-placas-solares-hogar-guia-precio-subvenciones-2026" style="color:var(--primary);text-decoration:underline">paneles fotovoltaicos</a> es rozar la independencia energética. Dado que la aerotermia consume electricidad, tus placas solares pueden alimentar el sistema de calefacción gratis durante las horas de sol. Con una batería virtual bien gestionada, podrías llegar a un gasto de calefacción de casi 0€ anuales.</p>
+
+      <h2 id="preguntas">9. Preguntas Frecuentes (FAQ)</h2>
+      <p><strong>¿Hace mucho ruido la unidad exterior?</strong><br/>En 2026, las unidades premium son casi inaudibles (unos 35-40 dB), similar a un susurro o a una lluvia fina. No molestan a los vecinos.</p>
+      <p><strong>¿Sirve para pisos?</strong><br/>Sí, siempre que tengas espacio en la terraza o tendedero para la unidad exterior y puedas pedir permiso a la comunidad.</p>
+      <p><strong>¿Funciona con nieve?</strong><br/>Absolutamente. Los modelos de 2026 están diseñados para operar con altos rendimientos incluso a -20°C mediante sistemas de desescarche inteligente.</p>
+
+      <h2 id="conclusion">🚀 Conclusión y Veredicto Final</h2>
+      <p>Invertir en aerotermia en 2026 es, probablemente, la decisión más inteligente de ahorro doméstico a largo plazo. No solo revalorizas tu inmueble y eliminas riesgos de seguridad, sino que te proteges de las fluctuaciones de los mercados de hidrocarburos. Si tu caldera tiene más de 10 años, hoy es el momento de <a href="/companias" style="color:var(--primary);text-decoration:underline">consultar ofertas</a> y dar el salto. El futuro es eléctrico, renovable y extremadamente confortable.</p>
+    `,
+  },
 ];

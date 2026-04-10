@@ -438,17 +438,17 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                         <h3 className="text-3xl md:text-5xl font-900 text-text-primary tracking-tight leading-tight">¿Es {provider.name} la mejor <br/>opción para ahorrar hoy?</h3>
                         <p className="text-text-secondary text-lg font-medium max-w-2xl mx-auto">Nuestro algoritmo analiza tu consumo real para confirmarte si esta es tu tarifa ganadora o si existe una opción más barata.</p>
                         
-                        <div className="flex flex-col md:flex-row md:flex-wrap items-start md:items-center justify-center gap-x-8 gap-y-3 md:gap-y-4 max-w-[280px] md:max-w-xl mx-auto py-2">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-12 max-w-5xl mx-auto py-4">
                              {[
                                 "Sin registro obligatorio",
                                 "Resultado en menos de 30 segundos",
                                 "Comparamos entre 24 tarifas del mercado"
                              ].map((b, i) => (
-                                 <div key={i} className="flex items-start gap-3 text-sm font-700 text-text-secondary w-full md:w-auto">
-                                     <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0 mt-0.5">
+                                 <div key={i} className="flex items-start md:items-center gap-3 text-sm font-700 text-text-secondary md:whitespace-nowrap">
+                                     <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
                                          <CheckCircle2 size={12} />
                                      </div>
-                                     <span className="text-left leading-snug">{b}</span>
+                                     <span className="text-left leading-snug md:whitespace-nowrap">{b}</span>
                                  </div>
                              ))}
                         </div>

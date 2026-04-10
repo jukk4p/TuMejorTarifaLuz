@@ -135,7 +135,7 @@ export default function BlogClient() {
 
                     {/* Search and Category Navigation */}
                     <div className="max-w-4xl mx-auto mb-16 space-y-8 relative">
-                        <div className="absolute inset-0 z-0">
+                        <div className="absolute inset-0 pointer-events-none">
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"></div>
                             <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] dark:opacity-[0.05]" style={{ backgroundImage: `radial-gradient(circle at 2px 2px, var(--primary) 1px, transparent 0)`, backgroundSize: '40px 40px' }}></div>
                         </div>
@@ -160,7 +160,7 @@ export default function BlogClient() {
                         </div>
 
                         {/* Category Navigation */}
-                        <div className="flex flex-wrap items-center justify-center gap-3">
+                        <div className="flex flex-wrap items-center justify-center gap-3 relative z-10">
                             {categories.map((cat, i) => (
                                     <button
                                         key={i}
@@ -205,18 +205,20 @@ export default function BlogClient() {
                                             <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
                                             <span>{post.readTime} de lectura</span>
                                         </div>
-                                        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight line-clamp-2 min-h-[3.5rem]">
+                                        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-primary transition-colors leading-tight min-h-[5.5rem] flex-none">
                                             <Link href={`/blog/${post.slug}`}>
                                                 {post.title}
                                             </Link>
                                         </h2>
-                                        <p className="text-sm text-text-muted leading-relaxed mb-6 line-clamp-3 min-h-[4rem]">
-                                            {post.excerpt}
-                                        </p>
+                                        <div className="flex-grow min-h-[7rem]">
+                                            <p className="text-sm text-text-muted leading-relaxed mb-6">
+                                                {post.excerpt}
+                                            </p>
+                                        </div>
                                         
                                         {/* Tags */}
                                         {post.tags && (
-                                            <div className="flex flex-wrap gap-2 mb-8">
+                                            <div className="flex flex-wrap gap-2 mb-8 min-h-[5.5rem] items-start flex-none">
                                                 {post.tags.map((tag: string, idx: number) => (
                                                     <span key={idx} className="bg-surface-2 text-text-secondary dark:bg-slate-700 dark:text-slate-200 text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-tighter">
                                                         {tag}
@@ -254,21 +256,21 @@ export default function BlogClient() {
                     {/* Newsletter / CTA */}
                     <div className="mt-32 bg-surface-3 dark:bg-slate-800/50 rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden border border-primary/10 dark:border-slate-700">
                         <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full -mr-40 -mt-40 blur-3xl"></div>
-                        <div className="relative z-10 max-w-2xl mx-auto">
+                        <div className="relative z-10 max-w-4xl mx-auto">
                             <h2 className="text-3xl md:text-4xl font-900 text-slate-900 dark:text-white mb-6 uppercase tracking-tight">¿Quieres más consejos de ahorro?</h2>
                             <p className="text-lg text-text-muted mb-12 font-medium">Únete a nuestra newsletter y recibe una selección quincenal de las mejores tarifas y trucos energéticos.</p>
                             
-                            <ul className="grid sm:grid-cols-3 gap-6 mb-12 text-left">
+                            <ul className="grid sm:grid-cols-3 gap-12 mb-12 text-left">
                                 {[
                                     "Las mejores tarifas de la semana",
                                     "Alertas de bajada del Pool",
                                     "Guías exclusivas anticipadas"
                                 ].map((bullet, idx) => (
-                                    <li key={idx} className="flex items-start gap-3">
-                                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <li key={idx} className="flex items-center gap-3">
+                                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                                             <Check size={12} className="text-primary" />
                                         </div>
-                                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-tight uppercase tracking-tighter">{bullet}</span>
+                                        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 leading-tight uppercase tracking-tighter md:whitespace-nowrap">{bullet}</span>
                                     </li>
                                 ))}
                             </ul>
