@@ -909,7 +909,7 @@ export default function ComparadorMain() {
                             {/* Option 2: Manual Input */}
                             <button 
                                 onClick={() => setInputMethod("manual")}
-                                className="premium-card bg-white group p-10 md:p-14 text-center hover:border-primary/30 hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
+                                className="premium-card group p-10 md:p-14 text-center hover:border-primary/30 hover:-translate-y-1 hover:shadow-2xl transition-all duration-500 relative overflow-hidden flex flex-col h-full active:scale-[0.98]"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 dark:bg-slate-800/20 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/5 transition-colors"></div>
                                 <div className="w-24 h-24 bg-slate-50 dark:bg-slate-800/50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
@@ -920,7 +920,7 @@ export default function ComparadorMain() {
                                     Si ya tienes tus datos a mano o quieres simular un consumo específico, utiliza nuestro formulario técnico simplificado.
                                 </p>
                                 <div className="space-y-4 flex flex-col items-center">
-                                    <span className="w-fit px-10 bg-white dark:bg-surface-2 text-text-primary font-bold py-4 rounded-2xl shadow-lg border border-slate-200 dark:border-border/50 group-hover:bg-slate-50 dark:group-hover:bg-surface-3 transition-all flex items-center justify-center mx-auto">
+                                    <span className="w-fit px-10 bg-white dark:bg-surface-2 text-text-primary font-bold py-4 rounded-2xl shadow-lg border border-slate-200 dark:border-border/50 group-hover:bg-slate-50 dark:group-hover:bg-slate-800/80 transition-all flex items-center justify-center mx-auto">
                                         Introducir datos a mano
                                     </span>
                                     <p className="text-[10px] font-bold text-text-muted tracking-widest bg-slate-100 dark:bg-slate-800/40 py-2 px-4 rounded-full inline-block">Control total • Sin archivos</p>
@@ -970,7 +970,7 @@ export default function ComparadorMain() {
                                         {inputMethod === "upload" && (
                                             <label
                                                 htmlFor="ocr-upload-sidebar"
-                                                className="border-2 border-dashed border-primary/20 rounded-[1.25rem] p-8 bg-white dark:bg-slate-900/20 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-all group relative overflow-hidden"
+                                                className="border-2 border-dashed border-primary/20 rounded-[1.25rem] p-8 bg-white/5 dark:bg-white/5 flex flex-col items-center gap-3 cursor-pointer hover:bg-primary/5 transition-all group relative overflow-hidden"
                                             >
                                                 <input
                                                     id="ocr-upload-sidebar"
@@ -1136,7 +1136,7 @@ export default function ComparadorMain() {
                                     <div className="relative z-10 max-w-full sm:max-w-2xl w-full px-4 sm:px-0">
                                         <label
                                             htmlFor="ocr-upload-main"
-                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[2.5rem] p-8 sm:p-16 bg-white/60 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
+                                            className="block w-full border-2 border-dashed border-primary/20 rounded-[2.5rem] p-8 sm:p-16 bg-white/5 dark:bg-white/5 hover:bg-primary/5 hover:border-primary/40 transition-all cursor-pointer group/upload"
                                         >
                                             <input
                                                 id="ocr-upload-main"
