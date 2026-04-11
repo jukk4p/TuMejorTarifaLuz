@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ TuMejorTarifaLuz (Web)
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
 
-First, run the development server:
+**TuMejorTarifaLuz** es una plataforma avanzada de análisis y comparación de tarifas eléctricas en el mercado español. Diseñada para ofrecer transparencia y ahorro real, permite a los usuarios encontrar la opción más económica entre más de 50 comercializadoras basándose en su consumo real.
+
+---
+
+## ✨ Características Principales
+
+- 🔍 **Comparador Inteligente**: Algoritmos de precisión que calculan el coste anual real (potencia + energía) incluyendo impuestos y cargos regulados.
+- 🤖 **IA & OCR Integration**: Integración con **Google Generative AI** para el análisis inteligente de facturas y extracción automática de datos de consumo.
+- 🔄 **Asistente de Actualización**: Sistema semiautomatizado (`update-tariffs.js`) que facilita la actualización constante de precios desde las fuentes oficiales.
+- 📱 **Diseño Premium & Responsive**: Interfaz moderna construida con **Tailwind 4** y animaciones fluidas con **Framer Motion**.
+- ☁️ **Cloud Native**: Infraestructura basada en **Firebase** para persistencia de datos y **AWS S3** para almacenamiento de documentos.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend**: [Next.js 16 (App Router)](https://nextjs.org), [React 19](https://react.dev)
+- **Estilos**: [Tailwind CSS 4.0](https://tailwindcss.com)
+- **Persistencia**: [Firebase Firestore](https://firebase.google.com)
+- **IA**: [Google Generative AI SDK](https://ai.google.dev)
+- **Almacenamiento**: [AWS S3](https://aws.amazon.com/s3)
+- **Animaciones**: [Framer Motion](https://www.framer.com/motion)
+- **Iconografía**: [Lucide React](https://lucide.dev)
+
+---
+
+## 🚀 Instalación y Uso
+
+### Prerrequisitos
+
+- Node.js 20+
+- NPM / PNPM / Bun
+
+### Configuración Local
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/jukk4p/TuMejorTarifaLuz_Web.git
+   cd TuMejorTarifaLuz_Web
+   ```
+
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Configurar variables de entorno:
+   Crea un archivo `.env.local` con tus credenciales de Firebase, Google AI y AWS.
+
+4. Iniciar servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🤖 Automatización: Asistente de Tarifas
+
+El proyecto incluye un asistente interactivo para mantener los precios actualizados sin errores manuales.
+
+Para lanzarlo:
+```bash
+node update-tariffs.js
+```
+Este script abrirá automáticamente las URLs de las comercializadoras y te guiará paso a paso para introducir los nuevos valores de potencia y energía.
+
+---
+
+## 🐳 Despliegue con Docker
+
+El proyecto está preparado para ser desplegado en contenedores:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker build -t tumejortarifaluz-web .
+docker run -p 3000:3000 tumejortarifaluz-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📄 Licencia
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Este proyecto es privado. Todos los derechos reservados.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Desarrollado con ❤️ por [Iván González](https://www.ivangonzalez.cloud)
