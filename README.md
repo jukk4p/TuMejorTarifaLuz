@@ -64,7 +64,12 @@
 
 Para garantizar la precisión de los datos sin depender de scrapers frágiles, el proyecto incluye un asistente interactivo que optimiza el proceso de actualización manual.
 
-Para lanzarlo:
+Para lanzarlo en Windows (forma recomendada):
+```bash
+actualizar-tarifas.bat
+```
+
+O mediante Node.js:
 ```bash
 node update-tariffs.js
 ```
