@@ -60,15 +60,20 @@
 
 ---
 
-## 🤖 Automatización: Asistente de Tarifas
+## 🛠️ Herramientas: Asistente de Actualización Semiautomatizado
 
-El proyecto incluye un asistente interactivo para mantener los precios actualizados sin errores manuales.
+Para garantizar la precisión de los datos sin depender de scrapers frágiles, el proyecto incluye un asistente interactivo que optimiza el proceso de actualización manual.
 
 Para lanzarlo:
 ```bash
 node update-tariffs.js
 ```
-Este script abrirá automáticamente las URLs de las comercializadoras y te guiará paso a paso para introducir los nuevos valores de potencia y energía.
+
+**¿Cómo funciona?**
+1. El script lee todas las tarifas configuradas en el sistema.
+2. **Automatiza la navegación**: Abre automáticamente en tu navegador la URL oficial de la comercializadora.
+3. **Entrada guiada**: Te pide por consola los nuevos valores de potencia y energía para cada periodo (P1, P2, E1, E2, E3).
+4. **Validación y Guardado**: Normaliza los decimales y actualiza la fecha de última modificación automáticamente.
 
 ---
 
