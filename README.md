@@ -4,7 +4,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
 
-**TuMejorTarifaLuz** es una plataforma avanzada de análisis y comparación de tarifas eléctricas en el mercado español. Diseñada para ofrecer transparencia y ahorro real, permite a los usuarios encontrar la opción más económica entre más de 50 comercializadoras basándose en su consumo real.
+**TuMejorTarifaLuz** es una solución enfocada en el análisis y comparación de tarifas eléctricas en el mercado español. Permite a los usuarios comparar precios entre las principales comercializadoras del país para encontrar opciones de ahorro real basadas en su consumo.
 
 ---
 
