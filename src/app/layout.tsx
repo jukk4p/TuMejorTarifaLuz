@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     siteName: "Tu Mejor Tarifa Luz",
     title: "Comparador de Tarifas de Luz Gratis 2026 | Sube tu Factura y Ahorra",
     description: "Analizamos tu consumo real en segundos para encontrarte la mejor tarifa de luz del mercado español.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }]
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }]
   },
   twitter: {
     card: "summary_large_image",
     title: "Comparador de Tarifas de Luz Inteligente | Ahorra en 30 segundos",
     description: "Sube tu factura PDF y descubre cuánto puedes ahorrar hoy con el comparador independiente TuMejorTarifaLuz.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   alternates: {
     canonical: "https://www.tumejortarifaluz.es"

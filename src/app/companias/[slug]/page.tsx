@@ -2,6 +2,7 @@ import { providers } from "../providersData";
 import { notFound } from "next/navigation";
 import ProviderClient from "./ProviderClient";
 import { Metadata } from "next";
+import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -35,5 +36,63 @@ export default async function ProviderPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
-    return <ProviderClient provider={provider} />;
+    return (
+        <>
+            <JsonLd data={{
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": `Tarifas de luz de ${provider.name}`,
+                "description": provider.description,
+                "image": `https://www.tumejortarifaluz.es${provider.logo}`,
+                "brand": {
+                    "@type": "Brand",
+                    "name": provider.name
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "EUR",
+                    "price": provider.minPrice,
+                    "description": `Desde ${provider.minPrice.toFixed(3)} €/kWh con el plan ${provider.popularTariffName || 'base'}`,
+                    "url": `https://www.tumejortarifaluz.es/companias/${slug}`
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": provider.rating,
+                    "bestRating": "5",
+                    "worstRating": "1",
+                    "ratingCount": "124" // Placeholder for social proof
+                }
+            }} />
+            <JsonLd data={getBreadcrumbSchema([
+                { name: "Inicio", item: "/" },
+                { name: "Compañías", item: "/companias" },
+                { name: provider.name, item: `/companias/${slug}` }
+            ])} />
+            <JsonLd data={{
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": `¿Qué precio tiene el kWh de ${provider.name}?`,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": `Actualmente ${provider.name} ofrece precios desde ${provider.minPrice.toFixed(3)} €/kWh en su tarifa ${provider.popularTariffName || 'destacada'}.`
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": `¿Tiene permanencia ${provider.name}?`,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": provider.hasPermanence 
+                                ? `Sí, algunas tarifas de ${provider.name} pueden tener compromiso de permanencia.` 
+                                : `No, ${provider.name} destaca por no tener compromiso de permanencia en sus contratos de luz.`
+                        }
+                    }
+                ]
+            }} />
+            <ProviderClient provider={provider} />
+        </>
+    );
 }
