@@ -2066,9 +2066,9 @@ export default function ComparadorMain() {
 
                                             <div className="grid grid-cols-1 gap-4 relative z-10 pt-2 animate-in slide-in-from-top-2 duration-300">
                                                 <div className="flex flex-col bg-surface-2/40 p-4 rounded-3xl border border-border">
-                                                    <div className="flex items-center gap-2 mb-4">
+                                                    <div className="flex items-center justify-center gap-2 mb-4">
                                                         <div className="w-1.5 h-3 bg-warning rounded-full"></div>
-                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">Potencia Contratada</p>
+                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest text-center">Potencia Contratada</p>
                                                     </div>
                                                     {input.power_p2 > 0 && input.power_p1 !== input.power_p2 ? (
                                                         <div className="space-y-2">
@@ -2082,7 +2082,7 @@ export default function ComparadorMain() {
                                                             </div>
                                                         </div>
                                                     ) : (
-                                                        <div className="flex items-baseline gap-1.5">
+                                                        <div className="flex items-baseline justify-center gap-1.5">
                                                             <p className="text-4xl font-black text-text-primary tracking-tighter">{input.power_p1.toLocaleString('es-ES', { maximumFractionDigits: 2 })}</p>
                                                             <p className="text-xs text-slate-400 font-bold uppercase tracking-tight">kW</p>
                                                         </div>
@@ -2090,9 +2090,9 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="flex flex-col bg-surface-2/40 p-5 rounded-3xl border border-border">
-                                                    <div className="flex items-center gap-2 mb-3">
+                                                    <div className="flex items-center justify-center gap-2 mb-3">
                                                         <div className="w-1.5 h-3 bg-primary rounded-full"></div>
-                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest">ENERGÍA CONSUMIDA</p>
+                                                        <p className="text-[9px] font-black text-text-muted uppercase tracking-widest text-center">ENERGÍA CONSUMIDA</p>
                                                     </div>
                                                     <div className="space-y-2">
                                                         {[
@@ -2131,7 +2131,7 @@ export default function ComparadorMain() {
                                             <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                                             
                                             <div className="flex justify-between items-center mb-4 relative z-10">
-                                                <div className="flex items-center gap-3">
+                                                <div className="flex items-center justify-center gap-3 flex-1 ml-10">
                                                     <div className="w-10 h-10 rounded-full bg-surface-2/40 flex items-center justify-center text-slate-400 hover:bg-primary/10 hover:text-primary transition-all border border-border shadow-sm">
                                                         <Filter className="w-4 h-4" />
                                                     </div>
@@ -2148,7 +2148,7 @@ export default function ComparadorMain() {
                                             <div className="space-y-4 relative z-10 animate-in slide-in-from-top-2 duration-300">
                                                 {/* Filter: Search Company */}
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-text-muted uppercase tracking-widest pl-1">Buscar Compañía / Tarifa</label>
+                                                    <label className="block text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Buscar Compañía / Tarifa</label>
                                                     <div className="relative group/input">
                                                         <div className="absolute inset-0 bg-primary/5 rounded-2xl blur-md opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
                                                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted w-3.5 h-3.5 transition-colors group-focus-within/input:text-primary" />
@@ -2163,7 +2163,7 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Tipo de Precio</label>
+                                                    <label className="block text-[10px] font-black text-primary/50 uppercase tracking-widest text-center">Tipo de Precio</label>
                                                     <div className="flex bg-primary/5 rounded-full p-1 border border-primary/10">
                                                         {['all', 'fixed', 'periods'].map((t) => (
                                                             <button 
@@ -2187,7 +2187,7 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-primary/50 uppercase tracking-widest pl-1">Excedentes</label>
+                                                    <label className="block text-[10px] font-black text-primary/50 uppercase tracking-widest text-center">Excedentes</label>
                                                     <div className="flex bg-primary/5 rounded-full p-1 border border-primary/10">
                                                         <button 
                                                             onClick={() => setFilterSurplus("all")} 
@@ -2213,7 +2213,7 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Ordenar por</label>
+                                                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Ordenar por</label>
                                                     <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1 border border-border">
                                                         <button 
                                                             onClick={() => setSortBy("savings-desc")} 
@@ -2239,7 +2239,7 @@ export default function ComparadorMain() {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest pl-1">Mostrar resultados</label>
+                                                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Mostrar resultados</label>
                                                     <div className="flex bg-slate-100/50 dark:bg-slate-800/40 rounded-full p-1 border border-border">
                                                         {[Infinity, 3, 5].map((val) => (
                                                             <button 
@@ -2267,11 +2267,11 @@ export default function ComparadorMain() {
                                 <div className="bg-surface border border-border p-5 md:h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden group flex flex-col md:flex-row items-center justify-between px-5 md:px-8 gap-4 md:gap-0">
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl transition-all group-hover:bg-accent/10"></div>
                                     
-                                    <div className="flex items-center gap-4 md:gap-6 relative z-10 w-full md:w-auto">
+                                    <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 md:gap-6 relative z-10 w-full md:w-auto text-center md:text-left">
                                         <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
                                             <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
                                         </div>
-                                        <div className="flex flex-col justify-center min-w-0">
+                                        <div className="flex flex-col justify-center min-w-0 items-center md:items-start">
                                             <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">ANÁLISIS DE RESULTADOS</p>
                                             <h2 className="text-lg sm:text-2xl font-black text-text-primary tracking-tight leading-none truncate md:whitespace-nowrap">
                                                 Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-[10px] md:text-xs ml-2 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
@@ -2279,21 +2279,21 @@ export default function ComparadorMain() {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-2 relative z-10 w-full md:w-auto justify-end md:translate-y-[8px]">
+                                    <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-3 relative z-10 w-full sm:w-auto justify-end md:ml-auto md:translate-y-[4px]">
                                         <button
                                             onClick={saveBill}
                                             disabled={isProcessing || results.length === 0}
-                                            className="group relative flex items-center justify-center gap-1.5 bg-primary/5 text-primary/60 px-3 md:px-2.5 h-8 md:h-6 rounded-lg md:rounded-md cursor-pointer hover:bg-primary/10 hover:text-primary transition-all active:scale-95 disabled:opacity-50 overflow-hidden border border-primary/10 flex-1 md:flex-none"
+                                            className="w-fit flex items-center justify-center gap-1.5 bg-primary text-white shadow-lg shadow-primary/30 px-3.5 py-1.5 md:px-4 md:py-1.5 rounded-full hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 focus:ring-4 focus:ring-primary/20 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:hover:translate-y-0 border border-primary/20"
                                         >
-                                            <Save className="w-3 h-3 md:w-2.5 md:h-2.5" />
-                                            <span className="text-[9px] md:text-[8px] font-black uppercase tracking-wider">{isProcessing ? "Guardando..." : "Guardar análisis"}</span>
+                                            <Save className="w-3.5 h-3.5 opacity-90 object-contain" />
+                                            <span className="text-[10px] font-bold uppercase tracking-widest whitespace-nowrap leading-none pt-0.5">{isProcessing ? "Guardando..." : "Guardar Análisis"}</span>
                                         </button>
                                         <button
                                             onClick={() => setStep("input")}
-                                            className="flex items-center justify-center gap-1.5 bg-text-primary/5 text-text-muted px-3 md:px-2.5 h-8 md:h-6 rounded-lg md:rounded-md cursor-pointer hover:bg-text-primary/10 hover:text-text-primary transition-all active:scale-95 border border-border/10 text-[9px] md:text-[8px] font-black uppercase tracking-wider whitespace-nowrap flex-1 md:flex-none"
+                                            className="group w-fit flex items-center justify-center gap-1.5 bg-transparent text-text-secondary px-3 py-1.5 md:px-3.5 md:py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-surface-2 focus:ring-4 focus:ring-slate-100 dark:focus:ring-surface transition-all duration-300 active:scale-95"
                                         >
-                                            <History className="w-3 h-3 md:w-2.5 md:h-2.5" />
-                                            <span>Nueva comparativa</span>
+                                            <History className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity text-current" />
+                                            <span className="text-[10px] font-bold uppercase tracking-wider whitespace-nowrap group-hover:text-text-primary transition-colors leading-none pt-0.5">Nueva Comparativa</span>
                                         </button>
                                     </div>
                                 </div>

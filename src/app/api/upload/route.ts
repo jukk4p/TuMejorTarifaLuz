@@ -21,7 +21,23 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Falta el archivo" }, { status: 400 });
         }
 
-        const buffer = await file.arrayBuffer();
+        // Limite de tamaño a 5MB
+        if (file.size > 5 * 1024 * 1024) {
+            return NextResponse.json({ error: "El archivo excede el tamaño máximo de 5MB" }, { status: 413 });
+        }
+
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        // Validación de Magic Bytes
+        const isPDF = buffer.length > 4 && buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46; // %PDF
+        const isPNG = buffer.length > 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47; // \x89PNG
+        const isJPG = buffer.length > 3 && buffer[0] === 0xFF && buffer[1] === 0xD8 && buffer[2] === 0xFF; // \xFF\xD8\xFF
+
+        if (!isPDF && !isPNG && !isJPG) {
+            return NextResponse.json({ error: "Formato de archivo no válido o malicioso. Solo se permiten PDF, PNG y JPG." }, { status: 415 });
+        }
+
         const dateStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
         // Sanitización profunda de la ruta para asegurar que R2 interprete los slashes como carpetas

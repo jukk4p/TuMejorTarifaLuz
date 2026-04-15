@@ -414,7 +414,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <p className="text-[10px] text-text-muted font-black uppercase tracking-[0.2em]">tumejortarifaluz eS</p>
+                        <p className="text-[11px] text-text-muted font-black tracking-wider">TuMejorTarifaLuz</p>
                     </div>
                 </div>
             </div>

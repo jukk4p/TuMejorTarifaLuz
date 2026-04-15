@@ -3,12 +3,64 @@ import { NextResponse } from "next/server";
 
 export const maxDuration = 60; // 60 seconds to avoid timeout in Vercel
 
+const RATE_LIMIT_RESET_MS = 60 * 60 * 1000; // 1 Hora
+const MAX_REQUESTS_PER_IP = 10;
+const ipRequestsMap = new Map<string, { count: number, resetAt: number }>();
+
+function getClientIp(request: Request): string {
+    return request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+        request.headers.get("x-real-ip") ||
+        "unknown_ip";
+}
+
 export async function POST(request: Request) {
     try {
+        const clientIp = getClientIp(request);
+        const now = Date.now();
+        const requestData = ipRequestsMap.get(clientIp);
+
+        if (requestData) {
+            if (now > requestData.resetAt) {
+                ipRequestsMap.set(clientIp, { count: 1, resetAt: now + RATE_LIMIT_RESET_MS });
+            } else if (requestData.count >= MAX_REQUESTS_PER_IP && clientIp !== "unknown_ip") {
+                console.warn(`[RATE LIMIT] IP ${clientIp} excedió el límite de procesado de Gemini.`);
+                return NextResponse.json({ error: "Has excedido el límite de análisis. Inténtalo más tarde." }, { status: 429 });
+            } else {
+                requestData.count++;
+                ipRequestsMap.set(clientIp, requestData);
+            }
+        } else {
+            ipRequestsMap.set(clientIp, { count: 1, resetAt: now + RATE_LIMIT_RESET_MS });
+        }
+
         const { fileData, mimeType } = await request.json();
 
         if (!fileData || !mimeType) {
             return NextResponse.json({ error: "No file data provided" }, { status: 400 });
+        }
+
+        // Limite estricto de ~5MB para el Base64 (gemini limits or abuse)
+        if (fileData.length > 7_000_000) {
+            return NextResponse.json({ error: "Imagen/PDF demasiado grande para procesar." }, { status: 413 });
+        }
+
+        // VALIDACIÓN: Magic Bytes (solo leyendo cabecera para no consumir RAM)
+        try {
+            const headerBuffer = Buffer.from(fileData.substring(0, 100), 'base64');
+            const headerHex = headerBuffer.subarray(0, 4).toString('hex').toLowerCase();
+            
+            const isPDF = headerHex === '25504446'; // %PDF
+            const isJPEG = headerHex.startsWith('ffd8'); // JPEG
+            const isPNG = headerHex === '89504e47'; // PNG
+            
+            if (!isPDF && !isJPEG && !isPNG) {
+                return NextResponse.json(
+                    { error: "Formato de archivo no válido o malicioso. Solo se permiten PDF, PNG y JPG." },
+                    { status: 415 }
+                );
+            }
+        } catch (e) {
+            return NextResponse.json({ error: "Data corrupta" }, { status: 400 });
         }
 
         const apiKey = process.env.GEMINI_API_KEY;

@@ -4,6 +4,11 @@ import path from 'path';
 
 export async function POST(request: Request) {
     try {
+        const adminKey = request.headers.get("Admin-Key");
+        if (!adminKey || adminKey !== process.env.ADMIN_API_KEY) {
+            console.warn(`[SECURITY] Intento de acceso no autorizado a /api/admin/tariffs con IP: `, request.headers.get("x-forwarded-for"));
+            return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+        }
         const body = await request.json();
         const { action, index, payload } = body;
 
