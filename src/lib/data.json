@@ -1,6 +1,6 @@
 [
   {
-    "company": "Niba",
+    "company":  "Niba",
     "name": "Zen",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.089,
@@ -19,7 +19,7 @@
     "e3_kwh_with_taxes": 0.127
   },
   {
-    "company": "Niba",
+    "company":  "Niba",
     "name": "Tres",
     "type": "3 Periodos",
     "p1_kw_day": 0.089,
@@ -589,5 +589,6 @@
     "e3_kwh_with_taxes": 0
   }
 ]
-   
+  
+ 
  
