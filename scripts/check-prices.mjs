@@ -33,17 +33,17 @@ async function notify() {
     const oldTariff = oldData.find(t => t.company === newTariff.company && t.name === newTariff.name);
 
     if (oldTariff) {
-      // Comparar precio de energía principal (e1_kwh_with_taxes)
-      // Usamos el precio con impuestos porque es el que le importa al usuario
       const oldPrice = oldTariff.e1_kwh_with_taxes || oldTariff.e1_kwh;
       const newPrice = newTariff.e1_kwh_with_taxes || newTariff.e1_kwh;
 
       if (newPrice < oldPrice && newPrice > 0) {
         const ahorro = (((oldPrice - newPrice) / oldPrice) * 100).toFixed(0);
-        updates.push(`📉 ¡BAJADA DE PRECIO! ${newTariff.company} (${newTariff.name}) baja un ${ahorro}% hasta los ${newPrice}€/kWh. ⚡`);
+        updates.push(`📉 ¡MEJORA DE PRECIO! ${newTariff.company} baja su tarifa "${newTariff.name}" un ${ahorro}% (ahora ${newPrice}€/kWh). ⚡`);
+      } else if (newPrice !== oldPrice) {
+        updates.push(`🔄 ACTUALIZACIÓN: ${newTariff.company} ha actualizado los precios de "${newTariff.name}". 📊`);
       }
     } else {
-      // Nueva tarifa
+      // Nueva tarifa (no existía en el commit anterior)
       const price = newTariff.e1_kwh_with_taxes || newTariff.e1_kwh;
       updates.push(`🆕 ¡NUEVA TARIFA! ${newTariff.company} lanza "${newTariff.name}" a ${price}€/kWh. 🚀`);
     }
