@@ -50,16 +50,40 @@ async function notify() {
   });
 
   if (updates.length > 0) {
-    const message = `📢 ¡ACTUALIZACIÓN DE TARIFAS! 📢\n\n${updates.join('\n')}\n\n¡Compara y ahorra ya en: https://www.tumejortarifaluz.es/comparador !`;
+    const header = `📢 ¡ACTUALIZACIÓN DE TARIFAS! 📢\n\n`;
+    const footer = `\n\n¡Compara ya: https://www.tumejortarifaluz.es/comparador !`;
     
-    console.log('📤 Enviando notificación a Make...');
+    // Construir el mensaje de forma incremental para no pasarnos de 280
+    let message = header;
+    let addedCount = 0;
+    const MAX_LENGTH = 270; // Margen de seguridad
+
+    for (const update of updates) {
+      if ((message + update + footer + "...").length < MAX_LENGTH) {
+        message += update + "\n";
+        addedCount++;
+      } else {
+        message += `...y ${updates.length - addedCount} cambios más. ⚡\n`;
+        break;
+      }
+    }
+    
+    message += footer;
+    
+    console.log('📤 Enviando notificación a Make (versión optimizada para Twitter)...');
+    console.log(`Longitud del mensaje: ${message.length} caracteres.`);
     console.log(message);
 
     try {
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, updates, timestamp: new Date().toISOString() })
+        body: JSON.stringify({ 
+          message, 
+          updates, // Enviamos el array completo por si Make quiere procesarlos uno a uno
+          count: updates.length,
+          timestamp: new Date().toISOString() 
+        })
       });
       
       if (response.ok) {
