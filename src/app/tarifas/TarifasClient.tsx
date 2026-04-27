@@ -13,6 +13,7 @@ import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 const COMPANIES = [
     { label: "Todas las compañías", value: "all" },
+    { label: "Atulado", value: "Atulado" },
     { label: "Niba", value: "Niba" },
     { label: "Octopus", value: "Octopus" },
     { label: "Imagina", value: "Imagina" },
@@ -24,12 +25,12 @@ const COMPANIES = [
     { label: "Naturgy", value: "Naturgy" },
     { label: "Energya VM", value: "Energya VM" },
     { label: "TotalEnergies", value: "Total Energies" },
-    { label: "Neolux Energy", value: "Neolux Energy" },
     { label: "Esluz", value: "Esluz" },
     { label: "COR", value: "Comercializadoras de Referencia" },
 ];
 
 const COMPANY_SLUGS: Record<string, string> = {
+    "Atulado": "atulado",
     "Niba": "niba",
     "Octopus": "octopus-energy",
     "Imagina": "imagina-energia",
@@ -41,7 +42,6 @@ const COMPANY_SLUGS: Record<string, string> = {
     "Naturgy": "naturgy",
     "Energya VM": "energia-vm",
     "Total Energies": "total-energies",
-    "Neolux Energy": "neolux-energy",
     "Esluz": "esluz",
     "Comercializadoras de Referencia": "comercializadoras-referencia"
 };

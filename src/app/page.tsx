@@ -605,10 +605,9 @@ export default async function Home() {
                 { name: "Visalia", logo: "logo_visalia.png", scale: "scale-95", slug: "visalia" },
                 { name: "Energía Nufri", logo: "logo_energianufri_base.png", darkLogo: "logo_energianufri_dark.png", scale: "scale-120", slug: "energia-nufri" },
                 { name: "Energya VM", logo: "logo_energiavm.png", scale: "scale-130", slug: "energia-vm" },
-                { name: "Neolux Energy", logo: "logo_neoluxenergy_base.webp", darkLogo: "logo_neoluxenergy_dark.png", scale: "scale-140", slug: "neolux-energy" },
-                { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
                 { name: "Atulado", logo: "logo_atulado.png", scale: "scale-110", slug: "atulado" },
-                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia", className: "lg:col-start-4" },
+                { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
+                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.className || ""}`}>
                   <div 

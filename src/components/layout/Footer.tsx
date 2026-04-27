@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Octopus", 
     "Niba", "Imagina", "Visalia", "Energía Nufri", "Energya VM", 
-    "Neolux Energy", "Esluz"
+    "Atulado", "Esluz"
 ];
 
 const TOOLS = [

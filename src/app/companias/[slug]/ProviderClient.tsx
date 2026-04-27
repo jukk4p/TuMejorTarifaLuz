@@ -382,7 +382,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                         <img 
                                             src={mounted && resolvedTheme === 'dark' && sim.logo_dark ? sim.logo_dark : sim.logo} 
                                             alt={sim.name} 
-                                            className="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all"
+                                            className="max-h-full max-w-full object-contain transition-all"
                                         />
                                     </div>
                                     <h4 className="text-lg font-800 text-text-primary mb-2">{sim.name}</h4>

@@ -11,7 +11,7 @@ import NotificationBell from "./NotificationBell";
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", 
     "TotalEnergies", "Octopus", "Niba", "Imagina", 
-    "Visalia", "Energía Nufri", "Energya VM", "Neolux Energy", "Esluz",
+    "Visalia", "Energía Nufri", "Energya VM", "Atulado", "Esluz",
     "COR"
 ];
 

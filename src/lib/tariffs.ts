@@ -47,8 +47,7 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
         "naturgy": { light: "/logos/logo_naturgy.png" },
         "esluz": { light: "/logos/logo_esluz.png" },
         "atulado": { light: "/logos/logo_atulado.png" },
-        "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] },
-        "neolux energy": { light: "/logos/logo_neoluxenergy_base.webp", dark: "/logos/logo_neoluxenergy_dark.png", aliases: ["neolux"] }
+        "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] }
     };
 
     // 1. Direct match or alias match

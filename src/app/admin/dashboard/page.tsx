@@ -178,7 +178,8 @@ export default function DashboardPage() {
                 alert("¡Anuncio enviado con éxito a redes sociales!");
                 setCustomSocialMessage("");
             } else {
-                alert("Error al enviar el anuncio.");
+                const errorData = await socialRes.json();
+                alert(`Error al enviar el anuncio: ${errorData.error || socialRes.statusText}`);
             }
         } catch (err) {
             console.error("Manual social post failed:", err);
