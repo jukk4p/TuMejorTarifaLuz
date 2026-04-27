@@ -301,5 +301,23 @@ export const providers: Provider[] = [
         hasPermanence: false,
         popularTariffName: "Vehículo Eléctrico",
         scores: { price: 4.7, support: 4.0, app: 4.2, transparency: 4.5, onboarding: 4.3 }
+    },
+    {
+        id: "atulado",
+        name: "Atulado",
+        logo: "/logos/logo_atulado.png",
+        rating: 4.3,
+        description: "Comercializadora que apuesta por la transparencia y la cercanía, ofreciendo tarifas trimestrales con precios de potencia competitivos y mantenimiento de precios garantizado.",
+        pros: ["Precios estables trimestrales", "Sin permanencia", "Atención personalizada", "Precios de potencia competitivos"],
+        prosDetail: ["Mantenimiento de precios 3 meses", "Libertad total", "Gestión directa", "Ahorro en término fijo"],
+        cons: ["Marca en expansión", "Menos servicios digitales adicionales"],
+        consDetail: ["En proceso de crecimiento nacional", "Enfoque puramente energético"],
+        slug: "atulado",
+        color: "#1e3a8a",
+        minPrice: 0.0536,
+        category: 'independent',
+        hasPermanence: false,
+        popularTariffName: "Milenial",
+        scores: { price: 4.5, support: 4.2, app: 3.5, transparency: 4.5, onboarding: 4.4 }
     }
 ];

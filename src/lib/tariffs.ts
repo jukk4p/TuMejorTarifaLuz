@@ -46,6 +46,7 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
         "endesa": { light: "/logos/logo_endesa.png" },
         "naturgy": { light: "/logos/logo_naturgy.png" },
         "esluz": { light: "/logos/logo_esluz.png" },
+        "atulado": { light: "/logos/logo_atulado.png" },
         "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] },
         "neolux energy": { light: "/logos/logo_neoluxenergy_base.webp", dark: "/logos/logo_neoluxenergy_dark.png", aliases: ["neolux"] }
     };

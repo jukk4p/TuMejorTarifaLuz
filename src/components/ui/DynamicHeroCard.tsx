@@ -60,6 +60,7 @@ const getLogoScale = (companyName: string) => {
   if (name.includes("chc")) return "scale-[1.3]";
   if (name.includes("referencia") || name.includes("cor")) return "scale-[1.2]";
   if (name.includes("visalia")) return "scale-[0.95]";
+  if (name.includes("atulado")) return "scale-[1.1]";
   return "scale-100";
 };
 

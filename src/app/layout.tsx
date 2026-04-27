@@ -28,7 +28,8 @@ export const metadata: Metadata = {
     default: 'TuMejorTarifaLuz | Comparador de Tarifas de Luz Gratis',
     template: '%s | TuMejorTarifaLuz'
   },
-  description: "Compara más de 25 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra hasta 312€/año analizando tu consumo real en más de 14 compañías sin registros.",
+  description: "Compara más de 30 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra analizando tu consumo real con Iberdrola, Endesa, Octopus, Atulado y más de 15 compañías sin registros.",
+  keywords: ["comparador tarifas luz", "ahorrar factura luz", "luz mas barata", "octopus energy", "atulado tarifas", "iberdrola online", "endesa conecta", "precios luz hoy"],
   openGraph: {
     type: "website",
     locale: "es_ES",
@@ -71,9 +72,11 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning className="scroll-smooth overflow-x-clip">
       <head>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://apis.google.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://apis.google.com" />
       </head>
       <body className={`${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-background dark:bg-background text-slate-900 dark:text-slate-100 font-body transition-colors duration-300 overflow-x-clip`}>
         {/* GTM Noscript */}

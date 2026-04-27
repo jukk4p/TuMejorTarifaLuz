@@ -2,21 +2,17 @@ import Navbar from "@/components/layout/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
-import { blogPosts } from "@/lib/blogData";
+import { blogSummaries } from "@/lib/blogSummary";
 import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
-import next_dynamic from "next/dynamic";
-const Footer = next_dynamic(() => import("@/components/layout/Footer"), { ssr: true });
+
+// Client-side wrappers for dynamic components to resolve Server Component build errors
+import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard, SocialProof } from "@/components/ui/HomeClientComponents";
 
 import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
-
 import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
-import SocialProof from "@/components/ui/SocialProof";
 import { AvatarInitials } from "@/components/ui/AvatarInitials";
-import DynamicHeroCard from "@/components/ui/DynamicHeroCard";
-import DynamicHeroSavings from "@/components/ui/DynamicHeroSavings";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
-import PremiumTiltCard from "@/components/ui/PremiumTiltCard";
 
 export const revalidate = 60; // Cache for 1 minute to enable BFCache and CDN caching
 
@@ -448,9 +444,9 @@ export default async function Home() {
               </div>
             </FadeIn>
 
-             <FadeInStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(0, 3).map((post, i) => (
-                <FadeIn key={i}>
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogSummaries.slice(0, 3).map((post, index) => (
+                <FadeIn key={post.id} delay={0.1 * index}>
                   <PremiumTiltCard className="h-full">
                     <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
                       <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
@@ -467,7 +463,7 @@ export default async function Home() {
                   </PremiumTiltCard>
                 </FadeIn>
               ))}
-            </FadeInStagger>
+            </div>
 
             <FadeIn className="mt-16 text-center">
               <Link
@@ -611,9 +607,10 @@ export default async function Home() {
                 { name: "Energya VM", logo: "logo_energiavm.png", scale: "scale-130", slug: "energia-vm" },
                 { name: "Neolux Energy", logo: "logo_neoluxenergy_base.webp", darkLogo: "logo_neoluxenergy_dark.png", scale: "scale-140", slug: "neolux-energy" },
                 { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
-                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
+                { name: "Atulado", logo: "logo_atulado.png", scale: "scale-110", slug: "atulado" },
+                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia", className: "lg:col-start-4" },
               ].map((brand, i) => (
-                <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
+                <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.className || ""}`}>
                   <div 
                     className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
                     style={{ 

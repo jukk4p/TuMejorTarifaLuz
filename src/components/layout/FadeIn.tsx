@@ -62,6 +62,10 @@ export function FadeIn({
       animate={viewTrigger ? (isInView ? "visible" : "hidden") : "visible"}
       variants={variants}
       className={className}
+      style={{ 
+        willChange: "opacity, transform",
+        transform: "translateZ(0)" // Force GPU acceleration
+      }}
     >
       {children}
     </motion.div>
