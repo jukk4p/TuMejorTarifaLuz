@@ -32,6 +32,8 @@ export default function DashboardPage() {
     const [isSyncing, setIsSyncing] = useState(false);
     const [postToSocial, setPostToSocial] = useState(false);
     const [socialStatus, setSocialStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+    const [customSocialMessage, setCustomSocialMessage] = useState("");
+    const [isSendingCustom, setIsSendingCustom] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -155,6 +157,34 @@ export default function DashboardPage() {
             alert("Error al sincronizar: " + (error as any).message);
         } finally {
             setIsSyncing(false);
+        }
+    };
+
+    const handleManualSocialPost = async () => {
+        if (!customSocialMessage.trim()) return;
+        setIsSendingCustom(true);
+        try {
+            const finalMessage = `${customSocialMessage}\n\n¡Compara ya: https://www.tumejortarifaluz.es !`;
+            const socialRes = await fetch('/api/admin/social', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: "Anuncio Manual",
+                    message: finalMessage,
+                    count: 1
+                })
+            });
+            if (socialRes.ok) {
+                alert("¡Anuncio enviado con éxito a redes sociales!");
+                setCustomSocialMessage("");
+            } else {
+                alert("Error al enviar el anuncio.");
+            }
+        } catch (err) {
+            console.error("Manual social post failed:", err);
+            alert("Error de conexión.");
+        } finally {
+            setIsSendingCustom(false);
         }
     };
 
@@ -322,6 +352,58 @@ export default function DashboardPage() {
                             </button>
                         </div>
                     )}
+
+                    {/* Manual Social Media Megaphone */}
+                    <div className="premium-card p-8 space-y-6 border-2 border-primary/20 shadow-xl shadow-primary/5 bg-surface/50 backdrop-blur-sm">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-primary rounded-2xl text-white shadow-lg shadow-primary/20">
+                                <Megaphone className="w-6 h-6" />
+                            </div>
+                            <div className="space-y-1">
+                                <h3 className="font-black text-lg dark:text-white uppercase leading-none">Megáfono de Redes Sociales</h3>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Envío directo a Make.com (Facebook / X)</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <textarea
+                                value={customSocialMessage}
+                                onChange={(e) => setCustomSocialMessage(e.target.value)}
+                                placeholder="Escribe el mensaje para redes sociales aquí..."
+                                className="w-full h-32 bg-surface rounded-2xl p-4 text-xs font-medium border border-border focus:border-primary/50 outline-none transition-all resize-none dark:text-white shadow-inner"
+                            />
+                            
+                            <div className="flex flex-wrap gap-2">
+                                <button 
+                                    onClick={() => setCustomSocialMessage("🆕 ¡NUEVAS TARIFAS! Acabamos de añadir a ATULADO con sus mejores tarifas Milenial y Senior. ⚡")}
+                                    className="px-3 py-1.5 bg-primary/10 text-primary text-[10px] font-black uppercase rounded-lg hover:bg-primary/20 transition-colors border border-primary/10"
+                                >
+                                    + Preset Atulado
+                                </button>
+                                <button 
+                                    onClick={() => setCustomSocialMessage("📉 ¡MEJORA DE PRECIO! Hemos actualizado nuestra base de datos con las tarifas más baratas del día. ⚡")}
+                                    className="px-3 py-1.5 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase rounded-lg hover:bg-emerald-500/20 transition-colors border border-emerald-500/10"
+                                >
+                                    + Preset Bajada
+                                </button>
+                                <button 
+                                    onClick={() => setCustomSocialMessage("")}
+                                    className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-black uppercase rounded-lg hover:bg-slate-200 transition-colors"
+                                >
+                                    Limpiar
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={handleManualSocialPost}
+                                disabled={isSendingCustom || !customSocialMessage.trim()}
+                                className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest disabled:opacity-50 disabled:scale-100"
+                            >
+                                {isSendingCustom ? <RefreshCcw className="animate-spin w-4 h-4" /> : <PlusCircle className="w-4 h-4" />}
+                                Publicar Anuncio Manual en Redes
+                            </button>
+                        </div>
+                    </div>
 
                     <div className="premium-card p-8 space-y-8">
                         <div>
