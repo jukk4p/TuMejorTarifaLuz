@@ -153,7 +153,7 @@
   },
   {
     "company": "Repsol",
-    "name": "Solar con Batería Virtual",
+    "name": "Solar con BaterÃ­a Virtual",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.090137,
     "p2_kw_day": 0.090137,
@@ -171,7 +171,7 @@
     "e3_kwh_with_taxes": 0.143604
   },
   {
-    "company": "Energía Nufri",
+    "company": "EnergÃ­a Nufri",
     "name": "Con Horarios",
     "type": "3 Periodos",
     "p1_kw_day": 0.99001,
@@ -190,7 +190,7 @@
     "e3_kwh_with_taxes": 0.060234
   },
   {
-    "company": "Energía Nufri",
+    "company": "EnergÃ­a Nufri",
     "name": "Sin Horarios",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.099001,
@@ -209,7 +209,7 @@
     "e3_kwh_with_taxes": 0.109445
   },
   {
-    "company": "Energía Nufri",
+    "company": "EnergÃ­a Nufri",
     "name": "Flex",
     "type": "3 Periodos",
     "p1_kw_day": 0.094533,
@@ -228,7 +228,7 @@
     "e3_kwh_with_taxes": 0.089235
   },
   {
-    "company": "Energía Nufri",
+    "company": "EnergÃ­a Nufri",
     "name": "Calma",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.094533,
@@ -457,7 +457,7 @@
   },
   {
     "company": "Neolux Energy",
-    "name": "Vehiculo Eléctrico Easy",
+    "name": "Vehiculo ElÃ©ctrico Easy",
     "type": "3 Periodos",
     "p1_kw_day": 0.11,
     "p2_kw_day": 0.024,
@@ -476,7 +476,7 @@
   },
   {
     "company": "Neolux Energy",
-    "name": "Vehiculo Eléctrico Smart",
+    "name": "Vehiculo ElÃ©ctrico Smart",
     "type": "3 Periodos",
     "p1_kw_day": 0.12,
     "p2_kw_day": 0.039,
@@ -514,7 +514,7 @@
   },
   {
     "company": "Neolux Energy",
-    "name": "Fija x Períodos",
+    "name": "Fija x PerÃ­odos",
     "type": "3 Periodos",
     "p1_kw_day": 0.095,
     "p2_kw_day": 0.059,
@@ -589,6 +589,3 @@
     "e3_kwh_with_taxes": 0
   }
 ]
-  
- 
- 
