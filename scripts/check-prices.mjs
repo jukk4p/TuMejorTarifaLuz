@@ -51,7 +51,7 @@ async function notify() {
 
   if (updates.length > 0) {
     const header = `📢 ¡ACTUALIZACIÓN DE TARIFAS! 📢\n\n`;
-    const footer = `\n\n¡Compara ya: https://www.tumejortarifaluz.es/comparador !`;
+    const footer = `\n\n¡Compara ya: https://www.tumejortarifaluz.es !`;
     
     // Construir el mensaje de forma incremental para no pasarnos de 280
     let message = header;
