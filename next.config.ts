@@ -59,8 +59,13 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/entender-factura-luz-guia-paso-a-paso',
+        destination: '/blog/como-leer-entender-factura-luz-2026',
+        permanent: true,
+      },
+      {
         source: '/blog/mercado-libre-vs-regulado',
-        destination: '/blog/mercado-libre-vs-pvpc-cual-es-mejor-para-ti',
+        destination: '/blog/mercado-libre-pvpc',
         permanent: true,
       },
       {
@@ -69,33 +74,93 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/que-es-el-pvpc-y-como-funciona-la-nueva-tarifa-regulada',
+        destination: '/blog/mercado-libre-pvpc',
+        permanent: true,
+      },
+      {
+        source: '/blog/que-es-el-pvpc-nueva-tarifa-regulada-2026-ahorro',
+        destination: '/blog/mercado-libre-pvpc',
+        permanent: true,
+      },
+      {
         source: '/blog/optimizacion-potencia-ahorro',
-        destination: '/blog/como-reducir-potencia-contratada-luz-ahorrar',
+        destination: '/blog/optimizacion-potencia-luz-2026-ahorro-fijo-icp-maximetro',
+        permanent: true,
+      },
+      {
+        source: '/blog/como-reducir-potencia-contratada-luz-ahorrar',
+        destination: '/blog/optimizacion-potencia-luz-2026-ahorro-fijo-icp-maximetro',
         permanent: true,
       },
       {
         source: '/blog/discriminacion-horaria-estrategias',
-        destination: '/blog/discriminacion-horaria-horas-valle-llano-punta-como-ahorrar',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/horas-baratas-luz-horarios-valle-llano-punta',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/discriminacion-horaria-horas-valle-llano-punta-como-ahorrar',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
         permanent: true,
       },
       {
         source: '/blog/autoconsumo-solar-pisos',
-        destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad',
+        destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad',
+        destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/guia-autoconsumo-solar-ahorro-2026',
+        destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026',
         permanent: true,
       },
       {
         source: '/blog/guia-carga-coche-electrico',
-        destination: '/blog/mejor-tarifa-luz-coche-electrico-recarga-nocturna',
+        destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
         permanent: true,
       },
       {
-        source: '/blog/que-es-el-pvpc-y-como-funciona-la-nueva-tarifa-regulada',
-        destination: '/blog/que-es-el-pvpc-nueva-tarifa-regulada-2026-ahorro',
+        source: '/blog/mejor-tarifa-luz-coche-electrico-recarga-nocturna',
+        destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
         permanent: true,
       },
       {
         source: '/companias/chc-energia',
         destination: '/companias',
+        permanent: true,
+      },
+      {
+        source: '/companias/chcenergia',
+        destination: '/companias',
+        permanent: true,
+      },
+      {
+        source: '/companias/pvpc',
+        destination: '/companias/comercializadoras-referencia',
+        permanent: true,
+      },
+      {
+        source: '/companias/energianufri',
+        destination: '/companias/energia-nufri',
+        permanent: true,
+      },
+      {
+        source: '/companias/energyavm',
+        destination: '/companias/energia-vm',
+        permanent: true,
+      },
+      {
+        source: '/companias/totalenergies',
+        destination: '/companias/total-energies',
         permanent: true,
       },
       {
@@ -140,7 +205,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/guias/discriminacion-horaria-estrategias',
-        destination: '/blog/discriminacion-horaria-horas-valle-llano-punta-como-ahorrar',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
         permanent: true,
       },
       {
@@ -151,6 +216,11 @@ const nextConfig: NextConfig = {
       {
         source: '/guias/guia-carga-coche-electrico',
         destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
+        permanent: true,
+      },
+      {
+        source: '/guias/aerotermia',
+        destination: '/blog/aerotermia-o-gas-natural-cual-es-mas-barato-2026',
         permanent: true,
       },
       {

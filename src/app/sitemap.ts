@@ -14,8 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/sobre-nosotros',
     '/precio-luz-hoy',
-    '/login',
-    '/registro',
     '/contacto',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
