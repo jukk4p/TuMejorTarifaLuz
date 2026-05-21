@@ -609,7 +609,7 @@ export default async function Home() {
                 { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
                 { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
-                <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.className || ""}`}>
+                <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div 
                     className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
                     style={{ 

@@ -48,7 +48,13 @@ async function main() {
         
         // Abrir la URL en el navegador por defecto
         try {
-            exec(`start "" "${tariff.url}"`);
+            const parsedUrl = new URL(tariff.url);
+            if (parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:') {
+                const escapedUrl = parsedUrl.href.replace(/"/g, '\\"');
+                exec(`start "" "${escapedUrl}"`);
+            } else {
+                console.warn(`URL inválida o no soportada: ${tariff.url}`);
+            }
         } catch (e) {
             console.warn("No se pudo abrir la URL automáticamente.");
         }

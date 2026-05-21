@@ -1,5 +1,3 @@
-import { BlogPost } from "./types";
-
 export interface BlogPost {
   id: string;
   slug: string;
