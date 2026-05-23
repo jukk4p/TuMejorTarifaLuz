@@ -125,7 +125,7 @@ export default function RootLayout({
         </Script>
 
         {/* Cookie Consent System */}
-        <Script id="cookie-consent-script" src="/cookies-consent.js" strategy="lazyOnload" />
+        <Script id="cookie-consent-script" src="/cookies-consent.js?v=2.1" strategy="lazyOnload" />
 
         <script
           type="application/ld+json"

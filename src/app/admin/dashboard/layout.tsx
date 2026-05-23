@@ -28,12 +28,28 @@ export default function DashboardLayout({
     }, []);
 
     useEffect(() => {
-        // Remove cookie consent elements in admin area to avoid unstyled boxes
-        const elementsToRemove = ["cc-banner", "cc-modal", "cc-modal-overlay", "cookie-consent-styles"];
-        elementsToRemove.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.remove();
+        const cleanup = () => {
+            const elementsToRemove = ["cc-banner", "cc-modal", "cc-modal-overlay", "cookie-consent-styles"];
+            elementsToRemove.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.remove();
+            });
+        };
+
+        cleanup();
+
+        // Monitor DOM to remove lazy-loaded elements instantly if they are added later
+        const observer = new MutationObserver(() => {
+            cleanup();
         });
+
+        if (document.body) {
+            observer.observe(document.body, { childList: true, subtree: true });
+        }
+
+        return () => {
+            observer.disconnect();
+        };
     }, [pathname]);
 
     const handleLogout = async () => {
