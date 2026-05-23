@@ -174,8 +174,12 @@
         }, 400);
     };
 
-    // Global re-open function
+    // Global re-open function (lazy: creates elements on demand if needed)
     window.openCookieSettings = () => {
+        if (!document.getElementById('cc-banner')) {
+            createElements();
+            _bindEvents();
+        }
         const prefs = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (prefs) {
             document.getElementById('cc-opt-analytics').checked = prefs.choices.analytics;
@@ -185,27 +189,8 @@
         showModal();
     };
 
-    // 6. Initialization
-    const init = () => {
-        if (typeof window !== 'undefined' && window.location && window.location.pathname.startsWith('/admin')) {
-            return;
-        }
-        injectStyles();
-        createElements();
-
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-            try {
-                const data = JSON.parse(stored);
-                updateGTMConsent(data.choices);
-            } catch (e) {
-                showBanner();
-            }
-        } else if (!isBot) {
-            showBanner();
-        }
-
-        // Event Listeners
+    // Internal: bind click handlers to consent elements
+    const _bindEvents = () => {
         document.getElementById('cc-accept-all').onclick = () => {
             saveConsents({ analytics: true, marketing: true, preferences: true });
         };
@@ -225,6 +210,32 @@
                 preferences: document.getElementById('cc-opt-preferences').checked
             });
         };
+    };
+
+    // 6. Initialization
+    const init = () => {
+        if (typeof window !== 'undefined' && window.location && window.location.pathname.startsWith('/admin')) {
+            return;
+        }
+
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            // User already made a choice — just update GTM, do NOT inject DOM elements
+            try {
+                const data = JSON.parse(stored);
+                updateGTMConsent(data.choices);
+            } catch (e) {
+                // Corrupted data — show banner
+                createElements();
+                _bindEvents();
+                showBanner();
+            }
+        } else if (!isBot) {
+            // First visit — create elements and show banner
+            createElements();
+            _bindEvents();
+            showBanner();
+        }
     };
 
     if (document.readyState === 'loading') {
