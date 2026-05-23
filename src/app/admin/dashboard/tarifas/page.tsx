@@ -142,21 +142,21 @@ export default function TarifasAdminPage() {
 
             <div className="premium-card overflow-hidden !border-none !shadow-lg">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left min-w-[700px] md:min-w-full">
                         <thead className="bg-[#fcfdfe] dark:bg-slate-900/50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-border">
                             <tr>
-                                <th className="px-8 py-5">Distribuidora / Compañía</th>
-                                <th className="px-8 py-5">Nombre Tarifa</th>
-                                <th className="px-8 py-5">Tipo</th>
-                                <th className="px-8 py-5">Punta (P1)</th>
-                                <th className="px-8 py-5">Estado</th>
-                                <th className="px-8 py-5 text-right">Acciones</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap">Distribuidora / Compañía</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap">Nombre Tarifa</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap">Tipo</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap">Punta (P1)</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap">Estado</th>
+                                <th className="px-4 md:px-8 py-5 whitespace-nowrap text-right">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                             {filteredTariffs.map((tariff, i) => (
                                 <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-all group">
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-6 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
                                             <div className="w-20 h-10 flex items-center justify-center rounded-lg bg-surface-2 font-bold text-[10px] text-slate-400 border border-border overflow-hidden p-1 shadow-sm shrink-0">
                                                 {tariff.logo_url ? (
@@ -170,24 +170,24 @@ export default function TarifasAdminPage() {
                                             <span className="text-sm font-bold text-text-secondary">{tariff.company}</span>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-6 whitespace-nowrap">
                                         <span className="text-xs font-bold text-text-secondary">{tariff.name}</span>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-6 whitespace-nowrap">
                                         <span className="px-2.5 py-1 rounded-md bg-primary/5 text-primary text-[10px] font-bold uppercase tracking-tighter border border-primary/10">
                                             {tariff.type}
                                         </span>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-6 whitespace-nowrap">
                                         <span className="font-mono text-xs font-bold text-text-body">{(tariff.e1_kwh ?? 0).toFixed(4)} €</span>
                                     </td>
-                                    <td className="px-8 py-6">
+                                    <td className="px-4 md:px-8 py-6 whitespace-nowrap">
                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-bg text-accent text-[10px] font-bold uppercase tracking-tighter">
                                             <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
                                             Activa
                                         </span>
                                     </td>
-                                    <td className="px-8 py-6 text-right">
+                                    <td className="px-4 md:px-8 py-6 text-right whitespace-nowrap">
                                         <button
                                             onClick={() => openEditor(tariff)}
                                             className="p-2 hover:bg-primary/10 hover:text-primary rounded-lg transition-all text-slate-400"

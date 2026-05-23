@@ -97,11 +97,9 @@ export default function DashboardLayout({
                                 className="object-contain"
                             />
                         </div>
-                        {!isCollapsed && (
-                            <span className="text-lg font-extrabold tracking-tight dark:text-white truncate">
-                                Admin<span className="text-primary">Panel</span>
-                            </span>
-                        )}
+                        <span className={`text-lg font-extrabold tracking-tight dark:text-white truncate transition-opacity duration-200 ${isCollapsed ? 'md:hidden md:opacity-0' : 'md:inline md:opacity-100'}`}>
+                            Admin<span className="text-primary">Panel</span>
+                        </span>
                     </div>
 
                     <div className="flex-1 px-4 py-8 space-y-2">
@@ -118,7 +116,9 @@ export default function DashboardLayout({
                                         }`}
                                 >
                                 <item.icon className={`w-5 h-5 ${isActive ? "text-primary" : "group-hover:text-primary transition-colors"}`} />
-                                    {!isCollapsed && <span className="text-sm font-bold">{item.name}</span>}
+                                    <span className={`text-sm font-bold transition-opacity duration-200 ${isCollapsed ? 'md:hidden md:opacity-0' : 'md:inline md:opacity-100'}`}>
+                                        {item.name}
+                                    </span>
                                 </Link>
                             );
                         })}
@@ -126,29 +126,25 @@ export default function DashboardLayout({
 
                     {/* Sidebar Footer / User Profile */}
                     <div className="p-4 border-t border-border">
-                        {!isCollapsed && (
-                            <div
+                        <div
+                            onClick={handleLogout}
+                            className={`bg-surface-2 p-4 rounded-2xl flex items-center gap-3 group cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors ${isCollapsed ? 'md:hidden' : 'flex'}`}
+                        >
+                            <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden shrink-0">
+                                <User className="text-slate-400 w-5 h-5" />
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <p className="text-xs font-extrabold truncate dark:text-white">Admin User</p>
+                                <p className="text-[10px] text-slate-400 font-bold truncate">admin@tarifa.es</p>
+                            </div>
+                            <LogOut className="w-4 h-4 text-slate-300 group-hover:text-red-500 transition-colors" />
+                        </div>
+                        <div className={`justify-center py-2 ${isCollapsed ? 'hidden md:flex' : 'hidden'}`}>
+                            <LogOut
                                 onClick={handleLogout}
-                                className="bg-surface-2 p-4 rounded-2xl flex items-center gap-3 group cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
-                            >
-                                <div className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden shrink-0">
-                                    <User className="text-slate-400 w-5 h-5" />
-                                </div>
-                                <div className="flex-1 overflow-hidden">
-                                    <p className="text-xs font-extrabold truncate dark:text-white">Admin User</p>
-                                    <p className="text-[10px] text-slate-400 font-bold truncate">admin@tarifa.es</p>
-                                </div>
-                                <LogOut className="w-4 h-4 text-slate-300 group-hover:text-red-500 transition-colors" />
-                            </div>
-                        )}
-                        {isCollapsed && (
-                            <div className="flex justify-center py-2">
-                                <LogOut
-                                    onClick={handleLogout}
-                                    className="w-5 h-5 text-slate-400 hover:text-red-500 cursor-pointer transition-colors"
-                                />
-                            </div>
-                        )}
+                                className="w-5 h-5 text-slate-400 hover:text-red-500 cursor-pointer transition-colors"
+                            />
+                        </div>
                     </div>
                 </aside>
 
@@ -158,8 +154,11 @@ export default function DashboardLayout({
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => {
-                                    setIsMobileMenuOpen(!isMobileMenuOpen);
-                                    setIsCollapsed(!isCollapsed);
+                                    if (window.innerWidth < 768) {
+                                        setIsMobileMenuOpen(!isMobileMenuOpen);
+                                    } else {
+                                        setIsCollapsed(!isCollapsed);
+                                    }
                                 }}
                                 className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-400"
                             >
