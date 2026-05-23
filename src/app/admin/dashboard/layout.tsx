@@ -27,6 +27,15 @@ export default function DashboardLayout({
         setMounted(true);
     }, []);
 
+    useEffect(() => {
+        // Remove cookie consent elements in admin area to avoid unstyled boxes
+        const elementsToRemove = ["cc-banner", "cc-modal", "cc-modal-overlay", "cookie-consent-styles"];
+        elementsToRemove.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        });
+    }, [pathname]);
+
     const handleLogout = async () => {
         try {
             await signOut(auth);
