@@ -151,7 +151,7 @@ export default function DashboardLayout({
                 {/* Main Content Area */}
                 <main className="flex-1 overflow-y-auto">
                     <header className="h-20 bg-surface backdrop-blur-md border-b border-border flex items-center justify-between px-4 md:px-8 sticky top-0 z-40">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 md:gap-4">
                             <button
                                 onClick={() => {
                                     if (window.innerWidth < 768) {
@@ -164,11 +164,11 @@ export default function DashboardLayout({
                             >
                                 <Menu className="w-5 h-5" />
                             </button>
-                            <h2 className="text-sm font-extrabold text-slate-500 uppercase tracking-widest">
+                            <h2 className="text-sm font-extrabold text-slate-500 uppercase tracking-widest hidden md:block">
                                 {menuItems.find(i => pathname === i.href)?.name || "Gestión"}
                             </h2>
                         </div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 md:gap-4">
                             {/* Theme Toggle */}
                             {mounted && (
                                 <button
