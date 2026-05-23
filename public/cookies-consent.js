@@ -104,7 +104,7 @@
                 margin: 0 0 1.75rem 0;
                 color: var(--cc-subtext);
                 font-size: 0.875rem;
-                font-medium;
+                font-weight: 500;
             }
 
             #cc-banner a {
@@ -478,6 +478,9 @@
 
     // 6. Initialization
     const init = () => {
+        if (typeof window !== 'undefined' && window.location && window.location.pathname.startsWith('/admin')) {
+            return;
+        }
         injectStyles();
         createElements();
 
