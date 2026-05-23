@@ -153,7 +153,7 @@
   },
   {
     "company": "Repsol",
-    "name": "Solar con BaterÃ­a Virtual",
+    "name": "Solar con Batería Virtual",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.090137,
     "p2_kw_day": 0.090137,
@@ -171,7 +171,7 @@
     "e3_kwh_with_taxes": 0.143604
   },
   {
-    "company": "EnergÃ­a Nufri",
+    "company": "Energía Nufri",
     "name": "Con Horarios",
     "type": "3 Periodos",
     "p1_kw_day": 0.099001,
@@ -190,7 +190,7 @@
     "e3_kwh_with_taxes": 0.060234
   },
   {
-    "company": "EnergÃ­a Nufri",
+    "company": "Energía Nufri",
     "name": "Sin Horarios",
     "type": "Fijo (1 Periodo)",
     "p1_kw_day": 0.099001,
@@ -209,7 +209,7 @@
     "e3_kwh_with_taxes": 0.109445
   },
   {
-    "company": "EnergÃ­a Nufri",
+    "company": "Energía Nufri",
     "name": "Flex",
     "type": "3 Periodos",
     "p1_kw_day": 0.094533,
