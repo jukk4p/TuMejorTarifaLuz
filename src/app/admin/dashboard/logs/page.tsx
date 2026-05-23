@@ -18,15 +18,15 @@ export default function LogsPage() {
             <div className="premium-card p-8">
                 <div className="space-y-4">
                     {logs.map((log, i) => (
-                        <div key={i} className="flex items-center justify-between p-4 bg-surface-2 rounded-xl border border-border">
-                            <div className="flex items-center gap-4">
-                                <span className="font-mono text-[11px] text-slate-400">{log.time}</span>
+                        <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-surface-2 rounded-xl border border-border gap-4">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                                <span className="font-mono text-[11px] text-slate-400 shrink-0">{log.time}</span>
                                 <div className="space-y-0.5">
                                     <p className="text-xs font-bold dark:text-white">{log.event}</p>
                                     <p className="text-[10px] text-slate-400 font-bold uppercase">Usuario: {log.user}</p>
                                 </div>
                             </div>
-                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${log.status === 'success' ? 'bg-accent-bg text-accent' : 'bg-warning/10 text-warning'
+                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase w-fit ${log.status === 'success' ? 'bg-accent-bg text-accent' : 'bg-warning/10 text-warning'
                                 }`}>
                                 {log.status}
                             </span>

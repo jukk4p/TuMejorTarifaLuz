@@ -154,7 +154,24 @@ export default function LoginPage() {
                                         disabled={loading}
                                         className="w-full h-14 flex items-center justify-center gap-3 px-6 bg-surface-2 border border-border rounded-2xl font-bold text-sm text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all shadow-sm active:scale-95 disabled:opacity-50"
                                     >
-                                        <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+                                        <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+                                            <path
+                                                fill="#EA4335"
+                                                d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z"
+                                            />
+                                            <path
+                                                fill="#34A853"
+                                                d="M16.04 15.345c-1.077.733-2.427 1.164-4.04 1.164-2.955 0-5.46-1.99-6.355-4.664L1.585 14.94C3.59 18.96 7.74 21.818 12 21.818c3.245 0 6.19-1.082 8.355-2.945l-4.314-3.528Z"
+                                            />
+                                            <path
+                                                fill="#4285F4"
+                                                d="M23.49 12.273c0-.773-.077-1.564-.214-2.318H12v4.51h6.468C18.19 15.6 17.25 16.69 16.04 17.5l4.314 3.527c2.518-2.318 4.136-5.718 4.136-9.754Z"
+                                            />
+                                            <path
+                                                fill="#FBBC05"
+                                                d="M5.645 11.845a7.032 7.032 0 0 1 0-2.08L1.62 6.65a11.967 11.967 0 0 0 0 10.3l4.025-3.105Z"
+                                            />
+                                        </svg>
                                         <span>Continuar con Google</span>
                                     </button>
 

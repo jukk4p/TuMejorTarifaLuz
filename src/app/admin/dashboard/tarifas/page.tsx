@@ -119,20 +119,20 @@ export default function TarifasAdminPage() {
                     <h1 className="text-2xl font-extrabold tracking-tight dark:text-white uppercase">Explorador de Tarifas</h1>
                     <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest">Base de datos técnica del comparador</p>
                 </div>
-                <div className="flex items-center gap-3">
-                    <div className="relative">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                    <div className="relative w-full sm:w-auto">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                         <input
                             type="text"
                             placeholder="Buscar por compañía o nombre..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="bg-surface border border-border rounded-xl pl-10 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none w-64 transition-all"
+                            className="bg-surface border border-border rounded-xl pl-10 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary/20 outline-none w-full sm:w-64 transition-all"
                         />
                     </div>
                     <button
                         onClick={() => openEditor()}
-                        className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95"
+                        className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 w-full sm:w-auto"
                     >
                         <Plus className="w-4 h-4" />
                         Añadir Tarifa

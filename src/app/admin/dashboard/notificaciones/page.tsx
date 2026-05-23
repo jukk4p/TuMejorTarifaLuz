@@ -100,22 +100,22 @@ export default function NotificationsManagementPage() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div className="flex items-center gap-4">
+                <div className="flex items-start sm:items-center gap-4">
                     <button 
                         onClick={() => router.back()}
-                        className="w-10 h-10 rounded-xl bg-surface-2 border border-border flex items-center justify-center hover:bg-slate-50 transition-colors"
+                        className="w-10 h-10 rounded-xl bg-surface-2 border border-border flex items-center justify-center hover:bg-slate-50 transition-colors shrink-0"
                     >
                         <ChevronLeft size={20} className="text-text-secondary" />
                     </button>
-                    <div>
-                        <h1 className="text-3xl font-extrabold tracking-tight dark:text-white uppercase">Gestión de Notificaciones</h1>
-                        <p className="text-text-secondary font-medium text-sm">Administra los avisos y comunicaciones directas con los usuarios.</p>
+                    <div className="space-y-1">
+                        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight dark:text-white uppercase">Gestión de Notificaciones</h1>
+                        <p className="text-text-secondary font-medium text-xs sm:text-sm">Administra los avisos y comunicaciones directas con los usuarios.</p>
                     </div>
                 </div>
                 <button
                     onClick={handleCreateGlobal}
                     disabled={isCreating}
-                    className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-2xl flex items-center gap-2 text-xs font-900 uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
+                    className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-2xl flex items-center justify-center gap-2 text-xs font-900 uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50 w-full md:w-auto"
                 >
                     <Plus size={16} />
                     Nueva Notificación Global
@@ -226,7 +226,7 @@ export default function NotificationsManagementPage() {
                                         <td className="px-8 py-6 text-right">
                                             <button 
                                                 onClick={() => notif.id && handleDelete(notif.id)}
-                                                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all opacity-0 group-hover:opacity-100"
+                                                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all opacity-100 md:opacity-0 group-hover:opacity-100 ml-auto"
                                                 title="Eliminar Notificación"
                                             >
                                                 <Trash2 size={18} />

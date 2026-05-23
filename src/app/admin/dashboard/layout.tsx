@@ -18,6 +18,7 @@ export default function DashboardLayout({
     const pathname = usePathname();
     const router = useRouter();
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -45,8 +46,22 @@ export default function DashboardLayout({
     return (
         <AdminGuard>
             <div className="flex h-screen bg-slate-50 dark:bg-[#0B0F13] transition-colors duration-300">
+                {/* Backdrop for mobile */}
+                {isMobileMenuOpen && (
+                    <div 
+                        className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-200"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    ></div>
+                )}
+
                 {/* Sidebar */}
-                <aside className={`bg-surface border-r border-border flex flex-col transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
+                <aside className={`
+                    fixed md:sticky top-0 bottom-0 left-0 z-50 flex flex-col bg-surface border-r border-border transition-all duration-300 h-screen shrink-0
+                    ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+                    md:translate-x-0
+                    ${isCollapsed ? 'md:w-20' : 'md:w-72'}
+                    w-72
+                `}>
                     <div className="p-6 flex items-center gap-3">
                         <div className="min-w-[32px] h-8 flex items-center justify-center overflow-hidden">
                             <Image 
@@ -71,6 +86,7 @@ export default function DashboardLayout({
                                 <Link
                                     key={item.name}
                                     href={item.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
                                     className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group ${isActive
                                         ? "bg-primary/10 text-primary shadow-sm"
                                         : "text-text-secondary hover:bg-slate-50 dark:hover:bg-slate-800"
@@ -113,10 +129,13 @@ export default function DashboardLayout({
 
                 {/* Main Content Area */}
                 <main className="flex-1 overflow-y-auto">
-                    <header className="h-20 bg-surface backdrop-blur-md border-b border-border flex items-center justify-between px-8 sticky top-0 z-40">
+                    <header className="h-20 bg-surface backdrop-blur-md border-b border-border flex items-center justify-between px-4 md:px-8 sticky top-0 z-40">
                         <div className="flex items-center gap-4">
                             <button
-                                onClick={() => setIsCollapsed(!isCollapsed)}
+                                onClick={() => {
+                                    setIsMobileMenuOpen(!isMobileMenuOpen);
+                                    setIsCollapsed(!isCollapsed);
+                                }}
                                 className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-400"
                             >
                                 <Menu className="w-5 h-5" />
@@ -206,7 +225,7 @@ export default function DashboardLayout({
                         </div>
                     </header>
 
-                    <div className="p-8">
+                    <div className="p-4 md:p-8">
                         {children}
                     </div>
                 </main>
