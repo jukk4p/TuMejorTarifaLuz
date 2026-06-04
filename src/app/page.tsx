@@ -51,6 +51,36 @@ export default async function Home() {
           }
         `}} />
 
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Es seguro subir mi factura?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS) y protocolos de seguridad avanzada. Tu factura solo se procesa para extraer los datos técnicos necesarios; no almacenamos datos personales sensibles ni los vendemos a terceros. Tu privacidad es nuestro compromiso número uno."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Tengo que pagar por usar el comparador?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética. Si decides cambiarte, te facilitamos el enlace directo a la web oficial de la compañía para que hagas el trámite tú mismo, sin intermediarios."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Las tarifas están actualizadas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras. Si una compañía lanza una oferta nueva en España, nosotros la tenemos en el comparador en menos de 24 horas."
+              }
+            }
+          ]
+        }} />
         <JsonLd data={webAppSchema} />
         <JsonLd data={getBreadcrumbSchema([
           { name: "Inicio", item: "/" },
