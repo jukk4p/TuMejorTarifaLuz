@@ -356,40 +356,60 @@ export default function DashboardPage() {
 
                     {/* Manual Social Media Megaphone */}
                     <div className="premium-card p-8 space-y-6 border-2 border-primary/20 shadow-xl shadow-primary/5 bg-surface/50 backdrop-blur-sm">
-                        <div className="flex items-center gap-4">
-                            <div className="p-3 bg-primary rounded-2xl text-white shadow-lg shadow-primary/20">
-                                <Megaphone className="w-6 h-6" />
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-primary rounded-2xl text-white shadow-lg shadow-primary/20">
+                                    <Megaphone className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-1">
+                                    <h3 className="font-black text-lg dark:text-white uppercase leading-none">Megáfono de Redes Sociales</h3>
+                                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Envío directo a Make.com (Facebook / X)</p>
+                                </div>
                             </div>
-                            <div className="space-y-1">
-                                <h3 className="font-black text-lg dark:text-white uppercase leading-none">Megáfono de Redes Sociales</h3>
-                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Envío directo a Make.com (Facebook / X)</p>
+                            {/* Character counter including the appended link (+42 chars) */}
+                            <div className="text-right">
+                                <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-lg border ${
+                                    (customSocialMessage.length + 42) > 280 
+                                        ? 'bg-red-500/10 text-red-500 border-red-500/20 animate-pulse' 
+                                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 border-transparent'
+                                }`}>
+                                    X: {customSocialMessage.length + 42}/280
+                                </span>
                             </div>
                         </div>
 
                         <div className="space-y-4">
-                            <textarea
-                                value={customSocialMessage}
-                                onChange={(e) => setCustomSocialMessage(e.target.value)}
-                                placeholder="Escribe el mensaje para redes sociales aquí..."
-                                className="w-full h-32 bg-surface rounded-2xl p-4 text-xs font-medium border border-border focus:border-primary/50 outline-none transition-all resize-none dark:text-white shadow-inner"
-                            />
+                            <div className="relative">
+                                <textarea
+                                    value={customSocialMessage}
+                                    onChange={(e) => setCustomSocialMessage(e.target.value)}
+                                    placeholder="Escribe el mensaje para redes sociales aquí..."
+                                    className="w-full h-32 bg-surface rounded-2xl p-4 text-xs font-medium border border-border focus:border-primary/50 outline-none transition-all resize-none dark:text-white shadow-inner"
+                                />
+                            </div>
                             
                             <div className="flex flex-wrap gap-2">
                                 <button 
                                     onClick={() => setCustomSocialMessage("🆕 ¡NUEVAS TARIFAS! Acabamos de añadir a ATULADO con sus mejores tarifas Milenial y Senior. ⚡")}
-                                    className="px-3 py-1.5 bg-primary/10 text-primary text-[10px] font-black uppercase rounded-lg hover:bg-primary/20 transition-colors border border-primary/10"
+                                    className="px-3 py-1.5 bg-primary/10 text-primary text-[10px] font-black uppercase rounded-lg hover:bg-primary/20 transition-colors border border-primary/10 cursor-pointer"
                                 >
                                     + Preset Atulado
                                 </button>
                                 <button 
                                     onClick={() => setCustomSocialMessage("📉 ¡MEJORA DE PRECIO! Hemos actualizado nuestra base de datos con las tarifas más baratas del día. ⚡")}
-                                    className="px-3 py-1.5 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase rounded-lg hover:bg-emerald-500/20 transition-colors border border-emerald-500/10"
+                                    className="px-3 py-1.5 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase rounded-lg hover:bg-emerald-500/20 transition-colors border border-emerald-500/10 cursor-pointer"
                                 >
                                     + Preset Bajada
                                 </button>
                                 <button 
+                                    onClick={() => setCustomSocialMessage("⚡ ¡Comparador de luz actualizado! Calcula tu ahorro con los nuevos impuestos reales: 📈 IVA al 21% e IEE al 5,11%.")}
+                                    className="px-3 py-1.5 bg-amber-500/10 text-amber-600 dark:text-amber-500 text-[10px] font-black uppercase rounded-lg hover:bg-amber-500/20 transition-colors border border-amber-500/10 cursor-pointer"
+                                >
+                                    + Preset Impuestos
+                                </button>
+                                <button 
                                     onClick={() => setCustomSocialMessage("")}
-                                    className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-black uppercase rounded-lg hover:bg-slate-200 transition-colors"
+                                    className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-black uppercase rounded-lg hover:bg-slate-200 transition-colors cursor-pointer"
                                 >
                                     Limpiar
                                 </button>
@@ -398,7 +418,7 @@ export default function DashboardPage() {
                             <button
                                 onClick={handleManualSocialPost}
                                 disabled={isSendingCustom || !customSocialMessage.trim()}
-                                className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest disabled:opacity-50 disabled:scale-100"
+                                className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest disabled:opacity-50 disabled:scale-100 cursor-pointer"
                             >
                                 {isSendingCustom ? <RefreshCcw className="animate-spin w-4 h-4" /> : <PlusCircle className="w-4 h-4" />}
                                 Publicar Anuncio Manual en Redes
