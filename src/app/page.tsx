@@ -3,15 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { blogSummaries } from "@/lib/blogSummary";
-import JsonLd, { webAppSchema, faqSchema, getBreadcrumbSchema, webSiteSchema, organizationSchema } from "@/components/seo/JsonLd";
+import JsonLd, { webAppSchema, getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 // Client-side wrappers for dynamic components to resolve Server Component build errors
-import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard, SocialProof } from "@/components/ui/HomeClientComponents";
+import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard } from "@/components/ui/HomeClientComponents";
 
 import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
 import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
-import { AvatarInitials } from "@/components/ui/AvatarInitials";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 
 export const revalidate = 60; // Cache for 1 minute to enable BFCache and CDN caching
@@ -51,45 +50,7 @@ export default async function Home() {
             z-index: 0;
           }
         `}} />
-        <JsonLd data={{
-          ...webSiteSchema,
-          potentialAction: {
-            "@type": "SearchAction",
-            "target": "https://tumejortarifaluz.es/tarifas?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        }} />
-        <JsonLd data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "¿Es seguro subir mi factura?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS). Tu factura solo se procesa para extraer datos técnicos; no almacenamos datos personales sensibles ni los vendemos a terceros."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Tengo que pagar por usar el comparador?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Las tarifas están actualizadas?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras en menos de 24 horas."
-              }
-            }
-          ]
-        }} />
-        <JsonLd data={organizationSchema} />
+
         <JsonLd data={webAppSchema} />
         <JsonLd data={getBreadcrumbSchema([
           { name: "Inicio", item: "/" },
@@ -108,7 +69,7 @@ export default async function Home() {
             <div className="grid lg:grid-cols-[45%_55%] gap-12 lg:gap-32 items-center">
               {/* Text Content */}
               <div className="space-y-8 md:space-y-12 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+                <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full bg-primary text-white font-body text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] shadow-2xl shadow-primary/30 backdrop-blur-md border border-white/20 mx-auto lg:mx-0">
                   <span className="relative flex h-2 md:h-2.5 w-2 md:w-2.5">
                     <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75" style={{ animation: 'custom-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
                     <style dangerouslySetInnerHTML={{ __html: `
@@ -121,7 +82,7 @@ export default async function Home() {
                   Motor de comparación 2026 – Actualizado hoy
                 </div>
 
-                <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150 fill-mode-both">
+                <div className="space-y-4 md:space-y-6">
                   <h1 
                     className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
                     style={{ color: 'var(--color-text-heading)' }}
@@ -132,13 +93,13 @@ export default async function Home() {
                 </div>
 
                 <p 
-                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both"
+                  className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70"
                   style={{ color: 'var(--color-text-muted)' }}
                 >
                   Analizamos tu consumo real en segundos. Sube tu factura o introduce tus datos y obtén el mejor precio del mercado <strong>sin llamadas comerciales</strong> ni letra pequeña.
                 </p>
 
-                <div className="flex flex-col items-center lg:items-start gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+                <div className="flex flex-col items-center lg:items-start gap-4">
                   <Link 
                     href="/comparador?mode=upload" 
                     className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
@@ -161,16 +122,7 @@ export default async function Home() {
                   </Link>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6 pt-8 md:pt-10 border-t border-border/40 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
-                  <div className="flex items-center">
-                    <AvatarInitials initials="JP" bgColor="#3B82F6" size={48} first />
-                    <AvatarInitials initials="AM" bgColor="#8B5CF6" size={48} />
-                    <AvatarInitials initials="CL" bgColor="#F59E0B" size={48} />
-                  </div>
-                  <div className="text-xs md:text-base text-text-secondary max-w-[240px] md:max-w-none leading-tight font-bold">
-                    Únete a las <SocialProof count={3891} /> que ya han tomado el control de su ahorro este mes.
-                  </div>
-                </div>
+
               </div>
 
               {/* Visual Content */}
@@ -512,7 +464,7 @@ export default async function Home() {
                             {benefit.icon === 'bell' && <Bell size={24} />}
                           </div>
                           <div className="space-y-1">
-                            <h4 className="font-heading text-base font-black text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h4>
+                            <h3 className="font-heading text-base font-black text-text-primary group-hover:text-primary transition-colors">{benefit.title}</h3>
                             <p className="font-body text-sm font-normal text-text-secondary leading-relaxed">{benefit.desc}</p>
                           </div>
                         </div>
@@ -619,11 +571,11 @@ export default async function Home() {
                   >
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt={brand.name} width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>

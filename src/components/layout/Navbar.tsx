@@ -58,7 +58,7 @@ export default function Navbar() {
                             <div className="relative h-full w-full">
                                 <Image 
                                     src="/Logo.png" 
-                                    alt="TuMejorTarifaLuz" 
+                                    alt="" 
                                     fill
                                     className="object-contain" 
                                     priority 

@@ -8,7 +8,7 @@
 
     // 1. Configuration & Constants
     const STORAGE_KEY = 'cookie_consent_preferences';
-    const LINK_POLITICA = '/politica-cookies';
+    const LINK_POLITICA = '/legal/cookies';
 
     // Default GCMv2 defaults (pre-acceptance)
     // Should be set by the site owner in the <head> before this script if possible, 

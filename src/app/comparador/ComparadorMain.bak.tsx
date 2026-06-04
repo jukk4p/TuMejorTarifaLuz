@@ -2725,7 +2725,7 @@ export default function ComparadorMain() {
                                             <div className="relative z-10 py-6 px-8 border-t border-border flex items-center gap-3 text-slate-400 bg-surface-2/30">
                                                 <Info className="w-4 h-4 opacity-50 text-primary" />
                                                 <p className="text-xs font-semibold text-text-secondary">
-                                                    Precios estimados con impuestos incluidos (IVA 10% e IEE). El ahorro real puede variar según su perfil de consumo técnico.
+                                                    Precios estimados con impuestos incluidos (IVA 21% e IEE). El ahorro real puede variar según su perfil de consumo técnico.
                                                 </p>
                                             </div>
                                         </div>
@@ -2778,8 +2778,8 @@ export default function ComparadorMain() {
                                                 { label: "Potencia", val: results[0].costPower, sub: "Capacidad Contratada", icon: <Plug className="w-4 h-4 text-white" />, border: "border-white/20" },
                                                 { label: "Bono Social", val: results[0].costBonoSocial, sub: "Financiación Obligatoria", icon: <Heart className="w-4 h-4 text-white" />, border: "border-white/20" },
                                                 { label: "Contador", val: results[0].costMeter, sub: "Alquiler de Equipo", icon: <Gauge className="w-4 h-4 text-white" />, border: "border-white/20" },
-                                                { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (0.5%)", icon: <Building2 className="w-4 h-4 text-white" />, border: "border-white/20" },
-                                                { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (10%)", icon: <FileText className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "Impuesto IEE", val: results[0].taxIee, sub: "Imp. Eléctrico (5.11%)", icon: <Building2 className="w-4 h-4 text-white" />, border: "border-white/20" },
+                                                { label: "IVA Aplicado", val: results[0].taxIva, sub: "IVA General (21%)", icon: <FileText className="w-4 h-4 text-white" />, border: "border-white/20" },
                                             ].map((item, idx) => (
                                                 <div key={idx} className="flex flex-col h-full">
                                                     <div className="flex items-center gap-2 text-white min-h-[40px] mb-4">
@@ -3034,7 +3034,7 @@ export default function ComparadorMain() {
                                         <div className="w-full md:w-auto text-center md:text-right shrink-0 mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 border-border">
                                             <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-1">Coste Mensual Estimado</p>
                                             <p className="text-5xl md:text-6xl font-800 text-primary">{selectedResult.total.toFixed(2)} €</p>
-                                            <p className="text-[10px] text-text-muted font-medium italic mt-2">impuestos incluidos (IVA 10%)</p>
+                                            <p className="text-[10px] text-text-muted font-medium italic mt-2">impuestos incluidos (IVA 21%)</p>
                                         </div>
                                     </div>
 
@@ -3203,10 +3203,10 @@ export default function ComparadorMain() {
                                             </div>
 
                                             <div className="space-y-3 pt-6 text-xs bg-surface-2 p-6 rounded-2xl border border-border/40">
-                                                <div className="flex justify-between text-text-secondary"><span>Impuesto Electricidad (IEE 0.5%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary"><span>Impuesto Electricidad (IEE 5.11%)</span><span className="font-mono">{selectedResult.taxIee.toFixed(2)} €</span></div>
                                                 <div className="flex justify-between text-text-secondary"><span>Alquiler de Contador</span><span className="font-mono">{selectedResult.costMeter.toFixed(2)} €</span></div>
                                                 <div className="flex justify-between text-text-secondary"><span>Bono Social</span><span className="font-mono">{selectedResult.costBonoSocial.toFixed(2)} €</span></div>
-                                                <div className="flex justify-between text-text-secondary font-bold text-text-primary pt-2 border-t border-border/20"><span>IVA (General 10%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
+                                                <div className="flex justify-between text-text-secondary font-bold text-text-primary pt-2 border-t border-border/20"><span>IVA (General 21%)</span><span className="font-mono">{selectedResult.taxIva.toFixed(2)} €</span></div>
                                             </div>
 
                                             <div className="pt-8 flex justify-between items-center px-2">

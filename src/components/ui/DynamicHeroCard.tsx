@@ -170,7 +170,7 @@ export default function DynamicHeroCard() {
                           <span className="text-3xl md:text-5xl font-900 tracking-tighter text-accent">339,24€</span>
                        </div>
                     </div>
-                    <div className="px-5 py-3 bg-savings text-white rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-savings/40">
+                    <div className="px-5 py-3 bg-emerald-700 text-white rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-savings/40">
                        <span className="text-2xl md:text-3xl font-900 leading-none">-34%</span>
                        <TrendingDown size={20} className="hidden sm:block" />
                     </div>

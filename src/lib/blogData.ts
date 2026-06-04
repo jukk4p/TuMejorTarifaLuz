@@ -101,8 +101,8 @@ export const blogPosts: BlogPost[] = [
       <h2 id="impuestos-cargos">6. Impuestos y Cargos: ¿Qué financiamos con el recibo?</h2>
       <p>Aproximadamente el 45% de lo que pagas no es energía, sino impuestos y decisiones políticas (cargos):</p>
       <ol>
-        <li><strong>Impuesto Eléctrico:</strong> Un impuesto especial que en 2026 se sitúa en torno al 0.5%.</li>
-        <li><strong>IVA:</strong> Se aplica el 10% de forma generalizada tras las últimas medidas de ahorro. Solo en casos excepcionales de mercado muy bajo podría revertir al 21%.</li>
+        <li><strong>Impuesto Eléctrico:</strong> Un impuesto especial que en 2026 se sitúa en el 5.11%.</li>
+        <li><strong>IVA:</strong> Se aplica el 21% de forma generalizada tras el restablecimiento del tipo impositivo.</li>
         <li><strong>Alquiler del Contador:</strong> Unos 0.81€ al mes. Si tienes uno en propiedad (raro pero posible en 2026), este concepto debe ser cero.</li>
         <li><strong>Cargos del Sistema:</strong> Destinados a pagar las primas a las renovables antiguas y el déficit de tarifa de hace décadas.</li>
       </ol>
@@ -571,7 +571,7 @@ export const blogPosts: BlogPost[] = [
       },
       { 
         question: "¿Qué impuestos se pagan en la luz en 2026?", 
-        answer: "Principalmente el IVA (que varía según el precio del mercado) y el Impuesto Especial sobre la Electricidad (IEE). En 2026, el IVA se sitúa en el 10% para la mayoría de hogares si el precio del MWh supera los 45€." 
+        answer: "Principalmente el IVA y el Impuesto Especial sobre la Electricidad (IEE). En 2026, el IVA se sitúa en el 21% generalizado y el IEE en el 5.11%." 
       },
       { 
         question: "¿Pueden cortarme la luz si tengo una reclamación abierta?", 
@@ -651,8 +651,8 @@ export const blogPosts: BlogPost[] = [
       <p>Ojo: algunas empresas intentan cobrarte un "Estudio de Solvencia" o forzarte a contratar un seguro de mantenimiento. Tienes derecho a rechazarlo. El único coste asociado legalmente sería si el boletín eléctrico (CIE) tiene más de 20 años y la distribuidora exige una revisión de seguridad, pero es un trámite técnico razonable para garantizar que tu casa no se incendie por un cortocircuito.</p>
 
       <h2 id="impuestos-2026">💶 8. Los Impuestos de la luz en 2026: El IVA variable</h2>
-      <p>La fiscalidad eléctrica en 2026 es dinámica. El **IVA de la luz** se mantiene en el 10% reducido en la mayoría de escenarios actuales. No obstante, por normativa europea, si el precio medio del mercado mayorista (pool) del mes anterior cae por debajo de los 45€/MWh, el IVA puede volver temporalmente al tipo general del 21% para ajuste de ingresos del sistema.</p>
-      <p>Además del IVA, en tu factura verás el **IEE (Impuesto Especial sobre la Electricidad)**, que en 2026 se sitúa en su tipo reducido del 0.5% para aliviar la carga de los hogares. Estos impuestos se aplican sobre la suma del término de potencia y el término de energía. Es fundamental entender que, si logras bajar tu potencia contratada mediante nuestra <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:var(--primary);text-decoration:underline">guía de optimización de potencia</a>, también pagarás menos impuestos en términos absolutos cada mes.</p>
+      <p>La fiscalidad eléctrica en 2026 se ha normalizado. El **IVA de la luz** ha vuelto al tipo general del 21% de forma permanente.</p>
+      <p>Además del IVA, en tu factura verás el **IEE (Impuesto Especial sobre la Electricidad)**, que en 2026 se sitúa en el 5.11%. Estos impuestos se aplican sobre la suma del término de potencia y el término de energía. Es fundamental entender que, si logras bajar tu potencia contratada mediante nuestra <a href="/blog/potencia-contratada-luz-como-ajustar-luz-ahorrar-2026" style="color:var(--primary);text-decoration:underline">guía de optimización de potencia</a>, también pagarás menos impuestos en términos absolutos cada mes.</p>
 
       <h2 id="propiedad-contador">🎛️ 9. Alquiler vs Propiedad del contador</h2>
       <p>¿Vale la pena comprar el contador inteligente? En 2026, el alquiler del equipo cuesta aproximadamente 0.81€ al mes (unos 9.72€ al año). Un contador homologado nuevo cuesta entre 120€ y 180€ más la instalación por un electricista autorizado. </p>

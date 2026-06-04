@@ -34,7 +34,7 @@ const ABOUT = [
     { name: "¿Cómo funciona?", href: "/#como-funciona" },
     { name: "Aviso legal", href: "/legal/aviso-legal" },
     { name: "Política de privacidad", href: "/legal/privacidad" },
-    { name: "Política de cookies", href: "/legal/cookies" },
+    { name: "Política de Cookies", href: "/legal/cookies" },
     { name: "Contacto", href: "/contacto" },
 ];
 
@@ -54,10 +54,10 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
                 aria-expanded={isOpen}
                 aria-label={`Alternar sección ${title}`}
             >
-                <h4 className="text-[#E2E8F0] uppercase font-600 text-[11px] tracking-[0.08em] relative lg:inline-block">
+                <span className="text-[#E2E8F0] uppercase font-600 text-[11px] tracking-[0.08em] relative lg:inline-block font-heading block">
                     {title}
                     <span className="hidden lg:block absolute -bottom-3 left-0 w-10 h-1 bg-primary rounded-full"></span>
-                </h4>
+                </span>
                 <ChevronDown 
                     size={18} 
                     className={`text-primary absolute right-0 transition-transform duration-300 lg:hidden ${isOpen ? 'rotate-180' : ''}`} 
@@ -237,7 +237,7 @@ export default function Footer() {
                             <div className="relative w-full h-full">
                                 <Image 
                                     src="/Logo.png" 
-                                    alt="TuMejorTarifaLuz" 
+                                    alt="" 
                                     fill
                                     className="object-contain brightness-110" 
                                     priority

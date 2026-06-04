@@ -65,3 +65,7 @@ yarn-error.log*
 # Agent Teams Lite
 .atl/
 .backup_colors/
+
+# custom rules
+.github/workflows/
+Scraper/

@@ -102,8 +102,8 @@ export interface CalculationResult {
 }
 
 export const CONSTANTS = {
-    IEE: 0.005, // 0.5%
-    IVA: 0.10, // 10%
+    IEE: 0.0511, // 5.11%
+    IVA: 0.21, // 21%
     BONO_SOCIAL_PER_DAY: 0.01912,
     METER_RENT_PER_MONTH: 0.81
 };

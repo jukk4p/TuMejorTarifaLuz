@@ -20,6 +20,3 @@ export const PremiumTiltCard = next_dynamic(() => import("@/components/ui/Premiu
   ssr: false 
 });
 
-export const SocialProof = next_dynamic(() => import("@/components/ui/SocialProof"), { 
-  ssr: false 
-});

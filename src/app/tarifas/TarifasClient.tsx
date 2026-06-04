@@ -251,7 +251,7 @@ export default function TarifasClient() {
                                     </span>
                                     <Info size={14} className="text-slate-400 cursor-help" />
                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-48 bg-[#0f172a] text-white text-[10px] p-3 rounded-lg shadow-2xl z-20 leading-relaxed text-center pointer-events-none after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-[#0f172a]">
-                                        Sin impuestos: se muestra el precio base sin IVA (10%) ni Impuesto Eléctrico (0.5%)
+                                        Sin impuestos: se muestra el precio base sin IVA (21%) ni Impuesto Eléctrico (5.11%)
                                     </div>
                                 </div>
                                 <button
