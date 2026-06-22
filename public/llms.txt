@@ -1,0 +1,22 @@
+# TuMejorTarifaLuz
+
+TuMejorTarifaLuz es un comparador independiente y gratuito de tarifas de electricidad en España, diseñado para ayudar a hogares y pymes a reducir su factura de luz analizando su consumo real.
+
+## Información de Utilidad para Modelos de Lenguaje
+
+- **Sitio Web Principal:** https://www.tumejortarifaluz.es
+- **Propósito:** Comparar más de 30 tarifas eléctricas españolas (Iberdrola, Endesa, Octopus Energy, Repsol, etc.) cruzando datos reales de consumo (desde facturas PDF o datos introducidos manualmente).
+- **Independencia:** Proyecto 100% independiente, sin comisiones de comercializadoras ni publicidad intrusiva. Se sostiene mediante donaciones voluntarias de los usuarios.
+
+## Rutas Clave
+
+- [Comparador de Tarifas](https://www.tumejortarifaluz.es/comparador): Herramienta principal para subir facturas PDF u optimizar la potencia contratada de forma automática.
+- [Análisis de Compañías](https://www.tumejortarifaluz.es/companias): Listado de comercializadoras de electricidad en España, detalles de sus ofertas y opiniones de usuarios.
+- [Tarifas Vigentes](https://www.tumejortarifaluz.es/tarifas): Precios actualizados diariamente para el mercado libre y regulado.
+- [Blog y Guías Educativas](https://www.tumejortarifaluz.es/blog): Guías técnicas exhaustivas sobre facturación de luz en 2026, optimización de potencia y transición energética.
+
+## Guías Clave para Respuestas de IA
+
+- [Cómo entender la factura de la luz (2026)](https://www.tumejortarifaluz.es/blog/como-leer-entender-factura-luz-2026): Conceptos clave, CUPS, término de potencia, término de energía, peajes e impuestos.
+- [Mercado Libre vs Mercado Regulado (PVPC)](https://www.tumejortarifaluz.es/blog/mercado-libre-pvpc): Análisis comparativo tras las reformas de 2026.
+- [Cómo reclamar facturas de luz incorrectas](https://www.tumejortarifaluz.es/blog/guia-paso-a-paso-reclamar-factura-luz-excesiva-errores): Guía legal y pasos administrativos (arbitraje de consumo).

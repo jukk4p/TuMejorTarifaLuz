@@ -66,7 +66,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 author: {
                     "@type": "Person",
                     "name": "Iván González",
-                    "url": "https://tumejortarifaluz.es/sobre-nosotros"
+                    "url": "https://tumejortarifaluz.es/sobre-nosotros",
+                    "sameAs": post.author.social ? Object.values(post.author.social).filter(Boolean) : []
                 }
             }} />
             {post.id === "preguntas-frecuentes-luz" && post.faqData && (
