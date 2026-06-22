@@ -69,3 +69,7 @@ yarn-error.log*
 # custom rules
 .github/workflows/
 Scraper/
+
+# GEO/SEO Reports
+GEO-AUDIT-REPORT.md
+
