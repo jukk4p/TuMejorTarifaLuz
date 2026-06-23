@@ -1,0 +1,416 @@
+{
+  "iberdrola": {
+    "rating": 4.1,
+    "pros": [
+      "Infraestructura y Red Propia",
+      "Líder en Energía Renovable",
+      "Atención Presencial en Oficinas",
+      "App Móvil y Gestión Digital"
+    ],
+    "prosDetail": [
+      "Cuenta con su propia distribuidora (i-DE) asegurando una resolución ágil de incidencias técnicas en su red.",
+      "Líder en generación de energía eólica y fotovoltaica, garantizando energía certificada 100% verde.",
+      "Dispone de más de 500 oficinas de atención al cliente distribuidas por toda España para soporte de calidad.",
+      "La aplicación Smart Home y el área de clientes permiten controlar el consumo diario detalladamente."
+    ],
+    "cons": [
+      "Tarifas Estándar con Precios Elevados",
+      "Complejidad en los Conceptos de Facturación"
+    ],
+    "consDetail": [
+      "Las tarifas por defecto y contratos fuera de promociones suelen tener un coste superior al de competidores independientes.",
+      "Muchos usuarios reportan que las facturas contienen múltiples cargos y términos técnicos difíciles de interpretar."
+    ],
+    "scores": {
+      "price": 3.8,
+      "support": 4,
+      "app": 4.5,
+      "transparency": 3.8,
+      "onboarding": 4
+    }
+  },
+  "endesa": {
+    "rating": 3.6,
+    "pros": [
+      "Suministro Eléctrico Fiable",
+      "Soporte al Cliente Multilingüe (en ciertos casos)",
+      "Comunicación Clara y Precisa",
+      "Experiencia Generalmente Positiva a Largo Plazo"
+    ],
+    "prosDetail": [
+      "Numerosos usuarios reportan un suministro de electricidad constante y sin interrupciones, indicando una alta fiabilidad en el servicio básico de energía.",
+      "Algunos clientes destacan la disponibilidad de personal que habla inglés, facilitando la asistencia y resolución de consultas para usuarios no hispanohablantes.",
+      "Varias reseñas mencionan comunicaciones excelentes, claras y precisas, así como actualizaciones útiles, lo que facilita la gestión para algunos clientes.",
+      "Varios clientes con muchos años de antigüedad expresan no haber tenido problemas, lo que sugiere una experiencia positiva y estable para los usuarios de larga data."
+    ],
+    "cons": [
+      "Deficiencias Graves en la Atención al Cliente",
+      "Problemas Recurrentes de Facturación y Cargos Inesperados",
+      "Fallos en Plataformas Digitales y Gestión de Servicios"
+    ],
+    "consDetail": [
+      "Gran parte de los clientes reportan una atención al cliente ineficaz, con dificultades para contactar por teléfono, chat o email, falta de resolución, barreras idiomáticas y respuestas lentas.",
+      "Se denuncian facturas con errores, cargos no autorizados (como seguros o servicios no solicitados) y problemas para obtener explicaciones o reembolsos, llevando a disputas y reclamaciones.",
+      "Hay quejas sobre el mal funcionamiento de la web y la app (dificultad para acceder o descargar facturas), así como sobre la gestión ineficiente de servicios o contratos."
+    ],
+    "scores": {
+      "price": 3.7,
+      "support": 3.8,
+      "app": 3.7,
+      "transparency": 3.6,
+      "onboarding": 3.5
+    }
+  },
+  "naturgy": {
+    "rating": 1.5,
+    "pros": [
+      "Fiabilidad del Suministro Eléctrico",
+      "Gestión Online y Portal de Cliente",
+      "Precios Competitivos y Facturación Transparente (Según algunos usuarios)"
+    ],
+    "prosDetail": [
+      "Algunos usuarios destacan la estabilidad y fiabilidad general de los servicios de energía provistos por la compañía.",
+      "La plataforma web es considerada adecuada para la gestión de cuentas, pagos, cambio de potencia y acceso a detalles del cliente, facilitando trámites online.",
+      "Ciertos clientes valoran la competitividad de los precios y la claridad en la facturación, lo que contribuye a una mejor gestión de sus gastos energéticos."
+    ],
+    "cons": [
+      "Prácticas Comerciales y de Ventas Engañosas",
+      "Problemas Graves en Facturación y Gestión Administrativa",
+      "Atención al Cliente Insuficiente y de Baja Calidad"
+    ],
+    "consDetail": [
+      "Numerosos usuarios denuncian tácticas de venta agresivas y engañosas, incluyendo suplantación de identidad de otras compañías, activación de contratos sin consentimiento, promesas de tarifas falsas y acoso telefónico.",
+      "Existe una queja recurrente sobre facturación incorrecta, cargos fraudulentos, cobros duplicados, dificultades para obtener reembolsos, cargos ocultos y problemas para procesar la energía de autoconsumo.",
+      "La atención al cliente es constantemente criticada por ser inalcanzable, ineficaz, con personal poco capacitado o grosero, largas esperas, falta de soporte en inglés y dificultad para resolver incidencias o cancelar servicios."
+    ],
+    "scores": {
+      "price": 1.5,
+      "support": 1.3,
+      "app": 1.6,
+      "transparency": 1.3,
+      "onboarding": 1.6
+    }
+  },
+  "repsol": {
+    "rating": 4.5,
+    "pros": [
+      "Atención al cliente excepcional",
+      "Servicio ágil y eficaz",
+      "Precios atractivos y competitivos"
+    ],
+    "prosDetail": [
+      "La amabilidad, eficiencia, cortesía y disposición del personal son consistentemente destacadas por los clientes, lo que genera una experiencia de servicio muy positiva.",
+      "Los usuarios valoran la rapidez y la facilidad de los procesos y la prestación del servicio, haciendo que las gestiones sean sencillas y ahorrando tiempo.",
+      "Se resalta la oferta de tarifas económicas y el cumplimiento de las promesas de precios, lo que contribuye a la satisfacción del cliente al percibir una buena relación calidad-precio."
+    ],
+    "cons": [
+      "Inconsistencia en precios de productos específicos",
+      "Escasa retroalimentación sobre innovaciones"
+    ],
+    "consDetail": [
+      "Un cliente señala específicamente que el precio del GLP no es favorable, lo que podría indicar variabilidad en la competitividad de las tarifas para ciertos productos o servicios.",
+      "Los comentarios no suelen mencionar nuevas funcionalidades, programas de fidelización o aspectos innovadores, sugiriendo una oportunidad para comunicar mejor estas áreas o desarrollarlas."
+    ],
+    "scores": {
+      "price": 4.4,
+      "support": 4.4,
+      "app": 4.5,
+      "transparency": 4.5,
+      "onboarding": 4.5
+    }
+  },
+  "octopus": {
+    "rating": 4.8,
+    "pros": [
+      "Excelente Servicio al Cliente",
+      "Procesos de Gestión Claros y Fluidos",
+      "Precios Competitivos y Oportunidades de Ahorro",
+      "Uso de Tecnología y Comunicación Efectiva"
+    ],
+    "prosDetail": [
+      "La atención al cliente es consistentemente elogiada por su rapidez, amabilidad, eficiencia y capacidad de resolución, con un trato profesional y personalizado.",
+      "Los usuarios destacan la sencillez y transparencia en los procesos de cambio de compañía, alta de servicios y gestión de la cuenta, minimizando la burocracia.",
+      "La compañía ofrece tarifas competitivas que, en muchos casos, resultan en ahorros significativos para los clientes en comparación con proveedores anteriores.",
+      "La aplicación móvil es valorada positivamente y la comunicación de la compañía se considera clara, proactiva y útil, manteniendo a los clientes bien informados."
+    ],
+    "cons": [
+      "Posible Barrera Idiomática en Instalaciones",
+      "Precio No Siempre El \"Más Barato\" Absoluto"
+    ],
+    "consDetail": [
+      "Se ha reportado alguna dificultad de comunicación con los equipos de instalación en campo debido a la barrera del idioma, aunque se logra superar con herramientas de traducción.",
+      "Aunque se perciben como económicos y competitivos, un comentario sugiere que los precios no siempre son los \"más baratos\" del mercado, aunque sí ofrecen buen valor."
+    ],
+    "scores": {
+      "price": 4.8,
+      "support": 4.6,
+      "app": 4.6,
+      "transparency": 4.9,
+      "onboarding": 4.7
+    }
+  },
+  "totalenergies": {
+    "rating": 1,
+    "pros": [
+      "Flexibilidad en la documentación de alta.",
+      "Comunicación ágil en la fase pre-contratación/venta.",
+      "Variedad de servicios energéticos ofertados."
+    ],
+    "prosDetail": [
+      "La compañía podría ofrecer mayor flexibilidad en los requisitos de documentación inicial (ej. aceptación de pasaporte), facilitando el alta a clientes internacionales o recién llegados.",
+      "Algunos usuarios reportan una comunicación rápida y eficiente durante el proceso de venta o antes de la contratación de servicios, generando una primera impresión de accesibilidad.",
+      "La empresa ofrece una gama diversa de servicios, incluyendo la instalación de paneles solares, lo que puede ser atractivo para clientes interesados en soluciones energéticas alternativas."
+    ],
+    "cons": [
+      "Problemas recurrentes de facturación y precios elevados.",
+      "Deficiente atención al cliente y gestión de incidencias.",
+      "Incumplimiento en la provisión de servicios y prácticas comerciales dudosas."
+    ],
+    "consDetail": [
+      "Numerosos clientes reportan facturas excesivamente altas, consumos no acordes a la realidad, cargos indebidos tras la finalización de contratos y tarifas consideradas muy elevadas.",
+      "La atención al cliente es frecuentemente percibida como ineficaz, con largas esperas sin resolución, falta de actualización, incapacidad para cancelar contratos y una actitud general de desinterés ante los problemas del usuario.",
+      "Existen quejas sobre la no ejecución de servicios contratados (ej. instalación de paneles solares, envío de técnicos), retrasos significativos y prácticas comerciales cuestionables, como la suplantación de identidad de otras compañías o la imposición de contratos."
+    ],
+    "scores": {
+      "price": 1,
+      "support": 1.1,
+      "app": 1,
+      "transparency": 1,
+      "onboarding": 1
+    }
+  },
+  "niba": {
+    "rating": 3,
+    "pros": [
+      "Facilidad en el proceso de contratación",
+      "Transición fluida entre proveedores",
+      "Valoración positiva inicial del servicio"
+    ],
+    "prosDetail": [
+      "Los usuarios resaltan la sencillez y la ausencia de complicaciones al darse de alta o transferir su servicio eléctrico a Niba.",
+      "La experiencia de cambio a Niba es valorada como ágil y sin interrupciones significativas, lo que facilita el inicio del servicio.",
+      "A pesar de posibles inconvenientes, el proceso de incorporación genera una impresión general muy positiva, reflejada en altas calificaciones iniciales."
+    ],
+    "cons": [
+      "Restricciones geográficas en la disponibilidad de la aplicación móvil",
+      "Frustración del cliente y riesgo de abandono por la inaccesibilidad a la app"
+    ],
+    "consDetail": [
+      "La aplicación de Niba no está disponible para usuarios en ciertas regiones o países, impidiendo su acceso a clientes ya contratados y generando inconvenientes.",
+      "La imposibilidad de utilizar la aplicación móvil causa una alta insatisfacción entre los clientes, llevándolos a considerar la cancelación del servicio y buscar otros proveedores."
+    ],
+    "scores": {
+      "price": 3.1,
+      "support": 3.2,
+      "app": 2.8,
+      "transparency": 3,
+      "onboarding": 3
+    }
+  },
+  "imagina": {
+    "rating": 4.2,
+    "pros": [
+      "Excelente Atención al Cliente",
+      "Procesos Eficientes y Sencillos",
+      "Asesoramiento Comercial No Intrusivo"
+    ],
+    "prosDetail": [
+      "El servicio al cliente es consistentemente elogiado por ser proactivo, amable, servicial y responder de manera oportuna, incluyendo la disponibilidad de atención en inglés.",
+      "La gestión de trámites y la resolución de problemas son descritas como rápidas, efectivas y con procesos de firma más fáciles que los de la competencia, a menudo resolviendo incidencias en una sola llamada.",
+      "Los vendedores son percibidos como amables y dispuestos a ayudar, sin ejercer presión ni ser impositivos durante el proceso de contratación."
+    ],
+    "cons": [
+      "Costos Elevados",
+      "Cargos de Potencia Exorbitantes"
+    ],
+    "consDetail": [
+      "La compañía es percibida por al menos un usuario como significativamente más cara en comparación con proveedores anteriores.",
+      "Específicamente, los cargos diarios por potencia contratada (ej. 9.2kw) son considerados excesivamente altos, llegando a duplicar lo pagado con otros proveedores."
+    ],
+    "scores": {
+      "price": 4.2,
+      "support": 4.2,
+      "app": 4.1,
+      "transparency": 4,
+      "onboarding": 4.1
+    }
+  },
+  "visalia": {
+    "rating": 4.2,
+    "pros": [
+      "Tarifas Competitivas",
+      "Transición y Activación Ágil",
+      "Facilidad de Uso de Plataformas",
+      "Servicio Técnico Profesional y Puntual"
+    ],
+    "prosDetail": [
+      "Múltiples usuarios destacan los precios y tarifas muy buenas que ofrece la compañía, considerándolos muy competitivos en el mercado.",
+      "Los clientes experimentan una transición fluida y una activación del servicio en un corto periodo, mencionando un caso de solo 3 días.",
+      "La página web y el servicio de contratación son intuitivos y fáciles de usar, simplificando la gestión para los clientes.",
+      "Se valora la puntualidad y la atención al detalle de los técnicos, quienes realizan el trabajo de forma cuidadosa y dejan todo en perfectas condiciones."
+    ],
+    "cons": [
+      "Errores y Retrasos en la Contratación",
+      "Dificultades Iniciales con el Idioma de la Plataforma"
+    ],
+    "consDetail": [
+      "Algunos usuarios reportan que los contratos de gas y luz llegan con errores y que la corrección y reenvío de estos se demora, causando frustración.",
+      "Un usuario experimentó dificultades iniciales para cambiar el idioma de italiano a inglés en la plataforma, lo que pudo haber complicado el proceso inicial."
+    ],
+    "scores": {
+      "price": 4.4,
+      "support": 4.4,
+      "app": 4.4,
+      "transparency": 4,
+      "onboarding": 4.4
+    }
+  },
+  "energianufri": {
+    "rating": 2.7,
+    "pros": [
+      "Tarifas Competitivas y Ahorro",
+      "Proceso de Alta Sencillo y Rápido",
+      "Atención al Cliente Eficaz y Sin Molestias"
+    ],
+    "prosDetail": [
+      "Varios usuarios destacan que energianufri ofrece precios muy económicos en comparación con otras compañías, lo que se traduce en un ahorro significativo en sus facturas de luz.",
+      "El proceso para contratar los servicios a través de su web es descrito como ágil, sencillo y sin complicaciones, facilitando el cambio de compañía.",
+      "Los clientes valoran la atención cercana y la rápida gestión de consultas. Además, se aprecia la ausencia de llamadas de marketing intrusivas."
+    ],
+    "cons": [
+      "Falta de Transparencia y Tarifas Engañosas",
+      "Incumplimiento del RGPD y Gestión de Datos"
+    ],
+    "consDetail": [
+      "Múltiples reseñas critican la existencia de tarifas ocultas o la presentación engañosa de los precios, especialmente en relación con la gestión de excedentes solares, lo que puede llevar a contratar condiciones diferentes a las esperadas.",
+      "Se ha reportado que la empresa ignora solicitudes para borrar datos personales conforme a la normativa de Protección de Datos (RGPD), lo cual es una preocupación legal y de privacidad seria."
+    ],
+    "scores": {
+      "price": 2.6,
+      "support": 2.6,
+      "app": 2.7,
+      "transparency": 2.6,
+      "onboarding": 2.8
+    }
+  },
+  "atulado": {
+    "rating": 1.7,
+    "pros": [
+      "Precios Inicialmente Competitivos",
+      "Información Anticipada de Precios Online",
+      "Proceso de Contratación Sencillo y Buen Soporte"
+    ],
+    "prosDetail": [
+      "La compañía puede ofrecer tarifas atractivas y competitivas en ciertos periodos del año, especialmente en primavera.",
+      "La empresa proporciona información sobre los cambios futuros de precios en su web o área de clientes con aproximadamente un mes de antelación.",
+      "Se valora la facilidad del proceso de contratación, la recepción de facturas detalladas por email y una respuesta rápida en la atención telefónica."
+    ],
+    "cons": [
+      "Volatilidad y Aumentos de Precios Frecuentes",
+      "Comunicación Confusa sobre Condiciones Tarifarias",
+      "Percepción de \"Precios Gancho\" y Baja Retención de Valor"
+    ],
+    "consDetail": [
+      "Las tarifas están sujetas a revisiones periódicas (mensuales o trimestrales) que pueden resultar en aumentos drásticos y significativos, duplicando el precio contratado en algunos casos.",
+      "Los clientes experimentan confusión sobre la frecuencia real de las revisiones de precio (anual vs. mensual) y señalan que la información crucial no siempre es visible o accesible de forma clara en el área de clientes.",
+      "Existe la sensación de que las ofertas iniciales son \"gancho\" para atraer nuevos clientes, pero los precios se equiparan o superan rápidamente a los de la competencia, generando frustración y desconfianza en el valor a largo plazo."
+    ],
+    "scores": {
+      "price": 1.6,
+      "support": 1.9,
+      "app": 1.7,
+      "transparency": 1.5,
+      "onboarding": 1.8
+    }
+  },
+  "esluz": {
+    "rating": 1,
+    "pros": [
+      "Compensación de excedentes inicialmente atractiva",
+      "Innovación con batería virtual",
+      "Condiciones contractuales iniciales competitivas"
+    ],
+    "prosDetail": [
+      "La tarifa original de compensación de 0.08 por excedentes energéticos fue un factor clave para la captación de clientes.",
+      "La propuesta de un sistema de batería virtual representa un servicio avanzado para la gestión de la energía solar.",
+      "Las condiciones y precios ofrecidos al inicio del contrato eran lo suficientemente atractivos como para motivar la contratación del servicio."
+    ],
+    "cons": [
+      "Atención al cliente y gestión ineficaces",
+      "Modificaciones unilaterales y sustanciales de las condiciones",
+      "Pérdida de beneficios al cambiar de proveedor"
+    ],
+    "consDetail": [
+      "Dificultad extrema para contactar con la compañía y un proceso de alta prolongado (hasta dos meses) evidencian deficiencias operativas.",
+      "Cambios drásticos en la compensación de excedentes (de 0.08 a precio de mercado) e incremento de precios sin previo aviso, generando desconfianza y perjuicio al cliente.",
+      "Los clientes pierden los saldos o beneficios acumulados en su batería virtual al decidir cambiar de compañía, penalizando la movilidad."
+    ],
+    "scores": {
+      "price": 1,
+      "support": 1.2,
+      "app": 1,
+      "transparency": 1,
+      "onboarding": 1
+    }
+  },
+  "cor": {
+    "rating": 1.6,
+    "pros": [
+      "Facturación Competitiva y Estable",
+      "Experiencia de Servicio sin Incidentes",
+      "Atención Telefónica de Calidad (en ocasiones)"
+    ],
+    "prosDetail": [
+      "Algunos clientes reportan tarifas adecuadas y facturas consistentes a lo largo del tiempo, incluso con consumos elevados, sin necesidad de monitorear horarios de uso.",
+      "Un segmento de usuarios destaca una relación sin problemas ni contratiempos, recibiendo facturas correctas y un servicio de suministro normalizado.",
+      "Se menciona una atención al cliente telefónica excepcional por parte de agentes específicos, destacando su eficiencia, empatía y capacidad de resolución de problemas técnicos en el área de cliente."
+    ],
+    "cons": [
+      "Deficiencias Críticas en Atención al Cliente y Canales Digitales",
+      "Problemas Graves de Facturación y Cobros Indebidos",
+      "Ineficacia en la Gestión de Suministro y Servicios Técnicos"
+    ],
+    "consDetail": [
+      "Reportes generalizados sobre el mal funcionamiento de la aplicación y la página web para gestiones básicas como pagar o descargar facturas, dificultad extrema para contactar, largos tiempos de espera, personal poco capacitado y falta de resolución vía telefónica o por email.",
+      "Quejas recurrentes sobre facturas estimadas o excesivas, cobros de servicios no contratados, dificultades en la aplicación del bono social, y procesos de reembolso complejos y prolongados por cobros indebidos, generando frustración y desconfianza en la gestión de la facturación.",
+      "Incidentes de cortes de suministro sin previo aviso, prolongados tiempos de espera para reconexiones o reparaciones (particularmente para servicios de gas y caldera bajo 'packs de tranquilidad'), y una gestión lenta e ineficaz de las incidencias técnicas y administrativas."
+    ],
+    "scores": {
+      "price": 1.6,
+      "support": 1.7,
+      "app": 1.7,
+      "transparency": 1.7,
+      "onboarding": 1.6
+    }
+  },
+  "energia-vm": {
+    "rating": 1.7,
+    "pros": [
+      "Tarifas Fijas Estables",
+      "Energía 100% Verde Certificada",
+      "Respaldo de Grupo Villar Mir"
+    ],
+    "prosDetail": [
+      "Los contratos de precio fijo ofrecen cierta estabilidad ante variaciones del mercado.",
+      "Garantía de origen 100% renovable en toda la energía suministrada.",
+      "Pertenece a un grupo industrial sólido y con larga trayectoria en España."
+    ],
+    "cons": [
+      "Precios y Tarifas Elevadas",
+      "Atención al Cliente Deficiente",
+      "Facturación Compleja y Cargos Extras"
+    ],
+    "consDetail": [
+      "Gran parte de los clientes reportan facturas excesivamente caras en comparación con el mercado.",
+      "Dificultades para contactar por teléfono y lentitud en la resolución de reclamaciones.",
+      "Errores recurrentes en la lectura del contador y cobros inesperados de mantenimiento."
+    ],
+    "scores": {
+      "price": 1.5,
+      "support": 1.8,
+      "app": 1.6,
+      "transparency": 1.7,
+      "onboarding": 1.9
+    }
+  }
+}

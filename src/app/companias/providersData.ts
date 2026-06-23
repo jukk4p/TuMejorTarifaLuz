@@ -1,3 +1,5 @@
+import analyzedReviewsData from '../../lib/analyzedReviews.json';
+
 export interface Provider {
     id: string;
     name: string;
@@ -24,7 +26,7 @@ export interface Provider {
     };
 }
 
-export const providers: Provider[] = [
+const staticProviders: Provider[] = [
     {
         id: "octopus",
         name: "Octopus Energy",
@@ -302,3 +304,19 @@ export const providers: Provider[] = [
         scores: { price: 4.5, support: 4.2, app: 3.5, transparency: 4.5, onboarding: 4.4 }
     }
 ];
+
+export const providers: Provider[] = staticProviders.map(p => {
+    const override = (analyzedReviewsData as Record<string, any>)[p.id];
+    if (override) {
+        return {
+            ...p,
+            rating: override.rating ?? p.rating,
+            pros: override.pros ?? p.pros,
+            prosDetail: override.prosDetail ?? p.prosDetail,
+            cons: override.cons ?? p.cons,
+            consDetail: override.consDetail ?? p.consDetail,
+            scores: override.scores ? { ...p.scores, ...override.scores } : p.scores
+        };
+    }
+    return p;
+});
