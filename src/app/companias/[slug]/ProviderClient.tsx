@@ -17,6 +17,8 @@ import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
 import reviewsData from "@/lib/reviews.json";
 
+const GAS_STATION_KEYWORDS = ['surtidor', 'repost', 'estaci', 'combustibl', 'gasolinera', 'carburant', 'diesel', 'lavado', 'lubricant', 'glp', 'gasoil'];
+
 export default function ProviderClient({ provider }: { provider: Provider }) {
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -28,7 +30,14 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
 
     const { tariffs } = useTariffs();
 
-    const providerReviews = useMemo(() => (reviewsData as Record<string, any>)[provider.id] || [], [provider.id]);
+    const providerReviews = useMemo(() => {
+        const all: any[] = (reviewsData as Record<string, any>)[provider.id] || [];
+        if (provider.id !== 'repsol') return all;
+        return all.filter(rev => {
+            const text = ((rev.title || '') + ' ' + (rev.text || '')).toLowerCase();
+            return !GAS_STATION_KEYWORDS.some(kw => text.includes(kw));
+        });
+    }, [provider.id]);
 
     // Matching company logic
     const companyTariffs = tariffs.filter(t => {
@@ -444,61 +453,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                         </div>
                     </div>
 
-                    {/* Reviews Section */}
-                    <div className="mb-24">
-                        <div className="flex items-center gap-4 mb-10">
-                            <h3 className="text-3xl font-900 text-text-primary tracking-tight">Opiniones reales de clientes</h3>
-                            <div className="h-px flex-grow bg-slate-200"></div>
-                        </div>
 
-                        {providerReviews.length > 0 ? (
-                            <div className="grid gap-6">
-                                {providerReviews.slice(0, 5).map((review: any) => (
-                                    <div key={review.reviewId} className="bg-white dark:bg-slate-900 border border-border p-8 rounded-3xl shadow-sm hover:shadow-md transition-all space-y-4">
-                                        <div className="flex flex-wrap items-center justify-between gap-4">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
-                                                    {review.avatar ? (
-                                                        <img src={review.avatar} alt={review.name || "Usuario"} className="w-full h-full rounded-full object-cover" />
-                                                    ) : (
-                                                        (review.name || "Cliente").split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    <h5 className="font-800 text-text-primary text-sm leading-snug">{review.name || "Cliente de Trustpilot"}</h5>
-                                                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                                                        {new Date(review.date || Date.now()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className="flex flex-col items-end gap-1">
-                                                {renderStars(review.rating)}
-                                                <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
-                                                    <CheckCircle2 size={10} /> Opinión Verificada
-                                                </span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="space-y-2">
-                                            <h4 className="text-base font-800 text-text-primary">{review.title}</h4>
-                                            <p className="text-sm text-text-secondary leading-relaxed font-medium">{review.text}</p>
-                                        </div>
-                                        
-                                        <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
-                                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fuente: Trustpilot</span>
-                                            <a href={review.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary font-bold hover:underline">Ver reseña original →</a>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="bg-white dark:bg-slate-900 border border-border p-12 rounded-[2.5rem] text-center shadow-sm">
-                                <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                                <h4 className="text-lg font-800 text-text-primary mb-2">Sin opiniones verificadas</h4>
-                                <p className="text-sm text-text-secondary max-w-md mx-auto">No hay opiniones de clientes verificadas disponibles para esta compañía en este momento en Trustpilot.</p>
-                            </div>
-                        )}
-                    </div>
 
                     {/* Similar Providers Section */}
                     <div className="mb-24">
