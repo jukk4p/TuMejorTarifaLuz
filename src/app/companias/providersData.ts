@@ -17,6 +17,7 @@ export interface Provider {
     category: 'big' | 'independent' | 'regulated';
     hasPermanence: boolean;
     popularTariffName?: string;
+    trustpilotUrl?: string;
     scores: {
         price: number;
         support: number;
@@ -44,6 +45,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Relax",
+        trustpilotUrl: "https://es.trustpilot.com/review/octopusenergy.es",
         scores: { price: 4.5, support: 5.0, app: 4.8, transparency: 5.0, onboarding: 4.7 }
     },
     {
@@ -63,6 +65,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Zen",
+        trustpilotUrl: "https://es.trustpilot.com/review/niba.es",
         scores: { price: 5.0, support: 4.2, app: 4.5, transparency: 4.8, onboarding: 5.0 }
     },
     {
@@ -82,6 +85,7 @@ const staticProviders: Provider[] = [
         category: 'big',
         hasPermanence: false,
         popularTariffName: "Ahorro Plus",
+        trustpilotUrl: "https://es.trustpilot.com/review/repsol.es",
         scores: { price: 4.0, support: 4.3, app: 4.5, transparency: 4.0, onboarding: 4.2 }
     },
     {
@@ -101,6 +105,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Calma",
+        trustpilotUrl: "https://es.trustpilot.com/review/energianufri.com",
         scores: { price: 4.6, support: 4.1, app: 3.6, transparency: 4.4, onboarding: 4.6 }
     },
     {
@@ -119,6 +124,7 @@ const staticProviders: Provider[] = [
         category: 'big',
         hasPermanence: false,
         popularTariffName: "Plan Online",
+        trustpilotUrl: "https://es.trustpilot.com/review/www.iberdrola.es",
         scores: { price: 3.8, support: 4.0, app: 4.5, transparency: 3.8, onboarding: 4.0 }
     },
     {
@@ -137,6 +143,7 @@ const staticProviders: Provider[] = [
         category: 'big',
         hasPermanence: false,
         popularTariffName: "Fija 24h Online",
+        trustpilotUrl: "https://es.trustpilot.com/review/www.endesa.com",
         scores: { price: 4.5, support: 3.8, app: 4.3, transparency: 4.0, onboarding: 4.5 }
     },
     {
@@ -155,6 +162,7 @@ const staticProviders: Provider[] = [
         category: 'big',
         hasPermanence: false,
         popularTariffName: "Tarifa Noche",
+        trustpilotUrl: "https://es.trustpilot.com/review/www.naturgy.es",
         scores: { price: 3.9, support: 4.5, app: 3.8, transparency: 3.9, onboarding: 3.8 }
     },
     {
@@ -173,6 +181,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "A tu Aire Luz Siempre",
+        trustpilotUrl: "https://es.trustpilot.com/review/totalenergies.es",
         scores: { price: 4.4, support: 4.0, app: 3.8, transparency: 4.0, onboarding: 4.2 }
     },
     {
@@ -191,6 +200,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Tarifa base Sin Horas",
+        trustpilotUrl: "https://es.trustpilot.com/review/imaginaenergia.com",
         scores: { price: 4.6, support: 4.0, app: 3.8, transparency: 4.5, onboarding: 4.8 }
     },
     {
@@ -209,6 +219,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Luz Fijo 24h",
+        trustpilotUrl: "https://es.trustpilot.com/review/visalia.es",
         scores: { price: 4.8, support: 4.3, app: 3.5, transparency: 4.3, onboarding: 4.5 }
     },
     {
@@ -227,6 +238,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Formula 24h",
+        trustpilotUrl: "https://es.trustpilot.com/review/energyavm.es",
         scores: { price: 4.4, support: 4.0, app: 3.8, transparency: 4.0, onboarding: 4.2 }
     },
     /*
@@ -265,6 +277,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Tarifa Solar 2.0",
+        trustpilotUrl: "https://es.trustpilot.com/review/esluz.es",
         scores: { price: 4.5, support: 4.0, app: 3.7, transparency: 4.3, onboarding: 4.7 }
     },
     {
@@ -301,6 +314,7 @@ const staticProviders: Provider[] = [
         category: 'independent',
         hasPermanence: false,
         popularTariffName: "Milenial",
+        trustpilotUrl: "https://es.trustpilot.com/review/www.atuladoenergia.com",
         scores: { price: 4.5, support: 4.2, app: 3.5, transparency: 4.5, onboarding: 4.4 }
     }
 ];

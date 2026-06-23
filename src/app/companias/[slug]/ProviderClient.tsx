@@ -17,7 +17,16 @@ import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
 import reviewsData from "@/lib/reviews.json";
 
-const GAS_STATION_KEYWORDS = ['surtidor', 'repost', 'estaci', 'combustibl', 'gasolinera', 'carburant', 'diesel', 'lavado', 'lubricant', 'glp', 'gasoil'];
+const REPSOL_ELEC_KEYWORDS = [
+    'luz', 'electric', 'factur', 'tarif', 'kwh', 'suministr',
+    'contrato', 'potencia', 'energi', 'bono social', 'waylet',
+    'alta de', 'cambio de compa', 'comercializ', 'hogar confort'
+];
+const GAS_STATION_KEYWORDS = [
+    'surtidor', 'repost', 'estaci', 'combustibl', 'gasolinera',
+    'carburant', 'diesel', 'lavado', 'lubricant', 'glp', 'gasoil',
+    'depósito', 'lavar el coche'
+];
 
 export default function ProviderClient({ provider }: { provider: Provider }) {
     const { resolvedTheme } = useTheme();
@@ -33,9 +42,13 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
     const providerReviews = useMemo(() => {
         const all: any[] = (reviewsData as Record<string, any>)[provider.id] || [];
         if (provider.id !== 'repsol') return all;
+        // For Repsol: their Trustpilot mixes electricity + gas station reviews.
+        // We require a positive electricity signal AND no gas station signal.
         return all.filter(rev => {
             const text = ((rev.title || '') + ' ' + (rev.text || '')).toLowerCase();
-            return !GAS_STATION_KEYWORDS.some(kw => text.includes(kw));
+            const isGas = GAS_STATION_KEYWORDS.some(kw => text.includes(kw));
+            const hasElec = REPSOL_ELEC_KEYWORDS.some(kw => text.includes(kw));
+            return !isGas && hasElec;
         });
     }, [provider.id]);
 
@@ -182,6 +195,16 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 ) : (
                                     <span className="text-[11px] font-bold text-slate-500 mt-1">(Sin opiniones)</span>
                                 )}
+                                {provider.trustpilotUrl && (
+                                    <a
+                                        href={provider.trustpilotUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-2 text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest hover:underline flex items-center justify-center gap-1 w-full text-center"
+                                    >
+                                        Ver en Trustpilot ↗
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -295,9 +318,8 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                 <p className="text-sm text-text-secondary leading-relaxed font-medium">{review.text}</p>
                                             </div>
                                             
-                                            <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                                            <div className="pt-4 border-t border-slate-50 dark:border-slate-800">
                                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fuente: Trustpilot</span>
-                                                <a href={review.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary font-bold hover:underline">Ver reseña original →</a>
                                             </div>
                                         </div>
                                     ))}

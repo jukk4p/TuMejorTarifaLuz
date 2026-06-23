@@ -1,6 +1,6 @@
 {
   "iberdrola": {
-    "rating": 4.1,
+    "rating": 4.3,
     "pros": [
       "Infraestructura y Red Propia",
       "Líder en Energía Renovable",
@@ -30,7 +30,7 @@
     }
   },
   "endesa": {
-    "rating": 3.6,
+    "rating": 3.9,
     "pros": [
       "Suministro Eléctrico Fiable",
       "Soporte al Cliente Multilingüe (en ciertos casos)",
@@ -62,7 +62,7 @@
     }
   },
   "naturgy": {
-    "rating": 1.5,
+    "rating": 4.5,
     "pros": [
       "Fiabilidad del Suministro Eléctrico",
       "Gestión Online y Portal de Cliente",
@@ -92,7 +92,7 @@
     }
   },
   "repsol": {
-    "rating": 4.5,
+    "rating": 4.8,
     "pros": [
       "Atención al cliente excepcional",
       "Servicio ágil y eficaz",
@@ -150,7 +150,7 @@
     }
   },
   "totalenergies": {
-    "rating": 1,
+    "rating": 1.5,
     "pros": [
       "Flexibilidad en la documentación de alta.",
       "Comunicación ágil en la fase pre-contratación/venta.",
@@ -180,7 +180,7 @@
     }
   },
   "niba": {
-    "rating": 3,
+    "rating": 4.5,
     "pros": [
       "Facilidad en el proceso de contratación",
       "Transición fluida entre proveedores",
@@ -208,7 +208,7 @@
     }
   },
   "imagina": {
-    "rating": 4.2,
+    "rating": 4.8,
     "pros": [
       "Excelente Atención al Cliente",
       "Procesos Eficientes y Sencillos",
@@ -266,7 +266,7 @@
     }
   },
   "energianufri": {
-    "rating": 2.7,
+    "rating": 2.9,
     "pros": [
       "Tarifas Competitivas y Ahorro",
       "Proceso de Alta Sencillo y Rápido",
@@ -294,7 +294,7 @@
     }
   },
   "atulado": {
-    "rating": 1.7,
+    "rating": 3.0,
     "pros": [
       "Precios Inicialmente Competitivos",
       "Información Anticipada de Precios Online",
@@ -324,7 +324,7 @@
     }
   },
   "esluz": {
-    "rating": 1,
+    "rating": 1.7,
     "pros": [
       "Compensación de excedentes inicialmente atractiva",
       "Innovación con batería virtual",
