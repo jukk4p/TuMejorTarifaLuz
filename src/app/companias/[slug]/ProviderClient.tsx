@@ -20,6 +20,7 @@ import reviewsData from "@/lib/reviews.json";
 export default function ProviderClient({ provider }: { provider: Provider }) {
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [showReviews, setShowReviews] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -175,7 +176,6 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                             </div>
                         </div>
                     </div>
-
                     {/* Pros & Cons Grid */}
                     <div className="grid md:grid-cols-2 gap-8 mb-20">
                         {/* Pros */}
@@ -228,6 +228,74 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                             </ul>
                         </div>
                     </div>
+
+                    {/* Collapsible Reviews Section */}
+                    {providerReviews.length > 0 && (
+                        <div className="mb-20">
+                            <button 
+                                onClick={() => setShowReviews(!showReviews)}
+                                className="w-full flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-border rounded-3xl hover:shadow-lg transition-all text-left font-bold text-text-primary group cursor-pointer"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                        <MessageSquare className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <span className="text-lg block font-900 text-primary">Ver opiniones reales de clientes</span>
+                                        <span className="text-xs text-slate-500 font-bold block">{providerReviews.length} opiniones en Trustpilot</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xs font-black uppercase text-slate-400 group-hover:text-primary transition-colors">
+                                        {showReviews ? "Ocultar opiniones" : "Mostrar opiniones"}
+                                    </span>
+                                    <ChevronRight className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${showReviews ? 'rotate-90' : ''}`} />
+                                </div>
+                            </button>
+
+                            {showReviews && (
+                                <div className="grid gap-6 mt-6 p-6 bg-slate-100/30 dark:bg-slate-900/30 rounded-3xl border border-dashed border-border transition-all">
+                                    {providerReviews.slice(0, 5).map((review: any) => (
+                                        <div key={review.reviewId} className="bg-white dark:bg-slate-900 border border-border p-8 rounded-3xl shadow-sm hover:shadow-md transition-all space-y-4">
+                                            <div className="flex flex-wrap items-center justify-between gap-4">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
+                                                        {review.avatar ? (
+                                                            <img src={review.avatar} alt={review.name || "Usuario"} className="w-full h-full rounded-full object-cover" />
+                                                        ) : (
+                                                            (review.name || "Cliente").split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <h5 className="font-800 text-text-primary text-sm leading-snug">{review.name || "Cliente de Trustpilot"}</h5>
+                                                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                                                            {new Date(review.date || Date.now()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col items-end gap-1">
+                                                    {renderStars(review.rating)}
+                                                    <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
+                                                        <CheckCircle2 size={10} /> Opinión Verificada
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="space-y-2">
+                                                <h4 className="text-base font-800 text-text-primary">{review.title}</h4>
+                                                <p className="text-sm text-text-secondary leading-relaxed font-medium">{review.text}</p>
+                                            </div>
+                                            
+                                            <div className="pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fuente: Trustpilot</span>
+                                                <a href={review.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary font-bold hover:underline">Ver reseña original →</a>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     {/* Active Tariffs Section */}
                     <div className="space-y-12 mb-24">

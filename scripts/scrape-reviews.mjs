@@ -49,7 +49,7 @@ async function main() {
         const startPromises = batch.map(async (company) => {
             const startUrl = `https://api.apify.com/v2/acts/${actorId}/runs?token=${token}`;
             const payload = {
-                startUrls: [{ url: `https://www.trustpilot.com/review/${company.domain}` }],
+                startUrls: [{ url: `https://es.trustpilot.com/review/${company.domain}` }],
                 maxReviews: 10
             };
 
