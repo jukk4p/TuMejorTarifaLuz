@@ -9,7 +9,7 @@ import JsonLd, { webAppSchema, getBreadcrumbSchema } from "@/components/seo/Json
 import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard } from "@/components/ui/HomeClientComponents";
 
 import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
-import { CloudUpload, TrendingDown, FileText, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
+import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 
@@ -89,7 +89,7 @@ export default async function Home() {
         
         {/* Hero Section */}
         <section 
-          className="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-32 min-h-[85vh] flex items-center transition-colors duration-300"
+          className="relative overflow-hidden pt-12 pb-10 lg:pt-20 lg:pb-16 min-h-[72vh] flex items-center transition-colors duration-300"
           style={{ background: 'linear-gradient(160deg, var(--color-section-muted) 0%, var(--color-section-white) 100%)' }}
         >
           <div className="hero-glow-1"></div>
@@ -168,7 +168,7 @@ export default async function Home() {
 
         {/* Support & Independence Section */}
         <section 
-          className="py-24 relative overflow-hidden transition-colors duration-300"
+          className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300"
           style={{ background: 'var(--color-section-muted)' }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -261,9 +261,9 @@ export default async function Home() {
         </section>
 
         {/* How it Works Section */}
-        <section id="como-funciona" className="py-24 relative transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+        <section id="como-funciona" className="py-16 md:py-20 relative transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="text-center max-w-3xl mx-auto mb-16">
+            <FadeIn className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">¿Cómo funciona nuestro comparador?</h2>
               <p className="text-lg text-text-secondary">Nuestro proceso inteligente elimina la complejidad de las facturas de luz en tres pasos sencillos.</p>
             </FadeIn>
@@ -307,9 +307,9 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-24 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
+        <section id="faq" className="pb-16 md:pb-20 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="text-center mb-16">
+            <FadeIn className="text-center mb-12">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
               <p className="text-lg text-text-secondary">Todo lo que necesitas saber sobre nuestro motor de comparación.</p>
             </FadeIn>
@@ -413,9 +413,9 @@ export default async function Home() {
         </section>
 
         {/* Knowledge Center Section */}
-        <section id="guias" className="py-24 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+        <section id="guias" className="py-16 md:py-20 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div className="max-w-2xl space-y-4">
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
                   <Newspaper size={14} />
@@ -432,11 +432,11 @@ export default async function Home() {
                   <PremiumTiltCard className="h-full">
                     <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
                       <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
-                      <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">{post.title}</h3>
+                      <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight h-[3.5rem] overflow-hidden line-clamp-2">{post.title}</h3>
                       <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
                         <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
-                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow">{post.excerpt}</p>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow h-[4.25rem] overflow-hidden line-clamp-3">{post.excerpt}</p>
                       <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
                         <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
                         <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
@@ -460,7 +460,7 @@ export default async function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-24 relative overflow-hidden transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+        <section className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -mr-64 -mt-64 opacity-50"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mb-48 opacity-30"></div>
 
@@ -479,17 +479,17 @@ export default async function Home() {
 
                  <FadeInStagger className="grid sm:grid-cols-2 gap-6">
                   {[
-                    { icon: "analytics", title: "Estudio de Ahorro Pro", desc: "No te quedes en la superficie. Accede al desglose técnico de potencia y energía para entender exactamente dónde se va tu dinero cada mes." },
-                    { icon: "brain", title: "Tu Consultor IA 24/7", desc: "Nuestro motor analiza la letra pequeña y te avisa de permanencias ocultas o costes fantasma antes de que los pagues." },
-                    { icon: "heart", title: "Radar de Oportunidades", desc: "Guarda tus tarifas favoritas y recibe un aviso instantáneo si bajan de precio o si aparece una oferta superior para tu perfil." },
-                    { icon: "bell", title: "Alertas Anti-Subidas", desc: "Te avisamos de inmediato si detectamos una oportunidad de ahorro masivo o si tu contrato actual deja de ser competitivo." }
+                    { icon: "analytics", title: "Desglose detallado", desc: "Ve el desglose de potencia y energía de tu factura para entender exactamente en qué se te va el dinero cada mes." },
+                    { icon: "filesearch", title: "Revisión de condiciones", desc: "Revisamos las condiciones de cada tarifa y te avisamos si detectamos permanencia u otros cargos que conviene conocer antes de contratar." },
+                    { icon: "heart", title: "Tarifas favoritas", desc: "Guarda las tarifas que te interesan y te avisamos si baja su precio o aparece una opción mejor para tu perfil." },
+                    { icon: "bell", title: "Aviso de subidas", desc: "Si tu tarifa actual deja de ser competitiva o detectamos una subida, te lo notificamos para que puedas cambiar a tiempo." }
                   ].map((benefit, i) => (
                     <FadeIn key={i} direction="none" className="flex">
                       <PremiumTiltCard className="w-full flex">
                         <div className="flex gap-4 group p-4 rounded-3xl hover:bg-surface transition-colors w-full h-full">
                           <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary border border-primary/20 group-hover:bg-primary group-hover:text-surface transition-all duration-300">
                             {benefit.icon === 'analytics' && <BarChart3 size={24} />}
-                            {benefit.icon === 'brain' && <Brain size={24} />}
+                            {benefit.icon === 'filesearch' && <FileSearch size={24} />}
                             {benefit.icon === 'heart' && <Heart size={24} />}
                             {benefit.icon === 'bell' && <Bell size={24} />}
                           </div>
@@ -566,11 +566,11 @@ export default async function Home() {
 
         {/* Brand Logos Grid Section */}
         <section 
-          className="py-24 border-y border-border transition-colors duration-300" 
+          className="py-16 md:py-20 border-y border-border transition-colors duration-300"
           style={{ background: 'var(--color-section-muted)' }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 space-y-4">
+            <div className="text-center mb-10 space-y-4">
               <h2 className="font-heading text-3xl font-semibold text-text-primary">Comparamos entre las mejores comercializadoras</h2>
             </div>
 
@@ -601,11 +601,11 @@ export default async function Home() {
                   >
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>

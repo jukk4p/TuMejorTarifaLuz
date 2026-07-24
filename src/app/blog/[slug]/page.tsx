@@ -25,17 +25,17 @@ export async function generateMetadata(
     openGraph: {
       title: post.title,
       description: post.metaDescription ?? post.excerpt?.slice(0, 155),
-      url: `https://tumejortarifaluz.es/blog/${slug}`,
+      url: `https://www.tumejortarifaluz.es/blog/${slug}`,
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.dateUpdated,
       images: post.image 
-        ? [{ url: `https://tumejortarifaluz.es${post.image}`, 
+        ? [{ url: `https://www.tumejortarifaluz.es${post.image}`, 
              width: 1200, height: 630 }] 
         : [],
     },
     alternates: {
-      canonical: `https://tumejortarifaluz.es/blog/${slug}`
+      canonical: `https://www.tumejortarifaluz.es/blog/${slug}`
     }
   }
 }
@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 author: {
                     "@type": "Person",
                     "name": "Iván González",
-                    "url": "https://tumejortarifaluz.es/sobre-nosotros",
+                    "url": "https://www.tumejortarifaluz.es/sobre-nosotros",
                     "sameAs": post.author.social ? Object.values(post.author.social).filter(Boolean) : []
                 }
             }} />

@@ -31,7 +31,7 @@ export const AUTHOR_IVAN = {
   avatar: "/Logo.png",
   social: {
     twitter: "https://twitter.com/tumejortarifaluz",
-    linkedin: "https://tumejortarifaluz.es/sobre-nosotros"
+    linkedin: "https://www.tumejortarifaluz.es/sobre-nosotros"
   }
 };
 

@@ -12,12 +12,12 @@ export const metadata: Metadata = {
     title: 'Sobre Nosotros | Iván González, Fundador',
     description: 'TuMejorTarifaLuz es un proyecto independiente creado por Iván González en 2025. Sin comisiones ni llamadas comerciales. Solo tecnología y datos reales para ayudarte a ahorrar en tu factura de luz.',
     alternates: {
-        canonical: 'https://tumejortarifaluz.es/sobre-nosotros'
+        canonical: 'https://www.tumejortarifaluz.es/sobre-nosotros'
     },
     openGraph: {
         title: 'Iván González — Fundador de TuMejorTarifaLuz',
         description: 'El proyecto independiente que democratiza el ahorro energético en España. Sin acuerdos con eléctricas, sin comisiones.',
-        url: 'https://tumejortarifaluz.es/sobre-nosotros',
+        url: 'https://www.tumejortarifaluz.es/sobre-nosotros',
         type: 'profile',
     }
 };
@@ -27,16 +27,16 @@ const aboutSchema = {
     "@graph": [
         {
             "@type": "Person",
-            "@id": "https://tumejortarifaluz.es/sobre-nosotros#founder",
+            "@id": "https://www.tumejortarifaluz.es/sobre-nosotros#founder",
             "name": "Iván González",
             "jobTitle": "Desarrollador y Fundador",
             "description": "Desarrollador independiente y fundador de TuMejorTarifaLuz. Más de dos años analizando facturas de luz para encontrar ahorros reales para familias españolas.",
             "worksFor": {
                 "@type": "Organization",
                 "name": "TuMejorTarifaLuz",
-                "url": "https://tumejortarifaluz.es"
+                "url": "https://www.tumejortarifaluz.es"
             },
-            "url": "https://tumejortarifaluz.es/sobre-nosotros",
+            "url": "https://www.tumejortarifaluz.es/sobre-nosotros",
             "knowsAbout": [
                 "Tarifas eléctricas España",
                 "Mercado mayorista OMIE",
@@ -46,15 +46,15 @@ const aboutSchema = {
         },
         {
             "@type": "Organization",
-            "@id": "https://tumejortarifaluz.es/#organization",
+            "@id": "https://www.tumejortarifaluz.es/#organization",
             "name": "TuMejorTarifaLuz",
             "foundingDate": "2025",
             "founder": {
-                "@id": "https://tumejortarifaluz.es/sobre-nosotros#founder"
+                "@id": "https://www.tumejortarifaluz.es/sobre-nosotros#founder"
             },
             "description": "Comparador independiente de tarifas de luz en España. Sin comisiones ni acuerdos comerciales.",
-            "url": "https://tumejortarifaluz.es",
-            "logo": "https://tumejortarifaluz.es/Logo.png",
+            "url": "https://www.tumejortarifaluz.es",
+            "logo": "https://www.tumejortarifaluz.es/Logo.png",
             "contactPoint": {
                 "@type": "ContactPoint",
                 "email": "contacto@tumejortarifaluz.es",

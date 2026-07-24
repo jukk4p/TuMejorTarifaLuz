@@ -150,7 +150,7 @@
     }
   },
   "totalenergies": {
-    "rating": 1.5,
+    "rating": 3.5,
     "pros": [
       "Flexibilidad en la documentación de alta.",
       "Comunicación ágil en la fase pre-contratación/venta.",
@@ -266,7 +266,7 @@
     }
   },
   "energianufri": {
-    "rating": 2.9,
+    "rating": 2.7,
     "pros": [
       "Tarifas Competitivas y Ahorro",
       "Proceso de Alta Sencillo y Rápido",
@@ -324,7 +324,7 @@
     }
   },
   "esluz": {
-    "rating": 1.7,
+    "rating": 1.8,
     "pros": [
       "Compensación de excedentes inicialmente atractiva",
       "Innovación con batería virtual",
@@ -384,7 +384,7 @@
     }
   },
   "energia-vm": {
-    "rating": 1.7,
+    "rating": 1.6,
     "pros": [
       "Tarifas Fijas Estables",
       "Energía 100% Verde Certificada",

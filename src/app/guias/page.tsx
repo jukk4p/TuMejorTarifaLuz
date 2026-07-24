@@ -71,7 +71,7 @@ export default function GuiasPage() {
                                         {new Date(guide.date).toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
                                     </span>
                                 </div>
-                                <h3 className="text-xl font-800 text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight min-h-[3.5rem] line-clamp-2">
+                                <h3 className="text-xl font-800 text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight h-[3.5rem] overflow-hidden line-clamp-2">
                                     <Link href={`/blog/${guide.slug}`}>
                                         {guide.title}
                                     </Link>
@@ -84,7 +84,7 @@ export default function GuiasPage() {
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
-                                <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow line-clamp-3 min-h-[4rem]">
+                                <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow line-clamp-3 h-[4rem] overflow-hidden">
                                     {guide.excerpt}
                                 </p>
                                 <Link

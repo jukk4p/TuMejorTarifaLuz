@@ -92,17 +92,17 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
     };
 
     const breadcrumbSchema = getBreadcrumbSchema([
-        { name: "Inicio", item: "https://tumejortarifaluz.es" },
-        { name: "Compañías eléctricas", item: "https://tumejortarifaluz.es/companias" },
-        { name: provider.name, item: `https://tumejortarifaluz.es/companias/${provider.slug}` }
+        { name: "Inicio", item: "https://www.tumejortarifaluz.es" },
+        { name: "Compañías eléctricas", item: "https://www.tumejortarifaluz.es/companias" },
+        { name: provider.name, item: `https://www.tumejortarifaluz.es/companias/${provider.slug}` }
     ]);
 
     const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": provider.name,
-        "logo": `https://tumejortarifaluz.es${provider.logo}`,
-        "url": `https://tumejortarifaluz.es/companias/${provider.slug}`,
+        "logo": `https://www.tumejortarifaluz.es${provider.logo}`,
+        "url": `https://www.tumejortarifaluz.es/companias/${provider.slug}`,
         "description": provider.description,
         "aggregateRating": {
             "@type": "AggregateRating",

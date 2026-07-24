@@ -22,10 +22,17 @@ export default function Navbar() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isCompaniesOpen, setIsCompaniesOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [avatarFailed, setAvatarFailed] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const avatarUrl = user
+        ? (user.photoURL && !avatarFailed
+            ? user.photoURL
+            : `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`)
+        : "";
 
     // Prevent scroll when drawer is open
     useEffect(() => {
@@ -153,10 +160,11 @@ export default function Navbar() {
                                         aria-haspopup="menu"
                                         aria-expanded={isUserMenuOpen}
                                     >
-                                        <img 
-                                            src={user.photoURL || `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
-                                            alt={user.displayName || "Usuario"} 
-                                            className="w-full h-full object-cover" 
+                                        <img
+                                            src={avatarUrl}
+                                            alt={user.displayName || "Usuario"}
+                                            className="w-full h-full object-cover"
+                                            onError={() => setAvatarFailed(true)}
                                         />
                                     </button>
                                     {isUserMenuOpen && (
@@ -257,10 +265,11 @@ export default function Navbar() {
                         {user ? (
                             <div className="flex items-center gap-4">
                                 <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center overflow-hidden">
-                                    <img 
-                                        src={user.photoURL || `https://api.dicebear.com/9.x/shapes/svg?seed=${encodeURIComponent(user.displayName || user.email?.split('@')[0] || user.uid)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`} 
-                                        alt={user.displayName || "User"} 
-                                        className="w-full h-full object-cover" 
+                                    <img
+                                        src={avatarUrl}
+                                        alt={user.displayName || "User"}
+                                        className="w-full h-full object-cover"
+                                        onError={() => setAvatarFailed(true)}
                                     />
                                 </div>
                                 <div className="flex-1 min-w-0">

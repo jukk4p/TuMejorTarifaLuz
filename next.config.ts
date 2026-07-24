@@ -230,7 +230,12 @@ const nextConfig: NextConfig = {
       {
         source: '/guias',
         destination: '/blog',
-        permanent: false,
+        permanent: true,
+      },
+      {
+        source: '/guias/:slug*',
+        destination: '/blog',
+        permanent: true,
       },
     ];
   },

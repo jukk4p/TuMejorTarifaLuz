@@ -2480,9 +2480,9 @@ export default function ComparadorMain() {
                                                             <div className="text-right flex flex-col items-end">
                                                                 <span className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1.5">Ahorro mensual</span>
                                                                 <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-heading font-black text-sm tracking-tight ${
-                                                                    saving > 0.01 
-                                                                        ? "bg-accent/10 text-accent shadow-sm shadow-accent/5" 
-                                                                        : saving < -0.01 
+                                                                    saving > 0.01
+                                                                        ? "bg-savings/10 text-savings-text shadow-sm shadow-savings/5"
+                                                                        : saving < -0.01
                                                                             ? "bg-rose-500/10 text-rose-500 shadow-sm shadow-rose-500/5" 
                                                                             : "bg-surface-2 text-text-muted"
                                                                 }`}>
@@ -2662,9 +2662,9 @@ export default function ComparadorMain() {
                                                                 </td>
                                                                 <td className="py-6 px-8 text-center uppercase">
                                                                     <div className={`inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full font-heading font-black text-base tracking-tight shadow-sm min-w-[100px] ${
-                                                                        saving > 0.01 
-                                                                            ? "bg-accent/10 text-accent border border-accent/20" 
-                                                                            : saving < -0.01 
+                                                                        saving > 0.01
+                                                                            ? "bg-savings/10 text-savings-text border border-savings/20"
+                                                                            : saving < -0.01
                                                                                 ? "bg-rose-500/10 text-rose-500 border border-rose-500/20" 
                                                                                 : "bg-surface-2 text-text-muted border border-border"
                                                                     }`}>

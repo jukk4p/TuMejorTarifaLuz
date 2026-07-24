@@ -18,13 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
         openGraph: {
             title: `Precio de la Luz Hoy en España ${todayStr}: Horas más BARATAS y CARAS`,
             description: `Consulta el precio del kWh para hoy ${todayStr}. Identifica las horas más baratas y ahorra en tu factura. Precio ahora: ${currentPrice} €/kWh.`,
-            url: "https://tumejortarifaluz.es/precio-luz-hoy",
+            url: "https://www.tumejortarifaluz.es/precio-luz-hoy",
             siteName: "TuMejorTarifaLuz",
             locale: "es_ES",
             type: "website",
         },
         alternates: {
-            canonical: "https://tumejortarifaluz.es/precio-luz-hoy"
+            canonical: "https://www.tumejortarifaluz.es/precio-luz-hoy"
         }
     };
 }
@@ -56,12 +56,12 @@ export default async function PrecioLuzHoyPage() {
         "@type": "Dataset",
         "name": "Precio de la luz hoy en España (PVPC/OMIE)",
         "description": "Precios horarios del mercado eléctrico mayorista español actualizados diariamente",
-        "url": "https://tumejortarifaluz.es/precio-luz-hoy",
+        "url": "https://www.tumejortarifaluz.es/precio-luz-hoy",
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "provider": {
             "@type": "Organization",
             "name": "TuMejorTarifaLuz",
-            "url": "https://tumejortarifaluz.es"
+            "url": "https://www.tumejortarifaluz.es"
         },
         "creator": {
             "@type": "Organization",

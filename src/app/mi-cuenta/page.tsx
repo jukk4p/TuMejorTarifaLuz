@@ -45,6 +45,7 @@ export default function ProfilePage() {
     const { favorites, toggleFavorite, loading: favLoading } = useFavorites();
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [avatarFailed, setAvatarFailed] = useState(false);
     const [savedBills, setSavedBills] = useState<SavedBill[]>([]);
     const [loadingBills, setLoadingBills] = useState(true);
     const { showToast } = useToast();
@@ -280,8 +281,8 @@ export default function ProfilePage() {
                         <div className="relative shrink-0">
                             <div className="absolute inset-0 bg-primary/20 rounded-[1.75rem] sm:rounded-[2rem] blur-xl animate-pulse"></div>
                             <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-[1.75rem] sm:rounded-[2rem] bg-surface-2 border-4 border-white dark:border-slate-800 shadow-2xl overflow-hidden z-10 transition-transform hover:scale-105 duration-500">
-                                {user.photoURL ? (
-                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" />
+                                {user.photoURL && !avatarFailed ? (
+                                    <img src={user.photoURL} alt={user.displayName || "User"} className="w-full h-full object-cover" onError={() => setAvatarFailed(true)} />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
                                         <UserIcon size={40} strokeWidth={1.5} />

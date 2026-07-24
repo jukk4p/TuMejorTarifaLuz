@@ -50,7 +50,7 @@ function FooterSection({ title, isOpen, onToggle, children }: FooterSectionProps
         <div className="border-b lg:border-none border-border/50 last:border-none">
             <button 
                 onClick={onToggle}
-                className="w-full flex items-center justify-center lg:justify-between py-5 lg:py-0 lg:mb-8 transition-colors lg:pointer-events-none relative"
+                className="w-full flex items-center justify-center lg:justify-between py-5 lg:py-0 lg:mb-6 transition-colors lg:pointer-events-none relative"
                 aria-expanded={isOpen}
                 aria-label={`Alternar sección ${title}`}
             >
@@ -79,10 +79,10 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#070E18] text-[#CBD5E1] pt-12 md:pt-20 pb-10 border-t border-white/5">
+        <footer className="bg-[#070E18] text-[#CBD5E1] pt-10 md:pt-14 pb-8 border-t border-white/5">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* 4-Column Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-20 items-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-10 md:mb-12 items-start">
                     
                     {/* Col 1: Herramientas */}
                     <FooterSection 
@@ -177,7 +177,7 @@ export default function Footer() {
                             ))}
 
                             {/* Contact Mini-cards */}
-                            <div className="mt-4 pt-6 border-t border-white/10 flex flex-col items-center lg:items-start gap-3 lg:gap-3">
+                            <div className="mt-3 pt-4 border-t border-white/10 flex flex-col items-center lg:items-start gap-2.5 lg:gap-2.5">
                                 <a href="mailto:contacto@tumejortarifaluz.es" className="flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start gap-3 p-3 lg:p-2.5 h-auto lg:h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
                                     <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
                                         <Mail size={16} />
@@ -199,8 +199,8 @@ export default function Footer() {
                             </div>
 
                             {/* Social Media Links */}
-                            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col items-center lg:items-start text-center lg:text-left">
-                                <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase mb-5">Síguenos</p>
+                            <div className="mt-5 pt-4 border-t border-white/10 flex flex-col items-center lg:items-start text-center lg:text-left">
+                                <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase mb-3">Síguenos</p>
                                 <div className="flex items-center justify-center lg:justify-start gap-4">
                                     <a 
                                         href="https://x.com/TMejorTarifaLuz" 
@@ -230,7 +230,7 @@ export default function Footer() {
                     </FooterSection>
                 </div>
 
-                <div className="pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 w-full">
+                <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 w-full">
                     {/* Logo Section */}
                     <div className="flex items-center gap-3.5 group shrink-0">
                         <div className="w-12 h-12 transition-all flex items-center justify-center p-1">
