@@ -9,7 +9,7 @@ import JsonLd, { webAppSchema, getBreadcrumbSchema } from "@/components/seo/Json
 import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard } from "@/components/ui/HomeClientComponents";
 
 import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
-import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap, AlertTriangle } from "lucide-react";
+import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap, ArrowDownRight, ArrowUpRight, Calendar, Trophy, Gauge, Building2 } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 
@@ -303,24 +303,24 @@ export default async function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+        <section className="py-12 md:py-16 relative overflow-hidden border-b border-border transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -mr-64 -mt-64 opacity-50"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -ml-48 -mb-48 opacity-30"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <FadeIn direction="left" className="space-y-8">
-                <div className="space-y-4">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+              <FadeIn direction="left" className="space-y-6">
+                <div className="space-y-3">
                   <h2 className="font-heading text-3xl md:text-4xl font-900 text-text-primary tracking-tight leading-tight">
                     ¿Quieres ahorrar de verdad o <br />
                     <span className="text-primary italic">solo mirar un número?</span>
                   </h2>
-                  <p className="text-xl text-text-secondary leading-relaxed font-medium">
+                  <p className="text-lg text-text-secondary leading-relaxed font-medium">
                     <span className="text-text-primary font-bold">Sin cuenta solo ves el resultado una vez.</span> Con tu cuenta gratuita guardas tu análisis, recibes alertas automáticas y comparas tu ahorro en el tiempo para no volver a pagar de más nunca.
                   </p>
                 </div>
 
-                 <FadeInStagger className="grid sm:grid-cols-2 gap-6">
+                 <FadeInStagger className="grid sm:grid-cols-2 gap-4">
                   {[
                     { icon: "analytics", title: "Desglose detallado", desc: "Ve el desglose de potencia y energía de tu factura para entender exactamente en qué se te va el dinero cada mes." },
                     { icon: "filesearch", title: "Revisión de condiciones", desc: "Revisamos las condiciones de cada tarifa y te avisamos si detectamos permanencia u otros cargos que conviene conocer antes de contratar." },
@@ -365,62 +365,104 @@ export default async function Home() {
                 <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px]"></div>
                 <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px]"></div>
 
-                <div className="bg-surface p-8 rounded-[2.5rem] border border-border shadow-2xl relative overflow-hidden">
-                  {/* Header */}
-                  <div className="flex items-center justify-between border-b border-border pb-6 mb-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">
-                        MG
-                      </div>
-                      <span className="font-heading font-bold text-text-primary">Tu análisis guardado</span>
+                <div className="bg-surface rounded-[1.75rem] border border-border shadow-2xl relative overflow-hidden max-w-[420px] ml-auto">
+                  {/* Top bar, mirrors the results header in /comparador */}
+                  <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-border bg-surface-2/40">
+                    <div className="min-w-0">
+                      <p className="text-[8px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">Análisis de resultados</p>
+                      <p className="text-[12px] font-black text-text-primary truncate">Ahorro estimado: <span className="text-primary">58,20 €</span>/año</p>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                      <Bell size={16} />
+                    <span className="px-2.5 py-1 bg-primary text-white text-[9px] font-black rounded-full uppercase tracking-wide shrink-0">Guardar</span>
+                  </div>
+
+                  {/* Stat cards row */}
+                  <div className="grid grid-cols-3 gap-2 p-4 pb-3">
+                    <div className="bg-surface-2/50 border border-border rounded-xl p-2.5">
+                      <FileText size={13} className="text-primary mb-1.5" />
+                      <p className="text-[13px] font-black text-text-primary tracking-tighter">65,15€</p>
+                      <span className="text-[7px] font-black text-savings-text bg-savings/10 px-1.5 py-0.5 rounded-full inline-block mt-1 whitespace-nowrap">↓4,85€/mes</span>
+                    </div>
+                    <div className="bg-surface-2/50 border border-border rounded-xl p-2.5">
+                      <Calendar size={13} className="text-orange-500 mb-1.5" />
+                      <p className="text-[13px] font-black text-text-primary tracking-tighter">781,80€</p>
+                      <span className="text-[7px] font-black text-savings-text bg-savings/10 px-1.5 py-0.5 rounded-full inline-block mt-1 whitespace-nowrap">58,20€/año</span>
+                    </div>
+                    <div className="bg-surface-2/50 border border-border rounded-xl p-2.5">
+                      <Trophy size={13} className="text-orange-500 mb-1.5" />
+                      <p className="text-[13px] font-black text-text-primary tracking-tighter">0,1043</p>
+                      <span className="text-[7px] font-black text-text-muted uppercase tracking-widest block mt-1 truncate">Energya VM</span>
                     </div>
                   </div>
 
-                  {/* Comparison rows */}
-                  <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-4">Comparativa de tarifas · tu consumo</p>
-                  <div className="space-y-3.5 mb-6">
-                    {[
-                      { name: "Octopus", price: 82, pct: 79 },
-                      { name: "Naturgy", price: 91, pct: 87 },
-                      { name: "Iberdrola", price: 96, pct: 92 },
-                    ].map((row) => (
-                      <div key={row.name} className="flex items-center gap-4">
-                        <span className="text-[13px] font-bold text-text-primary w-[72px] shrink-0 truncate">{row.name}</span>
-                        <div className="flex-1 h-2 bg-surface-2 rounded-full overflow-hidden">
-                          <div className="h-full bg-primary rounded-full" style={{ width: `${row.pct}%` }}></div>
+                  {/* Mini results table, same visual language as /comparador */}
+                  <div className="px-5 pb-4">
+                    <div className="flex items-center justify-between gap-3 py-2 border-b border-border/50">
+                      <div className="min-w-0">
+                        <p className="text-[8px] font-black text-text-muted uppercase tracking-widest">Tu situación actual</p>
+                        <p className="text-[10px] font-black text-text-secondary uppercase tracking-tight">Referencia base</p>
+                      </div>
+                      <p className="text-[13px] font-black text-text-secondary shrink-0">70,00€</p>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3 border-l-4 border-primary pl-3 py-2 border-b border-border/50">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+                          <span className="font-heading font-black text-[12px] text-text-primary uppercase tracking-tight truncate">Fórmula 24h</span>
+                          <span className="bg-primary/10 text-primary border border-primary/20 text-[7px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-tighter shrink-0">Mejor opción</span>
                         </div>
-                        <span className="text-[13px] font-bold text-text-secondary w-16 text-right shrink-0">{row.price} €/mes</span>
+                        <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">Energya VM</span>
                       </div>
-                    ))}
-                    <div className="flex items-center gap-4">
-                      <span className="text-[13px] font-bold text-text-primary w-[72px] shrink-0 truncate">Tu tarifa</span>
-                      <div className="flex-1 h-2 bg-surface-2 rounded-full overflow-hidden">
-                        <div className="h-full bg-rose-500 rounded-full w-full"></div>
+                      <div className="text-right shrink-0">
+                        <p className="font-heading font-black text-sm text-text-primary tracking-tighter">65,15€</p>
+                        <span className="inline-flex items-center gap-1 text-[9px] font-black text-savings-text bg-savings/10 px-1.5 py-0.5 rounded-full">
+                          <ArrowDownRight size={9} /> 4,85€
+                        </span>
                       </div>
-                      <span className="text-[13px] font-black text-rose-500 w-16 text-right shrink-0">104 €/mes</span>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3 py-2">
+                      <div className="min-w-0">
+                        <span className="font-heading font-black text-[12px] text-text-primary uppercase tracking-tight block truncate">Fórmula Fija 3P</span>
+                        <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">Energya VM</span>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="font-heading font-black text-sm text-text-primary tracking-tighter">70,74€</p>
+                        <span className="inline-flex items-center gap-1 text-[9px] font-black text-rose-500 bg-rose-500/10 px-1.5 py-0.5 rounded-full">
+                          <ArrowUpRight size={9} /> 0,74€
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Alert box */}
-                  <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 flex gap-3 mb-6">
-                    <AlertTriangle size={17} className="text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-[13px] font-bold text-amber-700 dark:text-amber-400 leading-tight">Subida detectada en tu tarifa actual</p>
-                      <p className="text-xs text-amber-700/70 dark:text-amber-400/70 mt-1 leading-relaxed">Endesa ha subido el término de potencia un 4,2% desde el 1 de julio.</p>
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Ahorro potencial anual</p>
-                      <p className="text-2xl font-black text-text-primary">264 €</p>
-                    </div>
-                    <div className="px-3 py-1.5 bg-primary/10 rounded-full shrink-0">
-                      <span className="text-[11px] font-bold text-primary whitespace-nowrap">Guardado hace 2 días</span>
+                  {/* Mini technical breakdown, same style as the black box in /comparador */}
+                  <div className="bg-slate-900 p-5 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-[60px] -mr-16 -mt-16"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-between mb-3.5 gap-3">
+                        <div className="min-w-0">
+                          <p className="text-[8px] font-black text-white/50 uppercase tracking-[0.2em] mb-0.5">Análisis técnico</p>
+                          <p className="text-[11px] font-bold text-white/90 truncate">Energya VM · Fórmula 24h</p>
+                        </div>
+                        <p className="font-heading font-900 text-lg text-savings tracking-tighter shrink-0">65,15<span className="text-xs ml-0.5 opacity-70">€</span></p>
+                      </div>
+                      <div className="grid grid-cols-3 gap-x-3 gap-y-3">
+                        {[
+                          { label: "Energía", val: "37,04€", icon: <Zap size={10} className="text-white" /> },
+                          { label: "Potencia", val: "12,87€", icon: <BarChart3 size={10} className="text-white" /> },
+                          { label: "Bono social", val: "0,57€", icon: <Heart size={10} className="text-white" /> },
+                          { label: "Contador", val: "0,81€", icon: <Gauge size={10} className="text-white" /> },
+                          { label: "Imp. IEE", val: "2,55€", icon: <Building2 size={10} className="text-white" /> },
+                          { label: "IVA", val: "11,31€", icon: <FileText size={10} className="text-white" /> },
+                        ].map((item) => (
+                          <div key={item.label} className="border-l-2 border-white/20 pl-2">
+                            <div className="flex items-center gap-1 mb-1 text-white/70">
+                              {item.icon}
+                              <span className="text-[7px] font-black uppercase tracking-widest truncate">{item.label}</span>
+                            </div>
+                            <p className="text-[12px] font-black text-white">{item.val}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
