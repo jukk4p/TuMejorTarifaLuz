@@ -73,15 +73,18 @@ export default function ContactoPage() {
                                     <p className="text-white/80 text-sm mb-6 leading-relaxed">
                                         Uno de nuestros expertos energéticos puede analizar tu factura actual totalmente gratis y sin compromiso.
                                     </p>
-                                    <button className="w-full bg-white text-primary font-black py-4 rounded-2xl shadow-lg hover:shadow-white/20 hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
-                                        Agendar una llamada
-                                    </button>
+                                    <a
+                                        href="#contacto-form"
+                                        className="w-full flex items-center justify-center bg-white text-primary font-black py-4 rounded-2xl shadow-lg hover:shadow-white/20 hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+                                    >
+                                        Escríbenos y te contactamos
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
                         {/* Form Column */}
-                        <div className="lg:col-span-7">
+                        <div id="contacto-form" className="lg:col-span-7 scroll-mt-32">
                             <ContactForm />
                         </div>
                     </div>
