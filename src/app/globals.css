@@ -73,7 +73,7 @@
   --primary-hover: light-dark(#0D9488, #0D9488);
   /* Brand accents para alertas / urgencia */
   --accent: light-dark(#f2994a, #f2994a);
-  --warning: light-dark(#f2c94c, #f2c94c);
+  --warning: light-dark(#b45309, #f2c94c);
 }
 
 @theme {
