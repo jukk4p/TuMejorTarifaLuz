@@ -15,6 +15,42 @@ import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 
 export const revalidate = 60; // Cache for 1 minute to enable BFCache and CDN caching
 
+const HOME_FAQS = [
+  {
+    q: "¿Es seguro subir mi factura?",
+    a: "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS) y protocolos de seguridad avanzada. Tu factura solo se procesa para extraer los datos técnicos necesarios; no almacenamos datos personales sensibles ni los vendemos a terceros. Tu privacidad es nuestro compromiso número uno."
+  },
+  {
+    q: "¿Cómo se analizan los datos?",
+    a: "Nuestra tecnología de OCR de última generación escanea tu factura en milisegundos. Identificamos automáticamente tu CUPS (anonimizado), potencias contratadas y perfiles de consumo horario. Cruzamos esta información con todas las ofertas vigentes del mercado para encontrar tu pareja ideal de ahorro."
+  },
+  {
+    q: "¿Tengo que cambiarme de compañía tras el análisis?",
+    a: "En absoluto. El comparador es una herramienta de consulta totalmente libre. Te mostramos cuánto podrías ahorrar y con qué proveedor, pero la decisión final de contratar o no es siempre tuya. No hay compromisos ni llamadas comerciales intrusivas."
+  },
+  {
+    q: "¿Tengo que pagar por usar el comparador?",
+    a: "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética. Si decides cambiarte, te facilitamos el enlace directo a la web oficial de la compañía para que hagas el trámite tú mismo, sin intermediarios.",
+    success: true
+  },
+  {
+    q: "¿Las tarifas están actualizadas?",
+    a: "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras. Si una compañía lanza una oferta nueva en España, nosotros la tenemos en el comparador en menos de 24 horas."
+  },
+  {
+    q: "¿Sirve para empresas o solo para hogares?",
+    a: "Nuestro motor actual está optimizado para tarifas domésticas y pymes (tarifas 2.0TD, hasta 15kW). Si eres una gran industria con perfiles 3.0TD o superiores, contacta con nosotros para un análisis personalizado por uno de nuestros técnicos asociados."
+  },
+  {
+    q: "¿Qué ahorro medio puedo esperar?",
+    a: "Depende de tu contrato actual, pero de media, nuestros usuarios detectan un ahorro potencial de entre el 25% y el 40% anual. En cifras reales, esto suele suponer entre 200€ y 450€ de ahorro simplemente ajustando la tarifa a su consumo real."
+  },
+  {
+    q: "¿Cómo puedo contactar con vosotros?",
+    a: "¿Tienes una duda técnica o no entiendes un resultado? Escrílenos a contacto@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
+  }
+];
+
 export default async function Home() {
   const prices = await getElectricityPrices();
 
@@ -54,32 +90,14 @@ export default async function Home() {
         <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "¿Es seguro subir mi factura?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS) y protocolos de seguridad avanzada. Tu factura solo se procesa para extraer los datos técnicos necesarios; no almacenamos datos personales sensibles ni los vendemos a terceros. Tu privacidad es nuestro compromiso número uno."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Tengo que pagar por usar el comparador?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética. Si decides cambiarte, te facilitamos el enlace directo a la web oficial de la compañía para que hagas el trámite tú mismo, sin intermediarios."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "¿Las tarifas están actualizadas?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras. Si una compañía lanza una oferta nueva en España, nosotros la tenemos en el comparador en menos de 24 horas."
-              }
+          "mainEntity": HOME_FAQS.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.a
             }
-          ]
+          }))
         }} />
         <JsonLd data={webAppSchema} />
         <JsonLd data={getBreadcrumbSchema([
@@ -314,41 +332,7 @@ export default async function Home() {
               <p className="text-lg text-text-secondary">Todo lo que necesitas saber sobre nuestro motor de comparación.</p>
             </FadeIn>
             <FadeInStagger className="space-y-4">
-              {[
-                {
-                  q: "¿Es seguro subir mi factura?",
-                  a: "Absolutamente. Utilizamos cifrado de nivel bancario (SSL/TLS) y protocolos de seguridad avanzada. Tu factura solo se procesa para extraer los datos técnicos necesarios; no almacenamos datos personales sensibles ni los vendemos a terceros. Tu privacidad es nuestro compromiso número uno."
-                },
-                {
-                  q: "¿Cómo se analizan los datos?",
-                  a: "Nuestra tecnología de OCR de última generación escanea tu factura en milisegundos. Identificamos automáticamente tu CUPS (anonimizado), potencias contratadas y perfiles de consumo horario. Cruzamos esta información con todas las ofertas vigentes del mercado para encontrar tu pareja ideal de ahorro."
-                },
-                {
-                  q: "¿Tengo que cambiarme de compañía tras el análisis?",
-                  a: "En absoluto. El comparador es una herramienta de consulta totalmente libre. Te mostramos cuánto podrías ahorrar y con qué proveedor, pero la decisión final de contratar o no es siempre tuya. No hay compromisos ni llamadas comerciales intrusivas."
-                },
-                {
-                  q: "¿Tengo que pagar por usar el comparador?",
-                  a: "Nunca. TuMejorTarifaLuz es un proyecto independiente y 100% gratuito. Nuestro objetivo es democratizar el acceso a la información energética. Si decides cambiarte, te facilitamos el enlace directo a la web oficial de la compañía para que hagas el trámite tú mismo, sin intermediarios.",
-                  success: true
-                },
-                {
-                  q: "¿Las tarifas están actualizadas?",
-                  a: "Sintonizamos nuestro motor diariamente con el mercado mayorista (OMIE) y las bases de datos oficiales de las comercializadoras. Si una compañía lanza una oferta nueva en España, nosotros la tenemos en el comparador en menos de 24 horas."
-                },
-                {
-                  q: "¿Sirve para empresas o solo para hogares?",
-                  a: "Nuestro motor actual está optimizado para tarifas domésticas y pymes (tarifas 2.0TD, hasta 15kW). Si eres una gran industria con perfiles 3.0TD o superiores, contacta con nosotros para un análisis personalizado por uno de nuestros técnicos asociados."
-                },
-                {
-                  q: "¿Qué ahorro medio puedo esperar?",
-                  a: "Depende de tu contrato actual, pero de media, nuestros usuarios detectan un ahorro potencial de entre el 25% y el 40% anual. En cifras reales, esto suele suponer entre 200€ y 450€ de ahorro simplemente ajustando la tarifa a su consumo real."
-                },
-                {
-                  q: "¿Cómo puedo contactar con vosotros?",
-                  a: "¿Tienes una duda técnica o no entiendes un resultado? Escrílenos a contacto@tumejortarifaluz.es. Responderemos a tu consulta personalizada lo antes posible. Somos personas reales ayudando a personas."
-                }
-              ].map((faq, i) => (
+              {HOME_FAQS.map((faq, i) => (
                 <FadeIn key={i} direction="none">
                   <details 
                     className="group overflow-hidden [&_summary::-webkit-details-marker]:hidden rounded-2xl border transition-all duration-300"
