@@ -104,9 +104,9 @@ export default async function Home() {
           { name: "Inicio", item: "/" },
           { name: "Comparador de Tarifas", item: "/comparador" }
         ])} />
-        
+
         {/* Hero Section */}
-        <section 
+        <section
           className="relative overflow-hidden pt-12 pb-10 lg:pt-20 lg:pb-16 min-h-[72vh] flex items-center transition-colors duration-300"
           style={{ background: 'linear-gradient(160deg, var(--color-section-muted) 0%, var(--color-section-white) 100%)' }}
         >
@@ -131,7 +131,7 @@ export default async function Home() {
                 </div>
 
                 <div className="space-y-4 md:space-y-6">
-                  <h1 
+                  <h1
                     className="font-heading text-4xl md:text-6xl lg:text-[72px] xl:text-[96px] font-900 leading-[0.92] tracking-[-0.05em]"
                     style={{ color: 'var(--color-text-heading)' }}
                   >
@@ -140,7 +140,7 @@ export default async function Home() {
                   <DynamicHeroSavings />
                 </div>
 
-                <p 
+                <p
                   className="font-body text-lg md:text-xl font-normal max-w-xl lg:max-w-none leading-relaxed text-pretty mx-auto lg:mx-0 opacity-70"
                   style={{ color: 'var(--color-text-muted)' }}
                 >
@@ -148,16 +148,16 @@ export default async function Home() {
                 </p>
 
                 <div className="flex flex-col items-center lg:items-start gap-4">
-                  <Link 
-                    href="/comparador?mode=upload" 
+                  <Link
+                    href="/comparador?mode=upload"
                     className="w-full sm:w-auto flex items-center justify-center gap-4 px-8 md:px-12 py-5 md:py-6 bg-primary hover:bg-primary-hover text-white font-body font-900 border-2 border-primary rounded-2.5xl md:rounded-3xl transition-all shadow-2xl shadow-primary/35 transform hover:-translate-y-1 active:scale-95 text-lg md:text-xl lg:text-2xl tracking-tighter"
                   >
                     <CloudUpload size={28} className="md:w-8 md:h-8" />
                     Subir mi factura y ahorrar
                   </Link>
-                  
-                  <Link 
-                    href="/comparador?mode=manual" 
+
+                  <Link
+                    href="/comparador?mode=manual"
                     className="text-[12px] md:text-[13px] font-black text-text-secondary hover:text-primary transition-colors uppercase tracking-[0.2em] flex items-center gap-2 md:gap-3 italic group"
                   >
                     <div className="p-1.5 md:p-2 rounded-lg md:rounded-xl bg-surface-2 group-hover:bg-primary/10 transition-colors">
@@ -183,100 +183,6 @@ export default async function Home() {
 
         {/* Urgency Bar */}
         <DeferredUrgencyBar />
-
-        {/* Support & Independence Section */}
-        <section 
-          className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300"
-          style={{ background: 'var(--color-section-muted)' }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
-              
-              {/* Left Side: Brand & Mission */}
-              <FadeIn direction="left" className="space-y-12">
-                <div 
-                  className="inline-flex items-center gap-4 p-2 rounded-2xl border pr-6"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
-                >
-                  <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                    <Heart size={24} className="fill-current" />
-                  </div>
-                  <div className="space-y-0.5">
-                    <h2 className="text-lg font-900 text-primary">Misión independencia</h2>
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Tu ahorro es nuestro compromiso</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-6">
-                  <h3 className="text-4xl md:text-5xl font-900 leading-[1.1] tracking-tight" style={{ color: 'var(--color-text-heading)' }}>
-                    Un comparador <span className="text-primary italic">libre de intereses</span> para familias reales
-                  </h3>
-                  <p className="text-lg leading-relaxed font-medium" style={{ color: 'var(--color-text-body)' }}>
-                    TuMejorTarifaLuz nació con un propósito claro: democratizar el acceso a la energía barata sin intereses comerciales. <strong>No pertenecemos a ninguna eléctrica</strong> — nos sostenemos únicamente con donaciones voluntarias de usuarios satisfechos como tú.
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-3 pt-4">
-                    {["Sin comisiones", "Sin publicidad", "Sin afiliados", "100% gratuito"].map((chip) => (
-                      <div key={chip} className="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border rounded-full">
-                        <div className="w-1.5 h-1.5 bg-primary/40 rounded-full"></div>
-                        <span className="text-[11px] font-bold text-text-secondary uppercase tracking-widest">{chip}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </FadeIn>
-
-              {/* Right Side: Quote & Donation */}
-              <FadeIn direction="right" className="space-y-8">
-                {/* Quote Card */}
-                <div 
-                  className="p-8 md:p-10 rounded-[2.5rem] space-y-8 border"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
-                >
-                  <div className="text-primary opacity-30">
-                    <HistoryIcon size={24} className="rotate-180" />
-                  </div>
-                  <p className="text-lg font-bold italic leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
-                    Si el comparador te ha ahorrado dinero, tu donación ayuda a que más familias puedan seguir usando este servicio gratuito y sin publicidad.
-                  </p>
-                  <div className="flex items-center gap-3 pt-2">
-                    <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
-                      TM
-                    </div>
-                    <p className="text-xs font-bold" style={{ color: 'var(--color-text-muted)' }}>
-                      — Equipo TuMejorTarifaLuz
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Donation Card */}
-                <div 
-                  className="border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
-                >
-                  <div className="px-8 pt-8 pb-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
-                    <div className="space-y-1 text-center sm:text-left">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Apoya el proyecto</p>
-                      <p className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Si te ha ahorrado dinero, devuelve un poco</p>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <DeferredSupportSection />
-                  </div>
-                  <div 
-                    className="px-8 py-5 border-t flex justify-center text-center"
-                    style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
-                  >
-                    <p className="text-[10px] font-bold uppercase tracking-[0.05em]" style={{ color: 'var(--color-text-muted)' }}>
-                      Pago seguro · Sin suscripción · Gracias por apoyar
-                    </p>
-                  </div>
-                </div>
-              </FadeIn>
-
-            </div>
-          </div>
-        </section>
 
         {/* How it Works Section */}
         <section id="como-funciona" className="py-16 md:py-20 relative transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
@@ -334,9 +240,9 @@ export default async function Home() {
             <FadeInStagger className="space-y-4">
               {HOME_FAQS.map((faq, i) => (
                 <FadeIn key={i} direction="none">
-                  <details 
+                  <details
                     className="group overflow-hidden [&_summary::-webkit-details-marker]:hidden rounded-2xl border transition-all duration-300"
-                    style={{ 
+                    style={{
                       background: 'var(--color-section-white)',
                       borderColor: 'var(--color-border)'
                     }}
@@ -358,7 +264,7 @@ export default async function Home() {
             {/* Post-FAQ Action Block */}
             <FadeIn className="mt-16 bg-white dark:bg-surface-2/10 border border-slate-100 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)] rounded-[2.5rem] p-8 md:p-12 overflow-hidden relative group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
-              
+
               <div className="grid md:grid-cols-2 gap-12 relative z-10">
                 {/* Doubt Column */}
                 <div className="space-y-4">
@@ -366,8 +272,8 @@ export default async function Home() {
                   <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'var(--color-text-body)' }}>
                     Si no has encontrado la respuesta que buscabas o tu factura es compleja, nuestro equipo te ayuda de forma personalizada.
                   </p>
-                  <a 
-                    href="mailto:contacto@tumejortarifaluz.es" 
+                  <a
+                    href="mailto:contacto@tumejortarifaluz.es"
                     className="inline-flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[11px] hover:gap-4 transition-all"
                   >
                     Escríbenos a contacto@tumejortarifaluz.es
@@ -383,8 +289,8 @@ export default async function Home() {
                       En el 80% de las facturas que analizamos detectamos un ahorro mínimo de 180€ al año. No esperes más para empezar a ahorrar hoy.
                     </p>
                   </div>
-                  <Link 
-                    href="/comparador?mode=upload" 
+                  <Link
+                    href="/comparador?mode=upload"
                     className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-5 bg-primary text-white font-black uppercase tracking-widest text-[11px] rounded-2xl shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all text-center"
                   >
                     Sube tu factura ahora
@@ -392,53 +298,6 @@ export default async function Home() {
                   </Link>
                 </div>
               </div>
-            </FadeIn>
-          </div>
-        </section>
-
-        {/* Knowledge Center Section */}
-        <section id="guias" className="py-16 md:py-20 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div className="max-w-2xl space-y-4">
-                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
-                  <Newspaper size={14} />
-                  Blog & Noticias
-                </div>
-                <h2 className="font-heading text-3xl font-semibold text-text-primary tracking-tight">Consejos para ahorrar en tu recibo</h2>
-                <p className="text-lg text-text-secondary leading-relaxed">Aprende a navegar el mercado eléctrico con la información de nuestros expertos.</p>
-              </div>
-            </FadeIn>
-
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogSummaries.slice(0, 3).map((post, index) => (
-                <FadeIn key={post.id} delay={0.1 * index}>
-                  <PremiumTiltCard className="h-full">
-                    <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
-                      <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
-                      <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight h-[3.5rem] overflow-hidden line-clamp-2">{post.title}</h3>
-                      <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
-                        <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      </div>
-                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow h-[4.25rem] overflow-hidden line-clamp-3">{post.excerpt}</p>
-                      <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
-                        <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
-                        <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
-                      </div>
-                    </Link>
-                  </PremiumTiltCard>
-                </FadeIn>
-              ))}
-            </div>
-
-            <FadeIn className="mt-16 text-center">
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-surface border border-border text-text-secondary font-bold hover:shadow-xl transition-all group hover:border-primary/30"
-              >
-                Ver todos los artículos
-                <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} />
-              </Link>
             </FadeIn>
           </div>
         </section>
@@ -509,7 +368,7 @@ export default async function Home() {
                 <div className="bg-surface/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-border shadow-3xl relative overflow-hidden group/skeleton">
                   {/* Glassmorphism Shine */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/skeleton:translate-x-full transition-transform duration-1000 ease-in-out"></div>
-                  
+
                   <div className="space-y-8">
                     <div className="flex items-center justify-between border-b border-border/40 pb-7">
                       <div className="flex items-center gap-5">
@@ -526,7 +385,7 @@ export default async function Home() {
                         <Bell size={18} className="text-primary animate-bounce" />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-6">
                       <div className="h-44 bg-surface-2/30 rounded-[2rem] border border-border/40 flex items-center justify-center relative overflow-hidden group/chart">
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
@@ -548,8 +407,55 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* Knowledge Center Section */}
+        <section id="guias" className="py-16 md:py-20 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <FadeIn className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <div className="max-w-2xl space-y-4">
+                <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs">
+                  <Newspaper size={14} />
+                  Blog & Noticias
+                </div>
+                <h2 className="font-heading text-3xl font-semibold text-text-primary tracking-tight">Consejos para ahorrar en tu recibo</h2>
+                <p className="text-lg text-text-secondary leading-relaxed">Aprende a navegar el mercado eléctrico con la información de nuestros expertos.</p>
+              </div>
+            </FadeIn>
+
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogSummaries.slice(0, 3).map((post, index) => (
+                <FadeIn key={post.id} delay={0.1 * index}>
+                  <PremiumTiltCard className="h-full">
+                    <Link href={`/blog/${post.slug}`} className="group premium-card premium-3d-card p-8 flex flex-col h-full hover:shadow-2xl transition-all duration-500 border border-border">
+                      <p className="font-body text-xs font-normal opacity-60 text-text-muted uppercase tracking-widest mb-6">{post.date}</p>
+                      <h3 className="font-heading text-lg font-semibold text-text-primary mb-4 group-hover:text-primary transition-colors leading-tight h-[3.5rem] overflow-hidden line-clamp-2">{post.title}</h3>
+                      <div className="aspect-video mb-6 rounded-xl overflow-hidden bg-surface-2">
+                        <Image src={post.image} alt={post.title} width={400} height={225} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-8 flex-grow h-[4.25rem] overflow-hidden line-clamp-3">{post.excerpt}</p>
+                      <div className="pt-6 border-t border-border flex items-center justify-between mt-auto">
+                        <span className="text-xs font-bold text-primary tracking-widest">Leer artículo completo<span className="sr-only"> sobre {post.title}</span></span>
+                        <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} aria-hidden="true" />
+                      </div>
+                    </Link>
+                  </PremiumTiltCard>
+                </FadeIn>
+              ))}
+            </div>
+
+            <FadeIn className="mt-16 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-surface border border-border text-text-secondary font-bold hover:shadow-xl transition-all group hover:border-primary/30"
+              >
+                Ver todos los artículos
+                <ArrowRight className="text-primary group-hover:translate-x-2 transition-transform" size={24} />
+              </Link>
+            </FadeIn>
+          </div>
+        </section>
+
         {/* Brand Logos Grid Section */}
-        <section 
+        <section
           className="py-16 md:py-20 border-y border-border transition-colors duration-300"
           style={{ background: 'var(--color-section-muted)' }}
         >
@@ -576,9 +482,9 @@ export default async function Home() {
                 { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
-                  <div 
+                  <div
                     className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
-                    style={{ 
+                    style={{
                       background: 'var(--color-section-white)',
                       borderColor: 'var(--color-border)'
                     }}
@@ -605,6 +511,100 @@ export default async function Home() {
                 Ver análisis detallado y opiniones de comercializadoras
                 <ArrowRight className="text-primary group-hover:translate-x-1 transition-transform" size={24} />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Support & Independence Section */}
+        <section
+          className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300"
+          style={{ background: 'var(--color-section-muted)' }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+
+              {/* Left Side: Brand & Mission */}
+              <FadeIn direction="left" className="space-y-12">
+                <div
+                  className="inline-flex items-center gap-4 p-2 rounded-2xl border pr-6"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
+                  <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+                    <Heart size={24} className="fill-current" />
+                  </div>
+                  <div className="space-y-0.5">
+                    <h2 className="text-lg font-900 text-primary">Misión independencia</h2>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Tu ahorro es nuestro compromiso</p>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <h3 className="text-4xl md:text-5xl font-900 leading-[1.1] tracking-tight" style={{ color: 'var(--color-text-heading)' }}>
+                    Un comparador <span className="text-primary italic">libre de intereses</span> para familias reales
+                  </h3>
+                  <p className="text-lg leading-relaxed font-medium" style={{ color: 'var(--color-text-body)' }}>
+                    TuMejorTarifaLuz nació con un propósito claro: democratizar el acceso a la energía barata sin intereses comerciales. <strong>No pertenecemos a ninguna eléctrica</strong> — nos sostenemos únicamente con donaciones voluntarias de usuarios satisfechos como tú.
+                  </p>
+
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    {["Sin comisiones", "Sin publicidad", "Sin afiliados", "100% gratuito"].map((chip) => (
+                      <div key={chip} className="inline-flex items-center gap-2 px-4 py-2 bg-surface border border-border rounded-full">
+                        <div className="w-1.5 h-1.5 bg-primary/40 rounded-full"></div>
+                        <span className="text-[11px] font-bold text-text-secondary uppercase tracking-widest">{chip}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Right Side: Quote & Donation */}
+              <FadeIn direction="right" className="space-y-8">
+                {/* Quote Card */}
+                <div
+                  className="p-8 md:p-10 rounded-[2.5rem] space-y-8 border"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
+                  <div className="text-primary opacity-30">
+                    <HistoryIcon size={24} className="rotate-180" />
+                  </div>
+                  <p className="text-lg font-bold italic leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
+                    Si el comparador te ha ahorrado dinero, tu donación ayuda a que más familias puedan seguir usando este servicio gratuito y sin publicidad.
+                  </p>
+                  <div className="flex items-center gap-3 pt-2">
+                    <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
+                      TM
+                    </div>
+                    <p className="text-xs font-bold" style={{ color: 'var(--color-text-muted)' }}>
+                      — Equipo TuMejorTarifaLuz
+                    </p>
+                  </div>
+                </div>
+
+                {/* Donation Card */}
+                <div
+                  className="border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm"
+                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                >
+                  <div className="px-8 pt-8 pb-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
+                    <div className="space-y-1 text-center sm:text-left">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Apoya el proyecto</p>
+                      <p className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Si te ha ahorrado dinero, devuelve un poco</p>
+                    </div>
+                  </div>
+                  <div className="p-8">
+                    <DeferredSupportSection />
+                  </div>
+                  <div
+                    className="px-8 py-5 border-t flex justify-center text-center"
+                    style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-[0.05em]" style={{ color: 'var(--color-text-muted)' }}>
+                      Pago seguro · Sin suscripción · Gracias por apoyar
+                    </p>
+                  </div>
+                </div>
+              </FadeIn>
+
             </div>
           </div>
         </section>
