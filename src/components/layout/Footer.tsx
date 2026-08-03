@@ -83,7 +83,8 @@ export default function Footer() {
     const companyCount = COMPANIES.length + 1; // +1 for COR
 
     return (
-        <footer className="bg-[#070E18] text-[#CBD5E1] pt-10 md:pt-14 pb-8 border-t border-white/5">
+        <footer className="bg-[#04060B] text-[#CBD5E1] pt-10 md:pt-14 pb-8 relative">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Brand + 3-Column Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr_1fr_1fr] gap-8 md:gap-8 mb-10 md:mb-12 items-start">
