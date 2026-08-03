@@ -1655,7 +1655,7 @@ export default function ComparadorMain() {
 
                             {/* Selector de tarifas ESPECTACULAR */}
                             <div className="relative w-full max-w-[480px] mx-auto px-1 z-50">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block text-center opacity-80">Selección de inteligencia</label>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block text-center opacity-80">Comparar con otra tarifa</label>
                                 
                                 <div className="relative block group/selector h-[72px]">
 
@@ -1719,7 +1719,7 @@ export default function ComparadorMain() {
                                                                                 ? "bg-white/20 text-white" 
                                                                                 : itemDiff > 0 
                                                                                     ? "bg-accent-bg text-accent" 
-                                                                                    : "bg-rose-500/10 text-warning"
+                                                                                    : "bg-rose-500/10 text-rose-500"
                                                                         }`}>
                                                                             {itemDiff > 0 ? '-' : '+'}{Math.abs(itemDiff).toFixed(2)}€
                                                                         </span>
@@ -1982,7 +1982,10 @@ export default function ComparadorMain() {
                                             <span className="text-lg font-bold text-primary/60">€/{studyMode === 'monthly' ? 'mes' : 'año'}</span>
                                         </div>
                                         <div className="mt-4 w-full h-1.5 bg-primary/10 rounded-full overflow-hidden">
-                                            <div className="h-full bg-primary animate-pulse-slow w-full shadow-[0_0_10px_rgba(26,188,156,0.5)]"></div>
+                                            <div
+                                                className="h-full bg-primary animate-pulse-slow shadow-[0_0_10px_rgba(26,188,156,0.5)]"
+                                                style={{ width: `${Math.min(100, (selectedResult.total / (input.current_bill_total || 1)) * 100)}%` }}
+                                            ></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1991,7 +1994,7 @@ export default function ComparadorMain() {
                                 <div className="premium-card p-0 overflow-hidden bg-accent/5 border-2 border-accent/20 hover:border-accent/40 transition-all relative">
                                     <div className="flex flex-col sm:flex-row items-center">
                                         <div className="bg-accent px-10 py-10 sm:py-12 flex flex-col items-center justify-center text-accent-text shrink-0 w-full sm:w-auto">
-                                            <Trophy className="w-12 h-12 mb-3 animate-bounce" />
+                                            <Trophy className="w-12 h-12 mb-3" />
                                             <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Logro</span>
                                         </div>
                                         <div className="p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between w-full gap-6">
