@@ -107,13 +107,13 @@ export default async function Home() {
 
         {/* Hero Section */}
         <section
-          className="relative overflow-hidden pt-12 pb-10 lg:pt-20 lg:pb-16 min-h-[72vh] flex items-center transition-colors duration-300"
+          className="relative overflow-hidden pt-12 pb-10 lg:pt-20 lg:pb-16 min-h-[560px] lg:min-h-[640px] flex items-center transition-colors duration-300"
           style={{ background: 'linear-gradient(160deg, var(--color-section-muted) 0%, var(--color-section-white) 100%)' }}
         >
           <div className="hero-glow-1"></div>
           <div className="hero-glow-2"></div>
 
-          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-[45%_55%] gap-12 lg:gap-32 items-center">
               {/* Text Content */}
               <div className="space-y-8 md:space-y-12 text-center lg:text-left">
@@ -231,7 +231,7 @@ export default async function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="pb-16 md:pb-20 pt-12 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
+        <section id="faq" className="py-16 md:py-20 scroll-mt-32 transition-colors duration-300" style={{ background: 'var(--color-section-muted)' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn className="text-center mb-12">
               <h2 className="font-heading text-3xl font-semibold text-text-primary mb-4">Preguntas Frecuentes</h2>
@@ -610,7 +610,7 @@ export default async function Home() {
         </section>
 
         {/* CTA Section */}
-        <section id="final-cta" className="py-20 px-4 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
+        <section id="final-cta" className="py-12 md:py-16 px-4 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
           <div className="max-w-5xl mx-auto bg-section-dark rounded-[2rem] p-8 md:p-16 text-center text-[#F1F5F9] relative overflow-hidden shadow-2xl shadow-primary/30">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
