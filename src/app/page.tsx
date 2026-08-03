@@ -596,7 +596,7 @@ export default async function Home() {
                   </div>
                   <div
                     className="px-6 py-3 border-t flex justify-center text-center"
-                    style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                    style={{ borderColor: 'var(--color-border)' }}
                   >
                     <p className="text-[10px] font-bold uppercase tracking-[0.05em]" style={{ color: 'var(--color-text-muted)' }}>
                       Pago seguro · Sin suscripción · Gracias por apoyar
@@ -610,18 +610,18 @@ export default async function Home() {
         </section>
 
         {/* CTA Section */}
-        <section id="final-cta" className="py-12 md:py-16 px-4 transition-colors duration-300" style={{ background: 'var(--color-section-white)' }}>
-          <div className="max-w-5xl mx-auto bg-section-dark rounded-[2rem] p-8 md:p-16 text-center text-[#F1F5F9] relative overflow-hidden shadow-2xl shadow-primary/30">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
-            <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 relative z-10 leading-tight text-[#F1F5F9]">
+        <section id="final-cta" className="py-16 md:py-20 px-4 bg-section-dark relative overflow-hidden transition-colors duration-300">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+          <div className="max-w-3xl mx-auto text-center text-[#F1F5F9] relative z-10">
+            <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 leading-tight text-[#F1F5F9]">
               En el 80% de los casos detectamos un ahorro mínimo de <span className="text-white underline decoration-white/20">180€ al año</span>.<br />
               ¿Cuánto podrías ahorrar tú?
             </h2>
-            <p className="text-[#CBD5E1] text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto relative z-10 text-pretty">
+            <p className="text-[#CBD5E1] text-lg md:text-xl font-medium mb-10 text-pretty">
               Solo necesitas 30 segundos para subir tu factura. Nuestro motor analiza el mercado en tiempo real y encuentra tu tarifa ideal sin que tengas que hacer nada.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/comparador?mode=upload" className="px-10 py-5 bg-primary text-white font-body font-bold rounded-xl hover:bg-primary-hover transition-all shadow-lg shadow-black/10 hover:scale-105 active:scale-95 duration-200 text-[15px]">
                 Comenzar análisis gratuito
               </Link>
