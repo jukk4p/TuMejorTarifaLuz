@@ -131,7 +131,7 @@ export default function SobreNosotros() {
                             {[
                                 { number: "25+", label: "Tarifas Activas" },
                                 { number: "14+", label: "Compañías" },
-                                { number: "312€", label: "Ahorro Medio" },
+                                { number: "180€", label: "Ahorro Mín. Anual" },
                                 { number: "100%", label: "Gratis" }
                             ].map((stat, i) => (
                                 <div key={i} className="space-y-1">

@@ -43,7 +43,7 @@ const HOME_FAQS = [
   },
   {
     q: "¿Qué ahorro medio puedo esperar?",
-    a: "Depende de tu contrato actual, pero de media, nuestros usuarios detectan un ahorro potencial de entre el 25% y el 40% anual. En cifras reales, esto suele suponer entre 200€ y 450€ de ahorro simplemente ajustando la tarifa a su consumo real."
+    a: "Depende de tu contrato actual, pero en el 80% de las facturas que analizamos detectamos un ahorro mínimo de entre 15€ y 20€ al mes (180€-240€ al año) simplemente ajustando la tarifa a tu consumo real. En muchos casos el ahorro detectado es bastante mayor."
   },
   {
     q: "¿Cómo puedo contactar con vosotros?",
@@ -380,7 +380,7 @@ export default async function Home() {
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold" style={{ color: 'var(--color-text-heading)' }}>¿Ya tienes todo claro?</h3>
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
-                      La media de ahorro es de 312€ al año. No esperes más para empezar a ahorrar hoy.
+                      En el 80% de las facturas que analizamos detectamos un ahorro mínimo de 180€ al año. No esperes más para empezar a ahorrar hoy.
                     </p>
                   </div>
                   <Link 
@@ -615,7 +615,7 @@ export default async function Home() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mb-32 blur-3xl"></div>
             <h2 className="font-heading text-3xl md:text-5xl font-900 mb-6 relative z-10 leading-tight text-[#F1F5F9]">
-              La media de ahorro es de <span className="text-white underline decoration-white/20">312€ al año</span>.<br />
+              En el 80% de los casos detectamos un ahorro mínimo de <span className="text-white underline decoration-white/20">180€ al año</span>.<br />
               ¿Cuánto podrías ahorrar tú?
             </h2>
             <p className="text-[#CBD5E1] text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto relative z-10 text-pretty">

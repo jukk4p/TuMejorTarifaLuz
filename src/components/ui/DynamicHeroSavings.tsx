@@ -53,7 +53,7 @@ export default function DynamicHeroSavings() {
           y ahorra un <span className="text-primary italic px-1 md:-ml-1"><AnimatedNumber value={savingsPct} />%</span> real
         </>
       ) : (
-        <>y ahorra hasta un <span className="text-primary italic px-1"><AnimatedNumber value={34} />%</span> anual</>
+        <>y ahorra desde <span className="text-primary italic px-1">{"15-20€"}</span>/mes</>
       )}
       <motion.div
         animate={{ y: [0, -5, 0] }}
