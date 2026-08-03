@@ -59,18 +59,18 @@ export default function SupportSection() {
     ];
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
             {/* Amount Selector */}
-            <div className="space-y-3">
+            <div className="space-y-2">
                 <p className="text-[11px] font-black text-text-muted dark:text-text-secondary uppercase tracking-[0.15em]">
                     Elige el importe que consideres justo:
                 </p>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap gap-2">
                     {AMOUNTS.map((amount) => (
                         <button
                             key={amount}
                             onClick={() => setSelectedAmount(amount)}
-                            className={`px-5 py-2.5 rounded-xl text-sm font-black transition-all border-2 ${
+                            className={`px-4 py-2 rounded-xl text-sm font-black transition-all border-2 ${
                                 selectedAmount === amount
                                     ? "bg-primary border-primary text-white shadow-lg shadow-primary/20 scale-105"
                                     : "bg-surface border-border text-text-muted hover:border-primary/40"
@@ -82,24 +82,24 @@ export default function SupportSection() {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
                 {platforms.map((platform) => (
                     <Link
                         key={platform.name}
                         href={platform.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`flex items-center gap-4 p-4 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] dark:bg-primary/10 border-primary/20 shadow-sm' : 'bg-surface border-border hover:border-primary/20 shadow-sm'}`}
+                        className={`flex items-center gap-3 p-3 rounded-2xl transition-all group/item w-full border-2 ${platform.recommend ? 'bg-[#F3F9FF] dark:bg-primary/10 border-primary/20 shadow-sm' : 'bg-surface border-border hover:border-primary/20 shadow-sm'}`}
                     >
-                        <div className="shrink-0 group-hover/item:scale-105 transition-transform duration-300">
+                        <div className="shrink-0 scale-90 group-hover/item:scale-95 transition-transform duration-300">
                             {platform.icon}
                         </div>
                         <div className="flex flex-col text-left min-w-0 flex-1">
-                            <span className="text-[15px] font-900 text-text-primary tracking-tight">{platform.name}</span>
-                            <span className="text-[11px] text-text-muted dark:text-text-secondary font-bold uppercase tracking-widest">{platform.description}</span>
+                            <span className="text-sm font-900 text-text-primary tracking-tight">{platform.name}</span>
+                            <span className="text-[10px] text-text-muted dark:text-text-secondary font-bold uppercase tracking-widest">{platform.description}</span>
                         </div>
                         {platform.recommend && (
-                            <div className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full hidden sm:block shrink-0">
+                            <div className="px-2.5 py-1 bg-primary/10 border border-primary/20 rounded-full hidden sm:block shrink-0">
                                 <span className="text-[10px] font-black text-primary uppercase tracking-widest">Recomendado</span>
                             </div>
                         )}

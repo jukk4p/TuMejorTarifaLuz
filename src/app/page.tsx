@@ -518,16 +518,16 @@ export default async function Home() {
         {/* Support & Independence Section */}
         <section
           className="py-16 md:py-20 relative overflow-hidden transition-colors duration-300"
-          style={{ background: 'var(--color-section-muted)' }}
+          style={{ background: 'var(--color-section-white)' }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
               {/* Left Side: Brand & Mission */}
-              <FadeIn direction="left" className="space-y-12">
+              <FadeIn direction="left" className="space-y-8">
                 <div
                   className="inline-flex items-center gap-4 p-2 rounded-2xl border pr-6"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                  style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
                 >
                   <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                     <Heart size={24} className="fill-current" />
@@ -538,7 +538,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   <h3 className="text-4xl md:text-5xl font-900 leading-[1.1] tracking-tight" style={{ color: 'var(--color-text-heading)' }}>
                     Un comparador <span className="text-primary italic">libre de intereses</span> para familias reales
                   </h3>
@@ -558,20 +558,20 @@ export default async function Home() {
               </FadeIn>
 
               {/* Right Side: Quote & Donation */}
-              <FadeIn direction="right" className="space-y-8">
+              <FadeIn direction="right" className="space-y-5">
                 {/* Quote Card */}
                 <div
-                  className="p-8 md:p-10 rounded-[2.5rem] space-y-8 border"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                  className="p-6 md:p-8 rounded-[2rem] space-y-4 border"
+                  style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
                 >
                   <div className="text-primary opacity-30">
-                    <HistoryIcon size={24} className="rotate-180" />
+                    <HistoryIcon size={20} className="rotate-180" />
                   </div>
-                  <p className="text-lg font-bold italic leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
+                  <p className="text-base font-bold italic leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                     Si el comparador te ha ahorrado dinero, tu donación ayuda a que más familias puedan seguir usando este servicio gratuito y sin publicidad.
                   </p>
-                  <div className="flex items-center gap-3 pt-2">
-                    <div className="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-primary/10 text-primary rounded-full flex items-center justify-center text-[10px] font-black tracking-tighter border border-primary/20">
                       TM
                     </div>
                     <p className="text-xs font-bold" style={{ color: 'var(--color-text-muted)' }}>
@@ -582,21 +582,21 @@ export default async function Home() {
 
                 {/* Donation Card */}
                 <div
-                  className="border rounded-[2.5rem] overflow-hidden flex flex-col shadow-sm"
-                  style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
+                  className="border rounded-[2rem] overflow-hidden flex flex-col shadow-sm"
+                  style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
                 >
-                  <div className="px-8 pt-8 pb-6 border-b" style={{ borderColor: 'var(--color-border)' }}>
+                  <div className="px-6 md:px-8 pt-6 pb-4 border-b" style={{ borderColor: 'var(--color-border)' }}>
                     <div className="space-y-1 text-center sm:text-left">
                       <p className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-text-muted)' }}>Apoya el proyecto</p>
                       <p className="text-lg font-900" style={{ color: 'var(--color-text-heading)' }}>Si te ha ahorrado dinero, devuelve un poco</p>
                     </div>
                   </div>
-                  <div className="p-8">
+                  <div className="p-6">
                     <DeferredSupportSection />
                   </div>
                   <div
-                    className="px-8 py-5 border-t flex justify-center text-center"
-                    style={{ background: 'var(--color-section-muted)', borderColor: 'var(--color-border)' }}
+                    className="px-6 py-3 border-t flex justify-center text-center"
+                    style={{ background: 'var(--color-section-white)', borderColor: 'var(--color-border)' }}
                   >
                     <p className="text-[10px] font-bold uppercase tracking-[0.05em]" style={{ color: 'var(--color-text-muted)' }}>
                       Pago seguro · Sin suscripción · Gracias por apoyar
