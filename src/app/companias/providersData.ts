@@ -241,26 +241,6 @@ const staticProviders: Provider[] = [
         trustpilotUrl: "https://es.trustpilot.com/review/energyavm.es",
         scores: { price: 4.4, support: 4.0, app: 3.8, transparency: 4.0, onboarding: 4.2 }
     },
-    /*
-    {
-        id: "chc-energia",
-        name: "CHC Energía",
-        logo: "/logos/Chcenergia.png",
-        rating: 4.0,
-        description: "Cercanía y servicio local. CHC Energía destaca por su amplia red de oficinas físicas en entornos rurales y semi-urbanos.",
-        pros: ["Gran red física", "Trato humano", "Factura sencilla"],
-        prosDetail: ["+150 oficinas rurales", "Cercanía real", "Sin tecnicismos"],
-        cons: ["Poca innovación", "Tarifas menos dinámicas"],
-        consDetail: ["App básica", "Menos ofertas flash"],
-        slug: "chc-energia",
-        color: "#ed1c24",
-        minPrice: 0.0593,
-        category: 'independent',
-        hasPermanence: false,
-        popularTariffName: "Plan Vehículo Eléctrico",
-        scores: { price: 3.9, support: 4.6, app: 3.3, transparency: 4.1, onboarding: 3.9 }
-    },
-    */
     {
         id: "esluz",
         name: "Esluz",

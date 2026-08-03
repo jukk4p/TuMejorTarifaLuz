@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { ChevronDown, Mail, ShieldCheck, MapPin, Heart, ArrowRight } from "lucide-react";
+import { ChevronDown, Mail, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const COMPANIES = [
@@ -180,31 +180,18 @@ export default function Footer() {
                 </div>
 
                 {/* Contact & Social Strip */}
-                <div className="pt-6 border-t border-white/10 flex flex-col lg:flex-row items-center lg:items-center justify-between gap-6 mb-8">
-                    <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                        <a href="mailto:contacto@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] w-full sm:w-auto sm:min-w-[260px] rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
-                            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                                <Mail size={16} />
-                            </div>
-                            <div className="flex flex-col min-w-0 overflow-hidden text-left">
-                                <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">Email</span>
-                                <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight truncate">contacto@tumejortarifaluz.es</span>
-                            </div>
-                        </a>
-                        <div className="flex items-center gap-3 p-2.5 h-[56px] w-full sm:w-auto sm:min-w-[200px] rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
-                            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                                <MapPin size={16} />
-                            </div>
-                            <div className="flex flex-col min-w-0 text-left">
-                                <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">España</span>
-                                <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight truncate">Servicio Nacional</span>
-                            </div>
-                        </div>
-                    </div>
+                <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
+                    <a
+                        href="mailto:contacto@tumejortarifaluz.es"
+                        className="flex items-center gap-2.5 text-[13px] text-[#CBD5E1] hover:text-white transition-colors group"
+                    >
+                        <Mail size={16} className="text-primary group-hover:scale-110 transition-transform shrink-0" />
+                        contacto@tumejortarifaluz.es
+                    </a>
 
-                    <div className="flex flex-col items-center lg:items-end gap-3">
+                    <div className="flex items-center gap-4">
                         <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase">Síguenos</p>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             <a
                                 href="https://x.com/TMejorTarifaLuz"
                                 target="_blank"
