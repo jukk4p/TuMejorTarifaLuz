@@ -441,8 +441,7 @@ export default function NotificationsPage() {
                             <p className="text-slate-400 text-xs font-medium max-w-md">Nuestro sistema monitoriza el mercado 24/7. Te avisaremos de cualquier cambio significativo en tus tarifas favoritas.</p>
                         </div>
                         <div className="flex gap-4">
-                            <div className="px-5 py-3 bg-white/5 rounded-xl border border-white/10 text-[10px] font-bold uppercase tracking-widest">Push: Activado</div>
-                            <div className="px-5 py-3 bg-white/5 rounded-xl border border-white/10 text-[10px] font-bold uppercase tracking-widest">Email: Pendiente</div>
+                            <div className="px-5 py-3 bg-white/5 rounded-xl border border-white/10 text-[10px] font-bold uppercase tracking-widest">Alertas: Activadas</div>
                         </div>
                     </div>
                 </div>
