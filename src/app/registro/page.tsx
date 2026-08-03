@@ -130,16 +130,10 @@ export default function RegistroPage() {
                                 ))}
                             </div>
 
-                            <div className="p-6 bg-surface/50 backdrop-blur-md rounded-3xl border border-border inline-flex items-center gap-4">
-                                <div className="flex -space-x-3">
-                                    {[1, 2, 3, 4].map(i => (
-                                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 overflow-hidden shadow-sm">
-                                            <img src={`https://i.pravatar.cc/100?img=${i + 20}`} alt="user" className="w-full h-full object-cover" />
-                                        </div>
-                                    ))}
-                                </div>
+                            <div className="p-6 bg-surface/50 backdrop-blur-md rounded-3xl border border-border inline-flex items-center gap-3">
+                                <ShieldCheck size={18} className="text-primary shrink-0" />
                                 <p className="text-xs font-bold text-text-muted uppercase tracking-widest">
-                                    +2,400 usuarios ya están ahorrando
+                                    Registro gratuito · Sin tarjeta de crédito
                                 </p>
                             </div>
                         </div>
