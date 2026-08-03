@@ -60,7 +60,7 @@ export const viewport: Viewport = {
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AuthProvider } from "@/hooks/useAuth";
-import JsonLd, { organizationSchema } from "@/components/seo/JsonLd";
+import JsonLd from "@/components/seo/JsonLd";
 import { ClientOnlyProviders } from "@/components/providers/ClientOnlyProviders";
 
 export default function RootLayout({
@@ -84,20 +84,36 @@ export default function RootLayout({
                   {
                     "@id": "https://www.tumejortarifaluz.es/#organization",
                     "@type": "Organization",
-                    "logo": "https://www.tumejortarifaluz.es/Logo.png",
                     "name": "TuMejorTarifaLuz",
+                    "url": "https://www.tumejortarifaluz.es",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": "https://www.tumejortarifaluz.es/Logo.png"
+                    },
                     "sameAs": [
                       "https://x.com/tumejortarifaluz",
                       "https://facebook.com/tumejortarifaluz"
                     ],
-                    "url": "https://www.tumejortarifaluz.es"
+                    "founder": { "@type": "Person", "name": "Iván González" },
+                    "foundingDate": "2025",
+                    "contactPoint": {
+                      "@type": "ContactPoint",
+                      "contactType": "customer support",
+                      "availableLanguage": "Spanish",
+                      "email": "contacto@tumejortarifaluz.es"
+                    }
                   },
                   {
                     "@id": "https://www.tumejortarifaluz.es/#website",
                     "@type": "WebSite",
                     "name": "TuMejorTarifaLuz",
+                    "url": "https://www.tumejortarifaluz.es",
                     "publisher": { "@id": "https://www.tumejortarifaluz.es/#organization" },
-                    "url": "https://www.tumejortarifaluz.es"
+                    "potentialAction": {
+                      "@type": "SearchAction",
+                      "target": "https://www.tumejortarifaluz.es/tarifas?q={search_term_string}",
+                      "query-input": "required name=search_term_string"
+                    }
                   }
                 ]
               }} />
@@ -119,49 +135,6 @@ export default function RootLayout({
 
         {/* Cookie Consent System */}
         <Script id="cookie-consent-script" src="/cookies-consent.js?v=3.0" strategy="lazyOnload" />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@id": "https://www.tumejortarifaluz.es/#organization",
-                  "@type": "Organization",
-                  "contactPoint": {
-                    "@type": "ContactPoint",
-                    "availableLanguage": "Spanish",
-                    "contactType": "customer support",
-                    "email": "contacto@tumejortarifaluz.es"
-                  },
-                  "founder": { "@type": "Person", "name": "Iván González" },
-                  "foundingDate": "2025",
-                  "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://www.tumejortarifaluz.es/Logo.png"
-                  },
-                  "name": "TuMejorTarifaLuz",
-                  "url": "https://www.tumejortarifaluz.es"
-                },
-                {
-                  "@id": "https://www.tumejortarifaluz.es/#website",
-                  "@type": "WebSite",
-                  "name": "TuMejorTarifaLuz",
-                  "potentialAction": {
-                    "@type": "SearchAction",
-                    "query-input": "required name=search_term_string",
-                    "target": "https://www.tumejortarifaluz.es/tarifas?q={search_term_string}"
-                  },
-                  "publisher": {
-                    "@id": "https://www.tumejortarifaluz.es/#organization"
-                  },
-                  "url": "https://www.tumejortarifaluz.es"
-                }
-              ]
-            })
-          }}
-        />
       </body>
     </html>
   );
