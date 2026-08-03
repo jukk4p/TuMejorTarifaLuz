@@ -9,7 +9,7 @@ import JsonLd, { webAppSchema, getBreadcrumbSchema } from "@/components/seo/Json
 import { Footer, DynamicHeroCard, DynamicHeroSavings, PremiumTiltCard } from "@/components/ui/HomeClientComponents";
 
 import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/DeferredHomeSections";
-import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap } from "lucide-react";
+import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap, AlertTriangle } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
 
@@ -365,40 +365,62 @@ export default async function Home() {
                 <div className="absolute -top-16 -right-16 w-64 h-64 bg-primary/20 rounded-full blur-[100px]"></div>
                 <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-accent/20 rounded-full blur-[80px]"></div>
 
-                <div className="bg-surface/80 backdrop-blur-xl p-10 rounded-[3.5rem] border border-border shadow-3xl relative overflow-hidden group/skeleton">
-                  {/* Glassmorphism Shine */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover/skeleton:translate-x-full transition-transform duration-1000 ease-in-out"></div>
-
-                  <div className="space-y-8">
-                    <div className="flex items-center justify-between border-b border-border/40 pb-7">
-                      <div className="flex items-center gap-5">
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-md animate-pulse"></div>
-                          <div className="w-14 h-14 bg-surface-2 rounded-2xl relative z-10 border border-border"></div>
-                        </div>
-                        <div className="space-y-2.5">
-                          <div className="w-40 h-3.5 bg-surface-2 rounded-full animate-pulse"></div>
-                          <div className="w-28 h-2 bg-surface-2/60 rounded-full animate-pulse delay-300"></div>
-                        </div>
+                <div className="bg-surface p-8 rounded-[2.5rem] border border-border shadow-2xl relative overflow-hidden">
+                  {/* Header */}
+                  <div className="flex items-center justify-between border-b border-border pb-6 mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shrink-0">
+                        MG
                       </div>
-                      <div className="w-10 h-10 bg-primary/10 rounded-2xl flex items-center justify-center shadow-inner">
-                        <Bell size={18} className="text-primary animate-bounce" />
-                      </div>
+                      <span className="font-heading font-bold text-text-primary">Tu análisis guardado</span>
                     </div>
+                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                      <Bell size={16} />
+                    </div>
+                  </div>
 
-                    <div className="space-y-6">
-                      <div className="h-44 bg-surface-2/30 rounded-[2rem] border border-border/40 flex items-center justify-center relative overflow-hidden group/chart">
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
-                        <BarChart3 size={64} className="text-primary/20 group-hover/chart:scale-110 transition-transform duration-700" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-5">
-                        <div className="h-24 bg-surface-2/40 rounded-3xl border border-border/60 relative overflow-hidden">
-                          <div className="absolute top-3 left-3 w-8 h-1 bg-primary/20 rounded-full"></div>
+                  {/* Comparison rows */}
+                  <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-4">Comparativa de tarifas · tu consumo</p>
+                  <div className="space-y-3.5 mb-6">
+                    {[
+                      { name: "Octopus", price: 82, pct: 79 },
+                      { name: "Naturgy", price: 91, pct: 87 },
+                      { name: "Iberdrola", price: 96, pct: 92 },
+                    ].map((row) => (
+                      <div key={row.name} className="flex items-center gap-4">
+                        <span className="text-[13px] font-bold text-text-primary w-[72px] shrink-0 truncate">{row.name}</span>
+                        <div className="flex-1 h-2 bg-surface-2 rounded-full overflow-hidden">
+                          <div className="h-full bg-primary rounded-full" style={{ width: `${row.pct}%` }}></div>
                         </div>
-                        <div className="h-24 bg-surface-2/40 rounded-3xl border border-border/60 relative overflow-hidden">
-                          <div className="absolute top-3 left-3 w-8 h-1 bg-accent/20 rounded-full"></div>
-                        </div>
+                        <span className="text-[13px] font-bold text-text-secondary w-16 text-right shrink-0">{row.price} €/mes</span>
                       </div>
+                    ))}
+                    <div className="flex items-center gap-4">
+                      <span className="text-[13px] font-bold text-text-primary w-[72px] shrink-0 truncate">Tu tarifa</span>
+                      <div className="flex-1 h-2 bg-surface-2 rounded-full overflow-hidden">
+                        <div className="h-full bg-rose-500 rounded-full w-full"></div>
+                      </div>
+                      <span className="text-[13px] font-black text-rose-500 w-16 text-right shrink-0">104 €/mes</span>
+                    </div>
+                  </div>
+
+                  {/* Alert box */}
+                  <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 flex gap-3 mb-6">
+                    <AlertTriangle size={17} className="text-amber-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[13px] font-bold text-amber-700 dark:text-amber-400 leading-tight">Subida detectada en tu tarifa actual</p>
+                      <p className="text-xs text-amber-700/70 dark:text-amber-400/70 mt-1 leading-relaxed">Endesa ha subido el término de potencia un 4,2% desde el 1 de julio.</p>
+                    </div>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-1">Ahorro potencial anual</p>
+                      <p className="text-2xl font-black text-text-primary">264 €</p>
+                    </div>
+                    <div className="px-3 py-1.5 bg-primary/10 rounded-full shrink-0">
+                      <span className="text-[11px] font-bold text-primary whitespace-nowrap">Guardado hace 2 días</span>
                     </div>
                   </div>
                 </div>
