@@ -68,6 +68,46 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/blog/aerotermia-que-es-ahorro-calefaccion-rentabilidad',
+        destination: '/blog/aerotermia-guia-completa-ahorro-climatizacion-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/preguntas-frecuentes-tarifa-de-luz',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/tarifas-coche-electrico-casa-2026',
+        destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
+        permanent: true,
+      },
+      {
+        source: '/blog/discriminacion-horaria-luz-como-ahorrar',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
+        permanent: true,
+      },
+      {
+        source: '/politica-de-privacidad',
+        destination: '/legal/privacidad',
+        permanent: true,
+      },
+      {
+        source: '/politica-de-cookies',
+        destination: '/legal/cookies',
+        permanent: true,
+      },
+      {
+        source: '/terminos-de-uso',
+        destination: '/legal/aviso-legal',
+        permanent: true,
+      },
+      {
+        source: '/pro',
+        destination: '/',
+        permanent: true,
+      },
+      {
         source: '/blog/mercado-libre-vs-regulado',
         destination: '/blog/mercado-libre-pvpc',
         permanent: true,
