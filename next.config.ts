@@ -43,7 +43,7 @@ const nextConfig: NextConfig = {
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com; img-src 'self' blob: data: https://lh3.googleusercontent.com https://pub-d5a0449eb42449d1aa837683fccbba9a.r2.dev https://api.dicebear.com https://images.unsplash.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com;"
+            value: `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://www.google.com; img-src 'self' blob: data: https://lh3.googleusercontent.com https://pub-d5a0449eb42449d1aa837683fccbba9a.r2.dev https://api.dicebear.com https://images.unsplash.com; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://accounts.google.com; frame-src 'self' https://accounts.google.com${process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ? ` https://${process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}` : ''};`
           }
         ],
       },
