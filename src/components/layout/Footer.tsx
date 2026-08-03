@@ -166,68 +166,69 @@ export default function Footer() {
                     >
                         <div className="flex flex-col gap-3 lg:gap-3 items-center lg:items-start text-center lg:text-left">
                             {ABOUT.map((item) => (
-                                <Link 
-                                    key={item.name} 
-                                    href={item.href} 
+                                <Link
+                                    key={item.name}
+                                    href={item.href}
                                     className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors flex items-center justify-center lg:justify-start gap-3 group"
                                 >
                                     <div className="w-1 h-1 bg-white/10 group-hover:bg-primary rounded-full transition-colors hidden lg:block"></div>
                                     {item.name}
                                 </Link>
                             ))}
-
-                            {/* Contact Mini-cards */}
-                            <div className="mt-3 pt-4 border-t border-white/10 flex flex-col items-center lg:items-start gap-2.5 lg:gap-2.5">
-                                <a href="mailto:contacto@tumejortarifaluz.es" className="flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start gap-3 p-3 lg:p-2.5 h-auto lg:h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
-                                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                                        <Mail size={16} />
-                                    </div>
-                                    <div className="flex flex-col min-w-0 overflow-hidden text-center lg:text-left">
-                                        <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">Email</span>
-                                        <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight">contacto@tumejortarifaluz.es</span>
-                                    </div>
-                                </a>
-                                <div className="flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-start gap-3 p-3 lg:p-2.5 h-auto lg:h-[56px] w-full max-w-[280px] lg:max-w-none rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
-                                    <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                                        <MapPin size={16} />
-                                    </div>
-                                    <div className="flex flex-col min-w-0 text-center lg:text-left">
-                                        <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">España</span>
-                                        <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight truncate">Servicio Nacional</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Social Media Links */}
-                            <div className="mt-5 pt-4 border-t border-white/10 flex flex-col items-center lg:items-start text-center lg:text-left">
-                                <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase mb-3">Síguenos</p>
-                                <div className="flex items-center justify-center lg:justify-start gap-4">
-                                    <a 
-                                        href="https://x.com/TMejorTarifaLuz" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F1F5F9] hover:bg-primary hover:border-primary transition-all duration-300 group shadow-sm"
-                                        aria-label="Seguir en X (Twitter)"
-                                    >
-                                        <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current group-hover:scale-110 transition-transform" aria-hidden="true">
-                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                                        </svg>
-                                    </a>
-                                    <a 
-                                        href="https://www.facebook.com/profile.php?id=61575378954923" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F1F5F9] hover:bg-primary hover:border-primary transition-all duration-300 group shadow-sm"
-                                        aria-label="Seguir en Facebook"
-                                    >
-                                        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current group-hover:scale-110 transition-transform" aria-hidden="true">
-                                            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
                         </div>
                     </FooterSection>
+                </div>
+
+                {/* Contact & Social Strip */}
+                <div className="pt-6 border-t border-white/10 flex flex-col lg:flex-row items-center lg:items-center justify-between gap-6 mb-8">
+                    <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                        <a href="mailto:contacto@tumejortarifaluz.es" className="flex items-center gap-3 p-2.5 h-[56px] w-full sm:w-auto sm:min-w-[260px] rounded-2xl bg-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all border border-white/10 group shadow-sm">
+                            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+                                <Mail size={16} />
+                            </div>
+                            <div className="flex flex-col min-w-0 overflow-hidden text-left">
+                                <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">Email</span>
+                                <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight leading-tight truncate">contacto@tumejortarifaluz.es</span>
+                            </div>
+                        </a>
+                        <div className="flex items-center gap-3 p-2.5 h-[56px] w-full sm:w-auto sm:min-w-[200px] rounded-2xl bg-white/5 border border-white/10 group hover:bg-primary/10 transition-all shadow-sm">
+                            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white shrink-0 shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+                                <MapPin size={16} />
+                            </div>
+                            <div className="flex flex-col min-w-0 text-left">
+                                <span className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] mb-0.5 uppercase">España</span>
+                                <span className="text-[13px] font-500 text-[#F1F5F9] tracking-tight truncate">Servicio Nacional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center lg:items-end gap-3">
+                        <p className="text-[10px] font-500 tracking-[0.06em] text-[#94A3B8] uppercase">Síguenos</p>
+                        <div className="flex items-center gap-4">
+                            <a
+                                href="https://x.com/TMejorTarifaLuz"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F1F5F9] hover:bg-primary hover:border-primary transition-all duration-300 group shadow-sm"
+                                aria-label="Seguir en X (Twitter)"
+                            >
+                                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current group-hover:scale-110 transition-transform" aria-hidden="true">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                </svg>
+                            </a>
+                            <a
+                                href="https://www.facebook.com/profile.php?id=61575378954923"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F1F5F9] hover:bg-primary hover:border-primary transition-all duration-300 group shadow-sm"
+                                aria-label="Seguir en Facebook"
+                            >
+                                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current group-hover:scale-110 transition-transform" aria-hidden="true">
+                                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 w-full">
