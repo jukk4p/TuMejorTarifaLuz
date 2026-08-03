@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import ProviderClient from "./ProviderClient";
 import { Metadata } from "next";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import { getProviderReviews } from "@/lib/reviews";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -36,6 +37,8 @@ export default async function ProviderPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
+    const reviewCount = getProviderReviews(provider.id).length;
+
     return (
         <>
             <JsonLd data={{
@@ -55,13 +58,15 @@ export default async function ProviderPage({ params }: { params: Promise<{ slug:
                     "description": `Desde ${provider.minPrice.toFixed(3)} €/kWh con el plan ${provider.popularTariffName || 'base'}`,
                     "url": `https://www.tumejortarifaluz.es/companias/${slug}`
                 },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": provider.rating,
-                    "bestRating": "5",
-                    "worstRating": "1",
-                    "ratingCount": "124" // Placeholder for social proof
-                }
+                ...(reviewCount > 0 && {
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": provider.rating,
+                        "bestRating": "5",
+                        "worstRating": "1",
+                        "ratingCount": reviewCount
+                    }
+                })
             }} />
             <JsonLd data={getBreadcrumbSchema([
                 { name: "Inicio", item: "/" },

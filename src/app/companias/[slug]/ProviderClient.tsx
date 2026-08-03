@@ -15,18 +15,7 @@ import {
 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
-import reviewsData from "@/lib/reviews.json";
-
-const REPSOL_ELEC_KEYWORDS = [
-    'luz', 'electric', 'factur', 'tarif', 'kwh', 'suministr',
-    'contrato', 'potencia', 'energi', 'bono social', 'waylet',
-    'alta de', 'cambio de compa', 'comercializ', 'hogar confort'
-];
-const GAS_STATION_KEYWORDS = [
-    'surtidor', 'repost', 'estaci', 'combustibl', 'gasolinera',
-    'carburant', 'diesel', 'lavado', 'lubricant', 'glp', 'gasoil',
-    'depósito', 'lavar el coche'
-];
+import { getProviderReviews } from "@/lib/reviews";
 
 export default function ProviderClient({ provider }: { provider: Provider }) {
     const { resolvedTheme } = useTheme();
@@ -39,18 +28,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
 
     const { tariffs } = useTariffs();
 
-    const providerReviews = useMemo(() => {
-        const all: any[] = (reviewsData as Record<string, any>)[provider.id] || [];
-        if (provider.id !== 'repsol') return all;
-        // For Repsol: their Trustpilot mixes electricity + gas station reviews.
-        // We require a positive electricity signal AND no gas station signal.
-        return all.filter(rev => {
-            const text = ((rev.title || '') + ' ' + (rev.text || '')).toLowerCase();
-            const isGas = GAS_STATION_KEYWORDS.some(kw => text.includes(kw));
-            const hasElec = REPSOL_ELEC_KEYWORDS.some(kw => text.includes(kw));
-            return !isGas && hasElec;
-        });
-    }, [provider.id]);
+    const providerReviews = useMemo(() => getProviderReviews(provider.id), [provider.id]);
 
     // Matching company logic
     const companyTariffs = tariffs.filter(t => {
@@ -97,20 +75,6 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
         { name: provider.name, item: `https://www.tumejortarifaluz.es/companias/${provider.slug}` }
     ]);
 
-    const organizationSchema = {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": provider.name,
-        "logo": `https://www.tumejortarifaluz.es${provider.logo}`,
-        "url": `https://www.tumejortarifaluz.es/companias/${provider.slug}`,
-        "description": provider.description,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": provider.rating,
-            "reviewCount": "120"
-        }
-    };
-
     const similarProviders = useMemo(() => {
         let options: Provider[] = [];
         if (provider.category === 'big') {
@@ -127,7 +91,6 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
         <>
             <Navbar />
             <JsonLd data={breadcrumbSchema} />
-            <JsonLd data={organizationSchema} />
             <main className="min-h-screen bg-slate-50 dark:bg-background pt-32 pb-24">
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}
