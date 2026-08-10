@@ -183,6 +183,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Sigue indexada en Google pero ya no está en providersData.
+        source: '/companias/neolux-energy',
+        destination: '/companias',
+        permanent: true,
+      },
+      {
         source: '/companias/chcenergia',
         destination: '/companias',
         permanent: true,
@@ -194,6 +200,13 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/companias/energianufri',
+        destination: '/companias/energia-nufri',
+        permanent: true,
+      },
+      {
+        // Google rastreó la variante con tilde. El matcher trabaja sobre la ruta
+        // sin descodificar, así que la fuente va percent-encoded.
+        source: '/companias/energ%C3%ADa-nufri',
         destination: '/companias/energia-nufri',
         permanent: true,
       },
