@@ -153,6 +153,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        // Google la rastreo y daba 404. Era el "Error de redireccion" de GSC.
+        source: '/faq',
+        destination: '/blog/preguntas-frecuentes-tarifa-de-luz-2026',
+        permanent: true,
+      },
+      {
         source: '/blog/autoconsumo-solar-pisos',
         destination: '/blog/autoconsumo-solar-comunidad-vecinos-pisos-rentabilidad-2026',
         permanent: true,
