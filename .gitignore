@@ -67,7 +67,6 @@ yarn-error.log*
 .backup_colors/
 
 # custom rules
-.github/workflows/
 Scraper/
 
 # GEO/SEO Reports
