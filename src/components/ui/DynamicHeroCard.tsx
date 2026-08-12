@@ -128,7 +128,7 @@ export default function DynamicHeroCard() {
                     <div className="flex-1 space-y-3 md:space-y-5 text-center">
                        <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
                        <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm">
-                          <Image src="/logos/logo_iberdrola.png" alt="Iberdrola" width={120} height={40} className="object-contain h-auto w-auto max-h-full scale-[1.6]" priority sizes="(max-width: 768px) 100px, 120px" />
+                          <Image src="/logos/logo_iberdrola.png" alt="Iberdrola" width={217} height={163} className="object-contain h-auto w-auto max-h-full scale-[1.6]" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
                           <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
@@ -149,7 +149,7 @@ export default function DynamicHeroCard() {
                     <div className="flex-1 space-y-3 md:space-y-5 text-center">
                        <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Recomendada</p>
                        <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-md">
-                          <Image src="/logos/logo_visalia.png" alt="Visalia" width={100} height={40} className="object-contain h-auto w-auto max-h-full scale-110" priority sizes="(max-width: 768px) 100px, 120px" />
+                          <Image src="/logos/logo_visalia.png" alt="Visalia" width={150} height={43} className="object-contain h-auto w-auto max-h-full scale-110" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
                           <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight text-savings-text">0,098</span>

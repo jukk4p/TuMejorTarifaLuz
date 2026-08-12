@@ -530,20 +530,20 @@ export default async function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
               {[
-                { name: "Iberdrola", logo: "logo_iberdrola.png", scale: "scale-150", slug: "iberdrola" },
-                { name: "Endesa", logo: "logo_endesa.png", scale: "scale-75", slug: "endesa" },
-                { name: "Naturgy", logo: "logo_naturgy.png", scale: "scale-140", slug: "naturgy" },
-                { name: "Repsol", logo: "logo_repsol_base.png", darkLogo: "logo_repsol_dark.png", scale: "scale-140", slug: "repsol" },
-                { name: "Octopus", logo: "logo_octopus_base.png", darkLogo: "logo_octopus_dark.png", scale: "scale-135", slug: "octopus-energy" },
-                { name: "TotalEnergies", logo: "logo_total_energies.png", scale: "scale-125", slug: "total-energies" },
-                { name: "Niba", logo: "logo_niba_base.png", darkLogo: "logo_niba_dark.png", scale: "scale-110", slug: "niba" },
-                { name: "Imagina", logo: "logo_imaginaenergia.png", scale: "scale-140", slug: "imagina-energia" },
-                { name: "Visalia", logo: "logo_visalia.png", scale: "scale-95", slug: "visalia" },
-                { name: "Energía Nufri", logo: "logo_energianufri_base.png", darkLogo: "logo_energianufri_dark.png", scale: "scale-120", slug: "energia-nufri" },
-                { name: "Energya VM", logo: "logo_energiavm.png", scale: "scale-130", slug: "energia-vm" },
-                { name: "Atulado", logo: "logo_atulado.png", scale: "scale-110", slug: "atulado" },
-                { name: "Esluz", logo: "logo_esluz.png", scale: "scale-85", slug: "esluz" },
-                { name: "COR", logo: "COR.svg", scale: "scale-125", slug: "comercializadoras-referencia" },
+                { name: "Iberdrola", logo: "logo_iberdrola.png", w: 217, h: 163, scale: "scale-150", slug: "iberdrola" },
+                { name: "Endesa", logo: "logo_endesa.png", w: 250, h: 53, scale: "scale-75", slug: "endesa" },
+                { name: "Naturgy", logo: "logo_naturgy.png", w: 100, h: 82, scale: "scale-140", slug: "naturgy" },
+                { name: "Repsol", logo: "logo_repsol_base.png", w: 168, h: 94, darkLogo: "logo_repsol_dark.png", darkW: 168, darkH: 94, scale: "scale-140", slug: "repsol" },
+                { name: "Octopus", logo: "logo_octopus_base.png", w: 145, h: 87, darkLogo: "logo_octopus_dark.png", darkW: 145, darkH: 87, scale: "scale-135", slug: "octopus-energy" },
+                { name: "TotalEnergies", logo: "logo_total_energies.png", w: 215, h: 170, scale: "scale-125", slug: "total-energies" },
+                { name: "Niba", logo: "logo_niba_base.png", w: 150, h: 150, darkLogo: "logo_niba_dark.png", darkW: 300, darkH: 300, scale: "scale-110", slug: "niba" },
+                { name: "Imagina", logo: "logo_imaginaenergia.png", w: 260, h: 240, scale: "scale-140", slug: "imagina-energia" },
+                { name: "Visalia", logo: "logo_visalia.png", w: 150, h: 43, scale: "scale-95", slug: "visalia" },
+                { name: "Energía Nufri", logo: "logo_energianufri_base.png", w: 395, h: 127, darkLogo: "logo_energianufri_dark.png", darkW: 198, darkH: 64, scale: "scale-120", slug: "energia-nufri" },
+                { name: "Energya VM", logo: "logo_energiavm.png", w: 100, h: 17, scale: "scale-130", slug: "energia-vm" },
+                { name: "Atulado", logo: "logo_atulado.png", w: 453, h: 222, scale: "scale-110", slug: "atulado" },
+                { name: "Esluz", logo: "logo_esluz.png", w: 69, h: 69, scale: "scale-85", slug: "esluz" },
+                { name: "COR", logo: "COR.svg", w: 400, h: 200, scale: "scale-125", slug: "comercializadoras-referencia" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
                   <div
@@ -555,11 +555,11 @@ export default async function Home() {
                   >
                     {brand.darkLogo ? (
                       <>
-                        <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
-                        <Image src={`/logos/${brand.darkLogo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.logo}`} alt="" width={brand.w} height={brand.h} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 dark:hidden ${brand.scale || ""}`} />
+                        <Image src={`/logos/${brand.darkLogo}`} alt="" width={brand.darkW} height={brand.darkH} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 hidden dark:block ${brand.scale || ""}`} />
                       </>
                     ) : (
-                      <Image src={`/logos/${brand.logo}`} alt="" width={120} height={40} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
+                      <Image src={`/logos/${brand.logo}`} alt="" width={brand.w} height={brand.h} sizes="120px" className={`h-9 md:h-10 w-auto max-w-[90%] object-contain transition-all duration-500 ${brand.scale || ""}`} />
                     )}
                   </div>
                   <span className="font-body text-xs font-medium tracking-widest uppercase group-hover:text-primary transition-colors" style={{ color: 'var(--color-text-muted)' }}>{brand.name}</span>
