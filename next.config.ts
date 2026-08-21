@@ -296,6 +296,37 @@ const nextConfig: NextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      {
+        // Slug antiguo, confirmado como 404 activo en GSC (revisión 2026-08-21).
+        source: '/blog/aerotermia-ventajas-desventajas-ahorro-calefaccion-climatizacion-2026',
+        destination: '/blog/aerotermia-guia-completa-ahorro-climatizacion-2026',
+        permanent: true,
+      },
+      {
+        source: '/blog/como-reclamar-factura-luz-excesiva',
+        destination: '/blog/guia-paso-a-paso-reclamar-factura-luz-excesiva-errores',
+        permanent: true,
+      },
+      {
+        source: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026',
+        destination: '/blog/cuanto-cuesta-cargar-coche-electrico-en-casa-2026-rentabilidad-ahorro',
+        permanent: true,
+      },
+      {
+        // Ruta con un solo caracter especial, rastreada activamente por Google
+        // (GSC "No se ha encontrado (404)", revisión 2026-08-21). Origen no
+        // identificado (no aparece en sitemap.ts ni en el schema actual);
+        // redirect defensivo a home, mismo patron que /5 mas abajo en este archivo.
+        source: '/$',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        // "/año" con tilde percent-encoded, mismo caso que /$ de arriba.
+        source: '/a%C3%B1o',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 };
