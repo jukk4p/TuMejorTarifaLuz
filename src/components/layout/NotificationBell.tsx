@@ -5,11 +5,10 @@ import { useState, useEffect } from "react";
 import { Bell, X, Info, Zap, Megaphone, Trash2, Check, TrendingDown, TrendingUp } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { 
-    collection, 
-    query, 
-    where, 
-    orderBy, 
-    onSnapshot, 
+    collection,
+    query,
+    where,
+    onSnapshot,
     limit,
     doc,
     updateDoc,
@@ -30,30 +29,61 @@ export default function NotificationBell() {
     useEffect(() => {
         if (!user) return;
 
-        // Query global notifications and those targeting the user
-        const q = query(
-            collection(db, "notifications"),
-            orderBy("createdAt", "desc"),
-            limit(20)
-        );
+        // Global notifications y las dirigidas a este usuario se traen con dos
+        // queries separadas y se combinan aquí. Ninguna lleva orderBy: un
+        // where(...) combinado con orderBy("createdAt") sobre un campo
+        // distinto exige un índice compuesto, y ese índice no existe en este
+        // proyecto (probado en vivo: Firestore lo rechaza con
+        // failed-precondition / "requires an index"). Se ordena del lado del
+        // cliente tras el merge, igual que ya hace /notificaciones/page.tsx.
+        let globalNotifs: Notification[] = [];
+        let personalNotifs: Notification[] = [];
 
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const notifs = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            } as Notification));
-            
+        const recompute = () => {
+            const merged = [...globalNotifs, ...personalNotifs]
+                .sort((a, b) => (b.createdAt?.toMillis?.() ?? 0) - (a.createdAt?.toMillis?.() ?? 0))
+                .slice(0, 20);
+
             // Filter out hidden notifications
-            const visibleNotifs = notifs.filter(n => !n.hiddenBy?.includes(user.uid)).slice(0, 10);
-            
+            const visibleNotifs = merged.filter(n => !n.hiddenBy?.includes(user.uid)).slice(0, 10);
+
             setNotifications(visibleNotifs);
-            
+
             // Count unread
             const unread = visibleNotifs.filter(n => !n.readBy?.includes(user.uid)).length;
             setUnreadCount(unread);
+        };
+
+        const globalQ = query(
+            collection(db, "notifications"),
+            where("isGlobal", "==", true),
+            limit(20)
+        );
+        const personalQ = query(
+            collection(db, "notifications"),
+            where("targetUser", "==", user.uid),
+            limit(20)
+        );
+
+        const unsubGlobal = onSnapshot(globalQ, (snapshot) => {
+            globalNotifs = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            } as Notification));
+            recompute();
+        });
+        const unsubPersonal = onSnapshot(personalQ, (snapshot) => {
+            personalNotifs = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            } as Notification));
+            recompute();
         });
 
-        return () => unsubscribe();
+        return () => {
+            unsubGlobal();
+            unsubPersonal();
+        };
     }, [user]);
 
     const markAsRead = async (id: string) => {

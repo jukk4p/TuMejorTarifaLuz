@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    /**
+     * CORE SECURITY PHILOSOPHY:
+     * 1. Path-Based Ownership: User-specific data is restricted.
+     * 2. Role-Based Access Control (RBAC): Administrative tasks restricted to roles_admin collection.
+     */
+    // --- Global Helper Functions ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+    // Solo permite anadir el propio uid del que llama a un campo array
+    // (readBy / hiddenBy), sin tocar ningun otro campo ni quitar/anadir
+    // el uid de otra persona. Ver notifications.ts: el cliente solo llama
+    // arrayUnion(user.uid) sobre uno de estos dos campos por update.
+    function onlyAddsOwnUidTo(field) {
+      return request.resource.data[field].hasAll(resource.data[field])
+        && request.resource.data[field].hasAll([request.auth.uid])
+        && request.resource.data[field].size() <= resource.data[field].size() + 1;
+    }
+    // --- Collection Rules ---
+    // REGLAS PARA EL USUARIO Y SUS DATOS PRIVADOS
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      match /{allPaths=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    // NUEVA SECCIÓN: Mensajes de Contacto
+    // Permite que cualquiera envíe el formulario, pero solo el Admin los lee
+    match /contacts/{contactId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+    // Reglas globales para Tarifas (Lectura pública, Escritura Admin)
+    match /tariffs/{tariffId} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    // SECCIÓN: Notificaciones del Sistema
+    // FIX 2026-08-21, dos problemas en la misma coleccion:
+    // 1) "allow get, list: if isSignedIn()" dejaba leer CUALQUIER notificacion
+    //    a cualquier usuario logueado, incluidas las personales (targetUser).
+    //    targetUser no se usa todavia en el codigo (todo es isGlobal: true
+    //    hoy), pero la regla ya lo deja bien cerrado para cuando se use.
+    //    isAdmin() se mantiene con visibilidad total porque el dashboard de
+    //    administracion (/admin/dashboard/notificaciones) lista sin filtro.
+    // 2) "allow update: if isSignedIn()" sin mas dejaba que cualquier usuario
+    //    logueado reescribiera title/message/link/type de CUALQUIER
+    //    notificacion (son compartidas/globales). Ahora un update solo se
+    //    acepta si toca unicamente readBy O unicamente hiddenBy, y solo para
+    //    anadir el propio uid del que llama.
+    match /notifications/{notifId} {
+      allow get, list: if isSignedIn() && (
+        isAdmin() || resource.data.isGlobal == true || resource.data.targetUser == request.auth.uid
+      );
+      allow update: if isSignedIn() && (
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy']) && onlyAddsOwnUidTo('readBy'))
+        ||
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hiddenBy']) && onlyAddsOwnUidTo('hiddenBy'))
+      );
+      allow create, delete: if isAdmin();
+    }
+    // SECCIÓN: Estado del Sistema (Sincronizador de Tarifas)
+    match /system_state/{docId} {
+      allow read, write: if isAdmin();
+    }
+    // Reglas para Roles de Administrador
+    match /roles_admin/{adminId} {
+      allow get: if isOwner(adminId);
+      allow list, write: if false;
+    }
+  }
+}
