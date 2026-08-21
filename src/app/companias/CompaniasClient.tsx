@@ -97,8 +97,8 @@ export default function CompaniasClient() {
                         </h1>
                         <p className="text-base text-text-secondary leading-relaxed max-w-3xl mx-auto">
                             Compara las <strong>mejores comercializadoras de luz en España 2026</strong> de forma 
-                            profesional y objetiva. Nuestro equipo de expertos analiza mensualmente el 
-                            <strong>ranking de eléctricas en España</strong> para ofrecerte datos actualizados sobre 
+                            profesional y objetiva. Analizamos mensualmente el
+                            <strong>ranking de eléctricas en España</strong> para ofrecerte datos actualizados sobre
                             tarifas, calidad de atención al cliente y transparencia contractual. 
                             Utiliza nuestra herramienta avanzada para <strong>comparar compañías eléctricas</strong>, 
                             descubrir los precios por kWh más bajos del mercado y elegir una comercializadora 
