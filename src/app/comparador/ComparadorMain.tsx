@@ -760,7 +760,11 @@ export default function ComparadorMain() {
         }
     };
 
-    if (!mounted) return null;
+    // Nota: antes había un `if (!mounted) return null` aquí que anulaba TODA la
+    // página (título, breadcrumbs, contenido SEO) en el HTML servido a Google,
+    // ya que ninguno de los usos reales de `mounted` (los dos logo src de abajo,
+    // que ya se protegen a sí mismos con `mounted && resolvedTheme === 'dark'`)
+    // lo necesitaba. Confirmado 2026-08-21 en la revisión de GSC.
 
     return (
         <div className="min-h-screen relative overflow-hidden bg-mesh font-display selection:bg-primary/20">
@@ -3336,6 +3340,73 @@ export default function ComparadorMain() {
                     </div>
                 )}
             </main>
+
+            {/* Contenido estático de SEO: se renderiza siempre, independientemente del step,
+                para que el comparador tenga texto explicativo real en el HTML inicial. */}
+            <JsonLd data={getBreadcrumbSchema([
+                { name: "Inicio", item: "/" },
+                { name: "Comparador de Tarifas", item: "/comparador" }
+            ])} />
+            <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <div className="premium-card p-8 md:p-12 space-y-10">
+                    <div className="text-center space-y-3 max-w-2xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-900 text-text-primary tracking-tight">
+                            ¿Qué hace este comparador?
+                        </h2>
+                        <p className="text-text-secondary leading-relaxed">
+                            Cruzamos tu potencia contratada y tu consumo real por periodos con las tarifas activas de las comercializadoras que analizamos, para decirte cuánto pagarías con cada una y cuál te conviene de verdad.
+                        </p>
+                    </div>
+
+                    <div className="grid sm:grid-cols-3 gap-6">
+                        <div className="text-center space-y-3">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                <FileText size={22} />
+                            </div>
+                            <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Indica tu consumo</h3>
+                            <p className="text-sm text-text-secondary leading-relaxed">Sube el PDF de tu factura o escribe tus datos a mano, lo que te resulte más rápido.</p>
+                        </div>
+                        <div className="text-center space-y-3">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                <Brain size={22} />
+                            </div>
+                            <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Comparamos el mercado</h3>
+                            <p className="text-sm text-text-secondary leading-relaxed">Calculamos lo que pagarías con cada comercializadora que analizamos, con tus datos reales.</p>
+                        </div>
+                        <div className="text-center space-y-3">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                <CheckCircle2 size={22} />
+                            </div>
+                            <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Eliges tú</h3>
+                            <p className="text-sm text-text-secondary leading-relaxed">Ves el ahorro exacto de cada opción. Sin llamadas comerciales ni compromiso de contratar.</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-center gap-3 pt-6 border-t border-border">
+                        {[
+                            { icon: <Zap size={12} />, label: "Gratis" },
+                            { icon: <Unlock size={12} />, label: "Sin registro obligatorio" },
+                            { icon: <ShieldCheckIcon size={12} />, label: "Sin llamadas comerciales" },
+                            { icon: <Lock size={12} />, label: "Datos cifrados" },
+                        ].map((chip) => (
+                            <div key={chip.label} className="inline-flex items-center gap-2 px-4 py-2 bg-surface-2/50 border border-border rounded-full text-[11px] font-bold text-text-secondary uppercase tracking-widest">
+                                {chip.icon}
+                                {chip.label}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="text-center">
+                        <Link
+                            href="/#faq"
+                            className="inline-flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[11px] hover:gap-3 transition-all"
+                        >
+                            <HelpCircleIcon size={16} />
+                            ¿Tienes dudas? Consulta las preguntas frecuentes
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
             <Footer />
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
