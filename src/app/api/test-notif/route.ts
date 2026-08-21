@@ -2,7 +2,18 @@
 import { notifySystemUpdate } from "@/lib/notifications";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+// FIX 2026-08-21: esto era un GET sin autenticacion, es decir, cualquiera
+// que visitara esta URL disparaba una notificacion real y global (isGlobal:
+// true) visible para todos los usuarios de la web. Se pasa a POST + el mismo
+// header Admin-Key que ya usa el resto de rutas admin, para que no se pueda
+// activar con solo entrar a la URL desde el navegador.
+export async function POST(request: Request) {
+    const adminKey = request.headers.get("Admin-Key");
+    if (!adminKey || adminKey !== process.env.ADMIN_API_KEY) {
+        console.warn(`[SECURITY] Intento de acceso no autorizado a /api/test-notif con IP: `, request.headers.get("x-forwarded-for"));
+        return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+    }
+
     const mockChanges = [
         {
             tariff: { company: "Octopus Energy", name: "Relax" },
