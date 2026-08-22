@@ -106,7 +106,6 @@ export default function Navbar() {
                                                     company === "Imagina" ? "imagina-energia" :
                                                     company === "Energía Nufri" ? "energia-nufri" :
                                                     company === "Energya VM" ? "energia-vm" :
-                                                    company === "Neolux Energy" ? "neolux-energy" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
                                             className="px-3 py-2 text-xs font-bold text-text-secondary hover:text-text-primary hover:bg-primary/20 rounded-lg transition-colors flex items-center gap-2"
@@ -340,7 +339,6 @@ export default function Navbar() {
                                                     company === "Imagina" ? "imagina-energia" :
                                                     company === "Energía Nufri" ? "energia-nufri" :
                                                     company === "Energya VM" ? "energia-vm" :
-                                                    company === "Neolux Energy" ? "neolux-energy" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
                                             className="px-4 py-3 text-sm font-bold text-text-muted hover:text-primary transition-colors flex items-center gap-2"

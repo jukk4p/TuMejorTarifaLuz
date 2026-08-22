@@ -167,7 +167,6 @@ export default function Footer() {
                                         company === "Imagina" ? "imagina-energia" :
                                         company === "Energía Nufri" ? "energia-nufri" :
                                         company === "Energya VM" ? "energia-vm" :
-                                        company === "Neolux Energy" ? "neolux-energy" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
                                     className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors block truncate"

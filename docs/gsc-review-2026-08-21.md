@@ -87,6 +87,16 @@ Largest bucket. This is Google's crawl-budget/quality-prioritization decision, n
 
 Only one sitemap submitted (`https://www.tumejortarifaluz.es/sitemap.xml`, status Correcto, 35 pages discovered, last read 18 ago 2026). This covers 8 static routes + 13 blog posts + 14 company pages. Cross-checked against `sitemap.ts` in code — it dynamically pulls from `blogPosts` and `providers` data, so it should stay in sync automatically as content is added. The 35-vs-136 gap versus total known URLs is explained by legacy/renamed URLs and their redirect targets still lingering in Google's crawl history, not missing sitemap entries — **don't repeat the "add more to the sitemap" fix here**, it isn't the actual problem.
 
+## Seguimiento 2026-08-22
+
+- Verificados en producción (curl) los 5 redirects del fix anterior (`/$`, `/año`, y los 3 slugs de blog): los 5 devuelven 308 al destino correcto.
+- La validación GSC de "No se ha encontrado (404)" seguía en estado *error* desde el 15/8 (antes del deploy del fix). Se reinició manualmente ("Iniciar nueva validación") ya que el fix está confirmado en vivo.
+- `/blog` y `/comparador` seguían **sin indexar** en GSC con último rastreo muy anterior a sus respectivos fixes (17 abr y 11 ago). Probados en vivo (ambos "disponibles para Google") y se solicitó indexación manual para ambos.
+- Código muerto eliminado: el ternario `company === "Neolux Energy" ? "neolux-energy" : ...` en `Footer.tsx` y `Navbar.tsx` (2 sitios) — "Neolux Energy" ya no existe en ninguno de los arrays `COMPANIES` de esos ficheros, rama inalcanzable.
+- Revisados `sitemap.ts` y `robots.ts`: correctos, sin cambios necesarios.
+- Home (`/`) ya tiene contenido estático sustancial (FAQ + schema, sección "cómo funciona", enlaces a /blog y a las 14 fichas de compañía) — no necesitaba el refuerzo que sí hizo falta en /comparador.
+- Pendiente real, no abordado: contenido de código de descuento para `/companias/niba` (496-582 impresiones/trimestre en posición ~46) — requiere datos reales de promociones, no debe inventarse.
+
 ## Not actionable right now
 
 - **Core Web Vitals**: no data for mobile or desktop — insufficient real-user (CrUX) traffic in the last 90 days, expected given the low click volume.
