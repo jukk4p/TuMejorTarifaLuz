@@ -1,9 +1,10 @@
 # ⚡ TuMejorTarifaLuz (Web)
 
-![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=for-the-badge&logo=next.js)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
-![Firebase](https://img.shields.io/badge/Firebase-10.0-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
+![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2-149ECA?style=for-the-badge&logo=react&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
+![Firebase](https://img.shields.io/badge/Firebase-12.10-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 
 **TuMejorTarifaLuz** es una aplicación web de alto rendimiento orientada al análisis, comparación y optimización de tarifas eléctricas en el mercado regulado (PVPC) y libre español. El sistema permite a los usuarios comparar y calcular con precisión centesimal sus costes anuales reales de luz a partir de su consumo real.
 
@@ -22,13 +23,17 @@
 
 ## 🛠️ Stack Tecnológico
 
-- **Frontend & Server**: [Next.js 16 (App Router)](https://nextjs.org), [React 19](https://react.dev)
+- **Frontend & Server**: [Next.js 16 (App Router)](https://nextjs.org), [React 19](https://react.dev) con React Compiler (`babel-plugin-react-compiler`)
+- **Autenticación**: [Firebase Authentication](https://firebase.google.com/products/auth)
 - **Base de Datos & Sincronización**: [Firebase Firestore](https://firebase.google.com)
-- **Motor de Estilos**: [Tailwind CSS 4.0](https://tailwindcss.com) (CSS-first runtime con variables nativas)
-- **Inteligencia Artificial**: [Google Generative AI SDK](https://ai.google.dev)
-- **Storage**: [AWS S3](https://aws.amazon.com/s3) para resguardar documentos temporales de usuarios
+- **Motor de Estilos**: [Tailwind CSS 4](https://tailwindcss.com) (CSS-first runtime con variables nativas)
+- **Inteligencia Artificial**: [Google Generative AI SDK](https://ai.google.dev) (Gemini)
+- **Storage**: [Cloudflare R2](https://developers.cloudflare.com/r2/) (compatible con S3, accedido vía `@aws-sdk/client-s3`) para las facturas subidas por los usuarios
+- **Precios en tiempo real**: API de [ESIOS](https://www.esios.ree.es) (Red Eléctrica de España) para el precio PVPC del día
+- **Email transaccional**: [Resend](https://resend.com)
 - **Animaciones**: [Framer Motion](https://www.framer.com/motion) y transiciones CSS personalizadas
 - **Componentes de Iconos**: [Lucide React](https://lucide.dev)
+- **Tema claro/oscuro**: [next-themes](https://github.com/pacocoursey/next-themes)
 
 ---
 
@@ -37,7 +42,7 @@
 ### Prerrequisitos
 
 - Node.js 20+
-- NPM / PNPM / Bun
+- npm (el proyecto usa `package-lock.json`)
 
 ### Configuración Local
 
@@ -59,15 +64,31 @@
    NEXT_PUBLIC_FIREBASE_API_KEY=...
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
    NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
-   
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+   NEXT_PUBLIC_FIREBASE_APP_ID=...
+
    # Google Gemini API
    GEMINI_API_KEY=...
-   
-   # AWS S3 (Facturas)
-   AWS_ACCESS_KEY_ID=...
-   AWS_SECRET_ACCESS_KEY=...
-   AWS_REGION=...
-   AWS_BUCKET_NAME=...
+
+   # Cloudflare R2 (Facturas, compatible con S3)
+   R2_ACCOUNT_ID=...
+   R2_ACCESS_KEY_ID=...
+   R2_SECRET_ACCESS_KEY=...
+   R2_BUCKET_NAME=...
+   R2_PUBLIC_DOMAIN=...
+
+   # ESIOS (precio de la luz en tiempo real)
+   ESIOS_TOKEN=...
+
+   # Resend (emails transaccionales)
+   RESEND_API_KEY=...
+
+   # Panel de administración
+   ADMIN_API_KEY=...
+
+   # Make.com (publicación en redes sociales)
+   SOCIAL_WEBHOOK_URL=...
    ```
 
 4. **Ejecutar en desarrollo:**
@@ -99,7 +120,7 @@ Permite redactar posts personalizados hacia Facebook y X a través de webhooks s
 El sitio sigue una arquitectura de datos estrictamente alineada con las directrices de calidad de Google (SERP Guidelines):
 - **Cero Spam Markup**: Se eliminaron esquemas ocultos y calificaciones agregadas artificiales (`AggregateRating` ficticios o `FAQPage` sin correspondencia visible en el DOM) para evitar penalizaciones manuales de posicionamiento.
 - **Esquema de Datos Semántico**: Inyección controlada de metadatos `Organization` y `WebSite` a nivel global (`layout.tsx`) evitando duplicidad en landing pages secundarias.
-- **Redirecciones 301**: Control preciso de canibalización de keywords configurado en `next.config.ts`.
+- **Redirecciones 308**: Control preciso de canibalización de keywords configurado en `next.config.ts` (permanentes, vía `redirects()` de Next.js).
 - **Sitemap Dinámico**: Reconstrucción en tiempo real (`sitemap.ts`) para incluir artículos de blog y fichas de compañías eléctricas al instante.
 
 ---
