@@ -96,6 +96,10 @@ export default function ComparadorMain() {
     const { showToast } = useToast();
 
     const { tariffs } = useTariffs();
+    const scanCompanies = useMemo(() => {
+        const unique = Array.from(new Set(tariffs.map(t => t.company))).filter(Boolean);
+        return unique.length ? unique : ["Endesa", "Iberdrola", "Naturgy", "Repsol", "Octopus"];
+    }, [tariffs]);
     const [step, setStep] = useState<Step>("input");
     const [inputMethod, setInputMethod] = useState<"upload" | "manual" | null>(null);
     const [input, setInput] = useState<CalculationInput>({
@@ -372,19 +376,23 @@ export default function ComparadorMain() {
 
             interval = setInterval(() => {
                 setAnalysisProgress(prev => {
-                    if (prev >= 99.5) return 99.5;
-                    
+                    // Once we're parked at (or explicitly pushed past) 99.5%, hold —
+                    // never snap a completed 100% back down while the checkmark is showing.
+                    if (prev >= 99.5) return prev;
+
                     let increment = 0;
                     if (isAiGenerated && step === "input") {
                         // AI mode expects roughly 4-8s (backend fetch + 1s delay)
-                        if (prev < 50) increment = 4.5; 
+                        if (prev < 50) increment = 4.5;
                         else if (prev < 85) increment = 2.2;
                         else if (prev < 98) increment = 0.8;
                         else increment = 0.1;
                     } else {
-                        // Manual mode expects 1s - 2.8s
-                        // To reach 100% in ~2s with 200ms intervals, we need ~10% per step
-                        increment = 8.5;
+                        // Manual mode: eased climb over ~3.5s so the number reads as a
+                        // deliberate scan rather than a jump-cut — brisk start, settles near the end.
+                        if (prev < 60) increment = 9;
+                        else if (prev < 90) increment = 5;
+                        else increment = 1.5;
                     }
 
                     const next = prev + increment;
@@ -563,7 +571,9 @@ export default function ComparadorMain() {
         setIsProcessing(true);
         setIsAiGenerated(false); // Manual entry reset
         setTimeout(() => {
-            // Wait for progress bar to reach near 100% logic in useEffect (L377)
+            // Progress has eased up to ~99.5% by now (see useEffect above) — lock it to
+            // a literal 100 so the checkmark actually renders before we switch views.
+            setAnalysisProgress(100);
             setTimeout(() => {
                 if (skipValidation) {
                     setHasAnalyzed(true);
@@ -573,8 +583,8 @@ export default function ComparadorMain() {
                     setStep("validation");
                 }
                 setIsProcessing(false);
-            }, 800); // Grace period to see the 100%
-        }, 2000);
+            }, 700); // Hold on the checkmark before leaving
+        }, 3400); // Time for the ring to visibly fill
     };
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -689,12 +699,13 @@ export default function ComparadorMain() {
                     current_price_p1: "0,14", current_price_p2: "0,11", current_price_p3: "0,08"
                 });
             } finally {
-                // Sutil delay for visual satisfaction (reach 100%)
+                // Lock to a literal 100 so the checkmark renders, then hold briefly before leaving
+                setAnalysisProgress(100);
                 setTimeout(() => {
                     setHasAnalyzed(true);
                     setStep("validation");
                     setIsProcessing(false);
-                }, 1000);
+                }, 700);
             }
         };
 
@@ -1167,148 +1178,72 @@ export default function ComparadorMain() {
                                     </div>
                                 </div>
                             ) : isProcessing ? (
-                                <div className="premium-card p-6 md:p-10 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[440px] max-w-[720px] mx-auto !border-none !shadow-2xl bg-white/40 dark:bg-slate-950/40 backdrop-blur-3xl transition-all duration-700">
-                                    {/* === ULTRA-PRO HUD BACKGROUND === */}
-                                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                                        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.08]" style={{ backgroundImage: 'radial-gradient(circle, var(--primary) 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-                                        
-                                        {/* Dynamic Scanning Laser Beams - High Definition */}
-                                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-[scan_3s_ease-in-out_infinite] shadow-[0_0_20px_rgba(var(--color-primary),0.4)]"></div>
-                                        <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent animate-[scan_5s_ease-in-out_infinite_reverse] bottom-0 shadow-[0_0_15px_rgba(52,211,153,0.3)]"></div>
-                                        
-                                        {/* Ambient Atmospheric Orbs - Visual Elite Palette */}
-                                        <div className={`absolute w-[800px] h-[800px] rounded-full blur-[160px] -top-64 -right-64 transition-all duration-2000 opacity-30 ${analysisProgress < 50 ? 'bg-primary/20' : 'bg-emerald-400/20'}`}></div>
-                                        <div className={`absolute w-[600px] h-[600px] rounded-full blur-[140px] -bottom-48 -left-48 transition-all duration-2000 opacity-20 ${analysisProgress < 50 ? 'bg-indigo-500/15' : 'bg-primary/15'}`}></div>
-                                        
-                                        {/* HUD Corner Markers */}
-                                        <div className="absolute top-6 left-6 w-12 h-12 border-t border-l border-primary/20 rounded-tl-2xl"></div>
-                                        <div className="absolute top-6 right-6 w-12 h-12 border-t border-r border-primary/20 rounded-tr-2xl"></div>
-                                        <div className="absolute bottom-6 left-6 w-12 h-12 border-b border-l border-primary/20 rounded-bl-2xl"></div>
-                                        <div className="absolute bottom-6 right-6 w-12 h-12 border-b border-r border-primary/20 rounded-br-2xl"></div>
-                                    </div>
+                                <div className="premium-card p-10 md:p-16 relative overflow-hidden flex flex-col items-center justify-center text-center flex-1 h-full min-h-[440px] max-w-[720px] mx-auto !border-none !shadow-2xl bg-white dark:bg-slate-950 transition-all duration-700">
+                                    {/* Single, quiet ambient glow — no grid, no scan lines, no competing orbs */}
+                                    <div className="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full blur-[140px] bg-primary/[0.07] dark:bg-primary/[0.1] pointer-events-none"></div>
 
-                                    <div className="relative z-10 w-full flex flex-col items-center">
-                                        <div className="mb-4">
-                                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full">
-                                                <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
-                                                <span className="text-[9px] font-900 tracking-[0.3em] text-primary uppercase">Cerebro Neuronal IA</span>
-                                            </div>
-                                        </div>
+                                    <div className="relative z-10 w-full flex flex-col items-center max-w-xs mx-auto">
+                                        <p className="text-[13px] font-medium text-text-muted mb-10">
+                                            Estamos comparando tu factura con el mercado
+                                        </p>
 
-                                        {/* === ELITE CIRCULAR HUD LOADER === */}
-                                        <div className="relative w-48 h-48 md:w-56 md:h-56 mb-8">
-                                            {/* Aura Pulsante Astral */}
-                                            <div className="absolute inset-4 rounded-full bg-primary/5 animate-pulse blur-2xl"></div>
-                                            
-                                            {/* Data-rings - Industrial Tech Layers */}
-                                            <svg className="absolute inset-[-12px] w-[calc(100%+24px)] h-[calc(100%+24px)] animate-[spin_12s_linear_infinite] opacity-20" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 12" className="text-primary" />
-                                            </svg>
-                                            <svg className="absolute inset-0 w-full h-full animate-[spin_6s_linear_infinite]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="94" fill="none" strokeWidth="1" strokeDasharray="80 120" strokeLinecap="round" className="stroke-primary/30" />
-                                            </svg>
-                                            <svg className="absolute inset-4 w-[calc(100%-32px)] h-[calc(100%-32px)] animate-[spin_8s_linear_infinite_reverse]" viewBox="0 0 200 200">
-                                                <circle cx="100" cy="100" r="80" fill="none" strokeWidth="1" strokeDasharray="30 150" strokeLinecap="round" className="stroke-emerald-400/30" />
-                                            </svg>
-
-                                            {/* Progress Halo - Gradient & Neon Depth */}
-                                            <svg className="absolute inset-[-6px] w-[calc(100%+12px)] h-[calc(100%+12px)] -rotate-90" viewBox="0 0 200 200">
+                                        {/* === SEGMENTED PROGRESS RING === */}
+                                        <div className="relative w-52 h-52 md:w-60 md:h-60 mb-10">
+                                            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 200 200">
                                                 <defs>
-                                                    <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                                         <stop offset="0%" stopColor="var(--color-primary)" />
                                                         <stop offset="100%" stopColor="#10b981" />
                                                     </linearGradient>
                                                 </defs>
-                                                <circle cx="100" cy="100" r="92" fill="none" strokeWidth="4" className="stroke-slate-100 dark:stroke-slate-800 opacity-50" />
-                                                <circle cx="100" cy="100" r="92" fill="none" stroke="url(#loaderGradient)" strokeWidth="4" strokeLinecap="round"
-                                                    className="transition-all duration-1000 ease-out"
-                                                    strokeDasharray={`${analysisProgress * 5.78} 578`}
-                                                    style={{filter: 'drop-shadow(0 0 10px rgba(var(--color-primary), 0.4))'}}
-                                                />
+                                                {[0, 1, 2, 3, 4].map((i) => {
+                                                    const segLen = 97.4; // arc length of one of 5 segments (62° of a r=90 circle), gaps between
+                                                    const circ = 565.5;
+                                                    const filled = Math.max(0, Math.min(1, (analysisProgress - i * 20) / 20));
+                                                    return (
+                                                        <g key={i} transform={`rotate(${i * 72} 100 100)`}>
+                                                            <circle cx="100" cy="100" r="90" fill="none" strokeWidth="9" strokeLinecap="round"
+                                                                className="stroke-slate-200 dark:stroke-slate-700"
+                                                                strokeDasharray={`${segLen} ${circ - segLen}`}
+                                                            />
+                                                            <circle cx="100" cy="100" r="90" fill="none" stroke="url(#loaderGradient)" strokeWidth="9" strokeLinecap="round"
+                                                                strokeDasharray={`${segLen * filled} ${circ - segLen * filled}`}
+                                                                style={{ transition: 'stroke-dasharray 0.7s cubic-bezier(0.4, 0, 0.2, 1)' }}
+                                                            />
+                                                        </g>
+                                                    );
+                                                })}
                                             </svg>
 
-                                            {/* Central Brain Core - Dynamic State */}
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-24 h-24 md:w-28 md:h-28 rounded-[2.5rem] bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl flex items-center justify-center border border-slate-200/60 dark:border-white/10 shadow-2xl relative group">
-                                                    <div className="absolute -inset-2 bg-primary/5 rounded-[3rem] blur-xl group-hover:bg-primary/10 transition-colors"></div>
-                                                    <div className={`relative z-10 transition-all duration-700 ${analysisProgress < 100 ? 'text-primary' : 'text-emerald-500'}`}>
-                                                        <Brain className={`w-12 h-12 md:w-14 md:h-14 ${analysisProgress < 100 ? 'animate-pulse' : 'scale-110'}`} strokeWidth={1.5} />
+                                                {analysisProgress >= 100 ? (
+                                                    <CheckCircle2 className="w-16 h-16 text-emerald-500 animate-in zoom-in-75 duration-500" strokeWidth={1.5} />
+                                                ) : (
+                                                    <div className="flex items-baseline gap-0.5">
+                                                        <span className="font-mono text-6xl md:text-7xl font-medium tracking-tight text-slate-900 dark:text-white tabular-nums">
+                                                            {Math.round(analysisProgress)}
+                                                        </span>
+                                                        <span className="text-xl md:text-2xl font-medium text-text-muted">%</span>
                                                     </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Orbital Sync Particles */}
-                                            {[0, 1, 2, 3, 4, 1, 2, 3].map((i, idx) => (
-                                                <div key={idx} className="absolute w-1 h-1 rounded-full bg-primary"
-                                                    style={{
-                                                        top: '50%',
-                                                        left: '50%',
-                                                        transform: `rotate(${idx * 45}deg) translate(92px)`,
-                                                        opacity: idx < (analysisProgress / 12.5) ? 1 : 0.1,
-                                                        boxShadow: idx < (analysisProgress / 12.5) ? '0 0 10px var(--color-primary)' : 'none',
-                                                        transition: 'all 0.5s ease-out'
-                                                    }}
-                                                />
-                                            ))}
-                                        </div>
-
-                                        {/* === DATA QUANTUM COUNTER === */}
-                                        <div className="mb-8">
-                                            <div className="flex items-baseline justify-center gap-1 mb-2">
-                                                <span className="font-mono text-6xl font-black tracking-tighter text-slate-800 dark:text-white tabular-nums">
-                                                    {Math.round(analysisProgress)}
-                                                </span>
-                                                <span className="text-sm font-black text-primary uppercase tracking-widest">%</span>
-                                            </div>
-                                            <h3 className="text-sm font-900 uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                                                {analysisProgress < 25 ? "Iniciando secuencia..." :
-                                                 analysisProgress < 50 ? "Digitalizando parámetros..." :
-                                                 analysisProgress < 75 ? "Neuralizando mercado..." :
-                                                 analysisProgress < 100 ? "Sincronizando ahorro..." : "Análisis completado"}
-                                            </h3>
-                                        </div>
-
-                                        {/* === BATTLE-TESTED STEP HUD === */}
-                                        <div className="flex flex-wrap justify-center gap-2 mb-8 max-w-sm">
-                                            {[
-                                                { label: 'Consumo', icon: <Gauge size={12} /> },
-                                                { label: 'Factura', icon: <CreditCard size={12} /> },
-                                                { label: 'Tarifas', icon: <Search size={12} /> },
-                                                { label: 'Ahorro', icon: <TrendingDown size={12} /> },
-                                                { label: 'Final', icon: <Trophy size={12} /> },
-                                            ].map((s, i) => {
-                                                const isActive = Math.floor(analysisProgress / 20) === i;
-                                                const isCompleted = Math.floor(analysisProgress / 20) > i;
-                                                return (
-                                                    <div key={i} className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all duration-500 relative overflow-hidden border ${
-                                                        isCompleted ? 'bg-emerald-500/5 text-emerald-500 border-emerald-500/20' :
-                                                        isActive ? 'bg-primary/5 text-primary border-primary/20 shadow-lg shadow-primary/5' :
-                                                        'bg-white/40 dark:bg-slate-800/20 text-slate-400 border-slate-200/60 dark:border-white/5'
-                                                    }`}>
-                                                        {isActive && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[shimmer_2s_infinite] skew-x-12"></div>}
-                                                        {isCompleted ? <CheckCircle2 size={12} /> : s.icon}
-                                                        <span>{s.label}</span>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-
-                                        {/* === SUBTLE PROGRESS STRIP === */}
-                                        <div className="w-full max-w-xs mb-6">
-                                            <div className="h-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                                <div
-                                                    className="h-full bg-primary rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(var(--color-primary),0.5)]"
-                                                    style={{ width: `${analysisProgress}%` }}
-                                                ></div>
+                                                )}
                                             </div>
                                         </div>
 
-                                        {/* === NEURAL STATUS FLOW === */}
-                                        <div className="h-4 flex items-center">
-                                            <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-primary dark:text-primary animate-pulse bg-primary/5 px-4 py-1.5 rounded-full border border-primary/10 shadow-sm">
-                                                {analysisStatus}
-                                            </p>
-                                        </div>
+                                        {/* === STATUS === */}
+                                        <p
+                                            key={Math.min(4, Math.floor(analysisProgress / 20))}
+                                            className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2 animate-in fade-in slide-in-from-bottom-1 duration-300"
+                                        >
+                                            {analysisProgress < 25 ? "Leyendo tu consumo" :
+                                             analysisProgress < 50 ? "Digitalizando tu factura" :
+                                             analysisProgress < 75 ? "Cruzando con el mercado" :
+                                             analysisProgress < 100 ? "Calculando tu ahorro" : "Listo"}
+                                        </p>
+                                        <p className="text-[13px] text-text-muted">
+                                            {scanCompanies.length > 0
+                                                ? `Comparando con ${scanCompanies.slice(0, 3).join(', ')}${scanCompanies.length > 3 ? ` y ${scanCompanies.length - 3} más` : ''}`
+                                                : 'Comparando con las principales comercializadoras'}
+                                        </p>
                                     </div>
                                 </div>
                             ) : (
