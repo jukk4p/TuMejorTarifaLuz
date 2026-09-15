@@ -2205,10 +2205,10 @@ export default function ComparadorMain() {
 
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
-                                {/* TOP RESULTS & ACTIONS AREA - UNIFIED BAR */}
-                                <div className="bg-surface border border-border p-5 md:h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden group flex flex-col md:flex-row items-center justify-between px-5 md:px-8 gap-4 md:gap-0">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl transition-all group-hover:bg-accent/10"></div>
-                                    
+                                {/* TOP RESULTS AREA */}
+                                <div className="bg-surface border border-border p-5 md:h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden flex items-center justify-center md:justify-start px-5 md:px-8">
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+
                                     <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 md:gap-6 relative z-10 w-full md:w-auto text-center md:text-left">
                                         <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
                                             <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
@@ -2220,24 +2220,25 @@ export default function ComparadorMain() {
                                             </h2>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-3 relative z-10 w-full sm:w-auto justify-end md:ml-auto md:translate-y-[4px]">
-                                        <button
-                                            onClick={saveBill}
-                                            disabled={isProcessing || results.length === 0}
-                                            className="w-fit flex items-center justify-center gap-1.5 bg-primary text-white shadow-lg shadow-primary/30 px-3.5 py-1.5 md:px-4 md:py-1.5 rounded-full hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 focus:ring-4 focus:ring-primary/20 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:hover:translate-y-0 border border-primary/20"
-                                        >
-                                            <Save className="w-3.5 h-3.5 opacity-90 object-contain" />
-                                            <span className="text-[10px] font-bold uppercase tracking-widest whitespace-nowrap leading-none pt-0.5">{isProcessing ? "Guardando..." : "Guardar Análisis"}</span>
-                                        </button>
-                                        <button
-                                            onClick={() => setStep("input")}
-                                            className="group w-fit flex items-center justify-center gap-1.5 bg-transparent text-text-secondary px-3 py-1.5 md:px-3.5 md:py-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-surface-2 focus:ring-4 focus:ring-slate-100 dark:focus:ring-surface transition-all duration-300 active:scale-95"
-                                        >
-                                            <History className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity text-current" />
-                                            <span className="text-[10px] font-bold uppercase tracking-wider whitespace-nowrap group-hover:text-text-primary transition-colors leading-none pt-0.5">Nueva Comparativa</span>
-                                        </button>
-                                    </div>
+                                {/* ACTIONS ROW */}
+                                <div className="flex items-center justify-center gap-3">
+                                    <button
+                                        onClick={() => setStep("input")}
+                                        className="flex items-center justify-center gap-2 text-text-secondary px-5 py-2.5 rounded-full border border-border hover:border-text-secondary/30 hover:bg-slate-50 dark:hover:bg-surface-2 transition-colors duration-300 active:scale-95"
+                                    >
+                                        <History className="w-4 h-4 opacity-70" />
+                                        <span className="text-sm font-semibold whitespace-nowrap">Nueva Comparativa</span>
+                                    </button>
+                                    <button
+                                        onClick={saveBill}
+                                        disabled={isProcessing || results.length === 0}
+                                        className="flex items-center justify-center gap-2 bg-primary text-white px-6 py-2.5 rounded-full shadow-sm hover:bg-primary/90 transition-colors duration-300 active:scale-95 disabled:opacity-50"
+                                    >
+                                        <Save className="w-4 h-4" />
+                                        <span className="text-sm font-semibold whitespace-nowrap">{isProcessing ? "Guardando..." : "Guardar Análisis"}</span>
+                                    </button>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
