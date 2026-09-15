@@ -20,9 +20,14 @@ ENV NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install dependencies based on the preferred package manager
+# Install dependencies based on the preferred package manager.
+# npm install (not npm ci): sharp's optional wasm32 fallback
+# (@img/sharp-wasm32 -> @emnapi/core, @emnapi/runtime) isn't fully
+# expanded in package-lock.json by npm on Windows, which makes npm ci's
+# stricter lockfile-completeness check fail here with "Missing: X from
+# lock file" even though the resolved versions are correct.
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install --no-audit --no-fund
 
 # Copy all files
 COPY . .
