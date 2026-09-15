@@ -1,7 +1,14 @@
-"use client";
-
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+export const metadata: Metadata = {
+    title: "Aviso Legal",
+    description: "Datos identificativos, condiciones de uso y responsabilidad del portal TuMejorTarifaLuz, comparador independiente de tarifas de luz.",
+    alternates: {
+        canonical: "https://www.tumejortarifaluz.es/legal/aviso-legal"
+    }
+};
 
 export default function AvisoLegal() {
     return (

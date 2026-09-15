@@ -1,7 +1,14 @@
-"use client";
-
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+export const metadata: Metadata = {
+    title: "Política de Cookies",
+    description: "Qué cookies utiliza TuMejorTarifaLuz, para qué las usamos y cómo puedes gestionarlas o revocar tu consentimiento en cualquier momento.",
+    alternates: {
+        canonical: "https://www.tumejortarifaluz.es/legal/cookies"
+    }
+};
 
 export default function Cookies() {
     return (

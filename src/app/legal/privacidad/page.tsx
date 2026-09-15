@@ -1,7 +1,14 @@
-"use client";
-
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
+export const metadata: Metadata = {
+    title: "Política de Privacidad",
+    description: "Cómo tratamos tus datos en TuMejorTarifaLuz: qué información recogemos al analizar tu factura de luz, cómo la usamos y tus derechos según el RGPD.",
+    alternates: {
+        canonical: "https://www.tumejortarifaluz.es/legal/privacidad"
+    }
+};
 
 export default function Privacidad() {
     return (

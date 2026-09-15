@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Mail, Clock, CheckCircle2 } from "lucide-react";
 import ContactForm from "./ContactForm";
+
+export const metadata: Metadata = {
+    title: "Contacto",
+    description: "Resuelve tus dudas sobre el mercado eléctrico o recibe asesoramiento gratuito sobre tu factura de luz. Te respondemos en menos de 24h laborables.",
+    alternates: {
+        canonical: "https://www.tumejortarifaluz.es/contacto"
+    }
+};
 
 export default function ContactoPage() {
     return (
