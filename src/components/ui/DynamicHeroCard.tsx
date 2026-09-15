@@ -99,25 +99,22 @@ export default function DynamicHeroCard() {
             animate={{ opacity: 1, scale: 1 }}
             className="relative"
           >
-            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/10 rounded-full blur-[100px] md:blur-[140px]"></div>
-            <div className="absolute -bottom-16 -left-16 w-48 md:w-96 h-48 md:h-96 bg-accent/10 rounded-full blur-[80px] md:blur-[100px]"></div>
-            
-            <div 
-              className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto transition-all duration-500 hover:shadow-primary/5" 
-              style={{ backgroundColor: 'var(--section-white-alpha)' }}
+            <div
+              className="relative glass-card rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto"
+              style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04), 0 12px 24px -8px rgba(0,0,0,0.08), 0 32px 64px -24px rgba(0,0,0,0.10)' }}
             >
                {/* Header Preview */}
-               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.05), transparent)' }}>
+               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--primary) 5%, transparent), transparent)' }}>
                  <div className="space-y-1 md:space-y-1.5">
-                    <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
-                     <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
+                    <p className="text-[10px] md:text-xs font-semibold tracking-wide" style={{ color: 'var(--color-text-subtle)' }}>Tu potencial de</p>
+                     <div className="text-sm sm:text-base md:text-lg font-black tracking-tight flex items-center gap-2" style={{ color: 'var(--color-text-heading)' }}>
                       Ahorro real
-                      <span className="w-2 h-2 rounded-full bg-primary opacity-80 transition-opacity"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary opacity-80 transition-opacity"></span>
                     </div>
                  </div>
-                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-savings/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-savings/10">
+                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-border rounded-full flex items-center gap-1.5 md:gap-2.5 bg-surface-2/60">
                     <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-savings opacity-80 transition-opacity"></div>
-                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Optimizado hoy</span>
+                    <span className="text-[10px] md:text-xs font-semibold text-text-muted">Optimizado hoy</span>
                  </div>
                </div>
 
@@ -126,8 +123,8 @@ export default function DynamicHeroCard() {
                <div className="p-5 sm:p-8 md:p-10 space-y-6 md:space-y-10">
                  <div className="flex items-start justify-between gap-3 sm:gap-6 relative">
                     <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
-                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-sm">
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide" style={{ color: 'var(--color-text-muted)' }}>Tarifa actual</p>
+                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4">
                           <Image src="/logos/logo_iberdrola.png" alt="Iberdrola" width={217} height={163} className="object-contain h-auto w-auto max-h-full scale-[1.6]" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
@@ -137,18 +134,18 @@ export default function DynamicHeroCard() {
                     </div>
 
                     <div className="absolute left-1/2 top-[52px] md:top-[75px] -translate-x-1/2 -translate-y-1/2 z-20">
-                       <motion.div 
+                       <motion.div
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 md:w-20 md:h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-slate-900"
+                        className="w-12 h-12 md:w-20 md:h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-sm border-4 border-white dark:border-slate-900"
                        >
                           <ArrowRight size={24} className="md:w-10 md:h-10 stroke-[3]" />
                        </motion.div>
                     </div>
 
                     <div className="flex-1 space-y-3 md:space-y-5 text-center">
-                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Recomendada</p>
-                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-3 md:p-4 shadow-md">
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Recomendada</p>
+                       <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-3 md:p-4">
                           <Image src="/logos/logo_visalia.png" alt="Visalia" width={150} height={43} className="object-contain h-auto w-auto max-h-full scale-110" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
@@ -158,21 +155,22 @@ export default function DynamicHeroCard() {
                     </div>
                  </div>
 
-                 <motion.div 
+                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between bg-savings-bg border border-savings/30 shadow-lg"
+                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between border"
+                  style={{ background: 'var(--color-savings-bg)', borderColor: 'var(--color-savings-border)' }}
                  >
                     <div className="space-y-1">
-                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-savings-text">Ahorro anual estimado</p>
-                       <div className="flex items-baseline gap-2">
-                          <span className="text-3xl md:text-5xl font-900 tracking-tighter text-accent">339,24€</span>
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Ahorro anual estimado</p>
+                       <div className="flex items-baseline gap-2 text-savings-text">
+                          <span className="text-3xl md:text-5xl font-900 tracking-tighter">339,24€</span>
                        </div>
                     </div>
-                    <div className="px-5 py-3 bg-emerald-700 text-white rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-savings/40">
-                       <span className="text-2xl md:text-3xl font-900 leading-none">-34%</span>
+                    <div className="flex items-center gap-1.5 text-savings-text">
                        <TrendingDown size={20} className="hidden sm:block" />
+                       <span className="text-xl md:text-2xl font-900 leading-none">-34%</span>
                     </div>
                  </motion.div>
                </div>
@@ -186,24 +184,22 @@ export default function DynamicHeroCard() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="relative"
           >
-            <div className="absolute -top-16 -right-16 w-64 md:w-[500px] h-64 md:h-[500px] bg-primary/25 rounded-full blur-[100px] md:blur-[140px]"></div>
-            
-            <div 
-              className="relative glass-card premium-shadow rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto border border-white/20 shadow-2xl" 
-              style={{ backgroundColor: 'var(--section-white-alpha)' }}
+            <div
+              className="relative glass-card rounded-3xl md:rounded-[3rem] overflow-hidden flex flex-col w-full max-w-[640px] mx-auto lg:ml-auto"
+              style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04), 0 12px 24px -8px rgba(0,0,0,0.10), 0 32px 64px -24px rgba(0,0,0,0.12)' }}
             >
                {/* Active Header */}
-               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, rgba(var(--primary-rgb), 0.08), transparent)' }}>
+               <div className="px-5 sm:px-8 md:px-10 pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between" style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--primary) 8%, transparent), transparent)' }}>
                  <div className="space-y-1">
-                    <p className="text-[9px] md:text-[11px] font-black uppercase tracking-[0.25em]" style={{ color: 'var(--color-text-subtle)' }}>Análisis personalizado</p>
-                     <div className="text-xs sm:text-sm md:text-[18px] font-black uppercase tracking-[0.12em] flex items-center gap-2 text-primary">
-                      Comparativa Completada
-                      <span className="w-2 h-2 rounded-full bg-primary opacity-80" />
+                    <p className="text-[10px] md:text-xs font-semibold tracking-wide" style={{ color: 'var(--color-text-subtle)' }}>Análisis personalizado</p>
+                     <div className="text-sm sm:text-base md:text-lg font-black tracking-tight flex items-center gap-2 text-primary">
+                      Comparativa completada
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary opacity-80" />
                     </div>
                  </div>
-                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-emerald-500/25 rounded-full flex items-center gap-1.5 md:gap-2.5 bg-emerald-500/10">
-                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-emerald-500"></div>
-                    <span className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Datos Reales</span>
+                 <div className="px-3 md:px-4 py-1.5 md:py-2 border border-border rounded-full flex items-center gap-1.5 md:gap-2.5 bg-surface-2/60">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-savings"></div>
+                    <span className="text-[10px] md:text-xs font-semibold text-text-muted">Datos reales</span>
                  </div>
                </div>
 
@@ -218,8 +214,8 @@ export default function DynamicHeroCard() {
                       transition={{ delay: 0.2 }}
                       className="flex-1 space-y-3 md:space-y-5 text-center"
                     >
-                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--color-text-muted)' }}>Situación Actual</p>
-                       <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-sm">
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide" style={{ color: 'var(--color-text-muted)' }}>Situación actual</p>
+                       <div className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-border/50 rounded-2xl flex items-center justify-center p-2 md:p-4">
                           {data.current.logo ? (
                             <Image 
                                src={data.current.logo} 
@@ -241,11 +237,11 @@ export default function DynamicHeroCard() {
                     </motion.div>
 
                     <div className="absolute left-1/2 top-[43px] md:top-[68px] -translate-x-1/2 -translate-y-1/2 z-20">
-                       <motion.div 
+                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", delay: 0.5 }}
-                        className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-lg border-2 border-white dark:border-slate-800"
+                        className="w-10 h-10 md:w-16 md:h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-sm border-2 border-white dark:border-slate-800"
                        >
                           <ArrowRight size={20} className="md:w-8 md:h-8 stroke-[3]" />
                        </motion.div>
@@ -258,10 +254,10 @@ export default function DynamicHeroCard() {
                       transition={{ delay: 0.4 }}
                       className="flex-1 space-y-3 md:space-y-5 text-center"
                     >
-                       <p className="text-[9px] md:text-[11px] font-black uppercase tracking-widest text-savings-text">Top Recomendada</p>
-                       <motion.div 
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Top recomendada</p>
+                       <motion.div
                         whileHover={{ y: -5 }}
-                        className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4 shadow-md"
+                        className="mx-auto h-12 md:h-20 w-[105px] sm:w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-2 md:p-4"
                        >
                           {data.recommended.logo ? (
                             <Image 
@@ -285,16 +281,15 @@ export default function DynamicHeroCard() {
                  </div>
 
                  {/* Savings Badge */}
-                 <motion.div 
+                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.7, type: "spring" }}
-                  whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between text-left relative overflow-hidden group/savings border border-emerald-500/30 shadow-xl"
-                  style={{ background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2))' }}
+                  className="rounded-2xl md:rounded-[2rem] p-5 md:p-8 flex items-center justify-between text-left relative overflow-hidden border"
+                  style={{ background: 'var(--color-savings-bg)', borderColor: 'var(--color-savings-border)' }}
                  >
                     <div className="space-y-1 relative z-10">
-                       <p className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-savings-text">Ahorro anual calculado</p>
+                       <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Ahorro anual calculado</p>
                        <div className="flex items-baseline gap-2 text-savings-text">
                           <span className="text-3xl md:text-6xl font-900 tracking-tighter">
                             <AnimatedNumber value={data.recommended.savings} suffix="€" />
@@ -302,11 +297,11 @@ export default function DynamicHeroCard() {
                           <span className="text-sm md:text-base font-black opacity-60">/ año</span>
                        </div>
                     </div>
-                    <div className="px-5 py-3 bg-emerald-600 text-white rounded-xl md:rounded-2xl text-center flex items-center gap-2 shadow-lg shadow-emerald-500/30">
-                       <span className="text-2xl md:text-4xl font-900 leading-none">
+                    <div className="flex items-center gap-1.5 text-savings-text">
+                       <TrendingDown size={20} className="hidden sm:block" />
+                       <span className="text-xl md:text-3xl font-900 leading-none">
                          -<AnimatedNumber value={data.recommended.savingsPct} precision={0} suffix="%" />
                        </span>
-                       <TrendingDown size={24} className="hidden sm:block" />
                     </div>
                  </motion.div>
                </div>
@@ -317,16 +312,16 @@ export default function DynamicHeroCard() {
                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                         <History size={14} className="text-primary" />
                      </div>
-                     <p className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.1em] text-text-muted">Personalizado hace {Math.round((Date.now() - data.timestamp) / 1000 / 60)} min</p>
+                     <p className="text-[10px] md:text-xs font-medium text-text-muted">Personalizado hace {Math.round((Date.now() - data.timestamp) / 1000 / 60)} min</p>
                   </div>
-                  <motion.button 
-                    whileHover={{ scale: 1.05, x: 5 }}
+                  <motion.button
+                    whileHover={{ x: 3 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => { localStorage.removeItem('tmtl_last_comparison'); window.location.reload(); }}
-                    className="flex items-center gap-2 text-[9px] sm:text-[10px] font-black text-primary hover:text-primary-hover uppercase tracking-widest"
+                    className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-primary hover:text-primary-hover"
                   >
                     <RefreshCw size={12} />
-                    Recalcular Comparativa
+                    Recalcular comparativa
                   </motion.button>
                </div>
             </div>
