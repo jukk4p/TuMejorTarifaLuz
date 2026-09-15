@@ -17,6 +17,7 @@ export interface Tariff {
     e3_kwh_with_taxes?: number;
 
     updatedAt?: string; // Fecha de última actualización (YYYY-MM-DD)
+    promoNote?: string; // Aviso de precio promocional temporal (si aplica)
     permanence: boolean;
     url: string;
     logo_url?: string;
@@ -192,4 +193,26 @@ export function compareAllTariffs(tariffs: Tariff[], input: CalculationInput): C
         tariff: { ...tariff, id: getTariffId(tariff) }
     }));
     return results.sort((a, b) => a.total - b.total);
+}
+
+// Fecha (YYYY-MM-DD) de la tarifa actualizada más recientemente.
+export function getTariffsLastUpdated(tariffs: Tariff[]): string | undefined {
+    return tariffs
+        .map(t => t.updatedAt)
+        .filter((d): d is string => Boolean(d))
+        .sort()
+        .at(-1);
+}
+
+// "Actualizado hoy" / "Actualizado ayer" / "Actualizado el D de mes", a partir de esa fecha.
+export function formatTariffsUpdatedLabel(dateStr?: string): string {
+    if (!dateStr) return "Actualizado recientemente";
+    const updated = new Date(`${dateStr}T00:00:00`);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diffDays = Math.round((today.getTime() - updated.getTime()) / 86400000);
+    if (diffDays <= 0) return "Actualizado hoy";
+    if (diffDays === 1) return "Actualizado ayer";
+    if (diffDays < 7) return `Actualizado hace ${diffDays} días`;
+    return `Actualizado el ${updated.toLocaleDateString("es-ES", { day: "numeric", month: "long" })}`;
 }

@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown, Mail, ArrowRight } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import tariffsData from "@/lib/data.json";
+import { Tariff, getTariffsLastUpdated, formatTariffsUpdatedLabel } from "@/lib/tariffs";
 
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Octopus",
@@ -81,6 +83,7 @@ export default function Footer() {
     };
 
     const companyCount = COMPANIES.length + 1; // +1 for COR
+    const lastUpdatedLabel = formatTariffsUpdatedLabel(getTariffsLastUpdated(tariffsData as Tariff[]));
 
     return (
         <footer className="bg-[#04060B] text-[#CBD5E1] pt-10 md:pt-14 pb-8 relative">
@@ -113,7 +116,7 @@ export default function Footer() {
                         </p>
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full">
                             <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse shrink-0"></div>
-                            <span className="text-[11px] font-500 text-accent tracking-widest">Actualizado hoy · {companyCount} comercializadoras</span>
+                            <span className="text-[11px] font-500 text-accent tracking-widest">{lastUpdatedLabel} · {companyCount} comercializadoras</span>
                         </div>
                     </div>
 

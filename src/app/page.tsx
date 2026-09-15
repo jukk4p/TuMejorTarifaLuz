@@ -12,6 +12,8 @@ import { DeferredSupportSection, DeferredUrgencyBar } from "@/components/ui/Defe
 import { CloudUpload, TrendingDown, FileText, FileSearch, Brain, PiggyBank, ChevronDown, Newspaper, ArrowRight, UserPlus, CheckCircle, Bell, BarChart3, History as HistoryIcon, TrendingUp, Heart, Search, Zap, ArrowDownRight, ArrowUpRight, Calendar, Trophy, Gauge, Building2 } from "lucide-react";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import { FadeIn, FadeInStagger } from "@/components/layout/FadeIn";
+import tariffsData from "@/lib/data.json";
+import { Tariff, getTariffsLastUpdated, formatTariffsUpdatedLabel } from "@/lib/tariffs";
 
 export const revalidate = 60; // Cache for 1 minute to enable BFCache and CDN caching
 
@@ -53,6 +55,7 @@ const HOME_FAQS = [
 
 export default async function Home() {
   const prices = await getElectricityPrices();
+  const tariffsUpdatedLabel = formatTariffsUpdatedLabel(getTariffsLastUpdated(tariffsData as Tariff[]));
 
   return (
     <>
@@ -100,7 +103,7 @@ export default async function Home() {
                     <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping"></span>
                     <span className="relative inline-flex rounded-full h-2 md:h-2.5 w-2 md:w-2.5 bg-white"></span>
                   </span>
-                  Motor de comparación 2026 – Actualizado hoy
+                  Motor de comparación 2026 – {tariffsUpdatedLabel}
                 </div>
 
                 <div className="space-y-4 md:space-y-6">
