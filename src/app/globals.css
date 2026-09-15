@@ -662,3 +662,49 @@ input:disabled + .cc-slider {
     width: calc(100% - 1.5rem);
   }
 }
+
+/* Comparador: quitar flechas del input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+input[type=number] {
+  -moz-appearance: textfield !important;
+  appearance: none !important;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+
+@media print {
+  nav, footer, .no-print, button, a[href^="tel:"], .auth-modal {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .premium-3d-card, .premium-card {
+    box-shadow: none !important;
+    border: 1px solid var(--color-border) !important;
+    background: white !important;
+    transform: none !important;
+  }
+  .bg-primary, .bg-slate-900 {
+    background-color: transparent !important;
+    color: black !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .pt-20 {
+    padding-top: 2rem !important;
+  }
+}

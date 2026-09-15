@@ -787,54 +787,7 @@ export default function ComparadorMain() {
             </div>
 
             <div className="relative z-10 w-full">
-                {/* Global Print Optimization Styles */}
-                <style jsx global>{`
-                /* Final Boss Spinner Removal */
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
-                    -webkit-appearance: none !important;
-                    margin: 0 !important;
-                }
-                input[type=number] {
-                    -moz-appearance: textfield !important;
-                    appearance: none !important;
-                }
-
-                body {
-                    overflow-x: hidden !important;
-                }
-                @media print {
-                    nav, footer, .no-print, button, a[href^="tel:"], .auth-modal {
-                        display: none !important;
-                    }
-                    body {
-                        background: white !important;
-                        color: black !important;
-                    }
-                    .premium-3d-card, .premium-card {
-                        box-shadow: none !important;
-                        border: 1px solid var(--color-border) !important;
-                        background: white !important;
-                        transform: none !important;
-                    }
-                    .bg-primary, .bg-slate-900 {
-                        background-color: transparent !important;
-                        color: black !important;
-                    }
-                    * {
-                        -webkit-print-color-adjust: exact !important;
-                        print-color-adjust: exact !important;
-                    }
-                    main {
-                        padding: 0 !important;
-                        margin: 0 !important;
-                    }
-                    .pt-20 {
-                        padding-top: 2rem !important;
-                    }
-                }
-            `}</style>
-            <Navbar />
+                <Navbar />
 
             {/* HEADER BREADCRUMBS (Steps 1, 2, 3) */}
             {(step === "input" || step === "validation" || step === "results") && (
@@ -2205,54 +2158,54 @@ export default function ComparadorMain() {
 
                             {/* RIGHT: TARIFF COMPARISON LIST */}
                             <div className="flex-1 space-y-6">
-                                {/* TOP RESULTS AREA */}
-                                <div className="bg-surface border border-border p-5 md:h-24 rounded-[2.5rem] shadow-sm relative overflow-hidden flex items-center justify-center md:justify-start px-5 md:px-8">
-                                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-
-                                    <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 md:gap-6 relative z-10 w-full md:w-auto text-center md:text-left">
-                                        <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/10">
+                                {/* RESULTS SUMMARY BLOCK: header + actions + cards as one unified panel */}
+                                <div className="bg-surface border border-border rounded-[2.5rem] shadow-sm p-5 md:p-8 space-y-6 md:space-y-8">
+                                    {/* Header row */}
+                                    <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 md:gap-6 text-center md:text-left">
+                                        <div className="w-10 h-10 md:w-12 md:h-12 bg-accent-bg text-accent rounded-2xl flex items-center justify-center shrink-0 shadow-md shadow-accent/20 ring-1 ring-accent/10">
                                             <TrendingDown className="w-5 h-5 md:w-6 md:h-6" />
                                         </div>
                                         <div className="flex flex-col justify-center min-w-0 items-center md:items-start">
-                                            <p className="text-[9px] font-black text-text-muted uppercase tracking-[0.2em] mb-0.5">ANÁLISIS DE RESULTADOS</p>
+                                            <p className="text-[9px] font-bold text-text-muted uppercase tracking-[0.25em] mb-1">Análisis de resultados</p>
                                             <h2 className="text-lg sm:text-2xl font-black text-text-primary tracking-tight leading-none truncate md:whitespace-nowrap">
                                                 Ahorro Estimado: <span className="text-accent tracking-tighter tabular-nums">{results[0] ? Math.max(0, ((input.current_bill_total || 0) - (results[0].total)) * 12).toFixed(2) : "0.00"}<span className="text-[10px] md:text-xs ml-2 opacity-80 uppercase tracking-widest font-black">€ / año</span></span>
                                             </h2>
                                         </div>
                                     </div>
-                                </div>
 
-                                {/* ACTIONS ROW */}
-                                <div className="flex items-center justify-center gap-3">
-                                    <button
-                                        onClick={() => setStep("input")}
-                                        className="flex items-center justify-center gap-2 text-text-secondary px-5 py-2.5 rounded-full border border-border hover:border-text-secondary/30 hover:bg-slate-50 dark:hover:bg-surface-2 transition-colors duration-300 active:scale-95"
-                                    >
-                                        <History className="w-4 h-4 opacity-70" />
-                                        <span className="text-sm font-semibold whitespace-nowrap">Nueva Comparativa</span>
-                                    </button>
-                                    <button
-                                        onClick={saveBill}
-                                        disabled={isProcessing || results.length === 0}
-                                        className="flex items-center justify-center gap-2 bg-primary text-white px-6 py-2.5 rounded-full shadow-sm hover:bg-primary/90 transition-colors duration-300 active:scale-95 disabled:opacity-50"
-                                    >
-                                        <Save className="w-4 h-4" />
-                                        <span className="text-sm font-semibold whitespace-nowrap">{isProcessing ? "Guardando..." : "Guardar Análisis"}</span>
-                                    </button>
-                                </div>
+                                    {/* Actions row */}
+                                    <div className="flex items-center justify-center gap-3">
+                                        <button
+                                            onClick={() => setStep("input")}
+                                            className="flex items-center justify-center gap-2 text-text-secondary px-5 py-2.5 rounded-full border border-border/70 hover:border-text-secondary/30 hover:bg-slate-50 dark:hover:bg-surface-2 transition-all duration-300 active:scale-95"
+                                        >
+                                            <History className="w-4 h-4 opacity-70" />
+                                            <span className="text-sm font-semibold whitespace-nowrap">Nueva Comparativa</span>
+                                        </button>
+                                        <button
+                                            onClick={saveBill}
+                                            disabled={isProcessing || results.length === 0}
+                                            className="flex items-center justify-center gap-2 bg-primary text-white px-6 py-2.5 rounded-full shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5 hover:bg-primary/90 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:shadow-none disabled:hover:translate-y-0"
+                                        >
+                                            <Save className="w-4 h-4" />
+                                            <span className="text-sm font-semibold whitespace-nowrap">{isProcessing ? "Guardando..." : "Guardar Análisis"}</span>
+                                        </button>
+                                    </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                                     {/* CARD: TOTAL MENSUAL */}
                                     <div
                                         onClick={() => {
                                             if (!user) { setPendingStudyMode("monthly"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("monthly"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface-2 border border-border/60 p-8 rounded-[2rem] relative overflow-hidden transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 hover:border-border cursor-pointer' : 'opacity-50'}`}
                                     >
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
+                                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-primary/10 via-primary/0 to-transparent rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
-                                            <FileText className="w-8 h-8 text-primary mb-6 transition-transform group-hover:scale-110" />
+                                            <div className="w-14 h-14 rounded-2xl bg-primary/10 ring-1 ring-primary/15 shadow-sm flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                                                <FileText className="w-6 h-6 text-primary" />
+                                            </div>
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
                                                 {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
                                             </p>
@@ -2278,11 +2231,13 @@ export default function ComparadorMain() {
                                             if (!user) { setPendingStudyMode("annual"); setIsAuthModalOpen(true); return; }
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStudyMode("annual"); setStep("study"); }
                                         }}
-                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface-2 border border-border/60 p-8 rounded-[2rem] relative overflow-hidden transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 hover:border-border cursor-pointer' : 'opacity-50'}`}
                                     >
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] transition-transform group-hover:scale-110"></div>
+                                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-transparent rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
-                                            <Calendar className="w-8 h-8 text-accent mb-6 transition-transform group-hover:scale-110" />
+                                            <div className="w-14 h-14 rounded-2xl bg-accent/10 ring-1 ring-accent/15 shadow-sm flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                                                <Calendar className="w-6 h-6 text-accent" />
+                                            </div>
                                             <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                             <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap">
                                                 <TrendingDown className="w-4 h-4 shrink-0" />
@@ -2305,11 +2260,14 @@ export default function ComparadorMain() {
                                         onClick={() => {
                                             if (results[0]) { setSelectedTariffId(results[0].tariff.id!); setStep("detail"); }
                                         }}
-                                        className={`bg-surface border border-border p-8 rounded-[2.5rem] relative overflow-hidden shadow-sm transition-all duration-300 group h-[260px] ${results[0] ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-50'}`}
+                                        className={`bg-surface-2 border p-8 rounded-[2rem] relative overflow-hidden transition-all duration-300 group h-[260px] ${results[0] ? `hover:shadow-xl hover:-translate-y-1 cursor-pointer ${results[0].tariff.type === '3 Periodos' ? 'border-primary/30 ring-1 ring-primary/10' : 'border-orange-500/30 ring-1 ring-orange-500/10'}` : 'border-border/60 opacity-50'}`}
                                     >
-                                        <div className={`absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5' : 'bg-orange-500/5'}`}></div>
+                                        <div className={`absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${results[0]?.tariff.type === '3 Periodos' ? 'from-primary/10 via-primary/0 to-transparent' : 'from-orange-500/10 via-orange-500/0 to-transparent'}`}></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
-                                            <Trophy className={`w-8 h-8 mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
+                                            <span className={`text-[9px] font-black uppercase tracking-widest mb-2 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary/70' : 'text-orange-500/70'}`}>Mejor tarifa</span>
+                                            <div className={`w-14 h-14 rounded-2xl shadow-sm ring-1 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 ring-primary/15' : 'bg-orange-500/10 ring-orange-500/15'}`}>
+                                                <Trophy className={`w-6 h-6 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
+                                            </div>
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}</p>
                                             <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap overflow-hidden ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5 border-primary/10 text-primary' : 'bg-orange-500/5 border-orange-500/10 text-orange-500'}`}>
                                                 <span className="text-[10px] font-black uppercase tracking-widest leading-none">
@@ -2325,15 +2283,12 @@ export default function ComparadorMain() {
                                             </div>
                                         )}
                                     </div>
+                                    </div>
                                 </div>
 
-                                <div className="relative p-[1px] md:p-[2px] rounded-[2rem] overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-primary/10 group/maincontainer mt-4">
-                                    {/* Animated Gradient Border Layer */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary via-emerald-400 to-amber-500 opacity-20 sm:opacity-40 group-hover/maincontainer:opacity-100 transition-opacity duration-1000 z-0"></div>
-                                    <div className="absolute inset-[-150%] bg-gradient-to-tr from-transparent via-primary/30 to-transparent animate-[spin_8s_linear_infinite] opacity-0 group-hover/maincontainer:opacity-50 z-0 pointer-events-none"></div>
-                                    
+                                <div className="relative bg-surface border border-border rounded-[2.5rem] overflow-hidden shadow-sm mt-4">
                                     {/* Inner Main Container */}
-                                    <div className="relative bg-surface rounded-[calc(2rem-2px)] overflow-hidden h-full z-10 flex flex-col">
+                                    <div className="relative h-full flex flex-col">
                                         {(isProfileCollapsed || isFiltersCollapsed) && (
                                             <div className="px-5 py-4 md:px-8 md:py-5 flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 border-b border-border bg-surface backdrop-blur-sm relative overflow-hidden group/header">
                                                 {/* Advanced Glow Decorations */}
@@ -2568,6 +2523,16 @@ export default function ComparadorMain() {
                                                                                     <span className={`${isThreePeriod ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' : 'bg-orange-500/10 border-orange-500/20 text-orange-600'} border text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm`}>Mejor opción</span>
                                                                                 </div>
                                                                             )}
+                                                                            {res.tariff.promoNote && (
+                                                                                <div className="mt-1.5">
+                                                                                    <span
+                                                                                        title={res.tariff.promoNote}
+                                                                                        className="inline-flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 text-amber-600 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm cursor-help"
+                                                                                    >
+                                                                                        <Info className="w-2.5 h-2.5" /> Precio promo 3 meses
+                                                                                    </span>
+                                                                                </div>
+                                                                            )}
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -2679,9 +2644,8 @@ export default function ComparadorMain() {
 
                                 {/* BOTTOM BREAKDOWN BOX (THE BLACK BOX) */}
                                 {results.length > 0 && (
-                                    <div className="bg-slate-900 border border-slate-800 text-white rounded-[3rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-16 transition-all duration-500">
+                                    <div className="bg-slate-900 border border-slate-800 text-white rounded-[2.5rem] overflow-hidden p-8 md:p-12 relative shadow-2xl mt-16">
                                         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-                                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] -ml-32 -mb-32"></div>
 
                                         <div className="relative z-10 space-y-12">
                                             {/* HEADER INSIDE BLACK BOX */}
@@ -3183,6 +3147,23 @@ export default function ComparadorMain() {
                                                         <p className="text-xs text-text-secondary leading-relaxed">El precio real fluctúa cada hora. Los datos representados en este cuadro corresponden a un promedio orientativo basado en meses anteriores.</p>
                                                     </div>
                                                 </div>
+                                            ) : selectedResult.tariff.promoNote ? (
+                                                <>
+                                                    <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                                                        <div className="p-2 bg-amber-500/10 text-amber-600 rounded-xl"><Info className="w-4 h-4" /></div>
+                                                        <div>
+                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precio Promocional 3 Meses</p>
+                                                            <p className="text-xs text-text-secondary leading-relaxed">{selectedResult.tariff.promoNote}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                                                        <div className="p-2 bg-warning/10 text-warning rounded-xl"><Medal className="w-4 h-4" /></div>
+                                                        <div>
+                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Atención Continua</p>
+                                                            <p className="text-xs text-text-secondary leading-relaxed">Incluye opciones de gestión rápida y posible aplicación de descuentos temporales directos de la comercializadora.</p>
+                                                        </div>
+                                                    </div>
+                                                </>
                                             ) : (
                                                 <>
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
@@ -3283,8 +3264,10 @@ export default function ComparadorMain() {
                 { name: "Inicio", item: "/" },
                 { name: "Comparador de Tarifas", item: "/comparador" }
             ])} />
-            <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div className="premium-card p-8 md:p-12 space-y-10">
+            <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                {/* On the results step, offset by the sidebar (325px) + gap (2rem) so this lines up
+                    with the tariff table and technical breakdown above it. Other steps have no sidebar. */}
+                <div className={`premium-card p-8 md:p-12 space-y-10 ${step === "results" ? "lg:ml-[357px]" : ""}`}>
                     <div className="text-center space-y-3 max-w-2xl mx-auto">
                         <h2 className="text-2xl md:text-3xl font-900 text-text-primary tracking-tight">
                             ¿Qué hace este comparador?
@@ -3296,21 +3279,21 @@ export default function ComparadorMain() {
 
                     <div className="grid sm:grid-cols-3 gap-6">
                         <div className="text-center space-y-3">
-                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 ring-1 ring-primary/15 shadow-sm rounded-2xl flex items-center justify-center text-primary">
                                 <FileText size={22} />
                             </div>
                             <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Indica tu consumo</h3>
                             <p className="text-sm text-text-secondary leading-relaxed">Sube el PDF de tu factura o escribe tus datos a mano, lo que te resulte más rápido.</p>
                         </div>
                         <div className="text-center space-y-3">
-                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 ring-1 ring-primary/15 shadow-sm rounded-2xl flex items-center justify-center text-primary">
                                 <Brain size={22} />
                             </div>
                             <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Comparamos el mercado</h3>
                             <p className="text-sm text-text-secondary leading-relaxed">Calculamos lo que pagarías con cada comercializadora que analizamos, con tus datos reales.</p>
                         </div>
                         <div className="text-center space-y-3">
-                            <div className="w-12 h-12 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                            <div className="w-12 h-12 mx-auto bg-primary/10 ring-1 ring-primary/15 shadow-sm rounded-2xl flex items-center justify-center text-primary">
                                 <CheckCircle2 size={22} />
                             </div>
                             <h3 className="font-heading text-sm font-black uppercase tracking-wide text-text-primary">Eliges tú</h3>
