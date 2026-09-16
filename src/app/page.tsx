@@ -521,7 +521,7 @@ export default async function Home() {
                 { name: "Esluz", logo: "logo_esluz.png", w: 69, h: 69, scale: "scale-85", slug: "esluz" },
                 { name: "COR", logo: "COR.svg", w: 400, h: 200, scale: "scale-125", slug: "comercializadoras-referencia" },
                 { name: "Gana Energía", logo: "gana-logo.svg", w: 156, h: 32, darkLogo: "gana-logo-dark.svg", darkW: 156, darkH: 32, scale: "scale-125", slug: "gana-energia", colStart: "lg:col-start-3" },
-                { name: "CHC Energía", logo: "logo_chcenergia.png", w: 150, h: 84, scale: "scale-115", slug: "chc-energia", colStart: "lg:col-start-4" },
+                { name: "CHC Energía", logo: "logo_chcenergia.png", w: 150, h: 84, scale: "scale-115", slug: "chc-energia", colStart: "lg:col-start-5" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.colStart || ""}`}>
                   <div
