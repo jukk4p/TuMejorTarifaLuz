@@ -80,6 +80,14 @@ async function main() {
         const surplus = await ask(`  Excedentes      EX [${tariff.surplus_kwh || 0}]: `);
         if (surplus.trim()) { tariff.surplus_kwh = parseFloat(surplus.replace(',', '.')); changed = true; }
 
+        if ((tariff.surplus_kwh || 0) > 0) {
+            const surplusType = await ask(`  Tipo Excedentes (fixed/variable/credit) [${tariff.surplus_type || 'fixed'}]: `);
+            if (surplusType.trim()) { tariff.surplus_type = surplusType.trim(); changed = true; }
+
+            const surplusUrl = await ask(`  URL fuente Excedentes [${tariff.surplus_source_url || ''}]: `);
+            if (surplusUrl.trim()) { tariff.surplus_source_url = surplusUrl.trim(); changed = true; }
+        }
+
         console.log(`\n  --- BLOQUE 2: PRECIOS FINALES (CON IVA) ---`);
         const p1_tax = await ask(`  Potencia P1 IVA    [${tariff.p1_kw_day_with_taxes || 0}]: `);
         if (p1_tax.trim()) { tariff.p1_kw_day_with_taxes = parseFloat(p1_tax.replace(',', '.')); changed = true; }

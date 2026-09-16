@@ -7,28 +7,24 @@ import Link from "next/link";
 import { Provider, providers } from "../providersData";
 import { useTariffs } from "@/hooks/useTariffs";
 import { useTheme } from "next-themes";
-import { 
-    ArrowLeft, Star, StarHalf, ThumbsUp, ThumbsDown, Info, 
-    CheckCircle2, AlertCircle, ChevronRight, BarChart3, 
+import {
+    ArrowLeft, Star, StarHalf, ThumbsUp, ThumbsDown, Info,
+    CheckCircle2, AlertCircle, ChevronRight, BarChart3,
     ShieldCheck, Zap, AppWindow, Users, ShieldAlert,
-    Newspaper, ArrowRight, MessageSquare
+    Newspaper, ArrowRight
 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
-import { getProviderReviews } from "@/lib/reviews";
 
 export default function ProviderClient({ provider }: { provider: Provider }) {
     const { resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
-    const [showReviews, setShowReviews] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
     const { tariffs } = useTariffs();
-
-    const providerReviews = useMemo(() => getProviderReviews(provider.id), [provider.id]);
 
     // Matching company logic
     const companyTariffs = tariffs.filter(t => {
@@ -130,7 +126,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                     Tarifas {provider.name} 2026: Precios y Análisis
                                 </h1>
                                 <p className="text-base md:text-lg text-text-secondary leading-relaxed font-medium">{provider.description}</p>
-                                
+
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
                                     <span className="text-[12px] font-bold text-slate-500 flex items-center gap-2">
                                         Tarifas disponibles: {companyTariffs.length}
@@ -151,22 +147,23 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                             </div>
                             <div className="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-800/50 rounded-[2.5rem] border border-border min-w-[160px]">
                                 <div className="text-5xl font-900 text-text-primary mb-3 leading-none">{provider.rating}</div>
-                                <div className="mb-2">{renderStars(provider.rating)}</div>
-                                <span className="text-[9px] uppercase font-black text-slate-400 tracking-widest text-center">Opiniones Trustpilot</span>
-                                {providerReviews.length > 0 ? (
-                                    <span className="text-[11px] font-bold text-slate-500 mt-1">({providerReviews.length} reseñas)</span>
+                                {provider.trustpilotReviewCount ? (
+                                    provider.trustpilotUrl ? (
+                                        <a
+                                            href={provider.trustpilotUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-[11px] font-bold text-slate-500 hover:text-primary hover:underline text-center"
+                                        >
+                                            {provider.trustpilotReviewCount.toLocaleString('es-ES')} reseñas en Trustpilot
+                                        </a>
+                                    ) : (
+                                        <span className="text-[11px] font-bold text-slate-500 text-center">
+                                            {provider.trustpilotReviewCount.toLocaleString('es-ES')} reseñas en Trustpilot
+                                        </span>
+                                    )
                                 ) : (
-                                    <span className="text-[11px] font-bold text-slate-500 mt-1">(Sin opiniones)</span>
-                                )}
-                                {provider.trustpilotUrl && (
-                                    <a
-                                        href={provider.trustpilotUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="mt-2 text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest hover:underline flex items-center justify-center gap-1 w-full text-center"
-                                    >
-                                        Ver en Trustpilot ↗
-                                    </a>
+                                    <span className="text-[11px] font-bold text-slate-500 text-center">Sin opiniones</span>
                                 )}
                             </div>
                         </div>
@@ -224,73 +221,6 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                         </div>
                     </div>
 
-                    {/* Collapsible Reviews Section */}
-                    {providerReviews.length > 0 && (
-                        <div className="mb-20">
-                            <button 
-                                onClick={() => setShowReviews(!showReviews)}
-                                className="w-full flex items-center justify-between p-6 bg-white dark:bg-slate-900 border border-border rounded-3xl hover:shadow-lg transition-all text-left font-bold text-text-primary group cursor-pointer"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                                        <MessageSquare className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <span className="text-lg block font-900 text-primary">Ver opiniones reales de clientes</span>
-                                        <span className="text-xs text-slate-500 font-bold block">{providerReviews.length} opiniones en Trustpilot</span>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-xs font-black uppercase text-slate-400 group-hover:text-primary transition-colors">
-                                        {showReviews ? "Ocultar opiniones" : "Mostrar opiniones"}
-                                    </span>
-                                    <ChevronRight className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${showReviews ? 'rotate-90' : ''}`} />
-                                </div>
-                            </button>
-
-                            {showReviews && (
-                                <div className="grid gap-6 mt-6 p-6 bg-slate-100/30 dark:bg-slate-900/30 rounded-3xl border border-dashed border-border transition-all">
-                                    {providerReviews.slice(0, 5).map((review: any) => (
-                                        <div key={review.reviewId} className="bg-white dark:bg-slate-900 border border-border p-8 rounded-3xl shadow-sm hover:shadow-md transition-all space-y-4">
-                                            <div className="flex flex-wrap items-center justify-between gap-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
-                                                        {review.avatar ? (
-                                                            <img src={review.avatar} alt={review.name || "Usuario"} className="w-full h-full rounded-full object-cover" />
-                                                        ) : (
-                                                            (review.name || "Cliente").split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
-                                                        )}
-                                                    </div>
-                                                    <div>
-                                                        <h5 className="font-800 text-text-primary text-sm leading-snug">{review.name || "Cliente de Trustpilot"}</h5>
-                                                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                                                            {new Date(review.date || Date.now()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-col items-end gap-1">
-                                                    {renderStars(review.rating)}
-                                                    <span className="text-[9px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-1">
-                                                        <CheckCircle2 size={10} /> Opinión Verificada
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="space-y-2">
-                                                <h4 className="text-base font-800 text-text-primary">{review.title}</h4>
-                                                <p className="text-sm text-text-secondary leading-relaxed font-medium">{review.text}</p>
-                                            </div>
-                                            
-                                            <div className="pt-4 border-t border-slate-50 dark:border-slate-800">
-                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fuente: Trustpilot</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    )}
-
                     {/* Active Tariffs Section */}
                     <div className="space-y-12 mb-24">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -298,8 +228,8 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 <h2 className="text-3xl md:text-4xl font-900 text-text-primary tracking-tight">Tarifas Disponibles</h2>
                                 <p className="text-text-secondary font-medium italic">Selección recomendada para hoy</p>
                             </div>
-                            <Link 
-                                href={`/tarifas?company=${encodeURIComponent(provider.name)}`} 
+                            <Link
+                                href={`/tarifas?company=${encodeURIComponent(provider.name)}`}
                                 className="text-primary text-xs font-black uppercase tracking-widest hover:translate-x-1 transition-transform inline-flex items-center gap-2"
                             >
                                 Ver en catálogo completo
@@ -341,7 +271,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                                                 <span className="text-xl">⚡</span>
                                                                 <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">Energía (€/kWh)</span>
                                                             </div>
-                                                            
+
                                                             {tariff.type === '3 Periodos' ? (
                                                                 <div className="grid grid-cols-3 gap-6">
                                                                     {[
@@ -428,8 +358,8 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                         <span className="text-sm font-black text-slate-900 dark:text-white">{row.score.toFixed(1)}/5.0</span>
                                     </div>
                                     <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                        <div 
-                                            className="h-full bg-primary rounded-full transition-all duration-1000" 
+                                        <div
+                                            className="h-full bg-primary rounded-full transition-all duration-1000"
                                             style={{ width: `${(row.score / 5) * 100}%` }}
                                         ></div>
                                     </div>
@@ -445,15 +375,15 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                         <h3 className="text-2xl font-900 text-text-primary mb-10 tracking-tight">Compara también con</h3>
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {similarProviders.map((sim, i) => (
-                                <Link 
-                                    key={i} 
+                                <Link
+                                    key={i}
                                     href={`/companias/${sim.slug}`}
                                     className="bg-white dark:bg-slate-900 border border-border p-8 rounded-2xl hover:shadow-xl transition-all group"
                                 >
                                     <div className="h-16 w-32 mb-6 flex items-center">
-                                        <img 
-                                            src={mounted && resolvedTheme === 'dark' && sim.logo_dark ? sim.logo_dark : sim.logo} 
-                                            alt={sim.name} 
+                                        <img
+                                            src={mounted && resolvedTheme === 'dark' && sim.logo_dark ? sim.logo_dark : sim.logo}
+                                            alt={sim.name}
                                             className="max-h-full max-w-full object-contain transition-all"
                                         />
                                     </div>
@@ -509,7 +439,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -mr-32 -mt-32 rounded-full"></div>
                         <h3 className="text-3xl md:text-5xl font-900 text-text-primary tracking-tight leading-tight">¿Es {provider.name} la mejor <br/>opción para ahorrar hoy?</h3>
                         <p className="text-text-secondary text-lg font-medium max-w-2xl mx-auto">Nuestro algoritmo analiza tu consumo real para confirmarte si esta es tu tarifa ganadora o si existe una opción más barata.</p>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-12 max-w-5xl mx-auto py-4">
                              {[
                                 "Sin registro obligatorio",
@@ -524,7 +454,7 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                  </div>
                              ))}
                         </div>
- 
+
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 relative z-10">
                             <Link href="/comparador" className="px-12 py-5 bg-primary text-white rounded-[2.5rem] font-900 text-lg hover:shadow-2xl shadow-primary/20 hover:-translate-y-1 transition-all">
                                 Calcular Ahorro Ahora

@@ -11,7 +11,7 @@ import { Tariff, getTariffsLastUpdated, formatTariffsUpdatedLabel } from "@/lib/
 const COMPANIES = [
     "Endesa", "Iberdrola", "Naturgy", "Repsol", "TotalEnergies", "Octopus",
     "Niba", "Imagina", "Visalia", "Energía Nufri", "Energya VM",
-    "Atulado", "Esluz"
+    "Atulado", "Esluz", "Gana Energía", "CHC Energía"
 ];
 
 const TOOLS_PRIMARY = [
@@ -170,6 +170,8 @@ export default function Footer() {
                                         company === "Imagina" ? "imagina-energia" :
                                         company === "Energía Nufri" ? "energia-nufri" :
                                         company === "Energya VM" ? "energia-vm" :
+                                        company === "Gana Energía" ? "gana-energia" :
+                                        company === "CHC Energía" ? "chc-energia" :
                                         company.toLowerCase().replace(" ", "-")
                                     }`}
                                     className="text-[13px] text-[#CBD5E1] font-400 hover:text-white transition-colors block truncate"

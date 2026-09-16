@@ -7,8 +7,10 @@ export interface Tariff {
     e1_kwh: number; // Precio Energía Punta €/kWh
     e2_kwh: number; // Precio Energía Llano €/kWh
     e3_kwh: number; // Precio Energía Valle €/kWh
-    surplus_kwh?: number; // Precio Excedentes €/kWh
-    
+    surplus_kwh?: number; // Precio Excedentes €/kWh (valor orientativo si surplus_type no es 'fixed')
+    surplus_type?: 'fixed' | 'variable' | 'credit'; // fixed: precio fijo publicado. variable: indexado al mercado (ej. PVPC/OMIE), cambia por hora. credit: se acumula como saldo/batería virtual, no es un pago directo por kWh
+    surplus_source_url?: string; // página donde se publica el precio/mecanismo de excedentes (puede no coincidir con `url`)
+
     // Precios con impuestos (opcionales)
     p1_kw_day_with_taxes?: number;
     p2_kw_day_with_taxes?: number;
@@ -48,7 +50,8 @@ export const getLogoPath = (companyName: string, isDark: boolean = false) => {
         "naturgy": { light: "/logos/logo_naturgy.png" },
         "esluz": { light: "/logos/logo_esluz.png" },
         "atulado": { light: "/logos/logo_atulado.png" },
-        "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] }
+        "cor": { light: "/logos/COR.svg", aliases: ["comercializadoras de referencia", "referencia"] },
+        "gana energia": { light: "/logos/gana-logo.svg", dark: "/logos/gana-logo-dark.svg", aliases: ["gana energía"] }
     };
 
     // 1. Direct match or alias match

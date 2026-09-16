@@ -3032,8 +3032,14 @@ export default function ComparadorMain() {
                                                     <div className="mt-6 flex-1">
                                                         <div className="bg-emerald-50/50 dark:bg-emerald-900/10 border border-emerald-100 dark:border-emerald-900/50 p-6 rounded-2xl text-center flex flex-col justify-center min-h-[128px] relative group h-full">
                                                             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-widest leading-none shadow-sm shadow-emerald-500/20 whitespace-nowrap">Precio Excedente</div>
-                                                            <p className="text-3xl font-800 text-savings-text">{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
-                                                            <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">Esta tarifa compensa tu energía sobrante a un precio fijo.</p>
+                                                            <p className="text-3xl font-800 text-savings-text">{selectedResult.tariff.surplus_type === 'variable' ? '~' : ''}{(selectedResult.tariff.surplus_kwh || 0).toFixed(2)} € <span className="text-sm font-normal opacity-60 text-text-secondary">€/kWh</span></p>
+                                                            <p className="text-[10px] text-text-secondary italic leading-relaxed pt-2">
+                                                                {selectedResult.tariff.surplus_type === 'variable'
+                                                                    ? 'Precio orientativo: esta tarifa compensa tu energía sobrante a un precio indexado al mercado, que cambia cada hora.'
+                                                                    : selectedResult.tariff.surplus_type === 'credit'
+                                                                        ? 'Esta tarifa no paga los excedentes por kWh: los acumula como saldo/batería virtual para tus próximas facturas.'
+                                                                        : 'Esta tarifa compensa tu energía sobrante a un precio fijo.'}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>

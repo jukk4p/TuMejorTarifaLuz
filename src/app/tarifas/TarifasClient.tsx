@@ -26,6 +26,8 @@ const COMPANIES = [
     { label: "Energya VM", value: "Energya VM" },
     { label: "TotalEnergies", value: "Total Energies" },
     { label: "Esluz", value: "Esluz" },
+    { label: "Gana Energía", value: "Gana Energía" },
+    { label: "CHC Energía", value: "CHC Energía" },
     { label: "COR", value: "Comercializadoras de Referencia" },
 ];
 
@@ -43,6 +45,8 @@ const COMPANY_SLUGS: Record<string, string> = {
     "Energya VM": "energia-vm",
     "Total Energies": "total-energies",
     "Esluz": "esluz",
+    "Gana Energía": "gana-energia",
+    "CHC Energía": "chc-energia",
     "Comercializadoras de Referencia": "comercializadoras-referencia"
 };
 
@@ -396,10 +400,12 @@ export default function TarifasClient() {
                                                         <div className="bg-emerald-500/5 dark:bg-emerald-500/10 h-full p-4 rounded-xl border border-emerald-500/20 flex justify-between items-center transition-all hover:bg-emerald-500/10 shadow-sm relative group/surplus">
                                                             <div className="flex flex-col">
                                                                 <span className="text-[10px] font-black text-emerald-700 dark:text-emerald-400 uppercase tracking-widest leading-none">Compensación</span>
-                                                                <span className="text-[9px] text-text-muted font-bold mt-1 uppercase">Solar</span>
+                                                                <span className="text-[9px] text-text-muted font-bold mt-1 uppercase">
+                                                                    {tariff.surplus_type === 'variable' ? 'Solar · Variable' : tariff.surplus_type === 'credit' ? 'Solar · Saldo/Batería' : 'Solar'}
+                                                                </span>
                                                             </div>
                                                             <div className="text-right">
-                                                                <span className="font-900 text-savings-text text-xl leading-none">{tariff.surplus_kwh.toFixed(2)}</span>
+                                                                <span className="font-900 text-savings-text text-xl leading-none">{tariff.surplus_type === 'variable' ? '~' : ''}{tariff.surplus_kwh.toFixed(2)}</span>
                                                                 <span className="text-[10px] font-bold text-emerald-600/60 ml-1 uppercase">€/kWh</span>
                                                             </div>
                                                         </div>

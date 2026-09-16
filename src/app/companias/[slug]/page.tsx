@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import ProviderClient from "./ProviderClient";
 import { Metadata } from "next";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
-import { getProviderReviews } from "@/lib/reviews";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -37,7 +36,7 @@ export default async function ProviderPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
-    const reviewCount = getProviderReviews(provider.id).length;
+    const reviewCount = provider.trustpilotReviewCount ?? 0;
 
     return (
         <>

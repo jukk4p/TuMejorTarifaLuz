@@ -9,9 +9,10 @@ import { useAuth } from "@/hooks/useAuth";
 import NotificationBell from "./NotificationBell";
 
 const COMPANIES = [
-    "Endesa", "Iberdrola", "Naturgy", "Repsol", 
-    "TotalEnergies", "Octopus", "Niba", "Imagina", 
+    "Endesa", "Iberdrola", "Naturgy", "Repsol",
+    "TotalEnergies", "Octopus", "Niba", "Imagina",
     "Visalia", "Energía Nufri", "Energya VM", "Atulado", "Esluz",
+    "Gana Energía", "CHC Energía",
     "COR"
 ];
 
@@ -106,6 +107,8 @@ export default function Navbar() {
                                                     company === "Imagina" ? "imagina-energia" :
                                                     company === "Energía Nufri" ? "energia-nufri" :
                                                     company === "Energya VM" ? "energia-vm" :
+                                                    company === "Gana Energía" ? "gana-energia" :
+                                                    company === "CHC Energía" ? "chc-energia" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
                                             className="px-3 py-2 text-xs font-bold text-text-secondary hover:text-text-primary hover:bg-primary/20 rounded-lg transition-colors flex items-center gap-2"
@@ -339,6 +342,8 @@ export default function Navbar() {
                                                     company === "Imagina" ? "imagina-energia" :
                                                     company === "Energía Nufri" ? "energia-nufri" :
                                                     company === "Energya VM" ? "energia-vm" :
+                                                    company === "Gana Energía" ? "gana-energia" :
+                                                    company === "CHC Energía" ? "chc-energia" :
                                                     company.toLowerCase().replace(" ", "-")
                                                 }`}
                                             className="px-4 py-3 text-sm font-bold text-text-muted hover:text-primary transition-colors flex items-center gap-2"

@@ -520,8 +520,10 @@ export default async function Home() {
                 { name: "Atulado", logo: "logo_atulado.png", w: 453, h: 222, scale: "scale-110", slug: "atulado" },
                 { name: "Esluz", logo: "logo_esluz.png", w: 69, h: 69, scale: "scale-85", slug: "esluz" },
                 { name: "COR", logo: "COR.svg", w: 400, h: 200, scale: "scale-125", slug: "comercializadoras-referencia" },
+                { name: "Gana Energía", logo: "gana-logo.svg", w: 156, h: 32, darkLogo: "gana-logo-dark.svg", darkW: 156, darkH: 32, scale: "scale-125", slug: "gana-energia", colStart: "lg:col-start-3" },
+                { name: "CHC Energía", logo: "logo_chcenergia.png", w: 150, h: 84, scale: "scale-115", slug: "chc-energia", colStart: "lg:col-start-4" },
               ].map((brand, i) => (
-                <Link key={i} href={`/companias/${brand.slug}`} className="flex flex-col items-center gap-3 group">
+                <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.colStart || ""}`}>
                   <div
                     className="w-full aspect-[2/1] rounded-xl p-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 border group-hover:border-primary/40 group-hover:-translate-y-1"
                     style={{
