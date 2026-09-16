@@ -504,7 +504,7 @@ export default async function Home() {
               <h2 className="font-heading text-3xl font-semibold text-text-primary">Comparamos entre las mejores comercializadoras</h2>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
               {[
                 { name: "Iberdrola", logo: "logo_iberdrola.png", w: 217, h: 163, scale: "scale-150", slug: "iberdrola" },
                 { name: "Endesa", logo: "logo_endesa.png", w: 250, h: 53, scale: "scale-75", slug: "endesa" },
@@ -518,9 +518,9 @@ export default async function Home() {
                 { name: "Energía Nufri", logo: "logo_energianufri_base.png", w: 395, h: 127, darkLogo: "logo_energianufri_dark.png", darkW: 198, darkH: 64, scale: "scale-120", slug: "energia-nufri" },
                 { name: "Energya VM", logo: "logo_energiavm.png", w: 100, h: 17, scale: "scale-130", slug: "energia-vm" },
                 { name: "Atulado", logo: "logo_atulado.png", w: 453, h: 222, scale: "scale-110", slug: "atulado" },
-                { name: "Esluz", logo: "logo_esluz.png", w: 69, h: 69, scale: "scale-85", slug: "esluz" },
-                { name: "COR", logo: "COR.svg", w: 400, h: 200, scale: "scale-125", slug: "comercializadoras-referencia" },
-                { name: "Gana Energía", logo: "gana-logo.svg", w: 156, h: 32, darkLogo: "gana-logo-dark.svg", darkW: 156, darkH: 32, scale: "scale-125", slug: "gana-energia", colStart: "lg:col-start-3" },
+                { name: "Esluz", logo: "logo_esluz.png", w: 69, h: 69, scale: "scale-85", slug: "esluz", colStart: "lg:col-start-2" },
+                { name: "COR", logo: "COR.svg", w: 400, h: 200, scale: "scale-125", slug: "comercializadoras-referencia", colStart: "lg:col-start-3" },
+                { name: "Gana Energía", logo: "gana-logo.svg", w: 156, h: 32, darkLogo: "gana-logo-dark.svg", darkW: 156, darkH: 32, scale: "scale-125", slug: "gana-energia", colStart: "lg:col-start-4" },
                 { name: "CHC Energía", logo: "logo_chcenergia.png", w: 150, h: 84, scale: "scale-115", slug: "chc-energia", colStart: "lg:col-start-5" },
               ].map((brand, i) => (
                 <Link key={i} href={`/companias/${brand.slug}`} className={`flex flex-col items-center gap-3 group ${brand.colStart || ""}`}>
