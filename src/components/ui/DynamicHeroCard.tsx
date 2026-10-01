@@ -128,7 +128,7 @@ export default function DynamicHeroCard() {
                           <Image src="/logos/logo_iberdrola.png" alt="Iberdrola" width={217} height={163} className="object-contain h-auto w-auto max-h-full scale-[1.6]" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,162</span>
+                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight" style={{ color: 'var(--color-text-heading)' }}>0,135</span>
                           <span className="text-[9px] md:text-sm font-bold opacity-60" style={{ color: 'var(--color-text-muted)' }}>€/kWh*</span>
                        </div>
                     </div>
@@ -146,10 +146,10 @@ export default function DynamicHeroCard() {
                     <div className="flex-1 space-y-3 md:space-y-5 text-center">
                        <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Recomendada</p>
                        <div className="mx-auto h-14 md:h-20 w-32 md:w-40 bg-surface border border-primary/20 rounded-2xl flex items-center justify-center p-3 md:p-4">
-                          <Image src="/logos/logo_visalia.png" alt="Visalia" width={150} height={43} className="object-contain h-auto w-auto max-h-full scale-110" priority sizes="(max-width: 768px) 100px, 120px" />
+                          <Image src="/logos/logo_imaginaenergia.png" alt="Imagina" width={260} height={240} className="object-contain h-auto w-auto max-h-full scale-140" priority sizes="(max-width: 768px) 100px, 120px" />
                        </div>
                        <div className="flex items-baseline gap-1 md:gap-1.5 justify-center">
-                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight text-savings-text">0,098</span>
+                          <span className="text-xl sm:text-3xl md:text-4xl font-900 tracking-tight text-savings-text">0,108</span>
                           <span className="text-[9px] md:text-sm font-bold opacity-60 text-savings-text/60">€/kWh*</span>
                        </div>
                     </div>
@@ -165,12 +165,12 @@ export default function DynamicHeroCard() {
                     <div className="space-y-1">
                        <p className="text-[10px] md:text-xs font-semibold tracking-wide text-savings-text">Ahorro anual estimado</p>
                        <div className="flex items-baseline gap-2 text-savings-text">
-                          <span className="text-3xl md:text-5xl font-900 tracking-tighter">339,24€</span>
+                          <span className="text-3xl md:text-5xl font-900 tracking-tighter">139,80€</span>
                        </div>
                     </div>
                     <div className="flex items-center gap-1.5 text-savings-text">
                        <TrendingDown size={20} className="hidden sm:block" />
-                       <span className="text-xl md:text-2xl font-900 leading-none">-34%</span>
+                       <span className="text-xl md:text-2xl font-900 leading-none">-19%</span>
                     </div>
                  </motion.div>
                </div>

@@ -8,7 +8,7 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim, Scale, X, Building2 } from "lucide-react";
+import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim, GitCompareArrows, X, Building2 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
 
 const COMPANIES = [
@@ -293,7 +293,7 @@ export default function TarifasClient() {
                                         }`}
                                         title={selectedCompareIds.includes(tariff.id || '') ? "Quitar de la comparativa" : "Añadir a la comparativa"}
                                     >
-                                        <Scale size={18} className={selectedCompareIds.includes(tariff.id || '') ? "animate-pulse" : ""} />
+                                        <GitCompareArrows size={18} className={selectedCompareIds.includes(tariff.id || '') ? "animate-pulse" : ""} />
                                     </button>
 
                                     <div className="flex flex-col grow pt-4">
@@ -502,7 +502,7 @@ export default function TarifasClient() {
                     <div className="bg-[#0f172a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-6">
                         <div className="flex items-center gap-4 grow">
                             <div className="hidden sm:flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/20 text-primary shrink-0 border border-primary/20">
-                                <Scale size={24} />
+                                <GitCompareArrows size={24} />
                             </div>
                             <div className="flex -space-x-4 overflow-hidden">
                                 {selectedCompareTariffs.map(t => (
@@ -546,22 +546,29 @@ export default function TarifasClient() {
 
             {/* Comparison Modal */}
             {isComparisonOpen && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8 bg-[#020617]/40 backdrop-blur-md animate-in fade-in duration-300">
-                    <div className="bg-surface w-full max-w-5xl max-h-[90vh] rounded-[3rem] shadow-2xl border border-border overflow-hidden flex flex-col relative animate-in zoom-in-95 duration-300">
+                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8 bg-[#020617]/50 backdrop-blur-lg animate-in fade-in duration-300">
+                    <div className="bg-surface w-full max-w-5xl max-h-[90vh] rounded-[3rem] shadow-2xl ring-1 ring-black/5 border border-border overflow-hidden flex flex-col relative animate-in zoom-in-95 duration-300">
                         {/* Header */}
-                        <div className="p-8 border-b border-border flex items-center justify-between bg-white dark:bg-slate-900/60">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
-                                    <Scale size={24} />
+                        <div
+                            className="p-8 border-b border-border flex items-center justify-between relative overflow-hidden"
+                            style={{ background: 'linear-gradient(to bottom, color-mix(in srgb, var(--primary) 7%, transparent), transparent)' }}
+                        >
+                            <div className="flex items-center gap-5 relative">
+                                <div
+                                    className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shrink-0"
+                                    style={{ background: 'linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, black))', boxShadow: '0 8px 20px -6px color-mix(in srgb, var(--primary) 60%, transparent)' }}
+                                >
+                                    <GitCompareArrows size={24} />
                                 </div>
-                                <div>
-                                    <h2 className="text-2xl font-900 text-text-primary tracking-tight">Comparativa Side-by-Side</h2>
-                                    <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Análisis detallado de {selectedCompareIds.length} tarifas</p>
+                                <div className="space-y-1">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary opacity-80">Herramienta de análisis</p>
+                                    <h2 className="text-2xl font-900 text-text-primary tracking-tight leading-none">Comparativa Side-by-Side</h2>
+                                    <p className="text-xs text-text-muted font-bold uppercase tracking-widest">{selectedCompareIds.length} tarifas enfrentadas cara a cara</p>
                                 </div>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => setIsComparisonOpen(false)}
-                                className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-text-primary flex items-center justify-center transition-all hover:bg-slate-200 dark:hover:bg-slate-700 shadow-sm"
+                                className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-text-primary flex items-center justify-center transition-all hover:bg-slate-200 dark:hover:bg-slate-700 shadow-sm relative"
                             >
                                 <X size={24} />
                             </button>
