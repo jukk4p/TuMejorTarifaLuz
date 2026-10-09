@@ -2203,18 +2203,18 @@ export default function ComparadorMain() {
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-primary/10 via-primary/0 to-transparent rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
-                                            <div className="w-14 h-14 rounded-2xl bg-primary/10 ring-1 ring-primary/15 shadow-sm flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                                            <div className="w-14 h-14 rounded-2xl bg-primary/10 ring-1 ring-primary/15 shadow-sm flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
                                                 <FileText className="w-6 h-6 text-primary" />
                                             </div>
-                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">
-                                                {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
-                                            </p>
-                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap">
+                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap mb-3">
                                                 <TrendingDown className="w-4 h-4 shrink-0" />
                                                 <span className="text-[10px] font-black uppercase tracking-widest leading-none">
                                                     {results[0] ? `${Math.abs((input.current_bill_total || 0) - results[0].total).toFixed(2)} € ahorro mensual` : "Sin datos"}
                                                 </span>
                                             </div>
+                                            <p className="text-4xl font-900 text-text-primary tracking-tighter">
+                                                {results[0] ? `${results[0].total.toFixed(2)} €` : "---"}
+                                            </p>
                                         </div>
                                         {results[0] && (
                                             <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
@@ -2235,16 +2235,16 @@ export default function ComparadorMain() {
                                     >
                                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] from-accent/10 via-accent/0 to-transparent rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100"></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
-                                            <div className="w-14 h-14 rounded-2xl bg-accent/10 ring-1 ring-accent/15 shadow-sm flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                                            <div className="w-14 h-14 rounded-2xl bg-accent/10 ring-1 ring-accent/15 shadow-sm flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
                                                 <Calendar className="w-6 h-6 text-accent" />
                                             </div>
-                                            <p className="text-4xl font-900 text-text-primary mb-3 tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
-                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap">
+                                            <div className="flex items-center justify-center gap-2 text-accent bg-accent/5 px-4 py-2 rounded-full border border-accent/10 whitespace-nowrap mb-3">
                                                 <TrendingDown className="w-4 h-4 shrink-0" />
                                                 <span className="text-[10px] font-black uppercase tracking-widest leading-none">
                                                     {results[0] ? `${Math.abs(((input.current_bill_total || 0) - results[0].total) * 12).toFixed(2)} € ahorro anual` : "Sin datos"}
                                                 </span>
                                             </div>
+                                            <p className="text-4xl font-900 text-text-primary tracking-tighter">{results[0] ? `${(results[0].total * 12).toFixed(2)} €` : "---"}</p>
                                         </div>
                                         {results[0] && (
                                             <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0 z-20">
@@ -2265,8 +2265,16 @@ export default function ComparadorMain() {
                                         <div className={`absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${results[0]?.tariff.type === '3 Periodos' ? 'from-primary/10 via-primary/0 to-transparent' : 'from-orange-500/10 via-orange-500/0 to-transparent'}`}></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
                                             <span className={`text-[9px] font-black uppercase tracking-widest mb-2 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary/70' : 'text-orange-500/70'}`}>Mejor tarifa</span>
-                                            <div className={`w-14 h-14 rounded-2xl shadow-sm ring-1 flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 ring-primary/15' : 'bg-orange-500/10 ring-orange-500/15'}`}>
-                                                <Trophy className={`w-6 h-6 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
+                                            <div className={`w-14 h-14 rounded-2xl shadow-sm ring-1 flex items-center justify-center mb-6 p-2.5 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 ring-primary/15' : 'bg-orange-500/10 ring-orange-500/15'}`}>
+                                                {results[0] ? (
+                                                    <img
+                                                        src={getLogoPath(results[0].tariff.company, mounted && resolvedTheme === 'dark') || '/logos/COR.svg'}
+                                                        alt={results[0].tariff.company}
+                                                        className="max-w-full max-h-full object-contain"
+                                                    />
+                                                ) : (
+                                                    <Trophy className={`w-6 h-6 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
+                                                )}
                                             </div>
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}</p>
                                             <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-full border whitespace-nowrap overflow-hidden ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/5 border-primary/10 text-primary' : 'bg-orange-500/5 border-orange-500/10 text-orange-500'}`}>
