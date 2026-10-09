@@ -2529,7 +2529,7 @@ export default function ComparadorMain() {
                                                                                         title={res.tariff.promoNote}
                                                                                         className="inline-flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 text-amber-600 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm cursor-help"
                                                                                     >
-                                                                                        <Info className="w-2.5 h-2.5" /> Precio promo 3 meses
+                                                                                        <Info className="w-2.5 h-2.5" /> Aviso
                                                                                     </span>
                                                                                 </div>
                                                                             )}
@@ -3158,7 +3158,7 @@ export default function ComparadorMain() {
                                                     <div className="flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                                                         <div className="p-2 bg-amber-500/10 text-amber-600 rounded-xl"><Info className="w-4 h-4" /></div>
                                                         <div>
-                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Precio Promocional 3 Meses</p>
+                                                            <p className="text-[11px] font-bold uppercase tracking-widest mb-1">Aviso sobre el precio</p>
                                                             <p className="text-xs text-text-secondary leading-relaxed">{selectedResult.tariff.promoNote}</p>
                                                         </div>
                                                     </div>

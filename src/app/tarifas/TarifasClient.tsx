@@ -328,7 +328,7 @@ export default function TarifasClient() {
                                                     title={tariff.promoNote}
                                                     className="inline-flex w-fit items-center gap-1 bg-amber-500/10 border border-amber-500/20 text-amber-600 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-sm cursor-help mt-1"
                                                 >
-                                                    <Info size={10} /> Precio promo 3 meses
+                                                    <Info size={10} /> Aviso
                                                 </span>
                                             )}
                                         </div>
