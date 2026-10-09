@@ -2273,7 +2273,7 @@ export default function ComparadorMain() {
                                                         className="max-w-full max-h-full object-contain"
                                                     />
                                                 ) : (
-                                                    <Trophy className={`w-6 h-6 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary' : 'text-orange-500'}`} />
+                                                    <Trophy className="w-6 h-6 text-orange-500" />
                                                 )}
                                             </div>
                                             <p className={`text-4xl font-900 mb-3 tracking-tighter ${results[0]?.tariff.type === "3 Periodos" ? "text-primary" : "text-orange-500"}`}>{results[0] ? `${results[0].tariff.e1_kwh.toFixed(6)}` : "---"}</p>
