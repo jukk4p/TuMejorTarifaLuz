@@ -2265,7 +2265,7 @@ export default function ComparadorMain() {
                                         <div className={`absolute -top-10 -right-10 w-40 h-40 bg-[radial-gradient(circle,var(--tw-gradient-stops))] rounded-full blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100 ${results[0]?.tariff.type === '3 Periodos' ? 'from-primary/10 via-primary/0 to-transparent' : 'from-orange-500/10 via-orange-500/0 to-transparent'}`}></div>
                                         <div className="relative z-10 flex flex-col items-center justify-center text-center h-full transition-all duration-300">
                                             <span className={`text-[9px] font-black uppercase tracking-widest mb-2 ${results[0]?.tariff.type === '3 Periodos' ? 'text-primary/70' : 'text-orange-500/70'}`}>Mejor tarifa</span>
-                                            <div className={`w-14 h-14 rounded-2xl shadow-sm ring-1 flex items-center justify-center mb-6 p-2.5 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 ring-primary/15' : 'bg-orange-500/10 ring-orange-500/15'}`}>
+                                            <div className={`w-20 h-20 rounded-2xl shadow-sm ring-1 flex items-center justify-center mb-6 p-2 transition-transform group-hover:scale-110 ${results[0]?.tariff.type === '3 Periodos' ? 'bg-primary/10 ring-primary/15' : 'bg-orange-500/10 ring-orange-500/15'}`}>
                                                 {results[0] ? (
                                                     <img
                                                         src={getLogoPath(results[0].tariff.company, mounted && resolvedTheme === 'dark') || '/logos/COR.svg'}
