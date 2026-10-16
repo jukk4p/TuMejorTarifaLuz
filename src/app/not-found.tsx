@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Página no encontrada | TuMejorTarifaLuz",
+    title: "Página no encontrada",
     description: "La página que buscas no existe o ha cambiado de dirección.",
     robots: { index: false, follow: true },
 };

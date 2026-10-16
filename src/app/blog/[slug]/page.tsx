@@ -20,7 +20,7 @@ export async function generateMetadata(
   }
   
   return {
-    title: `${post.title} | Blog TuMejorTarifaLuz 2026`,
+    title: `${post.title} | Blog`,
     description: post.metaDescription ?? post.excerpt?.slice(0, 155),
     openGraph: {
       title: post.title,
