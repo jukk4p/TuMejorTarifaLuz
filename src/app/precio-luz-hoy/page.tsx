@@ -13,10 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
     const todayStr = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
     
     return {
-        title: `Precio de la Luz Hoy, ${todayStr}: Horas Baratas y Caras`,
+        title: `Precio Luz Hoy: Horas Baratas y Caras`,
         description: `Consulta el precio del kWh hora a hora hoy, ${todayStr}, en España. Identifica las horas más baratas del PVPC y programa tus electrodomésticos para ahorrar en tu factura de luz. Precio ahora: ${currentPrice} €/kWh.`,
         openGraph: {
-            title: `Precio de la Luz Hoy en España ${todayStr}: Horas más BARATAS y CARAS`,
+            title: `Precio de la Luz Hoy en España, ${todayStr}: Horas Baratas y Caras`,
             description: `Consulta el precio del kWh para hoy ${todayStr}. Identifica las horas más baratas y ahorra en tu factura. Precio ahora: ${currentPrice} €/kWh.`,
             url: "https://www.tumejortarifaluz.es/precio-luz-hoy",
             siteName: "TuMejorTarifaLuz",

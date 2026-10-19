@@ -10,7 +10,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/_next/',
           '/static/',
-          '/reset-password/',
         ],
       },
       {
@@ -27,7 +26,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/_next/',
           '/static/',
-          '/reset-password/',
         ],
       }
     ],

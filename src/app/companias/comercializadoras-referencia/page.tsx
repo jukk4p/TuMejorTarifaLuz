@@ -5,7 +5,7 @@ import { ShieldCheck, Info, CheckCircle2, Building2, HelpCircle, ArrowRight, Ext
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Comercializadoras de Referencia 2026: Guía Completa y Listado",
+    title: "Comercializadoras de Referencia 2026",
     description: "Descubre qué son las comercializadoras de referencia, por qué son necesarias para el bono social y el listado oficial actualizado de 2026.",
     alternates: {
         canonical: "https://www.tumejortarifaluz.es/companias/comercializadoras-referencia"

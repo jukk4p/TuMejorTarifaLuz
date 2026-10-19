@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'TuMejorTarifaLuz | Comparador de Tarifas de Luz Gratis',
     template: '%s | TuMejorTarifaLuz'
   },
-  description: "Compara más de 30 tarifas de luz en segundos subiendo tu factura. 100% gratuito e independiente. Ahorra analizando tu consumo real con Iberdrola, Endesa, Octopus, Atulado y más de 15 compañías sin registros.",
+  description: "Compara más de 30 tarifas de luz subiendo tu factura. Gratis e independiente. Analiza tu consumo con Iberdrola, Endesa, Octopus y más compañías, sin registros.",
   keywords: ["comparador tarifas luz", "ahorrar factura luz", "luz mas barata", "octopus energy", "atulado tarifas", "iberdrola online", "endesa conecta", "precios luz hoy"],
   openGraph: {
     type: "website",

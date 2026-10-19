@@ -10,7 +10,7 @@ import FundadorAnimado from '@/components/sobre-nosotros/FundadorAnimado';
 
 export const metadata: Metadata = {
     title: 'Sobre Nosotros | Iván González, Fundador',
-    description: 'TuMejorTarifaLuz es un proyecto independiente creado por Iván González en 2025. Sin comisiones ni llamadas comerciales. Solo tecnología y datos reales para ayudarte a ahorrar en tu factura de luz.',
+    description: 'TuMejorTarifaLuz es un proyecto independiente de Iván González (2025). Sin comisiones ni llamadas comerciales: solo datos reales para ahorrar en tu factura.',
     alternates: {
         canonical: 'https://www.tumejortarifaluz.es/sobre-nosotros'
     },
