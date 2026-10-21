@@ -1,4 +1,6 @@
 import ComparadorMain from "./ComparadorMain";
+import JsonLd, { getFaqSchema } from "@/components/seo/JsonLd";
+import { COMPARADOR_FAQS } from "@/lib/faqContent";
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,5 +10,10 @@ export const metadata: Metadata = {
 }
 
 export default function ComparadorPage() {
-    return <ComparadorMain />;
+    return (
+        <>
+            <JsonLd data={getFaqSchema(COMPARADOR_FAQS)} />
+            <ComparadorMain />
+        </>
+    );
 }

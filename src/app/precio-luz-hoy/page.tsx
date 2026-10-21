@@ -3,7 +3,9 @@ import Footer from "@/components/layout/Footer";
 import { Metadata } from "next";
 import { getElectricityPrices } from "@/lib/energy-prices";
 import PrecioLuzHoyClient from "./PrecioLuzHoyClient";
-import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { getBreadcrumbSchema, getFaqSchema } from "@/components/seo/JsonLd";
+import FaqSection from "@/components/seo/FaqSection";
+import { PRECIO_LUZ_HOY_FAQS } from "@/lib/faqContent";
 
 export const dynamic = 'force-dynamic';
 
@@ -78,9 +80,14 @@ export default async function PrecioLuzHoyPage() {
             <Navbar />
             <JsonLd data={breadcrumbSchema} />
             <JsonLd data={datasetSchema} />
-            <PrecioLuzHoyClient 
-                data={{...pricesData, pricesArray}} 
-                initialHour={initialHour} 
+            <JsonLd data={getFaqSchema(PRECIO_LUZ_HOY_FAQS)} />
+            <PrecioLuzHoyClient
+                data={{...pricesData, pricesArray}}
+                initialHour={initialHour}
+            />
+            <FaqSection
+                faqs={PRECIO_LUZ_HOY_FAQS}
+                subtitle="Cómo funciona el PVPC y cuándo conviene consumir."
             />
             <Footer />
         </>

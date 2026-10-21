@@ -70,7 +70,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     "sameAs": post.author.social ? Object.values(post.author.social).filter(Boolean) : []
                 }
             }} />
-            {post.id === "preguntas-frecuentes-luz" && post.faqData && (
+            {post.faqData && post.faqData.length > 0 && (
                 <JsonLd data={{
                     "@context": "https://schema.org",
                     "@type": "FAQPage",

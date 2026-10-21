@@ -11,7 +11,9 @@ import { useTariffs } from "@/hooks/useTariffs";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import AuthModal from "@/components/auth/AuthModal";
-import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { getBreadcrumbSchema, getFaqSchema } from "@/components/seo/JsonLd";
+import FaqSection from "@/components/seo/FaqSection";
+import { COMPARADOR_FAQS } from "@/lib/faqContent";
 import { 
     Activity,
     PiggyBank,
@@ -3259,7 +3261,7 @@ export default function ComparadorMain() {
                                 </button>
                                 <div className="hidden md:block w-px h-6 bg-border"></div>
                                 <Link
-                                    href="/#faq"
+                                    href="#faq"
                                     className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-text-muted hover:text-primary transition-all px-6 py-3 rounded-full hover:bg-primary/5 active:scale-95"
                                 >
                                     <HelpCircleIcon className="w-6 h-6" />
@@ -3331,7 +3333,7 @@ export default function ComparadorMain() {
 
                     <div className="text-center">
                         <Link
-                            href="/#faq"
+                            href="#faq"
                             className="inline-flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[11px] hover:gap-3 transition-all"
                         >
                             <HelpCircleIcon size={16} />
@@ -3340,6 +3342,11 @@ export default function ComparadorMain() {
                     </div>
                 </div>
             </section>
+
+            <FaqSection
+                faqs={COMPARADOR_FAQS}
+                subtitle="Todo lo que necesitas saber antes de comparar tu factura."
+            />
 
             <Footer />
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />

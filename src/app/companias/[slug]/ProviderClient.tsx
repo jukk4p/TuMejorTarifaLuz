@@ -14,6 +14,8 @@ import {
     Newspaper, ArrowRight
 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import FaqSection from "@/components/seo/FaqSection";
+import { getProviderFaqs } from "@/lib/faqContent";
 import { calculateTariffCost, Tariff } from "@/lib/tariffs";
 
 export default function ProviderClient({ provider }: { provider: Provider }) {
@@ -432,6 +434,14 @@ export default function ProviderClient({ provider }: { provider: Provider }) {
                                 <ArrowRight className="ml-auto text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" size={20} />
                             </Link>
                         </div>
+                    </div>
+
+                    {/* FAQ Section — mismo contenido que el FAQPage schema en page.tsx */}
+                    <div className="mb-24 -mx-4 sm:-mx-6 lg:-mx-8">
+                        <FaqSection
+                            faqs={getProviderFaqs(provider)}
+                            title={`Preguntas frecuentes sobre ${provider.name}`}
+                        />
                     </div>
 
                     {/* Final CTA Section */}

@@ -1,4 +1,6 @@
 import TarifasClient from "./TarifasClient";
+import JsonLd, { getFaqSchema } from "@/components/seo/JsonLd";
+import { TARIFAS_FAQS } from "@/lib/faqContent";
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,5 +10,10 @@ export const metadata: Metadata = {
 }
 
 export default function TarifasPage() {
-    return <TarifasClient />;
+    return (
+        <>
+            <JsonLd data={getFaqSchema(TARIFAS_FAQS)} />
+            <TarifasClient />
+        </>
+    );
 }

@@ -10,6 +10,8 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Archive, Search, Lock, CheckCircle2, ExternalLink, Rocket, Info, ChevronDown, Check, Sun, SunDim, GitCompareArrows, X, Building2 } from "lucide-react";
 import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import FaqSection from "@/components/seo/FaqSection";
+import { TARIFAS_FAQS } from "@/lib/faqContent";
 
 const COMPANIES = [
     { label: "Todas las compañías", value: "all" },
@@ -495,6 +497,11 @@ export default function TarifasClient() {
                     </div>
                 </div>
             </main>
+
+            <FaqSection
+                faqs={TARIFAS_FAQS}
+                subtitle="Cómo leer el catálogo y elegir la tarifa que de verdad te conviene."
+            />
 
             {/* Floating Compare Bar - HIDDEN ON MOBILE */}
             {selectedCompareIds.length > 0 && (

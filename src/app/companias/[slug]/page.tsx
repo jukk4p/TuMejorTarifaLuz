@@ -2,7 +2,8 @@ import { providers } from "../providersData";
 import { notFound } from "next/navigation";
 import ProviderClient from "./ProviderClient";
 import { Metadata } from "next";
-import JsonLd, { getBreadcrumbSchema } from "@/components/seo/JsonLd";
+import JsonLd, { getBreadcrumbSchema, getFaqSchema } from "@/components/seo/JsonLd";
+import { getProviderFaqs } from "@/lib/faqContent";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
@@ -72,30 +73,7 @@ export default async function ProviderPage({ params }: { params: Promise<{ slug:
                 { name: "Compañías", item: "/companias" },
                 { name: provider.name, item: `/companias/${slug}` }
             ])} />
-            <JsonLd data={{
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "mainEntity": [
-                    {
-                        "@type": "Question",
-                        "name": `¿Qué precio tiene el kWh de ${provider.name}?`,
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": `Actualmente ${provider.name} ofrece precios desde ${provider.minPrice.toFixed(3)} €/kWh en su tarifa ${provider.popularTariffName || 'destacada'}.`
-                        }
-                    },
-                    {
-                        "@type": "Question",
-                        "name": `¿Tiene permanencia ${provider.name}?`,
-                        "acceptedAnswer": {
-                            "@type": "Answer",
-                            "text": provider.hasPermanence 
-                                ? `Sí, algunas tarifas de ${provider.name} pueden tener compromiso de permanencia.` 
-                                : `No, ${provider.name} destaca por no tener compromiso de permanencia en sus contratos de luz.`
-                        }
-                    }
-                ]
-            }} />
+            <JsonLd data={getFaqSchema(getProviderFaqs(provider))} />
             <ProviderClient provider={provider} />
         </>
     );

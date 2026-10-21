@@ -62,44 +62,21 @@ export const webAppSchema = {
     "operatingSystem": "Web"
 };
 
-export const faqSchema = {
+// Genera un FAQPage schema a partir del mismo array de preguntas que renderiza
+// <FaqSection>, para que el structured data nunca quede huérfano del contenido visible.
+export const getFaqSchema = (faqs: { q: string; a: string }[]) => ({
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "¿Es seguro subir mi factura de la luz?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sí, es completamente seguro. Utilizamos cifrado SSL/TLS de nivel bancario para proteger tus archivos. Solo extraemos los datos necesarios para el análisis comparativo y no compartimos tu información personal con terceros bajo ningún concepto."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Tengo que pagar por usar el comparador?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "No, el comparador es completamente gratuito. Es un proyecto independiente diseñado para ayudar a las familias españolas a ahorrar en su factura de la luz. No percibimos ningún tipo de comisión de las comercializadoras."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Las tarifas están actualizadas?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sí, revisamos y actualizamos más de 25 tarifas diariamente sincronizando con el mercado mayorista OMIE y las publicaciones oficiales de las comercializadoras eléctricas españolas."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "¿Cómo se analizan los datos de mi factura?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nuestro sistema OCR identifica automáticamente el CUPS, la potencia contratada y el consumo horario de tu factura PDF. Estos datos se cruzan con el mercado actual para encontrar la tarifa más barata en segundos."
-            }
+    "mainEntity": faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.q,
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.a
         }
-    ]
-};
+    }))
+});
+
 export const getBreadcrumbSchema = (items: { name: string, item: string }[]) => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
