@@ -4,6 +4,15 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   output: 'standalone',
+  // Next.js 16 streamea el metadata de rutas dinámicas (precio-luz-hoy usa
+  // `dynamic = 'force-dynamic'`) salvo para una lista de bots que reciben el
+  // <head> bloqueante de siempre. Esa lista por defecto matchea sufijos
+  // "-Google" (Mediapartners-Google, AdsBot-Google...) o prefijos "Google-"
+  // (Google-PageRenderer...), pero NO el user-agent real de Googlebot
+  // ("Googlebot/2.1"), que no encaja en ninguno de esos dos patrones. Lo
+  // añadimos sin perder el resto de la lista por defecto (ver
+  // node_modules/next/dist/shared/lib/router/utils/html-bots.js).
+  htmlLimitedBots: /Googlebot|[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight/i,
   typescript: {
     ignoreBuildErrors: false,
   },
