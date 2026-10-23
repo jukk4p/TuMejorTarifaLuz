@@ -20,12 +20,21 @@ export async function generateMetadata(
   // las 16 páginas superaban 180-230 caracteres y Google las truncaba a mitad
   // de frase. Comprobado con las 16 compañías: title ≤60 (con sufijo " | TuMejorTarifaLuz"),
   // description ≤136.
+  const title = `${company.name} 2026: Precios y Opiniones`;
+  const description = `Compara ${company.name} en 2026: precio desde ${company.minPrice.toFixed(3)} €/kWh, valorado con ${company.rating}/5 en opiniones reales. Analiza si es tu mejor tarifa de luz.`;
+
   return {
-    title: `${company.name} 2026: Precios y Opiniones`,
-    description: `Compara ${company.name} en 2026: precio desde ${company.minPrice.toFixed(3)} €/kWh, valorado con ${company.rating}/5 en opiniones reales. Analiza si es tu mejor tarifa de luz.`,
+    title,
+    description,
     alternates: {
       canonical: `https://www.tumejortarifaluz.es/companias/${slug}`
-    }
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://www.tumejortarifaluz.es/companias/${slug}`,
+      type: 'website',
+    },
   }
 }
 

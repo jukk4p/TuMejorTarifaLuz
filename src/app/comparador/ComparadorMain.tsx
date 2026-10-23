@@ -2940,7 +2940,7 @@ export default function ComparadorMain() {
                                                     {selectedResult.tariff.name.includes("PVPC") ? "Mercado Regulado" : "Energía 100% Verde"}
                                                 </span>
                                             </div>
-                                            <h1 className="text-3xl md:text-4xl font-800 tracking-tight">Tarifa {selectedResult.tariff.name}</h1>
+                                            <h2 className="text-3xl md:text-4xl font-800 tracking-tight">Tarifa {selectedResult.tariff.name}</h2>
                                             <p className="text-text-secondary leading-relaxed text-sm">
                                                 {selectedResult.tariff.name.includes("PVPC")
                                                     ? "Tarifa del Mercado Regulado (Precio Voluntario para el Pequeño Consumidor). El precio varía cada hora según la demanda; los precios mostrados son las medias recientes."

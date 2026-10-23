@@ -6,7 +6,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Comparador de Tarifas de Luz: 30 Segundos',
   description: 'Sube tu factura PDF o introduce tus datos. Nuestro algoritmo encuentra la tarifa más barata del mercado español en segundos. 100% gratis y sin registro.',
-  alternates: { canonical: 'https://www.tumejortarifaluz.es/comparador' }
+  alternates: { canonical: 'https://www.tumejortarifaluz.es/comparador' },
+  openGraph: {
+    title: 'Comparador de Tarifas de Luz: 30 Segundos',
+    description: 'Sube tu factura PDF o introduce tus datos y encuentra la tarifa más barata del mercado español en segundos. 100% gratis y sin registro.',
+    url: 'https://www.tumejortarifaluz.es/comparador',
+    type: 'website',
+  },
 }
 
 export default function ComparadorPage() {
