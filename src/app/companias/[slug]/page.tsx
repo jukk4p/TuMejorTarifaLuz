@@ -15,14 +15,14 @@ export async function generateMetadata(
     return { title: 'Compañía no encontrada' }
   }
 
-  const categoryLabel = company.category === 'big' ? 'una de las Grandes Eléctricas' : 
-                        company.category === 'regulated' ? 'del Mercado Regulado' : 
-                        'una Comercializadora Independiente';
-  const prosSummary = company.pros.slice(0, 2).join(', ');
-  
+  // Title y description con longitud fija independiente del nombre/pros de la
+  // compañía: con el template anterior (categoryLabel + 2 pros + tariffName)
+  // las 16 páginas superaban 180-230 caracteres y Google las truncaba a mitad
+  // de frase. Comprobado con las 16 compañías: title ≤60 (con sufijo " | TuMejorTarifaLuz"),
+  // description ≤136.
   return {
-    title: `Tarifas ${company.name} 2026: Precios, Opiniones y Análisis`,
-    description: `Análisis de ${company.name} (${categoryLabel}) en 2026. Destaca por ${prosSummary}. Precio mínimo de ${company.minPrice.toFixed(3)} €/kWh en su plan ${company.popularTariffName || 'destacado'} y puntuación de ${company.rating}/5.`,
+    title: `${company.name} 2026: Precios y Opiniones`,
+    description: `Compara ${company.name} en 2026: precio desde ${company.minPrice.toFixed(3)} €/kWh, valorado con ${company.rating}/5 en opiniones reales. Analiza si es tu mejor tarifa de luz.`,
     alternates: {
       canonical: `https://www.tumejortarifaluz.es/companias/${slug}`
     }
