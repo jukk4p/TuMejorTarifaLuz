@@ -20,7 +20,7 @@ export async function generateMetadata(
   }
   
   return {
-    title: `${post.title} | Blog`,
+    title: post.seoTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt?.slice(0, 155),
     openGraph: {
       title: post.title,
