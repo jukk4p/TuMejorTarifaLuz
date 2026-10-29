@@ -193,11 +193,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/companias/chc-energia',
-        destination: '/companias',
-        permanent: true,
-      },
-      {
         // Sigue indexada en Google pero ya no está en providersData.
         source: '/companias/neolux-energy',
         destination: '/companias',
