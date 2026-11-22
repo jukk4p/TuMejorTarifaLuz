@@ -70,7 +70,7 @@ export default function PrecioLuzHoyClient({ data, initialHour }: { data: Better
 
         // Find 3 best hours (consecutive or not? Better 3 best discrete hours or window)
         // User said "3 mejores horas", let's pick the 3 lowest individual hours
-        const sortedHours = [...data.pricesArray].sort((a, b) => a.price - b.price);
+        const sortedHours = data.pricesArray.toSorted((a, b) => a.price - b.price);
         const best3 = sortedHours.slice(0, 3).map(h => h.hourNum).sort((a, b) => a - b);
 
         return appliances.map(app => {

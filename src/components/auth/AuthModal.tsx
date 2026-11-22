@@ -201,6 +201,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login" }: Au
                             <input
                                 type="password"
                                 required
+                                autoComplete={isLogin ? "current-password" : "new-password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="w-full h-14 bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-white/5 rounded-2xl px-5 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white"

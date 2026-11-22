@@ -129,7 +129,7 @@ export default function TarifasClient() {
 
     const absoluteCheapestId = useMemo(() => {
         if (tariffs.length === 0) return null;
-        const sorted = [...tariffs].sort((a, b) => calculateMonthlyEstimation(a) - calculateMonthlyEstimation(b));
+        const sorted = tariffs.toSorted((a, b) => calculateMonthlyEstimation(a) - calculateMonthlyEstimation(b));
         return sorted[0]?.id;
     }, [tariffs, showWithTaxes]);
 

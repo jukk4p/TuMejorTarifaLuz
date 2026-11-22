@@ -214,6 +214,7 @@ export default function RegistroPage() {
                                             <input
                                                 type="password"
                                                 required
+                                                autoComplete="new-password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 className="w-full h-14 bg-surface-2 border border-border rounded-2xl px-6 text-sm font-bold focus:ring-4 focus:ring-primary/10 outline-none transition-all dark:text-white"

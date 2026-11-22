@@ -52,7 +52,7 @@ function MiniChart({
   peakPrice: number
   avgPrice: number
 }) {
-  const sorted = [...prices].sort((a, b) => a.hour - b.hour)
+  const sorted = prices.toSorted((a, b) => a.hour - b.hour)
 
   return (
     <div className="flex items-end gap-[3px] h-8 px-5 border-l border-r border-white/5 mx-2">
